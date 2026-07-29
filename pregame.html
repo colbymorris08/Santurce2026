@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pregame Analytics — Cangrejeros de Santurce</title>
+<link rel="icon" href="assets/santurce-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css?v=san1">
+</head>
+<body>
+<div class="topbar">
+  <a class="brand" href="index.html">
+    <img src="assets/santurce-logo.svg" alt="Cangrejeros de Santurce">
+    <div>
+      <strong>Cangrejeros de Santurce</strong>
+      <span data-i18n="brandSubPregame">Analytics · Pregame</span>
+    </div>
+  </a>
+  <nav class="top-links">
+    <a href="index.html" data-i18n="navStats">Stats</a>
+    <a class="active" href="pregame.html" data-i18n="navPregame">Pregame Analytics</a>
+    <a href="free_agent_pool.html" data-i18n="navFA">Free Agent Pool</a>
+  </nav>
+  <div class="lang-toggle" aria-label="Language">
+    <button type="button" data-lang="en" data-i18n="langEn" onclick="setLang('en')">English</button>
+    <button type="button" data-lang="es" data-i18n="langEs" onclick="setLang('es')">Español</button>
+  </div>
+</div>
+
+<header class="hero">
+  <img src="assets/santurce-logo.svg" alt="Cangrejeros de Santurce logo">
+  <h1 data-i18n="heroPregame">Pregame Analytics</h1>
+  <p data-i18n="tagline">Santurce Advance Scouting creado por Colby Morris</p>
+  <p style="margin-top:8px;color:#b8c7dc;font-size:12px" data-i18n="heroPregameSub">Advance reports · Santurce hitters / pitchers · opposing LBPRC · Prospect Savant + Statcast</p>
+</header>
+
+<main class="page">
+  <div class="tab-bar">
+    <button class="tab active" data-tab="lineup" onclick="switchTab('lineup')" data-i18n="lineupTab">Lineup Spot Success</button>
+    <button class="tab" data-tab="matchup" onclick="switchTab('matchup')" data-i18n="matchupTab">Santurce Pitchers vs Opposing Batters</button>
+    <button class="tab" data-tab="hvp" onclick="switchTab('hvp')" data-i18n="hvpTab">Santurce Batters vs Opposing Pitchers</button>
+    <button class="tab" data-tab="br" onclick="switchTab('br')" data-i18n="brTab">Baserunning &amp; Bunting</button>
+    <button class="tab" data-tab="stuff" onclick="switchTab('stuff')" data-i18n="stuffTab">Opposing Stuff</button>
+    <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
+    <button class="tab" data-tab="framing" onclick="switchTab('framing')" data-i18n="framingTab">Catcher Framing</button>
+    <button class="tab" data-tab="usage" onclick="switchTab('usage')" data-i18n="usageTab">Pitch Usage</button>
+    <button class="tab" data-tab="platoon" onclick="switchTab('platoon')" data-i18n="platoonTab">Platoon Splits</button>
+    <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
+    <button class="tab" data-tab="tunnel" onclick="switchTab('tunnel')" data-i18n="tunnelTab">Pitch Tunneling</button>
+    <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home</button>
+  </div>
+
+  <div id="loading" class="loading">Loading pregame caches…</div>
+
+  <div id="panel-lineup" class="panel active">
+    <div class="section-label" data-i18n="lineupLabel">Santurce hitters — production by lineup spot</div>
+    <div class="note" data-i18n-html="lineupNote">LBPRC 2025 from winter boxscores, plus each hitter’s <strong>MLB / AAA / AA</strong> lineup-spot success from Stats API game logs (2024–2026 where available). FPS% from MLB Statcast when tracked.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="lineup-search" placeholder="Hitter" oninput="renderLineup()"></div>
+      <div class="filter-field"><label data-i18n="level">Level</label>
+        <select id="lineup-level" onchange="renderLineup()">
+          <option value="all" selected>All levels</option>
+          <option value="LBPRC">LBPRC</option>
+          <option value="MLB">MLB</option>
+          <option value="AAA">AAA</option>
+          <option value="AA">AA</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="season">Season</label>
+        <select id="lineup-season" onchange="renderLineup()"><option value="all">All seasons</option></select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-lineup"><thead><tr>
+        <th onclick="sortTbl('tbl-lineup',0)">Hitter</th>
+        <th onclick="sortTbl('tbl-lineup',1)">Level</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',2)">Season</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',3)">Spot</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',4)">G</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',5)">PA</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',6)">AB</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',7)">H</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',8)">HR</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',9)">RBI</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',10)">AVG</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',11)">SLG</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',12)">FPS%</th>
+        <th class="num" onclick="sortTbl('tbl-lineup',13)">FPS% RISP</th>
+        <th onclick="sortTbl('tbl-lineup',14)">Source</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-matchup" class="panel">
+    <div class="section-label" data-i18n="matchupLabel">Santurce pitchers vs opposing LBPRC hitters</div>
+    <div class="note" data-i18n-html="matchupNote">Built from LBPRC 2025 live play-by-play. Filter by opposing hitter’s LBPRC team. FPS% / FPS% RISP from MLB Statcast on the hitter (red = above pool avg, blue = below).</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="match-search" placeholder="Pitcher or hitter" oninput="renderMatchup()"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="match-team" onchange="renderMatchup()">
+          <option value="all">All Teams</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+</select>
+      </div>
+      <div class="filter-field"><label data-i18n="minPA">Min PA</label>
+        <select id="match-minpa" onchange="renderMatchup()">
+          <option value="3">Min 3 PA</option>
+          <option value="1">Min 1 PA</option>
+          <option value="5">Min 5 PA</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-match"><thead><tr>
+        <th onclick="sortTbl('tbl-match',0)">Pitcher</th>
+        <th onclick="sortTbl('tbl-match',1)">Hitter</th>
+        <th onclick="sortTbl('tbl-match',2)">Team</th>
+        <th class="num" onclick="sortTbl('tbl-match',3)">PA</th>
+        <th class="num" onclick="sortTbl('tbl-match',4)">AB</th>
+        <th class="num" onclick="sortTbl('tbl-match',5)">H</th>
+        <th class="num" onclick="sortTbl('tbl-match',6)">HR</th>
+        <th class="num" onclick="sortTbl('tbl-match',7)">BB</th>
+        <th class="num" onclick="sortTbl('tbl-match',8)">SO</th>
+        <th class="num" onclick="sortTbl('tbl-match',9)">AVG</th>
+        <th class="num" onclick="sortTbl('tbl-match',10)">SLG</th>
+        <th class="num" onclick="sortTbl('tbl-match',11)">FPS%</th>
+        <th class="num" onclick="sortTbl('tbl-match',12)">FPS% RISP</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-hvp" class="panel">
+    <div class="section-label" data-i18n="hvpLabel">Santurce hitters vs opposing LBPRC pitchers</div>
+    <div class="note" data-i18n-html="hvpNote">Built from LBPRC 2025 live play-by-play. Filter by opposing pitcher’s LBPRC team. FPS% / FPS% RISP from MLB Statcast on the Santurce hitter (red = above pool avg, blue = below).</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="hvp-search" placeholder="Hitter or pitcher" oninput="renderHvp()"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="hvp-team" onchange="renderHvp()">
+          <option value="all">All Teams</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+</select>
+      </div>
+      <div class="filter-field"><label data-i18n="minPA">Min PA</label>
+        <select id="hvp-minpa" onchange="renderHvp()">
+          <option value="3">Min 3 PA</option>
+          <option value="1">Min 1 PA</option>
+          <option value="5">Min 5 PA</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-hvp"><thead><tr>
+        <th onclick="sortTbl('tbl-hvp',0)">Hitter</th>
+        <th onclick="sortTbl('tbl-hvp',1)">Pitcher</th>
+        <th onclick="sortTbl('tbl-hvp',2)">Team</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',3)">PA</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',4)">AB</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',5)">H</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',6)">HR</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',7)">BB</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',8)">SO</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',9)">AVG</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',10)">SLG</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',11)">FPS%</th>
+        <th class="num" onclick="sortTbl('tbl-hvp',12)">FPS% RISP</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-br" class="panel">
+    <div class="section-label" data-i18n="brLabel">LBPRC hitters — baserunning &amp; bunting</div>
+    <div class="note" data-i18n="brNote">Season SB/CS/sac bunts from MLB winter stats. Low-PA hitters may show Prospect Savant AAA fallback rates when available.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="br-search" placeholder="Hitter / team" oninput="renderBR()"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="br-team" onchange="renderBR()">
+          <option value="all">All Teams</option>
+          <option value="SJU">Senadores de San Juan</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+</select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-br"><thead><tr>
+        <th onclick="sortTbl('tbl-br',0)">Hitter</th>
+        <th onclick="sortTbl('tbl-br',1)">Team</th>
+        <th class="num" onclick="sortTbl('tbl-br',2)">PA</th>
+        <th class="num" onclick="sortTbl('tbl-br',3)">SB</th>
+        <th class="num" onclick="sortTbl('tbl-br',4)">CS</th>
+        <th class="num" onclick="sortTbl('tbl-br',5)">SB%</th>
+        <th class="num" onclick="sortTbl('tbl-br',6)">Sac</th>
+        <th class="num" onclick="sortTbl('tbl-br',7)">Sac/PA</th>
+        <th onclick="sortTbl('tbl-br',8)">AAA fallback</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-stuff" class="panel">
+    <div class="section-label" data-i18n="stuffLabel">Advance scouting — opposing pitcher Stuff+</div>
+    <div class="note" data-i18n="stuffNote">AAA / MiLB tracking via Prospect Savant. MLB arms use PS when tracked; otherwise marked for Statcast stuff index.</div>
+    <div class="legend-row" data-i18n-html="colorKeyGreenBlue">
+      <span class="swatch"><span class="txt-good">● High</span> above avg / Stuff+ ≥ 105</span>
+      <span class="swatch"><span class="txt-low">● Low</span> below avg / Stuff+ ≤ 90</span>
+    </div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="stuff-search" placeholder="Pitcher / team" oninput="renderStuff()"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="stuff-team" onchange="renderStuff()">
+          <option value="all">All Teams</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-stuff"><thead><tr>
+        <th onclick="sortTbl('tbl-stuff',0)">Pitcher</th>
+        <th onclick="sortTbl('tbl-stuff',1)">Team</th>
+        <th class="num" onclick="sortTbl('tbl-stuff',2)">Stuff+</th>
+        <th class="num" onclick="sortTbl('tbl-stuff',3)">Pitches</th>
+        <th onclick="sortTbl('tbl-stuff',4)">Level</th>
+        <th onclick="sortTbl('tbl-stuff',5)">Source</th>
+        <th>Arsenal</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-spray" class="panel">
+    <div class="section-label" data-i18n="sprayLabel">Spray charts — nobody on · RISP · 2 strikes</div>
+    <div class="warn-box" id="spray-note">Loading spray availability note…</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="spray-team" onchange="onSprayTeamChange()">
+          <option value="all">All Teams</option>
+          <option value="SJU">Senadores de San Juan</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+</select>
+      </div>
+      <div class="filter-field"><label data-i18n="player">Player</label><select id="spray-player" onchange="renderSpray()"></select></div>
+      <div class="filter-field"><label data-i18n="split">Split</label>
+        <select id="spray-split" onchange="renderSpray()">
+          <option value="nobody_on">Nobody on</option>
+          <option value="risp">RISP</option>
+          <option value="two_strikes">2 strikes</option>
+        </select>
+      </div>
+    </div>
+    <div id="spray-hit-legend" class="spray-hit-legend"></div>
+    <div id="spray-mlb" class="spray-grid"></div>
+    <div class="section-label" style="margin-top:20px" data-i18n="aaaProxyLabel">AAA directional proxy</div>
+    <div class="legend-row" data-i18n-html="colorKeyGreenBlue">
+      <span class="swatch"><span class="txt-good">● High</span> above pool avg</span>
+      <span class="swatch"><span class="txt-low">● Low</span> below pool avg</span>
+    </div>
+    <div class="table-wrap">
+      <table id="tbl-aaa-proxy"><thead><tr>
+        <th>Hitter</th><th>Team</th><th>Level</th>
+        <th class="num">Pull</th><th class="num">Pull Air</th><th class="num">Oppo Air</th><th>Note</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div id="panel-framing" class="panel">
+    <div class="coming-soon">
+      <h3 data-i18n="framingTitle">Catcher framing / pop time</h3>
+      <p data-i18n="framingBody">Opposing catchers: framing runs, exchange, CS% vs Santurce runners. Useful for SB green lights.</p>
+      <div class="tagline-note" data-i18n="cachePending">Cache not built yet — tab is live so we can drop data in without another layout pass.</div>
+    </div>
+  </div>
+  <div id="panel-usage" class="panel">
+    <div class="section-label" data-i18n="usageLabel">Opposing pitchers — pitch usage</div>
+    <div class="note" data-i18n="usageNote">KNCT-style arsenal movement. Pitcher perspective: RHP arm-side HB +, glove − (inverse for LHP). Hitter perspective = invert HB.</div>
+    <div class="pov-bar" data-pov-bar>
+      <strong data-i18n="povLabel">Perspective</strong>
+      <div class="pov-toggle" role="group" aria-label="Movement perspective">
+        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
+        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
+      </div>
+      <div class="pov-hint" id="usage-pov-hint"></div>
+    </div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="usage-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('usage')"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="usage-team" onchange="fillArsenalSelects('usage')">
+          <option value="all">All Teams</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="usage-player" onchange="renderUsage()"></select></div>
+    </div>
+    <div id="usage-view"></div>
+  </div>
+  <div id="panel-platoon" class="panel">
+    <div class="section-label" data-i18n="platoonLabel">Opposing pitchers — platoon shape</div>
+    <div class="note" data-i18n="platoonNote">Arsenal IVB/HB vs RHB and vs LHB from MLB Statcast when tracked. Perspective toggles Pitcher vs Hitter (HB inverted).</div>
+    <div class="pov-bar" data-pov-bar>
+      <strong data-i18n="povLabel">Perspective</strong>
+      <div class="pov-toggle" role="group" aria-label="Movement perspective">
+        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
+        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
+      </div>
+      <div class="pov-hint" id="platoon-pov-hint"></div>
+    </div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="platoon-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('platoon')"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="platoon-team" onchange="fillArsenalSelects('platoon')">
+          <option value="all">All Teams</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="platoon-player" onchange="renderPlatoon()"></select></div>
+    </div>
+    <div id="platoon-view"></div>
+  </div>
+  <div id="panel-ofdef" class="panel">
+    <div class="needs-video">
+      <h3 data-i18n="ofdefTitle">Outfield jump / arm grades</h3>
+      <p data-i18n="ofdefBody">Advance OF defense: jump, route, arm strength for extra-base decisions.</p>
+      <div class="tagline-note" data-i18n="needsVideo">Needs to be built with video from BATS / Synergy.</div>
+    </div>
+  </div>
+  <div id="panel-tunnel" class="panel">
+    <div class="section-label" data-i18n="tunnelLabel">Opposing pitchers — pitch tunneling / shape</div>
+    <div class="note" data-i18n="tunnelNote">Tunnel rays on the arsenal plot. Pitcher perspective: RHP arm-side HB +, glove − (inverse for LHP). Hitter = invert HB.</div>
+    <div class="pov-bar" data-pov-bar>
+      <strong data-i18n="povLabel">Perspective</strong>
+      <div class="pov-toggle" role="group" aria-label="Movement perspective">
+        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
+        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
+      </div>
+      <div class="pov-hint" id="tunnel-pov-hint"></div>
+    </div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="search">Search</label><input id="tunnel-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('tunnel')"></div>
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="tunnel-team" onchange="fillArsenalSelects('tunnel')">
+          <option value="all">All Teams</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="tunnel-player" onchange="renderTunnel()"></select></div>
+    </div>
+    <div id="tunnel-view"></div>
+  </div>
+  <div id="panel-tth" class="panel">
+    <div class="needs-video">
+      <h3 data-i18n="tthTitle">Time to home / WP/PB</h3>
+      <p data-i18n="tthBody">Stolen base windows vs catcher + pitcher — time-to-home, wild pitch / passed ball rates.</p>
+      <div class="tagline-note" data-i18n="needsVideo">Needs to be built with video from BATS / Synergy.</div>
+    </div>
+  </div>
+</main>
+<script src="i18n.js?v=san1"></script>
+<script>
+let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
+const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
+const ASSET_V = 'san1';
+
+function fpsFor(pid) {
+  const row = FPS[String(pid)];
+  if (!row?.seasons) return { fps: null, fpsRisp: null };
+  for (const y of ['2025','2026']) {
+    if (row.seasons[y]?.fps_pct != null) {
+      return { fps: row.seasons[y].fps_pct, fpsRisp: row.seasons[y].fps_risp_pct };
+    }
+  }
+  return { fps: null, fpsRisp: null };
+}
+function computeFpsAvgs() {
+  const fpsVals = [], rispVals = [];
+  Object.values(FPS || {}).forEach(row => {
+    const seasons = row.seasons || {};
+    for (const y of ['2025','2026']) {
+      if (seasons[y]?.fps_pct != null) fpsVals.push(seasons[y].fps_pct);
+      if (seasons[y]?.fps_risp_pct != null) rispVals.push(seasons[y].fps_risp_pct);
+    }
+  });
+  if (fpsVals.length) FPS_AVG.fps = fpsVals.reduce((a,b)=>a+b,0) / fpsVals.length;
+  if (rispVals.length) FPS_AVG.fpsRisp = rispVals.reduce((a,b)=>a+b,0) / rispVals.length;
+}
+/** High = red, low = blue (vs pool/normal avg) */
+function fpsClass(val, avg) {
+  if (val == null || avg == null) return '';
+  if (val > avg) return 'high';
+  if (val < avg) return 'low';
+  return '';
+}
+/** Above avg = green, below = blue */
+function relClass(val, avg) {
+  if (val == null || avg == null) return '';
+  if (val > avg) return 'good';
+  if (val < avg) return 'low';
+  return '';
+}
+function stuffClass(v) {
+  if (v == null) return '';
+  if (v >= 105) return 'good';
+  if (v <= 90) return 'low';
+  return '';
+}
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===`panel-${name}`));
+  if(name==='spray') renderSpray();
+  if(name==='usage') renderUsage();
+  if(name==='platoon') renderPlatoon();
+  if(name==='tunnel') renderTunnel();
+}
+
+const PITCH_COLORS = {
+  FF:'#e11d48', FA:'#e11d48', SI:'#f97316', FT:'#ea580c', FC:'#a855f7',
+  SL:'#2563eb', ST:'#1d4ed8', CU:'#0ea5e9', KC:'#0284c7', CH:'#16a34a',
+  FS:'#15803d', FO:'#65a30d', SC:'#ca8a04', KN:'#78716c', EP:'#a8a29e',
+  SV:'#7c3aed', CS:'#0891b2'
+};
+
+function arsenalPitchers() {
+  return (CACHE.arsenals && CACHE.arsenals.pitchers) || [];
+}
+function filterArsenalList(q, team) {
+  const qq = (q||'').toLowerCase();
+  return arsenalPitchers().filter(r=>{
+    if(team && team!=='all' && r.team!==team) return false;
+    if(qq && !`${r.name} ${r.team}`.toLowerCase().includes(qq)) return false;
+    return (r.arsenal||[]).length > 0;
+  });
+}
+function fillArsenalTeamSelects() {
+  const teams=[...new Set(arsenalPitchers().map(r=>r.team).filter(Boolean))].sort();
+  ['usage-team','platoon-team','tunnel-team'].forEach(id=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    const cur=sel.value||'all';
+    sel.innerHTML = '<option value="all">All Teams</option>' + teams.map(t=>`<option value="${t}">${t}</option>`).join('');
+    sel.value = teams.includes(cur) || cur==='all' ? cur : 'all';
+  });
+}
+function fillArsenalSelects(kind) {
+  const configs={
+    usage:['usage-search','usage-team','usage-player', renderUsage],
+    platoon:['platoon-search','platoon-team','platoon-player', renderPlatoon],
+    tunnel:['tunnel-search','tunnel-team','tunnel-player', renderTunnel],
+  };
+  const keys = kind ? [kind] : Object.keys(configs);
+  keys.forEach(k=>{
+    const [searchId, teamId, playerId, renderFn]=configs[k];
+    const q=document.getElementById(searchId)?.value||'';
+    const team=document.getElementById(teamId)?.value||'all';
+    const sel=document.getElementById(playerId);
+    if(!sel) return;
+    const prev=sel.value;
+    const rows=filterArsenalList(q, team);
+    sel.innerHTML = rows.map(r=>`<option value="${r.player_id}">${r.name}${r.throws?' ('+r.throws+'HP)':''} · ${r.team||''}</option>`).join('')
+      || '<option value="">—</option>';
+    if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
+    renderFn();
+  });
+}
+function getArsenalPitcher(selId) {
+  const id=Number(document.getElementById(selId)?.value||0);
+  return arsenalPitchers().find(r=>Number(r.player_id)===id) || null;
+}
+/** Pitcher-view HB number: RHP arm-side +, glove − (inverse for LHP). */
+let MOVEMENT_POV = localStorage.getItem('licey_movement_pov') === 'hitter' ? 'hitter' : 'pitcher';
+function syncPovSelects() {
+  document.querySelectorAll('.pov-toggle button[data-pov]').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.pov === MOVEMENT_POV);
+    const key = btn.dataset.pov === 'hitter' ? 'povHitter' : 'povPitcher';
+    if (typeof t === 'function') btn.textContent = t(key);
+  });
+  const hint = MOVEMENT_POV === 'hitter'
+    ? 'Active: Hitter POV — HB inverted; RHP arm-side appears viewer-left.'
+    : 'Active: Pitcher POV — RHP arm-side HB + (viewer-right); glove − (inverse for LHP).';
+  ['usage-pov-hint','platoon-pov-hint','tunnel-pov-hint'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent = hint;
+  });
+}
+function setMovementPov(v) {
+  MOVEMENT_POV = v === 'hitter' ? 'hitter' : 'pitcher';
+  localStorage.setItem('licey_movement_pov', MOVEMENT_POV);
+  syncPovSelects();
+  renderUsage(); renderPlatoon(); renderTunnel();
+}
+function pitcherHb(p) {
+  if (p.hb_pitcher != null && Number.isFinite(Number(p.hb_pitcher))) return Number(p.hb_pitcher);
+  if (p.hb_hitter != null && Number.isFinite(Number(p.hb_hitter))) return -Number(p.hb_hitter);
+  return null;
+}
+/** Signed HB for tables/labels in the active POV. */
+function hbForPov(p, view=MOVEMENT_POV) {
+  const hb = pitcherHb(p);
+  if (hb == null) return null;
+  return view === 'hitter' ? -hb : hb;
+}
+/**
+ * Plot X placement (KNCT-style): positive pitcher-HB (RHP arm-side) sits viewer-RIGHT.
+ * Plot uses negated pitcher-HB; hitter POV flips that.
+ */
+function plotHb(p, view=MOVEMENT_POV) {
+  const hb = pitcherHb(p);
+  if (hb == null) return null;
+  return view === 'pitcher' ? -hb : hb;
+}
+function povLabel() {
+  if (typeof t === 'function') {
+    return MOVEMENT_POV === 'hitter' ? t('povHitter') : t('povPitcher');
+  }
+  return MOVEMENT_POV === 'hitter'
+    ? 'Hitter perspective (invert HB)'
+    : 'Pitcher perspective';
+}
+function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV}={}) {
+  const pts=(pitches||[]).map(p=>{
+    const place=plotHb(p, view);
+    const label=hbForPov(p, view);
+    if(place==null || p.ivb==null) return null;
+    return { type:p.type, x:place, z:Number(p.ivb), color:PITCH_COLORS[p.type]||'#94a3b8', hb:label };
+  }).filter(Boolean);
+  const W=320,H=340,P=28,pW=W-P*2,pH=H-P*2-16,R=22;
+  const cx=v=>P+((-v+R)/(R*2))*pW;
+  const cy=v=>P+((-v+R)/(R*2))*pH;
+  const axis = view === 'hitter' ? 'HB hitter POV (in) →' : 'HB pitcher POV (in) →';
+  let s=`<svg class="plot" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<rect width="${W}" height="${H}" fill="#14141f" rx="6"/>`;
+  s+=`<text x="${W/2}" y="16" text-anchor="middle" font-size="10" fill="#f8fafc" font-family="IBM Plex Mono,monospace" font-weight="700">${view === 'hitter' ? 'HITTER POV' : 'PITCHER POV'}</text>`;
+  for(let v=-20;v<=20;v+=5){
+    const lx=cx(v), ly=cy(v), c=v===0?'#3a3a5c':'#1c1c2c', w=v===0?1:0.5;
+    s+=`<line x1="${lx}" y1="${P}" x2="${lx}" y2="${P+pH}" stroke="${c}" stroke-width="${w}"/>`;
+    s+=`<line x1="${P}" y1="${ly}" x2="${P+pW}" y2="${ly}" stroke="${c}" stroke-width="${w}"/>`;
+    // Axis tick labels follow POV-signed HB (pitcher: arm-side + on viewer-right)
+    const tickLabel = view === 'pitcher' ? -v : v;
+    s+=`<text x="${lx}" y="${P+pH+12}" text-anchor="middle" font-size="7.5" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${tickLabel}</text>`;
+    s+=`<text x="${P-5}" y="${ly+3}" text-anchor="end" font-size="7.5" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${v}</text>`;
+  }
+  if(tunnel){
+    pts.forEach(p=>{
+      s+=`<line x1="${cx(0)}" y1="${cy(0)}" x2="${cx(p.x)}" y2="${cy(p.z)}" stroke="${p.color}" stroke-width="1.2" opacity=".45"/>`;
+    });
+  }
+  pts.forEach(p=>{
+    const px=cx(p.x), pz=cy(p.z);
+    const anc=p.x<0?'start':'end';
+    const lx2=px+(p.x<0?10:-10);
+    s+=`<circle cx="${px}" cy="${pz}" r="7" fill="${p.color}" opacity=".92" stroke="#0f172a" stroke-width="1.5"/>`;
+    s+=`<text x="${lx2}" y="${pz+3}" font-size="8.5" fill="${p.color}" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="${anc}">${p.type} ${p.hb>=0?'+':''}${p.hb.toFixed(1)}</text>`;
+  });
+  s+=`<text x="${P+pW/2}" y="${H-6}" text-anchor="middle" font-size="7" fill="#64748b" font-family="IBM Plex Mono,monospace">${axis}</text>`;
+  s+=`<text x="9" y="${P+pH/2}" text-anchor="middle" font-size="7" fill="#64748b" font-family="IBM Plex Mono,monospace" transform="rotate(-90 9 ${P+pH/2})">↑ IVB (in)</text>`;
+  return s+'</svg>';
+}
+function usagePieSvg(slices) {
+  const cleaned=(slices||[]).map(s=>({pitch:s.type||s.pitch, value:Number(s.usage)||0, color:PITCH_COLORS[s.type||s.pitch]||'#94a3b8'}))
+    .filter(s=>s.value>0);
+  let total=cleaned.reduce((a,b)=>a+b.value,0) || 1;
+  const r=28,cx=32,cy=32; let angle=-Math.PI/2;
+  let svg='<svg width="64" height="64" viewBox="0 0 64 64">';
+  cleaned.forEach(s=>{
+    const frac=s.value/total, sweep=frac*Math.PI*2;
+    const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
+    angle+=sweep;
+    const x2=cx+r*Math.cos(angle), y2=cy+r*Math.sin(angle);
+    const large=sweep>Math.PI?1:0;
+    svg+=`<path d="M${cx} ${cy} L${x1} ${y1} A${r} ${r} 0 ${large} 1 ${x2} ${y2} Z" fill="${s.color}"/>`;
+  });
+  return svg+'</svg>';
+}
+function arsenalTableHtml(pitches, view=MOVEMENT_POV) {
+  const rows=(pitches||[]).map(p=>{
+    const hb=hbForPov(p, view);
+    return `<tr>
+    <td class="player-name" style="color:${PITCH_COLORS[p.type]||'#111'}">${p.type}</td>
+    <td>${p.name||p.type}</td>
+    <td class="num">${p.velo??'—'}</td>
+    <td class="num">${p.spin??'—'}</td>
+    <td class="num">${p.ivb??'—'}</td>
+    <td class="num">${hb!=null?hb.toFixed(1):'—'}</td>
+    <td class="num">${p.usage!=null?p.usage+'%':'—'}</td>
+    <td class="num">${p.pitches??'—'}</td>
+    <td class="num">${p.ps_stuff??'—'}</td>
+  </tr>`;
+  }).join('') || '<tr><td colspan="9">No arsenal rows</td></tr>';
+  return `<div class="table-wrap"><table><thead><tr>
+    <th>Type</th><th>Pitch</th><th class="num">Velo</th><th class="num">Spin</th>
+    <th class="num">IVB″</th><th class="num">HB″</th><th class="num">Use</th><th class="num">#</th><th class="num">Stuff+</th>
+  </tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function tunnelPairsHtml(pitches, view=MOVEMENT_POV) {
+  const pts=(pitches||[]).map(p=>{
+    const hb=hbForPov(p, view);
+    if(hb==null || p.ivb==null) return null;
+    return {...p, _hb:hb, _ivb:Number(p.ivb)};
+  }).filter(Boolean);
+  const fb=pts.find(p=>['FF','FA','SI','FT'].includes(p.type)) || pts[0];
+  if(!fb) return '';
+  const others=pts.filter(p=>p!==fb).slice(0,6);
+  const rows=others.map(p=>{
+    const d=Math.hypot(p._hb-fb._hb, p._ivb-fb._ivb);
+    return `<tr><td>${fb.type} → ${p.type}</td><td class="num">${d.toFixed(1)}″</td></tr>`;
+  }).join('');
+  return `<div class="section-label" style="margin-top:12px">Tunnel separation from ${fb.type}</div>
+    <div class="table-wrap"><table><thead><tr><th>Pair</th><th class="num">Δ movement</th></tr></thead><tbody>${rows||'<tr><td colspan="2">—</td></tr>'}</tbody></table></div>`;
+}
+function pitcherMeta(p) {
+  if(!p) return '<div class="empty">Select a pitcher with arsenal data.</div>';
+  const src=[p.ps_source && `${p.ps_source} ${p.ps_season||''}`, p.statcast_source && `${p.statcast_source} ${(p.statcast_seasons||[]).join('/')}`]
+    .filter(Boolean).join(' · ') || '—';
+  return `<div class="arsenal-plot-card">
+    <h3>${p.name}${p.throws?' · '+p.throws+'HP':''}${p.team?' · '+p.team:''}</h3>
+    <div class="sub">${povLabel()} · Stuff+ ${p.stuff_plus??'—'} · ${src}</div>
+    ${movementSvg(p.arsenal)}
+  </div>`;
+}
+function renderUsage(){
+  syncPovSelects();
+  const p=getArsenalPitcher('usage-player');
+  const el=document.getElementById('usage-view');
+  if(!p){ el.innerHTML='<div class="empty">No opposing pitcher arsenal loaded.</div>'; return; }
+  const buckets=(CACHE.arsenals?.count_buckets)||['0-0','0-2','1-2','2-2','3-2'];
+  const by=p.usage_by_count||{};
+  const hasCounts=Object.keys(by).length>0;
+  const pieHtml = buckets.map(ck=>{
+    const slices=by[ck];
+    if(slices&&slices.length) return `<div class="usage-pie-cell">${usagePieSvg(slices)}<strong>${ck}</strong></div>`;
+    return `<div class="usage-pie-cell">${usagePieSvg(p.arsenal)}<strong>${ck}</strong><div style="font-size:10px;color:#6b7280">${hasCounts?'n&lt;8':'overall*'}</div></div>`;
+  }).join('');
+  el.innerHTML=`<div class="arsenal-layout">
+    ${pitcherMeta(p)}
+    <div class="arsenal-side">
+      <div class="section-label">Pitch usage by count</div>
+      ${hasCounts?'':'<div class="note">Count splits pending Statcast tracking — showing overall mix in each bucket for now.</div>'}
+      <div class="usage-pie-grid">${pieHtml}</div>
+      ${arsenalTableHtml(p.arsenal)}
+    </div>
+  </div>`;
+}
+function renderPlatoon(){
+  syncPovSelects();
+  const p=getArsenalPitcher('platoon-player');
+  const el=document.getElementById('platoon-view');
+  if(!p){ el.innerHTML='<div class="empty">No opposing pitcher arsenal loaded.</div>'; return; }
+  const pl=p.platoon||{};
+  const vsR=pl.vs_RHB||[];
+  const vsL=pl.vs_LHB||[];
+  if(!vsR.length && !vsL.length){
+    el.innerHTML=`<div class="arsenal-layout">
+      ${pitcherMeta(p)}
+      <div class="arsenal-side">
+        <div class="note">Platoon Statcast splits not tracked yet for this arm — overall arsenal below.</div>
+        ${arsenalTableHtml(p.arsenal)}
+      </div>
+    </div>`;
+    return;
+  }
+  el.innerHTML=`<div class="platoon-grid">
+    <div class="arsenal-plot-card">
+      <h3>vs RHB</h3>
+      <div class="sub">${povLabel()}</div>
+      ${movementSvg(vsR.length?vsR:p.arsenal)}
+      ${arsenalTableHtml(vsR.length?vsR:p.arsenal)}
+    </div>
+    <div class="arsenal-plot-card">
+      <h3>vs LHB</h3>
+      <div class="sub">${povLabel()}</div>
+      ${movementSvg(vsL.length?vsL:p.arsenal)}
+      ${arsenalTableHtml(vsL.length?vsL:p.arsenal)}
+    </div>
+  </div>`;
+}
+function renderTunnel(){
+  syncPovSelects();
+  const p=getArsenalPitcher('tunnel-player');
+  const el=document.getElementById('tunnel-view');
+  if(!p){ el.innerHTML='<div class="empty">No opposing pitcher arsenal loaded.</div>'; return; }
+  el.innerHTML=`<div class="arsenal-layout">
+    <div class="arsenal-plot-card">
+      <h3>${p.name}${p.throws?' · '+p.throws+'HP':''}${p.team?' · '+p.team:''}</h3>
+      <div class="sub"><strong>${povLabel()}</strong> · tunnel rays from (0,0)</div>
+      ${movementSvg(p.arsenal,{tunnel:true})}
+    </div>
+    <div class="arsenal-side">
+      ${arsenalTableHtml(p.arsenal)}
+      ${tunnelPairsHtml(p.arsenal)}
+    </div>
+  </div>`;
+}
+
+function sortTbl(id,col){
+  const key=id+col; sortState[key]=!sortState[key]; const asc=sortState[key];
+  const tb=document.querySelector('#'+id+' tbody');
+  const rows=[...tb.rows].sort((a,b)=>{
+    const av=a.cells[col].textContent.replace('%','').trim();
+    const bv=b.cells[col].textContent.replace('%','').trim();
+    const an=parseFloat(av), bn=parseFloat(bv);
+    if(!isNaN(an)&&!isNaN(bn)) return asc?an-bn:bn-an;
+    return asc?av.localeCompare(bv):bv.localeCompare(av);
+  });
+  document.querySelectorAll('#'+id+' thead th').forEach((th,i)=>th.classList.toggle('sorted',i===col));
+  rows.forEach(r=>tb.appendChild(r));
+}
+function renderLineup(){
+  const q=(document.getElementById('lineup-search').value||'').toLowerCase();
+  const level=document.getElementById('lineup-level').value;
+  const season=document.getElementById('lineup-season').value;
+  const rows=(CACHE.lineup||[]).filter(r=>{
+    if(q && !(r.name||'').toLowerCase().includes(q)) return false;
+    if(level!=='all' && (r.level||'LBPRC')!==level) return false;
+    if(season!=='all' && String(r.season||'')!==String(season)) return false;
+    return true;
+  });
+  document.querySelector('#tbl-lineup tbody').innerHTML = rows.map(r=>{
+    const f=fpsFor(r.player_id);
+    return `<tr>
+    <td class="player-name">${r.name}</td>
+    <td>${r.level||'LBPRC'}</td>
+    <td class="num">${r.season||'—'}</td>
+    <td class="num">${r.lineup_spot}</td>
+    <td class="num">${r.games}</td><td class="num">${r.PA}</td><td class="num">${r.AB}</td>
+    <td class="num">${r.H}</td><td class="num">${r.HR}</td><td class="num">${r.RBI}</td>
+    <td class="num">${r.AVG??'—'}</td><td class="num">${r.SLG??'—'}</td>
+    <td class="num ${fpsClass(f.fps, FPS_AVG.fps)}">${pct(f.fps)}</td>
+    <td class="num ${fpsClass(f.fpsRisp, FPS_AVG.fpsRisp)}">${pct(f.fpsRisp)}</td>
+    <td>${r.source||''}</td></tr>`;
+  }).join('');
+}
+function fillLineupSeasons(){
+  const seasons=[...new Set((CACHE.lineup||[]).map(r=>r.season).filter(Boolean))].sort((a,b)=>b-a);
+  const sel=document.getElementById('lineup-season');
+  sel.innerHTML = '<option value="all">All seasons</option>' + seasons.map(s=>`<option value="${s}">${s}</option>`).join('');
+}
+function renderMatchup(){
+  const q=(document.getElementById('match-search').value||'').toLowerCase();
+  const team=document.getElementById('match-team').value;
+  const minPA=Number(document.getElementById('match-minpa').value||3);
+  const rows=(CACHE.matchup||[]).filter(r=>{
+    if(r.PA<minPA) return false;
+    if(team!=='all' && r.hitter_team!==team) return false;
+    if(q && !`${r.pitcher_name} ${r.hitter_name}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.querySelector('#tbl-match tbody').innerHTML = rows.map(r=>{
+    const f=fpsFor(r.hitter_id);
+    return `<tr>
+    <td class="player-name">${r.pitcher_name}</td><td>${r.hitter_name}</td>
+    <td class="team-cell">${r.hitter_team||'—'}</td>
+    <td class="num">${r.PA}</td><td class="num">${r.AB}</td><td class="num">${r.H}</td>
+    <td class="num">${r.HR}</td><td class="num">${r.BB}</td><td class="num">${r.SO}</td>
+    <td class="num">${r.AVG??'—'}</td><td class="num">${r.SLG??'—'}</td>
+    <td class="num ${fpsClass(f.fps, FPS_AVG.fps)}">${pct(f.fps)}</td>
+    <td class="num ${fpsClass(f.fpsRisp, FPS_AVG.fpsRisp)}">${pct(f.fpsRisp)}</td>
+  </tr>`;
+  }).join('');
+}
+function renderHvp(){
+  const q=(document.getElementById('hvp-search').value||'').toLowerCase();
+  const team=document.getElementById('hvp-team').value;
+  const minPA=Number(document.getElementById('hvp-minpa').value||3);
+  const rows=(CACHE.hvp||[]).filter(r=>{
+    if(r.PA<minPA) return false;
+    if(team!=='all' && r.pitcher_team!==team) return false;
+    if(q && !`${r.hitter_name} ${r.pitcher_name}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.querySelector('#tbl-hvp tbody').innerHTML = rows.map(r=>{
+    const f=fpsFor(r.hitter_id);
+    return `<tr>
+    <td class="player-name">${r.hitter_name}</td><td>${r.pitcher_name}</td>
+    <td class="team-cell">${r.pitcher_team||'—'}</td>
+    <td class="num">${r.PA}</td><td class="num">${r.AB}</td><td class="num">${r.H}</td>
+    <td class="num">${r.HR}</td><td class="num">${r.BB}</td><td class="num">${r.SO}</td>
+    <td class="num">${r.AVG??'—'}</td><td class="num">${r.SLG??'—'}</td>
+    <td class="num ${fpsClass(f.fps, FPS_AVG.fps)}">${pct(f.fps)}</td>
+    <td class="num ${fpsClass(f.fpsRisp, FPS_AVG.fpsRisp)}">${pct(f.fpsRisp)}</td>
+  </tr>`;
+  }).join('');
+}
+function renderBR(){
+  const q=(document.getElementById('br-search').value||'').toLowerCase();
+  const team=document.getElementById('br-team').value;
+  const rows=(CACHE.br||[]).filter(r=>{
+    if(team!=='all' && r.team!==team) return false;
+    if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.querySelector('#tbl-br tbody').innerHTML = rows.map(r=>{
+    const fb=r.aaa_fallback?`${r.aaa_fallback.level_key} · pull ${r.aaa_fallback.pull??'—'}`:'—';
+    return `<tr>
+      <td class="player-name">${r.name}</td><td class="team-cell">${r.team||'—'}</td>
+      <td class="num">${r.PA}</td><td class="num">${r.SB}</td><td class="num">${r.CS}</td>
+      <td class="num">${r.SB_pct!=null?(r.SB_pct*100).toFixed(0)+'%':'—'}</td>
+      <td class="num">${r.sac_bunts}</td><td class="num">${r.sac_per_pa??'—'}</td>
+      <td>${fb}</td></tr>`;
+  }).join('');
+}
+function fillStuffTeams(){
+  const teams=[...new Set((CACHE.stuff||[]).map(r=>r.team).filter(Boolean))].sort();
+  const sel=document.getElementById('stuff-team');
+  sel.innerHTML = '<option value="all">All Teams</option>' + teams.map(t=>`<option value="${t}">${t}</option>`).join('');
+}
+function renderStuff(){
+  const q=(document.getElementById('stuff-search').value||'').toLowerCase();
+  const team=document.getElementById('stuff-team').value;
+  const rows=(CACHE.stuff||[]).filter(r=>{
+    if(team!=='all' && r.team!==team) return false;
+    if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.querySelector('#tbl-stuff tbody').innerHTML = rows.map(r=>{
+    const ar=(r.arsenal||[]).slice(0,4).map(a=>`${a.pitch_type} ${a.ps_stuff}`).join(' · ');
+    const stuffCls = stuffClass(r.stuff_plus);
+    return `<tr>
+      <td class="player-name">${r.name}</td><td class="team-cell">${r.team||'—'}</td>
+      <td class="num ${stuffCls}">${r.stuff_plus??'—'}</td><td class="num">${r.pitches??'—'}</td>
+      <td>${r.level_hint||'—'}</td><td>${r.source||'—'}</td>
+      <td class="arsenal">${ar||'—'}</td></tr>`;
+  }).join('');
+}
+function drawSpray(canvas, points){
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width=Math.max(360, canvas.clientWidth)*2;
+  const h=canvas.height=Math.max(420, canvas.clientHeight)*2;
+  ctx.clearRect(0,0,w,h);
+
+  ctx.fillStyle='#e8eef4';
+  ctx.fillRect(0,0,w,h);
+
+  // Statcast → feet: home (125.42, 198.27); +x toward RF, +y toward CF. Scale ≈ 2.5 ft/unit.
+  const CF_FT = 400;       // CF fence length (ft) — maps to outer fence arc
+  const FOUL_FT = 330;     // foul-pole distance
+  const FOUL = Math.PI/4;  // 45° each side of CF → 90° fair territory
+  const pad = Math.min(w,h)*0.06;
+  const cx = w*0.5;
+  const homeY = h - pad;
+  const fenceR = Math.min(w*0.48, (homeY - pad)); // pixels for CF_FT
+  const pxPerFt = fenceR / CF_FT;
+
+  function toCanvas(xFt, yFt){
+    return { x: cx + xFt * pxPerFt, y: homeY - yFt * pxPerFt };
+  }
+  function scToFt(p){
+    return {
+      x: 2.5 * (Number(p.x) - 125.42),
+      y: 2.5 * (198.27 - Number(p.y)),
+    };
+  }
+
+  // Outfield grass (fair wedge)
+  ctx.beginPath();
+  ctx.moveTo(cx, homeY);
+  ctx.arc(cx, homeY, fenceR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+  ctx.closePath();
+  ctx.fillStyle='#b7dfb9';
+  ctx.fill();
+
+  // Warning track (~30 ft inside fence)
+  const warnR = (CF_FT - 30) * pxPerFt;
+  ctx.beginPath();
+  ctx.arc(cx, homeY, fenceR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+  ctx.arc(cx, homeY, warnR, -Math.PI/2 + FOUL, -Math.PI/2 - FOUL, true);
+  ctx.closePath();
+  ctx.fillStyle='#c4a574';
+  ctx.fill();
+
+  // Inner grass again
+  ctx.beginPath();
+  ctx.moveTo(cx, homeY);
+  ctx.arc(cx, homeY, warnR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+  ctx.closePath();
+  ctx.fillStyle='#b7dfb9';
+  ctx.fill();
+
+  // Distance rings 200 / 300 / 400
+  [200, 300, 400].forEach(ft=>{
+    const r = ft * pxPerFt;
+    ctx.beginPath();
+    ctx.arc(cx, homeY, r, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+    ctx.strokeStyle = ft === 400 ? 'rgba(55,71,79,0.9)' : 'rgba(255,255,255,0.55)';
+    ctx.lineWidth = ft === 400 ? 3 : 1.5;
+    ctx.stroke();
+    const lab = toCanvas(0, ft);
+    ctx.fillStyle='#546e7a';
+    ctx.font=`${Math.max(11, w*0.022)}px "IBM Plex Mono", monospace`;
+    ctx.textAlign='center';
+    ctx.fillText(ft+"'", lab.x, lab.y + (ft===400 ? 14 : -4));
+  });
+
+  // Foul poles at 330'
+  const lfPole = toCanvas(-FOUL_FT * Math.sin(FOUL), FOUL_FT * Math.cos(FOUL));
+  const rfPole = toCanvas( FOUL_FT * Math.sin(FOUL), FOUL_FT * Math.cos(FOUL));
+  ctx.strokeStyle='#37474f';
+  ctx.lineWidth=2;
+  [[lfPole],[rfPole]].forEach(([p])=>{
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x, p.y - 18);
+    ctx.stroke();
+  });
+
+  // Infield dirt diamond — 90 ft basepaths
+  const b90 = 90;
+  const home = toCanvas(0, 0);
+  const first = toCanvas( b90 / Math.SQRT2, b90 / Math.SQRT2);
+  const second = toCanvas(0, b90 * Math.SQRT2);
+  const third = toCanvas(-b90 / Math.SQRT2, b90 / Math.SQRT2);
+  const mound = toCanvas(0, 60.5);
+
+  ctx.beginPath();
+  ctx.moveTo(home.x, home.y);
+  ctx.lineTo(first.x, first.y);
+  ctx.lineTo(second.x, second.y);
+  ctx.lineTo(third.x, third.y);
+  ctx.closePath();
+  ctx.fillStyle='#e6c89a';
+  ctx.fill();
+  ctx.strokeStyle='#fff';
+  ctx.lineWidth=2.5;
+  ctx.stroke();
+
+  // Mound
+  ctx.beginPath();
+  ctx.arc(mound.x, mound.y, Math.max(4, 9*pxPerFt), 0, Math.PI*2);
+  ctx.fillStyle='#d2b48c';
+  ctx.fill();
+  ctx.strokeStyle='#c4a574';
+  ctx.lineWidth=1;
+  ctx.stroke();
+
+  // Bases
+  const baseSize=Math.max(4, 5*pxPerFt);
+  [first, second, third].forEach(b=>{
+    ctx.save();
+    ctx.translate(b.x, b.y);
+    ctx.rotate(-Math.PI/4);
+    ctx.fillStyle='#fff';
+    ctx.fillRect(-baseSize, -baseSize, baseSize*2, baseSize*2);
+    ctx.restore();
+  });
+  ctx.beginPath();
+  ctx.moveTo(home.x, home.y+baseSize);
+  ctx.lineTo(home.x+baseSize, home.y);
+  ctx.lineTo(home.x+baseSize*0.55, home.y-baseSize);
+  ctx.lineTo(home.x-baseSize*0.55, home.y-baseSize);
+  ctx.lineTo(home.x-baseSize, home.y);
+  ctx.closePath();
+  ctx.fillStyle='#fff';
+  ctx.fill();
+
+  // Foul lines to poles / fence
+  const lfFence = toCanvas(-CF_FT * Math.sin(FOUL), CF_FT * Math.cos(FOUL));
+  const rfFence = toCanvas( CF_FT * Math.sin(FOUL), CF_FT * Math.cos(FOUL));
+  ctx.strokeStyle='rgba(255,255,255,0.95)';
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(home.x, home.y); ctx.lineTo(lfFence.x, lfFence.y);
+  ctx.moveTo(home.x, home.y); ctx.lineTo(rfFence.x, rfFence.y);
+  ctx.stroke();
+
+  // Fence arc stroke
+  ctx.beginPath();
+  ctx.arc(cx, homeY, fenceR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+  ctx.strokeStyle='#37474f';
+  ctx.lineWidth=3;
+  ctx.stroke();
+
+  ctx.fillStyle='#546e7a';
+  ctx.font=`${Math.max(11, w*0.024)}px "IBM Plex Mono", monospace`;
+  ctx.textAlign='center';
+  const lfL = toCanvas(-CF_FT*0.55, CF_FT*0.72);
+  const cfL = toCanvas(0, CF_FT*0.88);
+  const rfL = toCanvas( CF_FT*0.55, CF_FT*0.72);
+  ctx.fillText('LF', lfL.x, lfL.y);
+  ctx.fillText('CF', cfL.x, cfL.y);
+  ctx.fillText('RF', rfL.x, rfL.y);
+
+  const HIT_COLORS = {
+    HR: '#dc2626',
+    '3B': '#ea580c',
+    '2B': '#2563eb',
+    '1B': '#16a34a',
+    OUT: '#64748b',
+    SF: '#94a3b8',
+    SAC: '#a8a29e',
+    E: '#7c3aed',
+    BIP: '#0f172a',
+  };
+
+  // Draw outs first so hits sit on top
+  const order = ['OUT','SF','SAC','E','BIP','1B','2B','3B','HR'];
+  const sorted = [...(points||[])].sort((a,b)=>order.indexOf(a.hit||'BIP')-order.indexOf(b.hit||'BIP'));
+  for(const p of sorted){
+    const ft = scToFt(p);
+    const {x:px, y:py} = toCanvas(ft.x, ft.y);
+    const hit = p.hit || 'BIP';
+    const isHR = hit === 'HR';
+    ctx.beginPath();
+    ctx.arc(px, py, isHR ? 18 : 14, 0, Math.PI*2);
+    ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+    ctx.lineWidth = isHR ? 3 : 2.2;
+    ctx.stroke();
+  }
+}
+
+function sprayHitLegendHtml(){
+  const items = [
+    ['HR','#dc2626'],['3B','#ea580c'],['2B','#2563eb'],['1B','#16a34a'],
+    ['OUT','#64748b'],['SF','#94a3b8'],['SAC','#a8a29e'],['E','#7c3aed'],['BIP','#0f172a'],
+  ];
+  return `<div class="legend-row spray-hit-key">${items.map(([lab,col])=>
+    `<span class="swatch"><span class="dot" style="background:${col}"></span>${lab}</span>`
+  ).join('')}<span class="fence-note">Fence = 400' CF · poles ~330'</span></div>`;
+}
+function filteredSprayMlb(){
+  const team=document.getElementById('spray-team').value;
+  return (CACHE.spray?.mlb||[]).filter(p=>team==='all' || p.team===team);
+}
+function onSprayTeamChange(){
+  const mlb=filteredSprayMlb();
+  const sel=document.getElementById('spray-player');
+  sel.innerHTML = mlb.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
+    || '<option value="">No players for this team</option>';
+  renderSpray();
+}
+function renderSpray(){
+  const spray=CACHE.spray||{};
+  document.getElementById('spray-note').textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
+  const legendEl=document.getElementById('spray-hit-legend');
+  if(legendEl) legendEl.innerHTML = sprayHitLegendHtml();
+  const mlb=filteredSprayMlb();
+  const sel=document.getElementById('spray-player');
+  if(!sel.dataset.ready){
+    sel.innerHTML = mlb.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
+      || '<option value="">No MLB sprays yet</option>';
+    sel.dataset.ready='1';
+  }
+  const idx=Number(sel.value||0);
+  const split=document.getElementById('spray-split').value;
+  const grid=document.getElementById('spray-mlb');
+  if(!mlb.length){ grid.innerHTML='<div class="note">No MLB spray data for this team filter.</div>'; }
+  else {
+    const player=mlb[idx]||mlb[0];
+    const s=(player.splits||[]).find(x=>x.split===split) || player.splits?.[0];
+    const f=fpsFor(player.player_id);
+    grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${s?.split||''} · n=${s?.n||0}</h3>
+      <canvas id="spray-cv"></canvas>
+      <div class="note" style="margin-top:8px">${player.source||''} · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}</div></div>`;
+    requestAnimationFrame(()=>drawSpray(document.getElementById('spray-cv'), s?.points||[]));
+  }
+  const avgs=spray.aaa_averages||{};
+  const team=document.getElementById('spray-team').value;
+  const aaa=(spray.aaa_proxy||[]).filter(r=>team==='all'||r.team===team);
+  document.querySelector('#tbl-aaa-proxy tbody').innerHTML = aaa.map(r=>`<tr>
+    <td class="player-name">${r.name}</td>
+    <td class="team-cell">${r.team||'—'}</td>
+    <td>${r.level_key||'—'}</td>
+    <td class="num ${relClass(r.pull, avgs.pull)}">${r.pull??'—'}</td>
+    <td class="num ${relClass(r.pull_air, avgs.pull_air)}">${r.pull_air??'—'}</td>
+    <td class="num ${relClass(r.oppo_air, avgs.oppo_air)}">${r.oppo_air??'—'}</td>
+    <td style="white-space:normal;max-width:360px">${r.note||''}</td>
+  </tr>`).join('');
+}
+
+Promise.all([
+  fetch('data/pregame_lineup_spots.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
+  fetch('data/pregame_pitcher_vs_batter.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
+  fetch('data/pregame_hitter_vs_pitcher.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
+  fetch('data/pregame_baserunning_bunting.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
+  fetch('data/pregame_opposing_stuff.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
+  fetch('data/pregame_spray_charts.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
+  fetch('data/fps_cache.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
+  fetch('data/pregame_pitcher_arsenals.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
+]).then(([lineup, matchup, hvp, br, stuff, spray, fps, arsenals])=>{
+  CACHE={lineup, matchup, hvp, br, stuff, spray, arsenals};
+  FPS=fps;
+  computeFpsAvgs();
+  document.getElementById('loading').style.display='none';
+  fillLineupSeasons();
+  fillStuffTeams();
+  fillArsenalTeamSelects();
+  fillArsenalSelects();
+  syncPovSelects();
+  applyI18n();
+  syncPovSelects();
+  renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderStuff(); renderSpray();
+  renderUsage(); renderPlatoon(); renderTunnel();
+}).catch(e=>{
+  document.getElementById('loading').textContent='Failed loading pregame data: '+e.message;
+});
+document.addEventListener('santurce:lang', () => {
+  applyI18n();
+  syncPovSelects();
+  renderUsage(); renderPlatoon(); renderTunnel();
+});
+</script>
+</body>
+</html>
