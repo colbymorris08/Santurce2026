@@ -40,6 +40,7 @@
 <main class="page">
   <div class="tab-bar">
     <button class="tab active" data-tab="lineup" onclick="switchTab('lineup')" data-i18n="lineupTab">Lineup Spot Success</button>
+    <button class="tab" data-tab="advance" onclick="switchTab('advance')" data-i18n="advanceTab">Advance</button>
     <button class="tab" data-tab="matchup" onclick="switchTab('matchup')" data-i18n="matchupTab">Santurce Pitchers vs Opposing Batters</button>
     <button class="tab" data-tab="hvp" onclick="switchTab('hvp')" data-i18n="hvpTab">Santurce Batters vs Opposing Pitchers</button>
     <button class="tab" data-tab="br" onclick="switchTab('br')" data-i18n="brTab">Baserunning &amp; Bunting</button>
@@ -92,6 +93,33 @@
         <th onclick="sortTbl('tbl-lineup',14)">Source</th>
       </tr></thead><tbody></tbody></table>
     </div>
+  </div>
+
+  <div id="panel-advance" class="panel">
+    <div class="section-label" data-i18n="advanceLabel">Pitcher advance — Dereck Rodríguez packet</div>
+    <div class="note" data-i18n-html="advanceNote">Live automation of the Rodriguez advance PDF: arsenal, usage vs hand, approach notes, plus Synergy opposing-hitter Select All tables (first-pitch swing / OPS / whiff by pitch type, RISP, bunts &amp; SB-from-base per 162).</div>
+    <div id="advance-rodriguez"></div>
+
+    <div class="section-label" style="margin-top:22px" data-i18n="advanceHittersLabel">Opposing hitters — Synergy Select All</div>
+    <div class="note" data-i18n="advanceHittersNote">LBPRC opposing teams (CAG / CAR / MAY / PON). Choose Select All for the roster aggregate, or a single hitter.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="adv-team" onchange="fillAdvanceHitters()">
+          <option value="all">All Teams</option>
+          <option value="CAG">CAG</option>
+          <option value="CAR">CAR</option>
+          <option value="MAY">MAY</option>
+          <option value="PON">PON</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="player">Hitter</label>
+        <select id="adv-hitter" onchange="renderAdvanceHitters()"></select>
+      </div>
+      <div class="filter-field"><label data-i18n="search">Search</label>
+        <input id="adv-search" placeholder="Hitter" oninput="fillAdvanceHitters()">
+      </div>
+    </div>
+    <div id="advance-hitters"></div>
   </div>
 
   <div id="panel-matchup" class="panel">
@@ -242,6 +270,12 @@
     <div class="section-label" data-i18n="sprayLabel">Spray charts — nobody on · RISP · 2 strikes</div>
     <div class="warn-box" id="spray-note">Loading spray availability note…</div>
     <div class="filters">
+      <div class="filter-field"><label data-i18n="source">Source</label>
+        <select id="spray-source" onchange="onSprayTeamChange()">
+          <option value="synergy" selected>Synergy (LBPRC)</option>
+          <option value="mlb">MLB Statcast</option>
+        </select>
+      </div>
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="spray-team" onchange="onSprayTeamChange()">
           <option value="all">All Teams</option>
@@ -369,7 +403,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san2';
+const ASSET_V = 'san3';
 
 function fpsFor(pid) {
   const row = FPS[String(pid)];
@@ -420,6 +454,7 @@ function switchTab(name){
   if(name==='usage') renderUsage();
   if(name==='platoon') renderPlatoon();
   if(name==='tunnel') renderTunnel();
+  if(name==='advance'){ renderAdvanceRodriguez(); renderAdvanceHitters(); }
 }
 
 const PITCH_COLORS = {
@@ -854,6 +889,9 @@ function drawSpray(canvas, points){
     return { x: cx + xFt * pxPerFt, y: homeY - yFt * pxPerFt };
   }
   function scToFt(p){
+    if(p.coord === 'synergy_feet' || (p.x_ft != null && p.y_ft != null)){
+      return { x: Number(p.x_ft), y: Number(p.y_ft) };
+    }
     return {
       x: 2.5 * (Number(p.x) - 125.42),
       y: 2.5 * (198.27 - Number(p.y)),
@@ -1027,40 +1065,50 @@ function sprayHitLegendHtml(){
     `<span class="swatch"><span class="dot" style="background:${col}"></span>${lab}</span>`
   ).join('')}<span class="fence-note">Fence = 400' CF · poles ~330'</span></div>`;
 }
-function filteredSprayMlb(){
+function filteredSprayPlayers(){
   const team=document.getElementById('spray-team').value;
-  return (CACHE.spray?.mlb||[]).filter(p=>team==='all' || p.team===team);
+  const src=document.getElementById('spray-source')?.value || 'synergy';
+  const spray=CACHE.spray||{};
+  const list = src === 'mlb' ? (spray.mlb||[]) : (spray.synergy||[]);
+  return list.filter(p=>team==='all' || p.team===team);
 }
 function onSprayTeamChange(){
-  const mlb=filteredSprayMlb();
+  const players=filteredSprayPlayers();
   const sel=document.getElementById('spray-player');
-  sel.innerHTML = mlb.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
-    || '<option value="">No players for this team</option>';
+  sel.innerHTML = players.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
+    || '<option value="">No players for this filter</option>';
+  sel.dataset.ready='1';
   renderSpray();
 }
 function renderSpray(){
   const spray=CACHE.spray||{};
-  document.getElementById('spray-note').textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
+  const src=document.getElementById('spray-source')?.value || 'synergy';
+  const noteEl=document.getElementById('spray-note');
+  if(src==='synergy'){
+    noteEl.textContent = spray.synergy_note || 'Synergy LBPRC spray from landing locations (home→CF = +Y ft, toward RF = +X ft).';
+  } else {
+    noteEl.textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
+  }
   const legendEl=document.getElementById('spray-hit-legend');
   if(legendEl) legendEl.innerHTML = sprayHitLegendHtml();
-  const mlb=filteredSprayMlb();
+  const players=filteredSprayPlayers();
   const sel=document.getElementById('spray-player');
-  if(!sel.dataset.ready){
-    sel.innerHTML = mlb.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
-      || '<option value="">No MLB sprays yet</option>';
+  if(!sel.dataset.ready || sel.options.length !== players.length){
+    sel.innerHTML = players.map((p,i)=>`<option value="${i}">${p.name}${p.team?' ('+p.team+')':''}</option>`).join('')
+      || '<option value="">No spray data for this source/team</option>';
     sel.dataset.ready='1';
   }
   const idx=Number(sel.value||0);
   const split=document.getElementById('spray-split').value;
   const grid=document.getElementById('spray-mlb');
-  if(!mlb.length){ grid.innerHTML='<div class="note">No MLB spray data for this team filter.</div>'; }
+  if(!players.length){ grid.innerHTML='<div class="note">No spray points for this source / team filter.</div>'; }
   else {
-    const player=mlb[idx]||mlb[0];
+    const player=players[idx]||players[0];
     const s=(player.splits||[]).find(x=>x.split===split) || player.splits?.[0];
     const f=fpsFor(player.player_id);
     grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${s?.split||''} · n=${s?.n||0}</h3>
       <canvas id="spray-cv"></canvas>
-      <div class="note" style="margin-top:8px">${player.source||''} · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}</div></div>`;
+      <div class="note" style="margin-top:8px">${player.source||''}${f.fps!=null?` · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}`:''}</div></div>`;
     requestAnimationFrame(()=>drawSpray(document.getElementById('spray-cv'), s?.points||[]));
   }
   const avgs=spray.aaa_averages||{};
@@ -1077,6 +1125,124 @@ function renderSpray(){
   </tr>`).join('');
 }
 
+function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
+function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
+function pitchTypeTableHtml(rows, title){
+  if(!rows||!rows.length) return `<div class="note">${title}: no sample yet.</div>`;
+  return `<div class="section-label">${title}</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Pitch</th><th class="num">Pitches</th><th class="num">1st-pitch swing%</th>
+    <th class="num">OPS</th><th class="num">Whiff%</th><th class="num">PA</th>
+  </tr></thead><tbody>
+  ${rows.map(r=>`<tr>
+    <td class="player-name">${r.pitch_type}</td>
+    <td class="num">${r.pitches??'—'}</td>
+    <td class="num">${fmtPct1(r.first_pitch_swing_pct)}</td>
+    <td class="num">${fmtOps(r.ops)}</td>
+    <td class="num">${fmtPct1(r.whiff_pct)}</td>
+    <td class="num">${r.pa??'—'}</td>
+  </tr>`).join('')}
+  </tbody></table></div>`;
+}
+function renderAdvanceRodriguez(){
+  const el=document.getElementById('advance-rodriguez');
+  const p=CACHE.advanceRodriguez;
+  if(!p){ el.innerHTML='<div class="note">advance_rodriguez.json not loaded — run build_advance_synergy.py</div>'; return; }
+  const seasons=p.seasons||{};
+  const chip=(s)=> s?`<div class="advance-chip"><strong>${s.label||''}</strong><div>${s.w}-${s.l} · ${s.era} ERA · ${s.g} G / ${s.gs} GS · ${s.ip} IP · ${s.so} K / ${s.bb} BB · ${s.whip} WHIP</div></div>`:'';
+  const arsenal=p.arsenal||[];
+  const arRows=arsenal.map(a=>`<tr>
+    <td class="player-name">${a.code}</td><td class="num">${a.usage}%</td><td class="num">${a.velo}</td>
+    <td class="num">${a.ivb>0?'+':''}${a.ivb}</td><td class="num">${a.hb>0?'+':''}${a.hb}</td>
+    <td class="num">${a.spin}</td><td class="num">${a.miss_l}/${a.miss_r}</td><td class="num">${a.k_l}/${a.k_r}</td>
+  </tr>`).join('');
+  const vsHand=arsenal.map(a=>`<tr>
+    <td>${a.code}</td><td class="num">${a.usage_l}%</td><td class="num">${a.miss_l}</td><td class="num">${a.k_l}</td>
+    <td class="num">${a.usage_r}%</td><td class="num">${a.miss_r}</td><td class="num">${a.k_r}</td>
+  </tr>`).join('');
+  const short=p.short_vs_rhh||{};
+  const shortCol=(arr)=> (arr||[]).map(([c,u])=>`<div>${c} <strong>${u}%</strong></div>`).join('') || '—';
+  const live=p.synergy_live||{};
+  el.innerHTML = `
+  <div class="advance-hero">
+    <div>
+      <h2 style="margin:0;color:var(--navy)">${p.name}</h2>
+      <div class="note" style="margin:4px 0 0">${p.subtitle||''}</div>
+      <div class="note">${p.bio||''}</div>
+    </div>
+    <div class="advance-chips">${chip(seasons.lmb_2026)}${chip(seasons.lbprc_winter)}</div>
+  </div>
+  <div class="advance-grid">
+    <div>
+      <div class="section-label">Overview</div>
+      <ul class="advance-list">${(p.overview||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="section-label">Approach notes</div>
+      <ol class="advance-list">${(p.approach||[]).map(x=>`<li>${x}</li>`).join('')}</ol>
+      <div class="note">${p.delivery_note||''}</div>
+    </div>
+    <div>
+      <div class="section-label">Arsenal snapshot</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>Pitch</th><th class="num">Use%</th><th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th><th class="num">Miss L/R</th><th class="num">K% L/R</th>
+      </tr></thead><tbody>${arRows}</tbody></table></div>
+      <div class="section-label" style="margin-top:12px">Usage vs hand</div>
+      <div class="table-wrap"><table><thead><tr>
+        <th>Pitch</th><th class="num">L Use</th><th class="num">L Miss</th><th class="num">L K%</th>
+        <th class="num">R Use</th><th class="num">R Miss</th><th class="num">R K%</th>
+      </tr></thead><tbody>${vsHand}</tbody></table></div>
+    </div>
+  </div>
+  <div class="section-label">Pitch descriptions</div>
+  <div class="advance-desc">${arsenal.map(a=>`<div><strong>${a.code}</strong> — ${a.desc||''}</div>`).join('')}</div>
+  <div class="section-label" style="margin-top:14px">Short advance · vs RHH</div>
+  <div class="advance-short">
+    <div><strong>Overall</strong>${shortCol(short.overall)}</div>
+    <div><strong>0–0</strong>${shortCol(short['0-0'])}</div>
+    <div><strong>2 strikes</strong>${shortCol(short['2_strikes'])}</div>
+  </div>
+  <div class="note" style="margin-top:10px">${p.source||''}${live.ok?` · Synergy live sample ${live.sample_pitches||0} CHI pitches`:''}</div>`;
+}
+function fillAdvanceHitters(){
+  const team=document.getElementById('adv-team').value;
+  const q=(document.getElementById('adv-search').value||'').toLowerCase();
+  const hitters=(CACHE.advanceHitters?.hitters)||[];
+  const filtered=hitters.filter(h=>{
+    if(team!=='all' && h.team!==team) return false;
+    if(q && !(h.name||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const sel=document.getElementById('adv-hitter');
+  const opts=['<option value="__all__">Select All (aggregate)</option>']
+    .concat(filtered.map(h=>`<option value="${h.synergy_id}">${h.name} (${h.team})</option>`));
+  sel.innerHTML=opts.join('');
+  renderAdvanceHitters();
+}
+function renderAdvanceHitters(){
+  const el=document.getElementById('advance-hitters');
+  const data=CACHE.advanceHitters;
+  if(!data){ el.innerHTML='<div class="note">advance_opposing_hitters.json not loaded — run build_advance_synergy.py</div>'; return; }
+  const id=document.getElementById('adv-hitter').value;
+  const h = id==='__all__' ? data.select_all : (data.hitters||[]).find(x=>x.synergy_id===id);
+  if(!h){ el.innerHTML='<div class="note">No hitter selected.</div>'; return; }
+  const o=h.overall||{};
+  el.innerHTML = `
+  <div class="note" style="margin-bottom:8px"><strong>${h.name}</strong>${h.team?` · ${h.team}`:''}
+    · pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · bunts/162 ${o.bunts_per_162??'—'}
+    · SB from 1B/2B/3B per 162: ${o.sb_1b_per_162??'—'} / ${o.sb_2b_per_162??'—'} / ${o.sb_3b_per_162??'—'}</div>
+  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type')}
+  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type')}
+  <div class="section-label">Bunts &amp; stolen bases (per 162)</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
+  </tr></thead><tbody>
+    <tr><td>Bunts</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
+    <tr><td>SB from 1B (steal of 2nd)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
+    <tr><td>SB from 2B (steal of 3rd)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
+    <tr><td>SB from 3B (steal of home)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
+  </tbody></table></div>
+  <div class="note" style="margin-top:8px">${(data.notes||[]).join(' ')}</div>`;
+}
+
 Promise.all([
   fetch('data/pregame_lineup_spots.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_pitcher_vs_batter.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
@@ -1086,8 +1252,10 @@ Promise.all([
   fetch('data/pregame_spray_charts.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
   fetch('data/fps_cache.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
   fetch('data/pregame_pitcher_arsenals.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
-]).then(([lineup, matchup, hvp, br, stuff, spray, fps, arsenals])=>{
-  CACHE={lineup, matchup, hvp, br, stuff, spray, arsenals};
+  fetch('data/advance_rodriguez.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+]).then(([lineup, matchup, hvp, br, stuff, spray, fps, arsenals, advanceRodriguez, advanceHitters])=>{
+  CACHE={lineup, matchup, hvp, br, stuff, spray, arsenals, advanceRodriguez, advanceHitters};
   FPS=fps;
   computeFpsAvgs();
   document.getElementById('loading').style.display='none';
@@ -1100,6 +1268,7 @@ Promise.all([
   syncPovSelects();
   renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderStuff(); renderSpray();
   renderUsage(); renderPlatoon(); renderTunnel();
+  fillAdvanceHitters(); renderAdvanceRodriguez();
 }).catch(e=>{
   document.getElementById('loading').textContent='Failed loading pregame data: '+e.message;
 });
@@ -1107,6 +1276,7 @@ document.addEventListener('santurce:lang', () => {
   applyI18n();
   syncPovSelects();
   renderUsage(); renderPlatoon(); renderTunnel();
+  renderAdvanceRodriguez(); renderAdvanceHitters();
 });
 </script>
 </body>

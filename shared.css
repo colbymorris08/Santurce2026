@@ -179,6 +179,32 @@ tbody tr:hover { background: #f8fafc; }
   font-size: 12px;
   font-weight: 500;
 }
+.advance-hero {
+  display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between;
+  margin-bottom: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
+}
+.advance-chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 720px; }
+.advance-chip {
+  flex: 1 1 240px; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: #f8fafc;
+  font-size: 12px; line-height: 1.45; color: var(--text);
+}
+.advance-chip strong {
+  display: block; color: var(--navy); margin-bottom: 4px; font-size: 11px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.advance-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 18px; }
+@media (max-width: 900px) { .advance-grid { grid-template-columns: 1fr; } }
+.advance-list { margin: 0 0 12px 18px; padding: 0; color: var(--text); font-size: 13px; line-height: 1.5; }
+.advance-desc { font-size: 13px; line-height: 1.55; color: var(--text); display: grid; gap: 6px; }
+.advance-short {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fff; font-size: 13px;
+}
+.advance-short strong {
+  display: block; color: var(--navy); margin-bottom: 6px; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+@media (max-width: 700px) { .advance-short { grid-template-columns: 1fr; } }
 .legend-row {
   display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center;
   margin: 10px 0 6px; font-size: 12px; color: var(--muted);

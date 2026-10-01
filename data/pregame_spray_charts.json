@@ -11356,5 +11356,3335 @@
     "oppo_air": 14.5
   },
   "aaa_spray_available": false,
-  "aaa_note": "True spray charts (hc_x/hc_y) with nobody-on / RISP / 2-strike splits are available for MLB hitters via Statcast. For AAA-only hitters, Statcast returns no rows and Prospect Savant only provides directional rates (pull / oppo) from their most recent AAA season \u2014 not count or base-state sprays."
+  "aaa_note": "True spray charts (hc_x/hc_y) with nobody-on / RISP / 2-strike splits are available for MLB hitters via Statcast. For AAA-only hitters, Statcast returns no rows and Prospect Savant only provides directional rates (pull / oppo) from their most recent AAA season \u2014 not count or base-state sprays.",
+  "synergy": [
+    {
+      "name": "Matthew Batten",
+      "synergy_id": "5abcb5312cb661f293635203",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": 177.5,
+              "y_ft": 93.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldRight"
+            },
+            {
+              "x_ft": -40.1,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -62.2,
+              "y_ft": 118.0,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -205.8,
+              "y_ft": 238.5,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -85.1,
+              "y_ft": 158.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 182.9,
+              "y_ft": 312.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 177.5,
+              "y_ft": 93.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldRight"
+            },
+            {
+              "x_ft": -62.2,
+              "y_ft": 118.0,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -85.1,
+              "y_ft": 158.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 12.6,
+              "y_ft": 144.7,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Johnathan Rodriguez",
+      "synergy_id": "5fd12a915fe05a0e9fc11589",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -32.5,
+              "y_ft": 112.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 72.9,
+              "y_ft": 248.4,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": -43.7,
+              "y_ft": 229.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -70.1,
+              "y_ft": 107.7,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -65.6,
+              "y_ft": 134.1,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -32.5,
+              "y_ft": 112.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -43.7,
+              "y_ft": 229.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": -70.1,
+              "y_ft": 107.7,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Darell Hernaiz",
+      "synergy_id": "5e6935bf7455336e8750e2a3",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 86.7,
+              "y_ft": 164.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 131.7,
+              "y_ft": 179.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 0.4,
+              "y_ft": 17.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "HomePlate"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -56.0,
+              "y_ft": 90.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 131.7,
+              "y_ft": 179.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 0.4,
+              "y_ft": 17.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "HomePlate"
+            },
+            {
+              "x_ft": 57.1,
+              "y_ft": 117.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -42.7,
+              "y_ft": 121.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Isan Diaz",
+      "synergy_id": "5abcb5322cb661f2936371c4",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -102.7,
+              "y_ft": 27.2,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft"
+            },
+            {
+              "x_ft": 68.1,
+              "y_ft": 122.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 34.6,
+              "y_ft": 105.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 40.9,
+              "y_ft": 68.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 61.6,
+              "y_ft": 128.6,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 40.9,
+              "y_ft": 68.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -79.0,
+              "y_ft": 110.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Matthew Lugo",
+      "synergy_id": "5b623c3b4b8b598318c71b56",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -0.4,
+              "y_ft": 79.5,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": -72.7,
+              "y_ft": 313.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": 72.7,
+              "y_ft": 136.5,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -101.2,
+              "y_ft": 195.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -0.4,
+              "y_ft": 79.5,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": -72.7,
+              "y_ft": 313.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": -101.2,
+              "y_ft": 195.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ruben Castro",
+      "synergy_id": "5abcb5312cb661f293635166",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -62.2,
+              "y_ft": 26.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft"
+            },
+            {
+              "x_ft": -77.5,
+              "y_ft": 150.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 72.2,
+              "y_ft": 124.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -0.8,
+              "y_ft": 54.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -27.9,
+              "y_ft": 131.7,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -77.5,
+              "y_ft": 150.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 72.2,
+              "y_ft": 124.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Edwin Diaz",
+      "synergy_id": "5abcb5332cb661f2936389c1",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -152.3,
+              "y_ft": 288.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -36.3,
+              "y_ft": 147.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -161.3,
+              "y_ft": 363.6,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -75.4,
+              "y_ft": 91.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -152.3,
+              "y_ft": 288.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -36.3,
+              "y_ft": 147.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -75.4,
+              "y_ft": 91.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Anthony Garcia",
+      "synergy_id": "5a4cb9b7c6deb2ec2b17a24e",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 34.6,
+              "y_ft": 147.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -235.6,
+              "y_ft": 253.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -18.7,
+              "y_ft": 133.1,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 23.3,
+              "y_ft": 214.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 34.6,
+              "y_ft": 147.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -18.7,
+              "y_ft": 133.1,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": 23.3,
+              "y_ft": 214.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jeremy Arocho",
+      "synergy_id": "611cfca9f116b32351d36a9c",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -118.7,
+              "y_ft": 206.5,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 42.4,
+              "y_ft": 91.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 41.6,
+              "y_ft": 78.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -175.4,
+              "y_ft": 290.9,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -102.7,
+              "y_ft": 307.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 42.4,
+              "y_ft": 91.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 122.6,
+              "y_ft": 350.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shed Long",
+      "synergy_id": "5abcb5322cb661f293636aaa",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -153.9,
+              "y_ft": 166.8,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -34.0,
+              "y_ft": 79.8,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 57.6,
+              "y_ft": 111.1,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 64.5,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -153.9,
+              "y_ft": 166.8,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": 64.5,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -190.1,
+              "y_ft": 297.4,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kevin Santa",
+      "synergy_id": "5a4ccd8cc6deb2ec2b6b25b9",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 139.8,
+              "y_ft": 293.5,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -138.0,
+              "y_ft": 238.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -13.5,
+              "y_ft": 129.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 162.3,
+              "y_ft": 215.5,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -138.0,
+              "y_ft": 238.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -13.5,
+              "y_ft": 129.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": -84.1,
+              "y_ft": 99.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gabriel Cancel",
+      "synergy_id": "5abcb5322cb661f293636c20",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 136.3,
+              "y_ft": 215.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -232.5,
+              "y_ft": 328.5,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -38.6,
+              "y_ft": 63.8,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -66.8,
+              "y_ft": 117.2,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -66.8,
+              "y_ft": 117.2,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -232.5,
+              "y_ft": 328.5,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aldemar Burgos",
+      "synergy_id": "5834ab4d35be47a9276391c2",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 99.6,
+              "y_ft": 305.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": -27.9,
+              "y_ft": 90.5,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 112.6,
+              "y_ft": 174.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 17.2,
+              "y_ft": 53.9,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 99.6,
+              "y_ft": 305.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": 17.2,
+              "y_ft": 53.9,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Samuel Hernandez",
+      "synergy_id": "5f835f031cb0540001a5439b",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -17.9,
+              "y_ft": 41.7,
+              "hit": "SAC",
+              "event": "BuntGroundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -82.1,
+              "y_ft": 342.2,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -55.4,
+              "y_ft": 108.8,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 62.2,
+              "y_ft": 29.5,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight"
+            },
+            {
+              "x_ft": -66.0,
+              "y_ft": 121.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -55.4,
+              "y_ft": 108.8,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Danny Ortiz",
+      "synergy_id": "59c8a59044b2b8aa7ec74f8c",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 167.7,
+              "y_ft": 220.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 125.4,
+              "y_ft": 300.7,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 76.0,
+              "y_ft": 101.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 55.2,
+              "y_ft": 391.2,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": 167.7,
+              "y_ft": 220.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 76.0,
+              "y_ft": 101.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nelson Velazquez",
+      "synergy_id": "5c8ca0e2f52909811e30178e",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": 16.4,
+              "y_ft": 179.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -66.8,
+              "y_ft": 106.5,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": 20.4,
+              "y_ft": 343.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Yariel Gonzalez",
+      "synergy_id": "5d05961ef52909811e2d2fdc",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 40.1,
+              "y_ft": 147.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": 53.5,
+              "y_ft": 131.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": 141.7,
+              "y_ft": 232.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 40.1,
+              "y_ft": 147.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": 53.5,
+              "y_ft": 131.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Emmanuel Rivera",
+      "synergy_id": "5abcb5312cb661f293635860",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -78.3,
+              "y_ft": 253.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": 27.9,
+              "y_ft": 262.9,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": -72.6,
+              "y_ft": 155.7,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -78.3,
+              "y_ft": 253.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": -61.5,
+              "y_ft": 124.1,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Yohandy Morales",
+      "synergy_id": "5d0d95304b8b504a2c040f6f",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 145.5,
+              "y_ft": 227.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -98.9,
+              "y_ft": 363.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": 197.4,
+              "y_ft": 291.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -204.8,
+              "y_ft": 256.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 145.5,
+              "y_ft": 227.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jack Lopez",
+      "synergy_id": "5a4cc8b4c6deb2ec2b570df6",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -68.3,
+              "y_ft": 115.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -60.7,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 55.4,
+              "y_ft": 184.3,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -153.1,
+              "y_ft": 166.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -60.7,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jesmuel Valentin",
+      "synergy_id": "5a4cb9b8c6deb2ec2b17b273",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 11.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": 24.8,
+              "y_ft": 81.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 118.0,
+              "y_ft": 182.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 66.0,
+              "y_ft": 102.0,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -48.5,
+              "y_ft": 146.2,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "William Simoneit",
+      "synergy_id": "58d92c1e4b8b533e00f4db3a",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -143.2,
+              "y_ft": 156.1,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -41.6,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -266.1,
+              "y_ft": 278.9,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeftFoulLine"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -143.2,
+              "y_ft": 156.1,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -41.6,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jan Hernandez",
+      "synergy_id": "5c8b4e76f52909811e4f88e8",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -53.1,
+              "y_ft": 105.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -17.2,
+              "y_ft": 105.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": 56.5,
+              "y_ft": 90.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -53.1,
+              "y_ft": 105.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 56.5,
+              "y_ft": 90.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Matt Bottcher",
+      "synergy_id": "58b23cb34b8b569df880eaa2",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 206.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -2.7,
+              "y_ft": 57.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -103.5,
+              "y_ft": 173.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 206.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 40.9,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bryan Torres",
+      "synergy_id": "582b7fed35be47a9274db261",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -186.3,
+              "y_ft": 196.3,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            },
+            {
+              "x_ft": 24.7,
+              "y_ft": 154.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 111.1,
+              "y_ft": 127.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightFoulLine"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -141.4,
+              "y_ft": 133.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldLeft"
+            },
+            {
+              "x_ft": 24.7,
+              "y_ft": 154.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Eddie Rosario",
+      "synergy_id": "573d706b080cc2cbe8bf3089",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 206.5,
+              "y_ft": 315.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": -9.5,
+              "y_ft": 235.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": 163.0,
+              "y_ft": 266.7,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -9.5,
+              "y_ft": 235.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": 163.0,
+              "y_ft": 266.7,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MJ Melendez",
+      "synergy_id": "5abcb5312cb661f293635ae6",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -110.0,
+              "y_ft": 209.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -232.8,
+              "y_ft": 296.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": 113.8,
+              "y_ft": 228.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 224.9,
+              "y_ft": 365.9,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 113.8,
+              "y_ft": 228.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Edwin Arroyo",
+      "synergy_id": "5f2797c56d8e62c94887c415",
+      "team": "CAG",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 94.3,
+              "y_ft": 140.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 46.4,
+              "y_ft": 77.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -63.6,
+              "y_ft": 306.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 46.4,
+              "y_ft": 77.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Johneshwy Fargas",
+      "synergy_id": "5e52da897455336e87ca437c",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 19.5,
+              "y_ft": 272.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 21.0,
+              "y_ft": 31.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -172.2,
+              "y_ft": 98.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldLeft"
+            },
+            {
+              "x_ft": -78.3,
+              "y_ft": 113.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Tomas Nido",
+      "synergy_id": "59c8ba8544b2b8aa7e0d87b6",
+      "team": "CAG",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 90.4,
+              "y_ft": 305.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter"
+            },
+            {
+              "x_ft": 28.2,
+              "y_ft": 279.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 3.3,
+              "y_ft": 57.5,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 3.3,
+              "y_ft": 57.5,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Felix Stevens",
+      "synergy_id": "5d15e7b4f52909811eedf328",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -124.8,
+              "y_ft": 406.3,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeftCenter"
+            },
+            {
+              "x_ft": -73.9,
+              "y_ft": 103.2,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mario Feliciano",
+      "synergy_id": "5abcb5312cb661f2936356e5",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -142.5,
+              "y_ft": 188.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 69.7,
+              "y_ft": 147.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 49.0,
+              "y_ft": 315.9,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 69.7,
+              "y_ft": 147.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Jose Miranda",
+      "synergy_id": "5c972cd6f52909811e50e2ef",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "risp",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -75.0,
+              "y_ft": 85.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine"
+            },
+            {
+              "x_ft": -32.4,
+              "y_ft": 150.2,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": -9.5,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -9.5,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Enmanuel Valdez",
+      "synergy_id": "5c73a1f585d07ba976ccdce0",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -57.6,
+              "y_ft": -1.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -11.0,
+              "y_ft": 100.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -11.0,
+              "y_ft": 100.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            },
+            {
+              "x_ft": -57.6,
+              "y_ft": -1.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Juan Centeno",
+      "synergy_id": "573d7061080cc2cbe8bf303c",
+      "team": "CAG",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 58.3,
+              "y_ft": 92.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -94.2,
+              "y_ft": 302.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            },
+            {
+              "x_ft": -214.8,
+              "y_ft": 263.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 58.3,
+              "y_ft": 92.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Alex Dickerson",
+      "synergy_id": "573d70ab080cc2cbe8bf3190",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 109.6,
+              "y_ft": 166.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            },
+            {
+              "x_ft": 91.2,
+              "y_ft": 63.1,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight"
+            },
+            {
+              "x_ft": -38.3,
+              "y_ft": 300.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Deniel Ortiz",
+      "synergy_id": "616a7487c122029009e74180",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -7.3,
+              "y_ft": 210.3,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": -170.7,
+              "y_ft": 294.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -170.7,
+              "y_ft": 294.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Martin Maldonado",
+      "synergy_id": "573d7056080cc2cbe8bf2d59",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -70.4,
+              "y_ft": 86.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            },
+            {
+              "x_ft": 85.9,
+              "y_ft": 168.0,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 111.1,
+              "y_ft": 36.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brian Navarreto",
+      "synergy_id": "5abcb5312cb661f29363538f",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -15.7,
+              "y_ft": 152.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vimael Machin",
+      "synergy_id": "573d7590080cc2cbe8c2cb7f",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 43.8,
+              "y_ft": 138.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 51.4,
+              "y_ft": 64.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 43.8,
+              "y_ft": 138.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sabin Ceballos",
+      "synergy_id": "600c39e16416d8c9ea744be1",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 27.9,
+              "y_ft": 264.4,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": -131.2,
+              "y_ft": 201.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 27.9,
+              "y_ft": 264.4,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Onix Vega",
+      "synergy_id": "60bcbcc4e22410a01cd610d2",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 211.8,
+              "y_ft": 224.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightFoulLine"
+            },
+            {
+              "x_ft": 92.5,
+              "y_ft": 178.3,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 92.5,
+              "y_ft": 178.3,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Miguel Pabon",
+      "synergy_id": "5fd12a915fe05a0e9fc11395",
+      "team": "CAR",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -171.4,
+              "y_ft": 262.9,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            },
+            {
+              "x_ft": -53.8,
+              "y_ft": 330.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -53.8,
+              "y_ft": 330.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "John Montes",
+      "synergy_id": "6021ce6a620705ab60a19cde",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 75.1,
+              "y_ft": 91.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 80.5,
+              "y_ft": 93.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRightFoulLine"
+            },
+            {
+              "x_ft": 101.2,
+              "y_ft": 202.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Luis Vazquez",
+      "synergy_id": "5abcb5322cb661f293637e3b",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 13.3,
+              "y_ft": 58.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            },
+            {
+              "x_ft": -32.4,
+              "y_ft": 69.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -23.2,
+              "y_ft": 100.8,
+              "hit": "OUT",
+              "event": "FieldersChoice",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Drew Mendoza",
+      "synergy_id": "603bf7005fe05a0e9f942536",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -91.3,
+              "y_ft": 256.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -91.3,
+              "y_ft": 256.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Christian Vazquez",
+      "synergy_id": "573d7056080cc2cbe8bf2d8f",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -12.6,
+              "y_ft": 240.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            },
+            {
+              "x_ft": -174.5,
+              "y_ft": 192.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Reymond Fuentes",
+      "synergy_id": "573d705e080cc2cbe8bf3029",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 47.6,
+              "y_ft": 71.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 47.6,
+              "y_ft": 71.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chris Arroyo",
+      "synergy_id": "5f849fe51cb0540001a544c6",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 70.6,
+              "y_ft": 120.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 70.6,
+              "y_ft": 120.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Andrew Velazquez",
+      "synergy_id": "5abcb5312cb661f293634ba4",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "risp",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -36.3,
+              "y_ft": 37.9,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine"
+            }
+          ]
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Ozzie Martinez",
+      "synergy_id": "5a4cb9b8c6deb2ec2b17b5a0",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 52.6,
+              "y_ft": 13.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Juan Montero",
+      "synergy_id": "618777c7c379865a58bb2607",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -95.8,
+              "y_ft": 203.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Willy Vasquez",
+      "synergy_id": "624238c3653e4e7da17a8442",
+      "team": "MAY",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 13.6,
+              "y_ft": 165.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    },
+    {
+      "name": "Jancarlos Cintron",
+      "synergy_id": "5c8f4410f52909811ed20a91",
+      "team": "CAG",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 54.1,
+              "y_ft": 315.4,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brian Rey",
+      "synergy_id": "5c8ca0e1f52909811e2ff610",
+      "team": "PON",
+      "source": "Synergy LBPRC events (landingLocationX/Y)",
+      "splits": [
+        {
+          "split": "nobody_on",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -0.8,
+              "y_ft": 56.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter"
+            }
+          ]
+        },
+        {
+          "split": "risp",
+          "n": 0,
+          "points": []
+        },
+        {
+          "split": "two_strikes",
+          "n": 0,
+          "points": []
+        }
+      ]
+    }
+  ],
+  "synergy_note": "Synergy spray uses landingLocationX/Y in feet (home\u2192CF = +Y, toward RF = +X). MLB Statcast sprays retained under .mlb when available. AAA directional proxy table unchanged.",
+  "updated_synergy": "2026-10-01T06:42:35Z"
 }
