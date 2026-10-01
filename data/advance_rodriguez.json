@@ -49,7 +49,7 @@
     "In-zone overall ~51%; Strike% 67%. Force chase on SL/CU after early FF strikes.",
     "Ahead \u2192 SL/CU; Behind \u2192 4S/FC in zone."
   ],
-  "delivery_note": "High three-quarters. Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
+  "delivery_note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
   "totals": {
     "pitches": 629,
     "strike_pct": 67.2,
@@ -283,5 +283,16 @@
     ],
     "note": "Team-filter sample (pitcher attribution often blank on Synergy team query). Primary arsenal/usage vs hand remain from the curated Synergy/Trackman advance packet."
   },
-  "updated": "2026-10-01T06:38:24Z"
+  "updated": "2026-10-01T06:38:24Z",
+  "headshot_url": "https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/605446/headshot/67/current",
+  "headshot_local": "assets/advance/rodriguez_headshot.png",
+  "arm_slot_image": "assets/advance/rodriguez_arm_slot.png",
+  "delivery": {
+    "label": "High three-quarters",
+    "rel_x_in": -15.0,
+    "rel_z_in": 74.0,
+    "arm_angle_deg": null,
+    "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
+    "arm_angle_approx_deg": 11.5
+  }
 }

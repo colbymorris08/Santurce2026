@@ -143,7 +143,17 @@ RODRIGUEZ_SEED = {
         "In-zone overall ~51%; Strike% 67%. Force chase on SL/CU after early FF strikes.",
         "Ahead → SL/CU; Behind → 4S/FC in zone.",
     ],
-    "delivery_note": "High three-quarters. Trackman RelX/RelZ ~−15″ / 74″.",
+    "delivery_note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~−15″ / 74″.",
+    "headshot_url": "https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/605446/headshot/67/current",
+    "headshot_local": "assets/advance/rodriguez_headshot.png",
+    "arm_slot_image": "assets/advance/rodriguez_arm_slot.png",
+    "delivery": {
+        "label": "High three-quarters",
+        "rel_x_in": -15.0,
+        "rel_z_in": 74.0,
+        "arm_angle_approx_deg": 11.5,
+        "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~−15″ / 74″.",
+    },
     "totals": {
         "pitches": 629,
         "strike_pct": 67.2,
