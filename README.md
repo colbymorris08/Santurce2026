@@ -6,11 +6,24 @@ Santurce Advance Scouting creado por Colby Morris
 
 ## Pregame tabs
 
-Open [`pregame.html`](pregame.html). New **Advance** tab includes:
+Open [`pregame.html`](pregame.html). Advance is split into two tabs:
 
-1. **Dereck Rodríguez packet** — automated from the advance PDF builders (`arsenal`, usage vs hand, approach, short vs-RHH mix). Seeded from `pitch-tips/scripts/build_rodriguez_advance.py`, enriched with a live Synergy Chihuahua sample when available.
-2. **Opposing hitters (Synergy Select All)** — first-pitch swing%, OPS, whiff% by pitch type; same with RISP; bunts + SB-from-1B/2B/3B per 162.
-3. **Spray charts** — Synergy `landingLocationX/Y` for LBPRC opposing hitters (source toggle keeps MLB Statcast sprays).
+### Pitcher Advance
+https://colbymorris08.github.io/Santurce2026/pregame.html#pitcher-advance
+
+- **Team** dropdown → **Pitcher** dropdown (LBPRC arms from `pregame_pitcher_arsenals.json`)
+- **Dereck Rodríguez** — full packet (arsenal, HB×IVB movement, **full-body** arm-slot / RelX·RelZ, usage vs hand, stuff+performance, approach, short vs-RHH)
+- Other pitchers — Prospect Savant / arsenal **scaffold** when tracked (movement + usage; no Synergy packet yet)
+
+### Hitter Advance
+https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
+
+- **Team** dropdown → **Hitter** dropdown + **Select All** (aggregates the filtered roster)
+- Synergy tables: FP swing%, OPS, whiff by pitch type; same with RISP; bunts + SB-from-1B/2B/3B per 162
+- Teams covered: CAG / CAR / MAY / PON
+
+### Other
+Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Statcast toggle).
 
 ## Refresh Synergy data
 
@@ -33,13 +46,14 @@ Outputs:
 
 | File | Role |
 | --- | --- |
-| `data/advance_rodriguez.json` | Rodriguez advance packet for the Advance tab |
+| `data/advance_rodriguez.json` | Rodriguez full pitcher-advance packet |
 | `data/advance_opposing_hitters.json` | Select-all + per-hitter Synergy tables |
+| `data/pregame_pitcher_arsenals.json` | Prospect Savant arsenals used to scaffold other pitchers |
 | `data/pregame_spray_charts.json` | Existing MLB/AAA caches **plus** `synergy` spray list |
 
 ## Pitch usage / movement provenance (MiLB)
 
-See Advance / Pitch Usage tabs notes. **MiLB arsenals are Prospect Savant**, not Synergy:
+See Pitch Usage / Pitcher Advance notes. **MiLB arsenals are Prospect Savant**, not Synergy:
 
 - Builder: `build_pregame_arsenal.py`
 - API: `https://oriolebird.pythonanywhere.com/stuff/{mlbam}/{season}`

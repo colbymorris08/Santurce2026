@@ -241,8 +241,10 @@ tbody tr:hover { background: #f8fafc; }
 .advance-arm {
   display: grid; gap: 8px;
 }
-.advance-arm img {
-  width: 100%; max-height: 180px; object-fit: cover; object-position: center top;
+.advance-arm img,
+.advance-arm .advance-arm-full {
+  width: 100%; max-height: 560px; height: auto;
+  object-fit: contain; object-position: center top;
   border-radius: 6px; border: 1px solid var(--line); background: #eef2f6;
 }
 .advance-arm-metrics {
