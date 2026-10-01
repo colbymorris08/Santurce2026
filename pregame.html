@@ -403,7 +403,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san3';
+const ASSET_V = 'san4';
 
 function fpsFor(pid) {
   const row = FPS[String(pid)];
@@ -1163,6 +1163,15 @@ function renderAdvanceRodriguez(){
   const short=p.short_vs_rhh||{};
   const shortCol=(arr)=> (arr||[]).map(([c,u])=>`<div>${c} <strong>${u}%</strong></div>`).join('') || '—';
   const live=p.synergy_live||{};
+  const tot=p.totals||{};
+  const stuffRows=arsenal.map(a=>`<tr>
+    <td class="player-name">${a.code}</td><td class="num">${a.velo??'—'}</td>
+    <td class="num">${a.ivb!=null?(a.ivb>0?'+':'')+a.ivb:'—'}</td>
+    <td class="num">${a.hb!=null?(a.hb>0?'+':'')+a.hb:'—'}</td>
+    <td class="num">${a.miss_l!=null&&a.miss_r!=null?(((a.miss_l+a.miss_r)/2).toFixed(0)):'—'}</td>
+    <td class="num">${a.k_l!=null&&a.k_r!=null?(((a.k_l+a.k_r)/2).toFixed(0)):'—'}</td>
+    <td class="num">${a.strike??'—'}</td><td class="num">${a.iz??'—'}</td><td class="num">${a.gb??'—'}</td>
+  </tr>`).join('');
   el.innerHTML = `
   <div class="advance-hero">
     <div>
@@ -1192,6 +1201,12 @@ function renderAdvanceRodriguez(){
       </tr></thead><tbody>${vsHand}</tbody></table></div>
     </div>
   </div>
+  <div class="section-label" style="margin-top:14px">Stuff + performance</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Pitch</th><th class="num">V</th><th class="num">IVB</th><th class="num">HB</th>
+    <th class="num">Miss</th><th class="num">K%</th><th class="num">Str%</th><th class="num">Iz%</th><th class="num">GB%</th>
+  </tr></thead><tbody>${stuffRows}</tbody></table></div>
+  <div class="note" style="margin-top:6px">TOTAL Str ${tot.strike_pct??'—'}% · Iz ${tot.iz_pct??'—'}% · K ${tot.k_pct??'—'}% · BB ${tot.bb_pct??'—'}% · Miss ${tot.miss_pct??'—'}% · GB ${tot.gb_pct??'—'}% · EV ${tot.ev??'—'}</div>
   <div class="section-label">Pitch descriptions</div>
   <div class="advance-desc">${arsenal.map(a=>`<div><strong>${a.code}</strong> — ${a.desc||''}</div>`).join('')}</div>
   <div class="section-label" style="margin-top:14px">Short advance · vs RHH</div>
@@ -1200,7 +1215,10 @@ function renderAdvanceRodriguez(){
     <div><strong>0–0</strong>${shortCol(short['0-0'])}</div>
     <div><strong>2 strikes</strong>${shortCol(short['2_strikes'])}</div>
   </div>
-  <div class="note" style="margin-top:10px">${p.source||''}${live.ok?` · Synergy live sample ${live.sample_pitches||0} CHI pitches`:''}</div>`;
+  <div class="section-label" style="margin-top:14px">Scout notes — pickoffs / slide step / tips</div>
+  <div class="note">${p.scout_notes || 'Fill-in on PDF; not yet automated from Synergy.'}</div>
+  <div class="note" style="margin-top:10px">${p.source||''}${live.ok?` · Synergy live sample ${live.sample_pitches||0} CHI pitches`:''}
+    · Visual gaps vs PDF: no heat map, movement plot image, or arm-slot still.</div>`;
 }
 function fillAdvanceHitters(){
   const team=document.getElementById('adv-team').value;
