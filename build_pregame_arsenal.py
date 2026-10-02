@@ -20,9 +20,13 @@ UA = {"User-Agent": "SanturceAnalytics/1.0"}
 PS_BASE = "https://oriolebird.pythonanywhere.com"
 COUNT_BUCKETS = ("0-0", "0-2", "1-2", "2-2", "3-2")
 STATCAST_RANGES = [
+    ("2026", "2026-03-20", "2026-10-01"),
     ("2025", "2025-03-20", "2025-10-05"),
-    ("2026", "2026-03-20", "2026-07-22"),
+    ("2024", "2024-03-20", "2024-10-05"),
+    ("2023", "2023-03-20", "2023-10-05"),
 ]
+# Prospect Savant seasons (newest first). Include older years — many LBPRC arms only have 2023 PS.
+PS_SEASONS = (2026, 2025, 2024, 2023, 2022)
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/mpl")
 
@@ -64,7 +68,7 @@ def ivb_in(pfx_z_ft: float | None) -> float | None:
     return round(pfx_z_ft * 12.0, 2)
 
 
-def fetch_ps_arsenal(pid: int, seasons=(2025, 2026, 2024)) -> tuple[list[dict], int | None, str | None]:
+def fetch_ps_arsenal(pid: int, seasons=PS_SEASONS) -> tuple[list[dict], int | None, str | None]:
     for season in seasons:
         try:
             rows = http_json(f"{PS_BASE}/stuff/{pid}/{season}")
@@ -128,6 +132,19 @@ def aggregate_statcast(df) -> dict:
             pfx_z = to_float(grp["pfx_z"].mean()) if "pfx_z" in grp else None
             velo = to_float(grp["release_speed"].mean()) if "release_speed" in grp else None
             spin = to_float(grp["release_spin_rate"].mean()) if "release_spin_rate" in grp else None
+            whiff = None
+            if "description" in grp.columns:
+                desc = grp["description"].astype(str).str.lower()
+                swings = int(
+                    desc.str.contains(
+                        "swinging_strike|foul|hit_into_play|missed_bunt|foul_tip",
+                        regex=True,
+                        na=False,
+                    ).sum()
+                )
+                whiffs = int(desc.str.contains("swinging_strike", na=False).sum())
+                if swings:
+                    whiff = round(100.0 * whiffs / swings, 1)
             out.append(
                 {
                     "type": ptype,
@@ -138,6 +155,7 @@ def aggregate_statcast(df) -> dict:
                     "hb_hitter": hitter_view_hb_in(pfx_x),
                     "usage": round(100.0 * n / total, 1) if total else 0,
                     "pitches": n,
+                    "whiff": whiff,
                 }
             )
         out.sort(key=lambda r: -(r["pitches"] or 0))
@@ -208,6 +226,65 @@ def fetch_statcast_arsenal(pid: int) -> dict:
     return packed
 
 
+def enrich_arsenal_hand_splits(pitches: list, platoon: dict) -> list:
+    """Attach usage_l/r + miss_l/r from Statcast platoon onto overall arsenal rows."""
+    if not pitches or not platoon:
+        return pitches
+    by_l = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_LHB") or [])}
+    by_r = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_RHB") or [])}
+    enriched = []
+    for p in pitches:
+        row = dict(p)
+        code = str(row.get("type") or "").upper()
+        left, right = by_l.get(code), by_r.get(code)
+        if left:
+            row["usage_l"] = left.get("usage")
+            row["miss_l"] = left.get("whiff")
+            row["pitches_l"] = left.get("pitches")
+        if right:
+            row["usage_r"] = right.get("usage")
+            row["miss_r"] = right.get("whiff")
+            row["pitches_r"] = right.get("pitches")
+        enriched.append(row)
+    return enriched
+
+
+def count_mix_from_usage(usage_by_count: dict) -> dict:
+    """Build 0-0 and aggregated 2-strike mixes for short-advance panels."""
+    out = {}
+    zero = usage_by_count.get("0-0") or []
+    if zero:
+        out["0-0"] = [
+            {"type": p.get("type"), "usage": p.get("usage"), "pitches": p.get("pitches")}
+            for p in zero
+        ]
+    # Aggregate all 2-strike counts when present
+    two_keys = ("0-2", "1-2", "2-2", "3-2")
+    totals = {}
+    n_all = 0
+    for ck in two_keys:
+        for p in usage_by_count.get(ck) or []:
+            code = str(p.get("type") or "").upper()
+            if not code:
+                continue
+            n = int(p.get("pitches") or 0)
+            cur = totals.setdefault(code, {"type": code, "pitches": 0})
+            cur["pitches"] += n
+            n_all += n
+    if n_all:
+        rows = [
+            {
+                "type": code,
+                "pitches": rec["pitches"],
+                "usage": round(100.0 * rec["pitches"] / n_all, 1),
+            }
+            for code, rec in totals.items()
+        ]
+        rows.sort(key=lambda r: -(r["pitches"] or 0))
+        out["2_strikes"] = rows
+    return out
+
+
 def build_row(base: dict, ps_pitches: list, ps_season, ps_source, sc: dict) -> dict:
     pitches = ps_pitches
     if (not pitches) and sc.get("overall"):
@@ -223,11 +300,14 @@ def build_row(base: dict, ps_pitches: list, ps_season, ps_source, sc: dict) -> d
                 "usage": p.get("usage"),
                 "pitches": p.get("pitches"),
                 "ps_stuff": None,
-                "whiff": None,
+                "whiff": p.get("whiff"),
                 "xwoba": None,
             }
             for p in sc["overall"]
         ]
+    platoon = sc.get("platoon") or {}
+    usage_by_count = sc.get("usage_by_count") or {}
+    pitches = enrich_arsenal_hand_splits(pitches, platoon)
     return {
         "name": base.get("name"),
         "player_id": base.get("player_id"),
@@ -238,8 +318,9 @@ def build_row(base: dict, ps_pitches: list, ps_season, ps_source, sc: dict) -> d
         "stuff_plus": base.get("stuff_plus"),
         "pitches": sum(int(p.get("pitches") or 0) for p in pitches) or base.get("pitches"),
         "arsenal": pitches,
-        "usage_by_count": sc.get("usage_by_count") or {},
-        "platoon": sc.get("platoon") or {},
+        "usage_by_count": usage_by_count,
+        "count_mix": count_mix_from_usage(usage_by_count),
+        "platoon": platoon,
         "ps_season": ps_season,
         "ps_source": ps_source,
         "statcast_source": sc.get("source"),
@@ -248,8 +329,8 @@ def build_row(base: dict, ps_pitches: list, ps_season, ps_source, sc: dict) -> d
         "view": "hitter",
         "note": (
             "Movement plots use hitter perspective (catcher-facing HB). "
-            "Usage-by-count and platoon splits from MLB Statcast when tracked; "
-            "overall arsenal from Prospect Savant / Statcast."
+            "Overall arsenal from Prospect Savant (fallback Statcast). "
+            "Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
         ),
     }
 
@@ -351,7 +432,7 @@ def main() -> None:
         "note": (
             "KNCT-style arsenal plots from hitter perspective. "
             "HB axis = catcher-facing (looking at pitcher). "
-            "Usage-by-count / platoon require Statcast tracking."
+            "Hand splits + 0-0/2-strike mixes from Statcast when tracked; overall from Prospect Savant."
         ),
     }
     out_path.write_text(json.dumps(payload, indent=2))

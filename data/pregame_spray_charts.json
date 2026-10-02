@@ -11365,6 +11365,89 @@
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
         {
+          "split": "all",
+          "n": 7,
+          "points": [
+            {
+              "x_ft": 177.5,
+              "y_ft": 93.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -40.1,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -62.2,
+              "y_ft": 118.0,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -205.8,
+              "y_ft": 238.5,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -85.1,
+              "y_ft": 158.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 182.9,
+              "y_ft": 312.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 12.6,
+              "y_ft": 144.7,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
+        {
           "split": "nobody_on",
           "n": 5,
           "points": [
@@ -11462,6 +11545,85 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 177.5,
+          "y_ft": 93.6,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryOutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -40.1,
+          "y_ft": 129.4,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -62.2,
+          "y_ft": 118.0,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -205.8,
+          "y_ft": 238.5,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -85.1,
+          "y_ft": 158.4,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 182.9,
+          "y_ft": 312.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 12.6,
+          "y_ft": 144.7,
+          "hit": "OUT",
+          "event": "GroundedIntoDoublePlay",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11470,6 +11632,67 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": -32.5,
+              "y_ft": 112.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 72.9,
+              "y_ft": 248.4,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -43.7,
+              "y_ft": 229.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -70.1,
+              "y_ft": 107.7,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -65.6,
+              "y_ft": 134.1,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -11552,6 +11775,63 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -32.5,
+          "y_ft": 112.6,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 72.9,
+          "y_ft": 248.4,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -43.7,
+          "y_ft": 229.7,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -70.1,
+          "y_ft": 107.7,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -65.6,
+          "y_ft": 134.1,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11560,6 +11840,78 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 6,
+          "points": [
+            {
+              "x_ft": 86.7,
+              "y_ft": 164.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 131.7,
+              "y_ft": 179.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 0.4,
+              "y_ft": 17.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "HomePlate",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -56.0,
+              "y_ft": 90.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 57.1,
+              "y_ft": 117.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -42.7,
+              "y_ft": 121.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -11642,6 +11994,74 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 86.7,
+          "y_ft": 164.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 131.7,
+          "y_ft": 179.0,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 0.4,
+          "y_ft": 17.9,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "HomePlate",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -56.0,
+          "y_ft": 90.9,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 57.1,
+          "y_ft": 117.0,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -42.7,
+          "y_ft": 121.4,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11650,6 +12070,78 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 6,
+          "points": [
+            {
+              "x_ft": -102.7,
+              "y_ft": 27.2,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 68.1,
+              "y_ft": 122.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 34.6,
+              "y_ft": 105.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 40.9,
+              "y_ft": 68.6,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 61.6,
+              "y_ft": 128.6,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -79.0,
+              "y_ft": 110.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -11724,6 +12216,74 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -102.7,
+          "y_ft": 27.2,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 68.1,
+          "y_ft": 122.0,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 34.6,
+          "y_ft": 105.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 40.9,
+          "y_ft": 68.6,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 61.6,
+          "y_ft": 128.6,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -79.0,
+          "y_ft": 110.3,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11732,6 +12292,56 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -0.4,
+              "y_ft": 79.5,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -72.7,
+              "y_ft": 313.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 72.7,
+              "y_ft": 136.5,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -101.2,
+              "y_ft": 195.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -11805,6 +12415,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -0.4,
+          "y_ft": 79.5,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -72.7,
+          "y_ft": 313.6,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 72.7,
+          "y_ft": 136.5,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -101.2,
+          "y_ft": 195.8,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -11813,6 +12469,67 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": -62.2,
+              "y_ft": 26.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -77.5,
+              "y_ft": 150.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 72.2,
+              "y_ft": 124.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -0.8,
+              "y_ft": 54.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -27.9,
+              "y_ft": 131.7,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -11886,6 +12603,63 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -62.2,
+          "y_ft": 26.4,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -77.5,
+          "y_ft": 150.8,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 72.2,
+          "y_ft": 124.8,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -0.8,
+          "y_ft": 54.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -27.9,
+          "y_ft": 131.7,
+          "hit": "OUT",
+          "event": "GroundedIntoDoublePlay",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11894,6 +12668,56 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -152.3,
+              "y_ft": 288.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -36.3,
+              "y_ft": 147.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -161.3,
+              "y_ft": 363.6,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -75.4,
+              "y_ft": 91.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -11968,6 +12792,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -152.3,
+          "y_ft": 288.1,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -36.3,
+          "y_ft": 147.0,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -161.3,
+          "y_ft": 363.6,
+          "hit": "HR",
+          "event": "HomeRun",
+          "coord": "synergy_feet",
+          "field_zone": "HomeRunLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -75.4,
+          "y_ft": 91.9,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -11976,6 +12846,56 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 34.6,
+              "y_ft": 147.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -235.6,
+              "y_ft": 253.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -18.7,
+              "y_ft": 133.1,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 23.3,
+              "y_ft": 214.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -12050,6 +12970,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 34.6,
+          "y_ft": 147.9,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -235.6,
+          "y_ft": 253.0,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -18.7,
+          "y_ft": 133.1,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 23.3,
+          "y_ft": 214.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12058,6 +13024,78 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 6,
+          "points": [
+            {
+              "x_ft": -118.7,
+              "y_ft": 206.5,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 42.4,
+              "y_ft": 91.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 41.6,
+              "y_ft": 78.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -175.4,
+              "y_ft": 290.9,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -102.7,
+              "y_ft": 307.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 122.6,
+              "y_ft": 350.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -12132,6 +13170,74 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -118.7,
+          "y_ft": 206.5,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 42.4,
+          "y_ft": 91.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 41.6,
+          "y_ft": 78.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -175.4,
+          "y_ft": 290.9,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -102.7,
+          "y_ft": 307.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 122.6,
+          "y_ft": 350.6,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12140,6 +13246,67 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": -153.9,
+              "y_ft": 166.8,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -34.0,
+              "y_ft": 79.8,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 57.6,
+              "y_ft": 111.1,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 64.5,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -190.1,
+              "y_ft": 297.4,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -12213,6 +13380,63 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -153.9,
+          "y_ft": 166.8,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -34.0,
+          "y_ft": 79.8,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 57.6,
+          "y_ft": 111.1,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 64.5,
+          "y_ft": 126.4,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -190.1,
+          "y_ft": 297.4,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12221,6 +13445,67 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": 139.8,
+              "y_ft": 293.5,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -138.0,
+              "y_ft": 238.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -13.5,
+              "y_ft": 129.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 162.3,
+              "y_ft": 215.5,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -84.1,
+              "y_ft": 99.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -12295,6 +13580,63 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 139.8,
+          "y_ft": 293.5,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -138.0,
+          "y_ft": 238.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -13.5,
+          "y_ft": 129.0,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 162.3,
+          "y_ft": 215.5,
+          "hit": "SAC",
+          "event": "SacrificeFly",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -84.1,
+          "y_ft": 99.0,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12303,6 +13645,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 136.3,
+              "y_ft": 215.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -232.5,
+              "y_ft": 328.5,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -38.6,
+              "y_ft": 63.8,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -66.8,
+              "y_ft": 117.2,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -12369,6 +13761,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 136.3,
+          "y_ft": 215.6,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -232.5,
+          "y_ft": 328.5,
+          "hit": "HR",
+          "event": "HomeRun",
+          "coord": "synergy_feet",
+          "field_zone": "HomeRunLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -38.6,
+          "y_ft": 63.8,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -66.8,
+          "y_ft": 117.2,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12377,6 +13815,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 99.6,
+              "y_ft": 305.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -27.9,
+              "y_ft": 90.5,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 112.6,
+              "y_ft": 174.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 17.2,
+              "y_ft": 53.9,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -12443,6 +13931,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 99.6,
+          "y_ft": 305.6,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -27.9,
+          "y_ft": 90.5,
+          "hit": "E",
+          "event": "FieldError",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 112.6,
+          "y_ft": 174.4,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 17.2,
+          "y_ft": 53.9,
+          "hit": "E",
+          "event": "FieldError",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12451,6 +13985,67 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": -17.9,
+              "y_ft": 41.7,
+              "hit": "SAC",
+              "event": "BuntGroundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -82.1,
+              "y_ft": 342.2,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -55.4,
+              "y_ft": 108.8,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 62.2,
+              "y_ft": 29.5,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -66.0,
+              "y_ft": 121.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -12517,6 +14112,63 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -17.9,
+          "y_ft": 41.7,
+          "hit": "SAC",
+          "event": "BuntGroundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -82.1,
+          "y_ft": 342.2,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -55.4,
+          "y_ft": 108.8,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 62.2,
+          "y_ft": 29.5,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -66.0,
+          "y_ft": 121.0,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12525,6 +14177,56 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 167.7,
+              "y_ft": 220.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 125.4,
+              "y_ft": 300.7,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 76.0,
+              "y_ft": 101.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 55.2,
+              "y_ft": 391.2,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -12591,6 +14293,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 167.7,
+          "y_ft": 220.0,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 125.4,
+          "y_ft": 300.7,
+          "hit": "SAC",
+          "event": "SacrificeFly",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 76.0,
+          "y_ft": 101.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 55.2,
+          "y_ft": 391.2,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12599,6 +14347,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 16.4,
+              "y_ft": 179.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -66.8,
+              "y_ft": 106.5,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 20.4,
+              "y_ft": 343.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -12657,6 +14455,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -14.1,
+          "y_ft": 153.1,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 16.4,
+          "y_ft": 179.0,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -66.8,
+          "y_ft": 106.5,
+          "hit": "E",
+          "event": "FieldError",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 20.4,
+          "y_ft": 343.0,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12665,6 +14509,45 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 40.1,
+              "y_ft": 147.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 53.5,
+              "y_ft": 131.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 141.7,
+              "y_ft": 232.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -12722,6 +14605,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 40.1,
+          "y_ft": 147.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 53.5,
+          "y_ft": 131.8,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 141.7,
+          "y_ft": 232.7,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -12730,6 +14648,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -78.3,
+              "y_ft": 253.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 27.9,
+              "y_ft": 262.9,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -72.6,
+              "y_ft": 155.7,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -61.5,
+              "y_ft": 124.1,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -12787,6 +14755,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -78.3,
+          "y_ft": 253.7,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 27.9,
+          "y_ft": 262.9,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -72.6,
+          "y_ft": 155.7,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -61.5,
+          "y_ft": 124.1,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12795,6 +14809,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 145.5,
+              "y_ft": 227.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -98.9,
+              "y_ft": 363.6,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 197.4,
+              "y_ft": 291.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -204.8,
+              "y_ft": 256.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -12852,6 +14916,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 145.5,
+          "y_ft": 227.8,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -98.9,
+          "y_ft": 363.6,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 197.4,
+          "y_ft": 291.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -204.8,
+          "y_ft": 256.7,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -12860,6 +14970,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -68.3,
+              "y_ft": 115.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -60.7,
+              "y_ft": 126.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 55.4,
+              "y_ft": 184.3,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -153.1,
+              "y_ft": 166.0,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -12918,6 +15078,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -68.3,
+          "y_ft": 115.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -60.7,
+          "y_ft": 126.4,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 55.4,
+          "y_ft": 184.3,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -153.1,
+          "y_ft": 166.0,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12926,6 +15132,67 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 5,
+          "points": [
+            {
+              "x_ft": 11.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 24.8,
+              "y_ft": 81.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 118.0,
+              "y_ft": 182.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 66.0,
+              "y_ft": 102.0,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -48.5,
+              "y_ft": 146.2,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -12983,6 +15250,63 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 11.1,
+          "y_ft": 153.1,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 24.8,
+          "y_ft": 81.4,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 118.0,
+          "y_ft": 182.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 66.0,
+          "y_ft": 102.0,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -48.5,
+          "y_ft": 146.2,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -12991,6 +15315,45 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -143.2,
+              "y_ft": 156.1,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -41.6,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -266.1,
+              "y_ft": 278.9,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeftFoulLine",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -13049,6 +15412,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -143.2,
+          "y_ft": 156.1,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -41.6,
+          "y_ft": 129.4,
+          "hit": "OUT",
+          "event": "GroundedIntoDoublePlay",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -266.1,
+          "y_ft": 278.9,
+          "hit": "HR",
+          "event": "HomeRun",
+          "coord": "synergy_feet",
+          "field_zone": "HomeRunLeftFoulLine",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13057,6 +15455,45 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -53.1,
+              "y_ft": 105.8,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -17.2,
+              "y_ft": 105.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 56.5,
+              "y_ft": 90.4,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -13114,6 +15551,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -53.1,
+          "y_ft": 105.8,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -17.2,
+          "y_ft": 105.8,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 56.5,
+          "y_ft": 90.4,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13122,6 +15594,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 206.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -2.7,
+              "y_ft": 57.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -103.5,
+              "y_ft": 173.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 40.9,
+              "y_ft": 129.4,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -13180,6 +15702,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -154.6,
+          "y_ft": 206.5,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -2.7,
+          "y_ft": 57.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -103.5,
+          "y_ft": 173.7,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 40.9,
+          "y_ft": 129.4,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13188,6 +15756,56 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -186.3,
+              "y_ft": 196.3,
+              "hit": "2B",
+              "event": "Double",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 24.7,
+              "y_ft": 154.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 111.1,
+              "y_ft": 127.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightFoulLine",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -141.4,
+              "y_ft": 133.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -13246,6 +15864,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -186.3,
+          "y_ft": 196.3,
+          "hit": "2B",
+          "event": "Double",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 24.7,
+          "y_ft": 154.7,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 111.1,
+          "y_ft": 127.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightFoulLine",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -141.4,
+          "y_ft": 133.6,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryOutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13254,6 +15918,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 206.5,
+              "y_ft": 315.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -9.5,
+              "y_ft": 235.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 163.0,
+              "y_ft": 266.7,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -13311,6 +16014,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 206.5,
+          "y_ft": 315.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -9.5,
+          "y_ft": 235.3,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 163.0,
+          "y_ft": 266.7,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13319,6 +16057,56 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": -110.0,
+              "y_ft": 209.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -232.8,
+              "y_ft": 296.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 113.8,
+              "y_ft": 228.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 224.9,
+              "y_ft": 365.9,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 4,
@@ -13376,6 +16164,52 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -110.0,
+          "y_ft": 209.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -232.8,
+          "y_ft": 296.1,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 113.8,
+          "y_ft": 228.5,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 224.9,
+          "y_ft": 365.9,
+          "hit": "HR",
+          "event": "HomeRun",
+          "coord": "synergy_feet",
+          "field_zone": "HomeRunRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13384,6 +16218,45 @@
       "team": "CAG",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 94.3,
+              "y_ft": 140.8,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 46.4,
+              "y_ft": 77.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -63.6,
+              "y_ft": 306.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -13433,6 +16306,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 94.3,
+          "y_ft": 140.8,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 46.4,
+          "y_ft": 77.6,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -63.6,
+          "y_ft": 306.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13441,6 +16349,56 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 4,
+          "points": [
+            {
+              "x_ft": 19.5,
+              "y_ft": 272.0,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 21.0,
+              "y_ft": 31.8,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -172.2,
+              "y_ft": 98.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryOutfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -78.3,
+              "y_ft": 113.4,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -13490,6 +16448,52 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 19.5,
+          "y_ft": 272.0,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 21.0,
+          "y_ft": 31.8,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -172.2,
+          "y_ft": 98.9,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryOutfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -78.3,
+          "y_ft": 113.4,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13498,6 +16502,45 @@
       "team": "CAG",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 90.4,
+              "y_ft": 305.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 28.2,
+              "y_ft": 279.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 3.3,
+              "y_ft": 57.5,
+              "hit": "OUT",
+              "event": "GroundedIntoDoublePlay",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -13548,6 +16591,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 90.4,
+          "y_ft": 305.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 28.2,
+          "y_ft": 279.1,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 3.3,
+          "y_ft": 57.5,
+          "hit": "OUT",
+          "event": "GroundedIntoDoublePlay",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13556,6 +16634,45 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -154.6,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -124.8,
+              "y_ft": 406.3,
+              "hit": "HR",
+              "event": "HomeRun",
+              "coord": "synergy_feet",
+              "field_zone": "HomeRunLeftCenter",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -73.9,
+              "y_ft": 103.2,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -13606,6 +16723,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -154.6,
+          "y_ft": 254.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -124.8,
+          "y_ft": 406.3,
+          "hit": "HR",
+          "event": "HomeRun",
+          "coord": "synergy_feet",
+          "field_zone": "HomeRunLeftCenter",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -73.9,
+          "y_ft": 103.2,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13614,6 +16766,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -142.5,
+              "y_ft": 188.7,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 69.7,
+              "y_ft": 147.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 49.0,
+              "y_ft": 315.9,
+              "hit": "SAC",
+              "event": "SacrificeFly",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -13664,6 +16855,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -142.5,
+          "y_ft": 188.7,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 69.7,
+          "y_ft": 147.4,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 49.0,
+          "y_ft": 315.9,
+          "hit": "SAC",
+          "event": "SacrificeFly",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13672,6 +16898,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -75.0,
+              "y_ft": 85.6,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -32.4,
+              "y_ft": 150.2,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": -9.5,
+              "y_ft": 254.5,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 0,
@@ -13721,6 +16986,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -75.0,
+          "y_ft": 85.6,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeftFoulLine",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -32.4,
+          "y_ft": 150.2,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": -9.5,
+          "y_ft": 254.5,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13729,6 +17029,34 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -57.6,
+              "y_ft": -1.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -11.0,
+              "y_ft": 100.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -13779,6 +17107,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -57.6,
+          "y_ft": -1.0,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -11.0,
+          "y_ft": 100.0,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13787,6 +17139,45 @@
       "team": "CAG",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 58.3,
+              "y_ft": 92.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -94.2,
+              "y_ft": 302.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -214.8,
+              "y_ft": 263.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -13836,6 +17227,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 58.3,
+          "y_ft": 92.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -94.2,
+          "y_ft": 302.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -214.8,
+          "y_ft": 263.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13844,6 +17270,45 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 109.6,
+              "y_ft": 166.0,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 91.2,
+              "y_ft": 63.1,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -38.3,
+              "y_ft": 300.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 3,
@@ -13884,6 +17349,41 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 109.6,
+          "y_ft": 166.0,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 91.2,
+          "y_ft": 63.1,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -38.3,
+          "y_ft": 300.7,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13892,6 +17392,34 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -7.3,
+              "y_ft": 210.3,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -170.7,
+              "y_ft": 294.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -13933,6 +17461,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -7.3,
+          "y_ft": 210.3,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -170.7,
+          "y_ft": 294.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -13941,6 +17493,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": -70.4,
+              "y_ft": 86.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 85.9,
+              "y_ft": 168.0,
+              "hit": "E",
+              "event": "FieldError",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 111.1,
+              "y_ft": 36.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -13982,6 +17573,41 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -70.4,
+          "y_ft": 86.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 85.9,
+          "y_ft": 168.0,
+          "hit": "E",
+          "event": "FieldError",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 111.1,
+          "y_ft": 36.4,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -13990,6 +17616,34 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -15.7,
+              "y_ft": 152.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -14.1,
+              "y_ft": 153.1,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14032,6 +17686,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -15.7,
+          "y_ft": 152.3,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -14.1,
+          "y_ft": 153.1,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14040,6 +17718,34 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 43.8,
+              "y_ft": 138.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 51.4,
+              "y_ft": 64.3,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14082,6 +17788,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 43.8,
+          "y_ft": 138.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 51.4,
+          "y_ft": 64.3,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14090,6 +17820,34 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 27.9,
+              "y_ft": 264.4,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -131.2,
+              "y_ft": 201.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -14131,6 +17889,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 27.9,
+          "y_ft": 264.4,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -131.2,
+          "y_ft": 201.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14139,6 +17921,34 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": 211.8,
+              "y_ft": 224.9,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRightFoulLine",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 92.5,
+              "y_ft": 178.3,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -14180,6 +17990,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 211.8,
+          "y_ft": 224.9,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRightFoulLine",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 92.5,
+          "y_ft": 178.3,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14188,6 +18022,34 @@
       "team": "CAR",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -171.4,
+              "y_ft": 262.9,
+              "hit": "OUT",
+              "event": "Lineout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -53.8,
+              "y_ft": 330.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -14229,6 +18091,30 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -171.4,
+          "y_ft": 262.9,
+          "hit": "OUT",
+          "event": "Lineout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -53.8,
+          "y_ft": 330.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14237,6 +18123,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 75.1,
+              "y_ft": 91.0,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": 80.5,
+              "y_ft": 93.7,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRightFoulLine",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            },
+            {
+              "x_ft": 101.2,
+              "y_ft": 202.1,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldRight",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14278,6 +18203,41 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 75.1,
+          "y_ft": 91.0,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": 80.5,
+          "y_ft": 93.7,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRightFoulLine",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        },
+        {
+          "x_ft": 101.2,
+          "y_ft": 202.1,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldRight",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14286,6 +18246,45 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 3,
+          "points": [
+            {
+              "x_ft": 13.3,
+              "y_ft": 58.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -32.4,
+              "y_ft": 69.6,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -23.2,
+              "y_ft": 100.8,
+              "hit": "OUT",
+              "event": "FieldersChoice",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeft",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -14327,6 +18326,41 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 13.3,
+          "y_ft": 58.9,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -32.4,
+          "y_ft": 69.6,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -23.2,
+          "y_ft": 100.8,
+          "hit": "OUT",
+          "event": "FieldersChoice",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeft",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14335,6 +18369,23 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -91.3,
+              "y_ft": 256.8,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14368,6 +18419,19 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -91.3,
+          "y_ft": 256.8,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14376,6 +18440,34 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 2,
+          "points": [
+            {
+              "x_ft": -12.6,
+              "y_ft": 240.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            },
+            {
+              "x_ft": -174.5,
+              "y_ft": 192.7,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeftFoulLine",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 2,
@@ -14408,6 +18500,30 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": -12.6,
+          "y_ft": 240.0,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        },
+        {
+          "x_ft": -174.5,
+          "y_ft": 192.7,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeftFoulLine",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14416,6 +18532,23 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 47.6,
+              "y_ft": 71.9,
+              "hit": "OUT",
+              "event": "Groundout",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": true,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 0,
@@ -14448,6 +18581,19 @@
               "field_zone": "InfieldRight"
             }
           ]
+        }
+      ],
+      "points": [
+        {
+          "x_ft": 47.6,
+          "y_ft": 71.9,
+          "hit": "OUT",
+          "event": "Groundout",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": true,
+          "two_strikes": true,
+          "empty_bases": false
         }
       ]
     },
@@ -14458,6 +18604,23 @@
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
         {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 70.6,
+              "y_ft": 120.5,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldRight",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": true
+            }
+          ]
+        },
+        {
           "split": "nobody_on",
           "n": 1,
           "points": [
@@ -14490,6 +18653,19 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 70.6,
+          "y_ft": 120.5,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldRight",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14498,6 +18674,23 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -36.3,
+              "y_ft": 37.9,
+              "hit": "OUT",
+              "event": "FieldersChoiceOut",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldLeftFoulLine",
+              "risp": true,
+              "two_strikes": false,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 0,
@@ -14522,6 +18715,19 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": -36.3,
+          "y_ft": 37.9,
+          "hit": "OUT",
+          "event": "FieldersChoiceOut",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldLeftFoulLine",
+          "risp": true,
+          "two_strikes": false,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14530,6 +18736,23 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 52.6,
+              "y_ft": 13.9,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "FoulTerritoryInfieldRight",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14554,6 +18777,19 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 52.6,
+          "y_ft": 13.9,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "FoulTerritoryInfieldRight",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14562,6 +18798,23 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -95.8,
+              "y_ft": 203.0,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldLeft",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 0,
@@ -14586,6 +18839,19 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": -95.8,
+          "y_ft": 203.0,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldLeft",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14594,6 +18860,23 @@
       "team": "MAY",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 13.6,
+              "y_ft": 165.4,
+              "hit": "OUT",
+              "event": "Popout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14618,6 +18901,19 @@
           "n": 0,
           "points": []
         }
+      ],
+      "points": [
+        {
+          "x_ft": 13.6,
+          "y_ft": 165.4,
+          "hit": "OUT",
+          "event": "Popout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
+        }
       ]
     },
     {
@@ -14626,6 +18922,23 @@
       "team": "CAG",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": 54.1,
+              "y_ft": 315.4,
+              "hit": "OUT",
+              "event": "Flyout",
+              "coord": "synergy_feet",
+              "field_zone": "OutfieldCenter",
+              "risp": false,
+              "two_strikes": true,
+              "empty_bases": false
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 0,
@@ -14650,6 +18963,19 @@
             }
           ]
         }
+      ],
+      "points": [
+        {
+          "x_ft": 54.1,
+          "y_ft": 315.4,
+          "hit": "OUT",
+          "event": "Flyout",
+          "coord": "synergy_feet",
+          "field_zone": "OutfieldCenter",
+          "risp": false,
+          "two_strikes": true,
+          "empty_bases": false
+        }
       ]
     },
     {
@@ -14658,6 +18984,23 @@
       "team": "PON",
       "source": "Synergy LBPRC events (landingLocationX/Y)",
       "splits": [
+        {
+          "split": "all",
+          "n": 1,
+          "points": [
+            {
+              "x_ft": -0.8,
+              "y_ft": 56.3,
+              "hit": "1B",
+              "event": "Single",
+              "coord": "synergy_feet",
+              "field_zone": "InfieldCenter",
+              "risp": false,
+              "two_strikes": false,
+              "empty_bases": true
+            }
+          ]
+        },
         {
           "split": "nobody_on",
           "n": 1,
@@ -14681,6 +19024,19 @@
           "split": "two_strikes",
           "n": 0,
           "points": []
+        }
+      ],
+      "points": [
+        {
+          "x_ft": -0.8,
+          "y_ft": 56.3,
+          "hit": "1B",
+          "event": "Single",
+          "coord": "synergy_feet",
+          "field_zone": "InfieldCenter",
+          "risp": false,
+          "two_strikes": false,
+          "empty_bases": true
         }
       ]
     }

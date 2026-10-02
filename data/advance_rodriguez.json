@@ -294,5 +294,17 @@
     "arm_angle_deg": null,
     "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
     "arm_angle_approx_deg": 11.5
+  },
+  "season_meta": {
+    "seeded_labels": [
+      "lmb_2026",
+      "lbprc_winter"
+    ],
+    "synergy_live_season_id": "69b9af464c7644c026e9c16a",
+    "target_years": [
+      2025,
+      2026
+    ],
+    "note": "Seed packet is curated Trackman/Synergy. Live attach previously used latest LMB season only; builder now targets LMB 2025+2026."
   }
 }

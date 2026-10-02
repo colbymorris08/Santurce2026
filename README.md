@@ -19,8 +19,14 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#pitcher-advance
 https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
 
 - **Team** dropdown → **Hitter** dropdown + **Select All** (aggregates the filtered roster)
-- Synergy tables: FP swing%, OPS, whiff by pitch type; same with RISP; bunts + SB-from-1B/2B/3B per 162
+- Synergy tables + bar charts: FP swing%, OPS, whiff by pitch type (overall + RISP); bunts + SB-from-1B/2B/3B per 162
+- Headshots via MLBAM id when roster-matched; spray chart with **multi-select** RISP/non-RISP + 2K/non-2K toggles
 - Teams covered: CAG / CAR / MAY / PON
+
+### Pitcher Advance extras
+- Full arsenal sheet (hand splits when Statcast); arm-slot + heat-map placeholders
+- Count usage panels: Overall / 0–0 / 2 strikes
+- Mass PDF export: select-all or checkboxes → print-to-PDF (one page per arm)
 
 ### Other
 Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Statcast toggle).
@@ -34,7 +40,7 @@ Credentials live in the pitch-tips Synergy env (never commit):
 
 ```bash
 cd /Users/colbymorris/Santurce2026
-python3 build_advance_synergy.py --max-events-per-team 1000
+python3 build_advance_synergy.py --years 2025 2026 --max-events-per-team 4000
 # optional: --headed   (visible Chrome login)
 git add data/advance_*.json data/pregame_spray_charts.json
 git add pregame.html i18n.js shared.css build_advance_synergy.py README.md
@@ -59,3 +65,9 @@ See Pitch Usage / Pitcher Advance notes. **MiLB arsenals are Prospect Savant**, 
 - API: `https://oriolebird.pythonanywhere.com/stuff/{mlbam}/{season}`
 - Fields: `pfx_x` / `pfx_z` → IVB & HB, `release_speed`, `release_spin_rate`, `usage`, `swing_miss_percent`
 - Count / platoon splits: MLB Statcast via `pybaseball.statcast_pitcher` **only when** the pitcher has an MLB debut
+
+
+### Synergy seasons
+
+- **Previously (live JSON until re-pull):** one LBPRC season from `latest_season_id()` — currently `season_id=6785e5e9501a906266421884` with `--max-events-per-team 600` (~1411 pitches / 360 PA).
+- **Now (builder):** all LBPRC seasons whose Synergy name starts with **2025** or **2026** (same for LMB on Rodriguez live attach). Pitcher 0–0 / 2K mixes merge from Synergy pitcher-attributed events when present; Statcast remains fallback.

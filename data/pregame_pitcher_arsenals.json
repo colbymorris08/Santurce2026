@@ -75,7 +75,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Brendan Cellucci",
@@ -138,7 +139,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Alex Claudio",
@@ -158,7 +160,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Gabriel Cotto",
@@ -178,7 +181,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Magdiel Cotto",
@@ -255,7 +259,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jos\u00e9 De Le\u00f3n",
@@ -279,7 +284,13 @@
           "pitches": 563,
           "ps_stuff": 80.6,
           "whiff": 21.1,
-          "xwoba": 0.402
+          "xwoba": 0.402,
+          "usage_l": 56.7,
+          "miss_l": null,
+          "pitches_l": 34,
+          "usage_r": 34.1,
+          "miss_r": null,
+          "pitches_r": 14
         },
         {
           "type": "SL",
@@ -293,7 +304,13 @@
           "pitches": 385,
           "ps_stuff": 92.7,
           "whiff": 21.8,
-          "xwoba": 0.422
+          "xwoba": 0.422,
+          "usage_l": 8.3,
+          "miss_l": null,
+          "pitches_l": 5,
+          "usage_r": 26.8,
+          "miss_r": null,
+          "pitches_r": 11
         },
         {
           "type": "CH",
@@ -307,7 +324,13 @@
           "pitches": 294,
           "ps_stuff": 99.7,
           "whiff": 31.1,
-          "xwoba": 0.251
+          "xwoba": 0.251,
+          "usage_l": 15.0,
+          "miss_l": null,
+          "pitches_l": 9,
+          "usage_r": 9.8,
+          "miss_r": null,
+          "pitches_r": 4
         },
         {
           "type": "SV",
@@ -321,7 +344,13 @@
           "pitches": 222,
           "ps_stuff": 89.1,
           "whiff": 41.8,
-          "xwoba": 0.174
+          "xwoba": 0.174,
+          "usage_l": 20.0,
+          "miss_l": null,
+          "pitches_l": 12,
+          "usage_r": 29.3,
+          "miss_r": null,
+          "pitches_r": 12
         }
       ],
       "usage_by_count": {
@@ -568,7 +597,48 @@
       ],
       "statcast_pitches": 101,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "usage": 71.4,
+            "pitches": 20
+          },
+          {
+            "type": "SL",
+            "usage": 21.4,
+            "pitches": 6
+          },
+          {
+            "type": "SV",
+            "usage": 7.1,
+            "pitches": 2
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SV",
+            "pitches": 14,
+            "usage": 46.7
+          },
+          {
+            "type": "FF",
+            "pitches": 11,
+            "usage": 36.7
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 10.0
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 6.7
+          }
+        ]
+      }
     },
     {
       "name": "Jose Espada",
@@ -592,7 +662,13 @@
           "pitches": 246,
           "ps_stuff": 82.4,
           "whiff": 30.9,
-          "xwoba": 0.362
+          "xwoba": 0.362,
+          "usage_l": 55.6,
+          "miss_l": null,
+          "pitches_l": 20,
+          "usage_r": 43.5,
+          "miss_r": null,
+          "pitches_r": 10
         },
         {
           "type": "SL",
@@ -606,7 +682,13 @@
           "pitches": 210,
           "ps_stuff": 105.2,
           "whiff": 58.1,
-          "xwoba": 0.235
+          "xwoba": 0.235,
+          "usage_l": 22.2,
+          "miss_l": null,
+          "pitches_l": 8,
+          "usage_r": 43.5,
+          "miss_r": null,
+          "pitches_r": 10
         },
         {
           "type": "FS",
@@ -620,7 +702,13 @@
           "pitches": 97,
           "ps_stuff": 82.0,
           "whiff": 46.5,
-          "xwoba": 0.244
+          "xwoba": 0.244,
+          "usage_l": 22.2,
+          "miss_l": null,
+          "pitches_l": 8,
+          "usage_r": 13.0,
+          "miss_r": null,
+          "pitches_r": 3
         }
       ],
       "usage_by_count": {
@@ -732,7 +820,26 @@
       ],
       "statcast_pitches": 59,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "usage": 40.0,
+            "pitches": 6
+          },
+          {
+            "type": "SL",
+            "usage": 40.0,
+            "pitches": 6
+          },
+          {
+            "type": "FS",
+            "usage": 20.0,
+            "pitches": 3
+          }
+        ]
+      }
     },
     {
       "name": "Paolo Espino",
@@ -823,7 +930,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Harrison Francis",
@@ -843,7 +951,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Luis Gonzalez",
@@ -863,7 +972,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Marvin Gorgas",
@@ -883,7 +993,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Anthony Maldonado",
@@ -907,7 +1018,13 @@
           "pitches": 459,
           "ps_stuff": 96.1,
           "whiff": 50.9,
-          "xwoba": 0.218
+          "xwoba": 0.218,
+          "usage_l": 42.9,
+          "miss_l": null,
+          "pitches_l": 12,
+          "usage_r": 54.5,
+          "miss_r": null,
+          "pitches_r": 55
         },
         {
           "type": "FF",
@@ -921,7 +1038,13 @@
           "pitches": 294,
           "ps_stuff": 90.0,
           "whiff": 12.5,
-          "xwoba": 0.363
+          "xwoba": 0.363,
+          "usage_l": 57.1,
+          "miss_l": null,
+          "pitches_l": 16,
+          "usage_r": 45.5,
+          "miss_r": null,
+          "pitches_r": 46
         },
         {
           "type": "CH",
@@ -1074,7 +1197,33 @@
       ],
       "statcast_pitches": 129,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "usage": 53.1,
+            "pitches": 17
+          },
+          {
+            "type": "SL",
+            "usage": 46.9,
+            "pitches": 15
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 12,
+            "usage": 63.2
+          },
+          {
+            "type": "FF",
+            "pitches": 7,
+            "usage": 36.8
+          }
+        ]
+      }
     },
     {
       "name": "Jovani Mor\u00e1n",
@@ -1098,7 +1247,13 @@
           "pitches": 189,
           "ps_stuff": 91.4,
           "whiff": 18.5,
-          "xwoba": 0.307
+          "xwoba": 0.307,
+          "usage_l": 31.3,
+          "miss_l": null,
+          "pitches_l": 98,
+          "usage_r": 42.3,
+          "miss_r": null,
+          "pitches_r": 186
         },
         {
           "type": "CH",
@@ -1112,7 +1267,13 @@
           "pitches": 149,
           "ps_stuff": 107.9,
           "whiff": 55.3,
-          "xwoba": 0.201
+          "xwoba": 0.201,
+          "usage_l": 22.0,
+          "miss_l": null,
+          "pitches_l": 69,
+          "usage_r": 46.6,
+          "miss_r": null,
+          "pitches_r": 205
         },
         {
           "type": "SL",
@@ -1140,7 +1301,13 @@
           "pitches": 58,
           "ps_stuff": 99.0,
           "whiff": 48.0,
-          "xwoba": 0.209
+          "xwoba": 0.209,
+          "usage_l": 24.3,
+          "miss_l": null,
+          "pitches_l": 76,
+          "usage_r": 7.7,
+          "miss_r": null,
+          "pitches_r": 34
         },
         {
           "type": "CU",
@@ -1154,7 +1321,10 @@
           "pitches": 20,
           "ps_stuff": 81.7,
           "whiff": 25.0,
-          "xwoba": 0.102
+          "xwoba": 0.102,
+          "usage_r": 0.7,
+          "miss_r": null,
+          "pitches_r": 3
         }
       ],
       "usage_by_count": {
@@ -1524,7 +1694,68 @@
       ],
       "statcast_pitches": 753,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "usage": 39.5,
+            "pitches": 77
+          },
+          {
+            "type": "FC",
+            "usage": 24.1,
+            "pitches": 47
+          },
+          {
+            "type": "CH",
+            "usage": 22.1,
+            "pitches": 43
+          },
+          {
+            "type": "SI",
+            "usage": 11.3,
+            "pitches": 22
+          },
+          {
+            "type": "ST",
+            "usage": 2.1,
+            "pitches": 4
+          },
+          {
+            "type": "CU",
+            "usage": 1.0,
+            "pitches": 2
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "CH",
+            "pitches": 100,
+            "usage": 47.4
+          },
+          {
+            "type": "FF",
+            "pitches": 67,
+            "usage": 31.8
+          },
+          {
+            "type": "ST",
+            "pitches": 24,
+            "usage": 11.4
+          },
+          {
+            "type": "FC",
+            "pitches": 15,
+            "usage": 7.1
+          },
+          {
+            "type": "SI",
+            "pitches": 5,
+            "usage": 2.4
+          }
+        ]
+      }
     },
     {
       "name": "Wyatt Olds",
@@ -1601,7 +1832,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Nicholas Padilla",
@@ -1680,7 +1912,8 @@
       ],
       "statcast_pitches": 25,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Roel Ram\u00edrez",
@@ -1700,7 +1933,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Yacksel R\u00edos",
@@ -1765,7 +1999,8 @@
       ],
       "statcast_pitches": 13,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Dereck Rodr\u00edguez",
@@ -1785,7 +2020,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "H\u00e9ctor Santiago",
@@ -1805,7 +2041,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Luke Taggart",
@@ -1910,7 +2147,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Christian Torres",
@@ -1930,7 +2168,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Duane Underwood Jr.",
@@ -2021,7 +2260,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jhon Vargas",
@@ -2041,7 +2281,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Derek West",
@@ -2061,7 +2302,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Miguel Ausua",
@@ -2081,7 +2323,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jonathan Berm\u00fadez",
@@ -2186,7 +2429,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Osvaldo Berrios",
@@ -2291,7 +2535,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Raymond Burgos",
@@ -2382,7 +2627,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Garrett Crowley",
@@ -2402,7 +2648,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jose Cruz",
@@ -2422,7 +2669,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Magnus Ellerts",
@@ -2499,7 +2747,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Sandy Gaston",
@@ -2562,7 +2811,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Matt Givin",
@@ -2653,7 +2903,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "R.J. Martinez",
@@ -2673,7 +2924,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ren Mukunoki",
@@ -2693,7 +2945,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Kazuo Ohno",
@@ -2713,7 +2966,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jean Ortega",
@@ -2733,7 +2987,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Colin Poche",
@@ -2757,7 +3012,13 @@
           "pitches": 203,
           "ps_stuff": 95.2,
           "whiff": 20.2,
-          "xwoba": 0.377
+          "xwoba": 0.377,
+          "usage_l": 70.1,
+          "miss_l": null,
+          "pitches_l": 96,
+          "usage_r": 73.8,
+          "miss_r": null,
+          "pitches_r": 79
         },
         {
           "type": "SL",
@@ -2771,7 +3032,13 @@
           "pitches": 140,
           "ps_stuff": 94.1,
           "whiff": 21.9,
-          "xwoba": 0.318
+          "xwoba": 0.318,
+          "usage_l": 29.9,
+          "miss_l": null,
+          "pitches_l": 41,
+          "usage_r": 26.2,
+          "miss_r": null,
+          "pitches_r": 28
         }
       ],
       "usage_by_count": {
@@ -2918,7 +3185,33 @@
       ],
       "statcast_pitches": 244,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "usage": 75.0,
+            "pitches": 39
+          },
+          {
+            "type": "SL",
+            "usage": 25.0,
+            "pitches": 13
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 38,
+            "usage": 65.5
+          },
+          {
+            "type": "SL",
+            "pitches": 20,
+            "usage": 34.5
+          }
+        ]
+      }
     },
     {
       "name": "Nicholas Regalado",
@@ -2938,7 +3231,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Angel Reyes",
@@ -3029,7 +3323,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Eddy Reynoso",
@@ -3049,7 +3344,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Eduardo Rivera",
@@ -3069,7 +3365,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Luis Rodriguez",
@@ -3089,7 +3386,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Pitterson Rosa",
@@ -3166,7 +3464,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ramesis Rosa",
@@ -3186,7 +3485,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Pedro Santos",
@@ -3277,7 +3577,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Kaisei Toumatsu",
@@ -3297,7 +3598,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ricardo Velez",
@@ -3317,7 +3619,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Nathan Alexander",
@@ -3337,7 +3640,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "A.J. Candelario",
@@ -3357,7 +3661,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Josimar Cousin",
@@ -3448,7 +3753,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Luis Leroy Cruz",
@@ -3468,7 +3774,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Carlos A. Francisco",
@@ -3488,7 +3795,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ashton Goudeau",
@@ -3508,7 +3816,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Patrick Halligan",
@@ -3571,7 +3880,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Hector Hernandez",
@@ -3591,7 +3901,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Josh James",
@@ -3682,7 +3993,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Keylan Killgore",
@@ -3702,7 +4014,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jorge L\u00f3pez",
@@ -3726,7 +4039,13 @@
           "pitches": 23,
           "ps_stuff": 108.9,
           "whiff": 9.1,
-          "xwoba": 0.398
+          "xwoba": 0.398,
+          "usage_l": 4.0,
+          "miss_l": null,
+          "pitches_l": 8,
+          "usage_r": 52.7,
+          "miss_r": null,
+          "pitches_r": 99
         },
         {
           "type": "FF",
@@ -3740,7 +4059,13 @@
           "pitches": 17,
           "ps_stuff": 81.2,
           "whiff": 10.0,
-          "xwoba": 0.15
+          "xwoba": 0.15,
+          "usage_l": 48.2,
+          "miss_l": null,
+          "pitches_l": 96,
+          "usage_r": 0.5,
+          "miss_r": null,
+          "pitches_r": 1
         },
         {
           "type": "SL",
@@ -3754,7 +4079,13 @@
           "pitches": 15,
           "ps_stuff": 100.4,
           "whiff": 25.0,
-          "xwoba": 0.313
+          "xwoba": 0.313,
+          "usage_l": 3.0,
+          "miss_l": null,
+          "pitches_l": 6,
+          "usage_r": 39.4,
+          "miss_r": null,
+          "pitches_r": 74
         },
         {
           "type": "KC",
@@ -3768,7 +4099,13 @@
           "pitches": 13,
           "ps_stuff": 84.7,
           "whiff": 25.0,
-          "xwoba": 0.36
+          "xwoba": 0.36,
+          "usage_l": 30.2,
+          "miss_l": null,
+          "pitches_l": 60,
+          "usage_r": 2.7,
+          "miss_r": null,
+          "pitches_r": 5
         },
         {
           "type": "CH",
@@ -3782,7 +4119,13 @@
           "pitches": 7,
           "ps_stuff": 92.6,
           "whiff": 20.0,
-          "xwoba": 0.377
+          "xwoba": 0.377,
+          "usage_l": 14.1,
+          "miss_l": null,
+          "pitches_l": 28,
+          "usage_r": 4.8,
+          "miss_r": null,
+          "pitches_r": 9
         }
       ],
       "usage_by_count": {
@@ -4181,7 +4524,68 @@
       ],
       "statcast_pitches": 387,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "SI",
+            "usage": 34.9,
+            "pitches": 37
+          },
+          {
+            "type": "FF",
+            "usage": 25.5,
+            "pitches": 27
+          },
+          {
+            "type": "SL",
+            "usage": 20.8,
+            "pitches": 22
+          },
+          {
+            "type": "KC",
+            "usage": 16.0,
+            "pitches": 17
+          },
+          {
+            "type": "CH",
+            "usage": 1.9,
+            "pitches": 2
+          },
+          {
+            "type": "PO",
+            "usage": 0.9,
+            "pitches": 1
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 27,
+            "usage": 23.1
+          },
+          {
+            "type": "KC",
+            "pitches": 26,
+            "usage": 22.2
+          },
+          {
+            "type": "SI",
+            "pitches": 24,
+            "usage": 20.5
+          },
+          {
+            "type": "FF",
+            "pitches": 22,
+            "usage": 18.8
+          },
+          {
+            "type": "CH",
+            "pitches": 18,
+            "usage": 15.4
+          }
+        ]
+      }
     },
     {
       "name": "Brian Moran",
@@ -4244,7 +4648,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Efrain Nieves",
@@ -4264,7 +4669,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Luis Qui\u00f1ones",
@@ -4355,7 +4761,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Michael Reed",
@@ -4375,7 +4782,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Alexis Rivero",
@@ -4395,7 +4803,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Matt Tenuta",
@@ -4415,7 +4824,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Chris Vallimont",
@@ -4506,7 +4916,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Lucas Vega",
@@ -4526,7 +4937,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Fernando Cabrera",
@@ -4546,7 +4958,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Freddie Cabrera",
@@ -4566,7 +4979,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Franny Cobos",
@@ -4586,7 +5000,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Harold Cortijo",
@@ -4606,7 +5021,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Juan Echevarria",
@@ -4626,7 +5042,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Eric Garcia",
@@ -4646,7 +5063,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jackson Goddard",
@@ -4666,7 +5084,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Brandon Kaminer",
@@ -4686,7 +5105,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Andrew Marrero",
@@ -4706,7 +5126,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Omar Melendez",
@@ -4726,7 +5147,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jalen Miller",
@@ -4746,7 +5168,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Orlando Ortiz-Mayr",
@@ -4766,7 +5189,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Noel Pinto",
@@ -4786,7 +5210,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Gabriel Rodriguez",
@@ -4806,7 +5231,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Bryant Salgado",
@@ -4826,7 +5252,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jose Sola",
@@ -4846,7 +5273,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Kazuto Taguchi",
@@ -4866,7 +5294,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Brady Tedesco",
@@ -4886,7 +5315,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Lenny Torres Jr.",
@@ -4963,7 +5393,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Eric Torres",
@@ -5040,7 +5471,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Julio Torres",
@@ -5060,7 +5492,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Minato Aoyama",
@@ -5080,7 +5513,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jarrod Cande",
@@ -5100,7 +5534,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Alexander Castro",
@@ -5120,7 +5555,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Yanzel Correa",
@@ -5140,7 +5576,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Sidney Duprey",
@@ -5160,7 +5597,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jay Groome",
@@ -5265,7 +5703,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ivan Houellemont",
@@ -5285,7 +5724,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Brandon Komar",
@@ -5376,7 +5816,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ethan Lindow",
@@ -5396,7 +5837,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Francisco Lopez-Soto",
@@ -5416,7 +5858,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Josh Mallitz",
@@ -5436,7 +5879,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Taishi Mameda",
@@ -5456,7 +5900,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Agnel Miranda",
@@ -5476,7 +5921,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ryan Munoz",
@@ -5496,7 +5942,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ruben Ramirez",
@@ -5516,7 +5963,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Jerryell Rivera",
@@ -5536,7 +5984,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Raul Rivera",
@@ -5556,7 +6005,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Aneuris Rosario",
@@ -5576,7 +6026,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ethan Routzahn",
@@ -5667,7 +6118,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Cole Stasio",
@@ -5744,7 +6196,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Ryan Velazquez",
@@ -5764,7 +6217,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     },
     {
       "name": "Sam Whiting",
@@ -5784,7 +6238,8 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Usage-by-count and platoon splits from MLB Statcast when tracked; overall arsenal from Prospect Savant / Statcast.",
+      "count_mix": {}
     }
   ],
   "updated": "2026-07-30T16:27:39Z",

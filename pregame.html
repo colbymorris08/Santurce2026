@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Rodriguez is fully wired (arsenal, movement, arm slot, usage vs hand, approach). Other LBPRC arms scaffold from Prospect Savant / pregame arsenal when tracked.</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Arm-slot &amp; heat-map boxes stay blank placeholders. Export selected arms to one multi-page PDF.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -109,6 +109,15 @@
       <div class="filter-field"><label data-i18n="search">Search</label>
         <input id="adv-p-search" placeholder="Pitcher" oninput="fillAdvancePitchers()">
       </div>
+    </div>
+    <div class="advance-export-bar">
+      <div class="advance-export-head">
+        <strong>Mass PDF export</strong>
+        <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
+        <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
+      </div>
+      <div id="adv-p-export-list" class="advance-export-list"></div>
+      <div class="note" style="margin:6px 0 0">Opens a print window — choose “Save as PDF”. One page per checked pitcher.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -302,12 +311,14 @@
 </select>
       </div>
       <div class="filter-field"><label data-i18n="player">Player</label><select id="spray-player" onchange="renderSpray()"></select></div>
-      <div class="filter-field"><label data-i18n="split">Split</label>
-        <select id="spray-split" onchange="renderSpray()">
-          <option value="nobody_on">Nobody on</option>
-          <option value="risp">RISP</option>
-          <option value="two_strikes">2 strikes</option>
-        </select>
+      <div class="filter-field spray-filter-field"><label>Spray filters (multi-select)</label>
+        <div class="spray-toggles" id="spray-toggles">
+          <button type="button" class="btn btn-sm" onclick="spraySelectAllFilters()">All</button>
+          <label class="advance-check"><input type="checkbox" id="spray-f-risp" checked onchange="onSprayFilterChange()"> RISP</label>
+          <label class="advance-check"><input type="checkbox" id="spray-f-nonrisp" checked onchange="onSprayFilterChange()"> non-RISP</label>
+          <label class="advance-check"><input type="checkbox" id="spray-f-2k" checked onchange="onSprayFilterChange()"> 2K</label>
+          <label class="advance-check"><input type="checkbox" id="spray-f-non2k" checked onchange="onSprayFilterChange()"> non-2K</label>
+        </div>
       </div>
     </div>
     <div id="spray-hit-legend" class="spray-hit-legend"></div>
@@ -417,7 +428,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san6';
+const ASSET_V = 'san9';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1098,12 +1109,87 @@ function onSprayTeamChange(){
   sel.dataset.ready='1';
   renderSpray();
 }
+function getSprayFilterState(prefix){
+  // prefix: '' → spray-f-*; 'adv-h-' → adv-h-spray-f-*
+  const id = (s)=> document.getElementById((prefix||'') + s);
+  return {
+    risp: !!(id('spray-f-risp')?.checked),
+    nonRisp: !!(id('spray-f-nonrisp')?.checked),
+    k2: !!(id('spray-f-2k')?.checked),
+    non2k: !!(id('spray-f-non2k')?.checked),
+  };
+}
+function spraySelectAllFilters(prefix){
+  const p = prefix || '';
+  ['spray-f-risp','spray-f-nonrisp','spray-f-2k','spray-f-non2k'].forEach(id=>{
+    const el = document.getElementById(p + id);
+    if(el) el.checked = true;
+  });
+  if(p) renderAdvanceHitters(); else renderSpray();
+}
+function onSprayFilterChange(prefix){
+  const st = getSprayFilterState(prefix||'');
+  // If a whole dimension is unchecked, treat as "show none" — nudge user by auto-enabling both
+  if(!st.risp && !st.nonRisp){
+    const a=document.getElementById((prefix||'')+'spray-f-risp');
+    const b=document.getElementById((prefix||'')+'spray-f-nonrisp');
+    if(a) a.checked = true; if(b) b.checked = true;
+  }
+  if(!st.k2 && !st.non2k){
+    const a=document.getElementById((prefix||'')+'spray-f-2k');
+    const b=document.getElementById((prefix||'')+'spray-f-non2k');
+    if(a) a.checked = true; if(b) b.checked = true;
+  }
+  if(prefix) renderAdvanceHitters(); else renderSpray();
+}
+function sprayFilterLabel(st){
+  const r = (st.risp && st.nonRisp) ? 'all runners' : (st.risp ? 'RISP' : (st.nonRisp ? 'non-RISP' : '—'));
+  const k = (st.k2 && st.non2k) ? 'all counts' : (st.k2 ? '2K' : (st.non2k ? 'non-2K' : '—'));
+  return `${r} · ${k}`;
+}
+function collectSprayPoints(player){
+  if(!player) return [];
+  if(Array.isArray(player.points) && player.points.length) return player.points;
+  if(Array.isArray(player.spray_points) && player.spray_points.length) return player.spray_points;
+  const splits = player.splits || player.spray_splits || [];
+  const all = splits.find(s=>s.split==='all');
+  if(all?.points?.length) return all.points;
+  // fallback: merge unique from legacy splits
+  const seen = new Set(); const out=[];
+  splits.forEach(sp=>{
+    (sp.points||[]).forEach(pt=>{
+      const k = [pt.x_ft,pt.y_ft,pt.hit,pt.event,pt.risp,pt.two_strikes].join('|');
+      if(seen.has(k)) return; seen.add(k); out.push(pt);
+    });
+  });
+  return out;
+}
+function filterSprayPoints(points, st){
+  return (points||[]).filter(pt=>{
+    const isRisp = !!(pt.risp);
+    const is2k = !!(pt.two_strikes);
+    const rispOk = (st.risp && isRisp) || (st.nonRisp && !isRisp);
+    const kOk = (st.k2 && is2k) || (st.non2k && !is2k);
+    return rispOk && kOk;
+  });
+}
+function sprayTogglesHtml(prefix, onchange){
+  const p = prefix || '';
+  const oc = onchange || "onSprayFilterChange()";
+  return `<div class="spray-toggles">
+    <button type="button" class="btn btn-sm" onclick="spraySelectAllFilters('${p}')">All</button>
+    <label class="advance-check"><input type="checkbox" id="${p}spray-f-risp" checked onchange="${oc}"> RISP</label>
+    <label class="advance-check"><input type="checkbox" id="${p}spray-f-nonrisp" checked onchange="${oc}"> non-RISP</label>
+    <label class="advance-check"><input type="checkbox" id="${p}spray-f-2k" checked onchange="${oc}"> 2K</label>
+    <label class="advance-check"><input type="checkbox" id="${p}spray-f-non2k" checked onchange="${oc}"> non-2K</label>
+  </div>`;
+}
 function renderSpray(){
   const spray=CACHE.spray||{};
   const src=document.getElementById('spray-source')?.value || 'synergy';
   const noteEl=document.getElementById('spray-note');
   if(src==='synergy'){
-    noteEl.textContent = spray.synergy_note || 'Synergy LBPRC spray from landing locations (home→CF = +Y ft, toward RF = +X ft).';
+    noteEl.textContent = spray.synergy_note || 'Synergy LBPRC spray. Multi-select: RISP/non-RISP and 2K/non-2K are independent.';
   } else {
     noteEl.textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
   }
@@ -1117,17 +1203,21 @@ function renderSpray(){
     sel.dataset.ready='1';
   }
   const idx=Number(sel.value||0);
-  const split=document.getElementById('spray-split').value;
+  const st = getSprayFilterState('');
   const grid=document.getElementById('spray-mlb');
   if(!players.length){ grid.innerHTML='<div class="note">No spray points for this source / team filter.</div>'; }
   else {
     const player=players[idx]||players[0];
-    const s=(player.splits||[]).find(x=>x.split===split) || player.splits?.[0];
+    let pts = collectSprayPoints(player);
+    // MLB source may lack flags — show all points when flags missing
+    const hasFlags = pts.some(p=> 'risp' in p || 'two_strikes' in p);
+    if(hasFlags) pts = filterSprayPoints(pts, st);
     const f=fpsFor(player.player_id);
-    grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${s?.split||''} · n=${s?.n||0}</h3>
+    grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${sprayFilterLabel(st)} · n=${pts.length}</h3>
       <canvas id="spray-cv"></canvas>
-      <div class="note" style="margin-top:8px">${player.source||''}${f.fps!=null?` · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}`:''}</div></div>`;
-    requestAnimationFrame(()=>drawSpray(document.getElementById('spray-cv'), s?.points||[]));
+      <div class="note" style="margin-top:8px">${player.source||''}${f.fps!=null?` · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}`:''}
+        ${hasFlags?'':' · (no runner/count flags on this source — showing all points)'}</div></div>`;
+    requestAnimationFrame(()=>drawSpray(document.getElementById('spray-cv'), pts));
   }
   const avgs=spray.aaa_averages||{};
   const team=document.getElementById('spray-team').value;
@@ -1209,18 +1299,19 @@ function advanceMovementSvg(arsenal, throws='R'){
   return s+'</svg>';
 }
 function advanceUsageBars(arsenal, side){
-  // side: 'l' | 'r'
+  // side: 'l' | 'r' — leave blank when hand-split fields missing (do not mirror overall)
   const keyU = side==='l' ? 'usage_l' : 'usage_r';
   const keyM = side==='l' ? 'miss_l' : 'miss_r';
   const keyK = side==='l' ? 'k_l' : 'k_r';
   const rows=[...(arsenal||[])].sort((a,b)=>(Number(b[keyU])||0)-(Number(a[keyU])||0));
   return rows.map(a=>{
-    const u=Number(a[keyU])||0;
+    const hasU = a[keyU]!=null && a[keyU]!=='';
+    const u = hasU ? Number(a[keyU]) : 0;
     const color=advancePitchColor(a.code);
     return `<div class="advance-usage-row">
       <span><span class="advance-dot" style="background:${color}"></span> <strong>${a.code}</strong></span>
-      <div class="advance-usage-bar"><span style="width:${Math.min(100,u)}%;background:${color}"></span></div>
-      <span class="num">${u.toFixed(0)}%</span>
+      <div class="advance-usage-bar"><span style="width:${hasU?Math.min(100,u):0}%;background:${color}"></span></div>
+      <span class="num">${hasU?u.toFixed(0)+'%':'—'}</span>
       <span class="num">${a[keyM]!=null?Number(a[keyM]).toFixed(0):'—'}</span>
       <span class="num">${a[keyK]!=null?Number(a[keyK]).toFixed(0):'—'}</span>
     </div>`;
@@ -1256,6 +1347,29 @@ function advancePitcherIndex(){
   }
   return [...byId.values()].sort((a,b)=> (a.name||'').localeCompare(b.name||''));
 }
+
+function seasonCoverageHtml(kind){
+  // kind: 'hitter' | 'pitcher'
+  if(kind==='hitter'){
+    const d = CACHE.advanceHitters || {};
+    const sm = d.season_meta || {};
+    const sample = d.sample || {};
+    const cur = (sm.current_pull && sm.current_pull.season_ids) || (d.season_ids) || (d.season_id?[d.season_id]:[]);
+    const years = sm.target_years || sample.season_years || [2025,2026];
+    const names = (sm.lbprc || []).map(s=>s.name || s.id).filter(Boolean);
+    const liveYears = names.length ? names.join(' · ') : (cur.length ? `season_id ${cur.join(', ')}` : 'single latest LBPRC season (pre multi-year pull)');
+    return `<div class="season-banner"><strong>Synergy seasons:</strong> live file → ${liveYears}.
+      Target coverage → <strong>${years.join(' + ')}</strong>.
+      Sample → ${sample.pitches??'—'} pitches · ${sample.pa??'—'} PA · ${sample.hitters??'—'} hitters
+      (max_events/team ${sample.max_events_per_team??d.max_events_per_team??'—'}).</div>`;
+  }
+  const rod = CACHE.advanceRodriguez || {};
+  const sm = rod.season_meta || {};
+  const live = rod.synergy_live || {};
+  return `<div class="season-banner"><strong>Pitcher Synergy:</strong> Rodriguez live season_id ${live.season_id||'—'} · seeded ${Object.keys(rod.seasons||{}).join(', ')||'—'}.
+    Target LMB/LBPRC years → <strong>${(sm.target_years||[2025,2026]).join(' + ')}</strong>.
+    Count mixes: Synergy when pitcher-attributed, else Statcast.</div>`;
+}
 function fillAdvancePitchers(){
   const teamSel = document.getElementById('adv-p-team');
   const pitcherSel = document.getElementById('adv-p-pitcher');
@@ -1271,70 +1385,93 @@ function fillAdvancePitchers(){
   const filtered = rows.filter(r=>{
     if(team!=='all' && r.team!==team) return false;
     if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
-    // Prefer arms with a full packet or Prospect Savant arsenal; still list empty so dropdown is complete.
     return true;
   }).filter(r=> r.packet==='full' || r.has_arsenal || !q);
-  // When not searching, show full-packet + arsenal-tracked first; still include empty if team filtered? Prefer tracked.
   const list = filtered.filter(r=> r.packet==='full' || r.has_arsenal);
   const prev = pitcherSel.value;
   pitcherSel.innerHTML = list.map(r=>{
-    const tag = r.packet==='full' ? ' · full packet' : ' · PS scaffold';
+    const tag = r.packet==='full' ? ' · full packet' : '';
     return `<option value="${r.player_id}">${r.name}${r.throws?' ('+r.throws+'HP)':''} · ${r.team||''}${tag}</option>`;
   }).join('') || '<option value="">—</option>';
   if([...pitcherSel.options].some(o=>o.value===prev)) pitcherSel.value = prev;
   else if([...pitcherSel.options].some(o=>o.value===String(RODRIGUEZ_MLB_ID))) pitcherSel.value = String(RODRIGUEZ_MLB_ID);
+  fillAdvanceExportList(list);
   renderPitcherAdvance();
 }
+function fillAdvanceExportList(list){
+  const el = document.getElementById('adv-p-export-list');
+  if(!el) return;
+  const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
+  el.innerHTML = (list||[]).map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${r.name}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
+    || '<span class="note">No pitchers in filter.</span>';
+  const all = document.getElementById('adv-p-select-all');
+  if(all) all.checked = false;
+}
+function toggleAdvanceExportAll(on){
+  document.querySelectorAll('#adv-p-export-list input[type=checkbox]').forEach(cb=>{ cb.checked = !!on; });
+}
+function countMixPairs(rows){
+  return (rows||[]).slice(0,5).map(r=>{
+    const code = r.type || r.code || r[0];
+    const u = r.usage != null ? r.usage : r[1];
+    return [code, u!=null ? Number(u) : null];
+  }).filter(x=>x[0]);
+}
 function scaffoldPitcherPacket(row){
+  const platoon = row.platoon || {};
+  const byL = Object.fromEntries((platoon.vs_LHB||[]).map(p=>[String(p.type||'').toUpperCase(), p]));
+  const byR = Object.fromEntries((platoon.vs_RHB||[]).map(p=>[String(p.type||'').toUpperCase(), p]));
+  const hasPlatoon = !!(byL && (Object.keys(byL).length || Object.keys(byR).length));
   const arsenal = (row.arsenal||[]).map(a=>{
     const code = a.type || a.code || '?';
     const hb = a.hb_pitcher != null ? a.hb_pitcher : a.hb;
     const whiff = a.whiff != null ? Number(a.whiff) : null;
     const usage = a.usage != null ? Number(a.usage) : null;
+    const L = byL[String(code).toUpperCase()];
+    const R = byR[String(code).toUpperCase()];
+    const usage_l = a.usage_l != null ? Number(a.usage_l) : (L?.usage != null ? Number(L.usage) : null);
+    const usage_r = a.usage_r != null ? Number(a.usage_r) : (R?.usage != null ? Number(R.usage) : null);
+    const miss_l = a.miss_l != null ? Number(a.miss_l) : (L?.whiff != null ? Number(L.whiff) : null);
+    const miss_r = a.miss_r != null ? Number(a.miss_r) : (R?.whiff != null ? Number(R.whiff) : null);
     return {
-      code,
-      name: a.name || code,
-      usage,
-      velo: a.velo,
-      ivb: a.ivb,
-      hb,
-      spin: a.spin,
-      miss_l: whiff, miss_r: whiff,
-      k_l: null, k_r: null,
+      code, name: a.name || code, usage, velo: a.velo, ivb: a.ivb, hb, spin: a.spin, whiff,
+      miss_l, miss_r, k_l: a.k_l ?? null, k_r: a.k_r ?? null,
       strike: null, iz: null, gb: null,
-      usage_l: usage, usage_r: usage,
-      ps_stuff: a.ps_stuff,
+      usage_l, usage_r, ps_stuff: a.ps_stuff,
       desc: `${a.name||code}${a.ps_stuff!=null?` · Stuff+ ${a.ps_stuff}`:''}${whiff!=null?` · whiff ${whiff}%`:''}${a.pitches!=null?` · n=${a.pitches}`:''}`,
     };
   }).sort((a,b)=>(Number(b.usage)||0)-(Number(a.usage)||0));
-  const top = arsenal.slice(0,3).map(a=>a.code).join(' / ') || '—';
+  const cm = row.count_mix || {};
+  const ubc = row.usage_by_count || {};
+  // Prefer count_mix; else derive 0-0 / 2-strike from usage_by_count
+  let zero = cm['0-0'] || ubc['0-0'] || [];
+  let two = cm['2_strikes'];
+  if(!two){
+    const bag={}; let n=0;
+    ['0-2','1-2','2-2','3-2'].forEach(ck=>{(ubc[ck]||[]).forEach(p=>{
+      const c=String(p.type||'').toUpperCase(); if(!c) return;
+      bag[c]=(bag[c]||0)+Number(p.pitches||0); n+=Number(p.pitches||0);
+    });});
+    if(n) two = Object.entries(bag).map(([type,pitches])=>({type,pitches,usage:Math.round(1000*pitches/n)/10})).sort((a,b)=>b.pitches-a.pitches);
+  }
   const mlbId = row.player_id;
   return {
-    name: row.name,
-    mlb_id: mlbId,
-    throws: row.throws || 'R',
-    bio: `MLB ID ${mlbId}${row.level_hint?` · ${row.level_hint}`:''}${row.mlb_debut?` · MLB debut ${row.mlb_debut}`:''}`,
-    subtitle: `${row.throws||'?'}HP · ${row.team||'—'} · Prospect Savant scaffold`,
-    source: row.ps_source || row.note || 'Prospect Savant / pregame_pitcher_arsenals.json',
-    overview: [
-      `Scaffolded from Prospect Savant arsenal (${arsenal.length} pitch types tracked).`,
-      `Primary mix: ${top}.`,
-      'Full Synergy advance packet is wired for Rodriguez; other arms show movement + usage when available.',
-    ],
-    approach: [
-      'Approach / count plan not yet automated for this arm — use Pitch Usage / Platoon tabs for count & hand splits when Statcast-tracked.',
-    ],
+    name: row.name, mlb_id: mlbId, throws: row.throws || 'R',
+    bio: `${row.throws||'?'}HP · ${row.team||'—'}`,
+    subtitle: `${row.throws||'?'}HP · ${row.team||'—'}`,
     arsenal,
-    seasons: {},
-    totals: {},
     short_vs_rhh: {
-      overall: arsenal.slice(0,3).map(a=>[a.code, a.usage!=null?Number(a.usage).toFixed(0):'—']),
+      overall: arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]),
+      '0-0': countMixPairs(zero),
+      '2_strikes': countMixPairs(two||[]),
     },
-    delivery: { label: '—', note: 'Arm-slot still not available for scaffolded arms.' },
-    delivery_note: 'Arm-slot photo only for Rodriguez packet.',
+    usage_vs_hand: hasPlatoon ? {
+      vs_LHH: {n: (platoon.vs_LHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
+      vs_RHH: {n: (platoon.vs_RHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
+    } : {},
+    _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
     arm_slot_image: null,
     headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${mlbId}/headshot/67/current` : null,
-    scout_notes: 'Scaffold — fill Synergy packet when available.',
     _scaffold: true,
   };
 }
@@ -1346,104 +1483,77 @@ function resolvePitcherPacket(playerId){
   if(row && (row.arsenal||[]).length) return scaffoldPitcherPacket(row);
   return null;
 }
-function renderPitcherAdvance(){
-  const el = document.getElementById('advance-pitcher');
-  if(!el) return;
-  const id = document.getElementById('adv-p-pitcher')?.value;
-  const p = resolvePitcherPacket(id);
-  if(!p){
-    el.innerHTML = '<div class="note">Select a pitcher with a full packet (Rodriguez) or Prospect Savant arsenal scaffold.</div>';
-    return;
-  }
-  const seasons=p.seasons||{};
-  const chip=(s)=> s?`<div class="advance-chip"><strong>${s.label||''}</strong><div>${s.w}-${s.l} · ${s.era} ERA · ${s.g} G / ${s.gs} GS · ${s.ip} IP · ${s.so} K / ${s.bb} BB · ${s.whip} WHIP${s.h!=null?` · ${s.h} H / ${s.hr} HR`:''}</div></div>`:'';
+function fmtSigned(v){
+  if(v==null || v==='') return '—';
+  const n=Number(v); if(Number.isNaN(n)) return '—';
+  return (n>0?'+':'')+n;
+}
+function shortColHtml(arr){
+  return (arr||[]).map(pair=>{
+    const c=pair[0], u=pair[1];
+    const color=advancePitchColor(c);
+    const lab = u==null?'—':`${Number(u).toFixed(0)}%`;
+    return `<div><span class="advance-dot" style="background:${color}"></span> ${c} <strong>${lab}</strong></div>`;
+  }).join('') || '—';
+}
+function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
+  if(!p) return '';
   const arsenal=p.arsenal||[];
-  const mlbId=p.mlb_id||id;
+  const mlbId=p.mlb_id;
   const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${mlbId}/headshot/67/current`:'');
   const headLocal=p.headshot_local || 'assets/advance/rodriguez_headshot.png';
   const armImg=p.arm_slot_image || null;
-  const del=p.delivery||{};
-  const arRows=arsenal.map(a=>{
-    const c=advancePitchColor(a.code);
-    const ivb=a.ivb, hb=a.hb;
-    return `<tr>
-    <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${a.code}</td>
-    <td class="num">${a.usage!=null?a.usage+'%':'—'}</td><td class="num">${a.velo??'—'}</td>
-    <td class="num">${ivb!=null?((ivb>0?'+':'')+ivb):'—'}</td><td class="num">${hb!=null?((hb>0?'+':'')+hb):'—'}</td>
-    <td class="num">${a.spin??'—'}</td>
-  </tr>`;
-  }).join('');
-  const stuffRows=arsenal.map(a=>{
-    const c=advancePitchColor(a.code);
-    const miss=a.miss_l!=null&&a.miss_r!=null?(((Number(a.miss_l)+Number(a.miss_r))/2).toFixed(0))
-      :(a.miss_l!=null?Number(a.miss_l).toFixed(0):(a.whiff!=null?Number(a.whiff).toFixed(0):'—'));
-    const kk=a.k_l!=null&&a.k_r!=null?(((Number(a.k_l)+Number(a.k_r))/2).toFixed(0)):'—';
-    return `<tr>
-    <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${a.code}</td>
-    <td class="num">${a.velo??'—'}</td>
-    <td class="num">${a.ivb!=null?(a.ivb>0?'+':'')+a.ivb:'—'}</td>
-    <td class="num">${a.hb!=null?(a.hb>0?'+':'')+a.hb:'—'}</td>
-    <td class="num">${miss}</td><td class="num">${kk}</td>
-    <td class="num">${a.strike??'—'}</td><td class="num">${a.iz??'—'}</td><td class="num">${a.gb??(a.ps_stuff??'—')}</td>
-  </tr>`;
-  }).join('');
-  const short=p.short_vs_rhh||{};
-  const shortCol=(arr)=> (arr||[]).map(pair=>{
-    const c=pair[0], u=pair[1];
-    const color=advancePitchColor(c);
-    return `<div><span class="advance-dot" style="background:${color}"></span> ${c} <strong>${u}%</strong></div>`;
-  }).join('') || '—';
-  const live=p.synergy_live||{};
-  const tot=p.totals||{};
+  const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
   const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
-  const hasDel = del.rel_x_in!=null || del.rel_z_in!=null || armImg;
-  const relX=del.rel_x_in!=null?del.rel_x_in:(hasDel?-15:'—');
-  const relZ=del.rel_z_in!=null?del.rel_z_in:(hasDel?74:'—');
-  const armDeg=del.arm_angle_approx_deg!=null?del.arm_angle_approx_deg:(hasDel?11.5:null);
-  const slotLabel=del.label||(hasDel?'High three-quarters':'—');
-  const seasonChips = Object.values(seasons).map(chip).join('');
-  const armBlock = armImg ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} full delivery / arm slot" loading="lazy"/>` :
-    `<div class="advance-placeholder" style="min-height:100px;margin:0">Arm-slot / delivery photo — available on Rodriguez packet</div>`;
-  const armNote = armDeg!=null
-    ? `≈${armDeg}° from vertical (from RelX/RelZ). ${(del.note||p.delivery_note||'')}`
-    : (del.note||p.delivery_note||'Delivery metrics not in scaffold.');
-
-  el.innerHTML = `
+  const arRows=arsenal.map(a=>{
+    const c=advancePitchColor(a.code);
+    return `<tr>
+      <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${a.code}</td>
+      <td class="num">${a.usage!=null?a.usage+'%':'—'}</td>
+      <td class="num">${a.usage_l!=null?a.usage_l+'%':'—'}</td>
+      <td class="num">${a.usage_r!=null?a.usage_r+'%':'—'}</td>
+      <td class="num">${a.velo??'—'}</td>
+      <td class="num">${fmtSigned(a.ivb)}</td>
+      <td class="num">${fmtSigned(a.hb)}</td>
+      <td class="num">${a.spin??'—'}</td>
+      <td class="num">${a.whiff!=null?Number(a.whiff).toFixed(0)+'%':(a.miss_l!=null||a.miss_r!=null?((((Number(a.miss_l)||0)+(Number(a.miss_r)||0))/((a.miss_l!=null?1:0)+(a.miss_r!=null?1:0))).toFixed(0)+'%'):'—')}</td>
+    </tr>`;
+  }).join('');
+  const short=p.short_vs_rhh||{};
+  const armBlock = armImg
+    ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} arm slot" loading="lazy"/>`
+    : `<div class="advance-placeholder advance-placeholder-tall">Arm slot</div>`;
+  const pageClass = printPage ? 'advance-print-page' : '';
+  return `<div class="advance-sheet ${pageClass}">
   <div class="advance-hero">
     <div class="advance-hero-id">
-      <img class="advance-headshot" src="${headRemote}" alt="${p.name} headshot"
+      <img class="advance-headshot" src="${headRemote}" alt="${p.name}"
            onerror="this.onerror=null;this.src='${headLocal}'"/>
       <div class="advance-hero-meta">
         <h2>${p.name}</h2>
-        <div class="note" style="margin:4px 0 0">${p.subtitle||''}${p._scaffold?' · scaffold':''}</div>
-        <div class="note">${p.bio||''}</div>
+        <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
       </div>
     </div>
-    <div class="advance-chips">${seasonChips || '<div class="advance-chip"><strong>Source</strong><div>'+(p.source||'Prospect Savant')+'</div></div>'}</div>
   </div>
-
-  <div class="advance-layout">
+  <div class="advance-layout advance-layout-pitcher">
     <div class="advance-col">
-      <div class="advance-card">
-        <div class="section-label">Overview</div>
-        <ul class="advance-list">${(p.overview||[]).map(x=>`<li>${x}</li>`).join('')}</ul>
-      </div>
       <div class="advance-card">
         <div class="section-label">Arsenal snapshot</div>
         <div class="table-wrap"><table><thead><tr>
-          <th>Pitch</th><th class="num">Use%</th><th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th>
-        </tr></thead><tbody>${arRows||'<tr><td colspan="6">No arsenal rows</td></tr>'}</tbody></table></div>
+          <th>Pitch</th><th class="num">Use%</th><th class="num">vs L</th><th class="num">vs R</th>
+          <th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th><th class="num">Whiff</th>
+        </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
+        ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Statcast platoon splits exist.</div>'}
       </div>
       <div class="advance-card">
         <div class="section-label">Pitch descriptions</div>
         <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
       </div>
     </div>
-
     <div class="advance-col">
       <div class="advance-card">
-        <div class="section-label">Movement plot · HB × IVB</div>
+        <div class="section-label">Movement · HB × IVB</div>
         <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R')}</div>
       </div>
       <div class="advance-card">
@@ -1464,51 +1574,60 @@ function renderPitcherAdvance(){
             ${advanceUsageBars(arsenal,'r')}
           </div>
         </div>
-        ${p._scaffold?'<div class="note" style="margin-top:6px">Scaffold: usage/miss mirrored overall (no hand split in PS cache).</div>':''}
       </div>
     </div>
-
     <div class="advance-col">
       <div class="advance-card">
-        <div class="section-label">Delivery / arm slot</div>
-        <div class="advance-arm">
-          ${armBlock}
-          <div class="advance-arm-metrics">
-            <div class="advance-arm-metric"><span class="k">Slot</span><span class="v">${slotLabel}</span></div>
-            <div class="advance-arm-metric"><span class="k">RelX</span><span class="v">${relX}${relX!=='—'?'&Prime;':''}</span></div>
-            <div class="advance-arm-metric"><span class="k">RelZ</span><span class="v">${relZ}${relZ!=='—'?'&Prime;':''}</span></div>
-          </div>
-          <div class="note" style="margin:0">${armNote}</div>
-        </div>
+        <div class="section-label">Arm slot</div>
+        <div class="advance-arm">${armBlock}</div>
       </div>
       <div class="advance-card">
-        <div class="section-label">Stuff + performance</div>
-        <div class="table-wrap"><table><thead><tr>
-          <th>Pitch</th><th class="num">V</th><th class="num">IVB</th><th class="num">HB</th>
-          <th class="num">Miss</th><th class="num">K%</th><th class="num">Str%</th><th class="num">Iz%</th><th class="num">${p._scaffold?'Stuff+':'GB%'}</th>
-        </tr></thead><tbody>${stuffRows}</tbody></table></div>
-        <div class="note" style="margin-top:6px">TOTAL Str ${tot.strike_pct??'—'}% · Iz ${tot.iz_pct??'—'}% · K ${tot.k_pct??'—'}% · BB ${tot.bb_pct??'—'}% · Miss ${tot.miss_pct??'—'}% · GB ${tot.gb_pct??'—'}% · EV ${tot.ev??'—'}</div>
-      </div>
-      <div class="advance-card">
-        <div class="section-label">Approach notes</div>
-        <ol class="advance-list">${(p.approach||[]).map(x=>`<li>${x}</li>`).join('')}</ol>
+        <div class="section-label">Heat map</div>
+        <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
       </div>
     </div>
   </div>
-
-  <div class="section-label" style="margin-top:6px">Short advance · vs RHH</div>
+  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
   <div class="advance-short">
-    <div><strong>Overall</strong>${shortCol(short.overall)}</div>
-    <div><strong>0–0</strong>${shortCol(short['0-0'])}</div>
-    <div><strong>2 strikes</strong>${shortCol(short['2_strikes'])}</div>
+    <div><strong>Overall</strong>${shortColHtml(short.overall)}</div>
+    <div><strong>0–0</strong>${shortColHtml(short['0-0'])}</div>
+    <div><strong>2 strikes</strong>${shortColHtml(short['2_strikes'])}</div>
   </div>
-
-  <div class="advance-placeholder" style="margin-top:12px">HEAT MAP — placeholder (paste square heat map / zone chart when available)</div>
-  <div class="section-label">Scout notes — pickoffs / slide step / tips</div>
-  <div class="note">${p.scout_notes || 'Fill-in on PDF; not yet automated from Synergy.'}</div>
-  <div class="note" style="margin-top:10px">${p.source||''}${live.ok?` · Synergy live sample ${live.sample_pitches||0} CHI pitches`:''}
-    · Headshot MLB ID ${mlbId} · ${p._scaffold?'Scaffold movement from Prospect Savant':'Movement from advance arsenal HB/IVB · full-body arm-slot still'}.</div>`;
+</div>`;
 }
+function renderPitcherAdvance(){
+  const el = document.getElementById('advance-pitcher');
+  if(!el) return;
+  const id = document.getElementById('adv-p-pitcher')?.value;
+  const p = resolvePitcherPacket(id);
+  if(!p){
+    el.innerHTML = '<div class="note">Select a pitcher with arsenal data.</div>';
+    return;
+  }
+  el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
+}
+function exportAdvancePdf(){
+  const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
+  const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
+  const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
+  if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
+  const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
+  const body = sheets.map(p=>buildPitcherAdvanceSheetHtml(p,{printPage:true})).join('\n');
+  const w = window.open('', '_blank');
+  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return; }
+  w.document.write(`<!doctype html><html><head><title>Pitcher Advance Export</title>${css}
+    <style>
+      body{background:#fff;padding:12px;font-family:inherit}
+      .advance-print-page{page-break-after:always;break-after:page;margin-bottom:24px}
+      .advance-print-page:last-child{page-break-after:auto}
+      .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
+      @media print { .advance-print-page{page-break-after:always} }
+    </style></head><body>${body}
+    <script>window.onload=()=>setTimeout(()=>window.print(),400);<\/script>
+    </body></html>`);
+  w.document.close();
+}
+
 function rateOrNull(num, den){
   if(den==null || den===0 || num==null) return null;
   return Math.round((num/den)*1000)/10;
@@ -1622,6 +1741,38 @@ function fillAdvanceHitters(){
   if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
   renderAdvanceHitters();
 }
+function hitterHeadshotUrl(h){
+  if(h?.headshot_url) return h.headshot_url;
+  const id = h?.mlb_id || h?.player_id || h?.mlbam;
+  if(id) return `https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${id}/headshot/67/current`;
+  return '';
+}
+function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
+  const data = (rows||[]).filter(r=>r && r[metricKey]!=null).slice(0,8);
+  if(!data.length) return `<div class="note">${title}: no sample.</div>`;
+  const vals = data.map(r=>Number(r[metricKey]));
+  const max = Math.max(...vals.map(v=>Math.abs(v)), 0.001);
+  return `<div class="advance-card">
+    <div class="section-label">${title}</div>
+    <div class="hitter-bars">${data.map(r=>{
+      const v = Number(r[metricKey]);
+      const w = Math.max(4, Math.round(100*Math.abs(v)/max));
+      const lab = ops ? Number(v).toFixed(3) : (pct ? Number(v).toFixed(1)+'%' : String(v));
+      return `<div class="hitter-bar-row">
+        <span class="hitter-bar-lab">${r.pitch_type}</span>
+        <div class="hitter-bar-track"><span style="width:${w}%"></span></div>
+        <span class="num">${lab}</span>
+      </div>`;
+    }).join('')}</div>
+  </div>`;
+}
+function mergeHitterSprayPoints(hitters){
+  const out=[];
+  (hitters||[]).forEach(h=>{
+    collectSprayPoints(h).forEach(pt=> out.push({...pt, _name:h.name}));
+  });
+  return out;
+}
 function renderAdvanceHitters(){
   const el=document.getElementById('advance-hitters');
   const data=CACHE.advanceHitters;
@@ -1636,6 +1787,7 @@ function renderAdvanceHitters(){
     return true;
   });
   let h;
+  let spraySourceHitters = [];
   if(id==='__all__'){
     if(team==='all' && !q && data.select_all){
       h = data.select_all;
@@ -1643,17 +1795,60 @@ function renderAdvanceHitters(){
       const label = team==='all' ? `Select All (${filtered.length} hitters)` : `Select All · ${team} (${filtered.length})`;
       h = aggregateHitters(filtered, label);
     }
+    spraySourceHitters = filtered;
   } else {
     h = (data.hitters||[]).find(x=>x.synergy_id===id);
+    spraySourceHitters = h ? [h] : [];
   }
   if(!h){ el.innerHTML='<div class="note">No hitter selected.</div>'; return; }
   const o=h.overall||{};
-  el.innerHTML = `
-  <div class="note" style="margin-bottom:8px"><strong>${h.name}</strong>${h.team?` · ${h.team}`:''}
-    · pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · bunts/162 ${o.bunts_per_162??'—'}
-    · SB from 1B/2B/3B per 162: ${o.sb_1b_per_162??'—'} / ${o.sb_2b_per_162??'—'} / ${o.sb_3b_per_162??'—'}</div>
+  const head = id==='__all__' ? '' : hitterHeadshotUrl(h);
+  const headHtml = id==='__all__'
+    ? `<div class="advance-headshot advance-headshot-placeholder">ALL</div>`
+    : (head
+        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.classList.add('advance-headshot-missing');this.src='';this.alt='';this.outerHTML='<div class=\\'advance-headshot advance-headshot-placeholder\\'>${(h.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2)}</div>'"/>`
+        : `<div class="advance-headshot advance-headshot-placeholder">${(h.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2)}</div>`);
+
+  // Preserve spray toggle state across re-render
+  const prev = {
+    risp: document.getElementById('adv-h-spray-f-risp')?.checked,
+    nonRisp: document.getElementById('adv-h-spray-f-nonrisp')?.checked,
+    k2: document.getElementById('adv-h-spray-f-2k')?.checked,
+    non2k: document.getElementById('adv-h-spray-f-non2k')?.checked,
+  };
+
+  el.innerHTML = seasonCoverageHtml('hitter') + `
+  <div class="advance-hero">
+    <div class="advance-hero-id">
+      ${headHtml}
+      <div class="advance-hero-meta">
+        <h2>${h.name}</h2>
+        <div class="note" style="margin:4px 0 0">${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'}
+          · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hitter-charts-grid">
+    ${metricBarChartHtml(h.by_pitch_type, 'first_pitch_swing_pct', 'FP swing% by pitch')}
+    ${metricBarChartHtml(h.by_pitch_type, 'whiff_pct', 'Whiff% by pitch')}
+    ${metricBarChartHtml(h.by_pitch_type, 'ops', 'OPS by pitch', {pct:false, ops:true})}
+    ${metricBarChartHtml(h.risp_by_pitch_type, 'first_pitch_swing_pct', 'RISP · FP swing%')}
+    ${metricBarChartHtml(h.risp_by_pitch_type, 'whiff_pct', 'RISP · Whiff%')}
+    ${metricBarChartHtml(h.risp_by_pitch_type, 'ops', 'RISP · OPS', {pct:false, ops:true})}
+  </div>
+
   ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type')}
   ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type')}
+
+  <div class="section-label">Spray chart · multi-select filters</div>
+  <div class="note" style="margin-bottom:6px">RISP / non-RISP and 2K / non-2K are independent. Check both in a dimension = all. Combines with hitter dropdown / Select All.</div>
+  ${sprayTogglesHtml('adv-h-', "onSprayFilterChange('adv-h-')")}
+  <div class="spray-card" style="margin-top:8px">
+    <h3 id="adv-h-spray-title">Spray</h3>
+    <canvas id="adv-h-spray-cv"></canvas>
+  </div>
+
   <div class="section-label">Bunts &amp; stolen bases (per 162)</div>
   <div class="table-wrap"><table><thead><tr>
     <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
@@ -1662,8 +1857,33 @@ function renderAdvanceHitters(){
     <tr><td>SB from 1B (steal of 2nd)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
     <tr><td>SB from 2B (steal of 3rd)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
     <tr><td>SB from 3B (steal of home)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
-  </tbody></table></div>
-  <div class="note" style="margin-top:8px">${(data.notes||[]).join(' ')}</div>`;
+  </tbody></table></div>`;
+
+  // restore toggles
+  const apply = (id, val, def=true)=>{ const el=document.getElementById(id); if(el) el.checked = (val==null?def:!!val); };
+  apply('adv-h-spray-f-risp', prev.risp); apply('adv-h-spray-f-nonrisp', prev.nonRisp);
+  apply('adv-h-spray-f-2k', prev.k2); apply('adv-h-spray-f-non2k', prev.non2k);
+
+  const st = getSprayFilterState('adv-h-');
+  let pts = mergeHitterSprayPoints(spraySourceHitters);
+  // Also try synergy spray cache by name if hitter spray empty
+  if(!pts.length && CACHE.spray?.synergy){
+    const names = new Set(spraySourceHitters.map(x=>(x.name||'').toLowerCase()));
+    CACHE.spray.synergy.forEach(p=>{
+      if(id==='__all__'){
+        if(team!=='all' && p.team!==team) return;
+        if(names.size && !names.has((p.name||'').toLowerCase()) && spraySourceHitters.length) {
+          // when select-all filtered list, restrict
+          if(spraySourceHitters.length && !names.has((p.name||'').toLowerCase())) return;
+        }
+      } else if(!names.has((p.name||'').toLowerCase())) return;
+      pts.push(...collectSprayPoints(p));
+    });
+  }
+  pts = filterSprayPoints(pts, st);
+  const title = document.getElementById('adv-h-spray-title');
+  if(title) title.textContent = `Spray · ${sprayFilterLabel(st)} · n=${pts.length}`;
+  requestAnimationFrame(()=>drawSpray(document.getElementById('adv-h-spray-cv'), pts));
 }
 
 function bootFromHash(){
