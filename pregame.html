@@ -1493,8 +1493,8 @@ function shortColHtml(arr){
     const c=pair[0], u=pair[1];
     const color=advancePitchColor(c);
     const lab = u==null?'—':`${Number(u).toFixed(0)}%`;
-    return `<div><span class="advance-dot" style="background:${color}"></span> ${c} <strong>${lab}</strong></div>`;
-  }).join('') || '—';
+    return `<div class="advance-short-row"><span class="advance-dot" style="background:${color}"></span><span>${c}</span><span class="pct">${lab}</span></div>`;
+  }).join('') || '<div class="note">—</div>';
 }
 function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
@@ -1596,9 +1596,9 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   </div>
   <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
   <div class="advance-short">
-    <div><strong>Overall</strong>${shortColHtml(short.overall)}</div>
-    <div><strong>0–0</strong>${shortColHtml(short['0-0'])}</div>
-    <div><strong>2 strikes</strong>${shortColHtml(short['2_strikes'])}</div>
+    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
+    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
+    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
   </div>
 </div>`;
 }
