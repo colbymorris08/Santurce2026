@@ -186,7 +186,7 @@ tbody tr:hover { background: #f8fafc; }
 }
 .advance-hero-id { display: flex; gap: 12px; align-items: center; min-width: 220px; flex: 0 0 auto; }
 .advance-headshot {
-  width: 84px; height: 84px; object-fit: cover; object-position: center top;
+  width: 92px; height: 118px; object-fit: cover; object-position: center 18%;
   border-radius: 8px; border: 1px solid var(--line); background: #eef2f6; flex-shrink: 0;
 }
 .advance-hero-meta h2 { margin: 0; color: var(--navy); font-size: 22px; line-height: 1.15; }

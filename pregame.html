@@ -1471,7 +1471,7 @@ function scaffoldPitcherPacket(row){
     } : {},
     _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
     arm_slot_image: null,
-    headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${mlbId}/headshot/67/current` : null,
+    headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
   };
 }
@@ -1500,8 +1500,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
-  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${mlbId}/headshot/67/current`:'');
-  const headLocal=p.headshot_local || 'assets/advance/rodriguez_headshot.png';
+  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${mlbId}/headshot/67/current`:'');
+  const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
+  const initials=(p.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2);
+  const headHtml=headRemote
+    ? `<img class="advance-headshot" src="${headRemote}" alt="${p.name}"
+           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\'>${initials}</div>'"/>`
+    : (headLocal
+      ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
+             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\'>${initials}</div>'"/>`
+      : `<div class="advance-headshot advance-headshot-placeholder">${initials}</div>`);
   const armImg=p.arm_slot_image || null;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
@@ -1528,8 +1536,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   return `<div class="advance-sheet ${pageClass}">
   <div class="advance-hero">
     <div class="advance-hero-id">
-      <img class="advance-headshot" src="${headRemote}" alt="${p.name}"
-           onerror="this.onerror=null;this.src='${headLocal}'"/>
+      ${headHtml}
       <div class="advance-hero-meta">
         <h2>${p.name}</h2>
         <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
@@ -1742,9 +1749,15 @@ function fillAdvanceHitters(){
   renderAdvanceHitters();
 }
 function hitterHeadshotUrl(h){
-  if(h?.headshot_url) return h.headshot_url;
+  if(h?.headshot_url) {
+    // Prefer face-aware crop when URL is a plain MLB headshot
+    return String(h.headshot_url).replace(
+      /\/image\/upload\/(?:w_\d+,q_auto:best\/)?v1\//,
+      '/image/upload/c_fill,g_face,h_240,w_180/v1/'
+    );
+  }
   const id = h?.mlb_id || h?.player_id || h?.mlbam;
-  if(id) return `https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/${id}/headshot/67/current`;
+  if(id) return `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${id}/headshot/67/current`;
   return '';
 }
 function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
