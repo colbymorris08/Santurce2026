@@ -1,0 +1,70 @@
+{
+  "updated": "2026-10-02T03:16:17Z",
+  "source": "Synergy events pitcher attribution \u00b7 PR roster gate \u00b7 LBPRC + MLB/MiLB/LMB sample",
+  "season_meta": {
+    "target_years": [
+      2025,
+      2026
+    ],
+    "roster_source": "LBPRC opposing PR rosters (CAG/CAR/MAY/PON/SJU) from lbprc_2025_rosters.json",
+    "sample_leagues": {
+      "winter": [
+        "LBPRC"
+      ],
+      "summer": [
+        "MLB",
+        "MILB",
+        "LMB"
+      ]
+    },
+    "lbprc": [
+      {
+        "id": "6785e5e9501a906266421884",
+        "name": "2025",
+        "year": 2025
+      }
+    ],
+    "lmb": [
+      {
+        "id": "69b9af464c7644c026e9c16a",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6785e7cf262bd78ed7eda054",
+        "name": "2025",
+        "year": 2025
+      }
+    ],
+    "mlb": [
+      {
+        "id": "699723120d671eb495aa37c7",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6780dc181f418eef00968295",
+        "name": "2025",
+        "year": 2025
+      }
+    ],
+    "milb": [
+      {
+        "id": "69c6b320130119a00efb729c",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6785e7b8501a906266421887",
+        "name": "2025",
+        "year": 2025
+      }
+    ]
+  },
+  "pitchers": [],
+  "note": "Only pitchers matched to opposing PR rosters. Count mixes from winter+summer events when pitcher-attributed.",
+  "sample": {
+    "pitchers": 0,
+    "events_source_pitches": 101203
+  }
+}

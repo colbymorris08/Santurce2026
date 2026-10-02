@@ -50,6 +50,16 @@
     "Ahead \u2192 SL/CU; Behind \u2192 4S/FC in zone."
   ],
   "delivery_note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
+  "headshot_url": "https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/605446/headshot/67/current",
+  "headshot_local": "assets/advance/rodriguez_headshot.png",
+  "arm_slot_image": "assets/advance/rodriguez_arm_slot.png",
+  "delivery": {
+    "label": "High three-quarters",
+    "rel_x_in": -15.0,
+    "rel_z_in": 74.0,
+    "arm_angle_approx_deg": 11.5,
+    "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033."
+  },
   "totals": {
     "pitches": 629,
     "strike_pct": 67.2,
@@ -231,80 +241,113 @@
   },
   "synergy_live": {
     "ok": true,
-    "sample_pitches": 528,
+    "sample_pitches": 1066,
     "team": "Dorados de Chihuahua",
-    "season_id": "69b9af464c7644c026e9c16a",
+    "season_id": null,
+    "season_ids": [
+      "69b9af464c7644c026e9c16a",
+      "6785e7cf262bd78ed7eda054"
+    ],
     "pitch_kind_usage": [
       {
         "pitch_type": "Fastball",
-        "n": 239,
-        "usage": 45.3
+        "n": 509,
+        "usage": 47.7
       },
       {
         "pitch_type": "Slider",
-        "n": 92,
-        "usage": 17.4
+        "n": 210,
+        "usage": 19.7
       },
       {
         "pitch_type": "Changeup",
-        "n": 56,
+        "n": 113,
         "usage": 10.6
       },
       {
         "pitch_type": "Cutter",
-        "n": 46,
-        "usage": 8.7
+        "n": 82,
+        "usage": 7.7
       },
       {
         "pitch_type": "Curveball",
-        "n": 33,
-        "usage": 6.2
+        "n": 62,
+        "usage": 5.8
       },
       {
         "pitch_type": "Sinker",
-        "n": 29,
-        "usage": 5.5
+        "n": 50,
+        "usage": 4.7
       },
       {
         "pitch_type": "Splitter",
         "n": 24,
-        "usage": 4.5
+        "usage": 2.3
+      },
+      {
+        "pitch_type": "Unknown",
+        "n": 6,
+        "usage": 0.6
       },
       {
         "pitch_type": "UNK",
         "n": 5,
-        "usage": 0.9
+        "usage": 0.5
       },
       {
-        "pitch_type": "Unknown",
+        "pitch_type": "IntentionalBall",
         "n": 4,
-        "usage": 0.8
+        "usage": 0.4
+      },
+      {
+        "pitch_type": "Pitchout",
+        "n": 1,
+        "usage": 0.1
       }
     ],
     "note": "Team-filter sample (pitcher attribution often blank on Synergy team query). Primary arsenal/usage vs hand remain from the curated Synergy/Trackman advance packet."
   },
-  "updated": "2026-10-01T06:38:24Z",
-  "headshot_url": "https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/605446/headshot/67/current",
-  "headshot_local": "assets/advance/rodriguez_headshot.png",
-  "arm_slot_image": "assets/advance/rodriguez_arm_slot.png",
-  "delivery": {
-    "label": "High three-quarters",
-    "rel_x_in": -15.0,
-    "rel_z_in": 74.0,
-    "arm_angle_deg": null,
-    "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
-    "arm_angle_approx_deg": 11.5
-  },
+  "updated": "2026-10-02T02:58:23Z",
   "season_meta": {
-    "seeded_labels": [
-      "lmb_2026",
-      "lbprc_winter"
-    ],
-    "synergy_live_season_id": "69b9af464c7644c026e9c16a",
     "target_years": [
       2025,
       2026
     ],
-    "note": "Seed packet is curated Trackman/Synergy. Live attach previously used latest LMB season only; builder now targets LMB 2025+2026."
+    "lmb": [
+      {
+        "id": "69b9af464c7644c026e9c16a",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6785e7cf262bd78ed7eda054",
+        "name": "2025",
+        "year": 2025
+      }
+    ],
+    "mlb": [
+      {
+        "id": "699723120d671eb495aa37c7",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6780dc181f418eef00968295",
+        "name": "2025",
+        "year": 2025
+      }
+    ],
+    "milb": [
+      {
+        "id": "69c6b320130119a00efb729c",
+        "name": "2026",
+        "year": 2026
+      },
+      {
+        "id": "6785e7b8501a906266421887",
+        "name": "2025",
+        "year": 2025
+      }
+    ]
   }
 }
