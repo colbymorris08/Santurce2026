@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san5">
+<link rel="stylesheet" href="shared.css?v=san6">
 </head>
 <body>
 <div class="topbar">
@@ -1471,7 +1471,7 @@ function scaffoldPitcherPacket(row){
     } : {},
     _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
     arm_slot_image: null,
-    headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${mlbId}/headshot/67/current` : null,
+    headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
   };
 }
@@ -1500,16 +1500,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
-  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${mlbId}/headshot/67/current`:'');
+  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`:'');
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
-  const initials=(p.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2);
+  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml=headRemote
     ? `<img class="advance-headshot" src="${headRemote}" alt="${p.name}"
-           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\'>${initials}</div>'"/>`
+           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
     : (headLocal
       ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\'>${initials}</div>'"/>`
-      : `<div class="advance-headshot advance-headshot-placeholder">${initials}</div>`);
+             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+      : blankHead);
   const armImg=p.arm_slot_image || null;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
@@ -1753,30 +1753,60 @@ function hitterHeadshotUrl(h){
     // Prefer face-aware crop when URL is a plain MLB headshot
     return String(h.headshot_url).replace(
       /\/image\/upload\/(?:w_\d+,q_auto:best\/)?v1\//,
-      '/image/upload/c_fill,g_face,h_240,w_180/v1/'
+      '/image/upload/c_fill,g_face,h_320,w_200/v1/'
     );
   }
   const id = h?.mlb_id || h?.player_id || h?.mlbam;
-  if(id) return `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_240,w_180/v1/people/${id}/headshot/67/current`;
+  if(id) return `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${id}/headshot/67/current`;
   return '';
 }
 function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
   const data = (rows||[]).filter(r=>r && r[metricKey]!=null).slice(0,8);
-  if(!data.length) return `<div class="note">${title}: no sample.</div>`;
+  if(!data.length){
+    return `<div class="metric-card metric-card--empty">
+      <div class="metric-card-head"><div class="metric-card-title">${title}</div>
+        <div class="metric-card-key">No sample in filter</div></div>
+      <div class="hitter-bars"></div>
+      <div class="metric-takeaway"><span><span class="metric-takeaway-label">Takeaway</span>Not enough pitches yet.</span></div>
+    </div>`;
+  }
   const vals = data.map(r=>Number(r[metricKey]));
   const max = Math.max(...vals.map(v=>Math.abs(v)), 0.001);
-  return `<div class="advance-card">
-    <div class="section-label">${title}</div>
-    <div class="hitter-bars">${data.map(r=>{
-      const v = Number(r[metricKey]);
-      const w = Math.max(4, Math.round(100*Math.abs(v)/max));
-      const lab = ops ? Number(v).toFixed(3) : (pct ? Number(v).toFixed(1)+'%' : String(v));
-      return `<div class="hitter-bar-row">
-        <span class="hitter-bar-lab">${r.pitch_type}</span>
-        <div class="hitter-bar-track"><span style="width:${w}%"></span></div>
-        <span class="num">${lab}</span>
-      </div>`;
-    }).join('')}</div>
+  const ranked = [...data].sort((a,b)=>Number(b[metricKey])-Number(a[metricKey]));
+  const top = ranked[0];
+  const bot = ranked[ranked.length-1];
+  const fmt = (v)=> ops ? Number(v).toFixed(3) : (pct ? Number(v).toFixed(1)+'%' : String(v));
+  const keyLine = pct
+    ? `Highest <strong>${top.pitch_type}</strong> · lowest <strong>${bot.pitch_type}</strong>`
+    : `Best <strong>${top.pitch_type}</strong> · softest <strong>${bot.pitch_type}</strong>`;
+  let tip;
+  if(metricKey==='first_pitch_swing_pct'){
+    tip = `Attacks <strong>${top.pitch_type}</strong> first (${fmt(top[metricKey])}). More patient on <strong>${bot.pitch_type}</strong> (${fmt(bot[metricKey])}).`;
+  } else if(metricKey==='whiff_pct'){
+    tip = `Misses <strong>${top.pitch_type}</strong> most (${fmt(top[metricKey])}). Put <strong>${bot.pitch_type}</strong> in play more often.`;
+  } else if(ops){
+    tip = `Damages <strong>${top.pitch_type}</strong> (OPS ${fmt(top[metricKey])}). Softest vs <strong>${bot.pitch_type}</strong> (${fmt(bot[metricKey])}).`;
+  } else {
+    tip = `<strong>${top.pitch_type}</strong> leads · <strong>${bot.pitch_type}</strong> trails.`;
+  }
+  const bars = data.map(r=>{
+    const v = Number(r[metricKey]);
+    const w = Math.max(6, Math.round(100*Math.abs(v)/max));
+    const lab = fmt(v);
+    const isTop = r.pitch_type===top.pitch_type;
+    return `<div class="hitter-bar-row${isTop?' is-top':''}">
+      <span class="hitter-bar-lab">${r.pitch_type}</span>
+      <div class="hitter-bar-track"><span style="width:${w}%"></span></div>
+      <span class="num">${lab}</span>
+    </div>`;
+  }).join('');
+  return `<div class="metric-card">
+    <div class="metric-card-head">
+      <div class="metric-card-title">${title}</div>
+      <div class="metric-card-key">${keyLine}</div>
+    </div>
+    <div class="hitter-bars">${bars}</div>
+    <div class="metric-takeaway"><span><span class="metric-takeaway-label">Coach note</span>${tip}</span></div>
   </div>`;
 }
 function mergeHitterSprayPoints(hitters){
@@ -1816,11 +1846,12 @@ function renderAdvanceHitters(){
   if(!h){ el.innerHTML='<div class="note">No hitter selected.</div>'; return; }
   const o=h.overall||{};
   const head = id==='__all__' ? '' : hitterHeadshotUrl(h);
+  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml = id==='__all__'
-    ? `<div class="advance-headshot advance-headshot-placeholder">ALL</div>`
+    ? blankHead
     : (head
-        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.classList.add('advance-headshot-missing');this.src='';this.alt='';this.outerHTML='<div class=\\'advance-headshot advance-headshot-placeholder\\'>${(h.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2)}</div>'"/>`
-        : `<div class="advance-headshot advance-headshot-placeholder">${(h.name||'?').split(' ').map(x=>x[0]||'').join('').slice(0,2)}</div>`);
+        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+        : blankHead);
 
   // Preserve spray toggle state across re-render
   const prev = {

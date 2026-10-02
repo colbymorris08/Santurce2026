@@ -8,15 +8,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san1">
+<link rel="stylesheet" href="shared.css?v=san6">
 <style>
-  .mode-tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
-  .mode-tabs button {
-    background: none; border: none; font: inherit; font-size: 17px; font-weight: 700;
-    color: var(--muted); padding: 10px 2px 12px; cursor: pointer;
-    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  .mode-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--line); margin-bottom: 16px; padding: 4px 0 12px;
   }
-  .mode-tabs button.active { color: var(--navy); border-bottom-color: var(--blue); }
+  .mode-tabs button {
+    appearance: none;
+    background: var(--panel); border: 1px solid var(--line-strong); border-radius: 9px;
+    font: inherit; font-size: 13px; font-weight: 700; color: #c5d0e0;
+    padding: 9px 13px; cursor: pointer; letter-spacing: 0.02em;
+    box-shadow: var(--shadow-soft);
+    transition: background .15s ease, color .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease;
+  }
+  .mode-tabs button:hover {
+    background: var(--panel-hover); color: #fff; border-color: #6a82a4;
+    transform: translateY(-1px); box-shadow: var(--shadow);
+  }
+  .mode-tabs button.active {
+    background: linear-gradient(180deg, #1e3d72 0%, #152f5a 100%);
+    color: #fff; border-color: var(--santurce-gold);
+    box-shadow: 0 0 0 1px rgba(230, 195, 92, 0.35), var(--shadow);
+  }
   .filter-toolbar {
     display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
     justify-content: space-between; margin-bottom: 8px;
@@ -27,35 +41,49 @@
     color: var(--link); font-size: 13px; font-weight: 600; cursor: pointer;
     background: none; border: none; font-family: inherit;
   }
-  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-soft); }
   .seg button {
-    border: none; background: #fff; font: inherit; font-size: 13px; font-weight: 600;
+    border: none; background: var(--panel); font: inherit; font-size: 13px; font-weight: 600;
     padding: 8px 14px; cursor: pointer; color: var(--muted);
+    transition: background .15s ease, color .15s ease;
   }
-  .seg button.active { background: var(--panel); color: var(--navy); }
+  .seg button:hover { background: var(--panel-hover); color: #fff; }
+  .seg button.active { background: #1e3d72; color: #fff; }
   .statcast-btn {
-    border: 1px solid var(--blue); color: var(--blue); background: #fff;
+    border: 1px solid var(--line-strong); color: var(--link); background: var(--panel);
     border-radius: 8px; padding: 8px 14px; font: inherit; font-size: 13px; font-weight: 700;
-    cursor: pointer;
+    cursor: pointer; box-shadow: var(--shadow-soft);
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
   }
-  .statcast-btn.active { background: var(--blue); color: #fff; }
+  .statcast-btn:hover { border-color: var(--santurce-gold); color: #fff; }
+  .statcast-btn.active { background: #1e3d72; color: #fff; border-color: var(--santurce-gold); }
   .subnav { display: flex; gap: 8px; margin: 8px 0 16px; flex-wrap: wrap; }
   .subnav button {
-    font: inherit; font-size: 13px; font-weight: 600; color: var(--blue);
-    background: #fff; border: 1px solid var(--line); border-radius: 999px;
-    padding: 6px 12px; cursor: pointer;
+    font: inherit; font-size: 13px; font-weight: 600; color: #c5d0e0;
+    background: var(--panel); border: 1px solid var(--line-strong); border-radius: 9px;
+    padding: 7px 12px; cursor: pointer; box-shadow: var(--shadow-soft);
+    transition: background .15s ease, color .15s ease, border-color .15s ease, transform .12s ease;
   }
-  .subnav button.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .subnav button:hover {
+    background: var(--panel-hover); color: #fff; border-color: #6a82a4; transform: translateY(-1px);
+  }
+  .subnav button.active {
+    background: linear-gradient(180deg, #1e3d72 0%, #152f5a 100%);
+    color: #fff; border-color: var(--santurce-gold);
+  }
   #roster-panel { display: none; }
   #roster-panel.active { display: block; }
   #stats-panel.hidden { display: none; }
   .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .roster-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: #fff; }
-  .roster-card h3 { font-size: 14px; color: var(--navy); margin-bottom: 8px; }
-  .roster-card.santurce { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(233,102,57,0.35); }
-  .roster-card td { border-bottom: 1px solid #dbe1ea; padding: 7px 6px; }
+  .roster-card {
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--panel);
+    box-shadow: var(--shadow-soft);
+  }
+  .roster-card h3 { font-size: 14px; color: var(--santurce-gold); margin-bottom: 8px; }
+  .roster-card.santurce { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(233,102,57,0.35), var(--shadow-soft); }
+  .roster-card td { border-bottom: 1px solid #243348; padding: 7px 6px; }
   .pos-tag { font-weight: 500; color: var(--muted); font-size: 12px; margin-left: 6px; }
-  tbody td.sorted-col { background: rgba(238,242,246,0.65); }
+  tbody td.sorted-col { background: rgba(110,168,255,0.08); }
   .rank { color: var(--muted); width: 36px; }
 </style>
 </head>
