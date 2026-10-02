@@ -1543,6 +1543,12 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
     </div>
   </div>
+  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
+  <div class="advance-short">
+    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
+    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
+    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
+  </div>
   <div class="advance-layout advance-layout-pitcher">
     <div class="advance-col">
       <div class="advance-card">
@@ -1593,12 +1599,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
       </div>
     </div>
-  </div>
-  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
-  <div class="advance-short">
-    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
-    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
-    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
   </div>
 </div>`;
 }
