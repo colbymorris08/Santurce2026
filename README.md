@@ -64,7 +64,7 @@ See Pitch Usage / Pitcher Advance notes. **MiLB arsenals are Prospect Savant**, 
 - Builder: `build_pregame_arsenal.py`
 - API: `https://oriolebird.pythonanywhere.com/stuff/{mlbam}/{season}`
 - Fields: `pfx_x` / `pfx_z` → IVB & HB, `release_speed`, `release_spin_rate`, `usage`, `swing_miss_percent`
-- Count / platoon splits: MLB Statcast via `pybaseball.statcast_pitcher` **only when** the pitcher has an MLB debut
+- Count / hand splits: **Synergy pitcherId** events (`count.balls/strikes`, `batterInfo.battingSide`) for overall / 0–0 / 2 strikes + vs LHH/RHH; Statcast remains fallback for MLB-debut arms\n- Refresh pitchers only: `python3 build_advance_synergy.py --pitchers-only --years 2025 2026`
 
 
 ### Synergy seasons

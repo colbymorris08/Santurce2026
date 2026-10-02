@@ -430,14 +430,17 @@ def fetch_events_pages(
     *,
     team_id: str | None = None,
     batter_id: str | None = None,
+    pitcher_id: str | None = None,
     season_ids: list[str] | str | None = None,
     max_events: int,
     take: int = 200,
 ) -> list[dict]:
-    """Paginate Synergy events/filter by teamIds and/or batterId.
+    """Paginate Synergy events/filter by teamIds, batterId, and/or pitcherId.
 
-    Note: with batterId, Synergy often ignores seasonIds — callers should
+    Note: with batterId/pitcherId, Synergy often ignores seasonIds — callers should
     filter client-side via ``filter_events_by_leagues_years``.
+    Prefer pitcherId (Montgomery-style) for pitcher count/hand usage — teamIds
+    alone often omit ``pitcher.id`` (use defense.lineup.pitcher instead).
     """
     if isinstance(season_ids, str):
         season_ids = [season_ids]
@@ -454,14 +457,16 @@ def fetch_events_pages(
             body["teamIds"] = [team_id]
         if batter_id:
             body["batterId"] = batter_id
+        if pitcher_id:
+            body["pitcherId"] = pitcher_id
         if season_ids:
             body["seasonIds"] = season_ids
-        if not team_id and not batter_id:
+        if not team_id and not batter_id and not pitcher_id:
             break
         try:
             doc = api_post(EVENTS_FILTER_URL, token, body)
         except urllib.error.HTTPError as exc:
-            label = batter_id or team_id
+            label = pitcher_id or batter_id or team_id
             print(f"  events HTTP {exc.code} id={label} skip={skip}")
             break
         rows = doc.get("result") if isinstance(doc, dict) else None
@@ -1272,18 +1277,171 @@ def enrich_rodriguez_from_synergy(token: str, season_lmb: str | list[str] | None
 
 
 def _pitcher(ev: dict) -> tuple[str, str]:
+    """Return (synergy_id, name). Team filters often blank pitcher — fall back to defense lineup."""
     p = ev.get("pitcher") or {}
+    if not isinstance(p, dict) or not p.get("id"):
+        p = (((ev.get("defense") or {}).get("lineup") or {}).get("pitcher")) or {}
     if not isinstance(p, dict):
         return "", ""
     pid = str(p.get("id") or "")
-    name = f"{p.get('nameFirst') or ''} {p.get('nameLast') or ''}".strip()
+    name = f"{p.get('nameFirst') or p.get('firstName') or ''} {p.get('nameLast') or p.get('lastName') or ''}".strip()
+    if not name:
+        name = str(p.get("name") or "").strip()
     return pid, name
 
 
-def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
-    """Build Synergy 0-0 / 2-strike pitch-type usage by pitcher when attribution exists.
+def _pitch_code(kind: str | None) -> str:
+    """Map Synergy pitchKind → Statcast-style codes used by advance UI."""
+    k = (kind or "").strip()
+    aliases = {
+        "Fastball": "FF",
+        "FourSeamFastball": "FF",
+        "Four-Seam": "FF",
+        "4-Seam": "FF",
+        "Four Seam Fastball": "FF",
+        "Sinker": "SI",
+        "TwoSeamFastball": "SI",
+        "Two-Seam": "SI",
+        "Cutter": "FC",
+        "Slider": "SL",
+        "Curveball": "CU",
+        "Changeup": "CH",
+        "Splitter": "FS",
+        "Sweeper": "ST",
+        "Knuckleball": "KN",
+        "KnuckleCurve": "KC",
+        "Slurve": "SV",
+        "Eephus": "EP",
+        "IntentionalBall": "IB",
+        "PitchOut": "PO",
+    }
+    if k in aliases:
+        return aliases[k]
+    up = k.upper()
+    if len(up) <= 3 and up.isalpha():
+        return up
+    return aliases.get(_norm_pitch(k), up or "UN")
 
-    Returns {synergy_pitcher_id: {name, pitches, count_mix: {0-0, 2_strikes}, seasons_seen}}.
+
+def _bat_side(ev: dict) -> str | None:
+    """Synergy Left/Right hitter filter → L / R (mirrors UI LHH / RHH)."""
+    bi = ev.get("batterInfo") or {}
+    side = bi.get("battingSide") or bi.get("batSide") or bi.get("side")
+    if not side:
+        batter = ev.get("batter") or {}
+        side = batter.get("battingSide") or batter.get("batSide")
+    if not side:
+        return None
+    s = str(side).strip().lower()
+    if s.startswith("l"):
+        return "L"
+    if s.startswith("r"):
+        return "R"
+    return None
+
+
+def discover_pr_roster_pitchers(
+    token: str,
+    *,
+    lbprc_season_ids: list[str],
+    max_events_per_team: int,
+    gate: dict[str, Any],
+) -> dict[str, dict]:
+    """Map Synergy pitcher id → PR roster pitcher via winter team pulls.
+
+    Uses defense.lineup.pitcher (team filter events usually lack pitcher.id).
+    Stops paging early once unique pitcher discovery plateaus (much faster than
+    pulling the full team event corpus).
+    """
+    mlb_cache: dict[str, int | None] = {}
+    found: dict[str, dict] = {}
+    # Discovery only needs IDs — 1200 events/team is plenty; caller may pass less.
+    disc_cap = min(int(max_events_per_team or 1200), 1200)
+    for abbr, tid in OPP_TEAMS.items():
+        print(f"=== Discover PR pitchers {abbr} (winter LBPRC) ===")
+        # Manual paginate with early stop on unique-pitcher plateau
+        seen: dict[str, str] = {}
+        events: list[dict] = []
+        skip = 0
+        take = 200
+        stagnant_pages = 0
+        prev_n = 0
+        while len(events) < disc_cap:
+            body = {
+                "loggingPhases": [LOGGING_PHASE_PITCH],
+                "skip": skip,
+                "take": min(take, disc_cap - len(events)),
+                "teamIds": [tid],
+                "seasonIds": lbprc_season_ids,
+            }
+            try:
+                doc = api_post(EVENTS_FILTER_URL, token, body)
+            except urllib.error.HTTPError as exc:
+                print(f"  events HTTP {exc.code} id={tid} skip={skip}")
+                break
+            rows = doc.get("result") if isinstance(doc, dict) else None
+            if not isinstance(rows, list) or not rows:
+                break
+            events.extend(rows)
+            for ev in rows:
+                pid, name = _pitcher(ev)
+                if pid and pid not in seen:
+                    seen[pid] = name
+            print(f"  fetched {len(events)}/{disc_cap} unique_pitchers={len(seen)}")
+            if len(seen) == prev_n:
+                stagnant_pages += 1
+            else:
+                stagnant_pages = 0
+            prev_n = len(seen)
+            total = int(doc.get("totalRecords") or 0)
+            skip += len(rows)
+            if stagnant_pages >= 2 and len(seen) >= 3:
+                print(f"  early-stop discovery (plateau) unique={len(seen)}")
+                break
+            if skip >= total or len(rows) < take:
+                break
+            time.sleep(0.08)
+        events = filter_events_by_leagues_years(
+            events,
+            league_ids=WINTER_LEAGUE_IDS,
+            years=set(range(2000, 2100)),
+        )
+        # Re-scan after filter
+        seen = {}
+        for ev in events:
+            pid, name = _pitcher(ev)
+            if pid and pid not in seen:
+                seen[pid] = name
+        print(f"  unique defense pitchers in team pull={len(seen)} events={len(events)}")
+        matched = 0
+        for pid, name in seen.items():
+            mid = resolve_player_mlb_id(token, pid, mlb_cache)
+            rec = match_pr_roster(name=name, mlb_id=mid, gate=gate)
+            if not rec:
+                continue
+            pos = str(rec.get("position") or "").upper()
+            if rec.get("is_hitter") and pos not in ("P", "TWP", ""):
+                continue
+            if pid in found:
+                continue
+            found[pid] = {
+                "synergy_id": pid,
+                "name": rec.get("name") or name,
+                "team": rec["team"],
+                "mlb_id": rec.get("mlb_id") or mid,
+                "position": rec.get("position") or "P",
+            }
+            matched += 1
+        print(f"  roster-gated pitchers matched={matched} (running total={len(found)})")
+        time.sleep(0.1)
+    return found
+
+
+def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
+    """Build Synergy overall / 0-0 / 2-strike + vs LHH/RHH pitch-type usage by pitcher.
+
+    Mirrors Synergy UI Count + Left/Right (hitter) filters using:
+      count.balls / count.strikes, batterInfo.battingSide, pitch.pitchKind
     """
     by: dict[str, dict] = {}
     for ev in events:
@@ -1291,12 +1449,15 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
         if not pid:
             continue
         pitch = ev.get("pitch") or {}
-        kind = _norm_pitch(pitch.get("pitchKind"))
+        code = _pitch_code(pitch.get("pitchKind"))
+        if not code or code == "UN":
+            continue
         c = ev.get("count") or {}
         try:
             balls, strikes = int(c.get("balls") or 0), int(c.get("strikes") or 0)
         except (TypeError, ValueError):
             balls, strikes = 0, 0
+        side = _bat_side(ev)
         rec = by.setdefault(
             pid,
             {
@@ -1306,16 +1467,32 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
                 "zero_zero": defaultdict(int),
                 "two_strikes": defaultdict(int),
                 "overall": defaultdict(int),
+                "vs_L": defaultdict(int),
+                "vs_R": defaultdict(int),
+                "leagues": defaultdict(int),
+                "years": set(),
             },
         )
         if name and not rec.get("name"):
             rec["name"] = name
         rec["pitches"] += 1
-        rec["overall"][kind] += 1
+        rec["overall"][code] += 1
         if balls == 0 and strikes == 0:
-            rec["zero_zero"][kind] += 1
+            rec["zero_zero"][code] += 1
         if strikes >= 2:
-            rec["two_strikes"][kind] += 1
+            rec["two_strikes"][code] += 1
+        if side == "L":
+            rec["vs_L"][code] += 1
+        elif side == "R":
+            rec["vs_R"][code] += 1
+        lid = event_league_id(ev)
+        for abbr, lid0 in SAMPLE_LEAGUES.items():
+            if lid == lid0:
+                rec["leagues"][abbr] += 1
+                break
+        yr = event_season_year(ev)
+        if yr:
+            rec["years"].add(yr)
 
     def pack(counter: dict, total: int) -> list[dict]:
         rows = [
@@ -1330,6 +1507,13 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
         zz_n = sum(rec["zero_zero"].values())
         tw_n = sum(rec["two_strikes"].values())
         ov_n = sum(rec["overall"].values())
+        l_n = sum(rec["vs_L"].values())
+        r_n = sum(rec["vs_R"].values())
+        platoon = {}
+        if l_n >= 8:
+            platoon["vs_LHB"] = pack(rec["vs_L"], l_n)
+        if r_n >= 8:
+            platoon["vs_RHB"] = pack(rec["vs_R"], r_n)
         out[pid] = {
             "synergy_id": pid,
             "name": rec["name"],
@@ -1339,54 +1523,291 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
                 "0-0": pack(rec["zero_zero"], zz_n),
                 "2_strikes": pack(rec["two_strikes"], tw_n),
             },
-            "source": "Synergy events (pitcher-attributed)",
+            "platoon": platoon,
+            "hand_n": {"vs_LHH": l_n, "vs_RHH": r_n},
+            "leagues": dict(rec["leagues"]),
+            "years": sorted(rec["years"]),
+            "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
         }
     return out
 
 
-def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> None:
-    """Attach Synergy count_mix onto pregame_pitcher_arsenals by fuzzy name when present."""
+def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
+    if not pitches or not platoon:
+        return pitches
+    by_l = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_LHB") or [])}
+    by_r = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_RHB") or [])}
+    out = []
+    for p in pitches:
+        row = dict(p)
+        code = str(row.get("type") or "").upper()
+        left, right = by_l.get(code), by_r.get(code)
+        if left:
+            row["usage_l"] = left.get("usage")
+            row["pitches_l"] = left.get("pitches")
+        if right:
+            row["usage_r"] = right.get("usage")
+            row["pitches_r"] = right.get("pitches")
+        out.append(row)
+    return out
+
+
+def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[str, int]:
+    """Attach Synergy count_mix + platoon onto pregame_pitcher_arsenals (mlb_id then name)."""
     path = OUT / "pregame_pitcher_arsenals.json"
+    stats = {"count": 0, "hand": 0, "matched": 0, "arsenal_rows": 0}
     if not path.is_file() or not pitcher_mixes:
-        return
+        return stats
     data = json.loads(path.read_text())
-    by_name = {}
+    by_mlb: dict[int, dict] = {}
+    by_name: dict[str, dict] = {}
     for rec in pitcher_mixes.values():
-        key = (rec.get("name") or "").strip().lower()
+        mid = rec.get("mlb_id")
+        if mid:
+            try:
+                by_mlb[int(mid)] = rec
+            except (TypeError, ValueError):
+                pass
+        key = _norm_person(rec.get("name") or "")
         if key:
             by_name[key] = rec
-    n = 0
     for p in data.get("pitchers") or []:
-        key = (p.get("name") or "").strip().lower()
-        syn = by_name.get(key)
+        syn = None
+        try:
+            mid = int(p.get("player_id") or 0)
+        except (TypeError, ValueError):
+            mid = 0
+        if mid and mid in by_mlb:
+            syn = by_mlb[mid]
+        else:
+            syn = by_name.get(_norm_person(p.get("name") or ""))
         if not syn:
             continue
-        # Prefer Synergy count mixes when they have signal; keep Statcast as fallback under statcast_count_mix
+        stats["matched"] += 1
         cm = syn.get("count_mix") or {}
-        if cm.get("0-0") or cm.get("2_strikes"):
-            if p.get("count_mix") and not p.get("statcast_count_mix"):
+        if cm.get("0-0") or cm.get("2_strikes") or cm.get("overall"):
+            if p.get("count_mix") and not p.get("statcast_count_mix") and p.get("statcast_source"):
                 p["statcast_count_mix"] = p.get("count_mix")
             p["count_mix"] = cm
+            ubc = dict(p.get("usage_by_count") or {})
+            if cm.get("0-0") and "0-0" not in ubc:
+                ubc["0-0"] = cm["0-0"]
+            p["usage_by_count"] = ubc
             p["synergy_count_source"] = syn.get("source")
             p["synergy_count_pitches"] = syn.get("pitches")
-            n += 1
-    data["synergy_count_merged"] = n
+            p["synergy_id"] = syn.get("synergy_id")
+            p["synergy_leagues"] = syn.get("leagues")
+            p["synergy_years"] = syn.get("years")
+            stats["count"] += 1
+        platoon = syn.get("platoon") or {}
+        # Build / refresh arsenal rows from Synergy overall so Arsenal snapshot + Usage vs hand fill
+        overall = (cm.get("overall") or []) if cm else []
+        if overall and not p.get("arsenal"):
+            p["arsenal"] = [
+                {
+                    "type": r.get("type"),
+                    "name": r.get("type"),
+                    "usage": r.get("usage"),
+                    "pitches": r.get("pitches"),
+                    "velo": None,
+                    "spin": None,
+                    "ivb": None,
+                    "hb_pitcher": None,
+                    "hb_hitter": None,
+                    "ps_stuff": None,
+                    "whiff": None,
+                    "xwoba": None,
+                }
+                for r in overall
+            ]
+            p["pitches"] = p.get("pitches") or syn.get("pitches")
+            p["ps_source"] = p.get("ps_source") or "Synergy pitchKind usage"
+            stats["arsenal_rows"] += 1
+        if platoon.get("vs_LHB") or platoon.get("vs_RHB"):
+            if p.get("platoon") and not p.get("statcast_platoon") and p.get("statcast_source"):
+                p["statcast_platoon"] = p.get("platoon")
+            p["platoon"] = platoon
+            if p.get("arsenal"):
+                p["arsenal"] = _enrich_arsenal_hand(p["arsenal"], platoon)
+                stats["arsenal_rows"] += 1
+            p["synergy_hand_n"] = syn.get("hand_n")
+            p["synergy_hand_source"] = syn.get("source")
+            stats["hand"] += 1
+        elif p.get("arsenal") and overall:
+            # Even without platoon threshold, keep overall arsenal usage from Synergy when PS missing
+            pass
+        note = p.get("note") or ""
+        syn_note = (
+            "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events "
+            "(Count + Left/Right filters)."
+        )
+        if "Synergy pitcherId" not in note:
+            p["note"] = (note + " " + syn_note).strip() if note else syn_note
+    data["synergy_count_merged"] = stats["count"]
+    data["synergy_hand_merged"] = stats["hand"]
     data["updated_synergy_counts"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    data["note"] = (
+        "KNCT-style arsenal plots from hitter perspective. "
+        "Overall movement from Prospect Savant when tracked. "
+        "Count usage (overall / 0-0 / 2 strikes) and hand splits (vs LHH / vs RHH) "
+        "from Synergy pitcherId events when available; Statcast fallback for MLB-debut arms."
+    )
     path.write_text(json.dumps(data, indent=2))
-    print(f"merged Synergy count mixes into arsenals for {n} pitchers")
+    print(
+        f"merged Synergy → arsenals count={stats['count']} hand={stats['hand']} "
+        f"matched={stats['matched']}"
+    )
+    return stats
 
+
+
+def pull_pr_pitcher_usage(
+    token: str,
+    *,
+    lbprc_ids: list[str],
+    season_meta: dict,
+    year_set: set[int],
+    max_events_per_team: int,
+    max_events_per_pitcher: int,
+    gate: dict[str, Any] | None = None,
+) -> dict[str, dict]:
+    """Discover PR roster pitchers and pull count + hand usage via pitcherId."""
+    gate = gate or load_pr_roster_gate()
+    target_league_ids = set(SAMPLE_LEAGUES.values())
+    roster_pitchers = discover_pr_roster_pitchers(
+        token,
+        lbprc_season_ids=lbprc_ids,
+        max_events_per_team=max_events_per_team,
+        gate=gate,
+    )
+    print(f"PR roster-gated Synergy pitchers={len(roster_pitchers)}")
+    pitcher_mixes: dict[str, dict] = {}
+    events_by_league: dict[str, int] = defaultdict(int)
+    empty = []
+    ck_path = OUT / "advance_opposing_pitchers.json"
+    if ck_path.is_file():
+        try:
+            prev = json.loads(ck_path.read_text())
+            for row in prev.get("pitchers") or []:
+                sid = str(row.get("synergy_id") or "")
+                if sid and row.get("pitches"):
+                    pitcher_mixes[sid] = row
+            print(f"resumed {len(pitcher_mixes)} pitchers from checkpoint")
+        except Exception as exc:  # noqa: BLE001
+            print("checkpoint load failed", exc)
+    for i, (pid, rec) in enumerate(
+        sorted(roster_pitchers.items(), key=lambda kv: (kv[1].get("team") or "", kv[1].get("name") or "")),
+        1,
+    ):
+        team = str(rec.get("team") or "?")
+        name = rec.get("name") or pid
+        if pid in pitcher_mixes and (pitcher_mixes[pid].get("pitches") or 0) >= 20:
+            print(f"=== pitcher [{i}/{len(roster_pitchers)}] {team} {name} · skip (checkpoint)")
+            continue
+        print(f"=== pitcher [{i}/{len(roster_pitchers)}] {team} {name} · pitcherId ===")
+        raw_events = fetch_events_pages(
+            token,
+            pitcher_id=pid,
+            max_events=max_events_per_pitcher,
+        )
+        kept = filter_events_by_leagues_years(
+            raw_events,
+            league_ids=target_league_ids,
+            years=year_set,
+        )
+        for ev in kept:
+            lid = event_league_id(ev)
+            for abbr, lid0 in SAMPLE_LEAGUES.items():
+                if lid == lid0:
+                    events_by_league[abbr] += 1
+                    break
+        packed = aggregate_pitcher_count_mixes(kept)
+        # Force attribution to this pitcherId (pitcherId query should already be scoped)
+        mix = packed.get(pid)
+        if not mix and packed:
+            # Rare: defense id differs; take sole key
+            mix = next(iter(packed.values()))
+        if not mix or not mix.get("pitches"):
+            empty.append({"synergy_id": pid, "name": name, "team": team, "raw": len(raw_events), "kept": len(kept)})
+            print(f"  empty kept={len(kept)} raw={len(raw_events)}")
+            continue
+        mix = dict(mix)
+        mix["synergy_id"] = pid
+        mix["name"] = name
+        mix["team"] = team
+        if rec.get("mlb_id"):
+            mix["mlb_id"] = rec["mlb_id"]
+        pitcher_mixes[pid] = mix
+        cm = mix.get("count_mix") or {}
+        hn = mix.get("hand_n") or {}
+        print(
+            f"  pitches={mix.get('pitches')} 0-0={sum(p.get('pitches') or 0 for p in (cm.get('0-0') or []))} "
+            f"2K={sum(p.get('pitches') or 0 for p in (cm.get('2_strikes') or []))} "
+            f"LHH={hn.get('vs_LHH')} RHH={hn.get('vs_RHH')} leagues={mix.get('leagues')}"
+        )
+        # Checkpoint after each pitcher so token expiry does not lose progress
+        ck_path.write_text(
+            json.dumps(
+                {
+                    "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    "source": "Synergy pitcherId checkpoint (in progress)",
+                    "season_meta": season_meta,
+                    "pitchers": sorted(pitcher_mixes.values(), key=lambda r: -(r.get("pitches") or 0)),
+                    "empty": empty,
+                    "sample": {"pitchers": len(pitcher_mixes), "discovered": len(roster_pitchers)},
+                },
+                indent=2,
+            )
+        )
+        time.sleep(0.08)
+
+    (OUT / "advance_opposing_pitchers.json").write_text(
+        json.dumps(
+            {
+                "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "source": (
+                    "Synergy events/filter pitcherId · PR roster gate · "
+                    "LBPRC + MLB/MiLB/LMB 2025–2026 · Count + Left/Right (hitter)"
+                ),
+                "season_meta": season_meta,
+                "pitchers": sorted(pitcher_mixes.values(), key=lambda r: -(r.get("pitches") or 0)),
+                "empty": empty,
+                "note": (
+                    "Pitcher-centric pulls (not batter/team-only). "
+                    "overall / 0-0 / 2_strikes from count.balls/strikes; "
+                    "vs_LHB / vs_RHB from batterInfo.battingSide."
+                ),
+                "sample": {
+                    "pitchers": len(pitcher_mixes),
+                    "discovered": len(roster_pitchers),
+                    "empty": len(empty),
+                    "events_by_league": dict(events_by_league),
+                },
+            },
+            indent=2,
+        )
+    )
+    print(f"wrote advance_opposing_pitchers.json pitchers={len(pitcher_mixes)} empty={len(empty)}")
+    merge_synergy_count_into_arsenals(pitcher_mixes)
+    return pitcher_mixes
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--max-events-per-team", type=int, default=4000,
-                    help="Cap for winter LBPRC team pulls used to discover PR roster Synergy IDs")
+                    help="Cap for winter LBPRC team pulls (hitters). Pitcher discovery auto-caps at 1200 + early-stop.")
     ap.add_argument("--max-events-per-player", type=int, default=2500,
                     help="Cap for per-batter Synergy pulls (winter+summer expansion)")
     ap.add_argument("--years", nargs="+", type=int, default=[2025, 2026],
                     help="Calendar years for sample expansion (game.season)")
     ap.add_argument("--headed", action="store_true")
     ap.add_argument("--skip-fetch", action="store_true", help="Rebuild Rodriguez only")
+    ap.add_argument("--pitchers-only", action="store_true",
+                    help="Skip hitter expansion; discover+pull PR pitchers by pitcherId")
+    ap.add_argument("--skip-pitchers", action="store_true",
+                    help="Skip pitcherId count/hand pull")
+    ap.add_argument("--max-events-per-pitcher", type=int, default=1000,
+                    help="Cap for per-pitcher Synergy pitcherId pulls")
     args = ap.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)
@@ -1445,6 +1866,20 @@ def main() -> None:
 
     gate = load_pr_roster_gate()
     print("PR roster gate counts", gate.get("counts"))
+
+    if args.pitchers_only:
+        pull_pr_pitcher_usage(
+            token,
+            lbprc_ids=lbprc_ids,
+            season_meta=season_meta,
+            year_set=year_set,
+            max_events_per_team=args.max_events_per_team,
+            max_events_per_pitcher=args.max_events_per_pitcher,
+            gate=gate,
+        )
+        print("DONE pitchers-only")
+        return
+
     roster_players = discover_pr_roster_players(
         token,
         lbprc_season_ids=lbprc_ids,
@@ -1608,64 +2043,16 @@ def main() -> None:
         f"pitches={sample_full['pitches']} winter_pitches={sample_winter['pitches']}"
     )
 
-    # Pitcher count mixes: only pitchers who appear on PR opposing rosters
-    pitcher_gate_names = {
-        _norm_person(rec["name"]) for rec in gate["by_name"].values() if not rec.get("is_hitter")
-    }
-    pitcher_gate_mlb = {
-        mid for mid, rec in gate["by_mlb"].items() if not rec.get("is_hitter")
-    }
-    # Also allow any rostered person (two-way) — include all roster names for pitcher side
-    all_roster_names = set(gate["by_name"].keys())
-    all_roster_mlb = set(gate["by_mlb"].keys())
-
-    pitcher_mixes_all = aggregate_pitcher_count_mixes(all_events)
-    pitcher_mlb_cache: dict[str, int | None] = {}
-    pitcher_mixes: dict[str, dict] = {}
-    for pid, rec in pitcher_mixes_all.items():
-        mid = resolve_player_mlb_id(token, pid, pitcher_mlb_cache)
-        name = rec.get("name") or ""
-        ok = False
-        if mid and mid in all_roster_mlb:
-            ok = True
-            team = gate["by_mlb"][mid]["team"]
-        elif _norm_person(name) in all_roster_names:
-            ok = True
-            team = gate["by_name"][_norm_person(name)]["team"]
-        else:
-            team = None
-        if not ok:
-            continue
-        rec = dict(rec)
-        rec["team"] = team
-        if mid:
-            rec["mlb_id"] = mid
-        pitcher_mixes[pid] = rec
-
-    (OUT / "advance_opposing_pitchers.json").write_text(
-        json.dumps(
-            {
-                "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                "source": (
-                    "Synergy events pitcher attribution · PR roster gate · "
-                    "LBPRC + MLB/MiLB/LMB sample"
-                ),
-                "season_meta": season_meta,
-                "pitchers": sorted(pitcher_mixes.values(), key=lambda r: -(r.get("pitches") or 0)),
-                "note": (
-                    "Only pitchers matched to opposing PR rosters. "
-                    "Count mixes from winter+summer events when pitcher-attributed."
-                ),
-                "sample": {
-                    "pitchers": len(pitcher_mixes),
-                    "events_source_pitches": len(all_events),
-                },
-            },
-            indent=2,
+    if not args.skip_pitchers:
+        pull_pr_pitcher_usage(
+            token,
+            lbprc_ids=lbprc_ids,
+            season_meta=season_meta,
+            year_set=year_set,
+            max_events_per_team=args.max_events_per_team,
+            max_events_per_pitcher=args.max_events_per_pitcher,
+            gate=gate,
         )
-    )
-    print(f"wrote advance_opposing_pitchers.json pitchers={len(pitcher_mixes)}")
-    merge_synergy_count_into_arsenals(pitcher_mixes)
 
     merge_spray_into_pregame(hitters)
     print("DONE")

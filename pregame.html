@@ -1443,9 +1443,10 @@ function scaffoldPitcherPacket(row){
   }).sort((a,b)=>(Number(b.usage)||0)-(Number(a.usage)||0));
   const cm = row.count_mix || {};
   const ubc = row.usage_by_count || {};
-  // Prefer count_mix; else derive 0-0 / 2-strike from usage_by_count
+  // Prefer Synergy/Statcast count_mix; else derive 0-0 / 2-strike from usage_by_count
   let zero = cm['0-0'] || ubc['0-0'] || [];
   let two = cm['2_strikes'];
+  let overallMix = cm.overall || [];
   if(!two){
     const bag={}; let n=0;
     ['0-2','1-2','2-2','3-2'].forEach(ck=>{(ubc[ck]||[]).forEach(p=>{
@@ -1455,21 +1456,25 @@ function scaffoldPitcherPacket(row){
     if(n) two = Object.entries(bag).map(([type,pitches])=>({type,pitches,usage:Math.round(1000*pitches/n)/10})).sort((a,b)=>b.pitches-a.pitches);
   }
   const mlbId = row.player_id;
+  const overallPairs = (overallMix && overallMix.length)
+    ? countMixPairs(overallMix)
+    : arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]);
   return {
     name: row.name, mlb_id: mlbId, throws: row.throws || 'R',
     bio: `${row.throws||'?'}HP · ${row.team||'—'}`,
     subtitle: `${row.throws||'?'}HP · ${row.team||'—'}`,
     arsenal,
     short_vs_rhh: {
-      overall: arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]),
+      overall: overallPairs,
       '0-0': countMixPairs(zero),
       '2_strikes': countMixPairs(two||[]),
     },
-    usage_vs_hand: hasPlatoon ? {
-      vs_LHH: {n: (platoon.vs_LHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
-      vs_RHH: {n: (platoon.vs_RHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
+    usage_vs_hand: (hasPlatoon || (row.synergy_hand_n && (row.synergy_hand_n.vs_LHH||row.synergy_hand_n.vs_RHH))) ? {
+      vs_LHH: {n: (row.synergy_hand_n && row.synergy_hand_n.vs_LHH!=null) ? row.synergy_hand_n.vs_LHH : (platoon.vs_LHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
+      vs_RHH: {n: (row.synergy_hand_n && row.synergy_hand_n.vs_RHH!=null) ? row.synergy_hand_n.vs_RHH : (platoon.vs_RHB||[]).reduce((s,p)=>s+(p.pitches||0),0)},
     } : {},
     _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
+    _synergy_count: !!(row.synergy_count_source || (row.count_mix && (row.count_mix['0-0']||row.count_mix['2_strikes']))),
     arm_slot_image: null,
     headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
@@ -1530,17 +1535,19 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   }).join('');
   const short=p.short_vs_rhh||{};
   const armBlock = armImg
-    ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} arm slot" loading="lazy"/>`
-    : `<div class="advance-placeholder advance-placeholder-tall">Arm slot</div>`;
+    ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} delivery snapshot" loading="lazy"/>`
+    : `<div class="advance-placeholder advance-placeholder-tall">Delivery snapshot</div>`;
   const pageClass = printPage ? 'advance-print-page' : '';
   return `<div class="advance-sheet ${pageClass}">
-  <div class="advance-hero">
-    <div class="advance-hero-id">
+  <div class="advance-hero advance-hero-pitcher">
+    <div class="advance-hero-picstack">
       ${headHtml}
-      <div class="advance-hero-meta">
-        <h2>${p.name}</h2>
-        <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-      </div>
+      <div class="advance-hero-snapshot" title="Delivery / arm-slot snapshot">${armBlock}</div>
+    </div>
+    <div class="advance-hero-meta">
+      <h2>${p.name}</h2>
+      <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
+      <div class="note" style="margin:8px 0 0">Synergy count (Overall / 0–0 / 2K) + Left/Right (vs LHH / vs RHH) when pulled.</div>
     </div>
   </div>
   <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
@@ -1557,7 +1564,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
           <th>Pitch</th><th class="num">Use%</th><th class="num">vs L</th><th class="num">vs R</th>
           <th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th><th class="num">Whiff</th>
         </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
-        ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Statcast platoon splits exist.</div>'}
+        ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Synergy Left/Right (or Statcast) hand splits exist.</div>'}
       </div>
       <div class="advance-card">
         <div class="section-label">Pitch descriptions</div>
@@ -1590,7 +1597,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
     </div>
     <div class="advance-col">
-      <div class="advance-card">
+      <div class="advance-card advance-card-arm-slot">
         <div class="section-label">Arm slot</div>
         <div class="advance-arm">${armBlock}</div>
       </div>
