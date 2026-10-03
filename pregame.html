@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san8">
+<link rel="stylesheet" href="shared.css?v=san9">
 </head>
 <body>
 <div class="topbar">
@@ -1261,7 +1261,7 @@ function advanceMovementSvg(arsenal, throws='R'){
     code:a.code, hb:Number(a.hb), ivb:Number(a.ivb), usage:Number(a.usage)||10,
     color:advancePitchColor(a.code)
   }));
-  const W=340, H=340, P=36, lim=16;
+  const W=340, H=340, P=36, lim=20;
   const plot=W-P*2;
   const sx=v=>P+((v+lim)/(lim*2))*plot;
   const sy=v=>P+((-v+lim)/(lim*2))*plot;
@@ -1274,7 +1274,7 @@ function advanceMovementSvg(arsenal, throws='R'){
   s+=`<rect x="${sx(-lim)}" y="${sy(lim)}" width="${sx(0)-sx(-lim)}" height="${sy(0)-sy(lim)}" fill="#F1F5F9" opacity=".7"/>`;
   s+=`<rect x="${sx(0)}" y="${sy(0)}" width="${sx(lim)-sx(0)}" height="${sy(-lim)-sy(0)}" fill="#F1F5F9" opacity=".7"/>`;
   s+=`<rect x="${sx(-lim)}" y="${sy(0)}" width="${sx(0)-sx(-lim)}" height="${sy(-lim)-sy(0)}" fill="#DBEAFE" opacity=".45"/>`;
-  for(let v=-15; v<=15; v+=5){
+  for(let v=-20; v<=20; v+=5){
     const x=sx(v), y=sy(v), c=v===0?'#0F172A':'#CBD5E1', w=v===0?1.8:0.6;
     s+=`<line x1="${x}" y1="${P}" x2="${x}" y2="${P+plot}" stroke="${c}" stroke-width="${w}"/>`;
     s+=`<line x1="${P}" y1="${y}" x2="${P+plot}" y2="${y}" stroke="${c}" stroke-width="${w}"/>`;

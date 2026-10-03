@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-02T18:49:03Z",
-  "source": "Synergy events/filter pitcherId \u00b7 PR roster gate \u00b7 LBPRC + MLB/MiLB/LMB 2025\u20132026 \u00b7 Count + Left/Right (hitter)",
+  "updated": "2026-10-03T06:25:07Z",
+  "source": "Synergy events/filter pitcherId \u00b7 PR roster + movement-only fill \u00b7 LBPRC + MLB/MiLB/LMB 2025\u20132026",
   "season_meta": {
     "target_years": [
       2025,
@@ -354,6 +354,139 @@
       "mlb_id": 670103
     },
     {
+      "synergy_id": "5c3b6408e5a2bd1e14c63583",
+      "name": "Wyatt Olds",
+      "pitches": 988,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 506,
+            "usage": 51.2
+          },
+          {
+            "type": "SL",
+            "pitches": 289,
+            "usage": 29.3
+          },
+          {
+            "type": "FC",
+            "pitches": 152,
+            "usage": 15.4
+          },
+          {
+            "type": "CH",
+            "pitches": 41,
+            "usage": 4.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 121,
+            "usage": 48.4
+          },
+          {
+            "type": "FC",
+            "pitches": 67,
+            "usage": 26.8
+          },
+          {
+            "type": "SL",
+            "pitches": 54,
+            "usage": 21.6
+          },
+          {
+            "type": "CH",
+            "pitches": 8,
+            "usage": 3.2
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 132,
+            "usage": 46.6
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 123,
+            "usage": 43.5
+          },
+          {
+            "type": "FC",
+            "pitches": 14,
+            "usage": 4.9
+          },
+          {
+            "type": "CH",
+            "pitches": 14,
+            "usage": 4.9
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 231,
+            "usage": 51.4
+          },
+          {
+            "type": "SL",
+            "pitches": 136,
+            "usage": 30.3
+          },
+          {
+            "type": "FC",
+            "pitches": 43,
+            "usage": 9.6
+          },
+          {
+            "type": "CH",
+            "pitches": 39,
+            "usage": 8.7
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 275,
+            "usage": 51.0
+          },
+          {
+            "type": "SL",
+            "pitches": 153,
+            "usage": 28.4
+          },
+          {
+            "type": "FC",
+            "pitches": 109,
+            "usage": 20.2
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 0.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 449,
+        "vs_RHH": 539
+      },
+      "leagues": {
+        "MLB": 306,
+        "MILB": 682
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 681544
+    },
+    {
       "synergy_id": "61878530c379865a58bb2725",
       "name": "Osvaldo Berrios",
       "pitches": 986,
@@ -549,6 +682,158 @@
       "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 676047
+    },
+    {
+      "synergy_id": "58a74edd35268c61b0b88a71",
+      "name": "Ethan Routzahn",
+      "pitches": 984,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "SI",
+            "pitches": 628,
+            "usage": 63.8
+          },
+          {
+            "type": "ST",
+            "pitches": 230,
+            "usage": 23.4
+          },
+          {
+            "type": "FC",
+            "pitches": 113,
+            "usage": 11.5
+          },
+          {
+            "type": "SL",
+            "pitches": 9,
+            "usage": 0.9
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 4,
+            "usage": 0.4
+          }
+        ],
+        "0-0": [
+          {
+            "type": "SI",
+            "pitches": 183,
+            "usage": 67.8
+          },
+          {
+            "type": "ST",
+            "pitches": 59,
+            "usage": 21.9
+          },
+          {
+            "type": "FC",
+            "pitches": 26,
+            "usage": 9.6
+          },
+          {
+            "type": "SL",
+            "pitches": 1,
+            "usage": 0.4
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SI",
+            "pitches": 119,
+            "usage": 47.8
+          },
+          {
+            "type": "ST",
+            "pitches": 99,
+            "usage": 39.8
+          },
+          {
+            "type": "FC",
+            "pitches": 27,
+            "usage": 10.8
+          },
+          {
+            "type": "SL",
+            "pitches": 4,
+            "usage": 1.6
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "SI",
+            "pitches": 284,
+            "usage": 65.1
+          },
+          {
+            "type": "ST",
+            "pitches": 79,
+            "usage": 18.1
+          },
+          {
+            "type": "FC",
+            "pitches": 66,
+            "usage": 15.1
+          },
+          {
+            "type": "SL",
+            "pitches": 6,
+            "usage": 1.4
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "SI",
+            "pitches": 344,
+            "usage": 62.8
+          },
+          {
+            "type": "ST",
+            "pitches": 151,
+            "usage": 27.6
+          },
+          {
+            "type": "FC",
+            "pitches": 47,
+            "usage": 8.6
+          },
+          {
+            "type": "SL",
+            "pitches": 3,
+            "usage": 0.5
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 3,
+            "usage": 0.5
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 436,
+        "vs_RHH": 548
+      },
+      "leagues": {
+        "MILB": 984
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "SJU",
+      "mlb_id": 701240
     },
     {
       "synergy_id": "582b844335be47a9274dd457",
@@ -2366,6 +2651,236 @@
       "mlb_id": 670369
     },
     {
+      "synergy_id": "601d7d25cf03a3b45431e488",
+      "name": "Magnus Ellerts",
+      "pitches": 945,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 504,
+            "usage": 53.3
+          },
+          {
+            "type": "SL",
+            "pitches": 361,
+            "usage": 38.2
+          },
+          {
+            "type": "CH",
+            "pitches": 36,
+            "usage": 3.8
+          },
+          {
+            "type": "FC",
+            "pitches": 15,
+            "usage": 1.6
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 15,
+            "usage": 1.6
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 6,
+            "usage": 0.6
+          },
+          {
+            "type": "CU",
+            "pitches": 4,
+            "usage": 0.4
+          },
+          {
+            "type": "FS",
+            "pitches": 3,
+            "usage": 0.3
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 113,
+            "usage": 50.0
+          },
+          {
+            "type": "SL",
+            "pitches": 97,
+            "usage": 42.9
+          },
+          {
+            "type": "FC",
+            "pitches": 7,
+            "usage": 3.1
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 3,
+            "usage": 1.3
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 3,
+            "usage": 1.3
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 0.9
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 128,
+            "usage": 51.4
+          },
+          {
+            "type": "SL",
+            "pitches": 96,
+            "usage": 38.6
+          },
+          {
+            "type": "CH",
+            "pitches": 17,
+            "usage": 6.8
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 5,
+            "usage": 2.0
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.4
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.4
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 246,
+            "usage": 63.4
+          },
+          {
+            "type": "SL",
+            "pitches": 88,
+            "usage": 22.7
+          },
+          {
+            "type": "CH",
+            "pitches": 31,
+            "usage": 8.0
+          },
+          {
+            "type": "FC",
+            "pitches": 9,
+            "usage": 2.3
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 8,
+            "usage": 2.1
+          },
+          {
+            "type": "FS",
+            "pitches": 3,
+            "usage": 0.8
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.5
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "SL",
+            "pitches": 273,
+            "usage": 49.0
+          },
+          {
+            "type": "FF",
+            "pitches": 258,
+            "usage": 46.3
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 7,
+            "usage": 1.3
+          },
+          {
+            "type": "FC",
+            "pitches": 6,
+            "usage": 1.1
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 5,
+            "usage": 0.9
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 0.9
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.4
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 388,
+        "vs_RHH": 557
+      },
+      "leagues": {
+        "MILB": 870,
+        "MLB": 17,
+        "LBPRC": 58
+      },
+      "years": [
+        2025,
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAR",
+      "mlb_id": 701884
+    },
+    {
       "synergy_id": "58a74e4235268c61b0b848cf",
       "name": "Luke Taggart",
       "pitches": 937,
@@ -3224,6 +3739,387 @@
       "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 703106
+    },
+    {
+      "synergy_id": "5a83555ada5c2a61ccc83fce",
+      "name": "Brendan Cellucci",
+      "pitches": 927,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 248,
+            "usage": 26.8
+          },
+          {
+            "type": "ST",
+            "pitches": 236,
+            "usage": 25.5
+          },
+          {
+            "type": "SI",
+            "pitches": 229,
+            "usage": 24.7
+          },
+          {
+            "type": "SL",
+            "pitches": 202,
+            "usage": 21.8
+          },
+          {
+            "type": "CH",
+            "pitches": 11,
+            "usage": 1.2
+          },
+          {
+            "type": "KC",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "SI",
+            "pitches": 79,
+            "usage": 33.1
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 56,
+            "usage": 23.4
+          },
+          {
+            "type": "ST",
+            "pitches": 53,
+            "usage": 22.2
+          },
+          {
+            "type": "SL",
+            "pitches": 49,
+            "usage": 20.5
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 0.8
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "ST",
+            "pitches": 93,
+            "usage": 36.9
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 75,
+            "usage": 29.8
+          },
+          {
+            "type": "SL",
+            "pitches": 53,
+            "usage": 21.0
+          },
+          {
+            "type": "SI",
+            "pitches": 25,
+            "usage": 9.9
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 2.0
+          },
+          {
+            "type": "KC",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "ST",
+            "pitches": 130,
+            "usage": 32.7
+          },
+          {
+            "type": "SI",
+            "pitches": 124,
+            "usage": 31.2
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 72,
+            "usage": 18.1
+          },
+          {
+            "type": "SL",
+            "pitches": 66,
+            "usage": 16.6
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 1.3
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 176,
+            "usage": 33.2
+          },
+          {
+            "type": "SL",
+            "pitches": 136,
+            "usage": 25.7
+          },
+          {
+            "type": "ST",
+            "pitches": 106,
+            "usage": 20.0
+          },
+          {
+            "type": "SI",
+            "pitches": 105,
+            "usage": 19.8
+          },
+          {
+            "type": "CH",
+            "pitches": 6,
+            "usage": 1.1
+          },
+          {
+            "type": "KC",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 397,
+        "vs_RHH": 530
+      },
+      "leagues": {
+        "MLB": 112,
+        "MILB": 815
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 676454
+    },
+    {
+      "synergy_id": "5fcd991b002101f9faa62a2e",
+      "name": "Josimar Cousin",
+      "pitches": 920,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 515,
+            "usage": 56.0
+          },
+          {
+            "type": "SL",
+            "pitches": 258,
+            "usage": 28.0
+          },
+          {
+            "type": "CU",
+            "pitches": 90,
+            "usage": 9.8
+          },
+          {
+            "type": "CH",
+            "pitches": 25,
+            "usage": 2.7
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 18,
+            "usage": 2.0
+          },
+          {
+            "type": "SI",
+            "pitches": 11,
+            "usage": 1.2
+          },
+          {
+            "type": "FS",
+            "pitches": 2,
+            "usage": 0.2
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 127,
+            "usage": 54.0
+          },
+          {
+            "type": "SL",
+            "pitches": 60,
+            "usage": 25.5
+          },
+          {
+            "type": "CU",
+            "pitches": 36,
+            "usage": 15.3
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 6,
+            "usage": 2.6
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 1.3
+          },
+          {
+            "type": "SI",
+            "pitches": 2,
+            "usage": 0.9
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 141,
+            "usage": 54.0
+          },
+          {
+            "type": "SL",
+            "pitches": 81,
+            "usage": 31.0
+          },
+          {
+            "type": "CU",
+            "pitches": 21,
+            "usage": 8.0
+          },
+          {
+            "type": "CH",
+            "pitches": 10,
+            "usage": 3.8
+          },
+          {
+            "type": "SI",
+            "pitches": 6,
+            "usage": 2.3
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 2,
+            "usage": 0.8
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 232,
+            "usage": 59.9
+          },
+          {
+            "type": "SL",
+            "pitches": 67,
+            "usage": 17.3
+          },
+          {
+            "type": "CU",
+            "pitches": 46,
+            "usage": 11.9
+          },
+          {
+            "type": "CH",
+            "pitches": 24,
+            "usage": 6.2
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 10,
+            "usage": 2.6
+          },
+          {
+            "type": "SI",
+            "pitches": 6,
+            "usage": 1.6
+          },
+          {
+            "type": "FS",
+            "pitches": 2,
+            "usage": 0.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 283,
+            "usage": 53.1
+          },
+          {
+            "type": "SL",
+            "pitches": 191,
+            "usage": 35.8
+          },
+          {
+            "type": "CU",
+            "pitches": 44,
+            "usage": 8.3
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 8,
+            "usage": 1.5
+          },
+          {
+            "type": "SI",
+            "pitches": 5,
+            "usage": 0.9
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 387,
+        "vs_RHH": 533
+      },
+      "leagues": {
+        "LBPRC": 217,
+        "LMB": 703
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "MAY",
+      "mlb_id": 814300
     },
     {
       "synergy_id": "5f87ee12d9b60b00014e1ef7",
@@ -5546,6 +6442,179 @@
       "mlb_id": 663723
     },
     {
+      "synergy_id": "5fd12a915fe05a0e9fc112e2",
+      "name": "Jorge Benitez",
+      "pitches": 747,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 380,
+            "usage": 50.9
+          },
+          {
+            "type": "SL",
+            "pitches": 176,
+            "usage": 23.6
+          },
+          {
+            "type": "CH",
+            "pitches": 164,
+            "usage": 22.0
+          },
+          {
+            "type": "SI",
+            "pitches": 18,
+            "usage": 2.4
+          },
+          {
+            "type": "FC",
+            "pitches": 7,
+            "usage": 0.9
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 2,
+            "usage": 0.3
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 119,
+            "usage": 64.0
+          },
+          {
+            "type": "SL",
+            "pitches": 31,
+            "usage": 16.7
+          },
+          {
+            "type": "CH",
+            "pitches": 30,
+            "usage": 16.1
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 1.6
+          },
+          {
+            "type": "SI",
+            "pitches": 2,
+            "usage": 1.1
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.5
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 76,
+            "usage": 43.7
+          },
+          {
+            "type": "SL",
+            "pitches": 54,
+            "usage": 31.0
+          },
+          {
+            "type": "CH",
+            "pitches": 36,
+            "usage": 20.7
+          },
+          {
+            "type": "SI",
+            "pitches": 5,
+            "usage": 2.9
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 1.7
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 151,
+            "usage": 51.7
+          },
+          {
+            "type": "SL",
+            "pitches": 105,
+            "usage": 36.0
+          },
+          {
+            "type": "CH",
+            "pitches": 26,
+            "usage": 8.9
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 2.7
+          },
+          {
+            "type": "FC",
+            "pitches": 2,
+            "usage": 0.7
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 229,
+            "usage": 50.3
+          },
+          {
+            "type": "CH",
+            "pitches": 138,
+            "usage": 30.3
+          },
+          {
+            "type": "SL",
+            "pitches": 71,
+            "usage": 15.6
+          },
+          {
+            "type": "SI",
+            "pitches": 10,
+            "usage": 2.2
+          },
+          {
+            "type": "FC",
+            "pitches": 5,
+            "usage": 1.1
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 2,
+            "usage": 0.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 292,
+        "vs_RHH": 455
+      },
+      "leagues": {
+        "LBPRC": 113,
+        "MILB": 634
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 676221
+    },
+    {
       "synergy_id": "573d7056080cc2cbe8bf2e95",
       "name": "H\u00e9ctor Santiago",
       "pitches": 719,
@@ -6825,6 +7894,226 @@
       "mlb_id": 605167
     },
     {
+      "synergy_id": "5f84b8c41cb0540001a544d9",
+      "name": "Lenny Torres Jr.",
+      "pitches": 575,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 317,
+            "usage": 55.1
+          },
+          {
+            "type": "SL",
+            "pitches": 121,
+            "usage": 21.0
+          },
+          {
+            "type": "SI",
+            "pitches": 62,
+            "usage": 10.8
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 50,
+            "usage": 8.7
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 16,
+            "usage": 2.8
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 0.9
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.3
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.2
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 73,
+            "usage": 51.4
+          },
+          {
+            "type": "SL",
+            "pitches": 30,
+            "usage": 21.1
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 15,
+            "usage": 10.6
+          },
+          {
+            "type": "SI",
+            "pitches": 13,
+            "usage": 9.2
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 8,
+            "usage": 5.6
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 1.4
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.7
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 85,
+            "usage": 54.5
+          },
+          {
+            "type": "SL",
+            "pitches": 41,
+            "usage": 26.3
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 15,
+            "usage": 9.6
+          },
+          {
+            "type": "SI",
+            "pitches": 9,
+            "usage": 5.8
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 3,
+            "usage": 1.9
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 1.3
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.6
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 156,
+            "usage": 61.2
+          },
+          {
+            "type": "SL",
+            "pitches": 39,
+            "usage": 15.3
+          },
+          {
+            "type": "SI",
+            "pitches": 24,
+            "usage": 9.4
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 23,
+            "usage": 9.0
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 2.0
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 4,
+            "usage": 1.6
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.8
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.4
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 161,
+            "usage": 50.3
+          },
+          {
+            "type": "SL",
+            "pitches": 82,
+            "usage": 25.6
+          },
+          {
+            "type": "SI",
+            "pitches": 38,
+            "usage": 11.9
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 27,
+            "usage": 8.4
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 12,
+            "usage": 3.8
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 255,
+        "vs_RHH": 320
+      },
+      "leagues": {
+        "MILB": 309,
+        "MLB": 9,
+        "LBPRC": 257
+      },
+      "years": [
+        2025,
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "PON",
+      "mlb_id": 678013
+    },
+    {
       "synergy_id": "5deb84764b8b4f28d0144310",
       "name": "Luis Leroy Cruz",
       "pitches": 572,
@@ -7326,6 +8615,174 @@
       "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 703211
+    },
+    {
+      "synergy_id": "59c8a8f844b2b8aa7ed10eeb",
+      "name": "Paolo Espino",
+      "pitches": 421,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 238,
+            "usage": 56.5
+          },
+          {
+            "type": "CU",
+            "pitches": 95,
+            "usage": 22.6
+          },
+          {
+            "type": "SL",
+            "pitches": 42,
+            "usage": 10.0
+          },
+          {
+            "type": "CH",
+            "pitches": 36,
+            "usage": 8.6
+          },
+          {
+            "type": "ST",
+            "pitches": 9,
+            "usage": 2.1
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 70,
+            "usage": 56.5
+          },
+          {
+            "type": "CU",
+            "pitches": 24,
+            "usage": 19.4
+          },
+          {
+            "type": "SL",
+            "pitches": 14,
+            "usage": 11.3
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 9.7
+          },
+          {
+            "type": "ST",
+            "pitches": 3,
+            "usage": 2.4
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.8
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 59,
+            "usage": 54.6
+          },
+          {
+            "type": "CU",
+            "pitches": 33,
+            "usage": 30.6
+          },
+          {
+            "type": "SL",
+            "pitches": 8,
+            "usage": 7.4
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 4.6
+          },
+          {
+            "type": "ST",
+            "pitches": 3,
+            "usage": 2.8
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 142,
+            "usage": 63.4
+          },
+          {
+            "type": "CU",
+            "pitches": 46,
+            "usage": 20.5
+          },
+          {
+            "type": "CH",
+            "pitches": 34,
+            "usage": 15.2
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 0.9
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 96,
+            "usage": 48.7
+          },
+          {
+            "type": "CU",
+            "pitches": 49,
+            "usage": 24.9
+          },
+          {
+            "type": "SL",
+            "pitches": 40,
+            "usage": 20.3
+          },
+          {
+            "type": "ST",
+            "pitches": 9,
+            "usage": 4.6
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 1.0
+          },
+          {
+            "type": "UNKNOWN",
+            "pitches": 1,
+            "usage": 0.5
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 224,
+        "vs_RHH": 197
+      },
+      "leagues": {
+        "LBPRC": 103,
+        "LMB": 318
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 502179
     },
     {
       "synergy_id": "5c7a392a85d07ba97655f43d",
@@ -8223,6 +9680,164 @@
       "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 602993
+    },
+    {
+      "synergy_id": "5d0d76e94b8b4e352c29c0a8",
+      "name": "Magdiel Cotto",
+      "pitches": 309,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "SI",
+            "pitches": 101,
+            "usage": 32.7
+          },
+          {
+            "type": "CH",
+            "pitches": 69,
+            "usage": 22.3
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 64,
+            "usage": 20.7
+          },
+          {
+            "type": "SL",
+            "pitches": 55,
+            "usage": 17.8
+          },
+          {
+            "type": "FF",
+            "pitches": 20,
+            "usage": 6.5
+          }
+        ],
+        "0-0": [
+          {
+            "type": "SI",
+            "pitches": 29,
+            "usage": 37.2
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 19,
+            "usage": 24.4
+          },
+          {
+            "type": "SL",
+            "pitches": 14,
+            "usage": 17.9
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 15.4
+          },
+          {
+            "type": "FF",
+            "pitches": 4,
+            "usage": 5.1
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 22,
+            "usage": 26.8
+          },
+          {
+            "type": "CH",
+            "pitches": 21,
+            "usage": 25.6
+          },
+          {
+            "type": "SI",
+            "pitches": 19,
+            "usage": 23.2
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 14,
+            "usage": 17.1
+          },
+          {
+            "type": "FF",
+            "pitches": 6,
+            "usage": 7.3
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "SI",
+            "pitches": 27,
+            "usage": 32.5
+          },
+          {
+            "type": "SL",
+            "pitches": 27,
+            "usage": 32.5
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 18,
+            "usage": 21.7
+          },
+          {
+            "type": "FF",
+            "pitches": 10,
+            "usage": 12.0
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 1.2
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "SI",
+            "pitches": 74,
+            "usage": 32.7
+          },
+          {
+            "type": "CH",
+            "pitches": 68,
+            "usage": 30.1
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 46,
+            "usage": 20.4
+          },
+          {
+            "type": "SL",
+            "pitches": 28,
+            "usage": 12.4
+          },
+          {
+            "type": "FF",
+            "pitches": 10,
+            "usage": 4.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 83,
+        "vs_RHH": 226
+      },
+      "leagues": {
+        "LBPRC": 52,
+        "MILB": 257
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 694365
     },
     {
       "synergy_id": "6145ec759b656db70d4bc2c0",
@@ -10056,6 +11671,184 @@
       "mlb_id": 676219
     },
     {
+      "synergy_id": "680080488961ae9b3dede5e6",
+      "name": "Pitterson Rosa",
+      "pitches": 191,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 89,
+            "usage": 46.6
+          },
+          {
+            "type": "SL",
+            "pitches": 57,
+            "usage": 29.8
+          },
+          {
+            "type": "FC",
+            "pitches": 18,
+            "usage": 9.4
+          },
+          {
+            "type": "CH",
+            "pitches": 10,
+            "usage": 5.2
+          },
+          {
+            "type": "CU",
+            "pitches": 9,
+            "usage": 4.7
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 4.2
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 22,
+            "usage": 44.0
+          },
+          {
+            "type": "SL",
+            "pitches": 14,
+            "usage": 28.0
+          },
+          {
+            "type": "FC",
+            "pitches": 5,
+            "usage": 10.0
+          },
+          {
+            "type": "CU",
+            "pitches": 4,
+            "usage": 8.0
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 6.0
+          },
+          {
+            "type": "SI",
+            "pitches": 2,
+            "usage": 4.0
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 20,
+            "usage": 38.5
+          },
+          {
+            "type": "SL",
+            "pitches": 19,
+            "usage": 36.5
+          },
+          {
+            "type": "FC",
+            "pitches": 6,
+            "usage": 11.5
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 9.6
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 3.8
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 33,
+            "usage": 49.3
+          },
+          {
+            "type": "SL",
+            "pitches": 19,
+            "usage": 28.4
+          },
+          {
+            "type": "CH",
+            "pitches": 7,
+            "usage": 10.4
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 4.5
+          },
+          {
+            "type": "SI",
+            "pitches": 3,
+            "usage": 4.5
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 3.0
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 56,
+            "usage": 45.2
+          },
+          {
+            "type": "SL",
+            "pitches": 38,
+            "usage": 30.6
+          },
+          {
+            "type": "FC",
+            "pitches": 15,
+            "usage": 12.1
+          },
+          {
+            "type": "CU",
+            "pitches": 7,
+            "usage": 5.6
+          },
+          {
+            "type": "SI",
+            "pitches": 5,
+            "usage": 4.0
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 2.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 67,
+        "vs_RHH": 124
+      },
+      "leagues": {
+        "MILB": 191
+      },
+      "years": [
+        2025,
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "CAR",
+      "mlb_id": 800278
+    },
+    {
       "synergy_id": "6467b4c01e180da51dae1f57",
       "name": "Nathan Alexander",
       "pitches": 190,
@@ -10945,6 +12738,200 @@
       "mlb_id": 670406
     },
     {
+      "synergy_id": "5f178ff5e0962f87adc0caaf",
+      "name": "Jay Groome",
+      "pitches": 32,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 29,
+            "usage": 90.6
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 6.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 3.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 6,
+            "usage": 100.0
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 8,
+            "usage": 80.0
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 20.0
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 11,
+            "usage": 100.0
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 18,
+            "usage": 85.7
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 9.5
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 4.8
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 11,
+        "vs_RHH": 21
+      },
+      "leagues": {
+        "LBPRC": 32
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "SJU",
+      "mlb_id": 666130
+    },
+    {
+      "synergy_id": "5aeffb0b9559b26e7e9b7c09",
+      "name": "Josh James",
+      "pitches": 21,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "SL",
+            "pitches": 12,
+            "usage": 57.1
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 4,
+            "usage": 19.0
+          },
+          {
+            "type": "FF",
+            "pitches": 4,
+            "usage": 19.0
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 4.8
+          }
+        ],
+        "0-0": [
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 66.7
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 33.3
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 6,
+            "usage": 54.5
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 3,
+            "usage": 27.3
+          },
+          {
+            "type": "FF",
+            "pitches": 2,
+            "usage": 18.2
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "SL",
+            "pitches": 3,
+            "usage": 37.5
+          },
+          {
+            "type": "FF",
+            "pitches": 2,
+            "usage": 25.0
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 2,
+            "usage": 25.0
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 12.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "SL",
+            "pitches": 9,
+            "usage": 69.2
+          },
+          {
+            "type": "FASTBALLFOURSEAM",
+            "pitches": 2,
+            "usage": 15.4
+          },
+          {
+            "type": "FF",
+            "pitches": 2,
+            "usage": 15.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 8,
+        "vs_RHH": 13
+      },
+      "leagues": {
+        "LBPRC": 21
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "team": "MAY",
+      "mlb_id": 657624
+    },
+    {
       "synergy_id": "5f8674d2d9b60b00014e1dd8",
       "name": "Harrison Francis",
       "pitches": 20,
@@ -11133,16 +13120,17 @@
       "kept": 0
     }
   ],
-  "note": "Pitcher-centric pulls (not batter/team-only). overall / 0-0 / 2_strikes from count.balls/strikes; vs_LHB / vs_RHB from batterInfo.battingSide.",
+  "note": "Movement-only fill via pitcherId after /api/players/search resolve.",
   "sample": {
-    "pitchers": 63,
-    "discovered": 65,
-    "empty": 2,
-    "events_by_league": {
-      "LMB": 9165,
-      "MILB": 14317,
-      "MLB": 632,
-      "LBPRC": 14215
+    "pitchers": 75,
+    "fill_filled": 12,
+    "fill_empty": 0,
+    "fill_unresolved": 0,
+    "events_by_league_fill": {
+      "MLB": 449,
+      "MILB": 4975,
+      "LBPRC": 888,
+      "LMB": 1057
     }
   }
 }
