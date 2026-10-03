@@ -1533,6 +1533,7 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
 
 
 def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
+    """Attach Synergy vs-LHH/RHH usage only — never touch PS movement fields."""
     if not pitches or not platoon:
         return pitches
     by_l = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_LHB") or [])}
@@ -1552,8 +1553,22 @@ def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
     return out
 
 
+_PS_MOVE_KEYS = ("velo", "spin", "ivb", "hb", "hb_pitcher", "hb_hitter", "ps_stuff", "whiff", "xwoba")
+
+
+def _has_ps_movement(pitches: list | None) -> bool:
+    for p in pitches or []:
+        if any(p.get(k) is not None for k in _PS_MOVE_KEYS):
+            return True
+    return False
+
+
 def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[str, int]:
-    """Attach Synergy count_mix + platoon onto pregame_pitcher_arsenals (mlb_id then name)."""
+    """Attach Synergy count + hand usage onto arsenals without overwriting PS movement.
+
+    Prospect Savant owns velo / IVB / HB / spin / plot rows.
+    Synergy owns Overall / 0–0 / 2K count mixes and vs LHH / vs RHH usage.
+    """
     path = OUT / "pregame_pitcher_arsenals.json"
     stats = {"count": 0, "hand": 0, "matched": 0, "arsenal_rows": 0}
     if not path.is_file() or not pitcher_mixes:
@@ -1600,9 +1615,12 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
             p["synergy_years"] = syn.get("years")
             stats["count"] += 1
         platoon = syn.get("platoon") or {}
-        # Build / refresh arsenal rows from Synergy overall so Arsenal snapshot + Usage vs hand fill
         overall = (cm.get("overall") or []) if cm else []
-        if overall and not p.get("arsenal"):
+        has_ps = _has_ps_movement(p.get("arsenal")) or (
+            str(p.get("ps_source") or "").startswith("Prospect Savant")
+        )
+        # Synergy-only fill when no PS arsenal exists — never replace PS movement rows.
+        if overall and not p.get("arsenal") and not has_ps:
             p["arsenal"] = [
                 {
                     "type": r.get("type"),
@@ -1621,8 +1639,14 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
                 for r in overall
             ]
             p["pitches"] = p.get("pitches") or syn.get("pitches")
-            p["ps_source"] = p.get("ps_source") or "Synergy pitchKind usage"
+            # Do not label Synergy as Prospect Savant.
+            if not p.get("ps_source") or str(p.get("ps_source")).startswith("Synergy"):
+                p["ps_source"] = None
+            p["synergy_usage_source"] = syn.get("source") or "Synergy pitchKind usage"
             stats["arsenal_rows"] += 1
+        elif has_ps and str(p.get("ps_source") or "").startswith("Synergy"):
+            # Repair mislabel from earlier merges; keep real PS movement.
+            p["ps_source"] = "Prospect Savant"
         if platoon.get("vs_LHB") or platoon.get("vs_RHB"):
             if p.get("platoon") and not p.get("statcast_platoon") and p.get("statcast_source"):
                 p["statcast_platoon"] = p.get("platoon")
@@ -1633,13 +1657,10 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
             p["synergy_hand_n"] = syn.get("hand_n")
             p["synergy_hand_source"] = syn.get("source")
             stats["hand"] += 1
-        elif p.get("arsenal") and overall:
-            # Even without platoon threshold, keep overall arsenal usage from Synergy when PS missing
-            pass
         note = p.get("note") or ""
         syn_note = (
             "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events "
-            "(Count + Left/Right filters)."
+            "(Count + Left/Right filters). Movement stays Prospect Savant when tracked."
         )
         if "Synergy pitcherId" not in note:
             p["note"] = (note + " " + syn_note).strip() if note else syn_note
@@ -1648,9 +1669,10 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
     data["updated_synergy_counts"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     data["note"] = (
         "KNCT-style arsenal plots from hitter perspective. "
-        "Overall movement from Prospect Savant when tracked. "
+        "Movement (velo/IVB/HB/spin/plot) from Prospect Savant when tracked. "
         "Count usage (overall / 0-0 / 2 strikes) and hand splits (vs LHH / vs RHH) "
-        "from Synergy pitcherId events when available; Statcast fallback for MLB-debut arms."
+        "from Synergy pitcherId events when available; Statcast fallback for MLB-debut arms. "
+        "Synergy never overwrites Prospect Savant movement fields."
     )
     path.write_text(json.dumps(data, indent=2))
     print(

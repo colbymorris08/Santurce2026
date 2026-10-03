@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san7">
+<link rel="stylesheet" href="shared.css?v=san8">
 </head>
 <body>
 <div class="topbar">
@@ -1539,15 +1539,14 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     : `<div class="advance-placeholder advance-placeholder-tall">Delivery snapshot</div>`;
   const pageClass = printPage ? 'advance-print-page' : '';
   return `<div class="advance-sheet ${pageClass}">
-  <div class="advance-hero advance-hero-pitcher">
-    <div class="advance-hero-picstack">
+  <div class="advance-hero">
+    <div class="advance-hero-id">
       ${headHtml}
-      <div class="advance-hero-snapshot" title="Delivery / arm-slot snapshot">${armBlock}</div>
-    </div>
-    <div class="advance-hero-meta">
-      <h2>${p.name}</h2>
-      <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-      <div class="note" style="margin:8px 0 0">Synergy count (Overall / 0–0 / 2K) + Left/Right (vs LHH / vs RHH) when pulled.</div>
+      <div class="advance-hero-meta">
+        <h2>${p.name}</h2>
+        <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
+        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled.</div>
+      </div>
     </div>
   </div>
   <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
@@ -1598,7 +1597,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     </div>
     <div class="advance-col">
       <div class="advance-card advance-card-arm-slot">
-        <div class="section-label">Arm slot</div>
+        <div class="section-label">Delivery snapshot</div>
         <div class="advance-arm">${armBlock}</div>
       </div>
       <div class="advance-card">
