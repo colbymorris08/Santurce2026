@@ -1,0 +1,134 @@
+{
+  "ps": [
+    {
+      "pid": 592222,
+      "name": "Alex Claudio",
+      "team": "CAG",
+      "ps_season": 2023,
+      "types": [
+        "SI",
+        "CH",
+        "SL",
+        "FF"
+      ],
+      "had_count": false,
+      "has_count_after": false
+    },
+    {
+      "pid": 681813,
+      "name": "Gabriel Cotto",
+      "team": "CAG",
+      "ps_season": 2023,
+      "types": [
+        "FF",
+        "CH",
+        "SL",
+        "FC"
+      ],
+      "had_count": false,
+      "has_count_after": false
+    },
+    {
+      "pid": 605446,
+      "name": "Dereck Rodr\u00edguez",
+      "team": "CAG",
+      "ps_season": 2023,
+      "types": [
+        "FF",
+        "FC",
+        "CH",
+        "CU",
+        "ST",
+        "SI"
+      ],
+      "had_count": false,
+      "has_count_after": false
+    },
+    {
+      "pid": 678725,
+      "name": "Franny Cobos",
+      "team": "PON",
+      "ps_season": 2023,
+      "types": [
+        "FF",
+        "FC",
+        "SL",
+        "CU",
+        "CH",
+        "SI"
+      ],
+      "had_count": false,
+      "has_count_after": false
+    },
+    {
+      "pid": 686662,
+      "name": "Jarrod Cande",
+      "team": "SJU",
+      "ps_season": 2026,
+      "types": [
+        "FF",
+        "SL",
+        "CH",
+        "CU",
+        "SI",
+        "FC"
+      ],
+      "had_count": false,
+      "has_count_after": false
+    }
+  ],
+  "statcast": [
+    {
+      "pid": 502327,
+      "name": "H\u00e9ctor Santiago",
+      "source": "MLB Statcast",
+      "seasons": [
+        "2021",
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015"
+      ],
+      "types": [
+        "SI",
+        "CH",
+        "FF",
+        "SL",
+        "FC",
+        "CU",
+        "SC",
+        "IN",
+        "EP"
+      ],
+      "synergy_kept": true
+    },
+    {
+      "pid": 425507,
+      "name": "Fernando Cabrera",
+      "error": "no_statcast_or_savant",
+      "savant": [
+        {
+          "season": 2021,
+          "lines": 0,
+          "preview": "\ufeff\"pitch_type\",\"game_date\",\"release_speed\",\"release_pos_x\",\"release_pos_z\",\"player_name\",\"batter\",\"pitcher\",\"events\",\"des"
+        },
+        {
+          "season": 2019,
+          "lines": 0,
+          "preview": "\ufeff\"pitch_type\",\"game_date\",\"release_speed\",\"release_pos_x\",\"release_pos_z\",\"player_name\",\"batter\",\"pitcher\",\"events\",\"des"
+        },
+        {
+          "season": 2017,
+          "lines": 0,
+          "preview": "\ufeff\"pitch_type\",\"game_date\",\"release_speed\",\"release_pos_x\",\"release_pos_z\",\"player_name\",\"batter\",\"pitcher\",\"events\",\"des"
+        },
+        {
+          "season": 2015,
+          "lines": 0,
+          "preview": "\ufeff\"pitch_type\",\"game_date\",\"release_speed\",\"release_pos_x\",\"release_pos_z\",\"player_name\",\"batter\",\"pitcher\",\"events\",\"des"
+        }
+      ]
+    }
+  ]
+}

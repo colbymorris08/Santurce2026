@@ -1,0 +1,544 @@
+{
+  "hits": [
+    {
+      "name": "Alex Claudio",
+      "team": "CAG",
+      "pid": 592222,
+      "season": 2023,
+      "n": 4,
+      "types": [
+        "SI",
+        "CH",
+        "SL",
+        "FF"
+      ],
+      "had_count": false
+    },
+    {
+      "name": "Gabriel Cotto",
+      "team": "CAG",
+      "pid": 681813,
+      "season": 2023,
+      "n": 4,
+      "types": [
+        "FF",
+        "CH",
+        "SL",
+        "FC"
+      ],
+      "had_count": false
+    },
+    {
+      "name": "Dereck Rodr\u00edguez",
+      "team": "CAG",
+      "pid": 605446,
+      "season": 2023,
+      "n": 6,
+      "types": [
+        "FF",
+        "FC",
+        "CH",
+        "CU",
+        "ST",
+        "SI"
+      ],
+      "had_count": false
+    },
+    {
+      "name": "Franny Cobos",
+      "team": "PON",
+      "pid": 678725,
+      "season": 2023,
+      "n": 6,
+      "types": [
+        "FF",
+        "FC",
+        "SL",
+        "CU",
+        "CH",
+        "SI"
+      ],
+      "had_count": false
+    },
+    {
+      "name": "Jarrod Cande",
+      "team": "SJU",
+      "pid": 686662,
+      "season": 2026,
+      "n": 6,
+      "types": [
+        "FF",
+        "SL",
+        "CH",
+        "CU",
+        "SI",
+        "FC"
+      ],
+      "had_count": false
+    }
+  ],
+  "misses": [
+    {
+      "name": "Harrison Francis",
+      "team": "CAG",
+      "pid": 676090,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Luis Gonzalez",
+      "team": "CAG",
+      "pid": 681505,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Marvin Gorgas",
+      "team": "CAG",
+      "pid": 656479,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "H\u00e9ctor Santiago",
+      "team": "CAG",
+      "pid": 502327,
+      "debut": "2011-07-06",
+      "level": "MLB"
+    },
+    {
+      "name": "Christian Torres",
+      "team": "CAG",
+      "pid": 670369,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jhon Vargas",
+      "team": "CAG",
+      "pid": 815949,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Derek West",
+      "team": "MAY",
+      "pid": 663723,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Miguel Ausua",
+      "team": "CAR",
+      "pid": 682118,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Garrett Crowley",
+      "team": "CAR",
+      "pid": 700994,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jose Cruz",
+      "team": "CAR",
+      "pid": 692808,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "R.J. Martinez",
+      "team": "CAR",
+      "pid": 801994,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ren Mukunoki",
+      "team": "CAR",
+      "pid": 837228,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Kazuo Ohno",
+      "team": "CAR",
+      "pid": 837225,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jean Ortega",
+      "team": "CAR",
+      "pid": 458960,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Nicholas Regalado",
+      "team": "CAR",
+      "pid": 805727,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Eddy Reynoso",
+      "team": "CAR",
+      "pid": 664371,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Eduardo Rivera",
+      "team": "CAR",
+      "pid": 602993,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Luis Rodriguez",
+      "team": "CAR",
+      "pid": 693543,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ramesis Rosa",
+      "team": "CAR",
+      "pid": 545814,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Kaisei Toumatsu",
+      "team": "CAR",
+      "pid": 837224,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Nathan Alexander",
+      "team": "MAY",
+      "pid": 682032,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "A.J. Candelario",
+      "team": "MAY",
+      "pid": 668826,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Luis Leroy Cruz",
+      "team": "MAY",
+      "pid": 543071,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Carlos A. Francisco",
+      "team": "MAY",
+      "pid": 687956,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Hector Hernandez",
+      "team": "MAY",
+      "pid": 571772,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Keylan Killgore",
+      "team": "MAY",
+      "pid": 681154,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Efrain Nieves",
+      "team": "MAY",
+      "pid": 519080,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Michael Reed",
+      "team": "MAY",
+      "pid": 642002,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Alexis Rivero",
+      "team": "MAY",
+      "pid": 640485,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Matt Tenuta",
+      "team": "MAY",
+      "pid": 621343,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Lucas Vega",
+      "team": "MAY",
+      "pid": 837223,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Fernando Cabrera",
+      "team": "PON",
+      "pid": 425507,
+      "debut": "2004-08-20",
+      "level": "MLB"
+    },
+    {
+      "name": "Freddie Cabrera",
+      "team": "PON",
+      "pid": 605167,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Harold Cortijo",
+      "team": "PON",
+      "pid": 676435,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Juan Echevarria",
+      "team": "PON",
+      "pid": 663499,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Eric Garcia",
+      "team": "PON",
+      "pid": 806586,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jackson Goddard",
+      "team": "PON",
+      "pid": 680725,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Brandon Kaminer",
+      "team": "PON",
+      "pid": 690510,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Andrew Marrero",
+      "team": "PON",
+      "pid": 687817,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Omar Melendez",
+      "team": "PON",
+      "pid": 801018,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jalen Miller",
+      "team": "PON",
+      "pid": 685387,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Orlando Ortiz-Mayr",
+      "team": "PON",
+      "pid": 689508,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Noel Pinto",
+      "team": "PON",
+      "pid": 676984,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Gabriel Rodriguez",
+      "team": "PON",
+      "pid": 676082,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Bryant Salgado",
+      "team": "PON",
+      "pid": 687560,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jose Sola",
+      "team": "PON",
+      "pid": 672990,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Kazuto Taguchi",
+      "team": "PON",
+      "pid": 683803,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Brady Tedesco",
+      "team": "SJU",
+      "pid": 805749,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Julio Torres",
+      "team": "PON",
+      "pid": 692937,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Minato Aoyama",
+      "team": "SJU",
+      "pid": 837221,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Alexander Castro",
+      "team": "SJU",
+      "pid": 669418,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Yanzel Correa",
+      "team": "SJU",
+      "pid": 814354,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Sidney Duprey",
+      "team": "SJU",
+      "pid": 656389,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "pid": 671045,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ethan Lindow",
+      "team": "SJU",
+      "pid": 676600,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Francisco Lopez-Soto",
+      "team": "SJU",
+      "pid": 670406,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Josh Mallitz",
+      "team": "SJU",
+      "pid": 695256,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Taishi Mameda",
+      "team": "SJU",
+      "pid": 837222,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Agnel Miranda",
+      "team": "SJU",
+      "pid": 695064,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ryan Munoz",
+      "team": "SJU",
+      "pid": 684841,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "pid": 703211,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Jerryell Rivera",
+      "team": "SJU",
+      "pid": 676219,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Raul Rivera",
+      "team": "SJU",
+      "pid": 572077,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Aneuris Rosario",
+      "team": "SJU",
+      "pid": 656080,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Ryan Velazquez",
+      "team": "SJU",
+      "pid": 693546,
+      "debut": null,
+      "level": "MiLB/AAA"
+    },
+    {
+      "name": "Sam Whiting",
+      "team": "SJU",
+      "pid": 688519,
+      "debut": null,
+      "level": "MiLB/AAA"
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "before": {
+    "both": 39,
+    "count_only": 39,
+    "movement_only": 0,
+    "neither": 32,
+    "total": 110
+  },
+  "after": {
+    "both": 45,
+    "count_only": 64,
+    "neither": 1
+  },
+  "movement_fills": {
+    "prospect_savant": [
+      "Alex Claudio",
+      "Gabriel Cotto",
+      "Dereck Rodr\u00edguez",
+      "Franny Cobos",
+      "Jarrod Cande"
+    ],
+    "mlb_statcast": [
+      "H\u00e9ctor Santiago"
+    ],
+    "unavailable": [
+      {
+        "name": "Fernando Cabrera",
+        "why": "MLB 2004\u201310; no Statcast era (post-2015) tracking; PS empty/500"
+      },
+      {
+        "name": "Christian Torres",
+        "why": "AAA 2017 only; PS empty 2023\u201326 / HTTP 500 \u22642022; no alternate endpoint"
+      },
+      {
+        "name": "Luis Leroy Cruz",
+        "why": "AAA 2014\u201315; PS empty/500; no Statcast"
+      },
+      {
+        "name": "Hector Hernandez",
+        "why": "AAA 2015\u201319; PS empty/500; no Statcast"
+      },
+      {
+        "name": "Matt Tenuta",
+        "why": "AAA 2018\u201319; PS empty/500; no Statcast"
+      },
+      {
+        "name": "Ruben Ramirez",
+        "why": "AAA 2021; PS empty/500; no Statcast"
+      },
+      {
+        "name": "Aneuris Rosario",
+        "why": "AAA 2021\u201322; PS empty/500; no Statcast"
+      }
+    ]
+  },
+  "count_fills_this_run": {
+    "synergy_standard_leagues": 26,
+    "synergy_expanded_ALPB_LMP_NPBML": [
+      "Kaisei Toumatsu",
+      "Nicholas Regalado",
+      "Ethan Lindow",
+      "A.J. Candelario",
+      "Michael Reed"
+    ],
+    "stuck_neither": [
+      {
+        "name": "Jean Ortega",
+        "why": "Synergy id resolves but 0 events; born 1981, no charted pitching in target/expanded leagues"
+      }
+    ]
+  },
+  "ps_api_note": "Prospect Savant /stuff/{id}/{season} returns live data for some 2023\u20132026 seasons; seasons \u22642022 consistently HTTP 500. Alternate path variants all 404. No OpenAPI/docs on host.",
+  "buckets_detail": {
+    "both": [
+      "CAG Jorge Benitez",
+      "CAG Brendan Cellucci",
+      "CAG Alex Claudio",
+      "CAG Gabriel Cotto",
+      "CAG Magdiel Cotto",
+      "CAG Jos\u00e9 De Le\u00f3n",
+      "CAG Jose Espada",
+      "CAG Paolo Espino",
+      "CAG Anthony Maldonado",
+      "CAG Jovani Mor\u00e1n",
+      "CAG Wyatt Olds",
+      "CAG Nicholas Padilla",
+      "CAG Roel Ram\u00edrez",
+      "CAG Yacksel R\u00edos",
+      "CAG Dereck Rodr\u00edguez",
+      "CAG H\u00e9ctor Santiago",
+      "CAG Luke Taggart",
+      "CAG Duane Underwood Jr.",
+      "CAR Jonathan Berm\u00fadez",
+      "CAR Osvaldo Berrios",
+      "CAR Raymond Burgos",
+      "CAR Magnus Ellerts",
+      "CAR Sandy Gaston",
+      "CAR Matt Givin",
+      "CAR Colin Poche",
+      "CAR Angel Reyes",
+      "CAR Pitterson Rosa",
+      "CAR Pedro Santos",
+      "CAR Ricardo Velez",
+      "MAY Josimar Cousin",
+      "MAY Ashton Goudeau",
+      "MAY Patrick Halligan",
+      "MAY Josh James",
+      "MAY Jorge L\u00f3pez",
+      "MAY Brian Moran",
+      "MAY Luis Qui\u00f1ones",
+      "MAY Chris Vallimont",
+      "PON Franny Cobos",
+      "PON Lenny Torres Jr.",
+      "PON Eric Torres",
+      "SJU Jarrod Cande",
+      "SJU Jay Groome",
+      "SJU Brandon Komar",
+      "SJU Ethan Routzahn",
+      "SJU Cole Stasio"
+    ],
+    "count_only": [
+      "CAG Harrison Francis",
+      "CAG Luis Gonzalez",
+      "CAG Marvin Gorgas",
+      "CAG Christian Torres",
+      "CAG Jhon Vargas",
+      "MAY Derek West",
+      "CAR Miguel Ausua",
+      "CAR Garrett Crowley",
+      "CAR Jose Cruz",
+      "CAR R.J. Martinez",
+      "CAR Ren Mukunoki",
+      "CAR Kazuo Ohno",
+      "CAR Nicholas Regalado",
+      "CAR Eddy Reynoso",
+      "CAR Eduardo Rivera",
+      "CAR Luis Rodriguez",
+      "CAR Ramesis Rosa",
+      "CAR Kaisei Toumatsu",
+      "MAY Nathan Alexander",
+      "MAY A.J. Candelario",
+      "MAY Luis Leroy Cruz",
+      "MAY Carlos A. Francisco",
+      "MAY Hector Hernandez",
+      "MAY Keylan Killgore",
+      "MAY Efrain Nieves",
+      "MAY Michael Reed",
+      "MAY Alexis Rivero",
+      "MAY Matt Tenuta",
+      "MAY Lucas Vega",
+      "PON Fernando Cabrera",
+      "PON Freddie Cabrera",
+      "PON Harold Cortijo",
+      "PON Juan Echevarria",
+      "PON Eric Garcia",
+      "PON Jackson Goddard",
+      "PON Brandon Kaminer",
+      "PON Andrew Marrero",
+      "PON Omar Melendez",
+      "PON Jalen Miller",
+      "PON Orlando Ortiz-Mayr",
+      "PON Noel Pinto",
+      "PON Gabriel Rodriguez",
+      "PON Bryant Salgado",
+      "PON Jose Sola",
+      "PON Kazuto Taguchi",
+      "SJU Brady Tedesco",
+      "PON Julio Torres",
+      "SJU Minato Aoyama",
+      "SJU Alexander Castro",
+      "SJU Yanzel Correa",
+      "SJU Sidney Duprey",
+      "SJU Ivan Houellemont",
+      "SJU Ethan Lindow",
+      "SJU Francisco Lopez-Soto",
+      "SJU Josh Mallitz",
+      "SJU Taishi Mameda",
+      "SJU Agnel Miranda",
+      "SJU Ryan Munoz",
+      "SJU Ruben Ramirez",
+      "SJU Jerryell Rivera",
+      "SJU Raul Rivera",
+      "SJU Aneuris Rosario",
+      "SJU Ryan Velazquez",
+      "SJU Sam Whiting"
+    ],
+    "neither": [
+      "CAR Jean Ortega"
+    ]
+  }
+}
