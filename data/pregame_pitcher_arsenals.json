@@ -4770,18 +4770,13 @@
           },
           {
             "type": "FF",
-            "pitches": 9,
-            "usage": 1.1
+            "pitches": 10,
+            "usage": 1.2
           },
           {
             "type": "SL",
             "pitches": 5,
             "usage": 0.6
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 1,
-            "usage": 0.1
           }
         ],
         "0-0": [
@@ -4812,13 +4807,8 @@
           },
           {
             "type": "FF",
-            "pitches": 1,
-            "usage": 0.5
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 1,
-            "usage": 0.5
+            "pitches": 2,
+            "usage": 1.0
           }
         ],
         "2_strikes": [
@@ -4910,16 +4900,11 @@
           },
           {
             "type": "FF",
-            "pitches": 4,
-            "usage": 1.1
+            "pitches": 5,
+            "usage": 1.4
           },
           {
             "type": "SL",
-            "pitches": 1,
-            "usage": 0.3
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
             "pitches": 1,
             "usage": 0.3
           }
@@ -5613,18 +5598,13 @@
         "overall": [
           {
             "type": "FF",
-            "pitches": 229,
-            "usage": 36.7
+            "pitches": 354,
+            "usage": 56.7
           },
           {
             "type": "SL",
             "pitches": 149,
             "usage": 23.9
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 125,
-            "usage": 20.0
           },
           {
             "type": "SI",
@@ -5637,7 +5617,7 @@
             "usage": 7.7
           },
           {
-            "type": "UNKNOWN",
+            "type": "UN",
             "pitches": 4,
             "usage": 0.6
           },
@@ -5650,8 +5630,8 @@
         "0-0": [
           {
             "type": "FF",
-            "pitches": 68,
-            "usage": 41.2
+            "pitches": 94,
+            "usage": 57.0
           },
           {
             "type": "SL",
@@ -5664,17 +5644,12 @@
             "usage": 17.6
           },
           {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 26,
-            "usage": 15.8
-          },
-          {
             "type": "FS",
             "pitches": 5,
             "usage": 3.0
           },
           {
-            "type": "UNKNOWN",
+            "type": "UN",
             "pitches": 1,
             "usage": 0.6
           }
@@ -5682,18 +5657,13 @@
         "2_strikes": [
           {
             "type": "FF",
-            "pitches": 54,
-            "usage": 32.7
+            "pitches": 89,
+            "usage": 53.9
           },
           {
             "type": "SL",
             "pitches": 37,
             "usage": 22.4
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 35,
-            "usage": 21.2
           },
           {
             "type": "FS",
@@ -5706,7 +5676,7 @@
             "usage": 4.8
           },
           {
-            "type": "UNKNOWN",
+            "type": "UN",
             "pitches": 2,
             "usage": 1.2
           },
@@ -5721,13 +5691,8 @@
         "vs_LHB": [
           {
             "type": "FF",
-            "pitches": 103,
-            "usage": 28.2
-          },
-          {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 95,
-            "usage": 26.0
+            "pitches": 198,
+            "usage": 54.2
           },
           {
             "type": "SL",
@@ -5753,8 +5718,8 @@
         "vs_RHB": [
           {
             "type": "FF",
-            "pitches": 126,
-            "usage": 48.6
+            "pitches": 156,
+            "usage": 60.2
           },
           {
             "type": "SL",
@@ -5767,12 +5732,7 @@
             "usage": 12.7
           },
           {
-            "type": "FASTBALLFOURSEAM",
-            "pitches": 30,
-            "usage": 11.6
-          },
-          {
-            "type": "UNKNOWN",
+            "type": "UN",
             "pitches": 4,
             "usage": 1.5
           },
