@@ -327,7 +327,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   margin: 0 0 6px; font-size: 11px; color: var(--santurce-gold); text-transform: uppercase; letter-spacing: 0.04em;
 }
 .advance-usage-row {
-  display: grid; grid-template-columns: 40px 1fr 36px 32px 28px; gap: 4px; align-items: center;
+  display: grid; grid-template-columns: 48px 1fr 40px; gap: 4px; align-items: center;
   font-size: 11.5px; margin-bottom: 5px; color: var(--text);
 }
 .advance-usage-bar {
@@ -640,13 +640,25 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   background: linear-gradient(180deg, var(--panel-2) 0%, #0d1524 100%);
 }
 @media print {
+  @page { size: letter landscape; margin: 0.35in; }
   .advance-export-bar, .filters, .tabs, .tab-bar, .lang-toggle { display: none !important; }
   .advance-print-page { page-break-after: always; break-after: page; }
   body { background: #fff; color: #111; }
   .advance-card, .advance-hero, .metric-card, .spray-card { box-shadow: none; background: #fff; color: #111; border-color: #ccc; }
   .metric-card-title, .section-label, .advance-hero-meta h2 { color: #0a1633; }
   .metric-takeaway { background: #fff5f5; color: #111; }
+  .advance-layout, .advance-layout-pitcher { grid-template-columns: 1.1fr 1fr 0.9fr !important; }
+  .advance-layout-pitcher .advance-card-arm-slot .advance-arm img,
+  .advance-layout-pitcher .advance-card-arm-slot .advance-arm-full { max-height: 280px; }
+  .advance-movement-wrap svg { max-width: 300px; }
+  .hitter-spray-pair { grid-template-columns: 1fr 1fr !important; }
 }
+.hitter-spray-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
+}
+@media (max-width: 720px) { .hitter-spray-pair { grid-template-columns: 1fr; } }
+.hitter-spray-pair .spray-card h3 { font-size: 13px; margin: 0 0 6px; color: var(--santurce-gold); }
+.rate-cell { font-variant-numeric: tabular-nums; }
 
 .season-banner {
   border: 1px solid #3b5f96; background: rgba(30, 64, 120, 0.28); color: var(--text);

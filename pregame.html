@@ -124,7 +124,7 @@
 
   <div id="panel-hitter-advance" class="panel">
     <div class="section-label" data-i18n="hitterAdvanceLabel">Hitter advance — Synergy</div>
-    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON). Team → hitters. Select All aggregates the filtered roster: FP swing%, OPS, whiff by pitch type; RISP; bunts + SB-from-base per 162.</div>
+    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Team → hitters. Tables by pitch type (colored vs league avg) · RISP vs non-RISP spray · bunts + season SB. Mass PDF export via checkboxes.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-team" onchange="fillAdvanceHitters()">
@@ -133,6 +133,7 @@
           <option value="CAR">CAR</option>
           <option value="MAY">MAY</option>
           <option value="PON">PON</option>
+          <option value="SJU">SJU</option>
         </select>
       </div>
       <div class="filter-field"><label data-i18n="hitters">Hitter</label>
@@ -141,6 +142,15 @@
       <div class="filter-field"><label data-i18n="search">Search</label>
         <input id="adv-search" placeholder="Hitter" oninput="fillAdvanceHitters()">
       </div>
+    </div>
+    <div class="advance-export-bar">
+      <div class="advance-export-head">
+        <strong>Mass PDF export</strong>
+        <label class="advance-check"><input type="checkbox" id="adv-h-select-all" onchange="toggleHitterExportAll(this.checked)"> Select all (filtered)</label>
+        <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
+      </div>
+      <div id="adv-h-export-list" class="advance-export-list"></div>
+      <div class="note" style="margin:6px 0 0">Landscape PDF — one page per checked hitter: pitch tables · RISP/non-RISP spray · bunts/SB.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -428,7 +438,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san9';
+const ASSET_V = 'san11';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -490,15 +500,117 @@ const PITCH_COLORS = {
   FF:'#e11d48', FA:'#e11d48', '4S':'#C0392B', SI:'#f97316', FT:'#ea580c', FC:'#8E44AD',
   SL:'#2980B9', ST:'#1d4ed8', CU:'#16A085', KC:'#0284c7', CH:'#27AE60',
   FS:'#15803d', FO:'#65a30d', SC:'#ca8a04', KN:'#78716c', EP:'#a8a29e',
-  SV:'#7c3aed', CS:'#0891b2'
+  SV:'#7c3aed', CS:'#0891b2', PO:'#64748b', IB:'#64748b', UN:'#94a3b8'
 };
 // Synergy vs PS/Statcast label drift (Sweeper ST ↔ Curve CU, etc.)
 const PITCH_TYPE_ALIASES = {
   ST:['CU','SL','SV'], CU:['ST','KC','SV'], KC:['CU','ST'], SV:['SL','ST','CU'],
   FF:['FA','4S'], FA:['FF','4S'], '4S':['FF','FA'], SI:['FT','2S'], FT:['SI','2S']
 };
+/** Synergy long/enum labels → Statcast abbreviations (never show FASTBALLFOURSEAM). */
+const PITCH_CODE_NORMALIZE = {
+  FF:'FF', FA:'FF', '4S':'FF', FASTBALL:'FF', FASTBALLFOURSEAM:'FF', FOURSEAMFASTBALL:'FF',
+  FOURSEAM:'FF', '4SEAM':'FF', '4SEAMFASTBALL':'FF',
+  SI:'SI', FT:'SI', '2S':'SI', SINKER:'SI', TWOSEAMFASTBALL:'SI', TWOSEAM:'SI',
+  '2SEAM':'SI', '2SEAMFASTBALL':'SI',
+  FC:'FC', CUTTER:'FC', SL:'SL', SLIDER:'SL', CU:'CU', CURVEBALL:'CU', CURVE:'CU',
+  CH:'CH', CHANGEUP:'CH', CHANGE:'CH', FS:'FS', SPLITTER:'FS', SPLIT:'FS',
+  FO:'FO', FORKBALL:'FO', ST:'ST', SWEEPER:'ST', KN:'KN', KNUCKLEBALL:'KN',
+  KC:'KC', KNUCKLECURVE:'KC', SV:'SV', SLURVE:'SV', EP:'EP', EEPHUS:'EP',
+  IB:'IB', INTENTIONALBALL:'IB', PO:'PO', PITCHOUT:'PO', UN:'UN', UNKNOWN:'UN', UNK:'UN'
+};
+function normalizePitchCode(raw){
+  const s = String(raw||'').trim();
+  if(!s) return '';
+  const compact = s.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  if(PITCH_CODE_NORMALIZE[compact]) return PITCH_CODE_NORMALIZE[compact];
+  if(compact.length <= 3 && /^[A-Z]+$/.test(compact)) return compact;
+  return compact.length <= 3 ? compact : 'UN';
+}
+/** Pitch codes / labels hidden from every chart/table site-wide. */
+const HIDDEN_PITCH_CODES = new Set(['KN','EP','UN','UNKNOWN','UNK','EEPHUS','KNUCKLEBALL','KNUCKLE']);
+const HITTER_PITCH_LABEL = {
+  FF:'Fastball', FA:'Fastball', '4S':'Fastball', SI:'Sinker', FT:'Sinker', FC:'Cutter',
+  SL:'Slider', ST:'Sweeper', CU:'Curveball', KC:'KnuckleCurve', CH:'Changeup',
+  FS:'Splitter', FO:'Forkball', SV:'Slurve', CS:'SlowCurve'
+};
+function isChartPitch(raw){
+  const s = String(raw||'').trim();
+  if(!s) return false;
+  const compact = s.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+  if(HIDDEN_PITCH_CODES.has(compact)) return false;
+  const code = normalizePitchCode(s);
+  if(!code || HIDDEN_PITCH_CODES.has(code)) return false;
+  return true;
+}
+function normalizeHitterPitchLabel(raw){
+  const code = normalizePitchCode(raw);
+  if(HITTER_PITCH_LABEL[code]) return HITTER_PITCH_LABEL[code];
+  const s = String(raw||'').trim();
+  // Synergy CamelCase → readable
+  const map = {
+    FastballFourSeam:'Fastball', FourSeamFastball:'Fastball', TwoSeamFastball:'Sinker',
+    Fastball:'Fastball', Sinker:'Sinker', Cutter:'Cutter', Slider:'Slider', Curveball:'Curveball',
+    Changeup:'Changeup', Splitter:'Splitter', Sweeper:'Sweeper', KnuckleCurve:'KnuckleCurve',
+    Slurve:'Slurve'
+  };
+  if(map[s]) return map[s];
+  return s;
+}
+function chartPitchRows(rows, typeKey='type'){
+  return (rows||[]).filter(r=>isChartPitch(r[typeKey]||r.type||r.code||r.pitch||r.pitch_type));
+}
+/** Merge hitter by-pitch rows after label normalize (FastballFourSeam→Fastball). */
+function mergeHitterPitchTypeRows(rows){
+  const bag = new Map();
+  chartPitchRows(rows||[], 'pitch_type').forEach(r=>{
+    const lab = normalizeHitterPitchLabel(r.pitch_type);
+    const cur = bag.get(lab) || {
+      pitch_type:lab, pitches:0, pa:0, ab:0, h:0, swings:0, whiffs:0,
+      first_pitches:0, first_pitch_swings:0, _opsN:0, _opsD:0
+    };
+    ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings'].forEach(k=>{
+      cur[k] += Number(r[k])||0;
+    });
+    if(r.ops!=null && r.pa){ cur._opsN += Number(r.ops)*Number(r.pa); cur._opsD += Number(r.pa); }
+    bag.set(lab, cur);
+  });
+  return [...bag.values()].map(r=>{
+    r.first_pitch_swing_pct = r.first_pitches ? Math.round(1000*r.first_pitch_swings/r.first_pitches)/10 : null;
+    r.whiff_pct = r.swings ? Math.round(1000*r.whiffs/r.swings)/10 : null;
+    r.ops = r._opsD ? Math.round(1000*r._opsN/r._opsD)/1000 : null;
+    delete r._opsN; delete r._opsD;
+    return r;
+  }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
+}
+/** Merge count/platoon rows that share a normalized pitch code; recompute usage %. */
+function mergePitchUsageRows(rows){
+  const bag = new Map();
+  (rows||[]).forEach(r=>{
+    const code = normalizePitchCode(r.type || r.code || r.pitch || r[0]);
+    if(!code || !isChartPitch(code)) return;
+    const pitches = Number(r.pitches != null ? r.pitches : 0) || 0;
+    const usage = r.usage != null ? Number(r.usage) : (Array.isArray(r) ? Number(r[1]) : null);
+    const cur = bag.get(code) || {type:code, pitches:0, usage:0, _usageW:0, _usageN:0};
+    cur.pitches += pitches;
+    if(usage != null && !Number.isNaN(usage)){
+      // Weight by pitches when available; else equal-weight
+      const w = pitches > 0 ? pitches : 1;
+      cur._usageW += usage * w;
+      cur._usageN += w;
+    }
+    bag.set(code, cur);
+  });
+  const totalP = [...bag.values()].reduce((s,r)=>s+r.pitches,0);
+  return [...bag.values()].map(r=>{
+    let usage = null;
+    if(totalP > 0 && r.pitches > 0) usage = Math.round(1000 * r.pitches / totalP) / 10;
+    else if(r._usageN > 0) usage = Math.round(10 * r._usageW / r._usageN) / 10;
+    return {type:r.type, pitches:r.pitches || undefined, usage};
+  }).sort((a,b)=>(Number(b.pitches)||Number(b.usage)||0)-(Number(a.pitches)||Number(a.usage)||0));
+}
 function lookupPitchRow(byCode, code){
-  const c = String(code||'').toUpperCase();
+  const c = normalizePitchCode(code);
   if(!c) return null;
   if(byCode[c]) return byCode[c];
   for(const alt of (PITCH_TYPE_ALIASES[c]||[])){
@@ -604,7 +716,7 @@ function povLabel() {
     : 'Pitcher perspective';
 }
 function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV}={}) {
-  const pts=(pitches||[]).map(p=>{
+  const pts=chartPitchRows(pitches||[]).map(p=>{
     const place=plotHb(p, view);
     const label=hbForPov(p, view);
     if(place==null || p.ivb==null) return null;
@@ -643,7 +755,12 @@ function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV}={}) {
   return s+'</svg>';
 }
 function usagePieSvg(slices) {
-  const cleaned=(slices||[]).map(s=>({pitch:s.type||s.pitch, value:Number(s.usage)||0, color:PITCH_COLORS[s.type||s.pitch]||'#94a3b8'}))
+  const merged = mergePitchUsageRows((slices||[]).map(s=>{
+    // Arsenal rows use .type; count_mix uses .type + .usage
+    if(s.type || s.pitch || s.code) return s;
+    return {type:s.type||s.pitch||s.code, usage:s.usage, pitches:s.pitches};
+  }));
+  const cleaned=merged.map(s=>({pitch:s.type, value:Number(s.usage)||0, color:PITCH_COLORS[s.type]||'#94a3b8'}))
     .filter(s=>s.value>0);
   let total=cleaned.reduce((a,b)=>a+b.value,0) || 1;
   const r=28,cx=32,cy=32; let angle=-Math.PI/2;
@@ -659,7 +776,7 @@ function usagePieSvg(slices) {
   return svg+'</svg>';
 }
 function arsenalTableHtml(pitches, view=MOVEMENT_POV) {
-  const rows=(pitches||[]).map(p=>{
+  const rows=chartPitchRows(pitches||[]).map(p=>{
     const hb=hbForPov(p, view);
     return `<tr>
     <td class="player-name" style="color:${PITCH_COLORS[p.type]||'#111'}">${p.type}</td>
@@ -1263,29 +1380,63 @@ function renderSpray(){
 
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
-function pitchTypeTableHtml(rows, title){
-  if(!rows||!rows.length) return `<div class="note">${title}: no sample yet.</div>`;
+function leaguePitchMetric(pitchType, metric, risp=false){
+  const bag = CACHE.advanceHitters?.select_all || {};
+  const rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
+  const lab = normalizeHitterPitchLabel(pitchType);
+  const code = normalizePitchCode(pitchType);
+  const hit = rows.find(r=>normalizeHitterPitchLabel(r.pitch_type)===lab)
+    || rows.find(r=>normalizePitchCode(r.pitch_type)===code)
+    || rows.find(r=>String(r.pitch_type||'').toLowerCase()===String(pitchType||'').toLowerCase());
+  if(hit && hit[metric]!=null) return Number(hit[metric]);
+  const o = bag.overall || {};
+  return o[metric]!=null ? Number(o[metric]) : null;
+}
+/** Blue (low) → white (avg) → red (high) vs league same-pitch-type average. */
+function rateHeatStyle(val, avg){
+  if(val==null || avg==null || Number.isNaN(Number(val)) || Number.isNaN(Number(avg))) return '';
+  const v=Number(val), a=Number(avg);
+  const denom = Math.max(Math.abs(a), a>1 ? 0.05 : 0.01);
+  const z = Math.max(-1, Math.min(1, (v-a)/denom));
+  // z=-1 → blue, 0 → near white, +1 → red
+  const t = (z+1)/2; // 0..1
+  const r = Math.round(40 + t*200);
+  const g = Math.round(110 - Math.abs(z)*70);
+  const b = Math.round(220 - t*180);
+  const fg = Math.abs(z)>0.45 ? '#fff' : '#0a1633';
+  return `background:rgb(${r},${g},${b});color:${fg}`;
+}
+function pitchTypeTableHtml(rows, title, {risp=false}={}){
+  const cleaned = mergeHitterPitchTypeRows(rows||[]);
+  if(!cleaned.length) return `<div class="note">${title}: no sample yet.</div>`;
   return `<div class="section-label">${title}</div>
   <div class="table-wrap"><table><thead><tr>
     <th>Pitch</th><th class="num">Pitches</th><th class="num">1st-pitch swing%</th>
     <th class="num">OPS</th><th class="num">Whiff%</th><th class="num">PA</th>
   </tr></thead><tbody>
-  ${rows.map(r=>`<tr>
+  ${cleaned.map(r=>{
+    const fps=r.first_pitch_swing_pct, ops=r.ops, wh=r.whiff_pct;
+    const sFps=rateHeatStyle(fps, leaguePitchMetric(r.pitch_type,'first_pitch_swing_pct',risp));
+    const sOps=rateHeatStyle(ops, leaguePitchMetric(r.pitch_type,'ops',risp));
+    const sWh=rateHeatStyle(wh, leaguePitchMetric(r.pitch_type,'whiff_pct',risp));
+    return `<tr>
     <td class="player-name">${r.pitch_type}</td>
     <td class="num">${r.pitches??'—'}</td>
-    <td class="num">${fmtPct1(r.first_pitch_swing_pct)}</td>
-    <td class="num">${fmtOps(r.ops)}</td>
-    <td class="num">${fmtPct1(r.whiff_pct)}</td>
+    <td class="num rate-cell" style="${sFps}">${fmtPct1(fps)}</td>
+    <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
+    <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>
     <td class="num">${r.pa??'—'}</td>
-  </tr>`).join('')}
-  </tbody></table></div>`;
+  </tr>`;
+  }).join('')}
+  </tbody></table></div>
+  <div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high).</div>`;
 }
 function advancePitchColor(code){
   return PITCH_COLORS[code] || PITCH_COLORS[{'4S':'FF','FA':'FF'}[code]||''] || '#94a3b8';
 }
 /** PDF-style HB×IVB movement plot (Trackman pitcher view; light theme). */
 function advanceMovementSvg(arsenal, throws='R'){
-  const pts=(arsenal||[]).filter(a=>a && a.hb!=null && a.ivb!=null).map(a=>({
+  const pts=chartPitchRows(arsenal||[],'code').filter(a=>a && a.hb!=null && a.ivb!=null).map(a=>({
     code:a.code, hb:Number(a.hb), ivb:Number(a.ivb), usage:Number(a.usage)||10,
     color:advancePitchColor(a.code)
   }));
@@ -1327,10 +1478,8 @@ function advanceMovementSvg(arsenal, throws='R'){
   return s+'</svg>';
 }
 function advanceUsageBars(arsenal, side){
-  // side: 'l' | 'r' — leave blank when hand-split fields missing (do not mirror overall)
+  // side: 'l' | 'r' — Use% only (Whiff lives on arsenal table; Miss was the same metric)
   const keyU = side==='l' ? 'usage_l' : 'usage_r';
-  const keyM = side==='l' ? 'miss_l' : 'miss_r';
-  const keyK = side==='l' ? 'k_l' : 'k_r';
   const rows=[...(arsenal||[])].sort((a,b)=>(Number(b[keyU])||0)-(Number(a[keyU])||0));
   return rows.map(a=>{
     const hasU = a[keyU]!=null && a[keyU]!=='';
@@ -1340,8 +1489,6 @@ function advanceUsageBars(arsenal, side){
       <span><span class="advance-dot" style="background:${color}"></span> <strong>${a.code}</strong></span>
       <div class="advance-usage-bar"><span style="width:${hasU?Math.min(100,u):0}%;background:${color}"></span></div>
       <span class="num">${hasU?u.toFixed(0)+'%':'—'}</span>
-      <span class="num">${a[keyM]!=null?Number(a[keyM]).toFixed(0):'—'}</span>
-      <span class="num">${a[keyK]!=null?Number(a[keyK]).toFixed(0):'—'}</span>
     </div>`;
   }).join('');
 }
@@ -1439,19 +1586,19 @@ function toggleAdvanceExportAll(on){
   document.querySelectorAll('#adv-p-export-list input[type=checkbox]').forEach(cb=>{ cb.checked = !!on; });
 }
 function countMixPairs(rows){
-  return (rows||[]).slice(0,5).map(r=>{
-    const code = r.type || r.code || r[0];
-    const u = r.usage != null ? r.usage : r[1];
-    return [code, u!=null ? Number(u) : null];
-  }).filter(x=>x[0]);
+  return mergePitchUsageRows(rows).slice(0,5).map(r=>[r.type, r.usage != null ? Number(r.usage) : null]);
 }
 function scaffoldPitcherPacket(row){
   const platoon = row.platoon || {};
-  const byL = Object.fromEntries((platoon.vs_LHB||[]).map(p=>[String(p.type||'').toUpperCase(), p]));
-  const byR = Object.fromEntries((platoon.vs_RHB||[]).map(p=>[String(p.type||'').toUpperCase(), p]));
+  const byL = Object.fromEntries(
+    mergePitchUsageRows(platoon.vs_LHB||[]).map(p=>[String(p.type||'').toUpperCase(), p])
+  );
+  const byR = Object.fromEntries(
+    mergePitchUsageRows(platoon.vs_RHB||[]).map(p=>[String(p.type||'').toUpperCase(), p])
+  );
   const hasPlatoon = !!(byL && (Object.keys(byL).length || Object.keys(byR).length));
-  const arsenal = (row.arsenal||[]).map(a=>{
-    const code = a.type || a.code || '?';
+  const arsenal = chartPitchRows(row.arsenal||[]).map(a=>{
+    const code = normalizePitchCode(a.type || a.code || '') || '?';
     const hb = a.hb_pitcher != null ? a.hb_pitcher : a.hb;
     const whiff = a.whiff != null ? Number(a.whiff) : null;
     const usage = a.usage != null ? Number(a.usage) : null;
@@ -1459,12 +1606,11 @@ function scaffoldPitcherPacket(row){
     const R = lookupPitchRow(byR, code);
     const usage_l = a.usage_l != null ? Number(a.usage_l) : (L?.usage != null ? Number(L.usage) : null);
     const usage_r = a.usage_r != null ? Number(a.usage_r) : (R?.usage != null ? Number(R.usage) : null);
-    // Hand-split miss rarely exists; fall back to overall PS whiff so Miss is not blank for tracked arms
-    const miss_l = a.miss_l != null ? Number(a.miss_l) : (L?.whiff != null ? Number(L.whiff) : whiff);
-    const miss_r = a.miss_r != null ? Number(a.miss_r) : (R?.whiff != null ? Number(R.whiff) : whiff);
+    // Hand-split miss is the same swinging-strike/whiff rate — do not duplicate
+    // overall Whiff into Miss columns (shown only on arsenal table).
     return {
       code, name: a.name || code, usage, velo: a.velo, ivb: a.ivb, hb, spin: a.spin, whiff,
-      miss_l, miss_r, k_l: a.k_l ?? null, k_r: a.k_r ?? null,
+      miss_l: null, miss_r: null, k_l: a.k_l ?? null, k_r: a.k_r ?? null,
       strike: null, iz: null, gb: null,
       usage_l, usage_r, ps_stuff: a.ps_stuff,
       desc: `${a.name||code}${a.ps_stuff!=null?` · Stuff+ ${a.ps_stuff}`:''}${whiff!=null?` · whiff ${whiff}%`:''}${a.pitches!=null?` · n=${a.pitches}`:''}`,
@@ -1473,16 +1619,17 @@ function scaffoldPitcherPacket(row){
   const cm = row.count_mix || {};
   const ubc = row.usage_by_count || {};
   // Prefer Synergy/Statcast count_mix; else derive 0-0 / 2-strike from usage_by_count
-  let zero = cm['0-0'] || ubc['0-0'] || [];
-  let two = cm['2_strikes'];
-  let overallMix = cm.overall || [];
-  if(!two){
+  let zero = mergePitchUsageRows(cm['0-0'] || ubc['0-0'] || []);
+  let two = cm['2_strikes'] ? mergePitchUsageRows(cm['2_strikes']) : null;
+  let overallMix = mergePitchUsageRows(cm.overall || []);
+  if(!two || !two.length){
     const bag={}; let n=0;
     ['0-2','1-2','2-2','3-2'].forEach(ck=>{(ubc[ck]||[]).forEach(p=>{
-      const c=String(p.type||'').toUpperCase(); if(!c) return;
+      const c=normalizePitchCode(p.type||''); if(!c) return;
       bag[c]=(bag[c]||0)+Number(p.pitches||0); n+=Number(p.pitches||0);
     });});
     if(n) two = Object.entries(bag).map(([type,pitches])=>({type,pitches,usage:Math.round(1000*pitches/n)/10})).sort((a,b)=>b.pitches-a.pitches);
+    else two = [];
   }
   const mlbId = row.player_id;
   const overallPairs = (overallMix && overallMix.length)
@@ -1598,26 +1745,20 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="section-label">Pitch descriptions</div>
         <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
       </div>
-    </div>
-    <div class="advance-col">
-      <div class="advance-card">
-        <div class="section-label">Movement · HB × IVB</div>
-        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R')}</div>
-      </div>
       <div class="advance-card">
         <div class="section-label">Usage vs hand</div>
         <div class="advance-usage-split">
           <div class="advance-usage-side">
             <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
             <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span><span class="num">Miss</span><span class="num">K%</span>
+              <span></span><span></span><span class="num">Use</span>
             </div>
             ${advanceUsageBars(arsenal,'l')}
           </div>
           <div class="advance-usage-side">
             <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
             <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span><span class="num">Miss</span><span class="num">K%</span>
+              <span></span><span></span><span class="num">Use</span>
             </div>
             ${advanceUsageBars(arsenal,'r')}
           </div>
@@ -1625,13 +1766,19 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
     </div>
     <div class="advance-col">
-      <div class="advance-card advance-card-arm-slot">
-        <div class="section-label">Delivery snapshot</div>
-        <div class="advance-arm">${armBlock}</div>
+      <div class="advance-card">
+        <div class="section-label">Movement · HB × IVB</div>
+        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R')}</div>
       </div>
       <div class="advance-card">
         <div class="section-label">Heat map</div>
         <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
+      </div>
+    </div>
+    <div class="advance-col">
+      <div class="advance-card advance-card-arm-slot">
+        <div class="section-label">Delivery snapshot</div>
+        <div class="advance-arm">${armBlock}</div>
       </div>
     </div>
   </div>
@@ -1648,26 +1795,37 @@ function renderPitcherAdvance(){
   }
   el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
 }
+function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
+  const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
+  const w = window.open('', '_blank');
+  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
+  w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
+    <style>
+      @page { size: letter landscape; margin: 0.35in; }
+      body{background:#fff;padding:10px;font-family:inherit}
+      .advance-print-page{page-break-after:always;break-after:page;margin-bottom:18px}
+      .advance-print-page:last-child{page-break-after:auto}
+      .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
+      .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      @media print {
+        @page { size: letter landscape; margin: 0.35in; }
+        .advance-print-page{page-break-after:always}
+        .hitter-spray-pair{grid-template-columns:1fr 1fr}
+      }
+    </style></head><body>${bodyHtml}
+    <script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>
+    </body></html>`);
+  w.document.close();
+  if(afterWrite) setTimeout(()=>afterWrite(w), 80);
+  return w;
+}
 function exportAdvancePdf(){
   const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
   const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
   const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
   if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
-  const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
   const body = sheets.map(p=>buildPitcherAdvanceSheetHtml(p,{printPage:true})).join('\n');
-  const w = window.open('', '_blank');
-  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return; }
-  w.document.write(`<!doctype html><html><head><title>Pitcher Advance Export</title>${css}
-    <style>
-      body{background:#fff;padding:12px;font-family:inherit}
-      .advance-print-page{page-break-after:always;break-after:page;margin-bottom:24px}
-      .advance-print-page:last-child{page-break-after:auto}
-      .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
-      @media print { .advance-print-page{page-break-after:always} }
-    </style></head><body>${body}
-    <script>window.onload=()=>setTimeout(()=>window.print(),400);<\/script>
-    </body></html>`);
-  w.document.close();
+  openAdvancePrintWindow('Pitcher Advance Export', body);
 }
 
 function rateOrNull(num, den){
@@ -1781,7 +1939,80 @@ function fillAdvanceHitters(){
     .concat(filtered.map(h=>`<option value="${h.synergy_id}">${h.name} (${h.team})</option>`));
   sel.innerHTML=opts.join('');
   if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
+  fillHitterExportList(filtered);
   renderAdvanceHitters();
+}
+function fillHitterExportList(list){
+  const el = document.getElementById('adv-h-export-list');
+  if(!el) return;
+  const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
+  el.innerHTML = (list||[]).map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${h.name} · ${h.team||''}</label>`).join('')
+    || '<span class="note">No hitters in filter.</span>';
+  const all = document.getElementById('adv-h-select-all');
+  if(all) all.checked = false;
+}
+function toggleHitterExportAll(on){
+  document.querySelectorAll('#adv-h-export-list input[type=checkbox]').forEach(cb=>{ cb.checked = !!on; });
+}
+function resolveAdvanceHitter(id){
+  const data=CACHE.advanceHitters;
+  if(!data) return null;
+  if(id==='__all__') return data.select_all || null;
+  return (data.hitters||[]).find(x=>String(x.synergy_id)===String(id)) || null;
+}
+function hitterSbBlockHtml(h){
+  const o=h.overall||{};
+  const sbTotal = h.sb_total != null ? h.sb_total : (h.br_sb != null ? h.br_sb : null);
+  const cs = h.sb_cs != null ? h.sb_cs : (h.br_cs != null ? h.br_cs : null);
+  const src = h.sb_source || h.br_sb_source || '';
+  return `<div class="section-label">Bunts &amp; stolen bases</div>
+  <div class="note" style="margin-bottom:6px">${src?`Season SB source: ${src}. `:''}Season SB/CS from Baseball Reference–equivalent LBPRC season totals (MLB Stats). Base-specific SB from Synergy when tagged.</div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
+  </tr></thead><tbody>
+    <tr><td>Season SB (total)</td><td class="num">${sbTotal??'—'}</td><td class="num">${h.sb_per_162??'—'}</td></tr>
+    <tr><td>Season CS</td><td class="num">${cs??'—'}</td><td class="num">—</td></tr>
+    <tr><td>Bunts</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
+    <tr><td>SB of 2B (from 1B)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
+    <tr><td>SB of 3B (from 2B)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
+    <tr><td>SB of home (from 3B)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
+  </tbody></table></div>`;
+}
+function hitterSprayPairHtml(prefix, {printPage=false}={}){
+  // Two labelled canvases: RISP | non-RISP
+  return `<div class="section-label">Spray charts · RISP vs non-RISP</div>
+  <div class="hitter-spray-pair">
+    <div class="spray-card">
+      <h3>RISP</h3>
+      <canvas id="${prefix}spray-risp" width="420" height="420" style="width:100%;max-width:420px;height:auto"></canvas>
+      <div class="note" id="${prefix}spray-risp-n"></div>
+    </div>
+    <div class="spray-card">
+      <h3>non-RISP</h3>
+      <canvas id="${prefix}spray-nonrisp" width="420" height="420" style="width:100%;max-width:420px;height:auto"></canvas>
+      <div class="note" id="${prefix}spray-nonrisp-n"></div>
+    </div>
+  </div>`;
+}
+function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
+  let pts = mergeHitterSprayPoints(spraySourceHitters);
+  if(!pts.length && CACHE.spray?.synergy){
+    const names = new Set(spraySourceHitters.map(x=>(x.name||'').toLowerCase()));
+    CACHE.spray.synergy.forEach(p=>{
+      if(names.size && !names.has((p.name||'').toLowerCase())) return;
+      pts.push(...collectSprayPoints(p));
+    });
+  }
+  const risp = pts.filter(p=>!!p.risp);
+  const non = pts.filter(p=>!p.risp);
+  const cR = doc.getElementById(prefix+'spray-risp');
+  const cN = doc.getElementById(prefix+'spray-nonrisp');
+  if(cR) drawSpray(cR, risp);
+  if(cN) drawSpray(cN, non);
+  const nR = doc.getElementById(prefix+'spray-risp-n');
+  const nN = doc.getElementById(prefix+'spray-nonrisp-n');
+  if(nR) nR.textContent = `n=${risp.length}`;
+  if(nN) nN.textContent = `n=${non.length}`;
 }
 function hitterHeadshotUrl(h){
   if(h?.headshot_url) {
@@ -1851,6 +2082,36 @@ function mergeHitterSprayPoints(hitters){
   });
   return out;
 }
+function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, prefix='adv-h-'}={}){
+  if(!h) return '';
+  const o=h.overall||{};
+  const pageClass = printPage ? 'advance-print-page' : '';
+  const idPrefix = printPage ? `pdf-${prefix}${h.synergy_id||'all'}-` : prefix;
+  const head = (h.synergy_id && !String(h.name||'').startsWith('Select All')) ? hitterHeadshotUrl(h) : '';
+  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
+  const headHtml = (!h.synergy_id || h.name?.startsWith('Select All'))
+    ? blankHead
+    : (head
+        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\\'advance-headshot advance-headshot-placeholder\\' aria-hidden=\\'true\\'></div>'"/>`
+        : blankHead);
+  return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
+  <div class="advance-hero">
+    <div class="advance-hero-id">
+      ${headHtml}
+      <div class="advance-hero-meta">
+        <h2>${h.name}</h2>
+        <div class="note" style="margin:4px 0 0">${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'}
+          · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}</div>
+      </div>
+    </div>
+  </div>
+  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type', {risp:false})}
+  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type', {risp:true})}
+  ${hitterSprayPairHtml(idPrefix, {printPage})}
+  ${hitterSbBlockHtml(h)}
+</div>`;
+}
+
 function renderAdvanceHitters(){
   const el=document.getElementById('advance-hitters');
   const data=CACHE.advanceHitters;
@@ -1879,91 +2140,36 @@ function renderAdvanceHitters(){
     spraySourceHitters = h ? [h] : [];
   }
   if(!h){ el.innerHTML='<div class="note">No hitter selected.</div>'; return; }
-  const o=h.overall||{};
-  const head = id==='__all__' ? '' : hitterHeadshotUrl(h);
-  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
-  const headHtml = id==='__all__'
-    ? blankHead
-    : (head
-        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-        : blankHead);
-
-  // Preserve spray toggle state across re-render
-  const prev = {
-    risp: document.getElementById('adv-h-spray-f-risp')?.checked,
-    nonRisp: document.getElementById('adv-h-spray-f-nonrisp')?.checked,
-    k2: document.getElementById('adv-h-spray-f-2k')?.checked,
-    non2k: document.getElementById('adv-h-spray-f-non2k')?.checked,
-  };
-
-  el.innerHTML = seasonCoverageHtml('hitter') + `
-  <div class="advance-hero">
-    <div class="advance-hero-id">
-      ${headHtml}
-      <div class="advance-hero-meta">
-        <h2>${h.name}</h2>
-        <div class="note" style="margin:4px 0 0">${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'}
-          · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hitter-charts-grid">
-    ${metricBarChartHtml(h.by_pitch_type, 'first_pitch_swing_pct', 'FP swing% by pitch')}
-    ${metricBarChartHtml(h.by_pitch_type, 'whiff_pct', 'Whiff% by pitch')}
-    ${metricBarChartHtml(h.by_pitch_type, 'ops', 'OPS by pitch', {pct:false, ops:true})}
-    ${metricBarChartHtml(h.risp_by_pitch_type, 'first_pitch_swing_pct', 'RISP · FP swing%')}
-    ${metricBarChartHtml(h.risp_by_pitch_type, 'whiff_pct', 'RISP · Whiff%')}
-    ${metricBarChartHtml(h.risp_by_pitch_type, 'ops', 'RISP · OPS', {pct:false, ops:true})}
-  </div>
-
-  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type')}
-  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type')}
-
-  <div class="section-label">Spray chart · multi-select filters</div>
-  <div class="note" style="margin-bottom:6px">RISP / non-RISP and 2K / non-2K are independent. Check both in a dimension = all. Combines with hitter dropdown / Select All.</div>
-  ${sprayTogglesHtml('adv-h-', "onSprayFilterChange('adv-h-')")}
-  <div class="spray-card" style="margin-top:8px">
-    <h3 id="adv-h-spray-title">Spray</h3>
-    <canvas id="adv-h-spray-cv"></canvas>
-  </div>
-
-  <div class="section-label">Bunts &amp; stolen bases (per 162)</div>
-  <div class="table-wrap"><table><thead><tr>
-    <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
-  </tr></thead><tbody>
-    <tr><td>Bunts</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
-    <tr><td>SB from 1B (steal of 2nd)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
-    <tr><td>SB from 2B (steal of 3rd)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
-    <tr><td>SB from 3B (steal of home)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
-  </tbody></table></div>`;
-
-  // restore toggles
-  const apply = (id, val, def=true)=>{ const el=document.getElementById(id); if(el) el.checked = (val==null?def:!!val); };
-  apply('adv-h-spray-f-risp', prev.risp); apply('adv-h-spray-f-nonrisp', prev.nonRisp);
-  apply('adv-h-spray-f-2k', prev.k2); apply('adv-h-spray-f-non2k', prev.non2k);
-
-  const st = getSprayFilterState('adv-h-');
-  let pts = mergeHitterSprayPoints(spraySourceHitters);
-  // Also try synergy spray cache by name if hitter spray empty
-  if(!pts.length && CACHE.spray?.synergy){
-    const names = new Set(spraySourceHitters.map(x=>(x.name||'').toLowerCase()));
-    CACHE.spray.synergy.forEach(p=>{
-      if(id==='__all__'){
-        if(team!=='all' && p.team!==team) return;
-        if(names.size && !names.has((p.name||'').toLowerCase()) && spraySourceHitters.length) {
-          // when select-all filtered list, restrict
-          if(spraySourceHitters.length && !names.has((p.name||'').toLowerCase())) return;
-        }
-      } else if(!names.has((p.name||'').toLowerCase())) return;
-      pts.push(...collectSprayPoints(p));
-    });
-  }
-  pts = filterSprayPoints(pts, st);
-  const title = document.getElementById('adv-h-spray-title');
-  if(title) title.textContent = `Spray · ${sprayFilterLabel(st)} · n=${pts.length}`;
-  requestAnimationFrame(()=>drawSpray(document.getElementById('adv-h-spray-cv'), pts));
+  el.innerHTML = seasonCoverageHtml('hitter') + buildHitterAdvanceSheetHtml(h, spraySourceHitters, {prefix:'adv-h-'});
+  requestAnimationFrame(()=>paintHitterSprayPair('adv-h-', spraySourceHitters));
 }
+
+function exportHitterAdvancePdf(){
+  const checked = [...document.querySelectorAll('#adv-h-export-list input[type=checkbox]:checked')].map(i=>i.value);
+  let ids = checked.slice();
+  if(!ids.length){
+    const cur = document.getElementById('adv-hitter')?.value;
+    if(cur && cur!=='__all__') ids = [cur];
+  }
+  if(!ids.length){ alert('Select at least one hitter to export.'); return; }
+  const packs = ids.map(id=>{
+    const h = resolveAdvanceHitter(id);
+    if(!h) return null;
+    return {h, spray:[h]};
+  }).filter(Boolean);
+  if(!packs.length){ alert('No hitter data for selection.'); return; }
+  const body = packs.map(({h},i)=>buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:`h${i}-`})).join('\n');
+  openAdvancePrintWindow('Hitter Advance Export', body, {
+    afterWrite(w){
+      // redraw sprays into the print window canvases
+      packs.forEach(({h},i)=>{
+        const prefix = `pdf-h${i}-${h.synergy_id||'all'}-`;
+        try { paintHitterSprayPair(prefix, [h], w.document); } catch(e){}
+      });
+    }
+  });
+}
+
 
 function bootFromHash(){
   const raw=(location.hash||'').replace(/^#/,'').trim();

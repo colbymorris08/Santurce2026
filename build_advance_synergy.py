@@ -729,24 +729,117 @@ def _first_pitch(ev: dict) -> bool:
         return False
 
 
+# Synergy pitchKind variants → canonical display name (then _pitch_code → FF/SI/…)
+_NORM_PITCH_ALIASES = {
+    "FourSeamFastball": "Fastball",
+    "Four-Seam": "Fastball",
+    "4-Seam": "Fastball",
+    "Four Seam Fastball": "Fastball",
+    "FastballFourSeam": "Fastball",
+    "FASTBALLFOURSEAM": "Fastball",
+    "Fastball": "Fastball",
+    "Sinker": "Sinker",
+    "TwoSeamFastball": "Sinker",
+    "Two-Seam": "Sinker",
+    "Cutter": "Cutter",
+    "Slider": "Slider",
+    "Curveball": "Curveball",
+    "Changeup": "Changeup",
+    "Splitter": "Splitter",
+    "Sweeper": "Sweeper",
+    "Knuckleball": "Knuckleball",
+    "KnuckleCurve": "KnuckleCurve",
+    "Slurve": "Slurve",
+    "Eephus": "Eephus",
+    "PitchOut": "PitchOut",
+    "PITCHOUT": "PitchOut",
+    "IntentionalBall": "IntentionalBall",
+    "Unknown": "Unknown",
+    "UNKNOWN": "Unknown",
+}
+
+# Compact UPPER alnum forms Synergy sometimes emits (no separators)
+_COMPACT_PITCH_CODES = {
+    "FF": "FF",
+    "FA": "FF",
+    "4S": "FF",
+    "FASTBALL": "FF",
+    "FASTBALLFOURSEAM": "FF",
+    "FOURSEAMFASTBALL": "FF",
+    "FOURSEAM": "FF",
+    "4SEAM": "FF",
+    "4SEAMFASTBALL": "FF",
+    "SI": "SI",
+    "FT": "SI",
+    "2S": "SI",
+    "SINKER": "SI",
+    "TWOSEAMFASTBALL": "SI",
+    "TWOSEAM": "SI",
+    "2SEAM": "SI",
+    "2SEAMFASTBALL": "SI",
+    "FC": "FC",
+    "CUTTER": "FC",
+    "SL": "SL",
+    "SLIDER": "SL",
+    "CU": "CU",
+    "CURVEBALL": "CU",
+    "CURVE": "CU",
+    "CH": "CH",
+    "CHANGEUP": "CH",
+    "CHANGE": "CH",
+    "FS": "FS",
+    "SPLITTER": "FS",
+    "SPLIT": "FS",
+    "FO": "FO",
+    "FORKBALL": "FO",
+    "ST": "ST",
+    "SWEEPER": "ST",
+    "KN": "KN",
+    "KNUCKLEBALL": "KN",
+    "KC": "KC",
+    "KNUCKLECURVE": "KC",
+    "SV": "SV",
+    "SLURVE": "SV",
+    "EP": "EP",
+    "EEPHUS": "EP",
+    "IB": "IB",
+    "INTENTIONALBALL": "IB",
+    "PO": "PO",
+    "PITCHOUT": "PO",
+    "UN": "UN",
+    "UNKNOWN": "UN",
+    "UNK": "UN",
+}
+
+
 def _norm_pitch(kind: str | None) -> str:
     k = (kind or "UNK").strip()
-    aliases = {
-        "FourSeamFastball": "Fastball",
-        "Four-Seam": "Fastball",
-        "4-Seam": "Fastball",
-        "Fastball": "Fastball",
-        "Sinker": "Sinker",
-        "TwoSeamFastball": "Sinker",
-        "Cutter": "Cutter",
-        "Slider": "Slider",
-        "Curveball": "Curveball",
-        "Changeup": "Changeup",
-        "Splitter": "Splitter",
-        "Sweeper": "Sweeper",
-        "Knuckleball": "Knuckleball",
-    }
-    return aliases.get(k, k)
+    if k in _NORM_PITCH_ALIASES:
+        return _NORM_PITCH_ALIASES[k]
+    # Case-insensitive + compact fallback (FASTBALLFOURSEAM, etc.)
+    compact = re.sub(r"[^A-Za-z0-9]", "", k).upper()
+    code = _COMPACT_PITCH_CODES.get(compact)
+    if code:
+        rev = {
+            "FF": "Fastball",
+            "SI": "Sinker",
+            "FC": "Cutter",
+            "SL": "Slider",
+            "CU": "Curveball",
+            "CH": "Changeup",
+            "FS": "Splitter",
+            "FO": "Forkball",
+            "ST": "Sweeper",
+            "KN": "Knuckleball",
+            "KC": "KnuckleCurve",
+            "SV": "Slurve",
+            "EP": "Eephus",
+            "IB": "IntentionalBall",
+            "PO": "PitchOut",
+            "UN": "Unknown",
+        }
+        return rev.get(code, k)
+    return k
 
 
 def _hit_label(pa: str | None, contact: dict) -> str:
@@ -1291,14 +1384,22 @@ def _pitcher(ev: dict) -> tuple[str, str]:
 
 
 def _pitch_code(kind: str | None) -> str:
-    """Map Synergy pitchKind → Statcast-style codes used by advance UI."""
+    """Map Synergy pitchKind → Statcast-style codes used by advance UI.
+
+    Synergy emits mixed forms: CamelCase (FourSeamFastball), spaced names,
+    short codes (FF), and concatenated UPPER enums (FASTBALLFOURSEAM).
+    Always return a short abbreviation; never leak long labels into count_mix.
+    """
     k = (kind or "").strip()
+    if not k:
+        return "UN"
     aliases = {
         "Fastball": "FF",
         "FourSeamFastball": "FF",
         "Four-Seam": "FF",
         "4-Seam": "FF",
         "Four Seam Fastball": "FF",
+        "FastballFourSeam": "FF",
         "Sinker": "SI",
         "TwoSeamFastball": "SI",
         "Two-Seam": "SI",
@@ -1314,13 +1415,23 @@ def _pitch_code(kind: str | None) -> str:
         "Eephus": "EP",
         "IntentionalBall": "IB",
         "PitchOut": "PO",
+        "Unknown": "UN",
     }
     if k in aliases:
         return aliases[k]
-    up = k.upper()
-    if len(up) <= 3 and up.isalpha():
-        return up
-    return aliases.get(_norm_pitch(k), up or "UN")
+    compact = re.sub(r"[^A-Za-z0-9]", "", k).upper()
+    if compact in _COMPACT_PITCH_CODES:
+        return _COMPACT_PITCH_CODES[compact]
+    if len(compact) <= 3 and compact.isalpha():
+        return compact
+    # Via display-name normalization (handles mixed-case Synergy labels)
+    named = _norm_pitch(k)
+    if named in aliases:
+        return aliases[named]
+    named_compact = re.sub(r"[^A-Za-z0-9]", "", named).upper()
+    if named_compact in _COMPACT_PITCH_CODES:
+        return _COMPACT_PITCH_CODES[named_compact]
+    return "UN"
 
 
 def _bat_side(ev: dict) -> str | None:
@@ -1450,7 +1561,8 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
             continue
         pitch = ev.get("pitch") or {}
         code = _pitch_code(pitch.get("pitchKind"))
-        if not code or code == "UN":
+        # KN / EP / UN are noise for advance charts — never enter count/hand mixes
+        if not code or code in ("UN", "KN", "EP"):
             continue
         c = ev.get("count") or {}
         try:
@@ -1546,15 +1658,19 @@ _PITCH_TYPE_ALIASES = {
     "FT": ("SI", "2S"),
 }
 
+# Never surface knuckle / eephus / unknown on advance charts
+_CHART_SKIP_CODES = frozenset({"UN", "KN", "EP", "UNKNOWN", "UNK"})
+
 
 def _lookup_pitch_row(by_code: dict, code: str):
     """Exact type match, then one-hop alias if unique among available Synergy types."""
-    if not code:
+    c = _pitch_code(code) if code else ""
+    if not c or c in _CHART_SKIP_CODES:
         return None
-    hit = by_code.get(code)
+    hit = by_code.get(c)
     if hit:
         return hit
-    for alt in _PITCH_TYPE_ALIASES.get(code, ()):
+    for alt in _PITCH_TYPE_ALIASES.get(c, ()):
         if alt in by_code:
             return by_code[alt]
     return None
@@ -1562,34 +1678,84 @@ def _lookup_pitch_row(by_code: dict, code: str):
 
 def _align_synergy_type_to_arsenal(syn_type: str, arsenal_types: set[str]) -> str:
     """Remap Synergy type onto a PS arsenal code when labels diverge (ST→CU)."""
-    code = str(syn_type or "").upper()
-    if not code or code in arsenal_types or not arsenal_types:
+    code = _pitch_code(syn_type)
+    if not code or code in _CHART_SKIP_CODES:
+        return code
+    arsenal_norm = {_pitch_code(t) for t in arsenal_types} - {""}
+    if not arsenal_norm or code in arsenal_norm:
         return code
     for alt in _PITCH_TYPE_ALIASES.get(code, ()):
-        if alt in arsenal_types and code not in arsenal_types:
+        if alt in arsenal_norm:
             return alt
     return code
 
 
-def _remap_mix_types(rows: list | None, arsenal_types: set[str]) -> list:
+def _dedupe_mix_rows(rows: list | None) -> list:
+    """Normalize pitch codes, drop KN/EP/UN, merge duplicate codes, recompute usage %."""
+    bag: dict[str, dict] = {}
+    for r in rows or []:
+        code = _pitch_code(r.get("type") or r.get("code") or r.get("pitch"))
+        if not code or code in _CHART_SKIP_CODES:
+            continue
+        pitches = int(r.get("pitches") or 0)
+        usage = r.get("usage")
+        cur = bag.get(code)
+        if not cur:
+            bag[code] = {"type": code, "pitches": pitches, "_uw": 0.0, "_un": 0.0}
+            cur = bag[code]
+        else:
+            cur["pitches"] = int(cur.get("pitches") or 0) + pitches
+        if usage is not None:
+            try:
+                u = float(usage)
+            except (TypeError, ValueError):
+                u = None
+            if u is not None:
+                w = pitches if pitches > 0 else 1
+                cur["_uw"] += u * w
+                cur["_un"] += w
+    total = sum(int(v.get("pitches") or 0) for v in bag.values())
     out = []
+    for code, row in bag.items():
+        item = {"type": code, "pitches": int(row.get("pitches") or 0)}
+        if total > 0 and item["pitches"] > 0:
+            item["usage"] = round(100.0 * item["pitches"] / total, 1)
+        elif row.get("_un"):
+            item["usage"] = round(row["_uw"] / row["_un"], 1)
+        out.append(item)
+    out.sort(key=lambda r: -(r.get("pitches") or 0))
+    return out
+
+
+def _remap_mix_types(rows: list | None, arsenal_types: set[str]) -> list:
+    remapped = []
     for r in rows or []:
         row = dict(r)
         row["type"] = _align_synergy_type_to_arsenal(row.get("type"), arsenal_types)
-        out.append(row)
-    return out
+        remapped.append(row)
+    return _dedupe_mix_rows(remapped)
 
 
 def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
     """Attach Synergy vs-LHH/RHH usage only — never touch PS movement fields."""
     if not pitches or not platoon:
         return pitches
-    by_l = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_LHB") or [])}
-    by_r = {str(p.get("type") or "").upper(): p for p in (platoon.get("vs_RHB") or [])}
+    by_l = {
+        _pitch_code(p.get("type")): p
+        for p in (platoon.get("vs_LHB") or [])
+        if _pitch_code(p.get("type")) and _pitch_code(p.get("type")) not in _CHART_SKIP_CODES
+    }
+    by_r = {
+        _pitch_code(p.get("type")): p
+        for p in (platoon.get("vs_RHB") or [])
+        if _pitch_code(p.get("type")) and _pitch_code(p.get("type")) not in _CHART_SKIP_CODES
+    }
     out = []
     for p in pitches:
         row = dict(p)
-        code = str(row.get("type") or "").upper()
+        code = _pitch_code(row.get("type") or row.get("code"))
+        if code in _CHART_SKIP_CODES:
+            continue
         left = _lookup_pitch_row(by_l, code)
         right = _lookup_pitch_row(by_r, code)
         if left:
@@ -1598,6 +1764,8 @@ def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
         if right:
             row["usage_r"] = right.get("usage")
             row["pitches_r"] = right.get("pitches")
+        if code:
+            row["type"] = code
         out.append(row)
     return out
 
