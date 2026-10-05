@@ -1532,6 +1532,54 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
     return out
 
 
+# Synergy vs Prospect Savant / Statcast often disagree on breaking-ball labels
+# (e.g. Sweeper ST vs Curve CU). Try aliases when joining hand usage onto PS rows.
+_PITCH_TYPE_ALIASES = {
+    "ST": ("CU", "SL", "SV"),
+    "CU": ("ST", "KC", "SV"),
+    "KC": ("CU", "ST"),
+    "SV": ("SL", "ST", "CU"),
+    "FF": ("FA", "4S"),
+    "FA": ("FF", "4S"),
+    "4S": ("FF", "FA"),
+    "SI": ("FT", "2S"),
+    "FT": ("SI", "2S"),
+}
+
+
+def _lookup_pitch_row(by_code: dict, code: str):
+    """Exact type match, then one-hop alias if unique among available Synergy types."""
+    if not code:
+        return None
+    hit = by_code.get(code)
+    if hit:
+        return hit
+    for alt in _PITCH_TYPE_ALIASES.get(code, ()):
+        if alt in by_code:
+            return by_code[alt]
+    return None
+
+
+def _align_synergy_type_to_arsenal(syn_type: str, arsenal_types: set[str]) -> str:
+    """Remap Synergy type onto a PS arsenal code when labels diverge (ST→CU)."""
+    code = str(syn_type or "").upper()
+    if not code or code in arsenal_types or not arsenal_types:
+        return code
+    for alt in _PITCH_TYPE_ALIASES.get(code, ()):
+        if alt in arsenal_types and code not in arsenal_types:
+            return alt
+    return code
+
+
+def _remap_mix_types(rows: list | None, arsenal_types: set[str]) -> list:
+    out = []
+    for r in rows or []:
+        row = dict(r)
+        row["type"] = _align_synergy_type_to_arsenal(row.get("type"), arsenal_types)
+        out.append(row)
+    return out
+
+
 def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
     """Attach Synergy vs-LHH/RHH usage only — never touch PS movement fields."""
     if not pitches or not platoon:
@@ -1542,7 +1590,8 @@ def _enrich_arsenal_hand(pitches: list, platoon: dict) -> list:
     for p in pitches:
         row = dict(p)
         code = str(row.get("type") or "").upper()
-        left, right = by_l.get(code), by_r.get(code)
+        left = _lookup_pitch_row(by_l, code)
+        right = _lookup_pitch_row(by_r, code)
         if left:
             row["usage_l"] = left.get("usage")
             row["pitches_l"] = left.get("pitches")
@@ -1603,10 +1652,26 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
         if cm.get("0-0") or cm.get("2_strikes") or cm.get("overall"):
             if p.get("count_mix") and not p.get("statcast_count_mix") and p.get("statcast_source"):
                 p["statcast_count_mix"] = p.get("count_mix")
+            arsenal_types = {
+                str(a.get("type") or "").upper()
+                for a in (p.get("arsenal") or [])
+                if a.get("type")
+            }
+            cm = {
+                "overall": _remap_mix_types(cm.get("overall"), arsenal_types),
+                "0-0": _remap_mix_types(cm.get("0-0"), arsenal_types),
+                "2_strikes": _remap_mix_types(cm.get("2_strikes"), arsenal_types),
+            }
+            cm = {k: v for k, v in cm.items() if v}
             p["count_mix"] = cm
             ubc = dict(p.get("usage_by_count") or {})
-            if cm.get("0-0") and "0-0" not in ubc:
+            # Wire Synergy 0-0 / 2K into Usage tab (Statcast fine buckets rare)
+            if cm.get("0-0"):
                 ubc["0-0"] = cm["0-0"]
+            if cm.get("2_strikes"):
+                ubc["2_strikes"] = cm["2_strikes"]
+            if cm.get("overall") and "overall" not in ubc:
+                ubc["overall"] = cm["overall"]
             p["usage_by_count"] = ubc
             p["synergy_count_source"] = syn.get("source")
             p["synergy_count_pitches"] = syn.get("pitches")
@@ -1650,6 +1715,16 @@ def merge_synergy_count_into_arsenals(pitcher_mixes: dict[str, dict]) -> dict[st
         if platoon.get("vs_LHB") or platoon.get("vs_RHB"):
             if p.get("platoon") and not p.get("statcast_platoon") and p.get("statcast_source"):
                 p["statcast_platoon"] = p.get("platoon")
+            arsenal_types = {
+                str(a.get("type") or "").upper()
+                for a in (p.get("arsenal") or [])
+                if a.get("type")
+            }
+            platoon = {
+                k: _remap_mix_types(v, arsenal_types)
+                for k, v in platoon.items()
+                if isinstance(v, list)
+            }
             p["platoon"] = platoon
             if p.get("arsenal"):
                 p["arsenal"] = _enrich_arsenal_hand(p["arsenal"], platoon)

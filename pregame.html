@@ -492,6 +492,20 @@ const PITCH_COLORS = {
   FS:'#15803d', FO:'#65a30d', SC:'#ca8a04', KN:'#78716c', EP:'#a8a29e',
   SV:'#7c3aed', CS:'#0891b2'
 };
+// Synergy vs PS/Statcast label drift (Sweeper ST ↔ Curve CU, etc.)
+const PITCH_TYPE_ALIASES = {
+  ST:['CU','SL','SV'], CU:['ST','KC','SV'], KC:['CU','ST'], SV:['SL','ST','CU'],
+  FF:['FA','4S'], FA:['FF','4S'], '4S':['FF','FA'], SI:['FT','2S'], FT:['SI','2S']
+};
+function lookupPitchRow(byCode, code){
+  const c = String(code||'').toUpperCase();
+  if(!c) return null;
+  if(byCode[c]) return byCode[c];
+  for(const alt of (PITCH_TYPE_ALIASES[c]||[])){
+    if(byCode[alt]) return byCode[alt];
+  }
+  return null;
+}
 
 function arsenalPitchers() {
   return (CACHE.arsenals && CACHE.arsenals.pitchers) || [];
@@ -695,19 +709,33 @@ function renderUsage(){
   const p=getArsenalPitcher('usage-player');
   const el=document.getElementById('usage-view');
   if(!p){ el.innerHTML='<div class="empty">No opposing pitcher arsenal loaded.</div>'; return; }
-  const buckets=(CACHE.arsenals?.count_buckets)||['0-0','0-2','1-2','2-2','3-2'];
   const by=p.usage_by_count||{};
-  const hasCounts=Object.keys(by).length>0;
+  const cm=p.count_mix||{};
+  const fineBuckets=['0-2','1-2','2-2','3-2'];
+  const hasFine=fineBuckets.some(ck=>(by[ck]||[]).length);
+  // Synergy path: overall / 0-0 / 2K. Statcast path: fine count buckets when present.
+  let buckets, sourceNote='';
+  if(hasFine){
+    buckets=(CACHE.arsenals?.count_buckets)||['0-0','0-2','1-2','2-2','3-2'];
+  } else if(cm['0-0']||cm['2_strikes']||cm.overall||by['2_strikes']||by['0-0']){
+    buckets=['overall','0-0','2_strikes'];
+    sourceNote='<div class="note">Synergy count mixes (Overall / 0–0 / 2 strikes). Fine Statcast count buckets not tracked for this arm.</div>';
+  } else {
+    buckets=(CACHE.arsenals?.count_buckets)||['0-0','0-2','1-2','2-2','3-2'];
+  }
+  const label={overall:'Overall','0-0':'0–0','2_strikes':'2 strikes','0-2':'0-2','1-2':'1-2','2-2':'2-2','3-2':'3-2'};
+  const hasCounts=Object.keys(by).length>0 || Object.keys(cm).length>0;
   const pieHtml = buckets.map(ck=>{
-    const slices=by[ck];
-    if(slices&&slices.length) return `<div class="usage-pie-cell">${usagePieSvg(slices)}<strong>${ck}</strong></div>`;
-    return `<div class="usage-pie-cell">${usagePieSvg(p.arsenal)}<strong>${ck}</strong><div style="font-size:10px;color:#6b7280">${hasCounts?'n&lt;8':'overall*'}</div></div>`;
+    const slices=by[ck]||cm[ck];
+    const lab=label[ck]||ck;
+    if(slices&&slices.length) return `<div class="usage-pie-cell">${usagePieSvg(slices)}<strong>${lab}</strong></div>`;
+    return `<div class="usage-pie-cell">${usagePieSvg(p.arsenal)}<strong>${lab}</strong><div style="font-size:10px;color:#6b7280">${hasCounts?'n&lt;8':'overall*'}</div></div>`;
   }).join('');
   el.innerHTML=`<div class="arsenal-layout">
     ${pitcherMeta(p)}
     <div class="arsenal-side">
       <div class="section-label">Pitch usage by count</div>
-      ${hasCounts?'':'<div class="note">Count splits pending Statcast tracking — showing overall mix in each bucket for now.</div>'}
+      ${sourceNote||(hasCounts?'':'<div class="note">Count splits pending Statcast/Synergy tracking — showing overall mix in each bucket for now.</div>')}
       <div class="usage-pie-grid">${pieHtml}</div>
       ${arsenalTableHtml(p.arsenal)}
     </div>
@@ -1427,12 +1455,13 @@ function scaffoldPitcherPacket(row){
     const hb = a.hb_pitcher != null ? a.hb_pitcher : a.hb;
     const whiff = a.whiff != null ? Number(a.whiff) : null;
     const usage = a.usage != null ? Number(a.usage) : null;
-    const L = byL[String(code).toUpperCase()];
-    const R = byR[String(code).toUpperCase()];
+    const L = lookupPitchRow(byL, code);
+    const R = lookupPitchRow(byR, code);
     const usage_l = a.usage_l != null ? Number(a.usage_l) : (L?.usage != null ? Number(L.usage) : null);
     const usage_r = a.usage_r != null ? Number(a.usage_r) : (R?.usage != null ? Number(R.usage) : null);
-    const miss_l = a.miss_l != null ? Number(a.miss_l) : (L?.whiff != null ? Number(L.whiff) : null);
-    const miss_r = a.miss_r != null ? Number(a.miss_r) : (R?.whiff != null ? Number(R.whiff) : null);
+    // Hand-split miss rarely exists; fall back to overall PS whiff so Miss is not blank for tracked arms
+    const miss_l = a.miss_l != null ? Number(a.miss_l) : (L?.whiff != null ? Number(L.whiff) : whiff);
+    const miss_r = a.miss_r != null ? Number(a.miss_r) : (R?.whiff != null ? Number(R.whiff) : whiff);
     return {
       code, name: a.name || code, usage, velo: a.velo, ivb: a.ivb, hb, spin: a.spin, whiff,
       miss_l, miss_r, k_l: a.k_l ?? null, k_r: a.k_r ?? null,
