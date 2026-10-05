@@ -499,8 +499,13 @@ def build_spray_charts(
                 "sac_bunt": "SAC",
                 "field_error": "E",
             }
+            # Prefer most recent BIP by game_date; cap at 100 for readable sprays
+            try:
+                ordered = sub.sort_values("game_date", ascending=False)
+            except Exception:
+                ordered = sub
             pts = []
-            for r in sub.itertuples():
+            for r in ordered.itertuples():
                 ev = getattr(r, "events", None)
                 try:
                     import math as _math
@@ -520,6 +525,11 @@ def build_spray_charts(
                     dist = None if dist is None or (isinstance(dist, float) and str(dist) == "nan") else round(float(dist), 1)
                 except Exception:
                     dist = None
+                gd = getattr(r, "game_date", None)
+                try:
+                    gd = None if gd is None or (isinstance(gd, float) and str(gd) == "nan") else str(gd)[:10]
+                except Exception:
+                    gd = None
                 pts.append(
                     {
                         "x": round(float(r.hc_x), 1),
@@ -528,9 +538,11 @@ def build_spray_charts(
                         "dist": dist,
                         "hit": hit,
                         "event": str(ev) if ev else None,
+                        "game_date": gd,
+                        "game_date_sort": gd,
                     }
                 )
-                if len(pts) >= 250:
+                if len(pts) >= 100:
                     break
             return {"split": label, "n": len(sub), "points": pts}
 

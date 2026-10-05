@@ -44,6 +44,9 @@ if not PITCH_TIPS.is_dir():
 
 SPORT_API = "https://sport.synergysportstech.com"
 EVENTS_FILTER_URL = "https://baseball.synergysportstech.com/external/api/events/filter"
+
+# Most recent BIP dots kept per hitter / split for spray charts (site + PDF)
+SPRAY_MAX_POINTS = 100
 SPORT_ID_BASEBALL = "570aaedc46c5d11de0f8c0bd"
 LEAGUE_LBPRC = "5dd2cbcc4b8b50a3e8e46172"
 LEAGUE_LMB = "616a0762c122029009e74144"
@@ -916,6 +919,46 @@ def _ops(bucket: dict) -> float | None:
     return round(obp + slg, 3)
 
 
+
+def _spray_game_date(game: dict | None) -> tuple[str | None, str | None]:
+    """Return (display MM/DD/YYYY or as-is, sortable YYYY-MM-DD)."""
+    if not isinstance(game, dict):
+        return None, None
+    raw = game.get("gameDate") or game.get("date") or game.get("startDate")
+    if not raw:
+        return None, None
+    s = str(raw).strip()
+    # MM/DD/YYYY
+    import re as _re
+    m = _re.match(r"^(\d{1,2})/(\d{1,2})/(\d{4})$", s)
+    if m:
+        mm, dd, yy = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        return s, f"{yy:04d}-{mm:02d}-{dd:02d}"
+    m = _re.match(r"^(\d{4})-(\d{2})-(\d{2})", s)
+    if m:
+        return s, f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+    return s, s
+
+
+def recent_spray_points(pts: list, n: int = SPRAY_MAX_POINTS) -> list:
+    """Keep the most recent n spray points.
+
+    Synergy events/filter pagination is newest-first, so append order is already
+    recent→old when dates are missing. When game_date_sort is present, sort by it.
+    """
+    if not pts:
+        return []
+    if len(pts) <= n:
+        return list(pts)
+    if any(p.get("game_date_sort") or p.get("game_date") for p in pts):
+        def key(p: dict):
+            return (
+                str(p.get("game_date_sort") or p.get("game_date") or ""),
+                str(p.get("game_id") or ""),
+            )
+        return sorted(pts, key=key, reverse=True)[:n]
+    return list(pts[:n])
+
 def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
     """Aggregate pitch events into per-hitter + select-all tables."""
     hitters: dict[str, dict[str, Any]] = {}
@@ -1014,6 +1057,7 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
             start = ((ev.get("runners") or {}).get("runnerConfigurationStart")) or {}
             empty = not any(bool(v) for v in start.values()) if isinstance(start, dict) else True
             two_k = strikes >= 2
+            gdate, gsort = _spray_game_date(game if isinstance(game, dict) else {})
             pt = {
                 "x_ft": round(float(lx), 1),
                 "y_ft": round(float(ly), 1),
@@ -1025,6 +1069,11 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 "two_strikes": bool(two_k),
                 "empty_bases": bool(empty),
                 "strikes": strikes,
+                "game_id": gid or None,
+                "game_date": gdate,
+                "game_date_sort": gsort,
+                "inning": ev.get("inning"),
+                "pa_number": ev.get("inningPlateAppearanceNumber"),
             }
             h["spray"].setdefault("all", []).append(pt)
             if empty:
@@ -1170,7 +1219,7 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
 
         spray_splits = []
         for split, pts in h["spray"].items():
-            spray_splits.append({"split": split, "n": len(pts), "points": pts[:800]})
+            spray_splits.append({"split": split, "n": len(pts), "points": recent_spray_points(pts)})
         # Deduped BIP list for multi-select filters (prefer explicit "all")
         all_pts = list(h["spray"].get("all") or [])
         if not all_pts:
@@ -1198,7 +1247,7 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             "by_pitch_type": by_pitch,
             "risp_by_pitch_type": risp,
             "spray_splits": spray_splits,
-            "spray_points": all_pts[:800],
+            "spray_points": recent_spray_points(all_pts),
         }
         if mid:
             row["mlb_id"] = mid
@@ -1317,8 +1366,9 @@ def merge_spray_into_pregame(hitters: list[dict]) -> None:
     existing["synergy"] = synergy_players
     existing["synergy_note"] = (
         "Synergy spray uses landingLocationX/Y in feet (home→CF = +Y, toward RF = +X). "
-        "Multi-select filters: RISP/non-RISP and 2K/non-2K are independent toggles "
-        "(check both in a dimension = all). Points carry risp + two_strikes flags. "
+        f"Each chart plots the most recent {SPRAY_MAX_POINTS} BIP (by gameDate; "
+        "events/filter is newest-first). Multi-select: RISP/non-RISP and 2K/non-2K "
+        "are independent. Points carry risp + two_strikes flags. "
         "MLB Statcast sprays retained under .mlb when available."
     )
     existing["updated_synergy"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

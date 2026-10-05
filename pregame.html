@@ -1039,6 +1039,33 @@ function renderStuff(){
       <td class="arsenal">${ar||'—'}</td></tr>`;
   }).join('');
 }
+const SPRAY_MAX_RECENT = 100;
+/** Synergy events/filter is newest-first; prefer game_date when present. */
+function sprayPointSortKey(p){
+  const raw = p?.game_date || p?.gameDate || p?.date || '';
+  if(!raw) return null;
+  const s = String(raw).trim();
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(m) return `${m[1]}${m[2]}${m[3]}`;
+  m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(m) return `${m[3]}${m[1].padStart(2,'0')}${m[2].padStart(2,'0')}`;
+  return s;
+}
+function limitRecentSprayPoints(points, n=SPRAY_MAX_RECENT){
+  const pts = Array.isArray(points) ? points.slice() : [];
+  if(pts.length <= n) return pts;
+  const keyed = pts.map((p,i)=>({p,i,k:sprayPointSortKey(p)}));
+  if(keyed.some(x=>x.k)){
+    keyed.sort((a,b)=>{
+      const ak=a.k||''; const bk=b.k||'';
+      if(ak!==bk) return bk.localeCompare(ak); // newest date first
+      return a.i - b.i; // stable fallback (array order = Synergy newest-first)
+    });
+    return keyed.slice(0,n).map(x=>x.p);
+  }
+  // No dates: builder/API append order is newest-first
+  return pts.slice(0,n);
+}
 function drawSpray(canvas, points){
   if(!canvas) return;
   const ctx=canvas.getContext('2d');
@@ -1212,20 +1239,21 @@ function drawSpray(canvas, points){
     BIP: '#0f172a',
   };
 
-  // Draw outs first so hits sit on top
+  // Most recent 100 only (site + PDF); outs under hits
+  const recent = limitRecentSprayPoints(points, SPRAY_MAX_RECENT);
   const order = ['OUT','SF','SAC','E','BIP','1B','2B','3B','HR'];
-  const sorted = [...(points||[])].sort((a,b)=>order.indexOf(a.hit||'BIP')-order.indexOf(b.hit||'BIP'));
+  const sorted = [...recent].sort((a,b)=>order.indexOf(a.hit||'BIP')-order.indexOf(b.hit||'BIP'));
   for(const p of sorted){
     const ft = scToFt(p);
     const {x:px, y:py} = toCanvas(ft.x, ft.y);
     const hit = p.hit || 'BIP';
     const isHR = hit === 'HR';
     ctx.beginPath();
-    ctx.arc(px, py, isHR ? 18 : 14, 0, Math.PI*2);
+    ctx.arc(px, py, isHR ? 9 : 6.5, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-    ctx.lineWidth = isHR ? 3 : 2.2;
+    ctx.lineWidth = isHR ? 2 : 1.4;
     ctx.stroke();
   }
 }
@@ -1357,8 +1385,9 @@ function renderSpray(){
     // MLB source may lack flags — show all points when flags missing
     const hasFlags = pts.some(p=> 'risp' in p || 'two_strikes' in p);
     if(hasFlags) pts = filterSprayPoints(pts, st);
+    pts = limitRecentSprayPoints(pts, SPRAY_MAX_RECENT);
     const f=fpsFor(player.player_id);
-    grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${sprayFilterLabel(st)} · n=${pts.length}</h3>
+    grid.innerHTML = `<div class="spray-card"><h3>${player.name}${player.team?' · '+player.team:''} · ${sprayFilterLabel(st)} · n=${pts.length} (recent)</h3>
       <canvas id="spray-cv"></canvas>
       <div class="note" style="margin-top:8px">${player.source||''}${f.fps!=null?` · FPS% ${pct(f.fps)} · FPS% RISP ${pct(f.fpsRisp)}`:''}
         ${hasFlags?'':' · (no runner/count flags on this source — showing all points)'}</div></div>`;
@@ -1995,24 +2024,32 @@ function hitterSprayPairHtml(prefix, {printPage=false}={}){
   </div>`;
 }
 function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
-  let pts = mergeHitterSprayPoints(spraySourceHitters);
-  if(!pts.length && CACHE.spray?.synergy){
+  let risp = mergeHitterSpraySplit(spraySourceHitters, 'risp');
+  let non = mergeHitterSpraySplit(spraySourceHitters, 'non_risp');
+  if((!risp.length && !non.length) && CACHE.spray?.synergy){
     const names = new Set(spraySourceHitters.map(x=>(x.name||'').toLowerCase()));
     CACHE.spray.synergy.forEach(p=>{
       if(names.size && !names.has((p.name||'').toLowerCase())) return;
-      pts.push(...collectSprayPoints(p));
+      risp.push(...spraySplitPoints(p, 'risp'));
+      non.push(...spraySplitPoints(p, 'non_risp'));
     });
   }
-  const risp = pts.filter(p=>!!p.risp);
-  const non = pts.filter(p=>!p.risp);
+  // Fallback if splits missing: derive from combined points
+  if(!risp.length && !non.length){
+    const pts = mergeHitterSprayPoints(spraySourceHitters);
+    risp = pts.filter(p=>!!p.risp);
+    non = pts.filter(p=>!p.risp);
+  }
+  risp = limitRecentSprayPoints(risp, SPRAY_MAX_RECENT);
+  non = limitRecentSprayPoints(non, SPRAY_MAX_RECENT);
   const cR = doc.getElementById(prefix+'spray-risp');
   const cN = doc.getElementById(prefix+'spray-nonrisp');
   if(cR) drawSpray(cR, risp);
   if(cN) drawSpray(cN, non);
   const nR = doc.getElementById(prefix+'spray-risp-n');
   const nN = doc.getElementById(prefix+'spray-nonrisp-n');
-  if(nR) nR.textContent = `n=${risp.length}`;
-  if(nN) nN.textContent = `n=${non.length}`;
+  if(nR) nR.textContent = `n=${risp.length} (recent)`;
+  if(nN) nN.textContent = `n=${non.length} (recent)`;
 }
 function hitterHeadshotUrl(h){
   if(h?.headshot_url) {
@@ -2074,6 +2111,24 @@ function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
     <div class="hitter-bars">${bars}</div>
     <div class="metric-takeaway"><span><span class="metric-takeaway-label">Coach note</span>${tip}</span></div>
   </div>`;
+}
+
+function spraySplitPoints(player, splitName){
+  if(!player) return [];
+  const splits = player.splits || player.spray_splits || [];
+  const sp = splits.find(s=>s.split===splitName);
+  if(sp?.points?.length) return sp.points;
+  const all = collectSprayPoints(player);
+  if(splitName==='risp') return all.filter(p=>!!p.risp);
+  if(splitName==='non_risp') return all.filter(p=>!p.risp);
+  return all;
+}
+function mergeHitterSpraySplit(hitters, splitName){
+  const out=[];
+  (hitters||[]).forEach(h=>{
+    spraySplitPoints(h, splitName).forEach(pt=> out.push({...pt, _name:h.name}));
+  });
+  return out;
 }
 function mergeHitterSprayPoints(hitters){
   const out=[];

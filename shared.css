@@ -248,9 +248,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   gap: 12px 18px;
 }
 .spray-hit-legend .dot {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255,255,255,0.9);
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(255,255,255,0.9);
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
 }
 .spray-hit-legend .swatch {
