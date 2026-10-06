@@ -24,9 +24,12 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
 - Teams covered: CAG / CAR / MAY / PON
 
 ### Pitcher Advance extras
-- Full arsenal sheet (hand splits when Statcast); arm-slot + heat-map placeholders
+- Full arsenal sheet (hand splits when Statcast)
+- Click-to-upload **delivery** + **heat map** images (stored as data URLs in `localStorage` keyed by pitcher id — browser-local on GitHub Pages; use **Save file…** if you want to commit under `assets/`)
 - Count usage panels: Overall / 0–0 / 2 strikes
-- Mass PDF export: select-all or checkboxes → print-to-PDF (one page per arm)
+- Mass PDF export: vertical A–Z (last name) checklist → print-to-PDF
+  - Pitcher: **landscape**, exactly one page, three equal thirds (charts | shapes+heat | delivery) — slim name strip, **no roster headshot**
+  - Hitter: **portrait**, exactly one page, colored pitch tables filling width + sprays/SB
 
 ### Other
 Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Statcast toggle).

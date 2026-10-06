@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san18">
+<link rel="stylesheet" href="shared.css?v=san19">
 </head>
 <body>
 <div class="topbar">
@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Arm-slot &amp; heat-map boxes stay blank placeholders. Export selected arms — one landscape page each (PDF: charts · shapes+heat · release).</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Click delivery / heat-map slots to upload images (saved in this browser). Export selected arms — one landscape page each (PDF: charts · shapes+heat · delivery).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -116,8 +116,8 @@
         <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
       </div>
-      <div id="adv-p-export-list" class="advance-export-list"></div>
-      <div class="note" style="margin:6px 0 0">Opens a print window — choose “Save as PDF”. One page per checked pitcher.</div>
+      <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (charts · shapes+heat · delivery).</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -149,8 +149,8 @@
         <label class="advance-check"><input type="checkbox" id="adv-h-select-all" onchange="toggleHitterExportAll(this.checked)"> Select all (filtered)</label>
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
       </div>
-      <div id="adv-h-export-list" class="advance-export-list"></div>
-      <div class="note" style="margin:6px 0 0">Landscape PDF — one page per checked hitter: pitch tables · RISP/non-RISP spray · bunts/SB.</div>
+      <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: wide colored pitch tables · RISP/non-RISP spray · bunts/SB.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san6"></script>
+<script src="i18n.js?v=san7"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san18';
+const ASSET_V = 'san19';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1667,11 +1667,109 @@ function fillAdvancePitchers(){
   fillAdvanceExportList(list);
   renderPitcherAdvance();
 }
+
+function lastNameKey(name){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return '';
+  return parts[parts.length-1].toLocaleLowerCase();
+}
+function sortByLastName(arr, nameFn){
+  return [...(arr||[])].sort((a,b)=>{
+    const la = lastNameKey(nameFn(a)), lb = lastNameKey(nameFn(b));
+    if(la !== lb) return la.localeCompare(lb, undefined, {sensitivity:'base'});
+    return String(nameFn(a)||'').localeCompare(String(nameFn(b)||''), undefined, {sensitivity:'base'});
+  });
+}
+const PITCHER_MEDIA_PREFIX = 'santurce_pm_v1:';
+function pitcherMediaKey(id, slot){ return PITCHER_MEDIA_PREFIX + String(id||'') + ':' + slot; }
+function getPitcherMedia(id, slot){
+  if(id==null || id==='') return '';
+  try { return localStorage.getItem(pitcherMediaKey(id, slot)) || ''; } catch(e){ return ''; }
+}
+function setPitcherMedia(id, slot, dataUrl){
+  try { localStorage.setItem(pitcherMediaKey(id, slot), dataUrl); return true; }
+  catch(e){ alert('Browser storage full — clear an old upload or use a smaller image.'); return false; }
+}
+function clearPitcherMedia(id, slot, ev){
+  if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+  try { localStorage.removeItem(pitcherMediaKey(id, slot)); } catch(e){}
+  renderPitcherAdvance();
+}
+function downloadPitcherMedia(id, slot, name, ev){
+  if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+  const data = getPitcherMedia(id, slot);
+  if(!data) return;
+  const a = document.createElement('a');
+  a.href = data;
+  const base = String(name||id||'pitcher').replace(/[^\w.-]+/g,'_').toLowerCase();
+  a.download = base + '_' + slot + '.jpg';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function compressImageFile(file, maxW=1400, quality=0.84){
+  return new Promise((resolve, reject)=>{
+    if(!file || !String(file.type||'').startsWith('image/')){
+      reject(new Error('Not an image')); return;
+    }
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = ()=>{
+      try {
+        const scale = Math.min(1, maxW / Math.max(img.width, 1));
+        const w = Math.max(1, Math.round(img.width * scale));
+        const h = Math.max(1, Math.round(img.height * scale));
+        const c = document.createElement('canvas');
+        c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        resolve(c.toDataURL('image/jpeg', quality));
+      } catch(err){ URL.revokeObjectURL(url); reject(err); }
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('Image load failed')); };
+    img.src = url;
+  });
+}
+async function onPitcherMediaUpload(input, id, slot){
+  const file = input?.files?.[0];
+  if(!file) return;
+  try {
+    const dataUrl = await compressImageFile(file);
+    if(setPitcherMedia(id, slot, dataUrl)) renderPitcherAdvance();
+  } catch(e){
+    alert('Could not read that image. Try a JPG/PNG under ~8MB.');
+  } finally {
+    try { input.value = ''; } catch(e){}
+  }
+}
+function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, repoFallback=null, name=''}={}){
+  const shown = src || repoFallback || '';
+  const has = !!shown;
+  const tallCls = tall ? ' advance-placeholder-tall' : '';
+  const body = has
+    ? `<img src="${shown}" alt="${label}" loading="lazy"/>`
+    : `<div class="advance-upload-cta"><strong>${label}</strong>Click to choose image<br><span style="opacity:.85">JPG / PNG · saved in this browser</span></div>`;
+  const safeName = String(name||'').replace(/\\/g,'\\').replace(/'/g,"\\'");
+  const actions = src ? `<div class="advance-upload-actions">
+    <button type="button" class="btn btn-sm" onclick="clearPitcherMedia('${id}','${slot}',event)">Clear upload</button>
+    <button type="button" class="btn btn-sm" onclick="downloadPitcherMedia('${id}','${slot}','${safeName}',event)">Save file…</button>
+  </div>` : '';
+  return `<label class="advance-upload-slot${tallCls}${has?' has-image':''}" data-player-id="${id}" data-slot="${slot}">
+    <input type="file" accept="image/*" onchange="onPitcherMediaUpload(this,'${id}','${slot}')"/>
+    ${body}
+  </label>
+  ${actions}
+  <div class="advance-upload-note">Uploads stay in this browser (localStorage) unless you Save file… and commit under assets/. They appear in PDF export on this device.</div>`;
+}
+function printMediaBlock(src, emptyLabel){
+  if(src) return `<img class="advance-media-img" src="${src}" alt="${emptyLabel}"/>`;
+  return `<div class="advance-placeholder advance-placeholder-heat">${emptyLabel}</div>`;
+}
+
 function fillAdvanceExportList(list){
   const el = document.getElementById('adv-p-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  el.innerHTML = (list||[]).map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${r.name}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
+  const sorted = sortByLastName(list||[], r=>r.name);
+  el.innerHTML = sorted.map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${r.name}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
     || '<span class="note">No pitchers in filter.</span>';
   const all = document.getElementById('adv-p-select-all');
   if(all) all.checked = false;
@@ -1775,6 +1873,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
+  const playerId = mlbId != null ? String(mlbId) : String(p.player_id||'');
   const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`:'');
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
@@ -1785,7 +1884,9 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
              onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
       : blankHead);
-  const armImg=p.arm_slot_image || null;
+  const repoDelivery = p.arm_slot_image || null;
+  const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
+  const heatSrc = getPitcherMedia(playerId, 'heatmap') || '';
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
   const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
@@ -1804,27 +1905,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     </tr>`;
   }).join('');
   const short=p.short_vs_rhh||{};
-  const armBlock = armImg
-    ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} delivery snapshot" loading="lazy"/>`
-    : `<div class="advance-placeholder advance-placeholder-tall">Delivery snapshot</div>`;
-  const releasePhoto = armImg
-    ? `<img class="advance-photo" src="${armImg}" alt="${p.name} release" loading="lazy"/>`
-    : (headRemote
-      ? `<img class="advance-photo" src="${headRemote}" alt="${p.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-      : (headLocal
-        ? `<img class="advance-photo" src="${headLocal}" alt="${p.name}"
-               onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-        : `<div class="advance-photo advance-headshot-placeholder" aria-hidden="true"></div>`));
 
-  // PDF export only: three equal thirds (charts | shapes+heat | release).
+  // PDF export only: slim name strip + three equal thirds (charts | shapes+heat | delivery).
+  // Never place roster headshot in the PDF left column or as delivery fallback.
   if(printPage){
+    const heatPrint = printMediaBlock(heatSrc, 'Heat map');
+    const deliveryPrint = printMediaBlock(deliverySrc, 'Delivery / release snapshot');
     return `<div class="advance-sheet advance-sheet-pitcher advance-print-page">
-  <div class="advance-hero advance-hero-compact">
-    <div class="advance-hero-meta">
-      <h2>${p.name}</h2>
-      <div class="note" style="margin:2px 0 0">${p.subtitle||p.bio||''} · Prospect Savant + Synergy count / hand splits</div>
-    </div>
+  <div class="advance-pdf-strip">
+    <strong>${p.name}</strong>
+    <span>${p.subtitle||p.bio||''} · Prospect Savant + Synergy</span>
   </div>
   <div class="advance-layout advance-layout-pitcher advance-layout-pitcher-print">
     <div class="advance-col advance-col-charts">
@@ -1869,20 +1959,22 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
       <div class="advance-card advance-band advance-band-heat">
         <div class="section-label">Heat map</div>
-        <div class="advance-placeholder advance-placeholder-heat">Heat map</div>
+        <div class="advance-photo-wrap">${heatPrint}</div>
       </div>
     </div>
     <div class="advance-col advance-col-release">
       <div class="advance-card advance-band advance-band-photo">
-        <div class="section-label">Release / pitcher</div>
-        <div class="advance-photo-wrap">${releasePhoto}</div>
+        <div class="section-label">Delivery / release</div>
+        <div class="advance-photo-wrap">${deliveryPrint}</div>
       </div>
     </div>
   </div>
 </div>`;
   }
 
-  // On-screen: pre-8f09139 aesthetic (hero + count above + 3 natural columns).
+  // On-screen: hero + count above + 3 natural columns (NOT equal PDF thirds).
+  const heatSlot = pitcherUploadSlotHtml(playerId, 'heatmap', heatSrc, 'Heat map', {tall:true, name:p.name});
+  const deliverySlot = pitcherUploadSlotHtml(playerId, 'delivery', getPitcherMedia(playerId,'delivery'), 'Delivery snapshot', {tall:true, repoFallback:repoDelivery, name:p.name});
   return `<div class="advance-sheet">
   <div class="advance-hero">
     <div class="advance-hero-id">
@@ -1890,7 +1982,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <div class="advance-hero-meta">
         <h2>${p.name}</h2>
         <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled.</div>
+        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled. PDF layout is three equal thirds (no headshot on PDF).</div>
       </div>
     </div>
   </div>
@@ -1941,13 +2033,13 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
       <div class="advance-card">
         <div class="section-label">Heat map</div>
-        <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
+        ${heatSlot}
       </div>
     </div>
     <div class="advance-col">
       <div class="advance-card advance-card-arm-slot">
         <div class="section-label">Delivery snapshot</div>
-        <div class="advance-arm">${armBlock}</div>
+        <div class="advance-arm">${deliverySlot}</div>
       </div>
     </div>
   </div>
@@ -1964,39 +2056,54 @@ function renderPitcherAdvance(){
   }
   el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
 }
-function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
+function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape'}={}){
   const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
   const w = window.open('', '_blank');
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
-  w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
-    <style>
-      @page { size: letter landscape; margin: 0.28in; }
-      html,body{background:#fff;margin:0;padding:0;font-family:inherit}
-      body{padding:4px 6px}
-      .season-banner{display:none!important}
-      .advance-print-page{page-break-after:always;break-after:page;margin:0 0 8px}
-      .advance-print-page:last-child{page-break-after:auto;margin-bottom:0}
+  const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
+  const pitcherH = orientation === 'portrait' ? '' : `
       .advance-sheet-pitcher.advance-print-page{
-        height:7.4in;max-height:7.4in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;
+        width:10.44in;height:7.44in;max-width:10.44in;max-height:7.44in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;
       }
       .advance-sheet-pitcher .advance-layout-pitcher-print,
-      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;flex:1 1 auto;min-height:0;align-items:stretch}
-      .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
-      .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-      .hitter-pitch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;align-items:start}
-      .hitter-pitch-half table{font-size:11px}
+      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
+        grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
+      }
+      .advance-pdf-strip{display:flex;align-items:baseline;gap:10px;flex:0 0 auto;padding:2px 4px 4px;border-bottom:1px solid #ccc;margin-bottom:4px}
+      .advance-pdf-strip strong{font-size:15px;color:#0a1633}
+      .advance-pdf-strip span{font-size:10px;color:#444}
+      .advance-sheet-pitcher .advance-photo-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+      .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
+      .advance-sheet-pitcher .advance-headshot{display:none!important}`;
+  const hitterH = orientation === 'portrait' ? `
+      .advance-sheet-hitter.advance-print-page{
+        width:7.94in;height:10.15in;max-width:7.94in;max-height:10.15in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;
+      }
+      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:8px 12px}
+      .advance-sheet-hitter .hitter-pitch-half table{width:100%;font-size:12.5px}
+      .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:1 1 auto;min-height:0}
+      .advance-sheet-hitter .hitter-spray-pair canvas{width:100%!important;max-width:100%!important;max-height:2.7in;height:auto!important}` : '';
+  w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
+    <style>
+      @page { size: ${page}; margin: 0.28in; }
+      html,body{background:#fff;margin:0;padding:0;font-family:inherit;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      body{padding:0}
+      .season-banner,.advance-export-bar,.filters,.tabs,nav,header,.lang-toggle,
+      .advance-upload-actions,.advance-upload-note,.advance-upload-cta{display:none!important}
+      .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid;margin:0}
+      .advance-print-page:last-child{page-break-after:auto}
+      .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      ${pitcherH}
+      ${hitterH}
       @media print {
-        @page { size: letter landscape; margin: 0.28in; }
+        @page { size: ${page}; margin: 0.28in; }
         body{padding:0}
-        .advance-print-page{page-break-after:always;break-after:page}
-        .advance-sheet-pitcher.advance-print-page{
-          height:7.44in;max-height:7.44in;overflow:hidden;margin:0;
-        }
-        .advance-sheet-pitcher .advance-layout-pitcher-print,
-        .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important}
-        .hitter-spray-pair{grid-template-columns:1fr 1fr}
-        .hitter-pitch-grid{grid-template-columns:1fr 1fr}
+        .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid}
+        ${pitcherH}
+        ${hitterH}
       }
     </style></head><body>${bodyHtml}
     <script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>
@@ -2156,7 +2263,8 @@ function fillHitterExportList(list){
   const el = document.getElementById('adv-h-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  el.innerHTML = (list||[]).map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${h.name} · ${h.team||''}</label>`).join('')
+  const sorted = sortByLastName(list||[], h=>h.name);
+  el.innerHTML = sorted.map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${h.name} · ${h.team||''}</label>`).join('')
     || '<span class="note">No hitters in filter.</span>';
   const all = document.getElementById('adv-h-select-all');
   if(all) all.checked = false;
@@ -2322,23 +2430,34 @@ function mergeHitterSprayPoints(hitters){
 function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, prefix='adv-h-'}={}){
   if(!h) return '';
   const o=h.overall||{};
-  const pageClass = printPage ? 'advance-print-page' : '';
+  const pageClass = printPage ? 'advance-sheet-hitter advance-print-page' : '';
   const idPrefix = printPage ? `pdf-${prefix}${h.synergy_id||'all'}-` : prefix;
   const head = (h.synergy_id && !String(h.name||'').startsWith('Select All')) ? hitterHeadshotUrl(h) : '';
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml = (!h.synergy_id || h.name?.startsWith('Select All'))
     ? blankHead
     : (head
-        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\\'advance-headshot advance-headshot-placeholder\\' aria-hidden=\\'true\\'></div>'"/>`
+        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
         : blankHead);
-  return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
+  const statsLine = `${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'} · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}`;
+  if(printPage){
+    return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
+  <div class="advance-pdf-strip">
+    <strong>${h.name}</strong>
+    <span>${statsLine}</span>
+  </div>
+  ${hitterPitchTablesGridHtml(h)}
+  ${hitterSprayPairHtml(idPrefix, {printPage})}
+  ${hitterSbBlockHtml(h)}
+</div>`;
+  }
+  return `<div class="advance-sheet" data-hitter-id="${h.synergy_id||''}">
   <div class="advance-hero">
     <div class="advance-hero-id">
       ${headHtml}
       <div class="advance-hero-meta">
         <h2>${h.name}</h2>
-        <div class="note" style="margin:4px 0 0">${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'}
-          · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}</div>
+        <div class="note" style="margin:4px 0 0">${statsLine}</div>
       </div>
     </div>
   </div>
@@ -2396,6 +2515,7 @@ function exportHitterAdvancePdf(){
   if(!packs.length){ alert('No hitter data for selection.'); return; }
   const body = packs.map(({h},i)=>buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:`h${i}-`})).join('\n');
   openAdvancePrintWindow('Hitter Advance Export', body, {
+    orientation: 'portrait',
     afterWrite(w){
       // redraw sprays into the print window canvases
       packs.forEach(({h},i)=>{
