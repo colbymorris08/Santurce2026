@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san14">
+<link rel="stylesheet" href="shared.css?v=san15">
 </head>
 <body>
 <div class="topbar">
@@ -438,7 +438,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san14';
+const ASSET_V = 'san15';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1249,11 +1249,11 @@ function drawSpray(canvas, points){
     const hit = p.hit || 'BIP';
     const isHR = hit === 'HR';
     ctx.beginPath();
-    ctx.arc(px, py, isHR ? 4.5 : 3.25, 0, Math.PI*2);
+    ctx.arc(px, py, isHR ? 6.75 : 4.875, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-    ctx.lineWidth = isHR ? 1 : 0.7;
+    ctx.lineWidth = isHR ? 1.5 : 1.05;
     ctx.stroke();
   }
 }
@@ -1424,10 +1424,13 @@ function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
 function leaguePitchMetric(pitchType, metric, {risp=false, hand=null}={}){
   const bag = CACHE.advanceHitters?.select_all || {};
   let rows;
-  if(hand==='R') rows = bag.vs_r_by_pitch_type||[];
+  if(hand==='R' && risp) rows = bag.risp_vs_r_by_pitch_type||[];
+  else if(hand==='L' && risp) rows = bag.risp_vs_l_by_pitch_type||[];
+  else if(hand==='R') rows = bag.vs_r_by_pitch_type||[];
   else if(hand==='L') rows = bag.vs_l_by_pitch_type||[];
   else rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
-  // Fallback to overall-by-pitch if hand split empty in select_all
+  // Fallback chain if a fine split is empty
+  if(!rows.length && hand && risp) rows = hand==='R' ? (bag.vs_r_by_pitch_type||[]) : (bag.vs_l_by_pitch_type||[]);
   if(!rows.length) rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
   const lab = normalizeHitterPitchLabel(pitchType);
   const code = normalizePitchCode(pitchType);
@@ -1484,15 +1487,16 @@ function pitchTypeTableHtml(rows, title, {risp=false, hand=null, half=false, hid
 </div>`;
 }
 function hitterPitchTablesGridHtml(h){
-  // 2×2: overall | vs R
-  //       RISP    | vs L
+  // 2×2 hand splits (pitcher throws via Synergy pitcherInfo.pitchingSide):
+  //   vs R | vs L
+  //   RISP·vs R | RISP·vs L
   return `<div class="hitter-pitch-grid">
-  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type', {risp:false, half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.vs_r_by_pitch_type, 'vs R', {hand:'R', half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type', {risp:true, half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.vs_l_by_pitch_type, 'vs L', {hand:'L', half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.vs_r_by_pitch_type, 'vs R', {hand:'R', risp:false, half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.vs_l_by_pitch_type, 'vs L', {hand:'L', risp:false, half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.risp_vs_r_by_pitch_type, 'RISP · vs R', {hand:'R', risp:true, half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.risp_vs_l_by_pitch_type, 'RISP · vs L', {hand:'L', risp:true, half:true, hideNote:true})}
 </div>
-<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high). vs R / vs L = pitcher throwing hand.</div>`;
+<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that same hand/RISP bucket (blue=low · red=high). Hand = pitcher throws (Synergy pitchingSide).</div>`;
 }
 function advancePitchColor(code){
   return PITCH_COLORS[code] || PITCH_COLORS[{'4S':'FF','FA':'FF'}[code]||''] || '#94a3b8';
@@ -1882,6 +1886,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
       }
       .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
       .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .hitter-pitch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;align-items:start}
+      .hitter-pitch-half table{font-size:11px}
       @media print {
         @page { size: letter landscape; margin: 0.28in; }
         body{padding:0}
@@ -1890,6 +1896,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
           height:7.44in;max-height:7.44in;overflow:hidden;margin:0;
         }
         .hitter-spray-pair{grid-template-columns:1fr 1fr}
+        .hitter-pitch-grid{grid-template-columns:1fr 1fr}
       }
     </style></head><body>${bodyHtml}
     <script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>
@@ -2015,11 +2022,13 @@ function aggregateHitters(hitters, label){
   }
   const vs_r_by_pitch_type = rollPitchRows('vs_r_by_pitch_type');
   const vs_l_by_pitch_type = rollPitchRows('vs_l_by_pitch_type');
+  const risp_vs_r_by_pitch_type = rollPitchRows('risp_vs_r_by_pitch_type');
+  const risp_vs_l_by_pitch_type = rollPitchRows('risp_vs_l_by_pitch_type');
 
   return {
     name: label || 'Select All',
     team: hitters.length===1 ? hitters[0].team : (label||''),
-    overall, by_pitch_type, risp_by_pitch_type, vs_r_by_pitch_type, vs_l_by_pitch_type,
+    overall, by_pitch_type, risp_by_pitch_type, vs_r_by_pitch_type, vs_l_by_pitch_type, risp_vs_r_by_pitch_type, risp_vs_l_by_pitch_type,
   };
 }
 function fillAdvanceHitters(){

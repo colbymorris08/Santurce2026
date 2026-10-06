@@ -623,7 +623,7 @@ def merge_hitter_raw(dest: dict[str, dict], raw: dict[str, dict]) -> None:
                     db["games"] |= set(v or [])
                 elif isinstance(v, (int, float)):
                     db[k] = int(db.get(k) or 0) + int(v)
-        for hand_key in ("vs_r_by_pitch", "vs_l_by_pitch"):
+        for hand_key in ("vs_r_by_pitch", "vs_l_by_pitch", "risp_vs_r_by_pitch", "risp_vs_l_by_pitch"):
             d.setdefault(hand_key, defaultdict(_pa_bucket))
             for ptype, bucket in (h.get(hand_key) or {}).items():
                 db = d[hand_key][ptype]
@@ -983,6 +983,8 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 "risp_by_pitch": defaultdict(_pa_bucket),
                 "vs_r_by_pitch": defaultdict(_pa_bucket),
                 "vs_l_by_pitch": defaultdict(_pa_bucket),
+                "risp_vs_r_by_pitch": defaultdict(_pa_bucket),
+                "risp_vs_l_by_pitch": defaultdict(_pa_bucket),
                 "spray": {"all": [], "nobody_on": [], "risp": [], "non_risp": [], "two_strikes": [], "non_two_strikes": []},
                 "seen_pa": set(),
             }
@@ -1019,8 +1021,12 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
             buckets.append(h["overall"]["__RISP__"])
         if throws == "R":
             buckets.append(h["vs_r_by_pitch"][kind])
+            if risp:
+                buckets.append(h["risp_vs_r_by_pitch"][kind])
         elif throws == "L":
             buckets.append(h["vs_l_by_pitch"][kind])
+            if risp:
+                buckets.append(h["risp_vs_l_by_pitch"][kind])
 
         for b in buckets:
             b["pitches"] += 1
@@ -1047,8 +1053,12 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 targets.append(h["risp_by_pitch"][kind])
             if throws == "R":
                 targets.append(h["vs_r_by_pitch"][kind])
+                if risp:
+                    targets.append(h["risp_vs_r_by_pitch"][kind])
             elif throws == "L":
                 targets.append(h["vs_l_by_pitch"][kind])
+                if risp:
+                    targets.append(h["risp_vs_l_by_pitch"][kind])
             for b in targets:
                 b["pa"] += 1
                 if pa in PA_HIT:
@@ -1231,6 +1241,8 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
 
         vs_r = pack_hand("vs_r_by_pitch", 5)
         vs_l = pack_hand("vs_l_by_pitch", 5)
+        risp_vs_r = pack_hand("risp_vs_r_by_pitch", 3)
+        risp_vs_l = pack_hand("risp_vs_l_by_pitch", 3)
 
         # overall across pitches
         overall_acc = _pa_bucket()
@@ -1283,6 +1295,8 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             "risp_by_pitch_type": risp,
             "vs_r_by_pitch_type": vs_r,
             "vs_l_by_pitch_type": vs_l,
+            "risp_vs_r_by_pitch_type": risp_vs_r,
+            "risp_vs_l_by_pitch_type": risp_vs_l,
             "spray_splits": spray_splits,
             "spray_points": recent_spray_points(all_pts),
         }
@@ -1302,6 +1316,8 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
     risp: dict[str, dict] = defaultdict(_pa_bucket)
     vs_r: dict[str, dict] = defaultdict(_pa_bucket)
     vs_l: dict[str, dict] = defaultdict(_pa_bucket)
+    risp_vs_r: dict[str, dict] = defaultdict(_pa_bucket)
+    risp_vs_l: dict[str, dict] = defaultdict(_pa_bucket)
     overall = _pa_bucket()
 
     def add_row(dest: dict, row: dict) -> None:
@@ -1330,6 +1346,10 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
             add_row(vs_r[row["pitch_type"]], row)
         for row in h.get("vs_l_by_pitch_type") or []:
             add_row(vs_l[row["pitch_type"]], row)
+        for row in h.get("risp_vs_r_by_pitch_type") or []:
+            add_row(risp_vs_r[row["pitch_type"]], row)
+        for row in h.get("risp_vs_l_by_pitch_type") or []:
+            add_row(risp_vs_l[row["pitch_type"]], row)
         o = h.get("overall") or {}
         g = int(o.get("games_season") or o.get("games") or 0)
         if g:
@@ -1365,6 +1385,8 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
         "risp_by_pitch_type": pack(risp),
         "vs_r_by_pitch_type": pack(vs_r),
         "vs_l_by_pitch_type": pack(vs_l),
+        "risp_vs_r_by_pitch_type": pack(risp_vs_r),
+        "risp_vs_l_by_pitch_type": pack(risp_vs_l),
     }
 
 
@@ -1547,10 +1569,14 @@ def _bat_side(ev: dict) -> str | None:
 
 
 def _pitcher_throws(ev: dict) -> str | None:
-    """Pitcher throwing hand → L / R for hitter vs R / vs L tables."""
+    """Pitcher throwing hand → L / R for hitter vs R / vs L tables.
+
+    Synergy events expose this as pitcherInfo.pitchingSide ("Right"/"Left").
+    """
     pi = ev.get("pitcherInfo") or {}
     side = (
-        pi.get("throwingHand")
+        pi.get("pitchingSide")
+        or pi.get("throwingHand")
         or pi.get("throwingSide")
         or pi.get("throws")
         or pi.get("throwHand")
@@ -1563,7 +1589,8 @@ def _pitcher_throws(ev: dict) -> str | None:
             p = (((ev.get("defense") or {}).get("lineup") or {}).get("pitcher")) or {}
         if isinstance(p, dict):
             side = (
-                p.get("throwingHand")
+                p.get("pitchingSide")
+                or p.get("throwingHand")
                 or p.get("throwingSide")
                 or p.get("throws")
                 or p.get("throwHand")
@@ -2428,7 +2455,7 @@ def main() -> None:
             "Bunts from contactIntent/PA bunt results; SB-from-base via runner start→end heuristic on non-BIP pitches.",
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
-            "vs R / vs L by pitch type from pitcher throwing hand (pitcherInfo / pitcher).",
+            "vs R / vs L (+ RISP×hand) by pitch type from Synergy pitcherInfo.pitchingSide (Right/Left).",
         ],
     }
     (OUT / "advance_opposing_hitters.json").write_text(json.dumps(payload, indent=2))
