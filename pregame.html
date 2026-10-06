@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san22">
+<link rel="stylesheet" href="shared.css?v=san23">
 </head>
 <body>
 <div class="topbar">
@@ -124,7 +124,7 @@
 
   <div id="panel-hitter-advance" class="panel">
     <div class="section-label" data-i18n="hitterAdvanceLabel">Hitter advance — Synergy</div>
-    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Team → hitters. Tables by pitch type (colored vs league avg) · RISP vs non-RISP spray · bunts + season SB. Mass PDF: compact headshot · square sprays · colored tables.</div>
+    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Team → hitters. Tables by pitch type (colored vs league avg) · RISP vs non-RISP spray · bunts + season SB. Mass PDF: compact headshot · native-aspect sprays · colored tables.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-team" onchange="fillAdvanceHitters()">
@@ -150,7 +150,7 @@
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · wide colored pitch tables · RISP/non-RISP spray (1:1) · bunts/SB.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · wide colored pitch tables · RISP/non-RISP spray (native field aspect) · bunts/SB.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -434,11 +434,13 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san22"></script>
+<script src="i18n.js?v=san23"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san22';
+const ASSET_V = 'san23';
+// 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
+const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1069,18 +1071,20 @@ function limitRecentSprayPoints(points, n=SPRAY_MAX_RECENT){
 function drawSpray(canvas, points){
   if(!canvas) return;
   const ctx=canvas.getContext('2d');
-  const cw = canvas.clientWidth || Number(canvas.getAttribute('width')) || 420;
-  const ch = canvas.clientHeight || Number(canvas.getAttribute('height')) || 420;
-  // Hitter RISP/non-RISP sprays are square — never bake a wide/short buffer from CSS stretch
-  let w, h;
-  if(canvas.dataset.square === '1'){
-    const side = Math.max(360, Math.round(cw || ch || 420));
-    w = canvas.width = side * 2;
-    h = canvas.height = side * 2;
-  } else {
-    w = canvas.width = Math.max(360, cw) * 2;
-    h = canvas.height = Math.max(420, ch) * 2;
+  const cw = canvas.clientWidth || Number(canvas.getAttribute('width')) || 424;
+  const ch = canvas.clientHeight || Number(canvas.getAttribute('height')) || 0;
+  // Buffer matches native field aspect (√2 wide × 1 tall) — no square / no CSS stretch
+  let dispW = Math.max(280, Math.round(cw));
+  let dispH = Math.round(dispW / SPRAY_ASPECT);
+  if(ch > 40 && Math.abs(ch - dispH) / dispH > 0.08){
+    // Prefer the CSS box when it already follows native aspect (or is height-capped)
+    if(ch / cw < 1 / SPRAY_ASPECT){
+      dispH = Math.max(200, Math.round(ch));
+      dispW = Math.round(dispH * SPRAY_ASPECT);
+    }
   }
+  const w = canvas.width = dispW * 2;
+  const h = canvas.height = dispH * 2;
   ctx.clearRect(0,0,w,h);
 
   ctx.fillStyle='#e8eef4';
@@ -1090,10 +1094,13 @@ function drawSpray(canvas, points){
   const CF_FT = 400;       // CF fence length (ft) — maps to outer fence arc
   const FOUL_FT = 330;     // foul-pole distance
   const FOUL = Math.PI/4;  // 45° each side of CF → 90° fair territory
-  const pad = Math.min(w,h)*0.06;
+  const pad = Math.min(w,h)*0.05;
   const cx = w*0.5;
   const homeY = h - pad;
-  const fenceR = Math.min(w*0.48, (homeY - pad)); // pixels for CF_FT
+  // Fit 90° wedge tightly: half-width = R·sin(45°)=R/√2, depth = R
+  const maxRByW = (w*0.5 - pad) * Math.SQRT2;
+  const maxRByH = homeY - pad;
+  const fenceR = Math.min(maxRByW, maxRByH); // pixels for CF_FT
   const pxPerFt = fenceR / CF_FT;
 
   function toCanvas(xFt, yFt){
@@ -2118,11 +2125,11 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:1 1 auto;min-height:0;align-items:start;gap:8px}
       .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:4px 6px;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center}
-      /* Keep 1:1 like on-site — never width:100% + max-height (that stretches wide) */
+      /* Native field aspect (√2) — match site; never force square or stretch */
       .advance-sheet-hitter .hitter-spray-pair canvas{
-        width:min(100%,2.85in)!important;max-width:100%!important;
+        width:min(100%,3.15in)!important;max-width:100%!important;
         height:auto!important;max-height:none!important;
-        aspect-ratio:1/1;display:block;margin:0 auto;
+        aspect-ratio:1.414/1;display:block;margin:0 auto;
       }` : '';
   w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
     <style>
@@ -2336,21 +2343,21 @@ function hitterSbBlockHtml(h){
 }
 function hitterSprayPairHtml(prefix, {printPage=false}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
-  // data-square + 1:1 attrs keep PDF/print from stretching the field wide
+  // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,2.85in);max-width:100%;height:auto;aspect-ratio:1/1;display:block;margin:0 auto'
-    : 'width:100%;max-width:420px;height:auto;aspect-ratio:1/1';
+    ? 'width:min(100%,3.15in);max-width:100%;height:auto;aspect-ratio:1.414/1;display:block;margin:0 auto'
+    : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
   return `<div class="section-label">Spray charts · RISP vs non-RISP</div>
   ${sprayHitLegendHtml({compact: !!printPage})}
   <div class="hitter-spray-pair">
     <div class="spray-card">
       <h3>RISP</h3>
-      <canvas id="${prefix}spray-risp" width="420" height="420" data-square="1" style="${cvStyle}"></canvas>
+      <canvas id="${prefix}spray-risp" width="424" height="300" style="${cvStyle}"></canvas>
       <div class="note" id="${prefix}spray-risp-n"></div>
     </div>
     <div class="spray-card">
       <h3>non-RISP</h3>
-      <canvas id="${prefix}spray-nonrisp" width="420" height="420" data-square="1" style="${cvStyle}"></canvas>
+      <canvas id="${prefix}spray-nonrisp" width="424" height="300" style="${cvStyle}"></canvas>
       <div class="note" id="${prefix}spray-nonrisp-n"></div>
     </div>
   </div>`;
@@ -2566,7 +2573,7 @@ function exportHitterAdvancePdf(){
   openAdvancePrintWindow('Hitter Advance Export', body, {
     orientation: 'portrait',
     afterWrite(w){
-      // Wait for print CSS layout so square canvases get correct clientWidth
+      // Wait for print CSS layout so native-aspect canvases get correct clientWidth
       const paint = ()=>{
         packs.forEach(({h},i)=>{
           const prefix = `pdf-h${i}-${h.synergy_id||'all'}-`;

@@ -230,9 +230,12 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 }
 .spray-card h3 { font-size: 13px; margin-bottom: 8px; color: #f3f6fb; }
 .spray-card canvas {
-  width: 100%; height: 480px; background: #0d1524;
+  /* Native field aspect: 90° fair wedge is R√2 wide × R tall */
+  width: 100%; max-width: 560px; height: auto; aspect-ratio: 1.414 / 1;
+  background: #0d1524;
   border-radius: 8px; border: 1px solid var(--line);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  display: block;
 }
 .spray-hit-legend {
   margin: 0 0 12px;
@@ -938,13 +941,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     padding: 4px 6px; margin: 0; min-width: 0;
     display: flex; flex-direction: column; align-items: center;
   }
-  /* Square sprays (match site) — avoid width:100% + max-height stretch */
+  /* Native √2 field aspect (match site) — no square / no stretch */
   .advance-sheet-hitter .hitter-spray-pair canvas {
-    width: min(100%, 2.85in) !important;
+    width: min(100%, 3.15in) !important;
     max-width: 100% !important;
     height: auto !important;
     max-height: none !important;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1.414 / 1;
     display: block;
     margin: 0 auto;
   }
