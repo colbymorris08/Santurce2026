@@ -623,6 +623,15 @@ def merge_hitter_raw(dest: dict[str, dict], raw: dict[str, dict]) -> None:
                     db["games"] |= set(v or [])
                 elif isinstance(v, (int, float)):
                     db[k] = int(db.get(k) or 0) + int(v)
+        for hand_key in ("vs_r_by_pitch", "vs_l_by_pitch"):
+            d.setdefault(hand_key, defaultdict(_pa_bucket))
+            for ptype, bucket in (h.get(hand_key) or {}).items():
+                db = d[hand_key][ptype]
+                for k, v in bucket.items():
+                    if k == "games":
+                        db["games"] |= set(v or [])
+                    elif isinstance(v, (int, float)):
+                        db[k] = int(db.get(k) or 0) + int(v)
         for split, pts in h["spray"].items():
             d["spray"].setdefault(split, []).extend(pts)
 
@@ -972,6 +981,8 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 "overall": defaultdict(_pa_bucket),
                 "by_pitch": defaultdict(_pa_bucket),
                 "risp_by_pitch": defaultdict(_pa_bucket),
+                "vs_r_by_pitch": defaultdict(_pa_bucket),
+                "vs_l_by_pitch": defaultdict(_pa_bucket),
                 "spray": {"all": [], "nobody_on": [], "risp": [], "non_risp": [], "two_strikes": [], "non_two_strikes": []},
                 "seen_pa": set(),
             }
@@ -993,6 +1004,7 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
         contact = ev.get("contact") or {}
         pa = ev.get("plateAppearanceResult")
         risp = _runners_risp(ev)
+        throws = _pitcher_throws(ev)
         fp = _first_pitch(ev)
         game = ev.get("game") or {}
         gid = str(game.get("id") or game.get("iid") or "")
@@ -1005,6 +1017,10 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
         if risp:
             buckets.append(h["risp_by_pitch"][kind])
             buckets.append(h["overall"]["__RISP__"])
+        if throws == "R":
+            buckets.append(h["vs_r_by_pitch"][kind])
+        elif throws == "L":
+            buckets.append(h["vs_l_by_pitch"][kind])
 
         for b in buckets:
             b["pitches"] += 1
@@ -1029,6 +1045,10 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
             targets = [h["overall"][kind], h["by_pitch"][kind]]
             if risp:
                 targets.append(h["risp_by_pitch"][kind])
+            if throws == "R":
+                targets.append(h["vs_r_by_pitch"][kind])
+            elif throws == "L":
+                targets.append(h["vs_l_by_pitch"][kind])
             for b in targets:
                 b["pa"] += 1
                 if pa in PA_HIT:
@@ -1197,6 +1217,21 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             risp.append({"pitch_type": ptype, **fr})
         risp.sort(key=lambda r: -r["pitches"])
 
+        def pack_hand(src_key: str, min_pitches: int = 5) -> list[dict]:
+            out = []
+            for ptype, bucket in (h.get(src_key) or {}).items():
+                if str(ptype).startswith("__"):
+                    continue
+                fr = _freeze_bucket(bucket)
+                if fr["pitches"] < min_pitches:
+                    continue
+                out.append({"pitch_type": ptype, **fr})
+            out.sort(key=lambda r: -r["pitches"])
+            return out
+
+        vs_r = pack_hand("vs_r_by_pitch", 5)
+        vs_l = pack_hand("vs_l_by_pitch", 5)
+
         # overall across pitches
         overall_acc = _pa_bucket()
         for ptype, bucket in h["by_pitch"].items():
@@ -1246,6 +1281,8 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             "overall": fr_all,
             "by_pitch_type": by_pitch,
             "risp_by_pitch_type": risp,
+            "vs_r_by_pitch_type": vs_r,
+            "vs_l_by_pitch_type": vs_l,
             "spray_splits": spray_splits,
             "spray_points": recent_spray_points(all_pts),
         }
@@ -1263,6 +1300,8 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
     """Roster Select-All rollup from frozen per-hitter pitch rows."""
     by_pitch: dict[str, dict] = defaultdict(_pa_bucket)
     risp: dict[str, dict] = defaultdict(_pa_bucket)
+    vs_r: dict[str, dict] = defaultdict(_pa_bucket)
+    vs_l: dict[str, dict] = defaultdict(_pa_bucket)
     overall = _pa_bucket()
 
     def add_row(dest: dict, row: dict) -> None:
@@ -1287,6 +1326,10 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
             add_row(overall, row)
         for row in h.get("risp_by_pitch_type") or []:
             add_row(risp[row["pitch_type"]], row)
+        for row in h.get("vs_r_by_pitch_type") or []:
+            add_row(vs_r[row["pitch_type"]], row)
+        for row in h.get("vs_l_by_pitch_type") or []:
+            add_row(vs_l[row["pitch_type"]], row)
         o = h.get("overall") or {}
         g = int(o.get("games_season") or o.get("games") or 0)
         if g:
@@ -1320,6 +1363,8 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
         "overall": fr_all,
         "by_pitch_type": pack(by_pitch),
         "risp_by_pitch_type": pack(risp),
+        "vs_r_by_pitch_type": pack(vs_r),
+        "vs_l_by_pitch_type": pack(vs_l),
     }
 
 
@@ -1491,6 +1536,39 @@ def _bat_side(ev: dict) -> str | None:
     if not side:
         batter = ev.get("batter") or {}
         side = batter.get("battingSide") or batter.get("batSide")
+    if not side:
+        return None
+    s = str(side).strip().lower()
+    if s.startswith("l"):
+        return "L"
+    if s.startswith("r"):
+        return "R"
+    return None
+
+
+def _pitcher_throws(ev: dict) -> str | None:
+    """Pitcher throwing hand → L / R for hitter vs R / vs L tables."""
+    pi = ev.get("pitcherInfo") or {}
+    side = (
+        pi.get("throwingHand")
+        or pi.get("throwingSide")
+        or pi.get("throws")
+        or pi.get("throwHand")
+        or pi.get("hand")
+        or pi.get("pitcherThrows")
+    )
+    if not side:
+        p = ev.get("pitcher") or {}
+        if not isinstance(p, dict) or not p.get("id"):
+            p = (((ev.get("defense") or {}).get("lineup") or {}).get("pitcher")) or {}
+        if isinstance(p, dict):
+            side = (
+                p.get("throwingHand")
+                or p.get("throwingSide")
+                or p.get("throws")
+                or p.get("throwHand")
+                or p.get("hand")
+            )
     if not side:
         return None
     s = str(side).strip().lower()
@@ -2350,6 +2428,7 @@ def main() -> None:
             "Bunts from contactIntent/PA bunt results; SB-from-base via runner start→end heuristic on non-BIP pitches.",
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
+            "vs R / vs L by pitch type from pitcher throwing hand (pitcherInfo / pitcher).",
         ],
     }
     (OUT / "advance_opposing_hitters.json").write_text(json.dumps(payload, indent=2))

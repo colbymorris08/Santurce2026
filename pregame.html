@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san13">
+<link rel="stylesheet" href="shared.css?v=san14">
 </head>
 <body>
 <div class="topbar">
@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Arm-slot &amp; heat-map boxes stay blank placeholders. Export selected arms to one multi-page PDF.</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Photo + pitch shapes (hitter view) + heat map on the right 2/3. Export selected arms — one landscape page each.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -331,7 +331,7 @@
         </div>
       </div>
     </div>
-    <div id="spray-hit-legend" class="spray-hit-legend"></div>
+    <div id="spray-hit-legend"></div>
     <div id="spray-mlb" class="spray-grid"></div>
     <div class="section-label" style="margin-top:20px" data-i18n="aaaProxyLabel">AAA directional proxy</div>
     <div class="legend-row" data-i18n-html="colorKeyGreenBlue">
@@ -438,7 +438,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san13';
+const ASSET_V = 'san14';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1249,23 +1249,35 @@ function drawSpray(canvas, points){
     const hit = p.hit || 'BIP';
     const isHR = hit === 'HR';
     ctx.beginPath();
-    ctx.arc(px, py, isHR ? 9 : 6.5, 0, Math.PI*2);
+    ctx.arc(px, py, isHR ? 4.5 : 3.25, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-    ctx.lineWidth = isHR ? 2 : 1.4;
+    ctx.lineWidth = isHR ? 1 : 0.7;
     ctx.stroke();
   }
 }
 
-function sprayHitLegendHtml(){
+function sprayHitLegendHtml({compact=false}={}){
+  // Labels match HIT_COLORS in drawSpray (hit result of each BIP dot)
   const items = [
-    ['HR','#dc2626'],['3B','#ea580c'],['2B','#2563eb'],['1B','#16a34a'],
-    ['OUT','#64748b'],['SF','#94a3b8'],['SAC','#a8a29e'],['E','#7c3aed'],['BIP','#0f172a'],
+    ['HR','Home run','#dc2626'],
+    ['3B','Triple','#ea580c'],
+    ['2B','Double','#2563eb'],
+    ['1B','Single','#16a34a'],
+    ['OUT','Out','#64748b'],
+    ['SF','Sac fly','#94a3b8'],
+    ['SAC','Sacrifice','#a8a29e'],
+    ['E','Error','#7c3aed'],
+    ['BIP','Other BIP','#0f172a'],
   ];
-  return `<div class="legend-row spray-hit-key">${items.map(([lab,col])=>
-    `<span class="swatch"><span class="dot" style="background:${col}"></span>${lab}</span>`
-  ).join('')}<span class="fence-note">Fence = 400' CF · poles ~330'</span></div>`;
+  const keys = items.map(([code,lab,col])=>
+    `<span class="swatch" title="${lab}"><span class="dot" style="background:${col}"></span><span class="spray-hit-lab"><strong>${code}</strong>${compact?'':` · ${lab}`}</span></span>`
+  ).join('');
+  return `<div class="spray-hit-legend${compact?' spray-hit-legend--compact':''}" role="list" aria-label="Spray chart color key">
+    <div class="spray-hit-legend-title">Color key</div>
+    <div class="legend-row spray-hit-key">${keys}<span class="fence-note">Fence = 400' CF · poles ~330' · recent 100 BIP</span></div>
+  </div>`;
 }
 function filteredSprayPlayers(){
   const team=document.getElementById('spray-team').value;
@@ -1409,9 +1421,14 @@ function renderSpray(){
 
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
-function leaguePitchMetric(pitchType, metric, risp=false){
+function leaguePitchMetric(pitchType, metric, {risp=false, hand=null}={}){
   const bag = CACHE.advanceHitters?.select_all || {};
-  const rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
+  let rows;
+  if(hand==='R') rows = bag.vs_r_by_pitch_type||[];
+  else if(hand==='L') rows = bag.vs_l_by_pitch_type||[];
+  else rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
+  // Fallback to overall-by-pitch if hand split empty in select_all
+  if(!rows.length) rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
   const lab = normalizeHitterPitchLabel(pitchType);
   const code = normalizePitchCode(pitchType);
   const hit = rows.find(r=>normalizeHitterPitchLabel(r.pitch_type)===lab)
@@ -1435,19 +1452,24 @@ function rateHeatStyle(val, avg){
   const fg = Math.abs(z)>0.45 ? '#fff' : '#0a1633';
   return `background:rgb(${r},${g},${b});color:${fg}`;
 }
-function pitchTypeTableHtml(rows, title, {risp=false}={}){
+function pitchTypeTableHtml(rows, title, {risp=false, hand=null, half=false, hideNote=false}={}){
   const cleaned = mergeHitterPitchTypeRows(rows||[]);
-  if(!cleaned.length) return `<div class="note">${title}: no sample yet.</div>`;
-  return `<div class="section-label">${title}</div>
+  const wrapCls = half ? 'hitter-pitch-half' : '';
+  if(!cleaned.length){
+    return `<div class="${wrapCls}"><div class="section-label">${title}</div><div class="note">No sample yet.</div></div>`;
+  }
+  const note = hideNote ? '' : `<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high).</div>`;
+  return `<div class="${wrapCls}">
+  <div class="section-label">${title}</div>
   <div class="table-wrap"><table><thead><tr>
     <th>Pitch</th><th class="num">Pitches</th><th class="num">1st-pitch swing%</th>
     <th class="num">OPS</th><th class="num">Whiff%</th><th class="num">PA</th>
   </tr></thead><tbody>
   ${cleaned.map(r=>{
     const fps=r.first_pitch_swing_pct, ops=r.ops, wh=r.whiff_pct;
-    const sFps=rateHeatStyle(fps, leaguePitchMetric(r.pitch_type,'first_pitch_swing_pct',risp));
-    const sOps=rateHeatStyle(ops, leaguePitchMetric(r.pitch_type,'ops',risp));
-    const sWh=rateHeatStyle(wh, leaguePitchMetric(r.pitch_type,'whiff_pct',risp));
+    const sFps=rateHeatStyle(fps, leaguePitchMetric(r.pitch_type,'first_pitch_swing_pct',{risp, hand}));
+    const sOps=rateHeatStyle(ops, leaguePitchMetric(r.pitch_type,'ops',{risp, hand}));
+    const sWh=rateHeatStyle(wh, leaguePitchMetric(r.pitch_type,'whiff_pct',{risp, hand}));
     return `<tr>
     <td class="player-name">${r.pitch_type}</td>
     <td class="num">${r.pitches??'—'}</td>
@@ -1458,26 +1480,50 @@ function pitchTypeTableHtml(rows, title, {risp=false}={}){
   </tr>`;
   }).join('')}
   </tbody></table></div>
-  <div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high).</div>`;
+  ${note}
+</div>`;
+}
+function hitterPitchTablesGridHtml(h){
+  // 2×2: overall | vs R
+  //       RISP    | vs L
+  return `<div class="hitter-pitch-grid">
+  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type', {risp:false, half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.vs_r_by_pitch_type, 'vs R', {hand:'R', half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type', {risp:true, half:true, hideNote:true})}
+  ${pitchTypeTableHtml(h.vs_l_by_pitch_type, 'vs L', {hand:'L', half:true, hideNote:true})}
+</div>
+<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high). vs R / vs L = pitcher throwing hand.</div>`;
 }
 function advancePitchColor(code){
   return PITCH_COLORS[code] || PITCH_COLORS[{'4S':'FF','FA':'FF'}[code]||''] || '#94a3b8';
 }
-/** PDF-style HB×IVB movement plot (Trackman pitcher view; light theme). */
-function advanceMovementSvg(arsenal, throws='R'){
-  const pts=chartPitchRows(arsenal||[],'code').filter(a=>a && a.hb!=null && a.ivb!=null).map(a=>({
-    code:a.code, hb:Number(a.hb), ivb:Number(a.ivb), usage:Number(a.usage)||10,
-    color:advancePitchColor(a.code)
-  }));
-  const W=340, H=340, P=36, lim=20;
+/** PDF-style HB×IVB movement plot (light theme). Default = hitter view (HB inverted). */
+function advanceMovementSvg(arsenal, throws='R', view='hitter'){
+  const hitter = view !== 'pitcher';
+  const pts=chartPitchRows(arsenal||[],'code').filter(a=>a && a.hb!=null && a.ivb!=null).map(a=>{
+    const hbPitcher=Number(a.hb);
+    return {
+      code:a.code,
+      hb: hitter ? -hbPitcher : hbPitcher,
+      ivb:Number(a.ivb),
+      usage:Number(a.usage)||10,
+      color:advancePitchColor(a.code)
+    };
+  });
+  const W=340, H=280, P=32, lim=20;
   const plot=W-P*2;
   const sx=v=>P+((v+lim)/(lim*2))*plot;
   const sy=v=>P+((-v+lim)/(lim*2))*plot;
-  const gloveLab = throws==='L' ? 'LHP arm →' : 'RHP glove →';
-  const armLab = throws==='L' ? '← LHP glove' : '← RHP arm';
-  let s=`<svg class="advance-movement" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arsenal movement HB by IVB">`;
+  // Hitter view flips arm/glove sides vs pitcher Trackman plot
+  const gloveLab = hitter
+    ? (throws==='L' ? '← LHP arm' : '← RHP arm')
+    : (throws==='L' ? 'LHP arm →' : 'RHP glove →');
+  const armLab = hitter
+    ? (throws==='L' ? 'LHP glove →' : 'RHP glove →')
+    : (throws==='L' ? '← LHP glove' : '← RHP arm');
+  const viewLab = hitter ? 'hitter view' : 'pitcher view';
+  let s=`<svg class="advance-movement" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arsenal movement HB by IVB · ${viewLab}">`;
   s+=`<rect width="${W}" height="${H}" fill="#F7F9FB" rx="6"/>`;
-  // quadrant fills
   s+=`<rect x="${sx(0)}" y="${sy(lim)}" width="${sx(lim)-sx(0)}" height="${sy(0)-sy(lim)}" fill="#DBEAFE" opacity=".45"/>`;
   s+=`<rect x="${sx(-lim)}" y="${sy(lim)}" width="${sx(0)-sx(-lim)}" height="${sy(0)-sy(lim)}" fill="#F1F5F9" opacity=".7"/>`;
   s+=`<rect x="${sx(0)}" y="${sy(0)}" width="${sx(lim)-sx(0)}" height="${sy(-lim)-sy(0)}" fill="#F1F5F9" opacity=".7"/>`;
@@ -1487,23 +1533,23 @@ function advanceMovementSvg(arsenal, throws='R'){
     s+=`<line x1="${x}" y1="${P}" x2="${x}" y2="${P+plot}" stroke="${c}" stroke-width="${w}"/>`;
     s+=`<line x1="${P}" y1="${y}" x2="${P+plot}" y2="${y}" stroke="${c}" stroke-width="${w}"/>`;
     if(v!==0){
-      s+=`<text x="${x}" y="${P+plot+12}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">${v}</text>`;
-      s+=`<text x="${P-6}" y="${y+3}" text-anchor="end" font-size="8" fill="#334155" font-family="system-ui,sans-serif">${v}</text>`;
+      s+=`<text x="${x}" y="${P+plot+11}" text-anchor="middle" font-size="7.5" fill="#334155" font-family="system-ui,sans-serif">${v}</text>`;
+      s+=`<text x="${P-5}" y="${y+3}" text-anchor="end" font-size="7.5" fill="#334155" font-family="system-ui,sans-serif">${v}</text>`;
     }
   }
-  s+=`<text x="${W/2}" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">Arsenal Movement · Trackman</text>`;
-  s+=`<text x="${P+4}" y="${P+12}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${gloveLab}</text>`;
-  s+=`<text x="${P+plot-4}" y="${P+12}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${armLab}</text>`;
-  s+=`<text x="${P+4}" y="${P+plot-6}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">ride / carry</text>`;
-  s+=`<text x="${P+plot-4}" y="${P+plot-6}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">sink / drop</text>`;
+  s+=`<text x="${W/2}" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">Pitch shapes · ${viewLab}</text>`;
+  s+=`<text x="${P+4}" y="${P+11}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${gloveLab}</text>`;
+  s+=`<text x="${P+plot-4}" y="${P+11}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${armLab}</text>`;
+  s+=`<text x="${P+4}" y="${P+plot-5}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">ride / carry</text>`;
+  s+=`<text x="${P+plot-4}" y="${P+plot-5}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">sink / drop</text>`;
   pts.forEach(p=>{
-    const r=Math.max(7, Math.min(14, 6 + p.usage*0.12));
+    const r=Math.max(6, Math.min(12, 5 + p.usage*0.11));
     const x=sx(p.hb), y=sy(p.ivb);
-    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${p.color}" stroke="#fff" stroke-width="1.6"/>`;
-    s+=`<text x="${x+r+3}" y="${y+3}" font-size="10" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${p.code}</text>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${p.color}" stroke="#fff" stroke-width="1.4"/>`;
+    s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${p.code}</text>`;
   });
-  s+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  pitcher view</text>`;
-  s+=`<text x="11" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 11 ${H/2})">Induced Vertical Break (in)</text>`;
+  s+=`<text x="${W/2}" y="${H-5}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  ${viewLab}</text>`;
+  s+=`<text x="10" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 10 ${H/2})">Induced Vertical Break (in)</text>`;
   return s+'</svg>';
 }
 function advanceUsageBars(arsenal, side){
@@ -1710,16 +1756,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
-  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`:'');
+  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_480,w_320/v1/people/${mlbId}/headshot/67/current`:'');
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
-  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
-  const headHtml=headRemote
-    ? `<img class="advance-headshot" src="${headRemote}" alt="${p.name}"
-           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+  const blankPhoto=`<div class="advance-photo advance-headshot-placeholder" aria-hidden="true"></div>`;
+  const photoHtml=headRemote
+    ? `<img class="advance-photo" src="${headRemote}" alt="${p.name}"
+           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
     : (headLocal
-      ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-      : blankHead);
+      ? `<img class="advance-photo" src="${headLocal}" alt="${p.name}"
+             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+      : blankPhoto);
   const armImg=p.arm_slot_image || null;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
@@ -1741,73 +1787,67 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   const short=p.short_vs_rhh||{};
   const armBlock = armImg
     ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} delivery snapshot" loading="lazy"/>`
-    : `<div class="advance-placeholder advance-placeholder-tall">Delivery snapshot</div>`;
+    : `<div class="advance-placeholder advance-placeholder-delivery">Delivery snapshot</div>`;
   const pageClass = printPage ? 'advance-print-page' : '';
-  return `<div class="advance-sheet ${pageClass}">
-  <div class="advance-hero">
-    <div class="advance-hero-id">
-      ${headHtml}
-      <div class="advance-hero-meta">
-        <h2>${p.name}</h2>
-        <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled.</div>
-      </div>
+  return `<div class="advance-sheet advance-sheet-pitcher ${pageClass}">
+  <div class="advance-hero advance-hero-compact">
+    <div class="advance-hero-meta">
+      <h2>${p.name}</h2>
+      <div class="note" style="margin:2px 0 0">${p.subtitle||p.bio||''} · Prospect Savant + Synergy count / hand splits</div>
     </div>
   </div>
-  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
-  <div class="advance-short">
-    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
-    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
-    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
-  </div>
   <div class="advance-layout advance-layout-pitcher">
-    <div class="advance-col">
-      <div class="advance-card">
+    <div class="advance-col advance-col-charts">
+      <div class="advance-card advance-card-compact">
+        <div class="section-label">Count usage · 0–0 &amp; 2K</div>
+        <div class="advance-short">
+          <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
+          <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
+          <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
+        </div>
+      </div>
+      <div class="advance-card advance-card-compact">
         <div class="section-label">Arsenal snapshot</div>
-        <div class="table-wrap"><table><thead><tr>
+        <div class="table-wrap"><table class="advance-arsenal-table"><thead><tr>
           <th>Pitch</th><th class="num">Use%</th><th class="num">vs L</th><th class="num">vs R</th>
           <th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th><th class="num">Whiff</th>
         </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
-        ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Synergy Left/Right (or Statcast) hand splits exist.</div>'}
+        ${hasHand?'':'<div class="note" style="margin-top:4px">vs L / vs R blank until Synergy hand splits exist.</div>'}
       </div>
-      <div class="advance-card">
+      <div class="advance-card advance-card-compact">
         <div class="section-label">Pitch descriptions</div>
         <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
       </div>
-      <div class="advance-card">
+      <div class="advance-card advance-card-compact">
         <div class="section-label">Usage vs hand</div>
         <div class="advance-usage-split">
           <div class="advance-usage-side">
             <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
-            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span>
-            </div>
             ${advanceUsageBars(arsenal,'l')}
           </div>
           <div class="advance-usage-side">
             <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
-            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span>
-            </div>
             ${advanceUsageBars(arsenal,'r')}
           </div>
         </div>
       </div>
-    </div>
-    <div class="advance-col">
-      <div class="advance-card">
-        <div class="section-label">Movement · HB × IVB</div>
-        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R')}</div>
-      </div>
-      <div class="advance-card">
-        <div class="section-label">Heat map</div>
-        <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
-      </div>
-    </div>
-    <div class="advance-col">
-      <div class="advance-card advance-card-arm-slot">
+      <div class="advance-card advance-card-compact advance-card-arm-slot">
         <div class="section-label">Delivery snapshot</div>
         <div class="advance-arm">${armBlock}</div>
+      </div>
+    </div>
+    <div class="advance-col advance-col-visual">
+      <div class="advance-card advance-band advance-band-photo">
+        <div class="section-label">Pitcher</div>
+        <div class="advance-photo-wrap">${photoHtml}</div>
+      </div>
+      <div class="advance-card advance-band advance-band-movement">
+        <div class="section-label">Pitch shapes · hitter view</div>
+        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'hitter')}</div>
+      </div>
+      <div class="advance-card advance-band advance-band-heat">
+        <div class="section-label">Heat map</div>
+        <div class="advance-placeholder advance-placeholder-heat">Heat map</div>
       </div>
     </div>
   </div>
@@ -1830,15 +1870,25 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
   w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
     <style>
-      @page { size: letter landscape; margin: 0.35in; }
-      body{background:#fff;padding:10px;font-family:inherit}
-      .advance-print-page{page-break-after:always;break-after:page;margin-bottom:18px}
-      .advance-print-page:last-child{page-break-after:auto}
+      @page { size: letter landscape; margin: 0.28in; }
+      html,body{background:#fff;margin:0;padding:0;font-family:inherit}
+      body{padding:4px 6px}
+      .season-banner{display:none!important}
+      .advance-print-page{page-break-after:always;break-after:page;margin:0 0 8px}
+      .advance-print-page:last-child{page-break-after:auto;margin-bottom:0}
+      .advance-sheet-pitcher.advance-print-page{
+        height:7.4in;max-height:7.4in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;
+      }
       .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
       .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
       @media print {
-        @page { size: letter landscape; margin: 0.35in; }
-        .advance-print-page{page-break-after:always}
+        @page { size: letter landscape; margin: 0.28in; }
+        body{padding:0}
+        .advance-print-page{page-break-after:always;break-after:page}
+        .advance-sheet-pitcher.advance-print-page{
+          height:7.44in;max-height:7.44in;overflow:hidden;margin:0;
+        }
         .hitter-spray-pair{grid-template-columns:1fr 1fr}
       }
     </style></head><body>${bodyHtml}
@@ -1944,10 +1994,32 @@ function aggregateHitters(hitters, label){
     return r;
   }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
 
+  function rollPitchRows(key){
+    const m = new Map();
+    hitters.forEach(h=>{
+      (h[key]||[]).forEach(r=>{
+        const k=r.pitch_type||'UNK';
+        const cur=m.get(k)||{pitch_type:k,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0};
+        ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(f=>{cur[f]+=Number(r[f])||0;});
+        if(r.ops!=null && r.pa){ cur._opsNum += Number(r.ops)*Number(r.pa); cur._opsDen += Number(r.pa); }
+        m.set(k, cur);
+      });
+    });
+    return [...m.values()].map(r=>{
+      r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
+      r.first_pitch_swing_pct = rateOrNull(r.first_pitch_swings, r.first_pitches);
+      r.whiff_pct = rateOrNull(r.whiffs, r.swings);
+      delete r._opsNum; delete r._opsDen;
+      return r;
+    }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
+  }
+  const vs_r_by_pitch_type = rollPitchRows('vs_r_by_pitch_type');
+  const vs_l_by_pitch_type = rollPitchRows('vs_l_by_pitch_type');
+
   return {
     name: label || 'Select All',
     team: hitters.length===1 ? hitters[0].team : (label||''),
-    overall, by_pitch_type, risp_by_pitch_type,
+    overall, by_pitch_type, risp_by_pitch_type, vs_r_by_pitch_type, vs_l_by_pitch_type,
   };
 }
 function fillAdvanceHitters(){
@@ -2008,8 +2080,9 @@ function hitterSbBlockHtml(h){
   </tbody></table></div>`;
 }
 function hitterSprayPairHtml(prefix, {printPage=false}={}){
-  // Two labelled canvases: RISP | non-RISP
+  // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   return `<div class="section-label">Spray charts · RISP vs non-RISP</div>
+  ${sprayHitLegendHtml({compact: !!printPage})}
   <div class="hitter-spray-pair">
     <div class="spray-card">
       <h3>RISP</h3>
@@ -2160,8 +2233,7 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
       </div>
     </div>
   </div>
-  ${pitchTypeTableHtml(h.by_pitch_type, 'By pitch type', {risp:false})}
-  ${pitchTypeTableHtml(h.risp_by_pitch_type, 'RISP · by pitch type', {risp:true})}
+  ${hitterPitchTablesGridHtml(h)}
   ${hitterSprayPairHtml(idPrefix, {printPage})}
   ${hitterSbBlockHtml(h)}
 </div>`;
