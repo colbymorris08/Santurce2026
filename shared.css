@@ -893,9 +893,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex: 0 0 auto;
     border-bottom-color: #ccc;
     margin-bottom: 4px;
+    align-items: center;
   }
   .advance-sheet-hitter .advance-pdf-strip strong { color: #0a1633; font-size: 15px; }
   .advance-sheet-hitter .advance-pdf-strip span { color: #333; font-size: 10px; }
+  .advance-sheet-hitter .advance-pdf-headshot {
+    width: 34px; height: 48px; border-color: #bbb; background: #eef2f7;
+  }
   .advance-sheet-hitter .advance-hero { display: none !important; }
   .advance-sheet-hitter .hitter-pitch-grid {
     flex: 0 0 auto;
@@ -918,13 +922,21 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     grid-template-columns: 1fr 1fr !important;
     gap: 8px;
     margin-top: 2px;
+    align-items: start;
   }
-  .advance-sheet-hitter .hitter-spray-pair .spray-card { padding: 4px 6px; margin: 0; }
+  .advance-sheet-hitter .hitter-spray-pair .spray-card {
+    padding: 4px 6px; margin: 0; min-width: 0;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  /* Square sprays (match site) — avoid width:100% + max-height stretch */
   .advance-sheet-hitter .hitter-spray-pair canvas {
-    width: 100% !important;
+    width: min(100%, 2.85in) !important;
     max-width: 100% !important;
-    max-height: 2.55in;
     height: auto !important;
+    max-height: none !important;
+    aspect-ratio: 1 / 1;
+    display: block;
+    margin: 0 auto;
   }
   .advance-sheet-hitter .spray-hit-legend { font-size: 9px; padding: 4px 6px; margin: 2px 0; }
   .advance-sheet-hitter .section-label { font-size: 11px; margin: 4px 0 3px; }
