@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san17">
+<link rel="stylesheet" href="shared.css?v=san18">
 </head>
 <body>
 <div class="topbar">
@@ -438,7 +438,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san17';
+const ASSET_V = 'san18';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1980,7 +1980,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
         height:7.4in;max-height:7.4in;overflow:hidden;
         display:flex;flex-direction:column;box-sizing:border-box;
       }
-      .advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;flex:1 1 auto;min-height:0;align-items:stretch}
+      .advance-sheet-pitcher .advance-layout-pitcher-print,
+      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;flex:1 1 auto;min-height:0;align-items:stretch}
       .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
       .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
       .hitter-pitch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;align-items:start}
@@ -1992,7 +1993,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
         .advance-sheet-pitcher.advance-print-page{
           height:7.44in;max-height:7.44in;overflow:hidden;margin:0;
         }
-        .advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important}
+        .advance-sheet-pitcher .advance-layout-pitcher-print,
+        .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important}
         .hitter-spray-pair{grid-template-columns:1fr 1fr}
         .hitter-pitch-grid{grid-template-columns:1fr 1fr}
       }
