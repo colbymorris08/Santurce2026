@@ -570,8 +570,18 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 /* PDF-only helpers (used by printPage DOM) */
 .advance-sheet-pitcher { min-width: 0; }
 .advance-pdf-strip {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  display: flex; flex-wrap: nowrap; align-items: center; gap: 8px 12px;
   padding: 2px 4px 4px; margin: 0 0 4px; border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+.advance-pdf-hand,
+.advance-pdf-name {
+  font-size: 15px; font-weight: 700; color: #fff; line-height: 1.15;
+  flex: 0 0 auto; letter-spacing: 0.01em;
+}
+.advance-pdf-team {
+  font-size: 13px; font-weight: 600; color: var(--muted); line-height: 1.15;
+  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .advance-pdf-strip-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; min-width: 0; }
 .advance-pdf-strip strong { font-size: 15px; color: #fff; }
@@ -791,6 +801,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     padding: 1px 2px 3px;
     align-items: center;
   }
+  .advance-sheet-pitcher .advance-pdf-hand,
+  .advance-sheet-pitcher .advance-pdf-name { color: #0a1633; font-size: 13px; font-weight: 700; }
+  .advance-sheet-pitcher .advance-pdf-team { color: #333; font-size: 12px; font-weight: 600; }
   .advance-sheet-pitcher .advance-pdf-strip strong { color: #0a1633; font-size: 13px; }
   .advance-sheet-pitcher .advance-pdf-strip span { color: #444; font-size: 9.5px; }
   .advance-sheet-pitcher .advance-pdf-headshot {
@@ -902,6 +915,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     margin-bottom: 4px;
     align-items: center;
   }
+  .advance-sheet-hitter .advance-pdf-hand,
+  .advance-sheet-hitter .advance-pdf-name { color: #0a1633; font-size: 15px; font-weight: 700; }
+  .advance-sheet-hitter .advance-pdf-team { color: #333; font-size: 13px; font-weight: 600; }
   .advance-sheet-hitter .advance-pdf-strip strong { color: #0a1633; font-size: 15px; }
   .advance-sheet-hitter .advance-pdf-strip span { color: #333; font-size: 10px; }
   .advance-sheet-hitter .advance-pdf-headshot {
