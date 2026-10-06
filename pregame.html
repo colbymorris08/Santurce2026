@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san15">
+<link rel="stylesheet" href="shared.css?v=san17">
 </head>
 <body>
 <div class="topbar">
@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Photo + pitch shapes (hitter view) + heat map on the right 2/3. Export selected arms — one landscape page each.</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Arm-slot &amp; heat-map boxes stay blank placeholders. Export selected arms — one landscape page each (PDF: charts · shapes+heat · release).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -438,7 +438,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san15';
+const ASSET_V = 'san17';
 const RODRIGUEZ_MLB_ID = 605446;
 
 function fpsFor(pid) {
@@ -1099,12 +1099,17 @@ function drawSpray(canvas, points){
     };
   }
 
+  const GRASS = '#b7dfb9';
+  const DIRT = '#d4a574';
+  const DIRT_DARK = '#c4965f';
+  const INFIELD_DIRT_FT = 200; // brown skin out to ~infield edge / 200' arc
+
   // Outfield grass (fair wedge)
   ctx.beginPath();
   ctx.moveTo(cx, homeY);
   ctx.arc(cx, homeY, fenceR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
   ctx.closePath();
-  ctx.fillStyle='#b7dfb9';
+  ctx.fillStyle=GRASS;
   ctx.fill();
 
   // Warning track (~30 ft inside fence)
@@ -1116,12 +1121,21 @@ function drawSpray(canvas, points){
   ctx.fillStyle='#c4a574';
   ctx.fill();
 
-  // Inner grass again
+  // Inner grass again (outfield beyond infield dirt)
   ctx.beginPath();
   ctx.moveTo(cx, homeY);
   ctx.arc(cx, homeY, warnR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
   ctx.closePath();
-  ctx.fillStyle='#b7dfb9';
+  ctx.fillStyle=GRASS;
+  ctx.fill();
+
+  // Infield dirt — brown band from home out to ~200' arc
+  const dirtR = INFIELD_DIRT_FT * pxPerFt;
+  ctx.beginPath();
+  ctx.moveTo(cx, homeY);
+  ctx.arc(cx, homeY, dirtR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
+  ctx.closePath();
+  ctx.fillStyle=DIRT;
   ctx.fill();
 
   // Distance rings 200 / 300 / 400
@@ -1151,7 +1165,7 @@ function drawSpray(canvas, points){
     ctx.stroke();
   });
 
-  // Infield dirt diamond — 90 ft basepaths
+  // Green grass diamond inside 90 ft basepaths
   const b90 = 90;
   const home = toCanvas(0, 0);
   const first = toCanvas( b90 / Math.SQRT2, b90 / Math.SQRT2);
@@ -1165,18 +1179,18 @@ function drawSpray(canvas, points){
   ctx.lineTo(second.x, second.y);
   ctx.lineTo(third.x, third.y);
   ctx.closePath();
-  ctx.fillStyle='#e6c89a';
+  ctx.fillStyle=GRASS;
   ctx.fill();
   ctx.strokeStyle='#fff';
   ctx.lineWidth=2.5;
   ctx.stroke();
 
-  // Mound
+  // Mound (dirt circle on green diamond)
   ctx.beginPath();
   ctx.arc(mound.x, mound.y, Math.max(4, 9*pxPerFt), 0, Math.PI*2);
-  ctx.fillStyle='#d2b48c';
+  ctx.fillStyle=DIRT_DARK;
   ctx.fill();
-  ctx.strokeStyle='#c4a574';
+  ctx.strokeStyle='#b8844a';
   ctx.lineWidth=1;
   ctx.stroke();
 
@@ -1249,11 +1263,12 @@ function drawSpray(canvas, points){
     const hit = p.hit || 'BIP';
     const isHR = hit === 'HR';
     ctx.beginPath();
-    ctx.arc(px, py, isHR ? 6.75 : 4.875, 0, Math.PI*2);
+    // 1.5× post-f5d025d / san15 radii (was HR 6.75 / BIP 4.875)
+    ctx.arc(px, py, isHR ? 10.125 : 7.3125, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-    ctx.lineWidth = isHR ? 1.5 : 1.05;
+    ctx.lineWidth = isHR ? 1.8 : 1.2;
     ctx.stroke();
   }
 }
@@ -1760,16 +1775,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
-  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_480,w_320/v1/people/${mlbId}/headshot/67/current`:'');
+  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`:'');
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
-  const blankPhoto=`<div class="advance-photo advance-headshot-placeholder" aria-hidden="true"></div>`;
-  const photoHtml=headRemote
-    ? `<img class="advance-photo" src="${headRemote}" alt="${p.name}"
-           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+  const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
+  const headHtml=headRemote
+    ? `<img class="advance-headshot" src="${headRemote}" alt="${p.name}"
+           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
     : (headLocal
-      ? `<img class="advance-photo" src="${headLocal}" alt="${p.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-      : blankPhoto);
+      ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
+             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+      : blankHead);
   const armImg=p.arm_slot_image || null;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
@@ -1791,16 +1806,27 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   const short=p.short_vs_rhh||{};
   const armBlock = armImg
     ? `<img class="advance-arm-full" src="${armImg}" alt="${p.name} delivery snapshot" loading="lazy"/>`
-    : `<div class="advance-placeholder advance-placeholder-delivery">Delivery snapshot</div>`;
-  const pageClass = printPage ? 'advance-print-page' : '';
-  return `<div class="advance-sheet advance-sheet-pitcher ${pageClass}">
+    : `<div class="advance-placeholder advance-placeholder-tall">Delivery snapshot</div>`;
+  const releasePhoto = armImg
+    ? `<img class="advance-photo" src="${armImg}" alt="${p.name} release" loading="lazy"/>`
+    : (headRemote
+      ? `<img class="advance-photo" src="${headRemote}" alt="${p.name}"
+             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+      : (headLocal
+        ? `<img class="advance-photo" src="${headLocal}" alt="${p.name}"
+               onerror="this.onerror=null;this.outerHTML='<div class=\'advance-photo advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
+        : `<div class="advance-photo advance-headshot-placeholder" aria-hidden="true"></div>`));
+
+  // PDF export only: three equal thirds (charts | shapes+heat | release).
+  if(printPage){
+    return `<div class="advance-sheet advance-sheet-pitcher advance-print-page">
   <div class="advance-hero advance-hero-compact">
     <div class="advance-hero-meta">
       <h2>${p.name}</h2>
       <div class="note" style="margin:2px 0 0">${p.subtitle||p.bio||''} · Prospect Savant + Synergy count / hand splits</div>
     </div>
   </div>
-  <div class="advance-layout advance-layout-pitcher">
+  <div class="advance-layout advance-layout-pitcher advance-layout-pitcher-print">
     <div class="advance-col advance-col-charts">
       <div class="advance-card advance-card-compact">
         <div class="section-label">Count usage · 0–0 &amp; 2K</div>
@@ -1835,16 +1861,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
           </div>
         </div>
       </div>
-      <div class="advance-card advance-card-compact advance-card-arm-slot">
-        <div class="section-label">Delivery snapshot</div>
-        <div class="advance-arm">${armBlock}</div>
-      </div>
     </div>
-    <div class="advance-col advance-col-visual">
-      <div class="advance-card advance-band advance-band-photo">
-        <div class="section-label">Pitcher</div>
-        <div class="advance-photo-wrap">${photoHtml}</div>
-      </div>
+    <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
         <div class="section-label">Pitch shapes · hitter view</div>
         <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'hitter')}</div>
@@ -1852,6 +1870,84 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <div class="advance-card advance-band advance-band-heat">
         <div class="section-label">Heat map</div>
         <div class="advance-placeholder advance-placeholder-heat">Heat map</div>
+      </div>
+    </div>
+    <div class="advance-col advance-col-release">
+      <div class="advance-card advance-band advance-band-photo">
+        <div class="section-label">Release / pitcher</div>
+        <div class="advance-photo-wrap">${releasePhoto}</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+  }
+
+  // On-screen: pre-8f09139 aesthetic (hero + count above + 3 natural columns).
+  return `<div class="advance-sheet">
+  <div class="advance-hero">
+    <div class="advance-hero-id">
+      ${headHtml}
+      <div class="advance-hero-meta">
+        <h2>${p.name}</h2>
+        <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
+        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled.</div>
+      </div>
+    </div>
+  </div>
+  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
+  <div class="advance-short">
+    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
+    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
+    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
+  </div>
+  <div class="advance-layout advance-layout-pitcher">
+    <div class="advance-col">
+      <div class="advance-card">
+        <div class="section-label">Arsenal snapshot</div>
+        <div class="table-wrap"><table><thead><tr>
+          <th>Pitch</th><th class="num">Use%</th><th class="num">vs L</th><th class="num">vs R</th>
+          <th class="num">Velo</th><th class="num">IVB</th><th class="num">HB</th><th class="num">Spin</th><th class="num">Whiff</th>
+        </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
+        ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Synergy Left/Right (or Statcast) hand splits exist.</div>'}
+      </div>
+      <div class="advance-card">
+        <div class="section-label">Pitch descriptions</div>
+        <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
+      </div>
+      <div class="advance-card">
+        <div class="section-label">Usage vs hand</div>
+        <div class="advance-usage-split">
+          <div class="advance-usage-side">
+            <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
+            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
+              <span></span><span></span><span class="num">Use</span>
+            </div>
+            ${advanceUsageBars(arsenal,'l')}
+          </div>
+          <div class="advance-usage-side">
+            <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
+            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
+              <span></span><span></span><span class="num">Use</span>
+            </div>
+            ${advanceUsageBars(arsenal,'r')}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advance-col">
+      <div class="advance-card">
+        <div class="section-label">Movement · HB × IVB</div>
+        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'pitcher')}</div>
+      </div>
+      <div class="advance-card">
+        <div class="section-label">Heat map</div>
+        <div class="advance-placeholder advance-placeholder-tall">Heat map</div>
+      </div>
+    </div>
+    <div class="advance-col">
+      <div class="advance-card advance-card-arm-slot">
+        <div class="section-label">Delivery snapshot</div>
+        <div class="advance-arm">${armBlock}</div>
       </div>
     </div>
   </div>
@@ -1884,6 +1980,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
         height:7.4in;max-height:7.4in;overflow:hidden;
         display:flex;flex-direction:column;box-sizing:border-box;
       }
+      .advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;flex:1 1 auto;min-height:0;align-items:stretch}
       .advance-export-bar,.filters,.tabs,nav,header,.lang-toggle{display:none!important}
       .hitter-spray-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
       .hitter-pitch-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;align-items:start}
@@ -1895,6 +1992,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite}={}){
         .advance-sheet-pitcher.advance-print-page{
           height:7.44in;max-height:7.44in;overflow:hidden;margin:0;
         }
+        .advance-layout-pitcher-print{grid-template-columns:1fr 1fr 1fr!important}
         .hitter-spray-pair{grid-template-columns:1fr 1fr}
         .hitter-pitch-grid{grid-template-columns:1fr 1fr}
       }
