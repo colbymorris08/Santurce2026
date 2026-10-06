@@ -28,7 +28,7 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
 - Click-to-upload **delivery** + **heat map** images (stored as data URLs in `localStorage` keyed by pitcher id — browser-local on GitHub Pages; use **Save file…** if you want to commit under `assets/`)
 - Count usage panels: Overall / 0–0 / 2 strikes
 - Mass PDF export: vertical A–Z (last name) checklist → print-to-PDF
-  - Pitcher: **landscape**, exactly one page, three equal thirds (charts | shapes+heat | delivery) — slim name strip, **no roster headshot**
+  - Pitcher: **landscape**, exactly one page, three equal thirds (charts | shapes+heat | delivery) — slim name strip with **compact roster headshot** (~3% print scale)
   - Hitter: **portrait**, exactly one page, colored pitch tables filling width + sprays/SB
 
 ### Other
