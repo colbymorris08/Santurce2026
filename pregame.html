@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san28">
+<link rel="stylesheet" href="shared.css?v=san29">
 </head>
 <body>
 <div class="topbar">
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san28"></script>
+<script src="i18n.js?v=san29"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san28';
+const ASSET_V = 'san29';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1280,8 +1280,8 @@ function drawSpray(canvas, points){
     const hit = p.hit || 'BIP';
     const isHR = hit === 'HR';
     ctx.beginPath();
-    // 1.5× post-f5d025d / san15 radii (was HR 6.75 / BIP 4.875)
-    ctx.arc(px, py, isHR ? 10.125 : 7.3125, 0, Math.PI*2);
+    // +40% over san28 radii (was HR 10.125 / BIP 7.3125)
+    ctx.arc(px, py, isHR ? 14.175 : 10.2375, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
@@ -1291,20 +1291,20 @@ function drawSpray(canvas, points){
 }
 
 function sprayHitLegendHtml({compact=false}={}){
-  // Labels match HIT_COLORS in drawSpray (hit result of each BIP dot)
+  // Short labels only — no "HR · Home run" long forms (site + PDF)
   const items = [
     ['HR','Home run','#dc2626'],
     ['3B','Triple','#ea580c'],
     ['2B','Double','#2563eb'],
     ['1B','Single','#16a34a'],
-    ['OUT','Out','#64748b'],
+    ['Out','Out','#64748b'],
     ['SF','Sac fly','#94a3b8'],
     ['SAC','Sacrifice','#a8a29e'],
     ['E','Error','#7c3aed'],
     ['BIP','Other BIP','#0f172a'],
   ];
   const keys = items.map(([code,lab,col])=>
-    `<span class="swatch" title="${lab}"><span class="dot" style="background:${col}"></span><span class="spray-hit-lab"><strong>${code}</strong>${compact?'':` · ${lab}`}</span></span>`
+    `<span class="swatch" title="${lab}"><span class="dot" style="background:${col}"></span><span class="spray-hit-lab"><strong>${code}</strong></span></span>`
   ).join('');
   return `<div class="spray-hit-legend${compact?' spray-hit-legend--compact':''}" role="list" aria-label="Spray chart color key">
     <div class="spray-hit-legend-title">Color key</div>
@@ -2133,11 +2133,15 @@ function renderPitcherAdvance(){
   }
   el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
 }
-function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape'}={}){
+function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape', autoPrint=true, pageMargin=null}={}){
   const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
   const w = window.open('', '_blank');
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
   const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
+  // Hitter: extra ~1" top margin so name strip isn't cut off; still one portrait page.
+  const margin = pageMargin || (orientation === 'portrait'
+    ? '1.15in 0.28in 0.28in 0.28in'
+    : '0.28in');
   const pitcherH = orientation === 'portrait' ? '' : `
       .advance-sheet-pitcher.advance-print-page{
         width:10.5in;height:7.5in;max-width:10.5in;max-height:7.5in;overflow:hidden;
@@ -2164,9 +2168,10 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
       .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
   const hitterH = orientation === 'portrait' ? `
+      html,body{color-scheme:only light;background:#fff!important}
       .advance-sheet-hitter.advance-print-page{
-        width:7.94in;height:10.15in;max-width:7.94in;max-height:10.15in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;
+        width:7.94in;height:9.4in;max-width:7.94in;max-height:9.4in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.96;
       }
       .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:1px 2px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
       .advance-pdf-hand,.advance-pdf-name{font-size:30px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
@@ -2179,36 +2184,47 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-half table{font-size:12.5px}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
-      .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-hitter .hitter-pitch-half tbody td.num{font-weight:700}
+      .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-weight:700}
       .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:1 1 auto;min-height:0;align-items:start;gap:8px}
-      .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:4px 6px;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center}
-      /* Native field aspect (√2) — match site; never force square or stretch */
-      .advance-sheet-hitter .hitter-spray-pair canvas{
-        width:min(100%,3.15in)!important;max-width:100%!important;
+      .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:4px 6px;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;background:#fff!important}
+      /* Light canvas/img — dark CSS bg printed solid black when canvas bitmap failed */
+      .advance-sheet-hitter .hitter-spray-pair canvas,
+      .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
+      .spray-print-img{
+        width:min(100%,3.0in)!important;max-width:100%!important;
         height:auto!important;max-height:none!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
+        background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
+        -webkit-print-color-adjust:exact;print-color-adjust:exact;
+        filter:none!important;mix-blend-mode:normal!important;
       }` : '';
-  w.document.write(`<!doctype html><html><head><title>${title}</title>${css}
+  const autoPrintScript = autoPrint
+    ? `<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>`
+    : '';
+  w.document.write(`<!doctype html><html style="color-scheme:only light"><head><meta name="color-scheme" content="only light"><title>${title}</title>${css}
     <style>
-      @page { size: ${page}; margin: 0.28in; }
-      html,body{background:#fff;margin:0;padding:0;font-family:inherit;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      @page { size: ${page}; margin: ${margin}; }
+      html,body{background:#fff;margin:0;padding:0;font-family:inherit;color:#111;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact}
       body{padding:0}
       .season-banner,.advance-export-bar,.filters,.tabs,nav,header,.lang-toggle,
       .advance-upload-actions,.advance-upload-note,.advance-upload-cta{display:none!important}
       .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid;margin:0}
       .advance-print-page:last-child{page-break-after:auto}
       .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .spray-card canvas{background:#e8eef4!important;filter:none!important}
       ${pitcherH}
       ${hitterH}
       @media print {
-        @page { size: ${page}; margin: 0.28in; }
-        body{padding:0}
+        @page { size: ${page}; margin: ${margin}; }
+        body{padding:0;background:#fff!important;color-scheme:only light}
         .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid}
+        .spray-card canvas,.spray-print-img{background:#e8eef4!important;filter:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
         ${pitcherH}
         ${hitterH}
       }
     </style></head><body>${bodyHtml}
-    <script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>
+    ${autoPrintScript}
     </body></html>`);
   w.document.close();
   if(afterWrite) setTimeout(()=>afterWrite(w), 80);
@@ -2419,6 +2435,32 @@ function hitterSprayPairHtml(prefix, {printPage=false}={}){
     </div>
   </div>`;
 }
+function sprayCanvasToPrintImg(canvas){
+  // Chrome/Safari print often blacks out <canvas>; bake to PNG <img> for PDF.
+  if(!canvas || String(canvas.tagName||'').toUpperCase() !== 'CANVAS') return null;
+  try{
+    const url = canvas.toDataURL('image/png');
+    if(!url || !url.startsWith('data:image')) return null;
+    const doc = canvas.ownerDocument || document;
+    const img = doc.createElement('img');
+    img.className = ((canvas.className||'') + ' spray-print-img').trim();
+    img.alt = 'Spray chart';
+    if(canvas.id) img.id = canvas.id;
+    const st = canvas.getAttribute('style') || '';
+    img.setAttribute('style', st);
+    img.src = url;
+    canvas.replaceWith(img);
+    return img;
+  }catch(e){
+    return null;
+  }
+}
+function bakeHitterSprayCanvasesForPrint(doc){
+  const root = doc || document;
+  root.querySelectorAll('.advance-sheet-hitter canvas, .hitter-spray-pair canvas').forEach(c=>{
+    sprayCanvasToPrintImg(c);
+  });
+}
 function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
   let risp = mergeHitterSpraySplit(spraySourceHitters, 'risp');
   let non = mergeHitterSpraySplit(spraySourceHitters, 'non_risp');
@@ -2560,12 +2602,16 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
   ${hitterSbBlockHtml(h)}
 </div>`;
   }
+  const handLabel = advancePdfHitterHand(h.bats);
   return `<div class="advance-sheet" data-hitter-id="${h.synergy_id||''}">
   <div class="advance-hero">
     <div class="advance-hero-id">
       ${headHtml}
       <div class="advance-hero-meta">
-        <h2>${h.name}</h2>
+        <div class="advance-name-row">
+          <span class="advance-hand-badge" title="Bats">${handLabel}</span>
+          <h2>${h.name}</h2>
+        </div>
         <div class="note" style="margin:4px 0 0">${statsLine}</div>
       </div>
     </div>
@@ -2625,18 +2671,29 @@ function exportHitterAdvancePdf(){
   const body = packs.map(({h},i)=>buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:`h${i}-`})).join('\n');
   openAdvancePrintWindow('Hitter Advance Export', body, {
     orientation: 'portrait',
+    autoPrint: false,
     afterWrite(w){
-      // Wait for print CSS layout so native-aspect canvases get correct clientWidth
-      const paint = ()=>{
+      // Wait for layout → paint sprays → bake to PNG imgs (avoids solid-black canvas print) → print
+      const paintAndPrint = ()=>{
         packs.forEach(({h},i)=>{
           const prefix = `pdf-h${i}-${h.synergy_id||'all'}-`;
           try { paintHitterSprayPair(prefix, [h], w.document); } catch(e){}
         });
+        try { bakeHitterSprayCanvasesForPrint(w.document); } catch(e){}
+        const imgs = [...w.document.querySelectorAll('img.spray-print-img')];
+        const go = ()=> setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 120);
+        if(!imgs.length){ go(); return; }
+        let left = imgs.length;
+        const tick = ()=>{ left -= 1; if(left <= 0) go(); };
+        imgs.forEach(img=>{
+          if(img.complete) tick();
+          else { img.onload = tick; img.onerror = tick; }
+        });
       };
       setTimeout(()=>{
-        if(w.requestAnimationFrame) w.requestAnimationFrame(()=>w.requestAnimationFrame(paint));
-        else paint();
-      }, 180);
+        if(w.requestAnimationFrame) w.requestAnimationFrame(()=>w.requestAnimationFrame(paintAndPrint));
+        else paintAndPrint();
+      }, 220);
     }
   });
 }

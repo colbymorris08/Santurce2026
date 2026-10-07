@@ -259,8 +259,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   gap: 10px 16px;
 }
 .spray-hit-legend .dot {
-  width: 12px;
-  height: 12px;
+  width: 17px;
+  height: 17px;
   border: 1px solid rgba(255,255,255,0.9);
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
 }
@@ -300,6 +300,15 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   box-shadow: var(--shadow-soft);
 }
 .advance-hero-meta h2 { margin: 0; color: #fff; font-size: 22px; line-height: 1.15; }
+.advance-name-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 12px;
+}
+.advance-hand-badge {
+  font-size: 22px; font-weight: 700; line-height: 1.15;
+  color: var(--santurce-gold); letter-spacing: 0.02em;
+  flex: 0 0 auto;
+}
+
 .advance-chips { display: flex; flex-wrap: wrap; gap: 10px; flex: 1 1 420px; }
 .advance-chip {
   flex: 1 1 240px; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: var(--panel-2);
@@ -806,8 +815,14 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-export-bar, .filters, .tabs, .tab-bar, .lang-toggle, .season-banner,
   .advance-upload-actions, .advance-upload-note, .advance-upload-cta { display: none !important; }
   .advance-print-page { page-break-after: always; break-after: page; page-break-inside: avoid; }
-  body { background: #fff; color: #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; color: #111; color-scheme: only light; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .spray-card canvas, .spray-print-img {
+    background: #e8eef4 !important;
+    filter: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   .advance-card, .advance-hero, .metric-card, .spray-card { box-shadow: none; background: #fff; color: #111; border-color: #ccc; }
   .metric-card-title, .section-label, .advance-hero-meta h2 { color: #0a1633; }
   .metric-takeaway { background: #fff5f5; color: #111; }
@@ -957,13 +972,14 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter.advance-print-page {
     width: 7.94in;
     max-width: 7.94in;
-    height: 10.15in;
-    max-height: 10.15in;
+    height: 9.4in;
+    max-height: 9.4in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
+    zoom: 0.96;
   }
   .advance-sheet-hitter .advance-pdf-strip {
     flex: 0 0 auto;
@@ -1015,16 +1031,27 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     padding: 4px 6px; margin: 0; min-width: 0;
     display: flex; flex-direction: column; align-items: center;
   }
-  /* Native √2 field aspect (match site) — no square / no stretch */
-  .advance-sheet-hitter .hitter-spray-pair canvas {
-    width: min(100%, 3.15in) !important;
+  /* Native √2 field aspect — light bg + exact colors (dark CSS bg was solid black in PDF) */
+  .advance-sheet-hitter .hitter-spray-pair canvas,
+  .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
+  .spray-print-img {
+    width: min(100%, 3.0in) !important;
     max-width: 100% !important;
     height: auto !important;
     max-height: none !important;
     aspect-ratio: 1.414 / 1;
     display: block;
     margin: 0 auto;
+    background: #e8eef4 !important;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    filter: none !important;
+    mix-blend-mode: normal !important;
   }
+  .advance-sheet-hitter .hitter-pitch-half tbody td.num,
+  .advance-sheet-hitter .hitter-pitch-half tbody td.rate-cell { font-weight: 700; }
   .advance-sheet-hitter .spray-hit-legend { font-size: 9px; padding: 4px 6px; margin: 2px 0; }
   .advance-sheet-hitter .section-label { font-size: 11px; margin: 4px 0 3px; }
   .advance-sheet-hitter .table-wrap table { font-size: 11px; width: 100%; }
@@ -1079,6 +1106,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 }
 @media (max-width: 720px) { .hitter-spray-pair { grid-template-columns: 1fr; } }
 .hitter-spray-pair .spray-card h3 { font-size: 13px; margin: 0 0 6px; color: var(--santurce-gold); }
+.hitter-pitch-half tbody td.num,
+.hitter-pitch-half tbody td.rate-cell { font-weight: 700; }
 .rate-cell { font-variant-numeric: tabular-nums; }
 
 .season-banner {
