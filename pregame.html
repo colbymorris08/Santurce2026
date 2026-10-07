@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Click delivery / vs L · vs R heat-map slots to upload images (saved in this browser). Export selected arms — one landscape page each (PDF: compact headshot · charts · shapes+heat · delivery).</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Pitch shapes = hitter view. Click delivery / vs L · vs R heat maps to upload; if arsenal XY is empty, upload a TruMedia screenshot (browser-local). Export selected arms — one landscape page each.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -355,7 +355,7 @@
   </div>
   <div id="panel-usage" class="panel">
     <div class="section-label" data-i18n="usageLabel">Opposing pitchers — pitch usage</div>
-    <div class="note" data-i18n="usageNote">KNCT-style arsenal movement. Pitcher perspective: RHP arm-side HB +, glove − (inverse for LHP). Hitter perspective = invert HB.</div>
+    <div class="note" data-i18n="usageNote">KNCT-style arsenal movement — hitter view only (+HB = 1B / catcher-right). RHP arm-side mirrored; LHP unchanged. Overall mix from Prospect Savant; count buckets from Statcast/Synergy when tracked.</div>
     <div class="pov-bar" data-pov-bar>
       <strong data-i18n="povLabel">Perspective</strong>
       <div class="pov-toggle" role="group" aria-label="Movement perspective">
@@ -377,7 +377,7 @@
   </div>
   <div id="panel-platoon" class="panel">
     <div class="section-label" data-i18n="platoonLabel">Opposing pitchers — platoon shape</div>
-    <div class="note" data-i18n="platoonNote">Arsenal IVB/HB vs RHB and vs LHB from MLB Statcast when tracked. Perspective toggles Pitcher vs Hitter (HB inverted).</div>
+    <div class="note" data-i18n="platoonNote">Arsenal IVB/HB vs RHB and vs LHB from MLB Statcast when tracked. Plots locked to hitter view (+HB = 1B; RHP mirrored).</div>
     <div class="pov-bar" data-pov-bar>
       <strong data-i18n="povLabel">Perspective</strong>
       <div class="pov-toggle" role="group" aria-label="Movement perspective">
@@ -406,7 +406,7 @@
   </div>
   <div id="panel-tunnel" class="panel">
     <div class="section-label" data-i18n="tunnelLabel">Opposing pitchers — pitch tunneling / shape</div>
-    <div class="note" data-i18n="tunnelNote">Tunnel rays on the arsenal plot. Pitcher perspective: RHP arm-side HB +, glove − (inverse for LHP). Hitter = invert HB.</div>
+    <div class="note" data-i18n="tunnelNote">Tunnel rays on the arsenal plot — hitter view only (+HB = 1B). RHP arm-side mirrored; LHP unchanged.</div>
     <div class="pov-bar" data-pov-bar>
       <strong data-i18n="povLabel">Perspective</strong>
       <div class="pov-toggle" role="group" aria-label="Movement perspective">
@@ -672,77 +672,83 @@ function getArsenalPitcher(selId) {
   const id=Number(document.getElementById(selId)?.value||0);
   return arsenalPitchers().find(r=>Number(r.player_id)===id) || null;
 }
-/** Pitcher-view HB number: RHP arm-side +, glove − (inverse for LHP). */
-let MOVEMENT_POV = localStorage.getItem('licey_movement_pov') === 'hitter' ? 'hitter' : 'pitcher';
+/**
+ * Arsenal XY is always geographic hitter view (+HB = 1B / catcher-right = viewer-right).
+ * Source HB is arm-side-positive for both hands (hb_pitcher): mirror RHP only; leave LHP as-is.
+ */
+const MOVEMENT_POV = 'hitter';
+function throwsHand(throws){
+  return String(throws||'R').trim().toUpperCase().startsWith('L') ? 'L' : 'R';
+}
+/** Arm-side-positive pitcher HB → geographic hitter HB (+ = 1B). */
+function hitterGeoHb(hbPitcher, throws){
+  if(hbPitcher==null || !Number.isFinite(Number(hbPitcher))) return null;
+  const n = Number(hbPitcher);
+  return throwsHand(throws) === 'L' ? n : -n;
+}
+/** Normalize stored HB to arm-side-positive pitcher convention (involutive with hitterGeoHb). */
+function toPitcherArmHb(hb, throws, hbView='pitcher'){
+  if(hb==null || !Number.isFinite(Number(hb))) return null;
+  const n = Number(hb);
+  // hitterGeoHb is its own inverse (L identity, R negate).
+  return hbView === 'hitter' ? hitterGeoHb(n, throws) : n;
+}
 function syncPovSelects() {
-  document.querySelectorAll('.pov-toggle button[data-pov]').forEach(btn=>{
-    btn.classList.toggle('active', btn.dataset.pov === MOVEMENT_POV);
-    const key = btn.dataset.pov === 'hitter' ? 'povHitter' : 'povPitcher';
-    if (typeof t === 'function') btn.textContent = t(key);
-  });
-  const hint = MOVEMENT_POV === 'hitter'
-    ? 'Active: Hitter POV — HB inverted; RHP arm-side appears viewer-left.'
-    : 'Active: Pitcher POV — RHP arm-side HB + (viewer-right); glove − (inverse for LHP).';
+  document.querySelectorAll('.pov-bar').forEach(el=>{ el.style.display = 'none'; });
+  const hint = 'Hitter view (fixed): +HB = 1B / catcher-right. RHP arm-side mirrored; LHP unchanged.';
   ['usage-pov-hint','platoon-pov-hint','tunnel-pov-hint'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.textContent = hint;
   });
 }
-function setMovementPov(v) {
-  MOVEMENT_POV = v === 'hitter' ? 'hitter' : 'pitcher';
-  localStorage.setItem('licey_movement_pov', MOVEMENT_POV);
+function setMovementPov(_v) {
+  // Perspective locked to hitter view for all arsenal XY plots.
   syncPovSelects();
   renderUsage(); renderPlatoon(); renderTunnel();
 }
 function pitcherHb(p) {
   if (p.hb_pitcher != null && Number.isFinite(Number(p.hb_pitcher))) return Number(p.hb_pitcher);
+  if (p.hb != null && Number.isFinite(Number(p.hb)) && p._hbView !== 'hitter') return Number(p.hb);
   if (p.hb_hitter != null && Number.isFinite(Number(p.hb_hitter))) return -Number(p.hb_hitter);
+  if (p.hb != null && Number.isFinite(Number(p.hb))) return -Number(p.hb); // curated hitter-view fallback
   return null;
 }
-/** Signed HB for tables/labels in the active POV. */
-function hbForPov(p, view=MOVEMENT_POV) {
-  const hb = pitcherHb(p);
-  if (hb == null) return null;
-  return view === 'hitter' ? -hb : hb;
+/** Signed HB for tables/labels — always geographic hitter (+ = 1B). */
+function hbForPov(p, _view=MOVEMENT_POV, throws='R') {
+  return hitterGeoHb(pitcherHb(p), throws);
 }
-/**
- * Plot X placement (KNCT-style): positive pitcher-HB (RHP arm-side) sits viewer-RIGHT.
- * Plot uses negated pitcher-HB; hitter POV flips that.
- */
-function plotHb(p, view=MOVEMENT_POV) {
-  const hb = pitcherHb(p);
-  if (hb == null) return null;
-  return view === 'pitcher' ? -hb : hb;
+/** Plot X in hitter view (+ = 1B = viewer-right). */
+function plotHb(p, _view=MOVEMENT_POV, throws='R') {
+  return hitterGeoHb(pitcherHb(p), throws);
 }
 function povLabel() {
-  if (typeof t === 'function') {
-    return MOVEMENT_POV === 'hitter' ? t('povHitter') : t('povPitcher');
-  }
-  return MOVEMENT_POV === 'hitter'
-    ? 'Hitter perspective (invert HB)'
-    : 'Pitcher perspective';
+  if (typeof t === 'function') return t('povHitter');
+  return 'Hitter perspective';
 }
-function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV}={}) {
+function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV, throws='R'}={}) {
   const pts=chartPitchRows(pitches||[]).map(p=>{
-    const place=plotHb(p, view);
-    const label=hbForPov(p, view);
+    const place=plotHb(p, view, throws);
+    const label=hbForPov(p, view, throws);
     if(place==null || p.ivb==null) return null;
     return { type:p.type, x:place, z:Number(p.ivb), color:PITCH_COLORS[p.type]||'#94a3b8', hb:label };
   }).filter(Boolean);
   const W=320,H=340,P=28,pW=W-P*2,pH=H-P*2-16,R=22;
-  const cx=v=>P+((-v+R)/(R*2))*pW;
+  // +HB (1B) → viewer-right
+  const cx=v=>P+((v+R)/(R*2))*pW;
   const cy=v=>P+((-v+R)/(R*2))*pH;
-  const axis = view === 'hitter' ? 'HB hitter POV (in) →' : 'HB pitcher POV (in) →';
+  const hand = throwsHand(throws);
+  const leftLab = hand==='L' ? '← LHP glove' : '← RHP arm';
+  const rightLab = hand==='L' ? 'LHP arm →' : 'RHP glove →';
   let s=`<svg class="plot" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
   s+=`<rect width="${W}" height="${H}" fill="#14141f" rx="6"/>`;
-  s+=`<text x="${W/2}" y="16" text-anchor="middle" font-size="10" fill="#f8fafc" font-family="IBM Plex Mono,monospace" font-weight="700">${view === 'hitter' ? 'HITTER POV' : 'PITCHER POV'}</text>`;
+  s+=`<text x="${W/2}" y="16" text-anchor="middle" font-size="10" fill="#f8fafc" font-family="IBM Plex Mono,monospace" font-weight="700">HITTER VIEW</text>`;
+  s+=`<text x="${P+4}" y="28" font-size="7" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${leftLab}</text>`;
+  s+=`<text x="${P+pW-4}" y="28" text-anchor="end" font-size="7" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${rightLab}</text>`;
   for(let v=-20;v<=20;v+=5){
     const lx=cx(v), ly=cy(v), c=v===0?'#3a3a5c':'#1c1c2c', w=v===0?1:0.5;
     s+=`<line x1="${lx}" y1="${P}" x2="${lx}" y2="${P+pH}" stroke="${c}" stroke-width="${w}"/>`;
     s+=`<line x1="${P}" y1="${ly}" x2="${P+pW}" y2="${ly}" stroke="${c}" stroke-width="${w}"/>`;
-    // Axis tick labels follow POV-signed HB (pitcher: arm-side + on viewer-right)
-    const tickLabel = view === 'pitcher' ? -v : v;
-    s+=`<text x="${lx}" y="${P+pH+12}" text-anchor="middle" font-size="7.5" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${tickLabel}</text>`;
+    s+=`<text x="${lx}" y="${P+pH+12}" text-anchor="middle" font-size="7.5" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${v}</text>`;
     s+=`<text x="${P-5}" y="${ly+3}" text-anchor="end" font-size="7.5" fill="#94a3b8" font-family="IBM Plex Mono,monospace">${v}</text>`;
   }
   if(tunnel){
@@ -757,7 +763,7 @@ function movementSvg(pitches, {tunnel=false, view=MOVEMENT_POV}={}) {
     s+=`<circle cx="${px}" cy="${pz}" r="7" fill="${p.color}" opacity=".92" stroke="#0f172a" stroke-width="1.5"/>`;
     s+=`<text x="${lx2}" y="${pz+3}" font-size="8.5" fill="${p.color}" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="${anc}">${p.type} ${p.hb>=0?'+':''}${p.hb.toFixed(1)}</text>`;
   });
-  s+=`<text x="${P+pW/2}" y="${H-6}" text-anchor="middle" font-size="7" fill="#64748b" font-family="IBM Plex Mono,monospace">${axis}</text>`;
+  s+=`<text x="${P+pW/2}" y="${H-6}" text-anchor="middle" font-size="7" fill="#64748b" font-family="IBM Plex Mono,monospace">HB hitter view (in) · + = 1B →</text>`;
   s+=`<text x="9" y="${P+pH/2}" text-anchor="middle" font-size="7" fill="#64748b" font-family="IBM Plex Mono,monospace" transform="rotate(-90 9 ${P+pH/2})">↑ IVB (in)</text>`;
   return s+'</svg>';
 }
@@ -782,9 +788,9 @@ function usagePieSvg(slices) {
   });
   return svg+'</svg>';
 }
-function arsenalTableHtml(pitches, view=MOVEMENT_POV) {
+function arsenalTableHtml(pitches, view=MOVEMENT_POV, throws='R') {
   const rows=chartPitchRows(pitches||[]).map(p=>{
-    const hb=hbForPov(p, view);
+    const hb=hbForPov(p, view, throws);
     return `<tr>
     <td class="player-name" style="color:${PITCH_COLORS[p.type]||'#111'}">${p.type}</td>
     <td>${p.name||p.type}</td>
@@ -802,9 +808,9 @@ function arsenalTableHtml(pitches, view=MOVEMENT_POV) {
     <th class="num">IVB″</th><th class="num">HB″</th><th class="num">Use</th><th class="num">#</th><th class="num">Stuff+</th>
   </tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-function tunnelPairsHtml(pitches, view=MOVEMENT_POV) {
+function tunnelPairsHtml(pitches, view=MOVEMENT_POV, throws='R') {
   const pts=(pitches||[]).map(p=>{
-    const hb=hbForPov(p, view);
+    const hb=hbForPov(p, view, throws);
     if(hb==null || p.ivb==null) return null;
     return {...p, _hb:hb, _ivb:Number(p.ivb)};
   }).filter(Boolean);
@@ -825,7 +831,7 @@ function pitcherMeta(p) {
   return `<div class="arsenal-plot-card">
     <h3>${p.name}${p.throws?' · '+p.throws+'HP':''}${p.team?' · '+p.team:''}</h3>
     <div class="sub">${povLabel()} · Stuff+ ${p.stuff_plus??'—'} · ${src}</div>
-    ${movementSvg(p.arsenal)}
+    ${movementSvg(p.arsenal,{throws:p.throws||'R'})}
   </div>`;
 }
 function renderUsage(){
@@ -861,7 +867,7 @@ function renderUsage(){
       <div class="section-label">Pitch usage by count</div>
       ${sourceNote||(hasCounts?'':'<div class="note">Count splits pending Statcast/Synergy tracking — showing overall mix in each bucket for now.</div>')}
       <div class="usage-pie-grid">${pieHtml}</div>
-      ${arsenalTableHtml(p.arsenal)}
+      ${arsenalTableHtml(p.arsenal, MOVEMENT_POV, p.throws||'R')}
     </div>
   </div>`;
 }
@@ -878,7 +884,7 @@ function renderPlatoon(){
       ${pitcherMeta(p)}
       <div class="arsenal-side">
         <div class="note">Platoon Statcast splits not tracked yet for this arm — overall arsenal below.</div>
-        ${arsenalTableHtml(p.arsenal)}
+        ${arsenalTableHtml(p.arsenal, MOVEMENT_POV, p.throws||'R')}
       </div>
     </div>`;
     return;
@@ -887,14 +893,14 @@ function renderPlatoon(){
     <div class="arsenal-plot-card">
       <h3>vs RHB</h3>
       <div class="sub">${povLabel()}</div>
-      ${movementSvg(vsR.length?vsR:p.arsenal)}
-      ${arsenalTableHtml(vsR.length?vsR:p.arsenal)}
+      ${movementSvg(vsR.length?vsR:p.arsenal,{throws:p.throws||'R'})}
+      ${arsenalTableHtml(vsR.length?vsR:p.arsenal, MOVEMENT_POV, p.throws||'R')}
     </div>
     <div class="arsenal-plot-card">
       <h3>vs LHB</h3>
       <div class="sub">${povLabel()}</div>
-      ${movementSvg(vsL.length?vsL:p.arsenal)}
-      ${arsenalTableHtml(vsL.length?vsL:p.arsenal)}
+      ${movementSvg(vsL.length?vsL:p.arsenal,{throws:p.throws||'R'})}
+      ${arsenalTableHtml(vsL.length?vsL:p.arsenal, MOVEMENT_POV, p.throws||'R')}
     </div>
   </div>`;
 }
@@ -907,11 +913,11 @@ function renderTunnel(){
     <div class="arsenal-plot-card">
       <h3>${p.name}${p.throws?' · '+p.throws+'HP':''}${p.team?' · '+p.team:''}</h3>
       <div class="sub"><strong>${povLabel()}</strong> · tunnel rays from (0,0)</div>
-      ${movementSvg(p.arsenal,{tunnel:true})}
+      ${movementSvg(p.arsenal,{tunnel:true, throws:p.throws||'R'})}
     </div>
     <div class="arsenal-side">
-      ${arsenalTableHtml(p.arsenal)}
-      ${tunnelPairsHtml(p.arsenal)}
+      ${arsenalTableHtml(p.arsenal, MOVEMENT_POV, p.throws||'R')}
+      ${tunnelPairsHtml(p.arsenal, MOVEMENT_POV, p.throws||'R')}
     </div>
   </div>`;
 }
@@ -1548,30 +1554,28 @@ function advancePitchColor(code){
   return PITCH_COLORS[code] || PITCH_COLORS[{'4S':'FF','FA':'FF'}[code]||''] || '#94a3b8';
 }
 /** PDF-style HB×IVB movement plot (light theme). Default = hitter view (HB inverted). */
-function advanceMovementSvg(arsenal, throws='R', view='hitter'){
-  const hitter = view !== 'pitcher';
+function advanceMovementSvg(arsenal, throws='R', hbView='pitcher'){
+  // Always geographic hitter view: +HB = 1B (viewer-right). Mirror RHP arm-side HB only.
+  const hand = throwsHand(throws);
   const pts=chartPitchRows(arsenal||[],'code').filter(a=>a && a.hb!=null && a.ivb!=null).map(a=>{
-    const hbPitcher=Number(a.hb);
+    const hbPitcher = toPitcherArmHb(a.hb, throws, a._hbView || hbView);
+    const hb = hitterGeoHb(hbPitcher, throws);
+    if(hb==null) return null;
     return {
       code:a.code,
-      hb: hitter ? -hbPitcher : hbPitcher,
+      hb,
       ivb:Number(a.ivb),
       usage:Number(a.usage)||10,
       color:advancePitchColor(a.code)
     };
-  });
+  }).filter(Boolean);
   const W=340, H=280, P=32, lim=20;
   const plot=W-P*2;
   const sx=v=>P+((v+lim)/(lim*2))*plot;
   const sy=v=>P+((-v+lim)/(lim*2))*plot;
-  // Hitter view flips arm/glove sides vs pitcher Trackman plot
-  const gloveLab = hitter
-    ? (throws==='L' ? '← LHP arm' : '← RHP arm')
-    : (throws==='L' ? 'LHP arm →' : 'RHP glove →');
-  const armLab = hitter
-    ? (throws==='L' ? 'LHP glove →' : 'RHP glove →')
-    : (throws==='L' ? '← LHP glove' : '← RHP arm');
-  const viewLab = hitter ? 'hitter view' : 'pitcher view';
+  const leftLab = hand==='L' ? '← LHP glove' : '← RHP arm';
+  const rightLab = hand==='L' ? 'LHP arm →' : 'RHP glove →';
+  const viewLab = 'hitter view';
   let s=`<svg class="advance-movement" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arsenal movement HB by IVB · ${viewLab}">`;
   s+=`<rect width="${W}" height="${H}" fill="#F7F9FB" rx="6"/>`;
   s+=`<rect x="${sx(0)}" y="${sy(lim)}" width="${sx(lim)-sx(0)}" height="${sy(0)-sy(lim)}" fill="#DBEAFE" opacity=".45"/>`;
@@ -1588,8 +1592,8 @@ function advanceMovementSvg(arsenal, throws='R', view='hitter'){
     }
   }
   s+=`<text x="${W/2}" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">Pitch shapes · ${viewLab}</text>`;
-  s+=`<text x="${P+4}" y="${P+11}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${gloveLab}</text>`;
-  s+=`<text x="${P+plot-4}" y="${P+11}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${armLab}</text>`;
+  s+=`<text x="${P+4}" y="${P+11}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${leftLab}</text>`;
+  s+=`<text x="${P+plot-4}" y="${P+11}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">${rightLab}</text>`;
   s+=`<text x="${P+4}" y="${P+plot-5}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">ride / carry</text>`;
   s+=`<text x="${P+plot-4}" y="${P+plot-5}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">sink / drop</text>`;
   pts.forEach(p=>{
@@ -1598,7 +1602,7 @@ function advanceMovementSvg(arsenal, throws='R', view='hitter'){
     s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${p.color}" stroke="#fff" stroke-width="1.4"/>`;
     s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${p.code}</text>`;
   });
-  s+=`<text x="${W/2}" y="${H-5}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  ${viewLab}</text>`;
+  s+=`<text x="${W/2}" y="${H-5}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  ${viewLab} · + = 1B</text>`;
   s+=`<text x="10" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 10 ${H/2})">Induced Vertical Break (in)</text>`;
   return s+'</svg>';
 }
@@ -1799,6 +1803,22 @@ function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, repoFallback=n
   ${actions}
   <div class="advance-upload-note">Uploads stay in this browser (localStorage) unless you Save file… and commit under assets/. They appear in PDF export on this device.</div>`;
 }
+function arsenalHasXyPlot(arsenal){
+  return chartPitchRows(arsenal||[],'code').some(a=>a && a.hb!=null && a.ivb!=null);
+}
+/** Site + PDF: draw XY when populated; else localStorage arsenal upload (empty-only). */
+function advanceMovementBlockHtml(p, playerId, {printPage=false}={}){
+  const arsenal = p.arsenal||[];
+  const hbView = p._hbView || 'pitcher';
+  if(arsenalHasXyPlot(arsenal)){
+    return advanceMovementSvg(arsenal, p.throws||'R', hbView);
+  }
+  const uploadSrc = getPitcherMedia(playerId, 'arsenal') || '';
+  if(printPage){
+    return printMediaBlock(uploadSrc, 'Arsenal XY · TruMedia');
+  }
+  return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Arsenal XY · TruMedia screenshot', {name:p.name});
+}
 function printMediaBlock(src, emptyLabel){
   if(src) return `<img class="advance-media-img" src="${src}" alt="${emptyLabel}"/>`;
   return `<div class="advance-placeholder advance-placeholder-heat">${emptyLabel}</div>`;
@@ -1831,7 +1851,8 @@ function scaffoldPitcherPacket(row){
   const hasPlatoon = !!(byL && (Object.keys(byL).length || Object.keys(byR).length));
   const arsenal = chartPitchRows(row.arsenal||[]).map(a=>{
     const code = normalizePitchCode(a.type || a.code || '') || '?';
-    const hb = a.hb_pitcher != null ? a.hb_pitcher : a.hb;
+    // Keep arm-side-positive pitcher HB; plot layer mirrors RHP for hitter view.
+    const hb = a.hb_pitcher != null ? a.hb_pitcher : (a.hb_hitter != null ? -Number(a.hb_hitter) : a.hb);
     const whiff = a.whiff != null ? Number(a.whiff) : null;
     const usage = a.usage != null ? Number(a.usage) : null;
     const L = lookupPitchRow(byL, code);
@@ -1886,6 +1907,7 @@ function scaffoldPitcherPacket(row){
     arm_slot_image: null,
     headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
+    _hbView: 'pitcher',
   };
 }
 function resolvePitcherPacket(playerId){
@@ -1896,6 +1918,8 @@ function resolvePitcherPacket(playerId){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
       team: full.team || (row && row.team) || '',
+      // Curated Trackman HB matches catcher/hitter-facing (+ = 1B).
+      _hbView: 'hitter',
     });
   }
   if(row && (row.arsenal||[]).length) return scaffoldPitcherPacket(row);
@@ -1961,8 +1985,11 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
   const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
+  const hbView = p._hbView || 'pitcher';
   const arRows=arsenal.map(a=>{
     const c=advancePitchColor(a.code);
+    const hbPitcher = toPitcherArmHb(a.hb, p.throws||'R', a._hbView || hbView);
+    const hbShow = hitterGeoHb(hbPitcher, p.throws||'R');
     return `<tr>
       <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${a.code}</td>
       <td class="num">${a.usage!=null?a.usage+'%':'—'}</td>
@@ -1970,7 +1997,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <td class="num">${a.usage_r!=null?a.usage_r+'%':'—'}</td>
       <td class="num">${a.velo??'—'}</td>
       <td class="num">${fmtSigned(a.ivb)}</td>
-      <td class="num">${fmtSigned(a.hb)}</td>
+      <td class="num">${fmtSigned(hbShow)}</td>
       <td class="num">${a.spin??'—'}</td>
       <td class="num">${a.whiff!=null?Number(a.whiff).toFixed(0)+'%':(a.miss_l!=null||a.miss_r!=null?((((Number(a.miss_l)||0)+(Number(a.miss_r)||0))/((a.miss_l!=null?1:0)+(a.miss_r!=null?1:0))).toFixed(0)+'%'):'—')}</td>
     </tr>`;
@@ -2033,7 +2060,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
         <div class="section-label">Pitch shapes · hitter view</div>
-        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'hitter')}</div>
+        <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId, {printPage:true})}</div>
       </div>
       <div class="advance-card advance-band advance-band-heat">
         <div class="section-label">Heat maps · vs L / vs R</div>
@@ -2116,8 +2143,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     </div>
     <div class="advance-col">
       <div class="advance-card">
-        <div class="section-label">Movement · HB × IVB</div>
-        <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'pitcher')}</div>
+        <div class="section-label">Pitch shapes · hitter view</div>
+        <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId)}</div>
       </div>
       <div class="advance-card">
         <div class="section-label">Heat maps · vs L / vs R</div>

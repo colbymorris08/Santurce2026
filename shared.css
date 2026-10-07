@@ -1119,3 +1119,6 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   margin: 0 0 12px; box-shadow: var(--shadow-soft);
 }
 .season-banner strong { color: var(--santurce-gold); }
+
+/* POV locked to hitter view — toggles hidden */
+.pov-bar { display: none !important; }
