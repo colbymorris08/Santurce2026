@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san30">
+<link rel="stylesheet" href="shared.css?v=san31">
 </head>
 <body>
 <div class="topbar">
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san30"></script>
+<script src="i18n.js?v=san31"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san30';
+const ASSET_V = 'san31';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1322,8 +1322,7 @@ function sprayHitLegendHtml({compact=false}={}){
   const keys = items.map(([code,lab,col])=>
     `<span class="swatch" title="${lab}"><span class="dot" style="background:${col}"></span><span class="spray-hit-lab"><strong>${code}</strong></span></span>`
   ).join('');
-  return `<div class="spray-hit-legend${compact?' spray-hit-legend--compact':''}" role="list" aria-label="Spray chart color key">
-    <div class="spray-hit-legend-title">Color key</div>
+  return `<div class="spray-hit-legend${compact?' spray-hit-legend--compact':''}" role="list" aria-label="Spray chart legend">
     <div class="legend-row spray-hit-key">${keys}<span class="fence-note">Fence = 400' CF · poles ~330' · recent 100 BIP</span></div>
   </div>`;
 }
@@ -1509,7 +1508,7 @@ function pitchTypeTableHtml(rows, title, {risp=false, hand=null, half=false, hid
   if(!cleaned.length){
     return `<div class="${wrapCls}"><div class="section-label">${title}</div><div class="note">No sample yet.</div></div>`;
   }
-  const note = hideNote ? '' : `<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that pitch type (blue=low · red=high).</div>`;
+  const note = ''; // coloring kept; explanatory blurb removed to free space
   return `<div class="${wrapCls}">
   <div class="section-label">${title}</div>
   <div class="table-wrap"><table><thead><tr>
@@ -1543,8 +1542,7 @@ function hitterPitchTablesGridHtml(h){
   ${pitchTypeTableHtml(h.vs_l_by_pitch_type, 'vs L', {hand:'L', risp:false, half:true, hideNote:true})}
   ${pitchTypeTableHtml(h.risp_vs_r_by_pitch_type, 'RISP · vs R', {hand:'R', risp:true, half:true, hideNote:true})}
   ${pitchTypeTableHtml(h.risp_vs_l_by_pitch_type, 'RISP · vs L', {hand:'L', risp:true, half:true, hideNote:true})}
-</div>
-<div class="note" style="margin-top:4px">Rate cells colored vs opposing-league average for that same hand/RISP bucket (blue=low · red=high). Hand = pitcher throws (Synergy pitchingSide).</div>`;
+</div>`;
 }
 function advancePitchColor(code){
   return PITCH_COLORS[code] || PITCH_COLORS[{'4S':'FF','FA':'FF'}[code]||''] || '#94a3b8';
@@ -2194,22 +2192,26 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-pdf-team{font-size:26px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
-      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:8px 12px}
+      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:6px 12px;flex:0 0 auto;margin:2px 0 4px}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:12.5px}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:12px}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
       .advance-sheet-hitter .hitter-pitch-half tbody td.num{font-weight:700}
       .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-weight:700}
-      .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:1 1 auto;min-height:0;align-items:start;gap:8px}
-      .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:4px 6px;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;background:#fff!important}
+      .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:1 1 auto;min-height:0;align-items:start;gap:8px;overflow:hidden;margin:0}
+      .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:2px 4px;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;background:#fff!important}
+      .advance-sheet-hitter .hitter-sb-block{flex:0 0 auto;margin-top:10px;padding-top:6px;border-top:1px solid #ddd}
+      .advance-sheet-hitter .hitter-sb-block .section-label{margin:0 0 4px}
+      .advance-sheet-hitter .hitter-sb-block .table-wrap{margin:0}
+      .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:2px 0 4px;padding:3px 6px}
       /* Light canvas/img — dark CSS bg printed solid black when canvas bitmap failed */
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
       .spray-print-img{
-        width:min(100%,3.0in)!important;max-width:100%!important;
-        height:auto!important;max-height:none!important;
+        width:min(100%,2.75in)!important;max-width:100%!important;
+        height:auto!important;max-height:2.05in!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
         background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
@@ -2422,8 +2424,8 @@ function hitterSbBlockHtml(h){
   const summerG = h.summer_games != null ? h.summer_games : null;
   const summerSb162 = (summerSb != null && summerG) ? (Math.round(summerSb * 1620 / summerG) / 10) : null;
   const summerBunt162 = (summerBunts != null && summerG) ? (Math.round(summerBunts * 1620 / summerG) / 10) : null;
-  return `<div class="section-label">Bunts &amp; stolen bases</div>
-  <div class="note" style="margin-bottom:6px">2026 summer and 2025 LBPRC season</div>
+  return `<div class="hitter-sb-block">
+  <div class="section-label">Bunts and stolen bases</div>
   <div class="table-wrap"><table><thead><tr>
     <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
   </tr></thead><tbody>
@@ -2436,13 +2438,14 @@ function hitterSbBlockHtml(h){
     <tr><td>SB of 2B (from 1B)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
     <tr><td>SB of 3B (from 2B)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
     <tr><td>SB of home (from 3B)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
-  </tbody></table></div>`;
+  </tbody></table></div>
+</div>`;
 }
 function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,3.15in);max-width:100%;height:auto;aspect-ratio:1.414/1;display:block;margin:0 auto'
+    ? 'width:min(100%,2.75in);max-width:100%;height:auto;max-height:2.05in;aspect-ratio:1.414/1;display:block;margin:0 auto'
     : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
   const rispMedia = (printPage && sprayUrls?.risp)
     ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
