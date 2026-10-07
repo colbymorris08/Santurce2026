@@ -16,6 +16,7 @@ from build_advance_synergy import (
     SAMPLE_LEAGUES,
     WINTER_LEAGUE_IDS,
     aggregate_events,
+    attach_summer_sb_bunts,
     event_league_id,
     fetch_events_pages,
     filter_events_by_leagues_years,
@@ -25,6 +26,7 @@ from build_advance_synergy import (
     select_all_aggregate,
     serialize_hitters,
     sample_stats,
+    strip_hitter_chart_junk_pitches,
 )
 
 HAND_KEYS = (
@@ -127,15 +129,26 @@ def main() -> None:
             out_hitters.append(old)
             continue
         # keep SB season fields from previous if present
-        for k in ("sb_total", "sb_cs", "sb_per_162", "sb_source", "mlb_id", "headshot_url", "team", "name"):
+        for k in (
+            "sb_total", "sb_cs", "sb_per_162", "sb_source",
+            "summer_sb", "summer_cs", "summer_bunts", "summer_games", "summer_sb_source",
+            "mlb_id", "headshot_url", "team", "name", "bats",
+        ):
             if old.get(k) is not None and not neu.get(k):
                 neu[k] = old[k]
-            elif old.get(k) is not None and k in ("sb_total", "sb_cs", "sb_per_162", "sb_source"):
+            elif old.get(k) is not None and k in (
+                "sb_total", "sb_cs", "sb_per_162", "sb_source",
+                "summer_sb", "summer_cs", "summer_bunts", "summer_games", "summer_sb_source",
+            ):
                 neu[k] = old[k]
         if old.get("mlb_id") and not neu.get("headshot_url"):
             neu["mlb_id"] = old["mlb_id"]
             neu["headshot_url"] = old.get("headshot_url")
         out_hitters.append(neu)
+
+    n_summer = attach_summer_sb_bunts(out_hitters)
+    n_junk = strip_hitter_chart_junk_pitches(out_hitters)
+    print(f"summer_sb_bunts attached={n_summer} junk_pitch_rows_removed={n_junk}")
 
     select_all = select_all_aggregate(out_hitters)
     sample_full = sample_stats(out_hitters, all_events)

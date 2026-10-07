@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san29">
+<link rel="stylesheet" href="shared.css?v=san30">
 </head>
 <body>
 <div class="topbar">
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san29"></script>
+<script src="i18n.js?v=san30"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san29';
+const ASSET_V = 'san30';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -529,11 +529,14 @@ function normalizePitchCode(raw){
   if(compact.length <= 3 && /^[A-Z]+$/.test(compact)) return compact;
   return compact.length <= 3 ? compact : 'UN';
 }
-/** Pitch codes / labels hidden from every chart/table site-wide. */
-const HIDDEN_PITCH_CODES = new Set(['KN','EP','UN','UNKNOWN','UNK','EEPHUS','KNUCKLEBALL','KNUCKLE']);
+/** Pitch codes / labels hidden from every chart/table site-wide (junk family). */
+const HIDDEN_PITCH_CODES = new Set([
+  'KN','EP','UN','UNKNOWN','UNK','EEPHUS','KNUCKLEBALL','KNUCKLE',
+  'KC','KNUCKLECURVE','KNUCKLECURVEBALL'
+]);
 const HITTER_PITCH_LABEL = {
   FF:'Fastball', FA:'Fastball', '4S':'Fastball', SI:'Sinker', FT:'Sinker', FC:'Cutter',
-  SL:'Slider', ST:'Sweeper', CU:'Curveball', KC:'KnuckleCurve', CH:'Changeup',
+  SL:'Slider', ST:'Sweeper', CU:'Curveball', CH:'Changeup',
   FS:'Splitter', FO:'Forkball', SV:'Slurve', CS:'SlowCurve'
 };
 function isChartPitch(raw){
@@ -543,6 +546,8 @@ function isChartPitch(raw){
   if(HIDDEN_PITCH_CODES.has(compact)) return false;
   const code = normalizePitchCode(s);
   if(!code || HIDDEN_PITCH_CODES.has(code)) return false;
+  // Full labels that normalize oddly (e.g. long CamelCase → UN already hidden)
+  if(/knuckle\s*curve/i.test(s) || compact.includes('KNUCKLECURVE')) return false;
   return true;
 }
 function normalizeHitterPitchLabel(raw){
@@ -1068,20 +1073,31 @@ function limitRecentSprayPoints(points, n=SPRAY_MAX_RECENT){
   // No dates: builder/API append order is newest-first
   return pts.slice(0,n);
 }
-function drawSpray(canvas, points){
+function drawSpray(canvas, points, opts={}){
   if(!canvas) return;
   const ctx=canvas.getContext('2d');
-  const cw = canvas.clientWidth || Number(canvas.getAttribute('width')) || 424;
-  const ch = canvas.clientHeight || Number(canvas.getAttribute('height')) || 0;
+  // opts.dispW/dispH: fixed CSS-pixel size (PDF bake) — ignore popup layout races
+  let cw, ch;
+  if(opts.dispW){
+    cw = Number(opts.dispW);
+    ch = Number(opts.dispH) || Math.round(cw / SPRAY_ASPECT);
+  } else {
+    cw = canvas.clientWidth || Number(canvas.getAttribute('width')) || 424;
+    ch = canvas.clientHeight || Number(canvas.getAttribute('height')) || 0;
+  }
   // Buffer matches native field aspect (√2 wide × 1 tall) — no square / no CSS stretch
   let dispW = Math.max(280, Math.round(cw));
   let dispH = Math.round(dispW / SPRAY_ASPECT);
-  if(ch > 40 && Math.abs(ch - dispH) / dispH > 0.08){
+  if(!opts.dispW && ch > 40 && Math.abs(ch - dispH) / dispH > 0.08){
     // Prefer the CSS box when it already follows native aspect (or is height-capped)
-    if(ch / cw < 1 / SPRAY_ASPECT){
+    if(cw > 0 && ch / cw < 1 / SPRAY_ASPECT){
       dispH = Math.max(200, Math.round(ch));
       dispW = Math.round(dispH * SPRAY_ASPECT);
     }
+  }
+  if(opts.dispW){
+    dispW = Math.max(280, Math.round(Number(opts.dispW)));
+    dispH = Math.max(200, Math.round(Number(opts.dispH) || dispW / SPRAY_ASPECT));
   }
   const w = canvas.width = dispW * 2;
   const h = canvas.height = dispH * 2;
@@ -2400,38 +2416,54 @@ function hitterSbBlockHtml(h){
   const o=h.overall||{};
   const sbTotal = h.sb_total != null ? h.sb_total : (h.br_sb != null ? h.br_sb : null);
   const cs = h.sb_cs != null ? h.sb_cs : (h.br_cs != null ? h.br_cs : null);
-  const src = h.sb_source || h.br_sb_source || '';
+  const summerSb = h.summer_sb != null ? h.summer_sb : null;
+  const summerCs = h.summer_cs != null ? h.summer_cs : null;
+  const summerBunts = h.summer_bunts != null ? h.summer_bunts : null;
+  const summerG = h.summer_games != null ? h.summer_games : null;
+  const summerSb162 = (summerSb != null && summerG) ? (Math.round(summerSb * 1620 / summerG) / 10) : null;
+  const summerBunt162 = (summerBunts != null && summerG) ? (Math.round(summerBunts * 1620 / summerG) / 10) : null;
   return `<div class="section-label">Bunts &amp; stolen bases</div>
-  <div class="note" style="margin-bottom:6px">${src?`Season SB source: ${src}. `:''}Season SB/CS from Baseball Reference–equivalent LBPRC season totals (MLB Stats). Base-specific SB from Synergy when tagged.</div>
+  <div class="note" style="margin-bottom:6px">2026 summer and 2025 LBPRC season</div>
   <div class="table-wrap"><table><thead><tr>
     <th>Metric</th><th class="num">Raw</th><th class="num">Per 162 G</th>
   </tr></thead><tbody>
-    <tr><td>Season SB (total)</td><td class="num">${sbTotal??'—'}</td><td class="num">${h.sb_per_162??'—'}</td></tr>
-    <tr><td>Season CS</td><td class="num">${cs??'—'}</td><td class="num">—</td></tr>
-    <tr><td>Bunts</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
+    <tr><td>LBPRC 2025 SB</td><td class="num">${sbTotal??'—'}</td><td class="num">${h.sb_per_162??'—'}</td></tr>
+    <tr><td>LBPRC 2025 CS</td><td class="num">${cs??'—'}</td><td class="num">—</td></tr>
+    <tr><td>2026 summer SB</td><td class="num">${summerSb??'—'}</td><td class="num">${summerSb162??'—'}</td></tr>
+    <tr><td>2026 summer CS</td><td class="num">${summerCs??'—'}</td><td class="num">—</td></tr>
+    <tr><td>2026 summer bunts</td><td class="num">${summerBunts??'—'}</td><td class="num">${summerBunt162??'—'}</td></tr>
+    <tr><td>Sample bunts (Synergy)</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
     <tr><td>SB of 2B (from 1B)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
     <tr><td>SB of 3B (from 2B)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
     <tr><td>SB of home (from 3B)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
   </tbody></table></div>`;
 }
-function hitterSprayPairHtml(prefix, {printPage=false}={}){
+function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
     ? 'width:min(100%,3.15in);max-width:100%;height:auto;aspect-ratio:1.414/1;display:block;margin:0 auto'
     : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
+  const rispMedia = (printPage && sprayUrls?.risp)
+    ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
+    : `<canvas id="${prefix}spray-risp" width="424" height="300" style="${cvStyle}"></canvas>`;
+  const nonMedia = (printPage && sprayUrls?.non)
+    ? `<img class="spray-print-img" id="${prefix}spray-nonrisp" alt="non-RISP spray" src="${sprayUrls.non}" style="${cvStyle}" width="848" height="600"/>`
+    : `<canvas id="${prefix}spray-nonrisp" width="424" height="300" style="${cvStyle}"></canvas>`;
+  const nRisp = sprayUrls?.nRisp != null ? `n=${sprayUrls.nRisp} (recent)` : '';
+  const nNon = sprayUrls?.nNon != null ? `n=${sprayUrls.nNon} (recent)` : '';
   return `<div class="section-label">Spray charts · RISP vs non-RISP</div>
   ${sprayHitLegendHtml({compact: !!printPage})}
   <div class="hitter-spray-pair">
     <div class="spray-card">
       <h3>RISP</h3>
-      <canvas id="${prefix}spray-risp" width="424" height="300" style="${cvStyle}"></canvas>
-      <div class="note" id="${prefix}spray-risp-n"></div>
+      ${rispMedia}
+      <div class="note" id="${prefix}spray-risp-n">${nRisp}</div>
     </div>
     <div class="spray-card">
       <h3>non-RISP</h3>
-      <canvas id="${prefix}spray-nonrisp" width="424" height="300" style="${cvStyle}"></canvas>
-      <div class="note" id="${prefix}spray-nonrisp-n"></div>
+      ${nonMedia}
+      <div class="note" id="${prefix}spray-nonrisp-n">${nNon}</div>
     </div>
   </div>`;
 }
@@ -2461,7 +2493,7 @@ function bakeHitterSprayCanvasesForPrint(doc){
     sprayCanvasToPrintImg(c);
   });
 }
-function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
+function resolveHitterSprayPairPoints(spraySourceHitters){
   let risp = mergeHitterSpraySplit(spraySourceHitters, 'risp');
   let non = mergeHitterSpraySplit(spraySourceHitters, 'non_risp');
   if((!risp.length && !non.length) && CACHE.spray?.synergy){
@@ -2478,12 +2510,46 @@ function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
     risp = pts.filter(p=>!!p.risp);
     non = pts.filter(p=>!p.risp);
   }
-  risp = limitRecentSprayPoints(risp, SPRAY_MAX_RECENT);
-  non = limitRecentSprayPoints(non, SPRAY_MAX_RECENT);
+  return {
+    risp: limitRecentSprayPoints(risp, SPRAY_MAX_RECENT),
+    non: limitRecentSprayPoints(non, SPRAY_MAX_RECENT),
+  };
+}
+/** Bake sprays in the opener (stable layout) so mass PDF never depends on popup canvas timing. */
+function bakeHitterSprayPairDataUrls(spraySourceHitters){
+  const {risp, non} = resolveHitterSprayPairPoints(spraySourceHitters);
+  const bakeOne = (pts)=>{
+    const c = document.createElement('canvas');
+    c.setAttribute('width', '424');
+    c.setAttribute('height', '300');
+    c.style.cssText = 'position:fixed;left:-14000px;top:0;width:424px;height:300px;visibility:hidden;pointer-events:none';
+    document.body.appendChild(c);
+    try{
+      void c.offsetWidth;
+      drawSpray(c, pts, {dispW: 424, dispH: 300});
+      const url = c.toDataURL('image/png');
+      // Real field PNGs are tens of KB; reject blank/near-empty bakes
+      if(url && url.startsWith('data:image/png') && url.length > 12000) return url;
+      return '';
+    }catch(e){
+      return '';
+    }finally{
+      c.remove();
+    }
+  };
+  return {
+    risp: bakeOne(risp),
+    non: bakeOne(non),
+    nRisp: risp.length,
+    nNon: non.length,
+  };
+}
+function paintHitterSprayPair(prefix, spraySourceHitters, doc=document){
+  const {risp, non} = resolveHitterSprayPairPoints(spraySourceHitters);
   const cR = doc.getElementById(prefix+'spray-risp');
   const cN = doc.getElementById(prefix+'spray-nonrisp');
-  if(cR) drawSpray(cR, risp);
-  if(cN) drawSpray(cN, non);
+  if(cR && String(cR.tagName||'').toUpperCase() === 'CANVAS') drawSpray(cR, risp, {dispW: 424, dispH: 300});
+  if(cN && String(cN.tagName||'').toUpperCase() === 'CANVAS') drawSpray(cN, non, {dispW: 424, dispH: 300});
   const nR = doc.getElementById(prefix+'spray-risp-n');
   const nN = doc.getElementById(prefix+'spray-nonrisp-n');
   if(nR) nR.textContent = `n=${risp.length} (recent)`;
@@ -2575,7 +2641,7 @@ function mergeHitterSprayPoints(hitters){
   });
   return out;
 }
-function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, prefix='adv-h-'}={}){
+function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, prefix='adv-h-', sprayUrls=null}={}){
   if(!h) return '';
   const o=h.overall||{};
   const pageClass = printPage ? 'advance-sheet-hitter advance-print-page' : '';
@@ -2598,7 +2664,7 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
     return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
   ${advancePdfStripHtml(headPdf, handLabel, h.name, teamLabel)}
   ${hitterPitchTablesGridHtml(h)}
-  ${hitterSprayPairHtml(idPrefix, {printPage})}
+  ${hitterSprayPairHtml(idPrefix, {printPage, sprayUrls})}
   ${hitterSbBlockHtml(h)}
 </div>`;
   }
@@ -2665,35 +2731,49 @@ function exportHitterAdvancePdf(){
   const packs = ids.map(id=>{
     const h = resolveAdvanceHitter(id);
     if(!h) return null;
-    return {h, spray:[h]};
+    // Pre-bake in opener — popup canvas print was blank/white in mass PDF
+    let sprayUrls = null;
+    try { sprayUrls = bakeHitterSprayPairDataUrls([h]); } catch(e){ sprayUrls = null; }
+    if(!(sprayUrls?.risp && sprayUrls?.non)) sprayUrls = null;
+    return {h, spray:[h], sprayUrls};
   }).filter(Boolean);
   if(!packs.length){ alert('No hitter data for selection.'); return; }
-  const body = packs.map(({h},i)=>buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:`h${i}-`})).join('\n');
+  const body = packs.map(({h, sprayUrls},i)=>buildHitterAdvanceSheetHtml(h, [h], {
+    printPage:true, prefix:`h${i}-`, sprayUrls
+  })).join('\n');
   openAdvancePrintWindow('Hitter Advance Export', body, {
     orientation: 'portrait',
     autoPrint: false,
     afterWrite(w){
-      // Wait for layout → paint sprays → bake to PNG imgs (avoids solid-black canvas print) → print
+      // Fallback only when opener bake failed: paint remaining canvases → PNG → print
       const paintAndPrint = ()=>{
-        packs.forEach(({h},i)=>{
+        packs.forEach(({h, sprayUrls},i)=>{
+          if(sprayUrls?.risp && sprayUrls?.non) return;
           const prefix = `pdf-h${i}-${h.synergy_id||'all'}-`;
           try { paintHitterSprayPair(prefix, [h], w.document); } catch(e){}
         });
         try { bakeHitterSprayCanvasesForPrint(w.document); } catch(e){}
         const imgs = [...w.document.querySelectorAll('img.spray-print-img')];
-        const go = ()=> setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 120);
+        let printed = false;
+        const go = ()=>{
+          if(printed) return;
+          printed = true;
+          setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 180);
+        };
         if(!imgs.length){ go(); return; }
         let left = imgs.length;
         const tick = ()=>{ left -= 1; if(left <= 0) go(); };
         imgs.forEach(img=>{
-          if(img.complete) tick();
+          if(img.complete && img.naturalWidth > 0) tick();
           else { img.onload = tick; img.onerror = tick; }
         });
+        // Safety: never hang the print dialog if an image stalls
+        setTimeout(go, 2500);
       };
       setTimeout(()=>{
         if(w.requestAnimationFrame) w.requestAnimationFrame(()=>w.requestAnimationFrame(paintAndPrint));
         else paintAndPrint();
-      }, 220);
+      }, 280);
     }
   });
 }

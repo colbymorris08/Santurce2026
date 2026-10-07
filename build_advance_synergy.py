@@ -1206,6 +1206,89 @@ def load_mlb_id_map() -> dict[str, int]:
     return by
 
 
+def load_summer_2026_sb_bunts() -> dict[int, dict]:
+    """Aggregate 2026 summer SB/CS/sac bunts by MLBAM id (MLB + MiLB + LMB)."""
+    from collections import defaultdict
+
+    agg: dict[int, dict] = defaultdict(
+        lambda: {"sb": 0, "cs": 0, "bunts": 0, "games": 0, "pa": 0, "sources": []}
+    )
+    files = (
+        ("mlb_2026_hitting.json", "MLB"),
+        ("milb_2026_hitting.json", "MiLB"),
+        ("mexico_2026_hitting.json", "LMB"),
+    )
+    for fname, label in files:
+        path = OUT / fname
+        if not path.exists():
+            continue
+        rows = json.loads(path.read_text())
+        if not isinstance(rows, list):
+            continue
+        for r in rows:
+            pid = r.get("playerId")
+            if not pid:
+                continue
+            a = agg[int(pid)]
+            a["sb"] += int(r.get("stolenBases") or 0)
+            a["cs"] += int(r.get("caughtStealing") or 0)
+            a["bunts"] += int(r.get("sacBunts") or 0)
+            a["games"] += int(r.get("gamesPlayed") or 0)
+            a["pa"] += int(r.get("plateAppearances") or 0)
+            if label not in a["sources"]:
+                a["sources"].append(label)
+    return dict(agg)
+
+
+def attach_summer_sb_bunts(hitters: list[dict]) -> int:
+    """Attach 2026 summer SB/CS/bunts onto advance hitters (by mlb_id)."""
+    by = load_summer_2026_sb_bunts()
+    n = 0
+    for h in hitters:
+        mid = h.get("mlb_id")
+        if not mid:
+            continue
+        a = by.get(int(mid))
+        if not a:
+            continue
+        h["summer_sb"] = int(a.get("sb") or 0)
+        h["summer_cs"] = int(a.get("cs") or 0)
+        h["summer_bunts"] = int(a.get("bunts") or 0)
+        h["summer_games"] = int(a.get("games") or 0)
+        src = "+".join(a.get("sources") or [])
+        h["summer_sb_source"] = f"2026 summer Stats API ({src})" if src else "2026 summer Stats API"
+        n += 1
+    return n
+
+
+_HITTER_PITCH_KEYS = (
+    "by_pitch_type",
+    "risp_by_pitch_type",
+    "vs_r_by_pitch_type",
+    "vs_l_by_pitch_type",
+    "risp_vs_r_by_pitch_type",
+    "risp_vs_l_by_pitch_type",
+)
+
+
+def strip_hitter_chart_junk_pitches(hitters: list[dict]) -> int:
+    """Drop KN/KC/EP/UN rows from hitter pitch tables (site + PDF)."""
+    removed = 0
+    for h in hitters:
+        for key in _HITTER_PITCH_KEYS:
+            rows = h.get(key) or []
+            keep = []
+            for r in rows:
+                code = _pitch_code(r.get("pitch_type") or r.get("type") or "")
+                label = str(r.get("pitch_type") or "")
+                if code in _CHART_SKIP_CODES or "knucklecurve" in label.lower().replace(" ", ""):
+                    removed += 1
+                    continue
+                keep.append(r)
+            h[key] = keep
+    return removed
+
+
 def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_ids: dict[str, int] | None = None) -> list[dict]:
     rows = []
     for bid, h in raw.items():
@@ -1716,8 +1799,8 @@ def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:
             continue
         pitch = ev.get("pitch") or {}
         code = _pitch_code(pitch.get("pitchKind"))
-        # KN / EP / UN are noise for advance charts — never enter count/hand mixes
-        if not code or code in ("UN", "KN", "EP"):
+        # KN / KC / EP / UN are noise for advance charts — never enter count/hand mixes
+        if not code or code in _CHART_SKIP_CODES:
             continue
         c = ev.get("count") or {}
         try:
@@ -1813,8 +1896,8 @@ _PITCH_TYPE_ALIASES = {
     "FT": ("SI", "2S"),
 }
 
-# Never surface knuckle / eephus / unknown on advance charts
-_CHART_SKIP_CODES = frozenset({"UN", "KN", "EP", "UNKNOWN", "UNK"})
+# Never surface knuckle / knucklecurve / eephus / unknown on advance charts
+_CHART_SKIP_CODES = frozenset({"UN", "KN", "EP", "KC", "UNKNOWN", "UNK"})
 
 
 def _lookup_pitch_row(by_code: dict, code: str):
@@ -2385,6 +2468,11 @@ def main() -> None:
                     f"c_fill,g_auto/w_180/v1/people/{h['mlb_id']}/headshot/67/current"
                 )
 
+    n_summer = attach_summer_sb_bunts(hitters)
+    n_junk = strip_hitter_chart_junk_pitches(hitters)
+    strip_hitter_chart_junk_pitches(winter_hitters)
+    print(f"summer_sb_bunts attached={n_summer} junk_pitch_rows_removed={n_junk}")
+
     select_all = select_all_aggregate(hitters)
     sample_full = sample_stats(hitters, all_events)
     sample_winter = sample_stats(winter_hitters, winter_events)
@@ -2453,9 +2541,11 @@ def main() -> None:
             "Whiff% = swinging-strike results / swings.",
             "OPS from Synergy plateAppearanceResult when PA completes in sample.",
             "Bunts from contactIntent/PA bunt results; SB-from-base via runner start→end heuristic on non-BIP pitches.",
+            "2026 summer SB/CS/sac bunts from MLB/MiLB/LMB Stats API (stolenBases/caughtStealing/sacBunts) by mlb_id.",
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
             "vs R / vs L (+ RISP×hand) by pitch type from Synergy pitcherInfo.pitchingSide (Right/Left).",
+            "Chart junk filter: KN / KC (Knucklecurve) / EP / UN omitted from hitter pitch tables.",
         ],
     }
     (OUT / "advance_opposing_hitters.json").write_text(json.dumps(payload, indent=2))
