@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san27">
+<link rel="stylesheet" href="shared.css?v=san28">
 </head>
 <body>
 <div class="topbar">
@@ -98,7 +98,7 @@
 
   <div id="panel-pitcher-advance" class="panel">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Click delivery / heat-map slots to upload images (saved in this browser). Export selected arms — one landscape page each (PDF: compact headshot · charts · shapes+heat · delivery).</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Click delivery / vs L · vs R heat-map slots to upload images (saved in this browser). Export selected arms — one landscape page each (PDF: compact headshot · charts · shapes+heat · delivery).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -117,7 +117,7 @@
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+heat · delivery).</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+dual heat · delivery).</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san27"></script>
+<script src="i18n.js?v=san28"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san27';
+const ASSET_V = 'san28';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1940,7 +1940,10 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       : blankHead);
   const repoDelivery = p.arm_slot_image || null;
   const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
-  const heatSrc = getPitcherMedia(playerId, 'heatmap') || '';
+  // Dual heat maps (vs L / vs R). Legacy single 'heatmap' slot falls back to vs L only.
+  const heatLegacy = getPitcherMedia(playerId, 'heatmap') || '';
+  const heatLSrc = getPitcherMedia(playerId, 'heatmap_l') || heatLegacy;
+  const heatRSrc = getPitcherMedia(playerId, 'heatmap_r') || '';
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
   const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
@@ -1963,7 +1966,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   // PDF export only: slim strip (compact roster headshot + name) + three equal thirds
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
   if(printPage){
-    const heatPrint = printMediaBlock(heatSrc, 'Heat map');
+    const heatLPrint = printMediaBlock(heatLSrc, 'Heat · vs L');
+    const heatRPrint = printMediaBlock(heatRSrc, 'Heat · vs R');
     const deliveryPrint = printMediaBlock(deliverySrc, 'Delivery / release snapshot');
     const headPdf = headRemote
       ? `<img class="advance-pdf-headshot" src="${headRemote}" alt="${p.name}"
@@ -2018,8 +2022,17 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'hitter')}</div>
       </div>
       <div class="advance-card advance-band advance-band-heat">
-        <div class="section-label">Heat map</div>
-        <div class="advance-photo-wrap">${heatPrint}</div>
+        <div class="section-label">Heat maps · vs L / vs R</div>
+        <div class="advance-heat-pair">
+          <div class="advance-heat-cell">
+            <div class="advance-heat-lab">vs L</div>
+            <div class="advance-photo-wrap">${heatLPrint}</div>
+          </div>
+          <div class="advance-heat-cell">
+            <div class="advance-heat-lab">vs R</div>
+            <div class="advance-photo-wrap">${heatRPrint}</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="advance-col advance-col-release">
@@ -2033,7 +2046,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   }
 
   // On-screen: hero + count above + 3 natural columns (NOT equal PDF thirds).
-  const heatSlot = pitcherUploadSlotHtml(playerId, 'heatmap', heatSrc, 'Heat map', {tall:true, name:p.name});
+  const heatSlotL = pitcherUploadSlotHtml(playerId, 'heatmap_l', heatLSrc, 'Heat map · vs L', {name:p.name});
+  const heatSlotR = pitcherUploadSlotHtml(playerId, 'heatmap_r', heatRSrc, 'Heat map · vs R', {name:p.name});
   const deliverySlot = pitcherUploadSlotHtml(playerId, 'delivery', getPitcherMedia(playerId,'delivery'), 'Delivery snapshot', {tall:true, repoFallback:repoDelivery, name:p.name});
   return `<div class="advance-sheet">
   <div class="advance-hero">
@@ -2092,8 +2106,11 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="advance-movement-wrap">${advanceMovementSvg(arsenal, p.throws||'R', 'pitcher')}</div>
       </div>
       <div class="advance-card">
-        <div class="section-label">Heat map</div>
-        ${heatSlot}
+        <div class="section-label">Heat maps · vs L / vs R</div>
+        <div class="advance-heat-pair">
+          <div class="advance-heat-cell">${heatSlotL}</div>
+          <div class="advance-heat-cell">${heatSlotR}</div>
+        </div>
       </div>
     </div>
     <div class="advance-col">
@@ -2123,9 +2140,18 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
   const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
   const pitcherH = orientation === 'portrait' ? '' : `
       .advance-sheet-pitcher.advance-print-page{
-        width:10.44in;height:7.44in;max-width:10.44in;max-height:7.44in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.97;
+        width:10.5in;height:7.5in;max-width:10.5in;max-height:7.5in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.94;
       }
+      .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
+      .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
+      .advance-sheet-pitcher .advance-short-col+.advance-short-col{border-left:1px solid #bbb}
+      .advance-sheet-pitcher .advance-short-col{padding:0 8px}
+      .advance-sheet-pitcher .advance-short{padding:3px 2px;column-gap:0}
+      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:1;min-height:0}
+      .advance-sheet-pitcher .advance-heat-cell{min-height:0;display:flex;flex-direction:column;gap:2px}
+      .advance-sheet-pitcher .advance-heat-lab{font-size:8.5px;font-weight:700;color:#0a1633;text-transform:uppercase;letter-spacing:.04em}
+      .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap{flex:1;min-height:0}
       .advance-sheet-pitcher .advance-layout-pitcher-print,
       .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
         grid-template-columns:1fr 1fr 1fr!important;gap:5px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;

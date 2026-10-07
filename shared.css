@@ -324,14 +324,17 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .advance-short {
   display: grid;
   grid-template-columns: repeat(3, max-content);
-  column-gap: 28px;
+  column-gap: 0;
   row-gap: 0;
   width: fit-content;
   max-width: 100%;
-  border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 4px; background: var(--panel);
   font-size: 13px; line-height: 1.35; box-shadow: var(--shadow-soft);
 }
-.advance-short-col { min-width: 0; }
+.advance-short-col { min-width: 0; padding: 0 14px; }
+.advance-short-col + .advance-short-col {
+  border-left: 1px solid var(--line-strong);
+}
 .advance-short-h {
   display: block; color: var(--santurce-gold); margin: 0 0 5px; font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.05em;
@@ -354,10 +357,31 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   display: grid; grid-template-columns: 48px 1fr 40px; gap: 4px; align-items: center;
   font-size: 11.5px; margin-bottom: 5px; color: var(--text);
 }
+.advance-usage-row strong,
+.advance-usage-row .num { color: inherit; font-weight: 700; }
 .advance-usage-bar {
   height: 8px; background: #243348; border-radius: 3px; overflow: hidden;
 }
 .advance-usage-bar > span { display: block; height: 100%; border-radius: 3px; }
+.advance-heat-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: stretch;
+  min-width: 0;
+}
+.advance-heat-pair .advance-upload-slot,
+.advance-heat-pair .advance-placeholder-tall {
+  min-height: 160px;
+}
+.advance-heat-pair .advance-upload-slot img { max-height: 240px; }
+.advance-heat-cell {
+  display: flex; flex-direction: column; min-width: 0; min-height: 0; gap: 4px;
+}
+.advance-heat-cell .advance-heat-lab {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--santurce-gold); margin: 0;
+}
 .advance-dot {
   width: 9px; height: 9px; border-radius: 50%; display: inline-block;
   border: 1px solid rgba(255,255,255,0.85); box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
@@ -555,16 +579,22 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 
 /* Screen: pre-8f09139 three natural columns (NOT 1/3+2/3) */
 .advance-layout-pitcher { grid-template-columns: 1.15fr 1.1fr 0.85fr; }
+/* Delivery slot shortened to leave room for dual vs L / vs R heat maps */
 .advance-layout-pitcher .advance-card-arm-slot .advance-placeholder-tall,
 .advance-layout-pitcher .advance-card-arm-slot .advance-arm {
-  min-height: 440px;
+  min-height: 300px;
 }
 .advance-layout-pitcher .advance-card-arm-slot .advance-arm img,
 .advance-layout-pitcher .advance-card-arm-slot .advance-arm-full {
   max-height: none;
-  min-height: 440px;
+  min-height: 300px;
   object-fit: cover;
   object-position: center top;
+}
+/* Arsenal snapshot: white column headers (not muted gray) */
+.advance-sheet .advance-arsenal-table thead th,
+.advance-sheet .advance-card table thead th {
+  color: #fff;
 }
 
 /* PDF-only helpers (used by printPage DOM) */
@@ -603,6 +633,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .advance-arsenal-table { font-size: 10.5px; }
 .advance-arsenal-table th,
 .advance-arsenal-table td { padding: 2px 3px; white-space: nowrap; }
+.advance-arsenal-table thead th { color: #fff; }
 .advance-photo-wrap {
   flex: 1;
   min-height: 0;
@@ -783,16 +814,16 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 
   /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot */
   .advance-sheet-pitcher.advance-print-page {
-    width: 10.44in;
-    max-width: 10.44in;
-    height: 7.44in;
-    max-height: 7.44in;
+    width: 10.5in;
+    max-width: 10.5in;
+    height: 7.5in;
+    max-height: 7.5in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
-    zoom: 0.97; /* ~3% smaller so one page stays reliable */
+    zoom: 0.94; /* ~6% smaller so mass PDF fits one landscape page at 100% */
   }
   .advance-sheet-pitcher .advance-pdf-strip {
     flex: 0 0 auto;
@@ -837,23 +868,47 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     overflow: hidden;
   }
   .advance-sheet-pitcher .advance-col-charts .advance-card { margin-bottom: 0; }
-  .advance-sheet-pitcher .advance-card-compact { padding: 4px 6px; }
-  .advance-sheet-pitcher .advance-card-compact .section-label { font-size: 9.5px; margin-bottom: 2px; }
+  .advance-sheet-pitcher .advance-card-compact { padding: 3px 5px; }
+  .advance-sheet-pitcher .advance-card-compact .section-label { font-size: 9px; margin-bottom: 2px; }
   .advance-sheet-pitcher .advance-short {
-    padding: 4px 6px; column-gap: 8px; font-size: 10px;
+    padding: 3px 2px; column-gap: 0; font-size: 10px;
     width: 100%; max-width: 100%; box-sizing: border-box;
+  }
+  .advance-sheet-pitcher .advance-short-col { padding: 0 8px; }
+  .advance-sheet-pitcher .advance-short-col + .advance-short-col {
+    border-left: 1px solid #bbb;
   }
   .advance-sheet-pitcher .advance-short-row { font-size: 10px; grid-template-columns: 10px 2em 2.1em; }
   .advance-sheet-pitcher .advance-arsenal-table { font-size: 9px; }
   .advance-sheet-pitcher .advance-arsenal-table th,
   .advance-sheet-pitcher .advance-arsenal-table td { padding: 1px 2px; }
+  .advance-sheet-pitcher .advance-arsenal-table thead th { color: #111 !important; }
   .advance-sheet-pitcher .advance-desc {
     font-size: 9.5px; line-height: 1.25; max-height: 54px; overflow: hidden;
+    color: #000 !important;
   }
+  .advance-sheet-pitcher .advance-desc,
+  .advance-sheet-pitcher .advance-desc * { color: #000 !important; }
   .advance-sheet-pitcher .advance-usage-row {
     font-size: 9.5px; margin-bottom: 1px; grid-template-columns: 40px 1fr 32px;
+    color: #000 !important;
   }
+  .advance-sheet-pitcher .advance-usage-row strong,
+  .advance-sheet-pitcher .advance-usage-row .num { color: #000 !important; }
   .advance-sheet-pitcher .advance-usage-bar { height: 5px; }
+  .advance-sheet-pitcher .advance-heat-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex: 1 1 auto; min-height: 0;
+  }
+  .advance-sheet-pitcher .advance-heat-cell {
+    min-height: 0; display: flex; flex-direction: column; gap: 2px;
+  }
+  .advance-sheet-pitcher .advance-heat-cell .advance-heat-lab {
+    color: #0a1633; font-size: 8.5px; margin: 0; flex: 0 0 auto;
+  }
+  .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap,
+  .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat {
+    flex: 1 1 auto; min-height: 0;
+  }
   .advance-sheet-pitcher .advance-band {
     margin-bottom: 0; padding: 3px 5px; min-height: 0;
     display: flex; flex-direction: column; overflow: hidden; flex: 1 1 auto;
@@ -877,10 +932,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     width: 100%; height: 100%; max-height: 100%; object-fit: contain; object-position: center top;
   }
   .advance-layout-pitcher .advance-card-arm-slot .advance-upload-slot {
-    min-height: 440px;
+    min-height: 300px;
   }
   .advance-layout-pitcher .advance-card-arm-slot .advance-upload-slot img {
-    max-height: none; min-height: 440px; object-fit: cover; object-position: center top;
+    max-height: none; min-height: 300px; object-fit: cover; object-position: center top;
   }
 
   .advance-layout:not(.advance-layout-pitcher) { grid-template-columns: 1.1fr 1fr 0.9fr !important; }
