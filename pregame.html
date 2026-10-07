@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san31">
+<link rel="stylesheet" href="shared.css?v=san32">
 </head>
 <body>
 <div class="topbar">
@@ -39,25 +39,22 @@
 
 <main class="page">
   <div class="tab-bar">
-    <button class="tab active" data-tab="lineup" onclick="switchTab('lineup')" data-i18n="lineupTab">Lineup Spot Success</button>
-    <button class="tab" data-tab="pitcher-advance" onclick="switchTab('pitcher-advance')" data-i18n="pitcherAdvanceTab">Pitcher Advance</button>
+    <button class="tab active" data-tab="pitcher-advance" onclick="switchTab('pitcher-advance')" data-i18n="pitcherAdvanceTab">Pitcher Advance</button>
     <button class="tab" data-tab="hitter-advance" onclick="switchTab('hitter-advance')" data-i18n="hitterAdvanceTab">Hitter Advance</button>
+    <button class="tab" data-tab="strategy" onclick="switchTab('strategy')" data-i18n="strategyTab">Strategy Card</button>
+    <button class="tab" data-tab="br" onclick="switchTab('br')" data-i18n="brTab">Baserunning and Bunting Card</button>
+    <button class="tab" data-tab="lineup" onclick="switchTab('lineup')" data-i18n="lineupTab">Lineup Spot Success</button>
     <button class="tab" data-tab="matchup" onclick="switchTab('matchup')" data-i18n="matchupTab">Santurce Pitchers vs Opposing Batters</button>
     <button class="tab" data-tab="hvp" onclick="switchTab('hvp')" data-i18n="hvpTab">Santurce Batters vs Opposing Pitchers</button>
-    <button class="tab" data-tab="br" onclick="switchTab('br')" data-i18n="brTab">Baserunning &amp; Bunting</button>
-    <button class="tab" data-tab="stuff" onclick="switchTab('stuff')" data-i18n="stuffTab">Opposing Stuff</button>
-    <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
-    <button class="tab" data-tab="framing" onclick="switchTab('framing')" data-i18n="framingTab">Catcher Framing</button>
     <button class="tab" data-tab="usage" onclick="switchTab('usage')" data-i18n="usageTab">Pitch Usage</button>
-    <button class="tab" data-tab="platoon" onclick="switchTab('platoon')" data-i18n="platoonTab">Platoon Splits</button>
+    <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
     <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
-    <button class="tab" data-tab="tunnel" onclick="switchTab('tunnel')" data-i18n="tunnelTab">Pitch Tunneling</button>
-    <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home</button>
+    <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home and Catcher Pop Times</button>
   </div>
 
   <div id="loading" class="loading">Loading pregame caches…</div>
 
-  <div id="panel-lineup" class="panel active">
+  <div id="panel-lineup" class="panel">
     <div class="section-label" data-i18n="lineupLabel">Santurce hitters — production by lineup spot</div>
     <div class="note" data-i18n-html="lineupNote">LBPRC 2025 from winter boxscores, plus each hitter’s <strong>MLB / AAA / AA</strong> lineup-spot success from Stats API game logs (2024–2026 where available). FPS% from MLB Statcast when tracked.</div>
     <div class="filters">
@@ -96,7 +93,7 @@
     </div>
   </div>
 
-  <div id="panel-pitcher-advance" class="panel">
+  <div id="panel-pitcher-advance" class="panel active">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
     <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Pitch shapes = hitter view. Click delivery / vs L · vs R heat maps to upload; if arsenal XY is empty, upload a TruMedia screenshot (browser-local). Export selected arms — one landscape page each.</div>
     <div class="filters">
@@ -153,6 +150,14 @@
       <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · wide colored pitch tables · RISP/non-RISP spray (native field aspect) · bunts/SB.</div>
     </div>
     <div id="advance-hitters"></div>
+  </div>
+
+  <div id="panel-strategy" class="panel">
+    <div class="coming-soon">
+      <h3 data-i18n="strategyTitle">Strategy card</h3>
+      <p data-i18n="strategyBody">Placeholder for the Santurce strategy card. Content will be filled in later.</p>
+      <div class="tagline-note" data-i18n="strategyNote">Layout stub only — keep this tab ready for 2026–7 gameplanning content.</div>
+    </div>
   </div>
 
   <div id="panel-matchup" class="panel">
@@ -271,34 +276,6 @@
     </div>
   </div>
 
-  <div id="panel-stuff" class="panel">
-    <div class="section-label" data-i18n="stuffLabel">Advance scouting — opposing pitcher Stuff+</div>
-    <div class="note" data-i18n="stuffNote">AAA / MiLB tracking via Prospect Savant. MLB arms use PS when tracked; otherwise marked for Statcast stuff index.</div>
-    <div class="legend-row" data-i18n-html="colorKeyGreenBlue">
-      <span class="swatch"><span class="txt-good">● High</span> above avg / Stuff+ ≥ 105</span>
-      <span class="swatch"><span class="txt-low">● Low</span> below avg / Stuff+ ≤ 90</span>
-    </div>
-    <div class="filters">
-      <div class="filter-field"><label data-i18n="search">Search</label><input id="stuff-search" placeholder="Pitcher / team" oninput="renderStuff()"></div>
-      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
-        <select id="stuff-team" onchange="renderStuff()">
-          <option value="all">All Teams</option>
-        </select>
-      </div>
-    </div>
-    <div class="table-wrap">
-      <table id="tbl-stuff"><thead><tr>
-        <th onclick="sortTbl('tbl-stuff',0)">Pitcher</th>
-        <th onclick="sortTbl('tbl-stuff',1)">Team</th>
-        <th class="num" onclick="sortTbl('tbl-stuff',2)">Stuff+</th>
-        <th class="num" onclick="sortTbl('tbl-stuff',3)">Pitches</th>
-        <th onclick="sortTbl('tbl-stuff',4)">Level</th>
-        <th onclick="sortTbl('tbl-stuff',5)">Source</th>
-        <th>Arsenal</th>
-      </tr></thead><tbody></tbody></table>
-    </div>
-  </div>
-
   <div id="panel-spray" class="panel">
     <div class="section-label" data-i18n="sprayLabel">Spray charts — nobody on · RISP · 2 strikes</div>
     <div class="warn-box" id="spray-note">Loading spray availability note…</div>
@@ -346,13 +323,6 @@
     </div>
   </div>
 
-  <div id="panel-framing" class="panel">
-    <div class="coming-soon">
-      <h3 data-i18n="framingTitle">Catcher framing / pop time</h3>
-      <p data-i18n="framingBody">Opposing catchers: framing runs, exchange, CS% vs Santurce runners. Useful for SB green lights.</p>
-      <div class="tagline-note" data-i18n="cachePending">Cache not built yet — tab is live so we can drop data in without another layout pass.</div>
-    </div>
-  </div>
   <div id="panel-usage" class="panel">
     <div class="section-label" data-i18n="usageLabel">Opposing pitchers — pitch usage</div>
     <div class="note" data-i18n="usageNote">KNCT-style arsenal movement — hitter view only (+HB = 1B / catcher-right). RHP arm-side mirrored; LHP unchanged. Overall mix from Prospect Savant; count buckets from Statcast/Synergy when tracked.</div>
@@ -375,28 +345,6 @@
     </div>
     <div id="usage-view"></div>
   </div>
-  <div id="panel-platoon" class="panel">
-    <div class="section-label" data-i18n="platoonLabel">Opposing pitchers — platoon shape</div>
-    <div class="note" data-i18n="platoonNote">Arsenal IVB/HB vs RHB and vs LHB from MLB Statcast when tracked. Plots locked to hitter view (+HB = 1B; RHP mirrored).</div>
-    <div class="pov-bar" data-pov-bar>
-      <strong data-i18n="povLabel">Perspective</strong>
-      <div class="pov-toggle" role="group" aria-label="Movement perspective">
-        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
-        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
-      </div>
-      <div class="pov-hint" id="platoon-pov-hint"></div>
-    </div>
-    <div class="filters">
-      <div class="filter-field"><label data-i18n="search">Search</label><input id="platoon-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('platoon')"></div>
-      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
-        <select id="platoon-team" onchange="fillArsenalSelects('platoon')">
-          <option value="all">All Teams</option>
-        </select>
-      </div>
-      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="platoon-player" onchange="renderPlatoon()"></select></div>
-    </div>
-    <div id="platoon-view"></div>
-  </div>
   <div id="panel-ofdef" class="panel">
     <div class="needs-video">
       <h3 data-i18n="ofdefTitle">Outfield jump / arm grades</h3>
@@ -404,41 +352,53 @@
       <div class="tagline-note" data-i18n="needsVideo">Needs to be built with video from BATS / Synergy.</div>
     </div>
   </div>
-  <div id="panel-tunnel" class="panel">
-    <div class="section-label" data-i18n="tunnelLabel">Opposing pitchers — pitch tunneling / shape</div>
-    <div class="note" data-i18n="tunnelNote">Tunnel rays on the arsenal plot — hitter view only (+HB = 1B). RHP arm-side mirrored; LHP unchanged.</div>
-    <div class="pov-bar" data-pov-bar>
-      <strong data-i18n="povLabel">Perspective</strong>
-      <div class="pov-toggle" role="group" aria-label="Movement perspective">
-        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
-        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
-      </div>
-      <div class="pov-hint" id="tunnel-pov-hint"></div>
-    </div>
+  <div id="panel-tth" class="panel">
+    <div class="section-label" data-i18n="tthLabel">Time to home and catcher pop times</div>
+    <div class="note" data-i18n-html="tthNote">Manual scout entry for pitcher <strong>time to home</strong> and catcher <strong>pop time</strong> (seconds). Values save in this browser (localStorage) and stay editable. Seed roster is in <code>data/pregame_tth_pop.json</code> — Puerto Rican players stay on their current LBPRC teams for 2026; update that file when 2026–7 rosters land.</div>
     <div class="filters">
-      <div class="filter-field"><label data-i18n="search">Search</label><input id="tunnel-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('tunnel')"></div>
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
-        <select id="tunnel-team" onchange="fillArsenalSelects('tunnel')">
+        <select id="tth-team" onchange="renderTth()">
           <option value="all">All Teams</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+          <option value="SJU">Senadores de San Juan</option>
         </select>
       </div>
-      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="tunnel-player" onchange="renderTunnel()"></select></div>
+      <div class="filter-field"><label data-i18n="tthRole">Role</label>
+        <select id="tth-role" onchange="renderTth()">
+          <option value="all" data-i18n="tthRoleAll">All (P + C)</option>
+          <option value="P" data-i18n="tthRoleP">Pitchers</option>
+          <option value="C" data-i18n="tthRoleC">Catchers</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="search">Search</label>
+        <input id="tth-search" placeholder="Player / team" oninput="renderTth()">
+      </div>
+      <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-sm" onclick="exportTthOverrides()" data-i18n="tthExport">Download browser overrides</button>
+        <button type="button" class="btn btn-sm" onclick="clearTthOverrides()" data-i18n="tthClear">Clear browser overrides</button>
+      </div>
     </div>
-    <div id="tunnel-view"></div>
-  </div>
-  <div id="panel-tth" class="panel">
-    <div class="needs-video">
-      <h3 data-i18n="tthTitle">Time to home / WP/PB</h3>
-      <p data-i18n="tthBody">Stolen base windows vs catcher + pitcher — time-to-home, wild pitch / passed ball rates.</p>
-      <div class="tagline-note" data-i18n="needsVideo">Needs to be built with video from BATS / Synergy.</div>
+    <div class="note" id="tth-persist-note" style="margin-top:4px"></div>
+    <div class="table-wrap">
+      <table id="tbl-tth"><thead><tr>
+        <th onclick="sortTbl('tbl-tth',0)">Player</th>
+        <th onclick="sortTbl('tbl-tth',1)">Team</th>
+        <th onclick="sortTbl('tbl-tth',2)">Pos</th>
+        <th class="num" onclick="sortTbl('tbl-tth',3)">Time to home (s)</th>
+        <th class="num" onclick="sortTbl('tbl-tth',4)">Catcher pop (s)</th>
+      </tr></thead><tbody></tbody></table>
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san31"></script>
+<script src="i18n.js?v=san32"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san31';
+const ASSET_V = 'san32';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -491,10 +451,9 @@ function switchTab(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===`panel-${name}`));
   if(name==='spray') renderSpray();
   if(name==='usage') renderUsage();
-  if(name==='platoon') renderPlatoon();
-  if(name==='tunnel') renderTunnel();
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
+  if(name==='tth') renderTth();
   if(location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
 }
 
@@ -639,7 +598,7 @@ function filterArsenalList(q, team) {
 }
 function fillArsenalTeamSelects() {
   const teams=[...new Set(arsenalPitchers().map(r=>r.team).filter(Boolean))].sort();
-  ['usage-team','platoon-team','tunnel-team'].forEach(id=>{
+  ['usage-team'].forEach(id=>{
     const sel=document.getElementById(id);
     if(!sel) return;
     const cur=sel.value||'all';
@@ -650,8 +609,6 @@ function fillArsenalTeamSelects() {
 function fillArsenalSelects(kind) {
   const configs={
     usage:['usage-search','usage-team','usage-player', renderUsage],
-    platoon:['platoon-search','platoon-team','platoon-player', renderPlatoon],
-    tunnel:['tunnel-search','tunnel-team','tunnel-player', renderTunnel],
   };
   const keys = kind ? [kind] : Object.keys(configs);
   keys.forEach(k=>{
@@ -696,7 +653,7 @@ function toPitcherArmHb(hb, throws, hbView='pitcher'){
 function syncPovSelects() {
   document.querySelectorAll('.pov-bar').forEach(el=>{ el.style.display = 'none'; });
   const hint = 'Hitter view (fixed): +HB = 1B / catcher-right. RHP arm-side mirrored; LHP unchanged.';
-  ['usage-pov-hint','platoon-pov-hint','tunnel-pov-hint'].forEach(id=>{
+  ['usage-pov-hint'].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.textContent = hint;
   });
@@ -704,7 +661,7 @@ function syncPovSelects() {
 function setMovementPov(_v) {
   // Perspective locked to hitter view for all arsenal XY plots.
   syncPovSelects();
-  renderUsage(); renderPlatoon(); renderTunnel();
+  renderUsage();
 }
 function pitcherHb(p) {
   if (p.hb_pitcher != null && Number.isFinite(Number(p.hb_pitcher))) return Number(p.hb_pitcher);
@@ -924,10 +881,15 @@ function renderTunnel(){
 
 function sortTbl(id,col){
   const key=id+col; sortState[key]=!sortState[key]; const asc=sortState[key];
+  const cellVal = (cell)=>{
+    const inp = cell?.querySelector?.('input,select,textarea');
+    if(inp) return String(inp.value ?? '').replace('%','').trim();
+    return (cell?.textContent || '').replace('%','').trim();
+  };
   const tb=document.querySelector('#'+id+' tbody');
   const rows=[...tb.rows].sort((a,b)=>{
-    const av=a.cells[col].textContent.replace('%','').trim();
-    const bv=b.cells[col].textContent.replace('%','').trim();
+    const av=cellVal(a.cells[col]);
+    const bv=cellVal(b.cells[col]);
     const an=parseFloat(av), bn=parseFloat(bv);
     if(!isNaN(an)&&!isNaN(bn)) return asc?an-bn:bn-an;
     return asc?av.localeCompare(bv):bv.localeCompare(av);
@@ -2809,14 +2771,111 @@ function exportHitterAdvancePdf(){
 }
 
 
+const TTH_STORAGE_KEY = 'santurce_tth_pop_overrides_v1';
+let TTH_OVERRIDES = {};
+
+function loadTthOverrides(){
+  try {
+    TTH_OVERRIDES = JSON.parse(localStorage.getItem(TTH_STORAGE_KEY) || '{}') || {};
+  } catch(e){
+    TTH_OVERRIDES = {};
+  }
+}
+function saveTthOverrides(){
+  try { localStorage.setItem(TTH_STORAGE_KEY, JSON.stringify(TTH_OVERRIDES)); } catch(e){}
+  updateTthPersistNote();
+}
+function tthMergedValue(player, field){
+  const id = String(player.player_id);
+  const ov = TTH_OVERRIDES[id];
+  if(ov && ov[field] != null && String(ov[field]).trim() !== '') return String(ov[field]);
+  const base = player[field];
+  return base == null || base === '' ? '' : String(base);
+}
+function updateTthPersistNote(){
+  const el = document.getElementById('tth-persist-note');
+  if(!el) return;
+  const n = Object.keys(TTH_OVERRIDES).length;
+  const lang = (typeof getLang === 'function') ? getLang() : 'en';
+  if(lang === 'es'){
+    el.textContent = n
+      ? `${n} valor(es) guardado(s) en este navegador (localStorage · ${TTH_STORAGE_KEY}). Edita data/pregame_tth_pop.json para compartirlo en el sitio.`
+      : `Sin overrides en el navegador. Valores base: data/pregame_tth_pop.json · clave localStorage: ${TTH_STORAGE_KEY}.`;
+  } else {
+    el.textContent = n
+      ? `${n} value(s) saved in this browser (localStorage · ${TTH_STORAGE_KEY}). Edit data/pregame_tth_pop.json to share defaults on the site.`
+      : `No browser overrides yet. Seed values: data/pregame_tth_pop.json · localStorage key: ${TTH_STORAGE_KEY}.`;
+  }
+}
+function onTthInput(playerId, field, value){
+  const id = String(playerId);
+  const cleaned = String(value ?? '').trim();
+  if(!TTH_OVERRIDES[id]) TTH_OVERRIDES[id] = {};
+  if(cleaned === ''){
+    delete TTH_OVERRIDES[id][field];
+    if(!Object.keys(TTH_OVERRIDES[id]).length) delete TTH_OVERRIDES[id];
+  } else {
+    TTH_OVERRIDES[id][field] = cleaned;
+  }
+  saveTthOverrides();
+}
+function exportTthOverrides(){
+  const blob = new Blob([JSON.stringify({ meta:{ key:TTH_STORAGE_KEY, exported_at:new Date().toISOString() }, overrides:TTH_OVERRIDES }, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'santurce_tth_pop_overrides.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function clearTthOverrides(){
+  if(!confirm(typeof t==='function' ? t('tthClearConfirm') : 'Clear all browser-saved time-to-home / pop times on this device?')) return;
+  TTH_OVERRIDES = {};
+  try { localStorage.removeItem(TTH_STORAGE_KEY); } catch(e){}
+  updateTthPersistNote();
+  renderTth();
+}
+function renderTth(){
+  const pack = CACHE.tth || { players: [] };
+  const team = document.getElementById('tth-team')?.value || 'all';
+  const role = document.getElementById('tth-role')?.value || 'all';
+  const q = (document.getElementById('tth-search')?.value || '').trim().toLowerCase();
+  let rows = (pack.players || []).slice();
+  if(team !== 'all') rows = rows.filter(r => r.team === team);
+  if(role !== 'all') rows = rows.filter(r => r.position === role);
+  if(q) rows = rows.filter(r => `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
+  const tbody = document.querySelector('#tbl-tth tbody');
+  if(!tbody) return;
+  tbody.innerHTML = rows.map(r => {
+    const tth = tthMergedValue(r, 'time_to_home');
+    const pop = tthMergedValue(r, 'catcher_pop_time');
+    const id = r.player_id;
+    return `<tr>
+      <td class="player-name">${r.name}</td>
+      <td class="team-cell">${r.team||'—'}</td>
+      <td>${r.position||'—'}</td>
+      <td class="num"><input class="tth-input" type="text" inputmode="decimal" placeholder="—" value="${tth.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="time_to_home" onchange="onTthInput(this.dataset.pid, this.dataset.field, this.value)" onblur="onTthInput(this.dataset.pid, this.dataset.field, this.value)"></td>
+      <td class="num"><input class="tth-input" type="text" inputmode="decimal" placeholder="—" value="${pop.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="catcher_pop_time" onchange="onTthInput(this.dataset.pid, this.dataset.field, this.value)" onblur="onTthInput(this.dataset.pid, this.dataset.field, this.value)"></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="5" class="note">${typeof t==='function' ? t('tthEmpty') : 'No players for this filter.'}</td></tr>`;
+  updateTthPersistNote();
+}
+
 function bootFromHash(){
   const raw=(location.hash||'').replace(/^#/,'').trim();
-  const map={ advance:'pitcher-advance', 'pitcher-advance':'pitcher-advance', 'hitter-advance':'hitter-advance' };
+  const map={
+    advance:'pitcher-advance',
+    'pitcher-advance':'pitcher-advance',
+    'hitter-advance':'hitter-advance',
+    strategy:'strategy', br:'br', lineup:'lineup',
+    matchup:'matchup', hvp:'hvp', usage:'usage', spray:'spray',
+    ofdef:'ofdef', tth:'tth',
+  };
   if(map[raw]) switchTab(map[raw]);
 }
 window.addEventListener('hashchange', ()=>{
   const raw=(location.hash||'').replace(/^#/,'').trim();
-  if(raw==='pitcher-advance'||raw==='hitter-advance'||raw==='advance') switchTab(raw==='advance'?'pitcher-advance':raw);
+  if(raw==='advance'){ switchTab('pitcher-advance'); return; }
+  if(raw) switchTab(raw);
 });
 
 Promise.all([
@@ -2824,26 +2883,27 @@ Promise.all([
   fetch('data/pregame_pitcher_vs_batter.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_hitter_vs_pitcher.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_baserunning_bunting.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
-  fetch('data/pregame_opposing_stuff.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_spray_charts.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
   fetch('data/fps_cache.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
   fetch('data/pregame_pitcher_arsenals.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
   fetch('data/advance_rodriguez.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([lineup, matchup, hvp, br, stuff, spray, fps, arsenals, advanceRodriguez, advanceHitters])=>{
-  CACHE={lineup, matchup, hvp, br, stuff, spray, arsenals, advanceRodriguez, advanceHitters};
+  fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
+]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, tth])=>{
+  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, tth};
   FPS=fps;
   computeFpsAvgs();
+  loadTthOverrides();
   document.getElementById('loading').style.display='none';
   fillLineupSeasons();
-  fillStuffTeams();
   fillArsenalTeamSelects();
   fillArsenalSelects();
   syncPovSelects();
   applyI18n();
   syncPovSelects();
-  renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderStuff(); renderSpray();
-  renderUsage(); renderPlatoon(); renderTunnel();
+  renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderSpray();
+  renderUsage();
+  renderTth();
   fillAdvancePitchers();
   fillAdvanceHitters();
   bootFromHash();
@@ -2853,7 +2913,8 @@ Promise.all([
 document.addEventListener('santurce:lang', () => {
   applyI18n();
   syncPovSelects();
-  renderUsage(); renderPlatoon(); renderTunnel();
+  renderUsage();
+  renderTth();
   renderPitcherAdvance(); renderAdvanceHitters();
 });
 </script>

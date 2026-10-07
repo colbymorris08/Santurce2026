@@ -1122,3 +1122,26 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 
 /* POV locked to hitter view — toggles hidden */
 .pov-bar { display: none !important; }
+
+/* Time to home + catcher pop — editable scout inputs */
+input.tth-input {
+  width: 5.5rem;
+  max-width: 100%;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 6px 8px;
+  box-shadow: var(--shadow-soft);
+}
+input.tth-input:hover { border-color: #6a82a4; }
+input.tth-input:focus {
+  outline: none;
+  border-color: var(--santurce-gold);
+  box-shadow: var(--focus-ring);
+}
+#tbl-tth td.num { white-space: nowrap; }

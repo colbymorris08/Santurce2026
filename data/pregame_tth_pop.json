@@ -1,0 +1,1722 @@
+{
+  "meta": {
+    "season": "2025-26 stand-in (LBPRC 2025 rosters; keep PR players on current teams for 2026)",
+    "note": "Seed roster for Time to home + catcher pop times. Edit nulls here and/or enter values in the site (localStorage overrides win in-browser).",
+    "units": "seconds",
+    "storage_key": "santurce_tth_pop_overrides_v1"
+  },
+  "teams": [
+    {
+      "abbrev": "SAN",
+      "name": "Cangrejeros de Santurce",
+      "teamId": 685
+    },
+    {
+      "abbrev": "CAG",
+      "name": "Criollos de Caguas",
+      "teamId": 686
+    },
+    {
+      "abbrev": "CAR",
+      "name": "Gigantes de Carolina",
+      "teamId": 687
+    },
+    {
+      "abbrev": "MAY",
+      "name": "Indios de Mayaguez",
+      "teamId": 688
+    },
+    {
+      "abbrev": "PON",
+      "name": "Leones de Ponce",
+      "teamId": 689
+    },
+    {
+      "abbrev": "SJU",
+      "name": "Senadores de San Juan",
+      "teamId": 4087
+    }
+  ],
+  "players": [
+    {
+      "player_id": 686588,
+      "name": "Blane Abeyta",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "38",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687900,
+      "name": "Andrew Baker",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "58",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 666123,
+      "name": "Austin Bergner",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "62",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 686657,
+      "name": "Ian Churchill",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 664747,
+      "name": "Alexis D\u00edaz",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "29",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663499,
+      "name": "Juan Echevarria",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 572363,
+      "name": "Bryan Escanio",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "34",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681501,
+      "name": "Chavez Fernander",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "46",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 488880,
+      "name": "Adalberto Flores",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "43",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 592329,
+      "name": "Jason Garc\u00eda",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "40",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 702911,
+      "name": "Tristan Garnett",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "73",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 623485,
+      "name": "Ashton Goudeau",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "68",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 607229,
+      "name": "Robert Gsellman",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "39",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663535,
+      "name": "Juan Hillman",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 700247,
+      "name": "Jose Pena Jr.",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "42",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 673933,
+      "name": "David Lebron",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "6",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663613,
+      "name": "Kyle Marman",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 446651,
+      "name": "Miguel Martinez",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "37",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 688965,
+      "name": "Francisco Mateo",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "81",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 811318,
+      "name": "Case Matter",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 531565,
+      "name": "Miguel Mejia",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "47",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 803409,
+      "name": "Jordan Morales",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "64",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 664573,
+      "name": "Oddy Nunez",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687879,
+      "name": "Luis Qui\u00f1ones",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 700842,
+      "name": "Eduardo Rivera",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "99",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 688014,
+      "name": "Edwin Sanchez",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "77",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 803596,
+      "name": "Rafael Sanchez",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 668687,
+      "name": "Andre Scrubb",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "73",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 444354,
+      "name": "Daryl Thompson",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "37",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 607755,
+      "name": "Andrew Vasquez",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "28",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 621079,
+      "name": "Collin Wiles",
+      "team": "SAN",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 680728,
+      "name": "Adrian Del Castillo",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "36",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 518542,
+      "name": "Juan Centeno",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "33",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 829227,
+      "name": "Jonathan Matos",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 641896,
+      "name": "Roy Morales",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "25",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676560,
+      "name": "Hemmanuel Rosario",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "36",
+      "status": "Traded",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 543877,
+      "name": "Christian V\u00e1zquez",
+      "team": "SAN",
+      "position": "C",
+      "jersey": "0",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676221,
+      "name": "Jorge Benitez",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "36",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676454,
+      "name": "Brendan Cellucci",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "62",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 592222,
+      "name": "Alex Claudio",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "58",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681813,
+      "name": "Gabriel Cotto",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "66",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 694365,
+      "name": "Magdiel Cotto",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "63",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 664744,
+      "name": "Jose Espada",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "48",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 502179,
+      "name": "Paolo Espino",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "39",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676090,
+      "name": "Harrison Francis",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "46",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681505,
+      "name": "Luis Gonzalez",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "71",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 656479,
+      "name": "Marvin Gorgas",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "69",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 621249,
+      "name": "Duane Underwood Jr.",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 592254,
+      "name": "Jos\u00e9 De Le\u00f3n",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "87",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687424,
+      "name": "Anthony Maldonado",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "38",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663558,
+      "name": "Jovani Mor\u00e1n",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "47",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681544,
+      "name": "Wyatt Olds",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "60",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 656820,
+      "name": "Nicholas Padilla",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "32",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 641995,
+      "name": "Roel Ram\u00edrez",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "49",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 605446,
+      "name": "Dereck Rodr\u00edguez",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "57",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 605441,
+      "name": "Yacksel R\u00edos",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 502327,
+      "name": "H\u00e9ctor Santiago",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 689450,
+      "name": "Luke Taggart",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "56",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 670369,
+      "name": "Christian Torres",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "50",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 815949,
+      "name": "Jhon Vargas",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663723,
+      "name": "Derek West",
+      "team": "CAG",
+      "position": "P",
+      "jersey": "63",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 694541,
+      "name": "Alan Espinal",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "52",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 811314,
+      "name": "Bryan Gonzalez Garcia",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "67",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 664966,
+      "name": "Jonathan Morales",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "29",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 621512,
+      "name": "Tom\u00e1s Nido",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "54",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 682196,
+      "name": "Miguel Pabon",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "5",
+      "status": "Traded",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681974,
+      "name": "Onix Vega",
+      "team": "CAG",
+      "position": "C",
+      "jersey": "43",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 682118,
+      "name": "Miguel Ausua",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "79",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 642834,
+      "name": "Jonathan Berm\u00fadez",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676047,
+      "name": "Osvaldo Berrios",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "15",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 670103,
+      "name": "Raymond Burgos",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "61",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 700994,
+      "name": "Garrett Crowley",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "19",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 692808,
+      "name": "Jose Cruz",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "42",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 701884,
+      "name": "Magnus Ellerts",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 682624,
+      "name": "Sandy Gaston",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "39",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676769,
+      "name": "Matt Givin",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "46",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 801994,
+      "name": "R.J. Martinez",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "14",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837228,
+      "name": "Ren Mukunoki",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "19",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837225,
+      "name": "Kazuo Ohno",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "67",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 458960,
+      "name": "Jean Ortega",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "49",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 621363,
+      "name": "Colin Poche",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "35",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 805727,
+      "name": "Nicholas Regalado",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "28",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681938,
+      "name": "Angel Reyes",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "34",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 664371,
+      "name": "Eddy Reynoso",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "50",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 602993,
+      "name": "Eduardo Rivera",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 693543,
+      "name": "Luis Rodriguez",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "43",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 800278,
+      "name": "Pitterson Rosa",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "80",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 545814,
+      "name": "Ramesis Rosa",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "22",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 683726,
+      "name": "Pedro Santos",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837224,
+      "name": "Kaisei Toumatsu",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "28",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 703106,
+      "name": "Ricardo Velez",
+      "team": "CAR",
+      "position": "P",
+      "jersey": "43",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 806083,
+      "name": "J.D. Gonzalez",
+      "team": "CAR",
+      "position": "C",
+      "jersey": "27",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 682196,
+      "name": "Miguel Pabon",
+      "team": "CAR",
+      "position": "C",
+      "jersey": "48",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 592629,
+      "name": "Roberto Pe\u00f1a",
+      "team": "CAR",
+      "position": "C",
+      "jersey": "10",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 547379,
+      "name": "Roberto P\u00e9rez",
+      "team": "CAR",
+      "position": "C",
+      "jersey": "49",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 828227,
+      "name": "Diego Rosa",
+      "team": "CAR",
+      "position": "C",
+      "jersey": "5",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 682032,
+      "name": "Nathan Alexander",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "36",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 668826,
+      "name": "A.J. Candelario",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "64",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 814300,
+      "name": "Josimar Cousin",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "39",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 543071,
+      "name": "Luis Leroy Cruz",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "41",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687956,
+      "name": "Carlos A. Francisco",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "66",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 623485,
+      "name": "Ashton Goudeau",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "34",
+      "status": "Assigned to New Team/Level",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 701856,
+      "name": "Patrick Halligan",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "54",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 571772,
+      "name": "Hector Hernandez",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "20",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 657624,
+      "name": "Josh James",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "76",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681154,
+      "name": "Keylan Killgore",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 605347,
+      "name": "Jorge L\u00f3pez",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "38",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 572383,
+      "name": "Brian Moran",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "40",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 519080,
+      "name": "Efrain Nieves",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "50",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687879,
+      "name": "Luis Qui\u00f1ones",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "56",
+      "status": "Assigned to New Team/Level",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 642002,
+      "name": "Michael Reed",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 640485,
+      "name": "Alexis Rivero",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 621343,
+      "name": "Matt Tenuta",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "48",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 681808,
+      "name": "Chris Vallimont",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "46",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837223,
+      "name": "Lucas Vega",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "52",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663723,
+      "name": "Derek West",
+      "team": "MAY",
+      "position": "P",
+      "jersey": "47",
+      "status": "Assigned to New Team/Level",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 813930,
+      "name": "Ivan Luciano",
+      "team": "MAY",
+      "position": "C",
+      "jersey": "75",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 455117,
+      "name": "Mart\u00edn Maldonado",
+      "team": "MAY",
+      "position": "C",
+      "jersey": "15",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676566,
+      "name": "Shawn Ross",
+      "team": "MAY",
+      "position": "C",
+      "jersey": "73",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 425507,
+      "name": "Fernando Cabrera",
+      "team": "PON",
+      "position": "P",
+      "jersey": "38",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 605167,
+      "name": "Freddie Cabrera",
+      "team": "PON",
+      "position": "P",
+      "jersey": "46",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 678725,
+      "name": "Franny Cobos",
+      "team": "PON",
+      "position": "P",
+      "jersey": "59",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676435,
+      "name": "Harold Cortijo",
+      "team": "PON",
+      "position": "P",
+      "jersey": "35",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 663499,
+      "name": "Juan Echevarria",
+      "team": "PON",
+      "position": "P",
+      "jersey": "54",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 806586,
+      "name": "Eric Garcia",
+      "team": "PON",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 680725,
+      "name": "Jackson Goddard",
+      "team": "PON",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 678013,
+      "name": "Lenny Torres Jr.",
+      "team": "PON",
+      "position": "P",
+      "jersey": "41",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 690510,
+      "name": "Brandon Kaminer",
+      "team": "PON",
+      "position": "P",
+      "jersey": "48",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687817,
+      "name": "Andrew Marrero",
+      "team": "PON",
+      "position": "P",
+      "jersey": "63",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 801018,
+      "name": "Omar Melendez",
+      "team": "PON",
+      "position": "P",
+      "jersey": "47",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 685387,
+      "name": "Jalen Miller",
+      "team": "PON",
+      "position": "P",
+      "jersey": "60",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 689508,
+      "name": "Orlando Ortiz-Mayr",
+      "team": "PON",
+      "position": "P",
+      "jersey": "27",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676984,
+      "name": "Noel Pinto",
+      "team": "PON",
+      "position": "P",
+      "jersey": "42",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676082,
+      "name": "Gabriel Rodriguez",
+      "team": "PON",
+      "position": "P",
+      "jersey": "19",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687560,
+      "name": "Bryant Salgado",
+      "team": "PON",
+      "position": "P",
+      "jersey": "31",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 672990,
+      "name": "Jose Sola",
+      "team": "PON",
+      "position": "P",
+      "jersey": "39",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 683803,
+      "name": "Kazuto Taguchi",
+      "team": "PON",
+      "position": "P",
+      "jersey": "48",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 805749,
+      "name": "Brady Tedesco",
+      "team": "PON",
+      "position": "P",
+      "jersey": "62",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 701539,
+      "name": "Eric Torres",
+      "team": "PON",
+      "position": "P",
+      "jersey": "37",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 692937,
+      "name": "Julio Torres",
+      "team": "PON",
+      "position": "P",
+      "jersey": "50",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 803679,
+      "name": "Sammy Hernandez",
+      "team": "PON",
+      "position": "C",
+      "jersey": "58",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 695467,
+      "name": "Juan Montero",
+      "team": "PON",
+      "position": "C",
+      "jersey": "8",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837221,
+      "name": "Minato Aoyama",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "23",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 686662,
+      "name": "Jarrod Cande",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "67",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 669418,
+      "name": "Alexander Castro",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "66",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 814354,
+      "name": "Yanzel Correa",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "75",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 656389,
+      "name": "Sidney Duprey",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "42",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 666130,
+      "name": "Jay Groome",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "71",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 671045,
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "56",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 688162,
+      "name": "Brandon Komar",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "53",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676600,
+      "name": "Ethan Lindow",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "67",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 670406,
+      "name": "Francisco Lopez-Soto",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "57",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 695256,
+      "name": "Josh Mallitz",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "58",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 837222,
+      "name": "Taishi Mameda",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "61",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 695064,
+      "name": "Agnel Miranda",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "55",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 684841,
+      "name": "Ryan Munoz",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "33",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 703211,
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "52",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676219,
+      "name": "Jerryell Rivera",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "70",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 572077,
+      "name": "Raul Rivera",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "45",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 656080,
+      "name": "Aneuris Rosario",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "73",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 701240,
+      "name": "Ethan Routzahn",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "73",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 801453,
+      "name": "Cole Stasio",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 805749,
+      "name": "Brady Tedesco",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "3",
+      "status": "Assigned to New Team/Level",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 693546,
+      "name": "Ryan Velazquez",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "26",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 688519,
+      "name": "Sam Whiting",
+      "team": "SJU",
+      "position": "P",
+      "jersey": "51",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 669909,
+      "name": "Alan Marrero",
+      "team": "SJU",
+      "position": "C",
+      "jersey": "44",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 676286,
+      "name": "Jan Mercado",
+      "team": "SJU",
+      "position": "C",
+      "jersey": "9",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    },
+    {
+      "player_id": 687436,
+      "name": "Victor Torres",
+      "team": "SJU",
+      "position": "C",
+      "jersey": "59",
+      "status": "Active",
+      "time_to_home": null,
+      "catcher_pop_time": null
+    }
+  ]
+}
