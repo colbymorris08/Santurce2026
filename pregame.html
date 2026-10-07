@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san25">
+<link rel="stylesheet" href="shared.css?v=san26">
 </head>
 <body>
 <div class="topbar">
@@ -434,11 +434,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san25"></script>
+<script src="i18n.js?v=san26"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san25';
+const ASSET_V = 'san26';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1690,6 +1690,15 @@ function lastNameKey(name){
   if(!parts.length) return '';
   return parts[parts.length-1].toLocaleLowerCase();
 }
+/** Display as "Last, First" to match last-name A–Z sort in mass-export lists. */
+function formatLastFirst(name){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return '';
+  if(parts.length === 1) return parts[0];
+  const last = parts[parts.length-1];
+  const first = parts.slice(0, -1).join(' ');
+  return last + ', ' + first;
+}
 function sortByLastName(arr, nameFn){
   return [...(arr||[])].sort((a,b)=>{
     const la = lastNameKey(nameFn(a)), lb = lastNameKey(nameFn(b));
@@ -1786,7 +1795,7 @@ function fillAdvanceExportList(list){
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
   const sorted = sortByLastName(list||[], r=>r.name);
-  el.innerHTML = sorted.map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${r.name}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
+  el.innerHTML = sorted.map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${formatLastFirst(r.name)}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
     || '<span class="note">No pitchers in filter.</span>';
   const all = document.getElementById('adv-p-select-all');
   if(all) all.checked = false;
@@ -2331,7 +2340,7 @@ function fillHitterExportList(list){
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
   const sorted = sortByLastName(list||[], h=>h.name);
-  el.innerHTML = sorted.map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${h.name} · ${h.team||''}</label>`).join('')
+  el.innerHTML = sorted.map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${formatLastFirst(h.name)} · ${h.team||''}</label>`).join('')
     || '<span class="note">No hitters in filter.</span>';
   const all = document.getElementById('adv-h-select-all');
   if(all) all.checked = false;
