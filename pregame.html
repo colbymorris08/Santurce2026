@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san42">
+<link rel="stylesheet" href="shared.css?v=san43">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san42"></script>
-<script src="cards.js?v=san42"></script>
+<script src="i18n.js?v=san43"></script>
+<script src="cards.js?v=san43"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san42';
+const ASSET_V = 'san43';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2128,8 +2128,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
   const w = window.open('', '_blank');
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
   const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
-  // Hitter: extra ~1" top margin so name strip isn't cut off; still one portrait page.
   // Pitcher landscape: +0.5in top (0.28 → 0.78) so the header isn't cut off.
+  // Hitter landscape passes its own margin (one page, wider charts).
   const margin = pageMargin || (orientation === 'portrait'
     ? '1.15in 0.28in 0.28in 0.28in'
     : '0.78in 0.28in 0.28in 0.28in');
@@ -2165,57 +2165,65 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-photo-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
       .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
       .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
-  const hitterH = orientation === 'portrait' ? `
+  const hitterH = `
       html,body{color-scheme:only light;background:#fff!important}
       .advance-sheet-hitter.advance-print-page{
-        width:7.94in;height:auto;max-width:7.94in;max-height:9.52in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;padding-bottom:0;zoom:0.96;
+        width:10.56in;height:7.90in;max-width:10.56in;max-height:7.90in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;padding-bottom:0;zoom:0.93;background:#fff;
       }
-      .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:1px 2px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
-      .advance-pdf-hand,.advance-pdf-name{font-size:30px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
-      .advance-pdf-team{font-size:26px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
+      .advance-sheet-hitter .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 10px;flex:0 0 auto;padding:0 2px 2px;border-bottom:1px solid #ccc;margin-bottom:3px;min-width:0}
+      .advance-sheet-hitter .advance-pdf-hand,.advance-sheet-hitter .advance-pdf-name{font-size:22px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
+      .advance-sheet-hitter .advance-pdf-team{font-size:18px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .advance-sheet-hitter .advance-pdf-headshot{width:32px;height:40px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
-      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
-      .advance-sheet-hitter .hitter-pitch-side{display:grid;grid-template-columns:1fr 1fr;gap:1px 3px;min-width:0}
-      .advance-sheet-hitter .hitter-pitch-side-title{grid-column:1 / -1;font-size:8px;margin:0;letter-spacing:.04em}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:7px;margin:0;letter-spacing:.04em}
+      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:4px 12px;flex:0 0 auto;margin:2px 0 4px}
+      .advance-sheet-hitter .hitter-pitch-side{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;min-width:0}
+      .advance-sheet-hitter .hitter-pitch-side-title{grid-column:1 / -1;font-size:12px;margin:0;letter-spacing:.04em;color:#0a1633}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:10px;margin:0;letter-spacing:.04em;color:#0a1633}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:6.5px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:11px;line-height:1.15;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
-      .advance-sheet-hitter .hitter-pitch-half td{padding:0 1px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
-      .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
-      .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
-      .advance-sheet-hitter .hitter-pitch-half tbody td.num{font-weight:700}
+      .advance-sheet-hitter .hitter-pitch-half td{padding:1px 3px;line-height:1.15;letter-spacing:0;text-transform:none;white-space:normal}
+      .advance-sheet-hitter .hitter-pitch-half thead th,
+      .advance-sheet-hitter .hitter-sb-block thead th{background:#121c2e!important;color:#fff!important;border-bottom-color:#2a3a52;font-size:9px}
+      .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111!important;border-bottom-color:#e2e8f0}
+      .advance-sheet-hitter .hitter-pitch-half tbody td.num,
+      .advance-sheet-hitter .hitter-pitch-half tbody td.rate-cell{font-weight:700}
       .advance-sheet-hitter .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-weight:700}
-      .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:0 0 auto;min-height:auto;height:auto;align-items:start;gap:8px;overflow:visible;margin:0}
+      .advance-sheet-hitter .hitter-spray-pair{grid-template-columns:1fr 1fr!important;flex:0 0 auto;min-height:auto;height:auto;align-items:start;gap:10px;overflow:visible;margin:0}
       .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:1px 4px 0;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;background:#fff!important;overflow:visible}
-      .advance-sheet-hitter .hitter-spray-pair .spray-card h3{font-size:10px;margin:0 0 2px;line-height:1.1}
-      .advance-sheet-hitter .hitter-spray-pair .note{font-size:8px;line-height:1.1;margin:1px 0 0;max-width:none}
-      .advance-sheet-hitter .hitter-sb-block{flex:0 0 auto;margin-top:6px;padding-top:2px;border-top:1px solid #ddd;background:#fff;position:relative;z-index:1}
-      .advance-sheet-hitter .hitter-sb-block .section-label{margin:0 0 2px}
+      .advance-sheet-hitter .hitter-spray-pair .spray-card h3{font-size:12px;margin:0 0 2px;line-height:1.1;color:#0a1633!important}
+      .advance-sheet-hitter .hitter-spray-pair .note{font-size:10px;line-height:1.1;margin:1px 0 0;max-width:none;color:#111!important}
+      .advance-sheet-hitter .hitter-sb-block{flex:0 0 auto;margin-top:4px;padding-top:2px;border-top:1px solid #ddd;background:#fff;position:relative;z-index:1}
+      .advance-sheet-hitter .hitter-sb-block .section-label{margin:0 0 2px;color:#0a1633!important}
       .advance-sheet-hitter .hitter-sb-block .table-wrap{margin:0;background:#fff}
-      .advance-sheet-hitter > .section-label{flex:0 0 auto}
-      .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:1px 0 2px;padding:2px 6px}
-      .advance-sheet-hitter .section-label{font-size:10px;margin:2px 0 1px}
-      .advance-sheet-hitter .table-wrap table{font-size:10px;line-height:1.15}
-      .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 4px;line-height:1.15}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:6.5px;line-height:1.05;table-layout:fixed}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 1px;line-height:1.05;letter-spacing:0;text-transform:none}
-      /* Light canvas/img — dark CSS bg printed solid black when canvas bitmap failed */
+      .advance-sheet-hitter .hitter-sb-block tbody td{background:#fff!important;color:#111!important}
+      .advance-sheet-hitter > .section-label{flex:0 0 auto;color:#0a1633!important}
+      .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:2px 0 3px;padding:3px 8px;background:#121c2e!important;color:#fff!important;font-size:11px;border-color:#2a3a52}
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab,
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab strong,
+      .advance-sheet-hitter .spray-hit-legend .fence-note{color:#fff!important}
+      .advance-sheet-hitter .section-label{font-size:11px;margin:2px 0 2px}
+      .advance-sheet-hitter .table-wrap table{font-size:12px;line-height:1.2}
+      .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 6px;line-height:1.2}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:11px;line-height:1.15;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:1px 3px;line-height:1.15;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
-      .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
-      .spray-print-img{
-        width:min(100%,2.35in)!important;max-width:100%!important;
-        height:auto!important;max-height:1.66in!important;object-fit:contain!important;
+      .advance-sheet-hitter .hitter-spray-pair img.spray-print-img{
+        width:min(100%,4.6in)!important;max-width:100%!important;
+        height:auto!important;max-height:1.12in!important;object-fit:contain!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
         background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
         filter:none!important;mix-blend-mode:normal!important;
       }
-      .advance-sheet-hitter,
-      .advance-sheet-hitter *:not(.rate-cell){color:#000!important}` : '';
+      .advance-sheet-hitter .hitter-pitch-half thead th,
+      .advance-sheet-hitter .hitter-sb-block thead th,
+      .advance-sheet-hitter .spray-hit-legend,
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab,
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab strong,
+      .advance-sheet-hitter .spray-hit-legend .fence-note{color:#fff!important}`;
   const autoPrintScript = autoPrint
     ? `<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>`
     : '';
@@ -2290,6 +2298,7 @@ function aggregateHitters(hitters, label){
     pitches:0, pa:0, ab:0, h:0, swings:0, whiffs:0,
     first_pitches:0, first_pitch_swings:0, bunts:0,
     sb_from_1b:0, sb_from_2b:0, sb_from_3b:0, games:0,
+    bunt_sample:0, bunt_sample_games:0,
   };
   let opsNum=0, opsDen=0;
   hitters.forEach(h=>{
@@ -2303,6 +2312,11 @@ function aggregateHitters(hitters, label){
   const g = overall.games || hitters.length || 1;
   const per162 = (v)=> g ? Math.round((Number(v)||0)/g*1620)/10 : null;
   overall.bunts_per_162 = per162(overall.bunts);
+  if(overall.bunt_sample_games){
+    overall.bunt_sample_per_162 = Math.round(overall.bunt_sample / overall.bunt_sample_games * 1620) / 10;
+    overall.bunts = overall.bunt_sample;
+    overall.bunts_per_162 = overall.bunt_sample_per_162;
+  }
   overall.sb_1b_per_162 = per162(overall.sb_from_1b);
   overall.sb_2b_per_162 = per162(overall.sb_from_2b);
   overall.sb_3b_per_162 = per162(overall.sb_from_3b);
@@ -2446,10 +2460,7 @@ function hitterSbBlockHtml(h){
     <tr><td>2026 summer SB</td><td class="num">${summerSb??'—'}</td><td class="num">${summerSb162??'—'}</td></tr>
     <tr><td>2026 summer CS</td><td class="num">${summerCs??'—'}</td><td class="num">—</td></tr>
     <tr><td>2026 summer bunts</td><td class="num">${summerBunts??'—'}</td><td class="num">${summerBunt162??'—'}</td></tr>
-    <tr><td>Sample bunts (Synergy)</td><td class="num">${o.bunts??'—'}</td><td class="num">${o.bunts_per_162??'—'}</td></tr>
-    <tr><td>SB of 2B (from 1B)</td><td class="num">${o.sb_from_1b??'—'}</td><td class="num">${o.sb_1b_per_162??'—'}</td></tr>
-    <tr><td>SB of 3B (from 2B)</td><td class="num">${o.sb_from_2b??'—'}</td><td class="num">${o.sb_2b_per_162??'—'}</td></tr>
-    <tr><td>SB of home (from 3B)</td><td class="num">${o.sb_from_3b??'—'}</td><td class="num">${o.sb_3b_per_162??'—'}</td></tr>
+    <tr><td title="Sacrifice bunt, bunt groundout, and bunt popout plate appearances. LBPRC 2025 winter plus MLB, MiLB, and LMB 2026 summer. One per plate appearance.">Bunt sample (2025 LBPRC + 2026 summer)</td><td class="num">${o.bunt_sample??o.bunts??'—'}</td><td class="num">${o.bunt_sample_per_162??o.bunts_per_162??'—'}</td></tr>
   </tbody></table></div>
 </div>`;
 }
@@ -2457,7 +2468,7 @@ function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,2.35in);max-width:100%;height:auto;max-height:1.66in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
+    ? 'width:min(100%,4.6in);max-width:100%;height:auto;max-height:1.12in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
     : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
   const rispMedia = (printPage && sprayUrls?.risp)
     ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
@@ -2757,7 +2768,8 @@ function exportHitterAdvancePdf(){
     printPage:true, prefix:`h${i}-`, sprayUrls
   })).join('\n');
   openAdvancePrintWindow('Hitter Advance Export', body, {
-    orientation: 'portrait',
+    orientation: 'landscape',
+    pageMargin: '0.42in 0.22in 0.18in 0.22in',
     autoPrint: false,
     afterWrite(w){
       // Fallback only when opener bake failed: paint remaining canvases → PNG → print

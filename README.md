@@ -29,7 +29,7 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
 - Count usage panels: Overall / 0–0 / 2 strikes
 - Mass PDF export: vertical A–Z (last name) checklist → print-to-PDF
   - Pitcher: **landscape**, exactly one page, three equal thirds (charts | shapes+heat | delivery) — slim name strip with **compact roster headshot** (~3% print scale)
-  - Hitter: **portrait**, exactly one page — compact roster headshot in name strip, colored pitch tables filling width, RISP/non-RISP sprays at **native field aspect** (√2, no stretch), bunts/SB
+  - Hitter: **landscape**, exactly one page — compact roster headshot in name strip, colored pitch tables filling the width, RISP/non-RISP sprays at **native field aspect** (√2, no stretch), bunts/SB
 
 ### Strategy card
 https://colbymorris08.github.io/Santurce2026/pregame.html#strategy

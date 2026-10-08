@@ -518,6 +518,17 @@ def event_season_year(ev: dict) -> int:
         return 0
 
 
+def event_in_bunt_window(ev: dict) -> bool:
+    """Bunt sample window: 2025 winter (LBPRC) and 2026 summer (MLB/MiLB/LMB)."""
+    lid = event_league_id(ev)
+    yr = event_season_year(ev)
+    if lid == LEAGUE_LBPRC and yr == 2025:
+        return True
+    if lid in SUMMER_LEAGUE_IDS and yr == 2026:
+        return True
+    return False
+
+
 def filter_events_by_leagues_years(
     events: list[dict],
     *,
@@ -1133,9 +1144,6 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 b["swings"] += 1
             if _is_whiff(result):
                 b["whiffs"] += 1
-            intent = str(contact.get("contactIntent") or "")
-            if intent.lower().startswith("bunt") or (pa or "") in PA_SAC_BUNT or "Bunt" in str(pa or ""):
-                b["bunts"] += 1
         if _is_bip_result(result) and not _is_bunt_event(ev, pa):
             is_gb = _is_ground_ball(ev, pa)
             for b in buckets:
@@ -1166,7 +1174,9 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 elif pa in ("SacrificeFly", "SacFly"):
                     b["sf"] += 1
                 elif pa in PA_SAC_BUNT or "Bunt" in pa:
-                    b["bunts"] += 1
+                    # One per PA. Extra seasons (2025 summer, older winter) stay out.
+                    if event_in_bunt_window(ev):
+                        b["bunts"] += 1
                 elif pa in PA_AB_OUT or pa.endswith("out") or pa.endswith("Out"):
                     b["ab"] += 1
 
@@ -2445,6 +2455,104 @@ def pull_pr_pitcher_usage(
     return pitcher_mixes
 
 
+BUNT_PA_RESULTS = ["SacrificeBunt", "BuntGroundout", "BuntPopout"]
+BUNT_SAMPLE_SOURCE = (
+    "Synergy bunt plate appearances (SacrificeBunt, BuntGroundout, BuntPopout), "
+    "one per PA — LBPRC 2025 winter and MLB/MiLB/LMB 2026 summer only"
+)
+
+
+def _bunt_pa_key(ev: dict) -> tuple:
+    g = ev.get("game") or {}
+    return (
+        str(g.get("id") or ""),
+        ev.get("inning"),
+        bool(ev.get("inningTop")),
+        ev.get("inningPlateAppearanceNumber"),
+    )
+
+
+def fetch_bunt_pa_events(token: str, batter_id: str) -> list[dict]:
+    """All bunt-result PAs for a batter. Synergy stamps the result on every pitch, so callers dedupe."""
+    out: list[dict] = []
+    skip = 0
+    take = 200
+    while skip < 800:
+        body = {
+            "batterId": batter_id,
+            "plateAppearanceResults": BUNT_PA_RESULTS,
+            "skip": skip,
+            "take": take,
+        }
+        doc = api_post(EVENTS_FILTER_URL, token, body)
+        rows = doc.get("result") if isinstance(doc, dict) else None
+        if not isinstance(rows, list) or not rows:
+            break
+        out.extend(rows)
+        total = int(doc.get("totalRecords") or 0)
+        skip += len(rows)
+        if skip >= total or len(rows) < take:
+            break
+        time.sleep(0.05)
+    return out
+
+
+def apply_windowed_bunt_sample(h: dict, events: list[dict]) -> int:
+    keys: set[tuple] = set()
+    for ev in events:
+        if not event_in_bunt_window(ev):
+            continue
+        pa = str(ev.get("plateAppearanceResult") or "")
+        if pa not in PA_SAC_BUNT and "Bunt" not in pa:
+            continue
+        keys.add(_bunt_pa_key(ev))
+    n = len(keys)
+    o = h.setdefault("overall", {})
+    g = int(o.get("games_season") or 0) + int(h.get("summer_games") or 0)
+    if g <= 0:
+        g = int(o.get("games") or 0)
+    per = round(n * 162.0 / g, 1) if g else None
+    o["bunts"] = n
+    o["bunt_sample"] = n
+    o["bunt_sample_games"] = g
+    o["bunts_per_162"] = per
+    o["bunt_sample_per_162"] = per
+    h["bunt_sample_source"] = BUNT_SAMPLE_SOURCE
+    return n
+
+
+def refresh_windowed_bunt_samples(token: str, hitters: list[dict], select_all: dict | None = None) -> str:
+    """Replace inflated all-league bunt totals with the winter-2025 + summer-2026 PA sample."""
+    for i, h in enumerate(hitters, 1):
+        bid = str(h.get("synergy_id") or "")
+        name = h.get("name") or bid
+        if not bid:
+            continue
+        try:
+            events = fetch_bunt_pa_events(token, bid)
+        except urllib.error.HTTPError as exc:
+            if exc.code != 401:
+                raise
+            print(f"  bunt HTTP 401 {name} — re-login")
+            token = login_token()
+            events = fetch_bunt_pa_events(token, bid)
+        n = apply_windowed_bunt_sample(h, events)
+        print(f"  bunt [{i}/{len(hitters)}] {name} sample={n}")
+        time.sleep(0.04)
+    if select_all is not None:
+        total = sum(int((h.get("overall") or {}).get("bunt_sample") or 0) for h in hitters)
+        g = sum(int((h.get("overall") or {}).get("bunt_sample_games") or 0) for h in hitters)
+        o = select_all.setdefault("overall", {})
+        per = round(total * 162.0 / g, 1) if g else None
+        o["bunts"] = total
+        o["bunt_sample"] = total
+        o["bunt_sample_games"] = g
+        o["bunts_per_162"] = per
+        o["bunt_sample_per_162"] = per
+        select_all["bunt_sample_source"] = BUNT_SAMPLE_SOURCE
+    return token
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--max-events-per-team", type=int, default=4000,
@@ -2461,11 +2569,35 @@ def main() -> None:
                     help="Skip pitcherId count/hand pull")
     ap.add_argument("--max-events-per-pitcher", type=int, default=1000,
                     help="Cap for per-pitcher Synergy pitcherId pulls")
+    ap.add_argument("--bunt-sample-only", action="store_true",
+                    help="Recount hitter bunt PAs for LBPRC 2025 + 2026 summer and patch advance_opposing_hitters.json")
     args = ap.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)
     token = login_token(headed=args.headed)
     print("Synergy login ok")
+
+    if args.bunt_sample_only:
+        path = OUT / "advance_opposing_hitters.json"
+        data = json.loads(path.read_text())
+        refresh_windowed_bunt_samples(token, data.get("hitters") or [], data.get("select_all"))
+        notes = [
+            n for n in (data.get("notes") or [])
+            if "SB-from-base" not in str(n) and not str(n).startswith("Bunt sample:")
+        ]
+        notes.append(
+            "Bunt sample: " + BUNT_SAMPLE_SOURCE + ". "
+            "Synergy pitch events have no steal-of-2B vs steal-of-3B field "
+            "(runner-movement filters time out; occupancy heuristic was 0). "
+            "Base-specific SB rows are omitted."
+        )
+        data["notes"] = notes
+        data["bunt_sample_definition"] = BUNT_SAMPLE_SOURCE
+        data["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        path.write_text(json.dumps(data, indent=2))
+        tot = sum(int((h.get("overall") or {}).get("bunt_sample") or 0) for h in data.get("hitters") or [])
+        print(f"patched bunt samples hitters={len(data.get('hitters') or [])} bunts={tot}")
+        return
 
     target_years = tuple(args.years)
     year_set = set(int(y) for y in target_years)
@@ -2624,6 +2756,7 @@ def main() -> None:
     print(f"summer_sb_bunts attached={n_summer} junk_pitch_rows_removed={n_junk}")
 
     select_all = select_all_aggregate(hitters)
+    token = refresh_windowed_bunt_samples(token, hitters, select_all)
     sample_full = sample_stats(hitters, all_events)
     sample_winter = sample_stats(winter_hitters, winter_events)
     sample_full.update(
@@ -2690,7 +2823,8 @@ def main() -> None:
             "First-pitch swing% = swings on 0-0 / 0-0 pitches.",
             "Whiff% = swinging-strike results / swings.",
             "OPS from the pitch that finished the PA (Synergy copies plateAppearanceResult onto every pitch).",
-            "Bunts from contactIntent/PA bunt results; SB-from-base via runner start→end heuristic on non-BIP pitches.",
+            "Bunt sample: " + BUNT_SAMPLE_SOURCE + ". "
+            "No Synergy field for steal of 2B vs steal of 3B.",
             "2026 summer SB/CS/sac bunts from MLB/MiLB/LMB Stats API (stolenBases/caughtStealing/sacBunts) by mlb_id.",
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
