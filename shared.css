@@ -824,13 +824,18 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .metric-takeaway { background: #fff5f5; color: #111; }
 
   /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot.
-     6.5in drops another empty 0.5in (was 7.0in) so the sheet stays inside
-     the content box (8.5 − 0.78 − 0.28 = 7.44in). */
+     6.0in drops another empty 0.5in (was 6.5in). Width is the content box
+     (11 − 0.28 − 0.28 = 10.44in) so a sliver cannot spill a second page.
+     Body min-height 100vh must not apply — it paginates past the sheet. */
+  body:has(.advance-sheet-pitcher) {
+    min-height: 0 !important;
+    height: auto !important;
+  }
   .advance-sheet-pitcher.advance-print-page {
-    width: 10.5in;
-    max-width: 10.5in;
-    height: 6.5in;
-    max-height: 6.5in;
+    width: 10.44in;
+    max-width: 10.44in;
+    height: 6.0in;
+    max-height: 6.0in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -852,7 +857,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-pdf-name { color: #000 !important; font-size: 26px !important; font-weight: 700; line-height: 1.05; }
   .advance-sheet-pitcher .advance-pdf-team { color: #000 !important; font-size: 24px !important; font-weight: 600; line-height: 1.05; }
   .advance-sheet-pitcher .advance-pdf-headshot {
-    width: 36px; height: 50px; border-color: #bbb; background: #eef2f7;
+    width: 32px; height: 40px; border-color: #bbb; background: #eef2f7;
   }
   .advance-sheet-pitcher .advance-headshot,
   .advance-sheet-pitcher .advance-hero { display: none !important; }
@@ -865,70 +870,109 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-layout-pitcher-print,
   .advance-sheet-pitcher .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print {
     grid-template-columns: 1fr 1fr 1fr !important;
+    grid-template-rows: minmax(0, auto) minmax(0.82in, 1fr);
     gap: 5px !important;
     flex: 1 1 auto;
     min-height: 0;
     align-items: stretch;
   }
+  /* Charts stay in the top of the left third. Heat maps take the empty
+     band under the charts and the full middle third, side by side. */
+  .advance-sheet-pitcher .advance-col-charts { grid-column: 1; grid-row: 1; align-self: stretch; }
+  .advance-sheet-pitcher .advance-col-middle { display: contents; }
+  .advance-sheet-pitcher .advance-band-movement { grid-column: 2; grid-row: 1; min-height: 0; }
+  .advance-sheet-pitcher .advance-col-release { grid-column: 3; grid-row: 1 / span 2; }
   .advance-sheet-pitcher .advance-col-charts,
-  .advance-sheet-pitcher .advance-col-middle,
   .advance-sheet-pitcher .advance-col-release {
     min-width: 0;
-    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+  .advance-sheet-pitcher .advance-col-charts {
+    overflow: hidden;
+    min-height: 0;
+    align-self: stretch;
+    gap: 1px;
+  }
+  .advance-sheet-pitcher .advance-col-release {
+    min-height: 0;
     overflow: hidden;
   }
+  .advance-sheet-pitcher .advance-col-middle { display: contents; }
   .advance-sheet-pitcher .advance-col-charts .advance-card { margin-bottom: 0; }
-  .advance-sheet-pitcher .advance-card-compact { padding: 3px 5px; }
+  .advance-sheet-pitcher .advance-card-compact { padding: 1px 3px; }
   .advance-sheet-pitcher .advance-card-compact .section-label { font-size: 9px; margin-bottom: 2px; }
   .advance-sheet-pitcher .advance-short {
-    padding: 3px 2px; column-gap: 0; font-size: 10px;
+    padding: 1px 1px; column-gap: 0; font-size: 9px;
     width: 100%; max-width: 100%; box-sizing: border-box;
   }
   .advance-sheet-pitcher .advance-short-col { padding: 0 8px; }
   .advance-sheet-pitcher .advance-short-col + .advance-short-col {
     border-left: 1px solid #bbb;
   }
-  .advance-sheet-pitcher .advance-short-row { font-size: 10px; grid-template-columns: 10px 2em 2.1em; }
-  .advance-sheet-pitcher .advance-arsenal-table { font-size: 9px; }
+  .advance-sheet-pitcher .advance-short-row { font-size: 9px; grid-template-columns: 10px 2em 2.1em; }
+  .advance-sheet-pitcher .advance-arsenal-table { font-size: 8px; line-height: 1; }
   .advance-sheet-pitcher .advance-arsenal-table th,
-  .advance-sheet-pitcher .advance-arsenal-table td { padding: 1px 2px; }
+  .advance-sheet-pitcher .advance-arsenal-table td { padding: 0 2px; }
   .advance-sheet-pitcher .advance-arsenal-table thead th { color: #111 !important; }
   .advance-sheet-pitcher .advance-desc {
-    font-size: 9.5px; line-height: 1.25; max-height: 54px; overflow: hidden;
+    font-size: 8.5px; line-height: 1.2; max-height: 54px; overflow: hidden;
     color: #000 !important;
   }
   .advance-sheet-pitcher .advance-desc,
   .advance-sheet-pitcher .advance-desc * { color: #000 !important; }
   .advance-sheet-pitcher .advance-usage-row {
-    font-size: 9.5px; margin-bottom: 1px; grid-template-columns: 40px 1fr 32px;
+    font-size: 8px; margin-bottom: 0; grid-template-columns: 36px 1fr 28px;
     color: #000 !important;
   }
   .advance-sheet-pitcher .advance-usage-row strong,
   .advance-sheet-pitcher .advance-usage-row .num { color: #000 !important; }
   .advance-sheet-pitcher .advance-usage-bar { height: 5px; }
+  /* vs L / vs R: one horizontal row. Right edge stays on the middle column.
+     The row is about twice as wide as the old half-column pair (each map
+     more than 50% wider) and at most 2.15in tall so the extra size goes left. */
+  .advance-sheet-pitcher .advance-band-heat {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100%;
+    max-height: 2.15in;
+    overflow: hidden;
+    flex: 0 0 auto;
+    align-self: end;
+  }
   .advance-sheet-pitcher .advance-heat-pair {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex: 1 1 auto; min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+    max-height: 2.15in;
   }
   .advance-sheet-pitcher .advance-heat-cell {
-    min-height: 0; display: flex; flex-direction: column; gap: 2px;
+    min-height: 0; min-width: 0; display: flex; flex-direction: column; gap: 1px; overflow: hidden;
   }
   .advance-sheet-pitcher .advance-heat-cell .advance-heat-lab {
     color: #0a1633; font-size: 8.5px; margin: 0; flex: 0 0 auto;
   }
   .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap,
   .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat {
-    flex: 1 1 auto; min-height: 0;
+    flex: 1 1 auto; min-height: 0; height: auto; max-height: none;
   }
   .advance-sheet-pitcher .advance-band {
     margin-bottom: 0; padding: 3px 5px; min-height: 0;
     display: flex; flex-direction: column; overflow: hidden; flex: 1 1 auto;
   }
-  .advance-sheet-pitcher .advance-band .section-label { font-size: 9.5px; margin-bottom: 2px; flex: 0 0 auto; }
-  .advance-sheet-pitcher .advance-col-middle .advance-band-movement { flex: 1 1 55%; }
-  .advance-sheet-pitcher .advance-col-middle .advance-band-heat { flex: 1 1 45%; }
+  .advance-sheet-pitcher .advance-band .section-label { font-size: 9px; margin-bottom: 1px; flex: 0 0 auto; }
+  .advance-sheet-pitcher .advance-card-compact .section-label { margin-bottom: 1px; }
+  .advance-sheet-pitcher .advance-band-movement { flex: 1 1 auto; }
+  .advance-sheet-pitcher .advance-band-heat { flex: 0 0 auto; }
   .advance-sheet-pitcher .advance-col-release .advance-band-photo { flex: 1 1 auto; }
   .advance-sheet-pitcher .advance-movement-wrap {
     flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
