@@ -34,6 +34,12 @@ HAND_KEYS = (
     "vs_l_by_pitch_type",
     "risp_vs_r_by_pitch_type",
     "risp_vs_l_by_pitch_type",
+    "non_risp_vs_r_by_pitch_type",
+    "non_risp_vs_l_by_pitch_type",
+    "pre2k_vs_r_by_pitch_type",
+    "pre2k_vs_l_by_pitch_type",
+    "twok_vs_r_by_pitch_type",
+    "twok_vs_l_by_pitch_type",
 )
 
 
@@ -67,7 +73,7 @@ def main() -> None:
             print(f"=== [{i}/{len(hitters)}] skip (no synergy_id) {name}")
             continue
         print(f"=== [{i}/{len(hitters)}] {team} {name}")
-        raw_events = fetch_events_pages(token, batter_id=bid, max_events=max_events)
+        raw_events = fetch_events_pages(token, batter_id=bid, max_events=max_events, take=400)
         kept = filter_events_by_leagues_years(
             raw_events, league_ids=target_league_ids, years=year_set
         )
@@ -170,7 +176,11 @@ def main() -> None:
     data["sample_winter_only"] = sample_winter
     data["events_by_league"] = dict(events_by_league)
     notes = list(data.get("notes") or [])
-    note = "vs R / vs L (+ RISP×hand) from Synergy pitcherInfo.pitchingSide (Right/Left)."
+    note = (
+        "Eight charts: vs R / vs L × non-RISP, RISP, pre-2K (strikes<2), 2K. "
+        "Roleta % = GroundBall / BIP by pitch type (bunts excluded). "
+        "Hand = pitcherInfo.pitchingSide."
+    )
     if note not in notes:
         notes.append(note)
     data["notes"] = notes
@@ -195,6 +205,67 @@ def main() -> None:
             if sample is None or min(vr, vl) > min(sample[2], sample[3]):
                 sample = (h.get("name"), h.get("team"), vr, vl)
     print(f"hitters_with_both_hands={both} sample={sample}")
+    from collections import Counter
+    from build_advance_synergy import (
+        _count_strikes,
+        _is_bip_result,
+        _is_bunt_event,
+        _is_ground_ball,
+        _pitcher_throws,
+        _runners_risp,
+    )
+
+    gaps = {
+        "pitches": 0,
+        "no_hand": 0,
+        "bip": 0,
+        "bip_untyped": 0,
+        "gb": 0,
+        "non_risp": 0,
+        "risp": 0,
+        "pre2k": 0,
+        "twok": 0,
+    }
+    types: Counter = Counter()
+    for ev in all_events:
+        gaps["pitches"] += 1
+        throws = _pitcher_throws(ev)
+        if throws not in ("R", "L"):
+            gaps["no_hand"] += 1
+        if _runners_risp(ev):
+            gaps["risp"] += 1
+        else:
+            gaps["non_risp"] += 1
+        if _count_strikes(ev) >= 2:
+            gaps["twok"] += 1
+        else:
+            gaps["pre2k"] += 1
+        pitch = ev.get("pitch") or {}
+        result = pitch.get("pitchResult")
+        pa = ev.get("plateAppearanceResult")
+        if _is_bip_result(result) and not _is_bunt_event(ev, pa):
+            gaps["bip"] += 1
+            ct = ""
+            contact = ev.get("contact") or {}
+            if isinstance(contact, dict):
+                ct = str(contact.get("contactType") or "")
+            if ct:
+                types[ct] += 1
+            else:
+                gaps["bip_untyped"] += 1
+            if _is_ground_ball(ev, pa):
+                gaps["gb"] += 1
+    print(
+        "GAPS",
+        f"pitches={gaps['pitches']} no_hand={gaps['no_hand']} "
+        f"non_risp={gaps['non_risp']} risp={gaps['risp']} pre2k={gaps['pre2k']} twok={gaps['twok']} "
+        f"bip={gaps['bip']} gb={gaps['gb']} bip_untyped={gaps['bip_untyped']} types={dict(types)}",
+    )
+    missing_charts = 0
+    for h in out_hitters:
+        if not (h.get("non_risp_vs_r_by_pitch_type") or h.get("non_risp_vs_l_by_pitch_type")):
+            missing_charts += 1
+    print(f"hitters_missing_non_risp_charts={missing_charts}")
     print("DONE")
 
 

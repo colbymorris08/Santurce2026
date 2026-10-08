@@ -450,6 +450,7 @@ def fetch_events_pages(
     season_ids = [s for s in (season_ids or []) if s]
     out: list[dict] = []
     skip = 0
+    auth_tries = 0
     while len(out) < max_events:
         body: dict[str, Any] = {
             "loggingPhases": [LOGGING_PHASE_PITCH],
@@ -470,6 +471,14 @@ def fetch_events_pages(
             doc = api_post(EVENTS_FILTER_URL, token, body)
         except urllib.error.HTTPError as exc:
             label = pitcher_id or batter_id or team_id
+            if exc.code == 401 and auth_tries < 1:
+                auth_tries += 1
+                print(f"  events HTTP 401 id={label} — re-login and retry")
+                tok_path = Path("/tmp/synergy_token.txt")
+                if tok_path.exists():
+                    tok_path.unlink()
+                token = login_token()
+                continue
             print(f"  events HTTP {exc.code} id={label} skip={skip}")
             break
         rows = doc.get("result") if isinstance(doc, dict) else None
@@ -623,7 +632,7 @@ def merge_hitter_raw(dest: dict[str, dict], raw: dict[str, dict]) -> None:
                     db["games"] |= set(v or [])
                 elif isinstance(v, (int, float)):
                     db[k] = int(db.get(k) or 0) + int(v)
-        for hand_key in ("vs_r_by_pitch", "vs_l_by_pitch", "risp_vs_r_by_pitch", "risp_vs_l_by_pitch"):
+        for hand_key in _HAND_PITCH_KEYS:
             d.setdefault(hand_key, defaultdict(_pa_bucket))
             for ptype, bucket in (h.get(hand_key) or {}).items():
                 db = d[hand_key][ptype]
@@ -884,6 +893,68 @@ def _is_whiff(result: str | None) -> bool:
     return (result or "") in WHIFF_RESULTS
 
 
+def _is_bip_result(result: str | None) -> bool:
+    return (result or "") in BIP_RESULTS
+
+
+def _is_bunt_event(ev: dict, pa: str | None) -> bool:
+    """Bunts stay out of the GB% denominator (Roleta is ground balls, not bunts)."""
+    contact = ev.get("contact") or {}
+    intent = str(contact.get("contactIntent") or "") if isinstance(contact, dict) else ""
+    ct = str(contact.get("contactType") or "") if isinstance(contact, dict) else ""
+    pa_s = str(pa or "")
+    if intent.lower().startswith("bunt"):
+        return True
+    blob = f"{ct} {pa_s}".lower()
+    return "bunt" in blob
+
+
+def _is_ground_ball(ev: dict, pa: str | None = None) -> bool:
+    """Ground ball among balls in play. Synergy contact.contactType is GroundBall."""
+    contact = ev.get("contact") or {}
+    ct = ""
+    if isinstance(contact, dict):
+        ct = re.sub(r"[^a-z]", "", str(contact.get("contactType") or "").lower())
+    if ct:
+        return ct in {"groundball", "ground"} or ct.startswith("groundball")
+    pa_c = re.sub(r"[^a-z]", "", str(pa if pa is not None else ev.get("plateAppearanceResult") or "").lower())
+    return pa_c in {"groundout", "groundedintodoubleplay", "groundedintotripleplay"}
+
+
+def _count_strikes(ev: dict) -> int:
+    c = ev.get("count") or {}
+    try:
+        return int(c.get("strikes") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def _hand_bucket_keys(throws: str | None, risp: bool, two_k: bool) -> list[str]:
+    """Pitch-type buckets for one pitch: hand, RISP/non-RISP, and pre-2K/2K."""
+    if throws not in ("R", "L"):
+        return []
+    h = throws.lower()
+    return [
+        f"vs_{h}_by_pitch",
+        f"risp_vs_{h}_by_pitch" if risp else f"non_risp_vs_{h}_by_pitch",
+        f"twok_vs_{h}_by_pitch" if two_k else f"pre2k_vs_{h}_by_pitch",
+    ]
+
+
+_HAND_PITCH_KEYS = (
+    "vs_r_by_pitch",
+    "vs_l_by_pitch",
+    "risp_vs_r_by_pitch",
+    "risp_vs_l_by_pitch",
+    "non_risp_vs_r_by_pitch",
+    "non_risp_vs_l_by_pitch",
+    "pre2k_vs_r_by_pitch",
+    "pre2k_vs_l_by_pitch",
+    "twok_vs_r_by_pitch",
+    "twok_vs_l_by_pitch",
+)
+
+
 def _pa_bucket() -> dict[str, Any]:
     return {
         "pa": 0,
@@ -898,6 +969,8 @@ def _pa_bucket() -> dict[str, Any]:
         "swings": 0,
         "whiffs": 0,
         "pitches": 0,
+        "gb": 0,
+        "bip": 0,
         "bunts": 0,
         "sb_1b": 0,
         "sb_2b": 0,
@@ -968,6 +1041,33 @@ def recent_spray_points(pts: list, n: int = SPRAY_MAX_POINTS) -> list:
         return sorted(pts, key=key, reverse=True)[:n]
     return list(pts[:n])
 
+def _terminal_pa_indexes(events: list[dict]) -> set[int]:
+    """Index of the pitch that finished each plate appearance.
+
+    Synergy stamps plateAppearanceResult on every pitch of the PA, and pitches
+    arrive first-pitch-first. OPS / PA must follow the last pitch (its type,
+    hand, RISP, and 2K), not the 0-0 pitch.
+    """
+    best: dict[str, tuple[tuple[int, int], int]] = {}
+    for i, ev in enumerate(events):
+        if not ev.get("plateAppearanceResult"):
+            continue
+        game = ev.get("game") or {}
+        gid = str(game.get("id") or game.get("iid") or "")
+        key = f"{gid}:{ev.get('inning')}:{ev.get('inningTop')}:{ev.get('inningPlateAppearanceNumber')}"
+        c = ev.get("count") or {}
+        try:
+            balls = int(c.get("balls") or 0)
+            strikes = int(c.get("strikes") or 0)
+        except (TypeError, ValueError):
+            balls, strikes = 0, 0
+        score = (balls + strikes, i)
+        prev = best.get(key)
+        if prev is None or score >= prev[0]:
+            best[key] = (score, i)
+    return {i for _, i in best.values()}
+
+
 def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
     """Aggregate pitch events into per-hitter + select-all tables."""
     hitters: dict[str, dict[str, Any]] = {}
@@ -981,10 +1081,7 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 "overall": defaultdict(_pa_bucket),
                 "by_pitch": defaultdict(_pa_bucket),
                 "risp_by_pitch": defaultdict(_pa_bucket),
-                "vs_r_by_pitch": defaultdict(_pa_bucket),
-                "vs_l_by_pitch": defaultdict(_pa_bucket),
-                "risp_vs_r_by_pitch": defaultdict(_pa_bucket),
-                "risp_vs_l_by_pitch": defaultdict(_pa_bucket),
+                **{k: defaultdict(_pa_bucket) for k in _HAND_PITCH_KEYS},
                 "spray": {"all": [], "nobody_on": [], "risp": [], "non_risp": [], "two_strikes": [], "non_two_strikes": []},
                 "seen_pa": set(),
             }
@@ -992,7 +1089,8 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
             hitters[bid]["name"] = name
         return hitters[bid]
 
-    for ev in events:
+    terminal_pa = _terminal_pa_indexes(events)
+    for i, ev in enumerate(events):
         if str(ev.get("eventType") or "") not in ("Pitch", "Pickoff", ""):
             # still inspect pickoffs lightly
             pass
@@ -1008,6 +1106,7 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
         risp = _runners_risp(ev)
         throws = _pitcher_throws(ev)
         fp = _first_pitch(ev)
+        two_k = _count_strikes(ev) >= 2
         game = ev.get("game") or {}
         gid = str(game.get("id") or game.get("iid") or "")
 
@@ -1019,14 +1118,8 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
         if risp:
             buckets.append(h["risp_by_pitch"][kind])
             buckets.append(h["overall"]["__RISP__"])
-        if throws == "R":
-            buckets.append(h["vs_r_by_pitch"][kind])
-            if risp:
-                buckets.append(h["risp_vs_r_by_pitch"][kind])
-        elif throws == "L":
-            buckets.append(h["vs_l_by_pitch"][kind])
-            if risp:
-                buckets.append(h["risp_vs_l_by_pitch"][kind])
+        for key in _hand_bucket_keys(throws, risp, two_k):
+            buckets.append(h[key][kind])
 
         for b in buckets:
             b["pitches"] += 1
@@ -1043,22 +1136,22 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
             intent = str(contact.get("contactIntent") or "")
             if intent.lower().startswith("bunt") or (pa or "") in PA_SAC_BUNT or "Bunt" in str(pa or ""):
                 b["bunts"] += 1
+        if _is_bip_result(result) and not _is_bunt_event(ev, pa):
+            is_gb = _is_ground_ball(ev, pa)
+            for b in buckets:
+                b["bip"] += 1
+                if is_gb:
+                    b["gb"] += 1
 
-        # PA outcome once per PA id
+        # PA outcome once, on the pitch that finished the PA
         pa_key = f"{gid}:{ev.get('inning')}:{ev.get('inningTop')}:{ev.get('inningPlateAppearanceNumber')}"
-        if pa and pa_key not in h["seen_pa"]:
+        if pa and i in terminal_pa and pa_key not in h["seen_pa"]:
             h["seen_pa"].add(pa_key)
             targets = [h["overall"][kind], h["by_pitch"][kind]]
             if risp:
                 targets.append(h["risp_by_pitch"][kind])
-            if throws == "R":
-                targets.append(h["vs_r_by_pitch"][kind])
-                if risp:
-                    targets.append(h["risp_vs_r_by_pitch"][kind])
-            elif throws == "L":
-                targets.append(h["vs_l_by_pitch"][kind])
-                if risp:
-                    targets.append(h["risp_vs_l_by_pitch"][kind])
+            for key in _hand_bucket_keys(throws, risp, two_k):
+                targets.append(h[key][kind])
             for b in targets:
                 b["pa"] += 1
                 if pa in PA_HIT:
@@ -1154,6 +1247,14 @@ def _freeze_bucket(b: dict) -> dict:
         "ops": _ops(b),
         "first_pitch_swing_pct": _rate(int(b.get("first_pitch_swings") or 0), int(b.get("first_pitches") or 0)),
         "whiff_pct": _rate(int(b.get("whiffs") or 0), int(b.get("swings") or 0)),
+        "swing_pct": _rate(int(b.get("swings") or 0), int(b.get("pitches") or 0)),
+        "gb": int(b.get("gb") or 0),
+        "bip": int(b.get("bip") or 0),
+        "gb_pct": _rate(int(b.get("gb") or 0), int(b.get("bip") or 0)),
+        "tb": int(b.get("tb") or 0),
+        "bb": int(b.get("bb") or 0),
+        "hbp": int(b.get("hbp") or 0),
+        "sf": int(b.get("sf") or 0),
         "swings": int(b.get("swings") or 0),
         "whiffs": int(b.get("whiffs") or 0),
         "first_pitches": int(b.get("first_pitches") or 0),
@@ -1268,6 +1369,12 @@ _HITTER_PITCH_KEYS = (
     "vs_l_by_pitch_type",
     "risp_vs_r_by_pitch_type",
     "risp_vs_l_by_pitch_type",
+    "non_risp_vs_r_by_pitch_type",
+    "non_risp_vs_l_by_pitch_type",
+    "pre2k_vs_r_by_pitch_type",
+    "pre2k_vs_l_by_pitch_type",
+    "twok_vs_r_by_pitch_type",
+    "twok_vs_l_by_pitch_type",
 )
 
 
@@ -1326,13 +1433,19 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
         vs_l = pack_hand("vs_l_by_pitch", 5)
         risp_vs_r = pack_hand("risp_vs_r_by_pitch", 3)
         risp_vs_l = pack_hand("risp_vs_l_by_pitch", 3)
+        non_risp_vs_r = pack_hand("non_risp_vs_r_by_pitch", 5)
+        non_risp_vs_l = pack_hand("non_risp_vs_l_by_pitch", 5)
+        pre2k_vs_r = pack_hand("pre2k_vs_r_by_pitch", 5)
+        pre2k_vs_l = pack_hand("pre2k_vs_l_by_pitch", 5)
+        twok_vs_r = pack_hand("twok_vs_r_by_pitch", 3)
+        twok_vs_l = pack_hand("twok_vs_l_by_pitch", 3)
 
         # overall across pitches
         overall_acc = _pa_bucket()
         for ptype, bucket in h["by_pitch"].items():
             if ptype.startswith("__"):
                 continue
-            for k in ("pitches", "pa", "ab", "h", "tb", "bb", "hbp", "sf", "first_pitches", "first_pitch_swings", "swings", "whiffs", "bunts", "sb_1b", "sb_2b", "sb_3b"):
+            for k in ("pitches", "pa", "ab", "h", "tb", "bb", "hbp", "sf", "gb", "bip", "first_pitches", "first_pitch_swings", "swings", "whiffs", "bunts", "sb_1b", "sb_2b", "sb_3b"):
                 overall_acc[k] = int(overall_acc.get(k) or 0) + int(bucket.get(k) or 0)
             overall_acc["games"] |= set(bucket.get("games") or [])
 
@@ -1380,6 +1493,12 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             "vs_l_by_pitch_type": vs_l,
             "risp_vs_r_by_pitch_type": risp_vs_r,
             "risp_vs_l_by_pitch_type": risp_vs_l,
+            "non_risp_vs_r_by_pitch_type": non_risp_vs_r,
+            "non_risp_vs_l_by_pitch_type": non_risp_vs_l,
+            "pre2k_vs_r_by_pitch_type": pre2k_vs_r,
+            "pre2k_vs_l_by_pitch_type": pre2k_vs_l,
+            "twok_vs_r_by_pitch_type": twok_vs_r,
+            "twok_vs_l_by_pitch_type": twok_vs_l,
             "spray_splits": spray_splits,
             "spray_points": recent_spray_points(all_pts),
         }
@@ -1401,6 +1520,12 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
     vs_l: dict[str, dict] = defaultdict(_pa_bucket)
     risp_vs_r: dict[str, dict] = defaultdict(_pa_bucket)
     risp_vs_l: dict[str, dict] = defaultdict(_pa_bucket)
+    non_risp_vs_r: dict[str, dict] = defaultdict(_pa_bucket)
+    non_risp_vs_l: dict[str, dict] = defaultdict(_pa_bucket)
+    pre2k_vs_r: dict[str, dict] = defaultdict(_pa_bucket)
+    pre2k_vs_l: dict[str, dict] = defaultdict(_pa_bucket)
+    twok_vs_r: dict[str, dict] = defaultdict(_pa_bucket)
+    twok_vs_l: dict[str, dict] = defaultdict(_pa_bucket)
     overall = _pa_bucket()
 
     def add_row(dest: dict, row: dict) -> None:
@@ -1416,8 +1541,15 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
         dest["sb_1b"] += int(row.get("sb_from_1b") or 0)
         dest["sb_2b"] += int(row.get("sb_from_2b") or 0)
         dest["sb_3b"] += int(row.get("sb_from_3b") or 0)
-        # TB unknown in frozen rows — use H as lower-bound for OPS approx later
-        dest["tb"] += int(row.get("h") or 0)
+        dest["gb"] += int(row.get("gb") or 0)
+        dest["bip"] += int(row.get("bip") or 0)
+        dest["bb"] += int(row.get("bb") or 0)
+        dest["hbp"] += int(row.get("hbp") or 0)
+        dest["sf"] += int(row.get("sf") or 0)
+        if "tb" in row:
+            dest["tb"] += int(row.get("tb") or 0)
+        else:
+            dest["tb"] += int(row.get("h") or 0)
 
     for h in hitters:
         for row in h.get("by_pitch_type") or []:
@@ -1433,6 +1565,18 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
             add_row(risp_vs_r[row["pitch_type"]], row)
         for row in h.get("risp_vs_l_by_pitch_type") or []:
             add_row(risp_vs_l[row["pitch_type"]], row)
+        for row in h.get("non_risp_vs_r_by_pitch_type") or []:
+            add_row(non_risp_vs_r[row["pitch_type"]], row)
+        for row in h.get("non_risp_vs_l_by_pitch_type") or []:
+            add_row(non_risp_vs_l[row["pitch_type"]], row)
+        for row in h.get("pre2k_vs_r_by_pitch_type") or []:
+            add_row(pre2k_vs_r[row["pitch_type"]], row)
+        for row in h.get("pre2k_vs_l_by_pitch_type") or []:
+            add_row(pre2k_vs_l[row["pitch_type"]], row)
+        for row in h.get("twok_vs_r_by_pitch_type") or []:
+            add_row(twok_vs_r[row["pitch_type"]], row)
+        for row in h.get("twok_vs_l_by_pitch_type") or []:
+            add_row(twok_vs_l[row["pitch_type"]], row)
         o = h.get("overall") or {}
         g = int(o.get("games_season") or o.get("games") or 0)
         if g:
@@ -1470,6 +1614,12 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
         "vs_l_by_pitch_type": pack(vs_l),
         "risp_vs_r_by_pitch_type": pack(risp_vs_r),
         "risp_vs_l_by_pitch_type": pack(risp_vs_l),
+        "non_risp_vs_r_by_pitch_type": pack(non_risp_vs_r),
+        "non_risp_vs_l_by_pitch_type": pack(non_risp_vs_l),
+        "pre2k_vs_r_by_pitch_type": pack(pre2k_vs_r),
+        "pre2k_vs_l_by_pitch_type": pack(pre2k_vs_l),
+        "twok_vs_r_by_pitch_type": pack(twok_vs_r),
+        "twok_vs_l_by_pitch_type": pack(twok_vs_l),
     }
 
 
@@ -2539,12 +2689,15 @@ def main() -> None:
             "UI grouping uses PR roster team abbreviations.",
             "First-pitch swing% = swings on 0-0 / 0-0 pitches.",
             "Whiff% = swinging-strike results / swings.",
-            "OPS from Synergy plateAppearanceResult when PA completes in sample.",
+            "OPS from the pitch that finished the PA (Synergy copies plateAppearanceResult onto every pitch).",
             "Bunts from contactIntent/PA bunt results; SB-from-base via runner start→end heuristic on non-BIP pitches.",
             "2026 summer SB/CS/sac bunts from MLB/MiLB/LMB Stats API (stolenBases/caughtStealing/sacBunts) by mlb_id.",
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
-            "vs R / vs L (+ RISP×hand) by pitch type from Synergy pitcherInfo.pitchingSide (Right/Left).",
+            "Eight hitter charts: vs R / vs L, each non-RISP, RISP, pre-2K (strikes<2), and 2K. "
+            "0-0 swing% = swings on 0-0 / 0-0 pitches. Swing rate = swings / pitches. "
+            "Roleta % = ground balls / balls in play (contactType GroundBall; bunts excluded) by pitch type.",
+            "vs R / vs L from Synergy pitcherInfo.pitchingSide (Right/Left).",
             "Chart junk filter: KN / KC (Knucklecurve) / EP / UN omitted from hitter pitch tables.",
         ],
     }

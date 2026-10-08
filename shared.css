@@ -1007,13 +1007,15 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 
   .advance-layout:not(.advance-layout-pitcher) { grid-template-columns: 1.1fr 1fr 0.9fr !important; }
   .hitter-spray-pair { grid-template-columns: 1fr 1fr !important; }
-  .hitter-pitch-grid { grid-template-columns: 1fr 1fr !important; gap: 8px 10px; }
+  .hitter-pitch-grid { grid-template-columns: 1fr 1fr !important; gap: 4px 8px; }
+  .hitter-pitch-side { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 4px; min-width: 0; }
+  .hitter-pitch-side-title { grid-column: 1 / -1; font-size: 9px; margin: 0; }
   .hitter-pitch-half .table-wrap,
   .hitter-pitch-half table { background: #fff; border-color: #ccc; box-shadow: none; color: #111; }
   .hitter-pitch-half thead th { background: #fff !important; color: #333; border-bottom-color: #ccc; }
   .hitter-pitch-half tbody td:not(.rate-cell) { background: #fff !important; color: #111; border-bottom-color: #e2e8f0; }
-  .hitter-pitch-half table { font-size: 11px; }
-  .hitter-pitch-half th, .hitter-pitch-half td { padding: 3px 4px; }
+  .hitter-pitch-half table { font-size: 8px; }
+  .hitter-pitch-half th, .hitter-pitch-half td { padding: 1px 2px; }
   .spray-hit-legend { background: #f4f7fb; border-color: #ccc; box-shadow: none; color: #111; }
   .spray-hit-legend-title { color: #0a1633; }
   .spray-hit-legend .spray-hit-lab,
@@ -1057,21 +1059,26 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex: 0 0 auto;
     width: 100%;
     grid-template-columns: 1fr 1fr !important;
-    gap: 3px 10px;
+    gap: 2px 6px;
     margin: 1px 0 2px;
   }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 10px; margin: 0 0 1px; color: #0a1633; }
+  .advance-sheet-hitter .hitter-pitch-side {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px 3px; min-width: 0;
+  }
+  .advance-sheet-hitter .hitter-pitch-side-title { grid-column: 1 / -1; font-size: 8px; margin: 0; letter-spacing: .04em; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 7px; margin: 0; color: #0a1633; letter-spacing: .04em; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
-  .advance-sheet-hitter .hitter-pitch-half table { font-size: 10.5px; line-height: 1.15; color: #111; }
+  .advance-sheet-hitter .hitter-pitch-half table { font-size: 6.5px; line-height: 1.05; color: #111; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half thead th {
     background: #fff !important; color: #333; border-bottom-color: #ccc;
+    text-transform: none; letter-spacing: 0; white-space: normal;
   }
   .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell) {
     background: #fff !important; color: #111; border-bottom-color: #e2e8f0;
   }
   .advance-sheet-hitter .hitter-pitch-half th,
-  .advance-sheet-hitter .hitter-pitch-half td { padding: 1px 4px; line-height: 1.15; }
+  .advance-sheet-hitter .hitter-pitch-half td { padding: 0 1px; line-height: 1.05; }
   .advance-sheet-hitter .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   /* Do not flex-grow/shrink this row. flex:1 + min-height:0 collapsed the
      pair (~80px) while the charts stayed ~180px and painted over the bunts table.
@@ -1136,6 +1143,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .table-wrap table { font-size: 10px; line-height: 1.15; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
   .advance-sheet-hitter .table-wrap td { padding: 1px 4px; line-height: 1.15; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 6.5px; line-height: 1.05; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap th,
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 1px; line-height: 1.05; letter-spacing: 0; text-transform: none; }
   /* Screen theme is light-on-dark (gold titles, muted headers, near-white
      body text). Force every hitter PDF glyph black. Heat cells keep their
      contrast color so the red/blue fills stay readable. */
@@ -1151,12 +1161,24 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .hitter-pitch-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 14px;
-  margin: 8px 0 10px;
+  gap: 6px 10px;
+  margin: 6px 0 8px;
   align-items: start;
 }
+.hitter-pitch-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 6px;
+  min-width: 0;
+  align-items: start;
+}
+.hitter-pitch-side-title {
+  grid-column: 1 / -1;
+  margin: 0 0 1px;
+  font-size: 11px;
+}
 .hitter-pitch-half { min-width: 0; }
-.hitter-pitch-half .section-label { font-size: 12.5px; margin-bottom: 4px; }
+.hitter-pitch-half .section-label { font-size: 9px; margin: 0 0 1px; letter-spacing: 0.06em; }
 /* White table chrome — only .rate-cell keeps league-relative heat */
 .hitter-pitch-half .table-wrap {
   margin: 0;
@@ -1164,18 +1186,24 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   border-color: #ccc;
   box-shadow: none;
 }
-.hitter-pitch-half table { font-size: 12.5px; background: #fff; color: #111; }
+.hitter-pitch-half table { font-size: 9px; background: #fff; color: #111; table-layout: fixed; }
 .hitter-pitch-half thead th {
   background: #fff;
   color: #333;
   border-bottom-color: #ccc;
   position: static;
+  font-size: 7.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  line-height: 1.05;
+  cursor: default;
 }
 .hitter-pitch-half thead th.sorted {
   background: #fff;
   color: #0a1633;
 }
-.hitter-pitch-half th, .hitter-pitch-half td { padding: 4px 6px; }
+.hitter-pitch-half th, .hitter-pitch-half td { padding: 1px 2px; line-height: 1.1; }
 .hitter-pitch-half tbody td {
   background: #fff;
   color: #111;
@@ -1189,6 +1217,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 }
 @media (max-width: 900px) {
   .hitter-pitch-grid { grid-template-columns: 1fr; }
+  .hitter-pitch-half table { font-size: 10px; }
+  .hitter-pitch-half thead th { font-size: 8.5px; }
 }
 @media (max-width: 720px) { .hitter-spray-pair { grid-template-columns: 1fr; } }
 .hitter-spray-pair .spray-card h3 { font-size: 13px; margin: 0 0 6px; color: var(--santurce-gold); }

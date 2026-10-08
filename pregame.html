@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san41">
+<link rel="stylesheet" href="shared.css?v=san42">
 </head>
 <body>
 <div class="topbar">
@@ -147,7 +147,7 @@
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · wide colored pitch tables · RISP/non-RISP spray (native field aspect) · bunts/SB.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · eight pitch charts (vs R / vs L × non-RISP, RISP, pre-2K, 2K) · RISP/non-RISP spray (native field aspect) · bunts/SB.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san41"></script>
-<script src="cards.js?v=san41"></script>
+<script src="i18n.js?v=san42"></script>
+<script src="cards.js?v=san42"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san41';
+const ASSET_V = 'san42';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -503,20 +503,29 @@ function mergeHitterPitchTypeRows(rows){
   chartPitchRows(rows||[], 'pitch_type').forEach(r=>{
     const lab = normalizeHitterPitchLabel(r.pitch_type);
     const cur = bag.get(lab) || {
-      pitch_type:lab, pitches:0, pa:0, ab:0, h:0, swings:0, whiffs:0,
-      first_pitches:0, first_pitch_swings:0, _opsN:0, _opsD:0
+      pitch_type:lab, pitches:0, pa:0, ab:0, h:0, tb:0, bb:0, hbp:0, sf:0,
+      swings:0, whiffs:0, gb:0, bip:0,
+      first_pitches:0, first_pitch_swings:0, _opsN:0, _opsD:0, _hasTb:false
     };
-    ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings'].forEach(k=>{
+    ['pitches','pa','ab','h','tb','bb','hbp','sf','swings','whiffs','gb','bip','first_pitches','first_pitch_swings'].forEach(k=>{
       cur[k] += Number(r[k])||0;
     });
+    if(r.tb!=null) cur._hasTb = true;
     if(r.ops!=null && r.pa){ cur._opsN += Number(r.ops)*Number(r.pa); cur._opsD += Number(r.pa); }
     bag.set(lab, cur);
   });
   return [...bag.values()].map(r=>{
     r.first_pitch_swing_pct = r.first_pitches ? Math.round(1000*r.first_pitch_swings/r.first_pitches)/10 : null;
     r.whiff_pct = r.swings ? Math.round(1000*r.whiffs/r.swings)/10 : null;
-    r.ops = r._opsD ? Math.round(1000*r._opsN/r._opsD)/1000 : null;
-    delete r._opsN; delete r._opsD;
+    r.swing_pct = r.pitches ? Math.round(1000*r.swings/r.pitches)/10 : null;
+    r.gb_pct = r.bip ? Math.round(1000*r.gb/r.bip)/10 : null;
+    const paOb = (r.ab||0)+(r.bb||0)+(r.hbp||0)+(r.sf||0);
+    if(r._hasTb && r.ab>0 && paOb>0){
+      r.ops = Math.round((((r.h+r.bb+r.hbp)/paOb) + (r.tb/r.ab))*1000)/1000;
+    } else {
+      r.ops = r._opsD ? Math.round(1000*r._opsN/r._opsD)/1000 : null;
+    }
+    delete r._opsN; delete r._opsD; delete r._hasTb;
     return r;
   }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
 }
@@ -1392,15 +1401,20 @@ function renderSpray(){
 
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
-function leaguePitchMetric(pitchType, metric, {risp=false, hand=null}={}){
+function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null}={}){
   const bag = CACHE.advanceHitters?.select_all || {};
   let rows;
-  if(hand==='R' && risp) rows = bag.risp_vs_r_by_pitch_type||[];
+  if(split && Array.isArray(bag[split+'_by_pitch_type'])) rows = bag[split+'_by_pitch_type'];
+  else if(hand==='R' && risp) rows = bag.risp_vs_r_by_pitch_type||[];
   else if(hand==='L' && risp) rows = bag.risp_vs_l_by_pitch_type||[];
   else if(hand==='R') rows = bag.vs_r_by_pitch_type||[];
   else if(hand==='L') rows = bag.vs_l_by_pitch_type||[];
   else rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
   // Fallback chain if a fine split is empty
+  if(!rows.length && split){
+    if(split.endsWith('_r')) rows = bag.vs_r_by_pitch_type||[];
+    else if(split.endsWith('_l')) rows = bag.vs_l_by_pitch_type||[];
+  }
   if(!rows.length && hand && risp) rows = hand==='R' ? (bag.vs_r_by_pitch_type||[]) : (bag.vs_l_by_pitch_type||[]);
   if(!rows.length) rows = risp ? (bag.risp_by_pitch_type||[]) : (bag.by_pitch_type||[]);
   const lab = normalizeHitterPitchLabel(pitchType);
@@ -1426,46 +1440,63 @@ function rateHeatStyle(val, avg){
   const fg = Math.abs(z)>0.45 ? '#fff' : '#0a1633';
   return `background:rgb(${r},${g},${b});color:${fg}`;
 }
-function pitchTypeTableHtml(rows, title, {risp=false, hand=null, half=false, hideNote=false}={}){
+function pitchAbbrev(raw){
+  const code = normalizePitchCode(raw);
+  return (code && code!=='UN') ? code : String(raw||'—');
+}
+function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   const cleaned = mergeHitterPitchTypeRows(rows||[]);
-  const wrapCls = half ? 'hitter-pitch-half' : '';
+  const heat = (pitch, metric, val)=>rateHeatStyle(val, leaguePitchMetric(pitch, metric, {split}));
+  const situ = mode!=='count';
+  const head = situ
+    ? `<th>Pitch</th><th class="num">Pitches</th><th class="num">0-0 swing %</th><th class="num">OPS</th><th class="num">Whiff%</th><th class="num">Roleta %</th>`
+    : `<th>Pitch</th><th class="num">Pitches</th><th class="num">Swing rate</th><th class="num">Roleta %</th><th class="num">OPS</th><th class="num">Whiff%</th>`;
   if(!cleaned.length){
-    return `<div class="${wrapCls}"><div class="section-label">${title}</div><div class="note">No sample yet.</div></div>`;
+    return `<div class="hitter-pitch-half"><div class="section-label">${title}</div><div class="note">No sample yet.</div></div>`;
   }
-  const note = ''; // coloring kept; explanatory blurb removed to free space
-  return `<div class="${wrapCls}">
+  return `<div class="hitter-pitch-half">
   <div class="section-label">${title}</div>
-  <div class="table-wrap"><table><thead><tr>
-    <th>Pitch</th><th class="num">Pitches</th><th class="num">1st-pitch swing%</th>
-    <th class="num">OPS</th><th class="num">Whiff%</th><th class="num">PA</th>
-  </tr></thead><tbody>
+  <div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>
   ${cleaned.map(r=>{
-    const fps=r.first_pitch_swing_pct, ops=r.ops, wh=r.whiff_pct;
-    const sFps=rateHeatStyle(fps, leaguePitchMetric(r.pitch_type,'first_pitch_swing_pct',{risp, hand}));
-    const sOps=rateHeatStyle(ops, leaguePitchMetric(r.pitch_type,'ops',{risp, hand}));
-    const sWh=rateHeatStyle(wh, leaguePitchMetric(r.pitch_type,'whiff_pct',{risp, hand}));
-    return `<tr>
-    <td class="player-name">${r.pitch_type}</td>
-    <td class="num">${r.pitches??'—'}</td>
-    <td class="num rate-cell" style="${sFps}">${fmtPct1(fps)}</td>
+    const ops=r.ops, wh=r.whiff_pct, gb=r.gb_pct;
+    const sOps=heat(r.pitch_type,'ops',ops);
+    const sWh=heat(r.pitch_type,'whiff_pct',wh);
+    const sGb=heat(r.pitch_type,'gb_pct',gb);
+    const cells = situ
+      ? (()=>{ const fps=r.first_pitch_swing_pct; const sFps=heat(r.pitch_type,'first_pitch_swing_pct',fps);
+          return `<td class="num rate-cell" style="${sFps}">${fmtPct1(fps)}</td>
     <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
     <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>
-    <td class="num">${r.pa??'—'}</td>
+    <td class="num rate-cell" style="${sGb}">${fmtPct1(gb)}</td>`; })()
+      : (()=>{ const sw=r.swing_pct; const sSw=heat(r.pitch_type,'swing_pct',sw);
+          return `<td class="num rate-cell" style="${sSw}">${fmtPct1(sw)}</td>
+    <td class="num rate-cell" style="${sGb}">${fmtPct1(gb)}</td>
+    <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
+    <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>`; })();
+    return `<tr>
+    <td class="player-name">${pitchAbbrev(r.pitch_type)}</td>
+    <td class="num">${r.pitches??'—'}</td>
+    ${cells}
   </tr>`;
   }).join('')}
   </tbody></table></div>
-  ${note}
+</div>`;
+}
+function hitterPitchSideHtml(h, hand){
+  const H = hand.toLowerCase();
+  return `<div class="hitter-pitch-side">
+  <div class="section-label hitter-pitch-side-title">vs ${hand}</div>
+  ${pitchTypeTableHtml(h['non_risp_vs_'+H+'_by_pitch_type'], 'non-RISP', {split:'non_risp_vs_'+H, mode:'situ'})}
+  ${pitchTypeTableHtml(h['risp_vs_'+H+'_by_pitch_type'], 'RISP', {split:'risp_vs_'+H, mode:'situ'})}
+  ${pitchTypeTableHtml(h['pre2k_vs_'+H+'_by_pitch_type'], 'pre-2K', {split:'pre2k_vs_'+H, mode:'count'})}
+  ${pitchTypeTableHtml(h['twok_vs_'+H+'_by_pitch_type'], '2K', {split:'twok_vs_'+H, mode:'count'})}
 </div>`;
 }
 function hitterPitchTablesGridHtml(h){
-  // 2×2 hand splits (pitcher throws via Synergy pitcherInfo.pitchingSide):
-  //   vs R | vs L
-  //   RISP·vs R | RISP·vs L
+  // Left half vs R, right half vs L. Each side is non-RISP | RISP over pre-2K | 2K.
   return `<div class="hitter-pitch-grid">
-  ${pitchTypeTableHtml(h.vs_r_by_pitch_type, 'vs R', {hand:'R', risp:false, half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.vs_l_by_pitch_type, 'vs L', {hand:'L', risp:false, half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.risp_vs_r_by_pitch_type, 'RISP · vs R', {hand:'R', risp:true, half:true, hideNote:true})}
-  ${pitchTypeTableHtml(h.risp_vs_l_by_pitch_type, 'RISP · vs L', {hand:'L', risp:true, half:true, hideNote:true})}
+  ${hitterPitchSideHtml(h, 'R')}
+  ${hitterPitchSideHtml(h, 'L')}
 </div>`;
 }
 function advancePitchColor(code){
@@ -2145,13 +2176,15 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-pdf-team{font-size:26px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
-      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:3px 10px;flex:0 0 auto;margin:1px 0 2px}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:10px;margin:0 0 1px}
+      .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
+      .advance-sheet-hitter .hitter-pitch-side{display:grid;grid-template-columns:1fr 1fr;gap:1px 3px;min-width:0}
+      .advance-sheet-hitter .hitter-pitch-side-title{grid-column:1 / -1;font-size:8px;margin:0;letter-spacing:.04em}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:7px;margin:0;letter-spacing:.04em}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:10.5px;line-height:1.15}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:6.5px;line-height:1.05;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
-      .advance-sheet-hitter .hitter-pitch-half td{padding:1px 4px;line-height:1.15}
+      .advance-sheet-hitter .hitter-pitch-half td{padding:0 1px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
       .advance-sheet-hitter .hitter-pitch-half tbody td.num{font-weight:700}
@@ -2168,6 +2201,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .section-label{font-size:10px;margin:2px 0 1px}
       .advance-sheet-hitter .table-wrap table{font-size:10px;line-height:1.15}
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 4px;line-height:1.15}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:6.5px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 1px;line-height:1.05;letter-spacing:0;text-transform:none}
       /* Light canvas/img — dark CSS bg printed solid black when canvas bitmap failed */
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
@@ -2314,17 +2349,22 @@ function aggregateHitters(hitters, label){
     hitters.forEach(h=>{
       (h[key]||[]).forEach(r=>{
         const k=r.pitch_type||'UNK';
-        const cur=m.get(k)||{pitch_type:k,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0};
-        ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(f=>{cur[f]+=Number(r[f])||0;});
+        const cur=m.get(k)||{pitch_type:k,pitches:0,pa:0,ab:0,h:0,tb:0,bb:0,hbp:0,sf:0,gb:0,bip:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0,_hasTb:false};
+        ['pitches','pa','ab','h','tb','bb','hbp','sf','gb','bip','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(f=>{cur[f]+=Number(r[f])||0;});
+        if(r.tb!=null) cur._hasTb = true;
         if(r.ops!=null && r.pa){ cur._opsNum += Number(r.ops)*Number(r.pa); cur._opsDen += Number(r.pa); }
         m.set(k, cur);
       });
     });
     return [...m.values()].map(r=>{
-      r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
+      const paOb=(r.ab||0)+(r.bb||0)+(r.hbp||0)+(r.sf||0);
+      if(r._hasTb && r.ab>0 && paOb>0) r.ops = Math.round((((r.h+r.bb+r.hbp)/paOb)+(r.tb/r.ab))*1000)/1000;
+      else r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
       r.first_pitch_swing_pct = rateOrNull(r.first_pitch_swings, r.first_pitches);
       r.whiff_pct = rateOrNull(r.whiffs, r.swings);
-      delete r._opsNum; delete r._opsDen;
+      r.swing_pct = rateOrNull(r.swings, r.pitches);
+      r.gb_pct = rateOrNull(r.gb, r.bip);
+      delete r._opsNum; delete r._opsDen; delete r._hasTb;
       return r;
     }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
   }
@@ -2332,11 +2372,18 @@ function aggregateHitters(hitters, label){
   const vs_l_by_pitch_type = rollPitchRows('vs_l_by_pitch_type');
   const risp_vs_r_by_pitch_type = rollPitchRows('risp_vs_r_by_pitch_type');
   const risp_vs_l_by_pitch_type = rollPitchRows('risp_vs_l_by_pitch_type');
+  const non_risp_vs_r_by_pitch_type = rollPitchRows('non_risp_vs_r_by_pitch_type');
+  const non_risp_vs_l_by_pitch_type = rollPitchRows('non_risp_vs_l_by_pitch_type');
+  const pre2k_vs_r_by_pitch_type = rollPitchRows('pre2k_vs_r_by_pitch_type');
+  const pre2k_vs_l_by_pitch_type = rollPitchRows('pre2k_vs_l_by_pitch_type');
+  const twok_vs_r_by_pitch_type = rollPitchRows('twok_vs_r_by_pitch_type');
+  const twok_vs_l_by_pitch_type = rollPitchRows('twok_vs_l_by_pitch_type');
 
   return {
     name: label || 'Select All',
     team: hitters.length===1 ? hitters[0].team : (label||''),
     overall, by_pitch_type, risp_by_pitch_type, vs_r_by_pitch_type, vs_l_by_pitch_type, risp_vs_r_by_pitch_type, risp_vs_l_by_pitch_type,
+    non_risp_vs_r_by_pitch_type, non_risp_vs_l_by_pitch_type, pre2k_vs_r_by_pitch_type, pre2k_vs_l_by_pitch_type, twok_vs_r_by_pitch_type, twok_vs_l_by_pitch_type,
   };
 }
 function fillAdvanceHitters(){
