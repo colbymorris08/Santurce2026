@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san34">
+<link rel="stylesheet" href="shared.css?v=san37">
 </head>
 <body>
 <div class="topbar">
@@ -153,11 +153,7 @@
   </div>
 
   <div id="panel-strategy" class="panel">
-    <div class="coming-soon">
-      <h3 data-i18n="strategyTitle">Strategy card</h3>
-      <p data-i18n="strategyBody">Placeholder for the Santurce strategy card. Content will be filled in later.</p>
-      <div class="tagline-note" data-i18n="strategyNote">Layout stub only — keep this tab ready for 2026–7 gameplanning content.</div>
-    </div>
+    <div id="strategy-root"></div>
   </div>
 
   <div id="panel-matchup" class="panel">
@@ -245,35 +241,7 @@
   </div>
 
   <div id="panel-br" class="panel">
-    <div class="section-label" data-i18n="brLabel">LBPRC hitters — baserunning &amp; bunting</div>
-    <div class="note" data-i18n="brNote">Season SB/CS/sac bunts from MLB winter stats. Low-PA hitters may show Prospect Savant AAA fallback rates when available.</div>
-    <div class="filters">
-      <div class="filter-field"><label data-i18n="search">Search</label><input id="br-search" placeholder="Hitter / team" oninput="renderBR()"></div>
-      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
-        <select id="br-team" onchange="renderBR()">
-          <option value="all">All Teams</option>
-          <option value="SJU">Senadores de San Juan</option>
-          <option value="SAN">Cangrejeros de Santurce</option>
-          <option value="CAG">Criollos de Caguas</option>
-          <option value="CAR">Gigantes de Carolina</option>
-          <option value="MAY">Indios de Mayagüez</option>
-          <option value="PON">Leones de Ponce</option>
-</select>
-      </div>
-    </div>
-    <div class="table-wrap">
-      <table id="tbl-br"><thead><tr>
-        <th onclick="sortTbl('tbl-br',0)">Hitter</th>
-        <th onclick="sortTbl('tbl-br',1)">Team</th>
-        <th class="num" onclick="sortTbl('tbl-br',2)">PA</th>
-        <th class="num" onclick="sortTbl('tbl-br',3)">SB</th>
-        <th class="num" onclick="sortTbl('tbl-br',4)">CS</th>
-        <th class="num" onclick="sortTbl('tbl-br',5)">SB%</th>
-        <th class="num" onclick="sortTbl('tbl-br',6)">Sac</th>
-        <th class="num" onclick="sortTbl('tbl-br',7)">Sac/PA</th>
-        <th onclick="sortTbl('tbl-br',8)">AAA fallback</th>
-      </tr></thead><tbody></tbody></table>
-    </div>
+    <div id="smallball-root"></div>
   </div>
 
   <div id="panel-spray" class="panel">
@@ -394,11 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san34"></script>
+<script src="i18n.js?v=san37"></script>
+<script src="cards.js?v=san37"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san34';
+const ASSET_V = 'san37';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -454,6 +423,8 @@ function switchTab(name){
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
   if(name==='tth') renderTth();
+  if(name==='strategy' && window.CardApp) CardApp.renderStrategy();
+  if(name==='br' && window.CardApp) CardApp.renderSmallBall();
   if(location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
 }
 
@@ -974,22 +945,7 @@ function renderHvp(){
   }).join('');
 }
 function renderBR(){
-  const q=(document.getElementById('br-search').value||'').toLowerCase();
-  const team=document.getElementById('br-team').value;
-  const rows=(CACHE.br||[]).filter(r=>{
-    if(team!=='all' && r.team!==team) return false;
-    if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
-    return true;
-  });
-  document.querySelector('#tbl-br tbody').innerHTML = rows.map(r=>{
-    const fb=r.aaa_fallback?`${r.aaa_fallback.level_key} · pull ${r.aaa_fallback.pull??'—'}`:'—';
-    return `<tr>
-      <td class="player-name">${r.name}</td><td class="team-cell">${r.team||'—'}</td>
-      <td class="num">${r.PA}</td><td class="num">${r.SB}</td><td class="num">${r.CS}</td>
-      <td class="num">${r.SB_pct!=null?(r.SB_pct*100).toFixed(0)+'%':'—'}</td>
-      <td class="num">${r.sac_bunts}</td><td class="num">${r.sac_per_pa??'—'}</td>
-      <td>${fb}</td></tr>`;
-  }).join('');
+  if(window.CardApp) CardApp.renderSmallBall();
 }
 function fillStuffTeams(){
   const teams=[...new Set((CACHE.stuff||[]).map(r=>r.team).filter(Boolean))].sort();
@@ -2899,8 +2855,10 @@ Promise.all([
   fetch('data/advance_rodriguez.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
-]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, tth])=>{
-  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, tth};
+  fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, tth, cardStats])=>{
+  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, tth, cardStats};
+  if(window.CardApp) CardApp.boot(cardStats);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();
@@ -2926,6 +2884,7 @@ document.addEventListener('santurce:lang', () => {
   renderUsage();
   renderTth();
   renderPitcherAdvance(); renderAdvanceHitters();
+  if(window.CardApp) CardApp.refresh();
 });
 </script>
 </body>

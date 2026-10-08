@@ -31,8 +31,26 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#hitter-advance
   - Pitcher: **landscape**, exactly one page, three equal thirds (charts | shapes+heat | delivery) — slim name strip with **compact roster headshot** (~3% print scale)
   - Hitter: **portrait**, exactly one page — compact roster headshot in name strip, colored pitch tables filling width, RISP/non-RISP sprays at **native field aspect** (√2, no stretch), bunts/SB
 
+### Strategy card
+https://colbymorris08.github.io/Santurce2026/pregame.html#strategy
+
+- Opponent dropdown on the right. Santurce home/away swaps which side of the sheet Santurce occupies.
+- Check hitters into today’s lineup, drag to set the order, pick a position (1–9 or DH). The starter is pinned at the bottom of the lineup and leads the pitcher block; other checked arms are the bullpen; everyone else on the hitting roster is the bench.
+- Lineup, starter, and pen persist in this browser (`localStorage` key `santurce_strategy_lineup_v1`).
+- Export PDF: one portrait page, scaled to fit.
+
+### Baserunning and bunting card
+https://colbymorris08.github.io/Santurce2026/pregame.html#br
+
+- Team dropdown fills that LBPRC roster. 2B / 3B are steals of second and third when a split exists; otherwise the total SB/SBA spans both columns.
+- SAC is sacrifice bunts (LBPRC 2025 + 2026 summer). Frequent >5 green, occasional 2–5 white, rare <2 red.
+- Notes turn red when one base, or one bunt situation, is much more common than the other.
+- Team notes persist in this browser (`localStorage` key `santurce_smallball_notes_v1`).
+
 ### Other
 Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Statcast toggle).
+
+Card rates are built with `python3 build_pregame_cards.py` → `data/pregame_card_stats.json`. Rosters stay on current LBPRC teams.
 
 ## Refresh Synergy data
 
