@@ -822,12 +822,14 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .metric-card-title, .section-label, .advance-hero-meta h2 { color: #0a1633; }
   .metric-takeaway { background: #fff5f5; color: #111; }
 
-  /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot */
+  /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot.
+     7.0in drops the empty bottom 0.5in (was 7.5in) so the sheet stays inside
+     the content box (8.5 − 0.78 − 0.28 = 7.44in). */
   .advance-sheet-pitcher.advance-print-page {
     width: 10.5in;
     max-width: 10.5in;
-    height: 7.5in;
-    max-height: 7.5in;
+    height: 7.0in;
+    max-height: 7.0in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -964,18 +966,19 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .spray-hit-legend .fence-note { color: #555; }
 
   /* Hitter PDF: portrait one page, wide colored tables first.
-     Sheet uses the portrait content box (page is 11in − 1.15in − 0.28in). */
+     Content box is 11in − 1.15in − 0.28in = 9.57in. Height follows content
+     (capped under that box) so the sheet does not reserve a tall empty band. */
   .advance-sheet-hitter.advance-print-page {
     width: 7.94in;
     max-width: 7.94in;
-    height: 9.9in;
-    max-height: 9.9in;
+    height: auto;
+    max-height: 9.52in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
-    padding-bottom: 10px;
+    padding-bottom: 0;
     zoom: 0.96;
   }
   .advance-sheet-hitter .advance-pdf-strip {
@@ -1017,7 +1020,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   /* Do not flex-grow/shrink this row. flex:1 + min-height:0 collapsed the
      pair (~80px) while the charts stayed ~180px and painted over the bunts table.
-     Keep the pair at content size; free space becomes the gap above bunts. */
+     Keep the pair at content size. Bunts sit 6px under the charts; leftover page space stays below the sheet. */
   .advance-sheet-hitter .hitter-spray-pair {
     flex: 0 0 auto;
     min-height: auto;
@@ -1065,8 +1068,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter > .section-label { flex: 0 0 auto; }
   .advance-sheet-hitter .hitter-sb-block {
     flex: 0 0 auto;
-    margin-top: auto;
-    padding-top: 8px;
+    margin-top: 6px;
+    padding-top: 2px;
     border-top: 1px solid #ddd;
     background: #fff;
     position: relative;
