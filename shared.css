@@ -1008,13 +1008,20 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-layout:not(.advance-layout-pitcher) { grid-template-columns: 1.1fr 1fr 0.9fr !important; }
 
   /* Hitter PDF: one landscape page. Page margin is 0.42in 0.22in 0.18in 0.22in
-     (set on the print window), so the sheet is 10.56in × 7.90in. Charts use the
-     extra width; sprays and the bunt block stay on the page under the charts. */
+     (set on the print window). Letter content box is 10.56in × 7.90in; the sheet
+     is 10.56in × 7.40in — 0.5in less height so the empty bottom band cannot spill
+     a second page. Pitch-table rows are slightly tighter so charts, sprays, and
+     the bunt table stay inside that box. Body min-height 100vh must not apply —
+     it paginates past the sheet. */
+  body:has(.advance-sheet-hitter) {
+    min-height: 0 !important;
+    height: auto !important;
+  }
   .advance-sheet-hitter.advance-print-page {
     width: 10.56in;
     max-width: 10.56in;
-    height: 7.90in;
-    max-height: 7.90in;
+    height: 7.40in;
+    max-height: 7.40in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1055,7 +1062,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 10px; margin: 0; color: #0a1633; letter-spacing: .04em; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
-  .advance-sheet-hitter .hitter-pitch-half table { font-size: 11px; line-height: 1.15; color: #111; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half table { font-size: 11px; line-height: 1.05; color: #111; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half thead th,
   .advance-sheet-hitter .hitter-sb-block thead th {
     background: #121c2e !important;
@@ -1070,7 +1077,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     background: #fff !important; color: #111 !important; border-bottom-color: #e2e8f0;
   }
   .advance-sheet-hitter .hitter-pitch-half th,
-  .advance-sheet-hitter .hitter-pitch-half td { padding: 1px 3px; line-height: 1.15; }
+  .advance-sheet-hitter .hitter-pitch-half td { padding: 0 3px; line-height: 1.05; }
   .advance-sheet-hitter .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .advance-sheet-hitter .hitter-spray-pair {
     flex: 0 0 auto;
@@ -1144,9 +1151,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .table-wrap table { font-size: 12px; line-height: 1.2; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
   .advance-sheet-hitter .table-wrap td { padding: 1px 6px; line-height: 1.2; }
-  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 11px; line-height: 1.15; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 11px; line-height: 1.05; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap th,
-  .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 1px 3px; line-height: 1.15; letter-spacing: 0; text-transform: none; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 3px; line-height: 1.05; letter-spacing: 0; text-transform: none; }
   /* Body copy stays black on white. Header bars and the spray key stay white on navy.
      Heat cells keep their own contrast color. */
   .advance-sheet-hitter,

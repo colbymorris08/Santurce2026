@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san43">
+<link rel="stylesheet" href="shared.css?v=san44">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san43"></script>
-<script src="cards.js?v=san43"></script>
+<script src="i18n.js?v=san44"></script>
+<script src="cards.js?v=san44"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san43';
+const ASSET_V = 'san44';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2167,8 +2167,9 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
   const hitterH = `
       html,body{color-scheme:only light;background:#fff!important}
+      body:has(.advance-sheet-hitter){min-height:0!important;height:auto!important}
       .advance-sheet-hitter.advance-print-page{
-        width:10.56in;height:7.90in;max-width:10.56in;max-height:7.90in;overflow:hidden;
+        width:10.56in;height:7.40in;max-width:10.56in;max-height:7.40in;overflow:hidden;
         display:flex;flex-direction:column;box-sizing:border-box;margin:0;padding-bottom:0;zoom:0.93;background:#fff;
       }
       .advance-sheet-hitter .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:6px 10px;flex:0 0 auto;padding:0 2px 2px;border-bottom:1px solid #ccc;margin-bottom:3px;min-width:0}
@@ -2182,9 +2183,9 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:10px;margin:0;letter-spacing:.04em;color:#0a1633}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:11px;line-height:1.15;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:11px;line-height:1.05;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
-      .advance-sheet-hitter .hitter-pitch-half td{padding:1px 3px;line-height:1.15;letter-spacing:0;text-transform:none;white-space:normal}
+      .advance-sheet-hitter .hitter-pitch-half td{padding:0 3px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half thead th,
       .advance-sheet-hitter .hitter-sb-block thead th{background:#121c2e!important;color:#fff!important;border-bottom-color:#2a3a52;font-size:9px}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111!important;border-bottom-color:#e2e8f0}
@@ -2207,8 +2208,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .section-label{font-size:11px;margin:2px 0 2px}
       .advance-sheet-hitter .table-wrap table{font-size:12px;line-height:1.2}
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 6px;line-height:1.2}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:11px;line-height:1.15;table-layout:fixed}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:1px 3px;line-height:1.15;letter-spacing:0;text-transform:none}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:11px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 3px;line-height:1.05;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img{
         width:min(100%,4.6in)!important;max-width:100%!important;
