@@ -1,0 +1,361 @@
+env loaded {'SYNERGY_EMAIL': True, 'SYNERGY_PASSWORD': True, 'SYNERGY_CLIENT_ID': False, 'SYNERGY_CLIENT_SECRET': False}
+starting /opt/homebrew/opt/python@3.13/bin/python3.13 -u build_advance_synergy.py --years 2025 2026 --max-events-per-team 4000 --max-events-per-player 2500
+Synergy login ok
+seasons LBPRC [('2025', '6785e5e9501a906266421884')]
+seasons LMB [('2026', '69b9af464c7644c026e9c16a'), ('2025', '6785e7cf262bd78ed7eda054')]
+seasons MLB [('2026', '699723120d671eb495aa37c7'), ('2025', '6780dc181f418eef00968295')]
+seasons MILB [('2026', '69c6b320130119a00efb729c'), ('2025', '6785e7b8501a906266421887')]
+=== restart 2026-10-02T02:55:58Z ===
+Synergy login ok
+seasons LBPRC [('2025', '6785e5e9501a906266421884')]
+seasons LMB [('2026', '69b9af464c7644c026e9c16a'), ('2025', '6785e7cf262bd78ed7eda054')]
+seasons MLB [('2026', '699723120d671eb495aa37c7'), ('2025', '6780dc181f418eef00968295')]
+seasons MILB [('2026', '69c6b320130119a00efb729c'), ('2025', '6785e7b8501a906266421887')]
+  fetched 200/1600 (page)
+  fetched 400/1600 (page)
+  fetched 600/1600 (page)
+  fetched 800/1600 (page)
+  fetched 1000/1600 (page)
+  fetched 1200/1600 (page)
+  fetched 1400/1600 (page)
+  fetched 1600/1600 (page)
+wrote advance_rodriguez.json
+PR roster gate counts {'CAG': {'all': 49, 'hitters': 25}, 'CAR': {'all': 48, 'hitters': 24}, 'MAY': {'all': 40, 'hitters': 20}, 'PON': {'all': 43, 'hitters': 22}, 'SJU': {'all': 46, 'hitters': 23}}
+=== Discover PR roster CAG (winter LBPRC) ===
+  fetched 200/4000 (page)
+  fetched 400/4000 (page)
+  fetched 600/4000 (page)
+  fetched 800/4000 (page)
+  fetched 1000/4000 (page)
+  fetched 1200/4000 (page)
+  fetched 1400/4000 (page)
+  fetched 1600/4000 (page)
+  fetched 1800/4000 (page)
+  fetched 2000/4000 (page)
+  fetched 2200/4000 (page)
+  fetched 2400/4000 (page)
+  fetched 2600/4000 (page)
+  fetched 2800/4000 (page)
+  fetched 3000/4000 (page)
+  fetched 3200/4000 (page)
+  fetched 3400/4000 (page)
+  fetched 3600/4000 (page)
+  fetched 3800/4000 (page)
+  fetched 4000/4000 (page)
+  unique batters in team pull=71 events=4000
+  roster-gated hitters matched=57 (running total=57)
+=== Discover PR roster CAR (winter LBPRC) ===
+  fetched 200/4000 (page)
+  fetched 400/4000 (page)
+  fetched 600/4000 (page)
+  fetched 800/4000 (page)
+  fetched 1000/4000 (page)
+  fetched 1200/4000 (page)
+  fetched 1400/4000 (page)
+  fetched 1600/4000 (page)
+  fetched 1800/4000 (page)
+  fetched 2000/4000 (page)
+  fetched 2200/4000 (page)
+  fetched 2400/4000 (page)
+  fetched 2600/4000 (page)
+  fetched 2800/4000 (page)
+  fetched 3000/4000 (page)
+  fetched 3200/4000 (page)
+  fetched 3400/4000 (page)
+  fetched 3600/4000 (page)
+  fetched 3800/4000 (page)
+  fetched 4000/4000 (page)
+  unique batters in team pull=69 events=4000
+  roster-gated hitters matched=17 (running total=74)
+=== Discover PR roster MAY (winter LBPRC) ===
+  fetched 200/4000 (page)
+  fetched 400/4000 (page)
+  fetched 600/4000 (page)
+  fetched 800/4000 (page)
+  fetched 1000/4000 (page)
+  fetched 1200/4000 (page)
+  fetched 1400/4000 (page)
+  fetched 1600/4000 (page)
+  fetched 1800/4000 (page)
+  fetched 2000/4000 (page)
+  fetched 2200/4000 (page)
+  fetched 2400/4000 (page)
+  fetched 2600/4000 (page)
+  fetched 2800/4000 (page)
+  fetched 3000/4000 (page)
+  fetched 3200/4000 (page)
+  fetched 3400/4000 (page)
+  fetched 3600/4000 (page)
+  fetched 3800/4000 (page)
+  fetched 4000/4000 (page)
+  unique batters in team pull=85 events=4000
+  roster-gated hitters matched=5 (running total=79)
+=== Discover PR roster PON (winter LBPRC) ===
+  fetched 200/4000 (page)
+  fetched 400/4000 (page)
+  fetched 600/4000 (page)
+  fetched 800/4000 (page)
+  fetched 1000/4000 (page)
+  fetched 1200/4000 (page)
+  fetched 1400/4000 (page)
+  fetched 1600/4000 (page)
+  fetched 1800/4000 (page)
+  fetched 2000/4000 (page)
+  fetched 2200/4000 (page)
+  fetched 2400/4000 (page)
+  fetched 2600/4000 (page)
+  fetched 2800/4000 (page)
+  fetched 3000/4000 (page)
+  events HTTP 401 id=6274570a77783bd4debe46be skip=3000
+  unique batters in team pull=42 events=3000
+  roster-gated hitters matched=0 (running total=79)
+=== Discover PR roster SJU (winter LBPRC) ===
+  events HTTP 401 id=67080ee4004b3d1070e35804 skip=0
+  unique batters in team pull=0 events=0
+  roster-gated hitters matched=0 (running total=79)
+PR roster-gated Synergy hitters=79
+matched by PR team {'CAG': 16, 'CAR': 14, 'MAY': 15, 'PON': 20, 'SJU': 14}
+=== [1/79] CAG Bryan Torres · expand winter+summer ===
+  events HTTP 401 id=582b7fed35be47a9274db261 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [2/79] CAG Enmanuel Valdez · expand winter+summer ===
+  events HTTP 401 id=5c73a1f585d07ba976ccdce0 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [3/79] CAG Gustavo Melendez · expand winter+summer ===
+  events HTTP 401 id=63091afbda00e150d56a94fb skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [4/79] CAG Jancarlos Cintron · expand winter+summer ===
+  events HTTP 401 id=5c8f4410f52909811ed20a91 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [5/79] CAG Jonathan Morales · expand winter+summer ===
+  events HTTP 401 id=5abcb5322cb661f293636a79 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [6/79] CAG Jose F Miranda · expand winter+summer ===
+  events HTTP 401 id=5c972cd6f52909811e50e2ef skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [7/79] CAG Kristian Campbell · expand winter+summer ===
+  events HTTP 401 id=5f247a623178aece2ca82157 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [8/79] CAG Luis Vázquez · expand winter+summer ===
+  events HTTP 401 id=5abcb5322cb661f293637e3b skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [9/79] CAG MJ Melendez · expand winter+summer ===
+  events HTTP 401 id=5abcb5312cb661f293635ae6 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [10/79] CAG Manny Garcia · expand winter+summer ===
+  events HTTP 401 id=5a793f78da5c2a42882922f3 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [11/79] CAG Nelson Velázquez · expand winter+summer ===
+  events HTTP 401 id=5c8ca0e2f52909811e30178e skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [12/79] CAG Noah Myers · expand winter+summer ===
+  events HTTP 401 id=5cfff4784b8b507824f9cab9 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [13/79] CAG Onix Vega · expand winter+summer ===
+  events HTTP 401 id=60bcbcc4e22410a01cd610d2 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [14/79] CAG Tomás Nido · expand winter+summer ===
+  events HTTP 401 id=59c8ba8544b2b8aa7e0d87b6 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [15/79] CAG Vimael Machín · expand winter+summer ===
+  events HTTP 401 id=573d7590080cc2cbe8c2cb7f skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [16/79] CAG Willy Vasquez · expand winter+summer ===
+  events HTTP 401 id=624238c3653e4e7da17a8442 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [17/79] CAR Abimelec Ortiz · expand winter+summer ===
+  events HTTP 401 id=5f934f7fd5f749000139bc4c skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [18/79] CAR Adrian Rodriguez · expand winter+summer ===
+  events HTTP 401 id=6121c9e40276b963e175902d skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [19/79] CAR Deniel Ortiz · expand winter+summer ===
+  events HTTP 401 id=616a7487c122029009e74180 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [20/79] CAR Diego Rosa · expand winter+summer ===
+  events HTTP 401 id=622156c3710947696be60a46 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [21/79] CAR Ezequiel Pagan · expand winter+summer ===
+  events HTTP 401 id=6245fcbe4e0f79f6c6925a08 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [22/79] CAR Felix Stevens · expand winter+summer ===
+  events HTTP 401 id=5d15e7b4f52909811eedf328 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [23/79] CAR J.D. Gonzalez · expand winter+summer ===
+  events HTTP 401 id=627c2f170012b6bb1c62b695 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [24/79] CAR Jan Hernandez · expand winter+summer ===
+  events HTTP 401 id=5c8b4e76f52909811e4f88e8 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [25/79] CAR Johnathan Rodríguez · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc11589 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [26/79] CAR Josh Hatcher · expand winter+summer ===
+  events HTTP 401 id=5a827729da5c2a6828506977 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [27/79] CAR Miguel Pabon · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc11395 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [28/79] CAR Roberto Peña · expand winter+summer ===
+  events HTTP 401 id=5a4cb9b9c6deb2ec2b17c211 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [29/79] CAR Sabin Ceballos · expand winter+summer ===
+  events HTTP 401 id=600c39e16416d8c9ea744be1 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [30/79] CAR Steven Ondina · expand winter+summer ===
+  events HTTP 401 id=5d3798c34b8b5278681f6be4 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [31/79] MAY Anthony García · expand winter+summer ===
+  events HTTP 401 id=5a4cb9b7c6deb2ec2b17a24e skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [32/79] MAY Danny Ortiz · expand winter+summer ===
+  events HTTP 401 id=59c8a59044b2b8aa7ec74f8c skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [33/79] MAY Darell Hernaiz · expand winter+summer ===
+  events HTTP 401 id=5e6935bf7455336e8750e2a3 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [34/79] MAY Drew Mendoza · expand winter+summer ===
+  events HTTP 401 id=603bf7005fe05a0e9f942536 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [35/79] MAY Eddie Rosario · expand winter+summer ===
+  events HTTP 401 id=573d706b080cc2cbe8bf3089 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [36/79] MAY Isan Díaz · expand winter+summer ===
+  events HTTP 401 id=5abcb5322cb661f2936371c4 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [37/79] MAY Ivan Luciano · expand winter+summer ===
+  events HTTP 401 id=634407ef8125843e5afdc6c3 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [38/79] MAY Jeremy Rivera · expand winter+summer ===
+  events HTTP 401 id=5abcb5312cb661f293635c2a skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [39/79] MAY Mario Feliciano · expand winter+summer ===
+  events HTTP 401 id=5abcb5312cb661f2936356e5 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [40/79] MAY Martín Maldonado · expand winter+summer ===
+  events HTTP 401 id=573d7056080cc2cbe8bf2d59 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [41/79] MAY Matthew Lugo · expand winter+summer ===
+  events HTTP 401 id=5b623c3b4b8b598318c71b56 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [42/79] MAY Rey Fuentes · expand winter+summer ===
+  events HTTP 401 id=573d705e080cc2cbe8bf3029 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [43/79] MAY Robbie Merced · expand winter+summer ===
+  events HTTP 401 id=5a6e1a33da5c2a6aa44a3705 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [44/79] MAY Shawn Ross · expand winter+summer ===
+  events HTTP 401 id=62031461f43ef499fa336e17 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [45/79] MAY Yadiel Rivera · expand winter+summer ===
+  events HTTP 401 id=573d70d1080cc2cbe8bf320a skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [46/79] PON Aldemar Burgos · expand winter+summer ===
+  events HTTP 401 id=5834ab4d35be47a9276391c2 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [47/79] PON Alex Dickerson · expand winter+summer ===
+  events HTTP 401 id=573d70ab080cc2cbe8bf3190 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [48/79] PON Anthony Calarco · expand winter+summer ===
+  events HTTP 401 id=5c42e390b264815fb4043ce4 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [49/79] PON Chris Arroyo · expand winter+summer ===
+  events HTTP 401 id=5f849fe51cb0540001a544c6 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [50/79] PON Dalton Guthrie · expand winter+summer ===
+  events HTTP 401 id=5c8ca0e2f52909811e300761 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [51/79] PON Edwin Díaz · expand winter+summer ===
+  events HTTP 401 id=5abcb5332cb661f2936389c1 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [52/79] PON Emmanuel Rivera · expand winter+summer ===
+  events HTTP 401 id=5abcb5312cb661f293635860 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [53/79] PON Gabriel Cancel · expand winter+summer ===
+  events HTTP 401 id=5abcb5322cb661f293636c20 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [54/79] PON Jacob Berry · expand winter+summer ===
+  events HTTP 401 id=6000ef6a8d04d1abba29f75c skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [55/79] PON Jankel Ortiz · expand winter+summer ===
+  events HTTP 401 id=5f82dac41cb0540001a54309 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [56/79] PON Jesmuel Valentín · expand winter+summer ===
+  events HTTP 401 id=5a4cb9b8c6deb2ec2b17b273 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [57/79] PON John Montes · expand winter+summer ===
+  events HTTP 401 id=6021ce6a620705ab60a19cde skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [58/79] PON Juan Montero · expand winter+summer ===
+  events HTTP 401 id=618777c7c379865a58bb2607 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [59/79] PON Kevin Santa · expand winter+summer ===
+  events HTTP 401 id=5a4ccd8cc6deb2ec2b6b25b9 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [60/79] PON Matt Bottcher · expand winter+summer ===
+  events HTTP 401 id=58b23cb34b8b569df880eaa2 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [61/79] PON Matthew Batten · expand winter+summer ===
+  events HTTP 401 id=5abcb5312cb661f293635203 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [62/79] PON Ozzie Martínez · expand winter+summer ===
+  events HTTP 401 id=5a4cb9b8c6deb2ec2b17b5a0 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [63/79] PON Sammy Hernandez · expand winter+summer ===
+  events HTTP 401 id=5f835f031cb0540001a5439b skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [64/79] PON William Simoneit · expand winter+summer ===
+  events HTTP 401 id=58d92c1e4b8b533e00f4db3a skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [65/79] PON Yeniel Laboy · expand winter+summer ===
+  events HTTP 401 id=5f83cdd3d9b60b00014e1b30 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [66/79] SJU Abdel Guadalupe · expand winter+summer ===
+  events HTTP 401 id=5e52ca0f7455336e875b8167 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [67/79] SJU Calvin Estrada · expand winter+summer ===
+  events HTTP 401 id=5c51d4909d889a7a18f27682 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [68/79] SJU Darlin Moquete · expand winter+summer ===
+  events HTTP 401 id=60dc8567191fb170ff2b5357 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [69/79] SJU Delvin Pérez · expand winter+summer ===
+  events HTTP 401 id=5abcb5332cb661f2936388ac skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [70/79] SJU Elijah Dunham · expand winter+summer ===
+  events HTTP 401 id=5a89f5e14b8b4e467861dd2c skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [71/79] SJU Glenn Santiago · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc11256 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [72/79] SJU Jadiel Sanchez · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc111f6 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [73/79] SJU Jan Mercado · expand winter+summer ===
+  events HTTP 401 id=5f76893eb0dfa00001ef99f5 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [74/79] SJU Kenen Irizarry · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc1127c skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [75/79] SJU Luis Curbelo · expand winter+summer ===
+  events HTTP 401 id=5c7f7f4785d07ba976980694 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [76/79] SJU Narciso Crook · expand winter+summer ===
+  events HTTP 401 id=5abcb5322cb661f29363718f skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [77/79] SJU Roby Enriquez · expand winter+summer ===
+  events HTTP 401 id=5a6cc749da5c2a48fcc2933d skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [78/79] SJU Victor Torres · expand winter+summer ===
+  events HTTP 401 id=5fd12a915fe05a0e9fc11608 skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+=== [79/79] SJU Yariel Gonzalez · expand winter+summer ===
+  events HTTP 401 id=5d05961ef52909811e2d2fdc skip=0
+  kept=0 winter=0 raw_pull=0 leagues={}
+wrote advance_opposing_hitters.json hitters=0 pitches=0 winter_pitches=0
+wrote advance_opposing_pitchers.json pitchers=0
+spray synergy players=0 → /Users/colbymorris/Santurce2026/data/pregame_spray_charts.json
+DONE
+SAMPLE winter_only {'hitters': 0, 'pitches': 0, 'pa': 0, 'spray_bip': 0, 'with_mlb_id': 0, 'events_total': 0}
+SAMPLE winter+summer {'hitters': 0, 'pitches': 0, 'pa': 0, 'spray_bip': 0}
+LEAGUES {}

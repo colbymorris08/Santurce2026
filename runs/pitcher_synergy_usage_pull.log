@@ -1,0 +1,511 @@
+Synergy login ok
+seasons LBPRC [('2025', '6785e5e9501a906266421884')]
+seasons LMB [('2026', '69b9af464c7644c026e9c16a'), ('2025', '6785e7cf262bd78ed7eda054')]
+seasons MLB [('2026', '699723120d671eb495aa37c7'), ('2025', '6780dc181f418eef00968295')]
+seasons MILB [('2026', '69c6b320130119a00efb729c'), ('2025', '6785e7b8501a906266421887')]
+  fetched 200/1600 (page)
+  fetched 400/1600 (page)
+  fetched 600/1600 (page)
+  fetched 800/1600 (page)
+  fetched 1000/1600 (page)
+  fetched 1200/1600 (page)
+  fetched 1400/1600 (page)
+  fetched 1600/1600 (page)
+wrote advance_rodriguez.json
+PR roster gate counts {'CAG': {'all': 49, 'hitters': 25}, 'CAR': {'all': 48, 'hitters': 24}, 'MAY': {'all': 40, 'hitters': 20}, 'PON': {'all': 43, 'hitters': 22}, 'SJU': {'all': 46, 'hitters': 23}}
+=== Discover PR pitchers CAG (winter LBPRC) ===
+  fetched 200/1200 unique_pitchers=9
+  fetched 400/1200 unique_pitchers=19
+  fetched 600/1200 unique_pitchers=21
+  fetched 800/1200 unique_pitchers=22
+  fetched 1000/1200 unique_pitchers=25
+  fetched 1200/1200 unique_pitchers=25
+  unique defense pitchers in team pull=25 events=1200
+  roster-gated pitchers matched=14 (running total=14)
+=== Discover PR pitchers CAR (winter LBPRC) ===
+  fetched 200/1200 unique_pitchers=5
+  fetched 400/1200 unique_pitchers=12
+  fetched 600/1200 unique_pitchers=17
+  fetched 800/1200 unique_pitchers=21
+  fetched 1000/1200 unique_pitchers=25
+  fetched 1200/1200 unique_pitchers=27
+  unique defense pitchers in team pull=27 events=1200
+  roster-gated pitchers matched=27 (running total=41)
+=== Discover PR pitchers MAY (winter LBPRC) ===
+  fetched 200/1200 unique_pitchers=6
+  fetched 400/1200 unique_pitchers=12
+  fetched 600/1200 unique_pitchers=22
+  fetched 800/1200 unique_pitchers=24
+  fetched 1000/1200 unique_pitchers=27
+  fetched 1200/1200 unique_pitchers=31
+  unique defense pitchers in team pull=31 events=1200
+  roster-gated pitchers matched=17 (running total=58)
+=== Discover PR pitchers PON (winter LBPRC) ===
+  fetched 200/1200 unique_pitchers=5
+  fetched 400/1200 unique_pitchers=12
+  fetched 600/1200 unique_pitchers=17
+  fetched 800/1200 unique_pitchers=20
+  fetched 1000/1200 unique_pitchers=22
+  fetched 1200/1200 unique_pitchers=27
+  unique defense pitchers in team pull=27 events=1200
+  roster-gated pitchers matched=0 (running total=58)
+=== Discover PR pitchers SJU (winter LBPRC) ===
+  fetched 200/1200 unique_pitchers=6
+  fetched 400/1200 unique_pitchers=12
+  fetched 600/1200 unique_pitchers=20
+  fetched 800/1200 unique_pitchers=25
+  fetched 1000/1200 unique_pitchers=31
+  fetched 1200/1200 unique_pitchers=35
+  unique defense pitchers in team pull=35 events=1200
+  roster-gated pitchers matched=7 (running total=65)
+PR roster-gated Synergy pitchers=65
+resumed 0 pitchers from checkpoint
+=== pitcher [1/65] CAG Anthony Maldonado · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=977 0-0=252 2K=270 LHH=421 RHH=556 leagues={'LMB': 203, 'MILB': 652, 'MLB': 6, 'LBPRC': 116}
+=== pitcher [2/65] CAG Christian Torres · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=946 0-0=244 2K=264 LHH=329 RHH=617 leagues={'LMB': 702, 'LBPRC': 244}
+=== pitcher [3/65] CAG Duane Underwood Jr. · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=322 0-0=88 2K=103 LHH=180 RHH=142 leagues={'LMB': 135, 'LBPRC': 187}
+=== pitcher [4/65] CAG Harrison Francis · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=20 0-0=5 2K=4 LHH=18 RHH=2 leagues={'LBPRC': 20}
+=== pitcher [5/65] CAG Héctor Santiago · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=719 0-0=164 2K=226 LHH=139 RHH=580 leagues={'LBPRC': 719}
+=== pitcher [6/65] CAG José De León · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=900 0-0=236 2K=263 LHH=417 RHH=483 leagues={'LBPRC': 640, 'MLB': 101, 'MILB': 159}
+=== pitcher [7/65] CAG Luke Taggart · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=937 0-0=239 2K=296 LHH=533 RHH=404 leagues={'MILB': 855, 'MLB': 6, 'LBPRC': 76}
+=== pitcher [8/65] CAG Nicholas Padilla · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=808 0-0=206 2K=211 LHH=447 RHH=361 leagues={'LBPRC': 62, 'MILB': 746}
+=== pitcher [9/65] CAG Roel Ramírez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=884 0-0=231 2K=279 LHH=472 RHH=412 leagues={'LMB': 884}
+=== pitcher [10/65] CAG Yacksel Ríos · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=624 0-0=165 2K=165 LHH=365 RHH=259 leagues={'MILB': 276, 'MLB': 13, 'LBPRC': 335}
+=== pitcher [11/65] CAR Angel Reyes · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=697 0-0=192 2K=171 LHH=226 RHH=471 leagues={'LBPRC': 303, 'LMB': 394}
+=== pitcher [12/65] CAR Eddy Reynoso · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=196 0-0=46 2K=57 LHH=55 RHH=141 leagues={'LBPRC': 196}
+=== pitcher [13/65] CAR Eduardo Rivera · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=996 0-0=228 2K=314 LHH=300 RHH=696 leagues={'MILB': 827, 'MLB': 169}
+=== pitcher [14/65] CAR Eduardo Rivera · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=309 0-0=74 2K=91 LHH=154 RHH=155 leagues={'LBPRC': 309}
+=== pitcher [15/65] CAR Garrett Crowley · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=67 0-0=15 2K=20 LHH=37 RHH=30 leagues={'LBPRC': 67}
+=== pitcher [16/65] CAR Jonathan Bermúdez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=978 0-0=233 2K=316 LHH=208 RHH=770 leagues={'LMB': 978}
+=== pitcher [17/65] CAR Matt Givin · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=617 0-0=165 2K=186 LHH=307 RHH=310 leagues={'LMB': 617}
+=== pitcher [18/65] CAR Nicholas Regalado · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  empty kept=0 raw=1000
+=== pitcher [19/65] CAR Osvaldo Berrios · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=986 0-0=239 2K=298 LHH=394 RHH=592 leagues={'MILB': 986}
+=== pitcher [20/65] CAR Pedro Santos · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=712 0-0=166 2K=213 LHH=276 RHH=436 leagues={'LBPRC': 190, 'MILB': 522}
+=== pitcher [21/65] CAR R.J. Martinez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=955 0-0=225 2K=304 LHH=287 RHH=668 leagues={'LMB': 955}
+=== pitcher [22/65] CAR Ramesis Rosa · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=158 0-0=50 2K=28 LHH=59 RHH=99 leagues={'LBPRC': 158}
+=== pitcher [23/65] CAR Raymond Burgos · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=995 0-0=275 2K=270 LHH=285 RHH=710 leagues={'MLB': 292, 'MILB': 703}
+=== pitcher [24/65] CAR Ricardo Velez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=932 0-0=247 2K=230 LHH=489 RHH=443 leagues={'MILB': 526, 'LBPRC': 406}
+=== pitcher [25/65] CAR Sandy Gaston · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=918 0-0=221 2K=271 LHH=442 RHH=476 leagues={'MILB': 918}
+=== pitcher [26/65] MAY Ashton Goudeau · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=283 0-0=72 2K=77 LHH=104 RHH=179 leagues={'LBPRC': 283}
+=== pitcher [27/65] MAY Brian Moran · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=768 0-0=187 2K=276 LHH=240 RHH=528 leagues={'LMB': 273, 'LBPRC': 415, 'MILB': 80}
+=== pitcher [28/65] MAY Carlos A. Francisco · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=977 0-0=235 2K=286 LHH=440 RHH=537 leagues={'LBPRC': 310, 'LMB': 667}
+=== pitcher [29/65] MAY Chris Vallimont · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=981 0-0=259 2K=309 LHH=521 RHH=460 leagues={'MILB': 981}
+=== pitcher [30/65] MAY Derek West · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=764 0-0=187 2K=242 LHH=318 RHH=446 leagues={'LMB': 764}
+=== pitcher [31/65] MAY Hector Hernandez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=336 0-0=92 2K=83 LHH=96 RHH=240 leagues={'LBPRC': 336}
+=== pitcher [32/65] MAY Keylan Killgore · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=245 0-0=62 2K=81 LHH=117 RHH=128 leagues={'LBPRC': 245}
+=== pitcher [33/65] MAY Luis Leroy Cruz · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=572 0-0=147 2K=164 LHH=194 RHH=378 leagues={'LBPRC': 572}
+=== pitcher [34/65] MAY Luis Quiñones · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=886 0-0=217 2K=268 LHH=430 RHH=456 leagues={'MILB': 388, 'MLB': 17, 'LBPRC': 481}
+=== pitcher [35/65] MAY Matt Tenuta · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=787 0-0=210 2K=206 LHH=347 RHH=440 leagues={'LMB': 551, 'LBPRC': 236}
+=== pitcher [36/65] MAY Nathan Alexander · pitcherId ===
+  fetched 200/274 (page)
+  fetched 274/274 (page)
+  pitches=190 0-0=50 2K=60 LHH=56 RHH=134 leagues={'LBPRC': 190}
+=== pitcher [37/65] MAY Patrick Halligan · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=935 0-0=238 2K=277 LHH=450 RHH=485 leagues={'MILB': 935}
+=== pitcher [38/65] PON Andrew Marrero · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=902 0-0=239 2K=242 LHH=389 RHH=513 leagues={'MILB': 368, 'LMB': 28, 'LBPRC': 506}
+=== pitcher [39/65] PON Brandon Kaminer · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=92 0-0=23 2K=29 LHH=42 RHH=50 leagues={'LBPRC': 92}
+=== pitcher [40/65] PON Bryant Salgado · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=936 0-0=243 2K=243 LHH=451 RHH=485 leagues={'LMB': 369, 'LBPRC': 567}
+=== pitcher [41/65] PON Eric Garcia · pitcherId ===
+  fetched 200/280 (page)
+  fetched 280/280 (page)
+  pitches=203 0-0=55 2K=44 LHH=80 RHH=123 leagues={'LBPRC': 203}
+=== pitcher [42/65] PON Eric Torres · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=888 0-0=204 2K=263 LHH=308 RHH=580 leagues={'MILB': 456, 'MLB': 27, 'LBPRC': 405}
+=== pitcher [43/65] PON Fernando Cabrera · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=326 0-0=85 2K=74 LHH=139 RHH=187 leagues={'LBPRC': 326}
+=== pitcher [44/65] PON Freddie Cabrera · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=589 0-0=164 2K=121 LHH=325 RHH=264 leagues={'LBPRC': 589}
+=== pitcher [45/65] PON Gabriel Rodriguez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=947 0-0=213 2K=284 LHH=324 RHH=623 leagues={'MILB': 947}
+=== pitcher [46/65] PON Harold Cortijo · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=206 0-0=61 2K=41 LHH=86 RHH=120 leagues={'LBPRC': 206}
+=== pitcher [47/65] PON Jackson Goddard · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=951 0-0=238 2K=309 LHH=426 RHH=525 leagues={'LMB': 951}
+=== pitcher [48/65] PON Jalen Miller · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=291 0-0=71 2K=92 LHH=141 RHH=150 leagues={'LMB': 119, 'LBPRC': 172}
+=== pitcher [49/65] PON Jose Sola · pitcherId ===
+  fetched 200/336 (page)
+  fetched 336/336 (page)
+  pitches=185 0-0=43 2K=64 LHH=82 RHH=103 leagues={'LBPRC': 185}
+=== pitcher [50/65] PON Julio Torres · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=204 0-0=58 2K=47 LHH=79 RHH=125 leagues={'LBPRC': 204}
+=== pitcher [51/65] PON Noel Pinto · pitcherId ===
+  fetched 200/832 (page)
+  fetched 400/832 (page)
+  fetched 600/832 (page)
+  fetched 800/832 (page)
+  fetched 832/832 (page)
+  pitches=296 0-0=73 2K=92 LHH=139 RHH=157 leagues={'LBPRC': 296}
+=== pitcher [52/65] PON Omar Melendez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=214 0-0=55 2K=47 LHH=74 RHH=140 leagues={'LBPRC': 214}
+=== pitcher [53/65] PON Orlando Ortiz-Mayr · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=693 0-0=181 2K=202 LHH=347 RHH=346 leagues={'MILB': 693}
+=== pitcher [54/65] SJU Agnel Miranda · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=306 0-0=84 2K=73 LHH=157 RHH=149 leagues={'LBPRC': 306}
+=== pitcher [55/65] SJU Aneuris Rosario · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=105 0-0=29 2K=24 LHH=43 RHH=62 leagues={'LBPRC': 105}
+=== pitcher [56/65] SJU Brady Tedesco · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=530 0-0=148 2K=136 LHH=169 RHH=361 leagues={'LMB': 308, 'LBPRC': 222}
+=== pitcher [57/65] SJU Brandon Komar · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=801 0-0=211 2K=218 LHH=362 RHH=439 leagues={'LBPRC': 243, 'MILB': 558}
+=== pitcher [58/65] SJU Cole Stasio · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=970 0-0=252 2K=302 LHH=413 RHH=557 leagues={'MILB': 970}
+=== pitcher [59/65] SJU Ethan Lindow · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  empty kept=0 raw=1000
+=== pitcher [60/65] SJU Francisco Lopez-Soto · pitcherId ===
+  fetched 200/991 (page)
+  fetched 400/991 (page)
+  fetched 600/991 (page)
+  fetched 800/991 (page)
+  fetched 991/991 (page)
+  pitches=56 0-0=16 2K=19 LHH=21 RHH=35 leagues={'LBPRC': 56}
+=== pitcher [61/65] SJU Ivan Houellemont · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=316 0-0=79 2K=93 LHH=136 RHH=180 leagues={'LBPRC': 316}
+=== pitcher [62/65] SJU Jerryell Rivera · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=191 0-0=52 2K=44 LHH=92 RHH=99 leagues={'LBPRC': 191}
+=== pitcher [63/65] SJU Ruben Ramirez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=521 0-0=135 2K=141 LHH=253 RHH=268 leagues={'LBPRC': 521}
+=== pitcher [64/65] SJU Ryan Munoz · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=10 0-0=5 2K=1 LHH=6 RHH=4 leagues={'LBPRC': 10}
+=== pitcher [65/65] SJU Ryan Velazquez · pitcherId ===
+  fetched 200/1000 (page)
+  fetched 400/1000 (page)
+  fetched 600/1000 (page)
+  fetched 800/1000 (page)
+  fetched 1000/1000 (page)
+  pitches=234 0-0=55 2K=66 LHH=109 RHH=125 leagues={'LBPRC': 234}
+wrote advance_opposing_pitchers.json pitchers=63 empty=2
+merged Synergy → arsenals count=62 hand=61 matched=62
+DONE pitchers-only
