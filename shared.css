@@ -870,7 +870,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-layout-pitcher-print,
   .advance-sheet-pitcher .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print {
     grid-template-columns: 1fr 1fr 1fr !important;
-    grid-template-rows: minmax(0, auto) minmax(0.82in, 1fr);
+    /* Heat row is the portrait boxes; charts take whatever height is left. */
+    grid-template-rows: minmax(0, 1fr) auto;
     gap: 5px !important;
     flex: 1 1 auto;
     min-height: 0;
@@ -893,7 +894,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     overflow: hidden;
     min-height: 0;
     align-self: stretch;
-    gap: 1px;
+    gap: 0;
   }
   .advance-sheet-pitcher .advance-col-release {
     min-height: 0;
@@ -901,69 +902,78 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   }
   .advance-sheet-pitcher .advance-col-middle { display: contents; }
   .advance-sheet-pitcher .advance-col-charts .advance-card { margin-bottom: 0; }
-  .advance-sheet-pitcher .advance-card-compact { padding: 1px 3px; }
+  .advance-sheet-pitcher .advance-card-compact { padding: 0 2px; }
   .advance-sheet-pitcher .advance-card-compact .section-label { font-size: 9px; margin-bottom: 2px; }
   .advance-sheet-pitcher .advance-short {
-    padding: 1px 1px; column-gap: 0; font-size: 9px;
+    padding: 0; column-gap: 0; font-size: 9px;
     width: 100%; max-width: 100%; box-sizing: border-box;
   }
   .advance-sheet-pitcher .advance-short-col { padding: 0 8px; }
   .advance-sheet-pitcher .advance-short-col + .advance-short-col {
     border-left: 1px solid #bbb;
   }
-  .advance-sheet-pitcher .advance-short-row { font-size: 9px; grid-template-columns: 10px 2em 2.1em; }
+  .advance-sheet-pitcher .advance-short-row { font-size: 9px; line-height: 1.1; margin: 0; grid-template-columns: 10px 2em 2.1em; }
   .advance-sheet-pitcher .advance-arsenal-table { font-size: 8px; line-height: 1; }
   .advance-sheet-pitcher .advance-arsenal-table th,
   .advance-sheet-pitcher .advance-arsenal-table td { padding: 0 2px; }
   .advance-sheet-pitcher .advance-arsenal-table thead th { color: #111 !important; }
   .advance-sheet-pitcher .advance-desc {
-    font-size: 8.5px; line-height: 1.2; max-height: 54px; overflow: hidden;
+    font-size: 8.5px; line-height: 1.1; max-height: 40px; overflow: hidden;
     color: #000 !important;
   }
   .advance-sheet-pitcher .advance-desc,
   .advance-sheet-pitcher .advance-desc * { color: #000 !important; }
   .advance-sheet-pitcher .advance-usage-row {
-    font-size: 8px; margin-bottom: 0; grid-template-columns: 36px 1fr 28px;
+    font-size: 8px; line-height: 1.05; margin-bottom: 0; grid-template-columns: 36px 1fr 28px;
     color: #000 !important;
   }
   .advance-sheet-pitcher .advance-usage-row strong,
   .advance-sheet-pitcher .advance-usage-row .num { color: #000 !important; }
+  .advance-sheet-pitcher .advance-usage-side h4 { margin: 0 0 1px; font-size: 8px; }
   .advance-sheet-pitcher .advance-usage-bar { height: 5px; }
-  /* vs L / vs R: one horizontal row. Right edge stays on the middle column.
-     The row is about twice as wide as the old half-column pair (each map
-     more than 50% wider) and at most 2.15in tall so the extra size goes left. */
+  /* vs L / vs R sit side by side. Right edge stays on the middle column;
+     the pair still reaches left under the charts. Each box is a near-square
+     slightly taller than wide (height/width = 1.10). */
   .advance-sheet-pitcher .advance-band-heat {
     grid-column: 1 / span 2;
     grid-row: 2;
-    justify-self: stretch;
-    width: 100%;
+    justify-self: end;
+    width: max-content;
     max-width: 100%;
     margin: 0;
     box-sizing: border-box;
-    height: 100%;
-    max-height: 2.15in;
-    overflow: hidden;
+    height: auto;
+    max-height: none;
+    overflow: visible;
     flex: 0 0 auto;
     align-self: end;
+    padding: 1px 4px;
   }
   .advance-sheet-pitcher .advance-heat-pair {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: max-content max-content;
     gap: 6px;
-    flex: 1 1 auto;
-    height: 100%;
+    flex: 0 0 auto;
+    width: max-content;
+    height: auto;
     min-height: 0;
-    max-height: 2.15in;
+    max-height: none;
   }
   .advance-sheet-pitcher .advance-heat-cell {
-    min-height: 0; min-width: 0; display: flex; flex-direction: column; gap: 1px; overflow: hidden;
+    min-height: 0; min-width: 0; width: max-content;
+    display: flex; flex-direction: column; gap: 1px; overflow: visible;
   }
   .advance-sheet-pitcher .advance-heat-cell .advance-heat-lab {
-    color: #0a1633; font-size: 8.5px; margin: 0; flex: 0 0 auto;
+    color: #0a1633; font-size: 8.5px; line-height: 1; margin: 0; flex: 0 0 auto;
   }
   .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap,
   .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat {
-    flex: 1 1 auto; min-height: 0; height: auto; max-height: none;
+    flex: 0 0 auto;
+    width: 2.15in;
+    height: auto;
+    aspect-ratio: 1 / 1.10;
+    min-height: 0;
+    max-height: none;
   }
   .advance-sheet-pitcher .advance-band {
     margin-bottom: 0; padding: 3px 5px; min-height: 0;

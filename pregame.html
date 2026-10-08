@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san40">
+<link rel="stylesheet" href="shared.css?v=san41">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san40"></script>
-<script src="cards.js?v=san40"></script>
+<script src="i18n.js?v=san41"></script>
+<script src="cards.js?v=san41"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san40';
+const ASSET_V = 'san41';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2113,19 +2113,19 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-short-col+.advance-short-col{border-left:1px solid #bbb}
       .advance-sheet-pitcher .advance-short-col{padding:0 8px}
       .advance-sheet-pitcher .advance-short{padding:3px 2px;column-gap:0}
-      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;flex:1 1 auto;height:100%;min-height:0;max-height:2.15in}
-      .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;display:flex;flex-direction:column;gap:1px;overflow:hidden}
-      .advance-sheet-pitcher .advance-heat-lab{font-size:8.5px;font-weight:700;color:#0a1633;text-transform:uppercase;letter-spacing:.04em}
+      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:6px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
+      .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
+      .advance-sheet-pitcher .advance-heat-lab{font-size:8.5px;font-weight:700;color:#0a1633;text-transform:uppercase;letter-spacing:.04em;line-height:1}
       .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap,
-      .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat{flex:1;min-height:0;height:auto;max-height:none}
-      .advance-sheet-pitcher .advance-band-heat{grid-column:1 / span 2;grid-row:2;align-self:end;justify-self:stretch;width:100%;height:100%;max-height:2.15in;flex:0 0 auto;overflow:hidden}
+      .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat{flex:0 0 auto;width:2.15in;height:auto;aspect-ratio:1/1.10;min-height:0;max-height:none}
+      .advance-sheet-pitcher .advance-band-heat{grid-column:1 / span 2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
       .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1;align-self:stretch;min-height:0;overflow:hidden}
       .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
       .advance-sheet-pitcher .advance-col-release{grid-column:3;grid-row:1 / span 2}
       .advance-sheet-pitcher .advance-layout-pitcher-print,
       .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
-        grid-template-columns:1fr 1fr 1fr!important;grid-template-rows:minmax(0,auto) minmax(0.82in,1fr);gap:5px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
+        grid-template-columns:1fr 1fr 1fr!important;grid-template-rows:minmax(0,1fr) auto;gap:5px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
       }
       .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:0 1px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
       .advance-pdf-hand,.advance-pdf-name{font-size:26px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
