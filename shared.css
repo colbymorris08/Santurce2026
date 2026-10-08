@@ -810,6 +810,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-export-bar, .filters, .tabs, .tab-bar, .lang-toggle, .season-banner,
   .advance-upload-actions, .advance-upload-note, .advance-upload-cta { display: none !important; }
   .advance-print-page { page-break-after: always; break-after: page; page-break-inside: avoid; }
+  .advance-print-page:last-of-type { page-break-after: auto; break-after: auto; }
   body { background: #fff; color: #111; color-scheme: only light; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .spray-card canvas, .spray-print-img {
@@ -823,13 +824,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .metric-takeaway { background: #fff5f5; color: #111; }
 
   /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot.
-     7.0in drops the empty bottom 0.5in (was 7.5in) so the sheet stays inside
+     6.5in drops another empty 0.5in (was 7.0in) so the sheet stays inside
      the content box (8.5 − 0.78 − 0.28 = 7.44in). */
   .advance-sheet-pitcher.advance-print-page {
     width: 10.5in;
     max-width: 10.5in;
-    height: 7.0in;
-    max-height: 7.0in;
+    height: 6.5in;
+    max-height: 6.5in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1081,6 +1082,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .table-wrap table { font-size: 10px; line-height: 1.15; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
   .advance-sheet-hitter .table-wrap td { padding: 1px 4px; line-height: 1.15; }
+  /* Screen theme is light-on-dark (gold titles, muted headers, near-white
+     body text). Force every hitter PDF glyph black. Heat cells keep their
+     contrast color so the red/blue fills stay readable. */
+  .advance-sheet-hitter,
+  .advance-sheet-hitter *:not(.rate-cell) {
+    color: #000 !important;
+  }
 }
 
 .hitter-spray-pair {

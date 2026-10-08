@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san38">
+<link rel="stylesheet" href="shared.css?v=san39">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san38"></script>
-<script src="cards.js?v=san38"></script>
+<script src="i18n.js?v=san39"></script>
+<script src="cards.js?v=san39"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san38';
+const ASSET_V = 'san39';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2104,7 +2104,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
     : '0.78in 0.28in 0.28in 0.28in');
   const pitcherH = orientation === 'portrait' ? '' : `
       .advance-sheet-pitcher.advance-print-page{
-        width:10.5in;height:7.0in;max-width:10.5in;max-height:7.0in;overflow:hidden;
+        width:10.5in;height:6.5in;max-width:10.5in;max-height:6.5in;overflow:hidden;
         display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.874;
       }
       .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
@@ -2171,7 +2171,9 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
         background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
         filter:none!important;mix-blend-mode:normal!important;
-      }` : '';
+      }
+      .advance-sheet-hitter,
+      .advance-sheet-hitter *:not(.rate-cell){color:#000!important}` : '';
   const autoPrintScript = autoPrint
     ? `<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>`
     : '';
@@ -2183,7 +2185,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .season-banner,.advance-export-bar,.filters,.tabs,nav,header,.lang-toggle,
       .advance-upload-actions,.advance-upload-note,.advance-upload-cta{display:none!important}
       .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid;margin:0}
-      .advance-print-page:last-child{page-break-after:auto}
+      .advance-print-page:last-of-type{page-break-after:auto;break-after:auto}
       .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .spray-card canvas{background:#e8eef4!important;filter:none!important}
       ${pitcherH}
@@ -2192,6 +2194,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
         @page { size: ${page}; margin: ${margin}; }
         body{padding:0;background:#fff!important;color-scheme:only light}
         .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid}
+        .advance-print-page:last-of-type{page-break-after:auto;break-after:auto}
         .spray-card canvas,.spray-print-img{background:#e8eef4!important;filter:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
         ${pitcherH}
         ${hitterH}
