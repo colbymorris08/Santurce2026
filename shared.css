@@ -833,7 +833,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
-    zoom: 0.94; /* ~6% smaller so mass PDF fits one landscape page at 100% */
+    zoom: 0.874; /* 0.94 × 0.93 — ~7% smaller so header isn't cramped; one landscape page */
   }
   .advance-sheet-pitcher .advance-pdf-strip {
     flex: 0 0 auto;

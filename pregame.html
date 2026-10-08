@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san32">
+<link rel="stylesheet" href="shared.css?v=san33">
 </head>
 <body>
 <div class="topbar">
@@ -394,11 +394,11 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san32"></script>
+<script src="i18n.js?v=san33"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san32';
+const ASSET_V = 'san33';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2142,13 +2142,14 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
   const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
   // Hitter: extra ~1" top margin so name strip isn't cut off; still one portrait page.
+  // Pitcher landscape: +0.5in top (0.28 → 0.78) so the header isn't cut off.
   const margin = pageMargin || (orientation === 'portrait'
     ? '1.15in 0.28in 0.28in 0.28in'
-    : '0.28in');
+    : '0.78in 0.28in 0.28in 0.28in');
   const pitcherH = orientation === 'portrait' ? '' : `
       .advance-sheet-pitcher.advance-print-page{
         width:10.5in;height:7.5in;max-width:10.5in;max-height:7.5in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.94;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.874;
       }
       .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
       .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
