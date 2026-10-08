@@ -963,17 +963,19 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .spray-hit-legend .spray-hit-lab strong { color: #111; }
   .spray-hit-legend .fence-note { color: #555; }
 
-  /* Hitter PDF: portrait one page, wide colored tables first */
+  /* Hitter PDF: portrait one page, wide colored tables first.
+     Sheet uses the portrait content box (page is 11in − 1.15in − 0.28in). */
   .advance-sheet-hitter.advance-print-page {
     width: 7.94in;
     max-width: 7.94in;
-    height: 9.4in;
-    max-height: 9.4in;
+    height: 9.9in;
+    max-height: 9.9in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
+    padding-bottom: 10px;
     zoom: 0.96;
   }
   .advance-sheet-hitter .advance-pdf-strip {
@@ -997,13 +999,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex: 0 0 auto;
     width: 100%;
     grid-template-columns: 1fr 1fr !important;
-    gap: 6px 12px;
-    margin: 2px 0 4px;
+    gap: 3px 10px;
+    margin: 1px 0 2px;
   }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11.5px; margin-bottom: 3px; color: #0a1633; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 10px; margin: 0 0 1px; color: #0a1633; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
-  .advance-sheet-hitter .hitter-pitch-half table { font-size: 12px; color: #111; }
+  .advance-sheet-hitter .hitter-pitch-half table { font-size: 10.5px; line-height: 1.15; color: #111; }
   .advance-sheet-hitter .hitter-pitch-half thead th {
     background: #fff !important; color: #333; border-bottom-color: #ccc;
   }
@@ -1011,29 +1013,41 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     background: #fff !important; color: #111; border-bottom-color: #e2e8f0;
   }
   .advance-sheet-hitter .hitter-pitch-half th,
-  .advance-sheet-hitter .hitter-pitch-half td { padding: 4px 6px; }
+  .advance-sheet-hitter .hitter-pitch-half td { padding: 1px 4px; line-height: 1.15; }
   .advance-sheet-hitter .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Do not flex-grow/shrink this row. flex:1 + min-height:0 collapsed the
+     pair (~80px) while the charts stayed ~180px and painted over the bunts table.
+     Keep the pair at content size; free space becomes the gap above bunts. */
   .advance-sheet-hitter .hitter-spray-pair {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
+    flex: 0 0 auto;
+    min-height: auto;
+    overflow: visible;
+    height: auto;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px;
-    margin-top: 0;
+    margin: 0;
     align-items: start;
   }
   .advance-sheet-hitter .hitter-spray-pair .spray-card {
-    padding: 2px 4px; margin: 0; min-width: 0;
+    padding: 1px 4px 0; margin: 0; min-width: 0;
     display: flex; flex-direction: column; align-items: center;
+    overflow: visible;
+  }
+  .advance-sheet-hitter .hitter-spray-pair .spray-card h3 {
+    font-size: 10px; margin: 0 0 2px; line-height: 1.1;
+  }
+  .advance-sheet-hitter .hitter-spray-pair .note {
+    font-size: 8px; line-height: 1.1; margin: 1px 0 0; max-width: none;
   }
   /* Native √2 field aspect — light bg + exact colors (dark CSS bg was solid black in PDF) */
   .advance-sheet-hitter .hitter-spray-pair canvas,
   .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
   .spray-print-img {
-    width: min(100%, 2.75in) !important;
+    width: min(100%, 2.35in) !important;
     max-width: 100% !important;
     height: auto !important;
-    max-height: 2.05in !important;
+    max-height: 1.66in !important;
+    object-fit: contain !important;
     aspect-ratio: 1.414 / 1;
     display: block;
     margin: 0 auto;
@@ -1047,19 +1061,23 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   }
   .advance-sheet-hitter .hitter-pitch-half tbody td.num,
   .advance-sheet-hitter .hitter-pitch-half tbody td.rate-cell { font-weight: 700; }
-  .advance-sheet-hitter .spray-hit-legend { font-size: 9px; padding: 3px 6px; margin: 2px 0 4px; }
+  .advance-sheet-hitter .spray-hit-legend { flex: 0 0 auto; font-size: 9px; padding: 2px 6px; margin: 1px 0 2px; }
+  .advance-sheet-hitter > .section-label { flex: 0 0 auto; }
   .advance-sheet-hitter .hitter-sb-block {
     flex: 0 0 auto;
-    margin-top: 10px;
-    padding-top: 6px;
+    margin-top: auto;
+    padding-top: 8px;
     border-top: 1px solid #ddd;
+    background: #fff;
+    position: relative;
+    z-index: 1;
   }
-  .advance-sheet-hitter .hitter-sb-block .section-label { margin: 0 0 4px; }
-  .advance-sheet-hitter .hitter-sb-block .table-wrap { margin: 0; }
-  .advance-sheet-hitter .section-label { font-size: 11px; margin: 4px 0 3px; }
-  .advance-sheet-hitter .table-wrap table { font-size: 11px; width: 100%; }
+  .advance-sheet-hitter .hitter-sb-block .section-label { margin: 0 0 2px; }
+  .advance-sheet-hitter .hitter-sb-block .table-wrap { margin: 0; background: #fff; }
+  .advance-sheet-hitter .section-label { font-size: 10px; margin: 2px 0 1px; }
+  .advance-sheet-hitter .table-wrap table { font-size: 10px; line-height: 1.15; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
-  .advance-sheet-hitter .table-wrap td { padding: 3px 5px; }
+  .advance-sheet-hitter .table-wrap td { padding: 1px 4px; line-height: 1.15; }
 }
 
 .hitter-spray-pair {
