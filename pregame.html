@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san47">
+<link rel="stylesheet" href="shared.css?v=san48">
 </head>
 <body>
 <div class="topbar">
@@ -362,7 +362,7 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san47"></script>
+<script src="i18n.js?v=san48"></script>
 <script src="cards.js?v=san48"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
@@ -2185,12 +2185,12 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
       .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
-      .advance-sheet-hitter .hitter-pitch-side{display:flex;flex-direction:column;gap:2px;min-width:0}
+      .advance-sheet-hitter .hitter-pitch-side{display:flex;flex-direction:column;gap:1px;min-width:0}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px;margin:0;letter-spacing:.04em}
       .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px;margin:0;letter-spacing:.04em}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:12px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:10px;line-height:1.05;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
       .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half td.player-name{white-space:nowrap!important;overflow:hidden}
@@ -2215,13 +2215,13 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 4px;line-height:1.15}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px}
       .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:12px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:10px;line-height:1.05;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 2px;line-height:1.05;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
       .spray-print-img{
-        width:min(100%,4.6in)!important;max-width:100%!important;
-        height:auto!important;max-height:1.12in!important;object-fit:contain!important;
+        width:min(100%,2.35in)!important;max-width:100%!important;
+        height:auto!important;max-height:1.66in!important;object-fit:contain!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
         background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
@@ -2473,7 +2473,7 @@ function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,4.6in);max-width:100%;height:auto;max-height:1.12in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
+    ? 'width:min(100%,2.35in);max-width:100%;height:auto;max-height:1.66in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
     : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
   const rispMedia = (printPage && sprayUrls?.risp)
     ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
