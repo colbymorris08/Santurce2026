@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san49">
+<link rel="stylesheet" href="shared.css?v=san50">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san49"></script>
-<script src="cards.js?v=san49"></script>
+<script src="i18n.js?v=san50"></script>
+<script src="cards.js?v=san50"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san49';
+const ASSET_V = 'san50';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1036,14 +1036,12 @@ function drawSpray(canvas, points, opts={}){
   const h = canvas.height = dispH * 2;
   ctx.clearRect(0,0,w,h);
 
-  ctx.fillStyle='#e8eef4';
-  ctx.fillRect(0,0,w,h);
-
   // Statcast → feet: home (125.42, 198.27); +x toward RF, +y toward CF. Scale ≈ 2.5 ft/unit.
   const CF_FT = 400;       // CF fence length (ft) — maps to outer fence arc
   const FOUL_FT = 330;     // foul-pole distance
   const FOUL = Math.PI/4;  // 45° each side of CF → 90° fair territory
-  const pad = Math.min(w,h)*0.05;
+  // Hairline only — the wedge bounding box is the chart. No grey margin.
+  const pad = 2;
   const cx = w*0.5;
   const homeY = h - pad;
   // Fit 90° wedge tightly: half-width = R·sin(45°)=R/√2, depth = R
@@ -1051,6 +1049,9 @@ function drawSpray(canvas, points, opts={}){
   const maxRByH = homeY - pad;
   const fenceR = Math.min(maxRByW, maxRByH); // pixels for CF_FT
   const pxPerFt = fenceR / CF_FT;
+  // Stroke/dot sizes were tuned at the 424 CSS-px bake. Scale with the buffer
+  // so a larger on-screen chart keeps the same field proportions.
+  const ink = dispW / 424;
 
   function toCanvas(xFt, yFt){
     return { x: cx + xFt * pxPerFt, y: homeY - yFt * pxPerFt };
@@ -1069,6 +1070,11 @@ function drawSpray(canvas, points, opts={}){
   const DIRT = '#d4a574';
   const DIRT_DARK = '#c4965f';
   const INFIELD_DIRT_FT = 200; // brown skin out to ~infield edge / 200' arc
+
+  // Field fills the chart. Foul ground and the slivers past the arc are grass,
+  // not the old grey (#e8eef4) frame.
+  ctx.fillStyle = GRASS;
+  ctx.fillRect(0,0,w,h);
 
   // Outfield grass (fair wedge)
   ctx.beginPath();
@@ -1110,24 +1116,24 @@ function drawSpray(canvas, points, opts={}){
     ctx.beginPath();
     ctx.arc(cx, homeY, r, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
     ctx.strokeStyle = ft === 400 ? 'rgba(55,71,79,0.9)' : 'rgba(255,255,255,0.55)';
-    ctx.lineWidth = ft === 400 ? 3 : 1.5;
+    ctx.lineWidth = (ft === 400 ? 3 : 1.5) * ink;
     ctx.stroke();
     const lab = toCanvas(0, ft);
     ctx.fillStyle='#546e7a';
     ctx.font=`${Math.max(11, w*0.022)}px "IBM Plex Mono", monospace`;
     ctx.textAlign='center';
-    ctx.fillText(ft+"'", lab.x, lab.y + (ft===400 ? 14 : -4));
+    ctx.fillText(ft+"'", lab.x, lab.y + (ft===400 ? 14 : -4) * ink);
   });
 
   // Foul poles at 330'
   const lfPole = toCanvas(-FOUL_FT * Math.sin(FOUL), FOUL_FT * Math.cos(FOUL));
   const rfPole = toCanvas( FOUL_FT * Math.sin(FOUL), FOUL_FT * Math.cos(FOUL));
   ctx.strokeStyle='#37474f';
-  ctx.lineWidth=2;
+  ctx.lineWidth=2 * ink;
   [[lfPole],[rfPole]].forEach(([p])=>{
     ctx.beginPath();
     ctx.moveTo(p.x, p.y);
-    ctx.lineTo(p.x, p.y - 18);
+    ctx.lineTo(p.x, p.y - 18 * ink);
     ctx.stroke();
   });
 
@@ -1148,7 +1154,7 @@ function drawSpray(canvas, points, opts={}){
   ctx.fillStyle=GRASS;
   ctx.fill();
   ctx.strokeStyle='#fff';
-  ctx.lineWidth=2.5;
+  ctx.lineWidth=2.5 * ink;
   ctx.stroke();
 
   // Mound (dirt circle on green diamond)
@@ -1157,7 +1163,7 @@ function drawSpray(canvas, points, opts={}){
   ctx.fillStyle=DIRT_DARK;
   ctx.fill();
   ctx.strokeStyle='#b8844a';
-  ctx.lineWidth=1;
+  ctx.lineWidth=1 * ink;
   ctx.stroke();
 
   // Bases
@@ -1184,7 +1190,7 @@ function drawSpray(canvas, points, opts={}){
   const lfFence = toCanvas(-CF_FT * Math.sin(FOUL), CF_FT * Math.cos(FOUL));
   const rfFence = toCanvas( CF_FT * Math.sin(FOUL), CF_FT * Math.cos(FOUL));
   ctx.strokeStyle='rgba(255,255,255,0.95)';
-  ctx.lineWidth=1.5;
+  ctx.lineWidth=1.5 * ink;
   ctx.beginPath();
   ctx.moveTo(home.x, home.y); ctx.lineTo(lfFence.x, lfFence.y);
   ctx.moveTo(home.x, home.y); ctx.lineTo(rfFence.x, rfFence.y);
@@ -1194,7 +1200,7 @@ function drawSpray(canvas, points, opts={}){
   ctx.beginPath();
   ctx.arc(cx, homeY, fenceR, -Math.PI/2 - FOUL, -Math.PI/2 + FOUL);
   ctx.strokeStyle='#37474f';
-  ctx.lineWidth=3;
+  ctx.lineWidth=3 * ink;
   ctx.stroke();
 
   ctx.fillStyle='#546e7a';
@@ -1230,11 +1236,11 @@ function drawSpray(canvas, points, opts={}){
     const isHR = hit === 'HR';
     ctx.beginPath();
     // +40% over san28 radii (was HR 10.125 / BIP 7.3125)
-    ctx.arc(px, py, isHR ? 14.175 : 10.2375, 0, Math.PI*2);
+    ctx.arc(px, py, (isHR ? 14.175 : 10.2375) * ink, 0, Math.PI*2);
     ctx.fillStyle = HIT_COLORS[hit] || HIT_COLORS.BIP;
     ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-    ctx.lineWidth = isHR ? 1.8 : 1.2;
+    ctx.lineWidth = (isHR ? 1.8 : 1.2) * ink;
     ctx.stroke();
   }
 }
@@ -2190,9 +2196,9 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px;margin:0;letter-spacing:.04em}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:10px;line-height:1.05;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:9.5px;line-height:1;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
-      .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
+      .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half td.player-name{white-space:nowrap!important;overflow:hidden}
       .advance-sheet-hitter .pitch-lab-long{display:inline-block;max-width:100%;font-size:8px!important;letter-spacing:-0.05em;white-space:nowrap;line-height:1;font-weight:700}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc;font-size:8.5px;white-space:nowrap}
@@ -2204,26 +2210,26 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-spray-pair .spray-card{padding:1px 4px 0;margin:0;min-width:0;display:flex;flex-direction:column;align-items:center;background:#fff!important;overflow:visible}
       .advance-sheet-hitter .hitter-spray-pair .spray-card h3{font-size:10px;margin:0 0 2px;line-height:1.1}
       .advance-sheet-hitter .hitter-spray-pair .note{font-size:8px;line-height:1.1;margin:1px 0 0;max-width:none}
-      .advance-sheet-hitter .hitter-sb-block{flex:0 0 auto;margin-top:6px;padding-top:2px;border-top:1px solid #ddd;background:#fff;position:relative;z-index:1}
+      .advance-sheet-hitter .hitter-sb-block{flex:0 0 auto;margin-top:2px;padding-top:2px;border-top:1px solid #ddd;background:#fff;position:relative;z-index:1}
       .advance-sheet-hitter .hitter-sb-block .section-label{margin:0 0 2px}
       .advance-sheet-hitter .hitter-sb-block .table-wrap{margin:0;background:#fff}
       .advance-sheet-hitter .hitter-sb-block thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
       .advance-sheet-hitter > .section-label{flex:0 0 auto}
       .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:1px 0 2px;padding:2px 6px;background:#f4f7fb;border-color:#ccc;color:#111;font-size:9px}
       .advance-sheet-hitter .section-label{font-size:10px;margin:2px 0 1px}
-      .advance-sheet-hitter .table-wrap table{font-size:10px;line-height:1.15}
-      .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:1px 4px;line-height:1.15}
+      .advance-sheet-hitter .table-wrap table{font-size:9.5px;line-height:1.05}
+      .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:0 4px;line-height:1.05}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px}
       .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:10px;line-height:1.05;table-layout:fixed}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 2px;line-height:1.05;letter-spacing:0;text-transform:none}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:9.5px;line-height:1;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
       .spray-print-img{
-        width:min(100%,4.6in)!important;max-width:100%!important;
-        height:auto!important;max-height:1.12in!important;object-fit:contain!important;
+        width:min(100%,2.534in)!important;max-width:100%!important;
+        height:auto!important;max-height:none!important;object-fit:fill!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
-        background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
+        background:#b7dfb9!important;border:none;border-radius:0;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
         filter:none!important;mix-blend-mode:normal!important;
       }
@@ -2242,7 +2248,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid;margin:0}
       .advance-print-page:last-of-type{page-break-after:auto;break-after:auto}
       .rate-cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .spray-card canvas{background:#e8eef4!important;filter:none!important}
+      .spray-card canvas{background:#b7dfb9!important;filter:none!important}
       ${pitcherH}
       ${hitterH}
       @media print {
@@ -2250,7 +2256,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
         body{padding:0;background:#fff!important;color-scheme:only light}
         .advance-print-page{page-break-after:always;break-after:page;page-break-inside:avoid}
         .advance-print-page:last-of-type{page-break-after:auto;break-after:auto}
-        .spray-card canvas,.spray-print-img{background:#e8eef4!important;filter:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        .spray-card canvas,.spray-print-img{background:#b7dfb9!important;filter:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
         ${pitcherH}
         ${hitterH}
       }
@@ -2473,8 +2479,8 @@ function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,4.6in);max-width:100%;height:auto;max-height:1.12in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
-    : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
+    ? 'width:min(100%,2.534in);max-width:100%;height:auto;max-height:none;aspect-ratio:1.414/1;object-fit:fill;display:block;margin:0 auto;background:#b7dfb9'
+    : 'width:100%;max-width:768px;height:auto;aspect-ratio:1.414/1;background:#b7dfb9';
   const rispMedia = (printPage && sprayUrls?.risp)
     ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
     : `<canvas id="${prefix}spray-risp" width="424" height="300" style="${cvStyle}"></canvas>`;

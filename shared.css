@@ -104,6 +104,8 @@ body {
 .hero h1 { margin-top: 14px; font-size: 26px; font-weight: 700; letter-spacing: 0.02em; }
 .hero p { margin-top: 6px; color: #b8c7dc; font-size: 13px; }
 .page { max-width: 1280px; margin: 0 auto; padding: 18px 24px 48px; }
+/* Hitter sprays are 768px (1.6× 480). Two across need a wider sheet. */
+.page:has(#panel-hitter-advance.active) { max-width: 1720px; }
 .banner {
   background: rgba(30, 64, 120, 0.35); border: 1px solid #3b5f96; color: #d7e6ff;
   border-radius: 8px; padding: 10px 12px; font-size: 13px; margin: 10px 0 14px; line-height: 1.45;
@@ -223,18 +225,19 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   border: 1px solid #7a5a18; background: rgba(122, 90, 24, 0.22); color: #f0d78c;
   border-radius: 8px; padding: 12px; font-size: 13px; margin-bottom: 14px; line-height: 1.5;
 }
-.spray-grid { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 720px; }
+.spray-grid { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 960px; }
 .spray-card {
   border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--panel);
   box-shadow: var(--shadow);
 }
 .spray-card h3 { font-size: 13px; margin-bottom: 8px; color: #f3f6fb; }
 .spray-card canvas {
-  /* Native field aspect: 90° fair wedge is R√2 wide × R tall */
-  width: 100%; max-width: 560px; height: auto; aspect-ratio: 1.414 / 1;
-  background: #0d1524;
+  /* Native field aspect: 90° fair wedge is R√2 wide × R tall.
+     896px is 1.6× the previous 560px cap. Grass fills the box — no dark frame. */
+  width: 100%; max-width: 896px; height: auto; aspect-ratio: 1.414 / 1;
+  background: #b7dfb9;
   border-radius: 8px; border: 1px solid var(--line);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  box-shadow: none;
   display: block;
 }
 .spray-hit-legend {
@@ -824,7 +827,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   body { background: #fff; color: #111; color-scheme: only light; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .spray-card canvas, .spray-print-img {
-    background: #e8eef4 !important;
+    background: #b7dfb9 !important;
     filter: none !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1022,8 +1025,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
      (capped under that box) so the sheet does not reserve a tall empty band.
      Charts only: vs R | vs L, each stacked non-RISP, RISP, non-2K, 2K.
      Type is 10px (up from the old 6.5px eight-up) so the four-high stack
-     fills the chart band. Sprays stay 4.6in wide × 1.12in tall; if the
-     stack overflows, shrink chart type instead of the sprays.
+     fills the chart band. Sprays are 1.6× the previous contained graphic
+     (was letterboxed to 1.584in × 1.12in inside a 3.83in × 1.12in grey box):
+     2.534in × 1.792in, field edge to edge. If the stack overflows, shrink
+     chart type instead of the sprays.
      Body min-height 100vh must not apply — it paginates past the sheet. */
   body:has(.advance-sheet-hitter) {
     min-height: 0 !important;
@@ -1076,7 +1081,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 0; color: #0a1633; letter-spacing: .04em; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
-  .advance-sheet-hitter .hitter-pitch-half table { font-size: 10px; line-height: 1.05; color: #111; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half table { font-size: 9.5px; line-height: 1; color: #111; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half thead th {
     background: #fff !important; color: #333; border-bottom-color: #ccc;
     text-transform: none; letter-spacing: 0; white-space: nowrap;
@@ -1086,11 +1091,11 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     background: #fff !important; color: #111; border-bottom-color: #e2e8f0;
   }
   .advance-sheet-hitter .hitter-pitch-half th,
-  .advance-sheet-hitter .hitter-pitch-half td { padding: 0 2px; line-height: 1.05; }
+  .advance-sheet-hitter .hitter-pitch-half td { padding: 0 2px; line-height: 1; }
   .advance-sheet-hitter .rate-cell { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   /* Do not flex-grow/shrink this row. flex:1 + min-height:0 collapsed the
      pair (~80px) while the charts stayed ~180px and painted over the bunts table.
-     Keep the pair at content size. Bunts sit 6px under the charts; leftover page space stays below the sheet. */
+     Keep the pair at content size. Bunts sit just under the charts; leftover page space stays below the sheet. */
   .advance-sheet-hitter .hitter-spray-pair {
     flex: 0 0 auto;
     min-height: auto;
@@ -1112,21 +1117,22 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .hitter-spray-pair .note {
     font-size: 8px; line-height: 1.1; margin: 1px 0 0; max-width: none;
   }
-  /* Native √2 field aspect — light bg + exact colors (dark CSS bg was solid black in PDF) */
+  /* Native √2 field. 1.6× the old contained image (1.12in × √2 = 1.584in).
+     Box matches the wedge so grass/dirt fill the chart — no grey letterbox. */
   .advance-sheet-hitter .hitter-spray-pair canvas,
   .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
   .spray-print-img {
-    width: min(100%, 4.6in) !important;
+    width: min(100%, 2.534in) !important;
     max-width: 100% !important;
     height: auto !important;
-    max-height: 1.12in !important;
-    object-fit: contain !important;
+    max-height: none !important;
+    object-fit: fill !important;
     aspect-ratio: 1.414 / 1;
     display: block;
     margin: 0 auto;
-    background: #e8eef4 !important;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    background: #b7dfb9 !important;
+    border: none;
+    border-radius: 0;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     filter: none !important;
@@ -1144,7 +1150,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter > .section-label { flex: 0 0 auto; }
   .advance-sheet-hitter .hitter-sb-block {
     flex: 0 0 auto;
-    margin-top: 6px;
+    margin-top: 2px;
     padding-top: 2px;
     border-top: 1px solid #ddd;
     background: #fff;
@@ -1157,14 +1163,14 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     background: #fff !important; color: #333; border-bottom-color: #ccc;
   }
   .advance-sheet-hitter .section-label { font-size: 10px; margin: 2px 0 1px; }
-  .advance-sheet-hitter .table-wrap table { font-size: 10px; line-height: 1.15; width: 100%; }
+  .advance-sheet-hitter .table-wrap table { font-size: 9.5px; line-height: 1.05; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
-  .advance-sheet-hitter .table-wrap td { padding: 1px 4px; line-height: 1.15; }
+  .advance-sheet-hitter .table-wrap td { padding: 0 4px; line-height: 1.05; }
   .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 0; }
   .advance-sheet-hitter .hitter-pitch-side-title { font-size: 13px; margin: 0; }
-  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 10px; line-height: 1.05; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 9.5px; line-height: 1; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap th,
-  .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 2px; line-height: 1.05; letter-spacing: 0; text-transform: none; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 2px; line-height: 1; letter-spacing: 0; text-transform: none; }
   .advance-sheet-hitter .hitter-pitch-half td.player-name { white-space: nowrap !important; overflow: hidden; }
   .advance-sheet-hitter .pitch-lab-long {
     display: inline-block; max-width: 100%; font-size: 8px !important;
