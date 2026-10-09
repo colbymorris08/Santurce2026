@@ -1176,6 +1176,35 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     display: inline-block; max-width: 100%; font-size: 8px !important;
     letter-spacing: -0.05em; white-space: nowrap; line-height: 1; font-weight: 700;
   }
+  .advance-sheet-hitter .hitter-summer-bar {
+    flex: 0 0 auto;
+    margin: 1px 0 2px;
+    overflow: hidden;
+  }
+  .advance-sheet-hitter .hitter-summer-bar table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    table-layout: auto;
+    font-size: 8px;
+    line-height: 1;
+  }
+  .advance-sheet-hitter .hitter-summer-bar th,
+  .advance-sheet-hitter .hitter-summer-bar td {
+    padding: 1px 2px;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 700;
+    line-height: 1;
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    position: static;
+    cursor: default;
+  }
+  .advance-sheet-hitter .hitter-summer-bar th { font-size: 7px; color: #333; }
   /* Screen theme is light-on-dark (gold titles, muted headers, near-white
      body text). Force every hitter PDF glyph black. Heat cells keep their
      contrast color so the red/blue fills stay readable. */
@@ -1188,6 +1217,45 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .hitter-spray-pair {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
 }
+.hitter-summer-bar {
+  margin: 8px 0 10px;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+.hitter-summer-bar table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: #111;
+  font-variant-numeric: tabular-nums;
+  table-layout: auto;
+}
+.hitter-summer-bar thead th,
+.hitter-summer-bar tbody td {
+  text-align: center;
+  padding: 5px 4px;
+  white-space: nowrap;
+  letter-spacing: 0;
+  text-transform: none;
+  position: static;
+  cursor: default;
+  background: #fff;
+  color: #111;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.hitter-summer-bar thead th {
+  font-size: 11px;
+  background: #f4f7fb;
+  color: #1a2744;
+  border-bottom: 1px solid #ccc;
+}
+.hitter-summer-bar tbody tr:hover,
+.hitter-summer-bar tbody tr:hover td { background: #fff; }
 .hitter-pitch-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

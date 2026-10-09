@@ -17,6 +17,7 @@ from build_advance_synergy import (
     WINTER_LEAGUE_IDS,
     aggregate_events,
     attach_summer_sb_bunts,
+    attach_summer_stat_lines,
     event_league_id,
     fetch_events_pages,
     filter_events_by_leagues_years,
@@ -153,8 +154,12 @@ def main() -> None:
         out_hitters.append(neu)
 
     n_summer = attach_summer_sb_bunts(out_hitters)
+    n_lines = attach_summer_stat_lines(out_hitters)
     n_junk = strip_hitter_chart_junk_pitches(out_hitters)
-    print(f"summer_sb_bunts attached={n_summer} junk_pitch_rows_removed={n_junk}")
+    print(
+        f"summer_sb_bunts attached={n_summer} summer_lines={n_lines} "
+        f"junk_pitch_rows_removed={n_junk}"
+    )
 
     select_all = select_all_aggregate(out_hitters)
     sample_full = sample_stats(out_hitters, all_events)

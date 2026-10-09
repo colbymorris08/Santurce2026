@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san50">
+<link rel="stylesheet" href="shared.css?v=san51">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san50"></script>
-<script src="cards.js?v=san50"></script>
+<script src="i18n.js?v=san51"></script>
+<script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san50';
+const ASSET_V = 'san51';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1914,6 +1914,62 @@ function advancePdfHitterHand(bats){
   if(b.startsWith('R')) return 'R';
   return b.charAt(0);
 }
+function escHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function fmtSlashRate(v){
+  if(v==null || v==='') return '—';
+  const s = String(v).trim();
+  if(s.startsWith('.')) return s;
+  const n = Number(s);
+  if(!Number.isFinite(n)) return '—';
+  const out = n.toFixed(3);
+  return out.startsWith('0') ? out.slice(1) : out;
+}
+/** Two-row 2026 summer line: labels, then the most-PA MLB/MiLB/LMB assignment. */
+function hitterSummerBarHtml(h){
+  if(!h || String(h.name||'').startsWith('Select All')) return '';
+  const line = h.summer_line || null;
+  const dash = '—';
+  const num = (v) => (v==null || v==='') ? dash : String(v);
+  const tipTeam = line
+    ? [line.team_name, line.level, line.league_name].filter(Boolean).join(' · ')
+    : '';
+  const cols = [
+    ['Team', line && line.team ? line.team : dash, tipTeam],
+    ['Season', 'Summer 2026', '2026 regular season'],
+    ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
+    ['PA', num(line && line.pa), ''],
+    ['AB', num(line && line.ab), ''],
+    ['R', num(line && line.r), ''],
+    ['H', num(line && line.h), ''],
+    ['2B', num(line && line.doubles), ''],
+    ['3B', num(line && line.triples), ''],
+    ['HR', num(line && line.hr), ''],
+    ['RBI', num(line && line.rbi), ''],
+    ['SB', num(line && line.sb), ''],
+    ['CS', num(line && line.cs), ''],
+    ['BB', num(line && line.bb), ''],
+    ['SO', num(line && line.so), ''],
+    ['BA', line ? fmtSlashRate(line.ba) : dash, ''],
+    ['OBP', line ? fmtSlashRate(line.obp) : dash, ''],
+    ['SLG', line ? fmtSlashRate(line.slg) : dash, ''],
+    ['OPS', line ? fmtSlashRate(line.ops) : dash, ''],
+  ];
+  const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
+  const vals = cols.map(([,val,tip])=>{
+    const t = tip ? ` title="${escHtml(tip)}"` : '';
+    return `<td${t}>${escHtml(val)}</td>`;
+  }).join('');
+  return `<div class="hitter-summer-bar">
+    <table>
+      <thead><tr>${heads}</tr></thead>
+      <tbody><tr>${vals}</tr></tbody>
+    </table>
+  </div>`;
+}
 /** PDF-only top bar: picture | handedness | name | team */
 function advancePdfStripHtml(headHtml, handLabel, name, team){
   return `<div class="advance-pdf-strip">
@@ -2190,6 +2246,11 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-pdf-team{font-size:26px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
+      .advance-sheet-hitter .hitter-summer-bar{flex:0 0 auto;margin:1px 0 2px;overflow:hidden;border:none;border-radius:0;background:#fff}
+      .advance-sheet-hitter .hitter-summer-bar table{width:100%;border-collapse:collapse;background:#fff;font-size:8px;line-height:1;table-layout:auto}
+      .advance-sheet-hitter .hitter-summer-bar th,
+      .advance-sheet-hitter .hitter-summer-bar td{padding:1px 2px;text-align:center;white-space:nowrap;letter-spacing:0;text-transform:none;font-weight:700;line-height:1;background:#fff!important;color:#000!important;border-bottom:1px solid #ccc;position:static;cursor:default}
+      .advance-sheet-hitter .hitter-summer-bar th{font-size:7px;color:#333!important}
       .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
       .advance-sheet-hitter .hitter-pitch-side{display:flex;flex-direction:column;gap:1px;min-width:0}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px;margin:0;letter-spacing:.04em}
@@ -2700,6 +2761,7 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
     const teamLabel = h.team || '';
     return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
   ${advancePdfStripHtml(headPdf, handLabel, h.name, teamLabel)}
+  ${hitterSummerBarHtml(h)}
   ${hitterPitchTablesGridHtml(h)}
   ${hitterSprayPairHtml(idPrefix, {printPage, sprayUrls})}
   ${hitterSbBlockHtml(h)}
@@ -2719,6 +2781,7 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
       </div>
     </div>
   </div>
+  ${hitterSummerBarHtml(h)}
   ${hitterPitchTablesGridHtml(h)}
   ${hitterSprayPairHtml(idPrefix, {printPage})}
   ${hitterSbBlockHtml(h)}

@@ -1372,6 +1372,230 @@ def attach_summer_sb_bunts(hitters: list[dict]) -> int:
     return n
 
 
+# 2026 regular season only. sportId 1 = MLB, 11–16 = MiLB, 23 = LMB.
+SUMMER_LINE_SPORTS = (
+    (1, "MLB"),
+    (11, "MiLB"),
+    (12, "MiLB"),
+    (13, "MiLB"),
+    (14, "MiLB"),
+    (16, "MiLB"),
+    (23, "LMB"),
+)
+SUMMER_LINE_SOURCE = (
+    "MLB Stats API season hitting, 2026 regular season "
+    "(sportId 1 MLB, 11 AAA / 12 AA / 13 A+ / 14 A / 16 RK MiLB, 23 LMB). "
+    "One row per hitter: the team assignment with the most plate appearances."
+)
+_LEAGUE_SHORT = {
+    "American League": "AL",
+    "National League": "NL",
+    "International League": "INT",
+    "Pacific Coast League": "PCL",
+    "Eastern League": "EAS",
+    "Southern League": "SOU",
+    "Texas League": "TEX",
+    "Midwest League": "MID",
+    "South Atlantic League": "SAL",
+    "Carolina League": "CRL",
+    "California League": "CAL",
+    "Florida State League": "FSL",
+    "Northwest League": "NWL",
+    "Arizona Complex League": "ACL",
+    "Florida Complex League": "FCL",
+    "Mexican League": "LMB",
+    "Liga Mexicana de Beisbol": "LMB",
+    "Liga Mexicana de Béisbol": "LMB",
+}
+
+
+def _statsapi_json(url: str) -> dict:
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "Santurce2026/summer-line"},
+    )
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode())
+
+
+def _fmt_slash_rate(v: Any) -> str | None:
+    """BA/OBP/SLG/OPS as .223 (no leading zero). 1.033 stays 1.033."""
+    if v is None:
+        return None
+    s = str(v).strip()
+    if s in ("", ".---", "-.--", "---", "-"):
+        return None
+    if s.startswith("."):
+        s = "0" + s
+    try:
+        n = float(s)
+    except ValueError:
+        return None
+    out = f"{n:.3f}"
+    if out.startswith("0"):
+        out = out[1:]
+    return out
+
+
+def _int_stat(st: dict, key: str) -> int | None:
+    v = st.get(key)
+    if v is None or v == "":
+        return None
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def _league_code(name: str, family: str) -> str:
+    if name in _LEAGUE_SHORT:
+        return _LEAGUE_SHORT[name]
+    if not name:
+        return family
+    parts = [w for w in name.replace("-", " ").split() if w.lower() not in ("league", "de", "la", "del")]
+    if not parts:
+        return family
+    if len(parts) == 1:
+        return parts[0][:3].upper()
+    return "".join(p[0] for p in parts if p[:1].isalpha()).upper()[:4] or family
+
+
+def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
+    """Primary 2026 summer line per MLBAM id (most PA across MLB / MiLB / LMB)."""
+    ids = sorted({int(i) for i in mlb_ids if i})
+    if not ids:
+        return {}
+    abbrev: dict[int, str] = {}
+    fetches_ok = 0
+    for sport_id, _family in SUMMER_LINE_SPORTS:
+        try:
+            d = _statsapi_json(
+                "https://statsapi.mlb.com/api/v1/teams"
+                f"?sportId={sport_id}&season=2026"
+            )
+            fetches_ok += 1
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            print(f"teams fail sportId={sport_id}: {exc}")
+            continue
+        for t in d.get("teams") or []:
+            tid = t.get("id")
+            if not tid:
+                continue
+            abbrev[int(tid)] = (
+                t.get("abbreviation") or t.get("teamCode") or t.get("name") or ""
+            )
+    by_player: dict[int, list[dict]] = defaultdict(list)
+    chunks = [ids[i : i + 40] for i in range(0, len(ids), 40)]
+    for sport_id, family in SUMMER_LINE_SPORTS:
+        for chunk in chunks:
+            url = (
+                "https://statsapi.mlb.com/api/v1/people?personIds="
+                + ",".join(str(x) for x in chunk)
+                + "&hydrate=stats(group=[hitting],type=[season],season=2026,"
+                + f"sportId={sport_id})"
+            )
+            try:
+                d = _statsapi_json(url)
+                fetches_ok += 1
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+                print(f"stats fail sportId={sport_id}: {exc}")
+                continue
+            for p in d.get("people") or []:
+                pid = p.get("id")
+                if not pid:
+                    continue
+                for g in p.get("stats") or []:
+                    for split in g.get("splits") or []:
+                        if str(split.get("season") or "") != "2026":
+                            continue
+                        if split.get("gameType") not in (None, "", "R"):
+                            continue
+                        st = split.get("stat") or {}
+                        pa = _int_stat(st, "plateAppearances") or 0
+                        ab = _int_stat(st, "atBats") or 0
+                        if pa <= 0 and ab <= 0:
+                            continue
+                        team = split.get("team") or {}
+                        league = split.get("league") or {}
+                        sport = split.get("sport") or {}
+                        # Season totals with numTeams have no club. Keep a real assignment.
+                        tid = team.get("id")
+                        if not tid:
+                            continue
+                        by_player[int(pid)].append({
+                            "family": family,
+                            "sport_id": sport_id,
+                            "level": sport.get("abbreviation") or "",
+                            "pa": pa,
+                            "ab": ab,
+                            "g": _int_stat(st, "gamesPlayed") or 0,
+                            "team_id": int(tid) if tid else None,
+                            "team_name": team.get("name") or "",
+                            "team": (abbrev.get(int(tid)) if tid else None) or "",
+                            "league_name": league.get("name") or "",
+                            "stat": st,
+                        })
+            time.sleep(0.05)
+    if fetches_ok == 0:
+        raise RuntimeError("MLB Stats API returned no 2026 summer hitting payloads")
+    out: dict[int, dict] = {}
+    for pid, rows in by_player.items():
+        rows.sort(key=lambda r: (r["pa"], r["ab"], r["g"]), reverse=True)
+        best = rows[0]
+        st = best["stat"]
+        team = best["team"] or best["team_name"] or None
+        league_name = best["league_name"]
+        line = {
+            "team": team,
+            "team_name": best["team_name"] or team,
+            "season": "Summer 2026",
+            "league": _league_code(league_name, best["family"]),
+            "circuit": best["family"],
+            "league_name": league_name or None,
+            "level": best["level"] or None,
+            "pa": best["pa"],
+            "ab": best["ab"],
+            "r": _int_stat(st, "runs"),
+            "h": _int_stat(st, "hits"),
+            "doubles": _int_stat(st, "doubles"),
+            "triples": _int_stat(st, "triples"),
+            "hr": _int_stat(st, "homeRuns"),
+            "rbi": _int_stat(st, "rbi"),
+            "sb": _int_stat(st, "stolenBases"),
+            "cs": _int_stat(st, "caughtStealing"),
+            "bb": _int_stat(st, "baseOnBalls"),
+            "so": _int_stat(st, "strikeOuts"),
+            "ba": _fmt_slash_rate(st.get("avg")),
+            "obp": _fmt_slash_rate(st.get("obp")),
+            "slg": _fmt_slash_rate(st.get("slg")),
+            "ops": _fmt_slash_rate(st.get("ops")),
+            "games": best["g"],
+            "sport_id": best["sport_id"],
+            "assignments": len(rows),
+        }
+        out[pid] = line
+    return out
+
+
+def attach_summer_stat_lines(hitters: list[dict]) -> int:
+    """Attach one 2026 summer stat line (most-PA MLB/MiLB/LMB team) per hitter."""
+    ids = [int(h["mlb_id"]) for h in hitters if h.get("mlb_id")]
+    by = fetch_2026_summer_lines(ids)
+    n = 0
+    for h in hitters:
+        mid = h.get("mlb_id")
+        if not mid:
+            h.pop("summer_line", None)
+            continue
+        line = by.get(int(mid))
+        if not line:
+            h.pop("summer_line", None)
+            continue
+        h["summer_line"] = line
+        n += 1
+    return n
+
+
 _HITTER_PITCH_KEYS = (
     "by_pitch_type",
     "risp_by_pitch_type",
@@ -2571,9 +2795,26 @@ def main() -> None:
                     help="Cap for per-pitcher Synergy pitcherId pulls")
     ap.add_argument("--bunt-sample-only", action="store_true",
                     help="Recount hitter bunt PAs for LBPRC 2025 + 2026 summer and patch advance_opposing_hitters.json")
+    ap.add_argument("--summer-lines-only", action="store_true",
+                    help="Attach 2026 MLB/MiLB/LMB most-PA hitting lines onto advance_opposing_hitters.json")
     args = ap.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)
+    if args.summer_lines_only:
+        path = OUT / "advance_opposing_hitters.json"
+        data = json.loads(path.read_text())
+        hitters = data.get("hitters") or []
+        n = attach_summer_stat_lines(hitters)
+        data["summer_line_source"] = SUMMER_LINE_SOURCE
+        data["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        path.write_text(json.dumps(data, indent=2))
+        missing = [h.get("name") for h in hitters if not h.get("summer_line")]
+        multi = sum(1 for h in hitters if int((h.get("summer_line") or {}).get("assignments") or 0) > 1)
+        print(f"summer lines attached={n}/{len(hitters)} multi_assignment={multi} missing={len(missing)}")
+        if missing:
+            print("missing:", ", ".join(str(x) for x in missing))
+        return
+
     token = login_token(headed=args.headed)
     print("Synergy login ok")
 
@@ -2751,9 +2992,13 @@ def main() -> None:
                 )
 
     n_summer = attach_summer_sb_bunts(hitters)
+    n_lines = attach_summer_stat_lines(hitters)
     n_junk = strip_hitter_chart_junk_pitches(hitters)
     strip_hitter_chart_junk_pitches(winter_hitters)
-    print(f"summer_sb_bunts attached={n_summer} junk_pitch_rows_removed={n_junk}")
+    print(
+        f"summer_sb_bunts attached={n_summer} summer_lines={n_lines} "
+        f"junk_pitch_rows_removed={n_junk}"
+    )
 
     select_all = select_all_aggregate(hitters)
     token = refresh_windowed_bunt_samples(token, hitters, select_all)
@@ -2803,6 +3048,7 @@ def main() -> None:
         },
         "select_all": select_all,
         "hitters": hitters,
+        "summer_line_source": SUMMER_LINE_SOURCE,
         "notes": [
             (
                 "Roster gate: only LBPRC opposing PR roster players "
@@ -2826,6 +3072,7 @@ def main() -> None:
             "Bunt sample: " + BUNT_SAMPLE_SOURCE + ". "
             "No Synergy field for steal of 2B vs steal of 3B.",
             "2026 summer SB/CS/sac bunts from MLB/MiLB/LMB Stats API (stolenBases/caughtStealing/sacBunts) by mlb_id.",
+            "Hitter advance stat bar: " + SUMMER_LINE_SOURCE,
             "Per-162 uses Synergy distinct games in sample, or LBPRC season G when name-matched.",
             "Spray points include risp + two_strikes flags for multi-select filters.",
             "Eight hitter charts: vs R / vs L, each non-RISP, RISP, pre-2K (strikes<2), and 2K. "
