@@ -16,6 +16,7 @@
 
   let DATA = null;
   let byId = new Map();
+  let advById = new Map();
 
   function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -138,11 +139,57 @@
     return bits.join(' ');
   }
 
-  function sideLine(h, side) {
+  function aggWhiff(rows) {
+    if (!rows || !rows.length) return null;
+    let swings = 0, whiffs = 0, pa = 0;
+    rows.forEach((r) => {
+      swings += Number(r.swings) || 0;
+      whiffs += Number(r.whiffs) || 0;
+      pa += Number(r.pa) || 0;
+    });
+    if (!swings) return null;
+    return { wh: Math.round((1000 * whiffs) / swings) / 10, pa };
+  }
+
+  function indexAdvance(payload) {
+    advById = new Map();
+    ((payload && payload.hitters) || []).forEach((h) => {
+      const id = Number(h.mlb_id);
+      if (!id) return;
+      const overall = h.overall || {};
+      advById.set(id, {
+        wh: overall.whiff_pct != null ? Number(overall.whiff_pct) : null,
+        L: aggWhiff(h.vs_l_by_pitch_type),
+        R: aggWhiff(h.vs_r_by_pitch_type),
+      });
+    });
+  }
+
+  function sideWh(h, playerId, side) {
+    const adv = playerId != null ? advById.get(Number(playerId)) : null;
+    if (adv) {
+      const hand = adv[side];
+      if (hand && hand.wh != null) return { wh: hand.wh, pa: hand.pa, src: 'hand' };
+      if (adv.wh != null) return { wh: adv.wh, pa: null, src: 'overall' };
+    }
+    const handWh = side === 'L' ? h.wh_l : h.wh_r;
+    const handPa = side === 'L' ? h.wh_l_pa : h.wh_r_pa;
+    if (handWh != null) return { wh: handWh, pa: handPa, src: 'hand' };
     const split = side === 'L' ? h.vs_l : h.vs_r;
+    if (split && split.wh != null) return { wh: split.wh, pa: split.pa, src: 'hand' };
+    if (h.wh != null) return { wh: h.wh, pa: null, src: 'overall' };
+    return { wh: null, pa: null, src: null };
+  }
+
+  function sideLine(h, side, playerId) {
+    const split = side === 'L' ? h.vs_l : h.vs_r;
+    const whInfo = sideWh(h, playerId, side);
     return {
       k: h.k, gb: h.gb,
-      wh: split && split.wh != null ? split.wh : h.wh,
+      wh: whInfo.wh,
+      whSample: whInfo.src === 'hand' ? whInfo.pa : h.pa,
+      whSrc: whInfo.src,
+      whPa: whInfo.pa,
       avg: split && split.avg != null ? split.avg : h.avg,
       ops: split && split.ops != null ? split.ops : h.ops,
       sample: split ? split.pa : h.pa,
@@ -162,14 +209,19 @@
         <tr><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     }
     const rows = ['L', 'R'].map((side, i) => {
-      const line = sideLine(h, side);
+      const line = sideLine(h, side, player.id);
       const sample = line.sample || 0;
       const seasonTitle = tr('LBPRC 2025 season line (no platoon split)', 'Línea de temporada LBPRC 2025 (sin split de platoon)');
       const splitTitle = tr(`Synergy vs ${side}HP · ${line.sample} PA`, `Synergy vs ${side}HP · ${line.sample} PA`);
+      const whTitle = line.whSrc === 'hand'
+        ? tr(`Synergy whiff vs ${side}HP · ${line.whPa} PA`, `Whiff Synergy vs ${side}HP · ${line.whPa} PA`)
+        : (line.whSrc === 'overall'
+          ? tr('Synergy overall whiff % (hitter advance)', 'Whiff general Synergy (advance de bateadores)')
+          : tr('No whiff in the hitter advance file', 'Sin whiff en el archivo de advance'));
       const cells = [
         statCell(fmtPct(line.k), toneHitter('k', line.k, h.pa), seasonTitle),
         statCell(fmtPct(line.gb), toneHitter('gb', line.gb, h.pa), seasonTitle),
-        statCell(fmtPct(line.wh), toneHitter('wh', line.wh, line.split ? sample : h.pa), line.split ? splitTitle : seasonTitle),
+        statCell(fmtPct(line.wh), toneHitter('wh', line.wh, line.whSample), whTitle),
         statCell(fmtAvg(line.avg), toneHitter('avg', line.avg, line.split ? sample : h.pa), line.split ? splitTitle : seasonTitle),
         statCell(fmtAvg(line.ops), toneHitter('ops', line.ops, line.split ? sample : h.pa), line.split ? splitTitle : seasonTitle),
       ].join('');
@@ -373,8 +425,8 @@
           <button type="button" class="${state.santurceHome ? '' : 'on'}" onclick="CardApp.setHome(false)">${tr('Away', 'Visita')}</button>
         </div>
         <p class="sc-legend">${tr(
-          'Green = a strength, red = a soft spot. K/GB repeat the season line on both hands. WH/AVG/OPS use a Synergy platoon split when that side has 15+ PA. TTP is the time-to-home saved on the pop-times tab.',
-          'Verde = fortaleza, rojo = punto débil. K/GB repiten la línea de temporada en ambas manos. WH/AVG/OPS usan el split de Synergy cuando ese lado tiene 15+ PA. TTP es el tiempo al home guardado en la pestaña de pop times.'
+          'Green = a strength, red = a soft spot. K/GB repeat the season line on both hands. WH is Synergy whiff vs that hand, or the overall whiff when that side has no swings. AVG/OPS use a platoon split at 15+ PA. TTP is the time-to-home saved on the pop-times tab.',
+          'Verde = fortaleza, rojo = punto débil. K/GB repiten la línea de temporada en ambas manos. WH es el whiff Synergy contra esa mano, o el whiff general si ese lado no tiene swings. AVG/OPS usan el split con 15+ PA. TTP es el tiempo al home guardado en la pestaña de pop times.'
         )}</p>
         <div class="sc-toolbar-right">
           <label>${tr('Opponent', 'Rival')}
@@ -762,9 +814,10 @@
   }
 
   const CardApp = {
-    boot(payload) {
+    boot(payload, advance) {
       DATA = payload;
       byId = new Map(((payload && payload.players) || []).map((p) => [p.id, p]));
+      indexAdvance(advance);
     },
     renderStrategy,
     renderSmallBall,

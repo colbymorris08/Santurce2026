@@ -363,11 +363,11 @@
   </div>
 </main>
 <script src="i18n.js?v=san47"></script>
-<script src="cards.js?v=san47"></script>
+<script src="cards.js?v=san48"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san47';
+const ASSET_V = 'san48';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2931,7 +2931,7 @@ Promise.all([
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
 ]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, tth, cardStats])=>{
   CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, tth, cardStats};
-  if(window.CardApp) CardApp.boot(cardStats);
+  if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();

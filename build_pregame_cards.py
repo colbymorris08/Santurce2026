@@ -200,9 +200,19 @@ def main() -> None:
                 # A real 2B/3B split only exists if Synergy recorded any steal.
                 sb2 = int(overall.get("sb_from_1b") or 0)
                 sb3 = int(overall.get("sb_from_2b") or 0)
-                wh = None
-                if overall.get("swings"):
+                # Same Synergy rate as the hitter-advance header (whiffs / swings).
+                # Hand whiff is kept at any sample. The 15 PA gate stays on AVG/OPS only.
+                wh = overall.get("whiff_pct")
+                if wh is None and overall.get("swings"):
                     wh = round(100.0 * int(overall.get("whiffs") or 0) / int(overall["swings"]), 1)
+                elif wh is not None:
+                    wh = round(float(wh), 1)
+                wh_l, wh_l_pa = (None, None)
+                wh_r, wh_r_pa = (None, None)
+                if vs_l and vs_l.get("wh") is not None:
+                    wh_l, wh_l_pa = vs_l["wh"], vs_l["pa"]
+                if vs_r and vs_r.get("wh") is not None:
+                    wh_r, wh_r_pa = vs_r["wh"], vs_r["pa"]
                 hitter = {
                     "pa": pa,
                     "k": pct(so, pa) if hit else None,
@@ -210,6 +220,10 @@ def main() -> None:
                     "avg": num(hit.get("avg")) if hit else None,
                     "ops": num(hit.get("ops")) if hit else None,
                     "wh": wh,
+                    "wh_l": wh_l,
+                    "wh_r": wh_r,
+                    "wh_l_pa": wh_l_pa,
+                    "wh_r_pa": wh_r_pa,
                     "sb": sb if hit else None,
                     "cs": cs if hit else None,
                     "sac": sac if hit else None,
@@ -291,7 +305,7 @@ def main() -> None:
         "sb_2b_3b_split": "Synergy sb_from_1b / sb_from_2b is 0 for every advance hitter — runner heuristic did not record steals. LBPRC and 2026 summer files only have total SB/CS.",
         "sprint_speed": "No sprint-speed field in the caches. SPD column is blank.",
         "pitcher_platoon": "No vs-LHB / vs-RHB outcome split (K/GB/WH/BB/OPS) in the pitching cache. Both rows repeat the season line.",
-        "hitter_platoon_k_gb": "K% and GB% are season totals. WH/AVG/OPS use Synergy vs LHP/RHP when that side has at least 15 PA.",
+        "hitter_platoon_k_gb": "K% and GB% are season totals. WH is the Synergy whiff vs that hand when swings exist, otherwise the hitter's overall whiff. AVG/OPS use the Synergy split only when that side has at least 15 PA.",
         "santurce_synergy": "The Synergy hitter file is opposing clubs only. A SAN roster player gets bunt/hand lines only when the same MLBAM id appears there (usually tagged to another club). Everyone else on SAN is counting stats only.",
         "sju_in_br_file": "pregame_baserunning_bunting.json omits SJU; SJU counting stats come from lbprc_2025_hitting.json.",
         "hitters": len(hitters),
