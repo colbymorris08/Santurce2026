@@ -741,6 +741,16 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.hitter-bar-lab .pitch-lab-long {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 8.5px;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
 .hitter-bar-track {
   height: 12px;
   background: #243348;
@@ -1153,6 +1163,11 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 12px; line-height: 1.05; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap th,
   .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 2px; line-height: 1.05; letter-spacing: 0; text-transform: none; }
+  .advance-sheet-hitter .hitter-pitch-half td.player-name { white-space: nowrap !important; overflow: hidden; }
+  .advance-sheet-hitter .pitch-lab-long {
+    display: inline-block; max-width: 100%; font-size: 8px !important;
+    letter-spacing: -0.05em; white-space: nowrap; line-height: 1; font-weight: 700;
+  }
   /* Screen theme is light-on-dark (gold titles, muted headers, near-white
      body text). Force every hitter PDF glyph black. Heat cells keep their
      contrast color so the red/blue fills stay readable. */
@@ -1210,6 +1225,17 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   color: #fff;
 }
 .hitter-pitch-half th, .hitter-pitch-half td { padding: 4px 8px; line-height: 1.2; }
+.hitter-pitch-half td.player-name { overflow: hidden; white-space: nowrap; }
+.hitter-pitch-half .pitch-lab-long {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 11px;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
 .hitter-pitch-half tbody td {
   background: #fff;
   color: #111;

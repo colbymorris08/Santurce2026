@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san46">
+<link rel="stylesheet" href="shared.css?v=san47">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san46"></script>
-<script src="cards.js?v=san46"></script>
+<script src="i18n.js?v=san47"></script>
+<script src="cards.js?v=san47"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san46';
+const ASSET_V = 'san47';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1442,7 +1442,14 @@ function rateHeatStyle(val, avg){
 }
 function pitchAbbrev(raw){
   const code = normalizePitchCode(raw);
+  if(code==='FS') return 'splitter';
+  if(code==='ST') return 'sweeper';
   return (code && code!=='UN') ? code : String(raw||'—');
+}
+function pitchAbbrevHtml(raw){
+  const lab = pitchAbbrev(raw);
+  if(lab==='splitter' || lab==='sweeper') return `<span class="pitch-lab-long">${lab}</span>`;
+  return lab;
 }
 function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   const cleaned = mergeHitterPitchTypeRows(rows||[]);
@@ -1474,7 +1481,7 @@ function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
     <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
     <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>`; })();
     return `<tr>
-    <td class="player-name">${pitchAbbrev(r.pitch_type)}</td>
+    <td class="player-name">${pitchAbbrevHtml(r.pitch_type)}</td>
     <td class="num">${r.pitches??'—'}</td>
     ${cells}
   </tr>`;
@@ -2186,6 +2193,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-half table{font-size:12px;line-height:1.05;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
       .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1.05;letter-spacing:0;text-transform:none;white-space:normal}
+      .advance-sheet-hitter .hitter-pitch-half td.player-name{white-space:nowrap!important;overflow:hidden}
+      .advance-sheet-hitter .pitch-lab-long{display:inline-block;max-width:100%;font-size:8px!important;letter-spacing:-0.05em;white-space:nowrap;line-height:1;font-weight:700}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc;font-size:8.5px;white-space:nowrap}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
       .advance-sheet-hitter .hitter-pitch-half tbody td.num,
@@ -2606,17 +2615,17 @@ function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
   const bot = ranked[ranked.length-1];
   const fmt = (v)=> ops ? Number(v).toFixed(3) : (pct ? Number(v).toFixed(1)+'%' : String(v));
   const keyLine = pct
-    ? `Highest <strong>${top.pitch_type}</strong> · lowest <strong>${bot.pitch_type}</strong>`
-    : `Best <strong>${top.pitch_type}</strong> · softest <strong>${bot.pitch_type}</strong>`;
+    ? `Highest <strong>${pitchAbbrev(top.pitch_type)}</strong> · lowest <strong>${pitchAbbrev(bot.pitch_type)}</strong>`
+    : `Best <strong>${pitchAbbrev(top.pitch_type)}</strong> · softest <strong>${pitchAbbrev(bot.pitch_type)}</strong>`;
   let tip;
   if(metricKey==='first_pitch_swing_pct'){
-    tip = `Attacks <strong>${top.pitch_type}</strong> first (${fmt(top[metricKey])}). More patient on <strong>${bot.pitch_type}</strong> (${fmt(bot[metricKey])}).`;
+    tip = `Attacks <strong>${pitchAbbrev(top.pitch_type)}</strong> first (${fmt(top[metricKey])}). More patient on <strong>${pitchAbbrev(bot.pitch_type)}</strong> (${fmt(bot[metricKey])}).`;
   } else if(metricKey==='whiff_pct'){
-    tip = `Misses <strong>${top.pitch_type}</strong> most (${fmt(top[metricKey])}). Put <strong>${bot.pitch_type}</strong> in play more often.`;
+    tip = `Misses <strong>${pitchAbbrev(top.pitch_type)}</strong> most (${fmt(top[metricKey])}). Put <strong>${pitchAbbrev(bot.pitch_type)}</strong> in play more often.`;
   } else if(ops){
-    tip = `Damages <strong>${top.pitch_type}</strong> (OPS ${fmt(top[metricKey])}). Softest vs <strong>${bot.pitch_type}</strong> (${fmt(bot[metricKey])}).`;
+    tip = `Damages <strong>${pitchAbbrev(top.pitch_type)}</strong> (OPS ${fmt(top[metricKey])}). Softest vs <strong>${pitchAbbrev(bot.pitch_type)}</strong> (${fmt(bot[metricKey])}).`;
   } else {
-    tip = `<strong>${top.pitch_type}</strong> leads · <strong>${bot.pitch_type}</strong> trails.`;
+    tip = `<strong>${pitchAbbrev(top.pitch_type)}</strong> leads · <strong>${pitchAbbrev(bot.pitch_type)}</strong> trails.`;
   }
   const bars = data.map(r=>{
     const v = Number(r[metricKey]);
@@ -2624,7 +2633,7 @@ function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
     const lab = fmt(v);
     const isTop = r.pitch_type===top.pitch_type;
     return `<div class="hitter-bar-row${isTop?' is-top':''}">
-      <span class="hitter-bar-lab">${r.pitch_type}</span>
+      <span class="hitter-bar-lab">${pitchAbbrevHtml(r.pitch_type)}</span>
       <div class="hitter-bar-track"><span style="width:${w}%"></span></div>
       <span class="num">${lab}</span>
     </div>`;
