@@ -1022,7 +1022,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
      (capped under that box) so the sheet does not reserve a tall empty band.
      Charts only: vs R | vs L, each stacked non-RISP, RISP, non-2K, 2K.
      Type is 10px (up from the old 6.5px eight-up) so the four-high stack
-     fills the chart band without moving sprays or the bunt table.
+     fills the chart band. Sprays stay 4.6in wide × 1.12in tall; if the
+     stack overflows, shrink chart type instead of the sprays.
      Body min-height 100vh must not apply — it paginates past the sheet. */
   body:has(.advance-sheet-hitter) {
     min-height: 0 !important;
@@ -1115,10 +1116,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .hitter-spray-pair canvas,
   .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
   .spray-print-img {
-    width: min(100%, 2.35in) !important;
+    width: min(100%, 4.6in) !important;
     max-width: 100% !important;
     height: auto !important;
-    max-height: 1.66in !important;
+    max-height: 1.12in !important;
     object-fit: contain !important;
     aspect-ratio: 1.414 / 1;
     display: block;

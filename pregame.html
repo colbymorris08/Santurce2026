@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san48">
+<link rel="stylesheet" href="shared.css?v=san49">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san48"></script>
-<script src="cards.js?v=san48"></script>
+<script src="i18n.js?v=san49"></script>
+<script src="cards.js?v=san49"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san48';
+const ASSET_V = 'san49';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2220,8 +2220,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
       .spray-print-img{
-        width:min(100%,2.35in)!important;max-width:100%!important;
-        height:auto!important;max-height:1.66in!important;object-fit:contain!important;
+        width:min(100%,4.6in)!important;max-width:100%!important;
+        height:auto!important;max-height:1.12in!important;object-fit:contain!important;
         aspect-ratio:1.414/1;display:block;margin:0 auto;
         background:#e8eef4!important;border:1px solid #ccc;border-radius:6px;
         -webkit-print-color-adjust:exact;print-color-adjust:exact;
@@ -2473,7 +2473,7 @@ function hitterSprayPairHtml(prefix, {printPage=false, sprayUrls=null}={}){
   // Two labelled canvases: RISP | non-RISP (+ shared color key for site/PDF)
   // Native √2 aspect matches 90° fair-wedge coordinate system (no stretch)
   const cvStyle = printPage
-    ? 'width:min(100%,2.35in);max-width:100%;height:auto;max-height:1.66in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
+    ? 'width:min(100%,4.6in);max-width:100%;height:auto;max-height:1.12in;aspect-ratio:1.414/1;object-fit:contain;display:block;margin:0 auto'
     : 'width:100%;max-width:480px;height:auto;aspect-ratio:1.414/1';
   const rispMedia = (printPage && sprayUrls?.risp)
     ? `<img class="spray-print-img" id="${prefix}spray-risp" alt="RISP spray" src="${sprayUrls.risp}" style="${cvStyle}" width="848" height="600"/>`
