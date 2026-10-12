@@ -624,6 +624,49 @@ def event_in_heat_window(ev: dict) -> bool:
     return False
 
 
+HEAT_PRIMARY_WINDOW = "2026+2025 pool"
+HEAT_2025_FALLBACK = "2025 fallback"
+HEAT_2024_FALLBACK = "2024 fallback"
+HEAT_FALLBACK_VERSION = 2
+
+
+def event_in_heat_fallback_scan(ev: dict) -> bool:
+    """Keep eligible newer leagues plus any 2024 event for the final fallback.
+
+    Some older Synergy events, including A.J. Candelario's 2024 sample, omit
+    game.league.id. The final year fallback therefore keys on season alone.
+    """
+    year = event_season_year(ev)
+    return year == 2024 or (
+        year in {2025, 2026}
+        and event_league_id(ev) in (SUMMER_LEAGUE_IDS | WINTER_LEAGUE_IDS)
+    )
+
+
+def select_heat_window(events: list[dict]) -> tuple[list[dict], str]:
+    """Choose one map window, using older seasons only when newer ones have no locations."""
+    windows = (
+        (HEAT_PRIMARY_WINDOW, [ev for ev in events if event_in_heat_window(ev)]),
+        (
+            HEAT_2025_FALLBACK,
+            [
+                ev
+                for ev in events
+                if event_season_year(ev) == 2025
+                and event_league_id(ev) in (SUMMER_LEAGUE_IDS | WINTER_LEAGUE_IDS)
+            ],
+        ),
+        (
+            HEAT_2024_FALLBACK,
+            [ev for ev in events if event_season_year(ev) == 2024],
+        ),
+    )
+    for label, rows in windows:
+        if _located_sources(rows):
+            return rows, label
+    return [], "none"
+
+
 def event_league_short(ev: dict) -> str:
     lid = event_league_id(ev)
     return {
@@ -3078,6 +3121,11 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
     else:
         hitters_out = {}
         pitchers_out = {}
+    # Existing shipped maps already use the primary pooled window. Preserve them
+    # byte-for-byte apart from recording which selection tier supplied the map.
+    for rec in list(hitters_out.values()) + list(pitchers_out.values()):
+        if _heat_has_map(rec) and not rec.get("window_used"):
+            rec["window_used"] = HEAT_PRIMARY_WINDOW
     if log_path.is_file():
         for line in log_path.read_text().splitlines():
             line = line.strip()
@@ -3097,6 +3145,10 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
                 pitchers_out[key] = heat
             else:
                 hitters_out[key] = heat
+    for rec in list(hitters_out.values()) + list(pitchers_out.values()):
+        if _heat_has_map(rec) and not rec.get("window_used"):
+            rec["window_used"] = HEAT_PRIMARY_WINDOW
+    if log_path.is_file():
         print(
             f"replayed log hitters={sum(1 for r in hitters_out.values() if _heat_has_map(r))} "
             f"pitchers={sum(1 for r in pitchers_out.values() if _heat_has_map(r))}"
@@ -3190,25 +3242,38 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
         i, h = item
         sid = str(h.get("synergy_id") or "")
         name = h.get("name") or sid
-        if not sid or _heat_has_map(hitters_out.get(sid)) or (hitters_out.get(sid) or {}).get("complete"):
+        existing = hitters_out.get(sid) or {}
+        if (
+            not sid
+            or _heat_has_map(existing)
+            or (
+                existing.get("complete")
+                and existing.get("fallback_version") == HEAT_FALLBACK_VERSION
+            )
+        ):
             print(f"=== heat hitter [{i}/{len(hitters)}] {name} · skip")
             return
         print(f"=== heat hitter [{i}/{len(hitters)}] {name}", flush=True)
         scan: dict = {}
         raw = fetch_events_pages(
-            live_token(), batter_id=sid, max_events=2500, take=200, pause_s=0.02,
-            timeout_s=60, max_attempts=3, stop_before_year=2025,
-            retain=event_in_heat_window, max_scan=30000, compact=True, scan_out=scan,
+            live_token(), batter_id=sid, max_events=7500, take=200, pause_s=0.02,
+            timeout_s=20, max_attempts=3, stop_before_year=2024,
+            retain=event_in_heat_fallback_scan, max_scan=30000, compact=True, scan_out=scan,
         )
-        kept = raw
+        kept, window_used = select_heat_window(raw)
         heat = aggregate_location_heat(kept, split="pitcher_hand")
         heat["name"] = name
         heat["team"] = h.get("team") or ""
         heat["window"] = heat_window
+        heat["window_used"] = window_used
         heat["raw"] = int(scan.get("scanned") or len(raw))
         heat["kept"] = len(kept)
         heat["complete"] = bool(scan.get("complete"))
+        heat["fallback_checked"] = True
+        heat["fallback_version"] = HEAT_FALLBACK_VERSION
         heat["sources"] = _located_sources(kept)
+        if not heat["located"]:
+            heat["empty_reason"] = "No located pitches in eligible 2026+2025, 2025, or 2024 Synergy windows"
         print(f"  hitter {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
         store(hitters_out, sid, heat)
 
@@ -3217,27 +3282,36 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
         sid = job["synergy_id"]
         key = str(job["mlb_id"] or sid)
         name = job["name"]
-        if _heat_has_map(pitchers_out.get(key)) or (pitchers_out.get(key) or {}).get("complete"):
+        existing = pitchers_out.get(key) or {}
+        if _heat_has_map(existing) or (
+            existing.get("complete")
+            and existing.get("fallback_version") == HEAT_FALLBACK_VERSION
+        ):
             print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name} · skip")
             return
         print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name}", flush=True)
         scan: dict = {}
         raw = fetch_events_pages(
-            live_token(), pitcher_id=sid, max_events=2500, take=200, pause_s=0.02,
-            timeout_s=60, max_attempts=3, stop_before_year=2025,
-            retain=event_in_heat_window, max_scan=30000, compact=True, scan_out=scan,
+            live_token(), pitcher_id=sid, max_events=7500, take=200, pause_s=0.02,
+            timeout_s=20, max_attempts=3, stop_before_year=2024,
+            retain=event_in_heat_fallback_scan, max_scan=30000, compact=True, scan_out=scan,
         )
-        kept = raw
+        kept, window_used = select_heat_window(raw)
         heat = aggregate_location_heat(kept, split="batter_hand")
         heat["name"] = name
         heat["team"] = job["team"]
         heat["synergy_id"] = sid
         heat["mlb_id"] = job["mlb_id"]
         heat["window"] = heat_window
+        heat["window_used"] = window_used
         heat["raw"] = int(scan.get("scanned") or len(raw))
         heat["kept"] = len(kept)
         heat["complete"] = bool(scan.get("complete"))
+        heat["fallback_checked"] = True
+        heat["fallback_version"] = HEAT_FALLBACK_VERSION
         heat["sources"] = _located_sources(kept)
+        if not heat["located"]:
+            heat["empty_reason"] = "No located pitches in eligible 2026+2025, 2025, or 2024 Synergy windows"
         print(f"  pitcher {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
         store(pitchers_out, key, heat)
 
