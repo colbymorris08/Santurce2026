@@ -443,6 +443,9 @@ def fetch_events_pages(
     stop_before_year: int | None = None,
     stop_outside_heat: bool = False,
     compact: bool = False,
+    retain=None,
+    max_scan: int | None = None,
+    scan_out: dict | None = None,
 ) -> list[dict]:
     """Paginate Synergy events/filter by teamIds, batterId, and/or pitcherId.
 
@@ -452,18 +455,27 @@ def fetch_events_pages(
     alone often omit ``pitcher.id`` (use defense.lineup.pitcher instead).
     ``max_attempts`` includes the first try (2 = one retry). ``stop_before_year``
     drops a newest-first page that is entirely older than that season and stops.
+    ``retain`` filters which rows are kept; pages that fail it are still scanned
+    so a newer out-of-window league does not hide older in-window pitches.
+    ``max_events`` caps retained rows. ``max_scan`` caps pages walked.
     """
     if isinstance(season_ids, str):
         season_ids = [season_ids]
     season_ids = [s for s in (season_ids or []) if s]
     out: list[dict] = []
     skip = 0
+    scanned = 0
+    scan_cap = max_scan if max_scan is not None else max(max_events, max_events * 8)
+    complete = False
     auth_tries = 0
-    while len(out) < max_events:
+    while len(out) < max_events and scanned < scan_cap:
+        page_take = take if retain is not None else min(take, max_events - len(out))
+        if page_take <= 0:
+            break
         body: dict[str, Any] = {
             "loggingPhases": [LOGGING_PHASE_PITCH],
             "skip": skip,
-            "take": min(take, max_events - len(out)),
+            "take": page_take,
         }
         if team_id:
             body["teamIds"] = [team_id]
@@ -510,20 +522,31 @@ def fetch_events_pages(
             years_on_page = [event_season_year(ev) for ev in rows]
             if years_on_page and max(years_on_page) < stop_before_year:
                 print(f"  stop before {stop_before_year} at skip={skip}")
+                complete = True
                 break
         if stop_outside_heat and not any(event_in_heat_window(ev) for ev in rows):
             print(f"  stop outside heat window at skip={skip}")
             break
+        kept_rows = [ev for ev in rows if retain(ev)] if retain is not None else rows
         if compact:
-            out.extend(_compact_heat_event(ev) for ev in rows)
+            out.extend(_compact_heat_event(ev) for ev in kept_rows)
         else:
-            out.extend(rows)
+            out.extend(kept_rows)
+        if len(out) > max_events:
+            del out[max_events:]
         total = int(doc.get("totalRecords") or 0)
         skip += len(rows)
-        print(f"  fetched {len(out)}/{min(max_events, total or max_events)} (page)")
-        if skip >= total or len(rows) < take:
+        scanned += len(rows)
+        print(f"  fetched {len(out)} kept / {scanned} scanned (page)")
+        if skip >= total or len(rows) < page_take:
+            complete = True
             break
         time.sleep(pause_s)
+    if len(out) >= max_events or scanned >= scan_cap:
+        complete = True
+    if scan_out is not None:
+        scan_out["scanned"] = scanned
+        scan_out["complete"] = complete
     return out
 
 
@@ -3066,7 +3089,9 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
                 continue
             heat = row.get("heat") or {}
             key = str(row.get("key") or "")
-            if not key or heat.get("window") != heat_window or not _heat_has_map(heat):
+            if not key or heat.get("window") != heat_window:
+                continue
+            if not _heat_has_map(heat) and not heat.get("complete"):
                 continue
             if row.get("kind") == "pitcher":
                 pitchers_out[key] = heat
@@ -3151,7 +3176,7 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
 
     def store(bucket: dict, key: str, heat: dict) -> None:
         # A zero-event pull is a transport failure — leave it uncheckpointed so the next run retries.
-        if not heat.get("raw") and not heat.get("located"):
+        if not heat.get("raw") and not heat.get("located") and not heat.get("complete"):
             print(f"  no events for {heat.get('name')} — not checkpointed")
             return
         kind = "pitcher" if heat.get("synergy_id") and "mlb_id" in heat else "hitter"
@@ -3165,21 +3190,24 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
         i, h = item
         sid = str(h.get("synergy_id") or "")
         name = h.get("name") or sid
-        if not sid or _heat_has_map(hitters_out.get(sid)):
+        if not sid or _heat_has_map(hitters_out.get(sid)) or (hitters_out.get(sid) or {}).get("complete"):
             print(f"=== heat hitter [{i}/{len(hitters)}] {name} · skip")
             return
         print(f"=== heat hitter [{i}/{len(hitters)}] {name}", flush=True)
+        scan: dict = {}
         raw = fetch_events_pages(
-            live_token(), batter_id=sid, max_events=8000, take=200, pause_s=0.02,
-            timeout_s=20, max_attempts=2, stop_outside_heat=True, compact=True,
+            live_token(), batter_id=sid, max_events=2500, take=200, pause_s=0.02,
+            timeout_s=60, max_attempts=3, stop_before_year=2025,
+            retain=event_in_heat_window, max_scan=30000, compact=True, scan_out=scan,
         )
-        kept = [ev for ev in raw if event_in_heat_window(ev)]
+        kept = raw
         heat = aggregate_location_heat(kept, split="pitcher_hand")
         heat["name"] = name
         heat["team"] = h.get("team") or ""
         heat["window"] = heat_window
-        heat["raw"] = len(raw)
+        heat["raw"] = int(scan.get("scanned") or len(raw))
         heat["kept"] = len(kept)
+        heat["complete"] = bool(scan.get("complete"))
         heat["sources"] = _located_sources(kept)
         print(f"  hitter {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
         store(hitters_out, sid, heat)
@@ -3189,23 +3217,26 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
         sid = job["synergy_id"]
         key = str(job["mlb_id"] or sid)
         name = job["name"]
-        if _heat_has_map(pitchers_out.get(key)):
+        if _heat_has_map(pitchers_out.get(key)) or (pitchers_out.get(key) or {}).get("complete"):
             print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name} · skip")
             return
         print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name}", flush=True)
+        scan: dict = {}
         raw = fetch_events_pages(
-            live_token(), pitcher_id=sid, max_events=6000, take=200, pause_s=0.02,
-            timeout_s=20, max_attempts=2, stop_outside_heat=True, compact=True,
+            live_token(), pitcher_id=sid, max_events=2500, take=200, pause_s=0.02,
+            timeout_s=60, max_attempts=3, stop_before_year=2025,
+            retain=event_in_heat_window, max_scan=30000, compact=True, scan_out=scan,
         )
-        kept = [ev for ev in raw if event_in_heat_window(ev)]
+        kept = raw
         heat = aggregate_location_heat(kept, split="batter_hand")
         heat["name"] = name
         heat["team"] = job["team"]
         heat["synergy_id"] = sid
         heat["mlb_id"] = job["mlb_id"]
         heat["window"] = heat_window
-        heat["raw"] = len(raw)
+        heat["raw"] = int(scan.get("scanned") or len(raw))
         heat["kept"] = len(kept)
+        heat["complete"] = bool(scan.get("complete"))
         heat["sources"] = _located_sources(kept)
         print(f"  pitcher {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
         store(pitchers_out, key, heat)
