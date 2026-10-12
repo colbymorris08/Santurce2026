@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san51">
+<link rel="stylesheet" href="shared.css?v=san54">
 </head>
 <body>
 <div class="topbar">
@@ -95,7 +95,7 @@
 
   <div id="panel-pitcher-advance" class="panel active">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Pitch shapes = hitter view. Click delivery / vs L · vs R heat maps to upload; if arsenal XY is empty, upload a TruMedia screenshot (browser-local). Export selected arms — one landscape page each.</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Pitch shapes = hitter view. SLG heat vs R then vs L is drawn from Synergy plate location. Click delivery to upload; if arsenal XY is empty, upload a TruMedia screenshot (browser-local). Export selected arms — one landscape page each.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -114,14 +114,14 @@
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+dual heat · delivery).</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery).</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
 
   <div id="panel-hitter-advance" class="panel">
     <div class="section-label" data-i18n="hitterAdvanceLabel">Hitter advance — Synergy</div>
-    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Two columns, vs R and vs L, each stacked non-RISP, RISP, non-2K, 2K. Colored vs league avg. Portrait PDF: one page per hitter.</div>
+    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Two columns, vs R and vs L, each stacked non-RISP, RISP, non-2K, 2K, then SLG and Whiff heat maps. Colored vs league avg. Portrait PDF: one page per hitter.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-team" onchange="fillAdvanceHitters()">
@@ -147,7 +147,7 @@
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · two columns (vs R | vs L), each stacked non-RISP, RISP, non-2K, 2K · sprays · bunts.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · two columns (vs R | vs L), each stacked non-RISP, RISP, non-2K, 2K · SLG and Whiff heat · sprays · bunts.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san51"></script>
+<script src="i18n.js?v=san54"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san51';
+const ASSET_V = 'san54';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1495,6 +1495,83 @@ function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   </tbody></table></div>
 </div>`;
 }
+/** Blue (low) → green (mid) → red (high). Anchors: SLG .200/.420/.650, whiff 10/25/40. */
+function heatRateStyle(metric, rate){
+  const anchors = metric==='whiff' ? [10, 25, 40] : [0.200, 0.420, 0.650];
+  let t;
+  if(rate <= anchors[1]) t = Math.max(0, (rate - anchors[0]) / (anchors[1] - anchors[0])) * 0.5;
+  else t = Math.min(1, 0.5 + (rate - anchors[1]) / (anchors[2] - anchors[1]) * 0.5);
+  const blue=[37,99,196], green=[39,158,74], red=[208,46,46];
+  const mix=(a,c,u)=>a.map((v,i)=>Math.round(v+(c[i]-v)*u));
+  const rgb = t<=0.5 ? mix(blue, green, t/0.5) : mix(green, red, (t-0.5)/0.5);
+  const fg = (t>0.18 && t<0.74) ? '#0B1F33' : '#fff';
+  return {fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg};
+}
+function hitterHeatRecord(h){
+  const bag = CACHE.advanceHeatmaps || {};
+  return (bag.hitters || {})[String(h && h.synergy_id || '')] || null;
+}
+function pitcherHeatRecord(p){
+  const bag = CACHE.advanceHeatmaps || {};
+  const id = p && (p.mlb_id || p.player_id);
+  if(id==null || id==='') return null;
+  return (bag.pitchers || {})[String(id)] || null;
+}
+/**
+ * 5×5 catcher-view zone. Inner 3×3 is the plate × the batter's strike zone.
+ * metric 'slg' uses tb/ab; 'whiff' uses whiffs/swings. Row 0 is up.
+ */
+function zoneHeatSvg(side, metric, title){
+  const W=168, H=196, n=5, cell=26, gap=1.5, ox=16, oy=18;
+  const empty = '#E7EEF5';
+  const nums = side ? (metric==='whiff' ? side.whiffs : side.tb) : null;
+  const dens = side ? (metric==='whiff' ? side.swings : side.ab) : null;
+  let totalDen=0, totalNum=0;
+  if(dens){ dens.forEach((d,i)=>{ totalDen+=d||0; totalNum+=(nums[i]||0); }); }
+  const label = metric==='whiff'
+    ? (totalDen ? `${Math.round(100*totalNum/totalDen)}% · ${totalDen} sw` : 'no swings')
+    : (totalDen ? `${(totalNum/totalDen).toFixed(3).replace(/^0/,'')} · ${totalDen} AB` : 'no AB');
+  let s=`<svg class="zone-heat" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
+  s+=`<rect width="${W}" height="${H}" fill="#F7F9FB" rx="4"/>`;
+  s+=`<text x="${W/2}" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${title}</text>`;
+  for(let r=0;r<n;r++){
+    for(let c=0;c<n;c++){
+      const i=r*n+c;
+      const x=ox+c*(cell+gap), y=oy+r*(cell+gap);
+      const den=dens? (dens[i]||0) : 0;
+      const num=nums? (nums[i]||0) : 0;
+      let fill=empty, fg='#64748B', lab='';
+      if(den>0){
+        const rate = metric==='whiff' ? (100*num/den) : (num/den);
+        const st=heatRateStyle(metric, rate);
+        fill=st.fill; fg=st.fg;
+        lab = metric==='whiff' ? String(Math.round(rate)) : rate.toFixed(3).replace(/^0/,'');
+      }
+      s+=`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${fill}"/>`;
+      if(lab) s+=`<text x="${x+cell/2}" y="${y+cell/2+3.2}" text-anchor="middle" font-size="7.5" font-weight="700" fill="${fg}" font-family="IBM Plex Mono,ui-monospace,monospace">${lab}</text>`;
+    }
+  }
+  const step=cell+gap;
+  const zx=ox+step-0.6, zy=oy+step-0.6, zs=step*3+0.2;
+  s+=`<rect x="${zx}" y="${zy}" width="${zs}" height="${zs}" fill="none" stroke="#0B1F33" stroke-width="1.6"/>`;
+  const pcx=ox+n*step/2-gap/2, py=oy+n*step+6;
+  s+=`<path d="M ${pcx-16} ${py} H ${pcx+16} V ${py+7} L ${pcx} ${py+16} L ${pcx-16} ${py+7} Z" fill="#fff" stroke="#0B1F33" stroke-width="1.1"/>`;
+  s+=`<text x="8" y="${py+8}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">3B</text>`;
+  s+=`<text x="${W-8}" y="${py+8}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">1B</text>`;
+  s+=`<text x="${W/2}" y="${H-4}" text-anchor="middle" font-size="7.5" fill="#334155" font-family="system-ui,sans-serif">${label}</text>`;
+  return s+'</svg>';
+}
+function hitterHeatPairHtml(h, hand){
+  const side = (function(){
+    const rec=hitterHeatRecord(h);
+    if(!rec) return null;
+    return hand==='R' ? rec.vs_r : rec.vs_l;
+  })();
+  return `<div class="hitter-heat-pair">
+    ${zoneHeatSvg(side, 'slg', `vs ${hand} SLG`)}
+    ${zoneHeatSvg(side, 'whiff', `vs ${hand} Whiff`)}
+  </div>`;
+}
 function hitterPitchSideHtml(h, hand){
   const H = hand.toLowerCase();
   return `<div class="hitter-pitch-side">
@@ -1503,6 +1580,7 @@ function hitterPitchSideHtml(h, hand){
   ${pitchTypeTableHtml(h['risp_vs_'+H+'_by_pitch_type'], 'RISP', {split:'risp_vs_'+H, mode:'situ'})}
   ${pitchTypeTableHtml(h['pre2k_vs_'+H+'_by_pitch_type'], 'non-2K', {split:'pre2k_vs_'+H, mode:'count'})}
   ${pitchTypeTableHtml(h['twok_vs_'+H+'_by_pitch_type'], '2K', {split:'twok_vs_'+H, mode:'count'})}
+  ${hitterHeatPairHtml(h, hand)}
 </div>`;
 }
 function hitterPitchTablesGridHtml(h){
@@ -1996,10 +2074,11 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       : blankHead);
   const repoDelivery = p.arm_slot_image || null;
   const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
-  // Dual heat maps (vs L / vs R). Legacy single 'heatmap' slot falls back to vs L only.
-  const heatLegacy = getPitcherMedia(playerId, 'heatmap') || '';
-  const heatLSrc = getPitcherMedia(playerId, 'heatmap_l') || heatLegacy;
-  const heatRSrc = getPitcherMedia(playerId, 'heatmap_r') || '';
+  const heatRec = pitcherHeatRecord(p);
+  const heatMapsHtml = `<div class="advance-heat-pair">
+    <div class="advance-heat-cell">${zoneHeatSvg(heatRec && heatRec.vs_r, 'slg', 'SLG vs R')}</div>
+    <div class="advance-heat-cell">${zoneHeatSvg(heatRec && heatRec.vs_l, 'slg', 'SLG vs L')}</div>
+  </div>`;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const vs=p.usage_vs_hand||{};
   const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
@@ -2025,8 +2104,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   // PDF export only: slim strip (compact roster headshot + name) + three equal thirds
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
   if(printPage){
-    const heatLPrint = printMediaBlock(heatLSrc, 'Heat · vs L');
-    const heatRPrint = printMediaBlock(heatRSrc, 'Heat · vs R');
     const deliveryPrint = printMediaBlock(deliverySrc, 'Delivery / release snapshot');
     const headPdf = headRemote
       ? `<img class="advance-pdf-headshot" src="${headRemote}" alt="${p.name}"
@@ -2081,17 +2158,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId, {printPage:true})}</div>
       </div>
       <div class="advance-card advance-band advance-band-heat">
-        <div class="section-label">Heat maps · vs L / vs R</div>
-        <div class="advance-heat-pair">
-          <div class="advance-heat-cell">
-            <div class="advance-heat-lab">vs L</div>
-            <div class="advance-photo-wrap">${heatLPrint}</div>
-          </div>
-          <div class="advance-heat-cell">
-            <div class="advance-heat-lab">vs R</div>
-            <div class="advance-photo-wrap">${heatRPrint}</div>
-          </div>
-        </div>
+        <div class="section-label">SLG heat · vs R / vs L</div>
+        ${heatMapsHtml}
       </div>
     </div>
     <div class="advance-col advance-col-release">
@@ -2105,8 +2173,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   }
 
   // On-screen: hero + count above + 3 natural columns (NOT equal PDF thirds).
-  const heatSlotL = pitcherUploadSlotHtml(playerId, 'heatmap_l', heatLSrc, 'Heat map · vs L', {name:p.name});
-  const heatSlotR = pitcherUploadSlotHtml(playerId, 'heatmap_r', heatRSrc, 'Heat map · vs R', {name:p.name});
   const deliverySlot = pitcherUploadSlotHtml(playerId, 'delivery', getPitcherMedia(playerId,'delivery'), 'Delivery snapshot', {tall:true, repoFallback:repoDelivery, name:p.name});
   return `<div class="advance-sheet">
   <div class="advance-hero">
@@ -2115,7 +2181,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <div class="advance-hero-meta">
         <h2>${p.name}</h2>
         <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled. PDF layout is three equal thirds with a small roster headshot in the name strip.</div>
+        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled. SLG heat is binned from Synergy plate location. PDF layout is three equal thirds with a small roster headshot in the name strip.</div>
       </div>
     </div>
   </div>
@@ -2165,11 +2231,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId)}</div>
       </div>
       <div class="advance-card">
-        <div class="section-label">Heat maps · vs L / vs R</div>
-        <div class="advance-heat-pair">
-          <div class="advance-heat-cell">${heatSlotL}</div>
-          <div class="advance-heat-cell">${heatSlotR}</div>
-        </div>
+        <div class="section-label">SLG heat · vs R / vs L</div>
+        ${heatMapsHtml}
       </div>
     </div>
     <div class="advance-col">
@@ -2213,11 +2276,10 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-short-col+.advance-short-col{border-left:1px solid #bbb}
       .advance-sheet-pitcher .advance-short-col{padding:0 8px}
       .advance-sheet-pitcher .advance-short{padding:3px 2px;column-gap:0}
-      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:6px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
+      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:4px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
       .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
-      .advance-sheet-pitcher .advance-heat-lab{font-size:8.5px;font-weight:700;color:#0a1633;text-transform:uppercase;letter-spacing:.04em;line-height:1}
-      .advance-sheet-pitcher .advance-heat-cell .advance-photo-wrap,
-      .advance-sheet-pitcher .advance-heat-cell .advance-placeholder-heat{flex:0 0 auto;width:2.15in;height:auto;aspect-ratio:1/1.10;min-height:0;max-height:none}
+      .advance-sheet-pitcher .advance-heat-cell .zone-heat{width:1.7in;height:auto;max-height:2.02in;background:#F7F9FB}
+      .advance-sheet-pitcher .zone-heat{-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-pitcher .advance-band-heat{grid-column:1 / span 2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
       .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1;align-self:stretch;min-height:0;overflow:hidden}
@@ -2253,16 +2315,18 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-summer-bar th{font-size:7px;color:#333!important}
       .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
       .advance-sheet-hitter .hitter-pitch-side{display:flex;flex-direction:column;gap:1px;min-width:0}
-      .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px;margin:0;letter-spacing:.04em}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px;margin:0;letter-spacing:.04em}
+      .advance-sheet-hitter .hitter-pitch-side-title{font-size:11px;margin:0;letter-spacing:.04em}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:9px;margin:0;letter-spacing:.04em}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
-      .advance-sheet-hitter .hitter-pitch-half table{font-size:9.5px;line-height:1;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-half table{font-size:8px;line-height:1;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half th,
       .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half td.player-name{white-space:nowrap!important;overflow:hidden}
       .advance-sheet-hitter .pitch-lab-long{display:inline-block;max-width:100%;font-size:8px!important;letter-spacing:-0.05em;white-space:nowrap;line-height:1;font-weight:700}
-      .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc;font-size:8.5px;white-space:nowrap}
+      .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc;font-size:7.5px;white-space:nowrap}
+      .advance-sheet-hitter .hitter-heat-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:1px 0 2px;flex:0 0 auto}
+      .advance-sheet-hitter .zone-heat{width:auto;height:1.42in;max-width:100%;max-height:1.42in;background:#F7F9FB;-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
       .advance-sheet-hitter .hitter-pitch-half tbody td.num,
       .advance-sheet-hitter .hitter-pitch-half tbody td.rate-cell{font-weight:700}
@@ -2280,9 +2344,9 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .section-label{font-size:10px;margin:2px 0 1px}
       .advance-sheet-hitter .table-wrap table{font-size:9.5px;line-height:1.05}
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:0 4px;line-height:1.05}
-      .advance-sheet-hitter .hitter-pitch-side-title{font-size:13px}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px}
-      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:9.5px;line-height:1;table-layout:fixed}
+      .advance-sheet-hitter .hitter-pitch-side-title{font-size:11px}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:9px}
+      .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:8px;line-height:1;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
       .advance-sheet-hitter .hitter-spray-pair img.spray-print-img,
@@ -2996,10 +3060,11 @@ Promise.all([
   fetch('data/pregame_pitcher_arsenals.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
   fetch('data/advance_rodriguez.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/advance_heatmaps.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({hitters:{},pitchers:{}})),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, tth, cardStats])=>{
-  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, tth, cardStats};
+]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
+  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, advanceHeatmaps, tth, cardStats};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();

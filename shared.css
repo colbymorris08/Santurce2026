@@ -1077,15 +1077,15 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     gap: 1px;
     min-width: 0;
   }
-  .advance-sheet-hitter .hitter-pitch-side-title { font-size: 13px; margin: 0; letter-spacing: .04em; }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 0; color: #0a1633; letter-spacing: .04em; }
+  .advance-sheet-hitter .hitter-pitch-side-title { font-size: 11px; margin: 0; letter-spacing: .04em; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 9px; margin: 0; color: #0a1633; letter-spacing: .04em; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
-  .advance-sheet-hitter .hitter-pitch-half table { font-size: 9.5px; line-height: 1; color: #111; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half table { font-size: 8px; line-height: 1; color: #111; table-layout: fixed; }
   .advance-sheet-hitter .hitter-pitch-half thead th {
     background: #fff !important; color: #333; border-bottom-color: #ccc;
     text-transform: none; letter-spacing: 0; white-space: nowrap;
-    font-size: 8.5px;
+    font-size: 7.5px;
   }
   .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell) {
     background: #fff !important; color: #111; border-bottom-color: #e2e8f0;
@@ -1166,9 +1166,13 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .table-wrap table { font-size: 9.5px; line-height: 1.05; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
   .advance-sheet-hitter .table-wrap td { padding: 0 4px; line-height: 1.05; }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 0; }
-  .advance-sheet-hitter .hitter-pitch-side-title { font-size: 13px; margin: 0; }
-  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 9.5px; line-height: 1; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 9px; margin: 0; }
+  .advance-sheet-hitter .hitter-pitch-side-title { font-size: 11px; margin: 0; }
+  .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 8px; line-height: 1; table-layout: fixed; }
+  .advance-sheet-hitter .hitter-heat-pair {
+    flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 1px 0 2px;
+  }
+  .advance-sheet-hitter .zone-heat { width: auto; height: 1.42in; max-width: 100%; max-height: 1.42in; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap th,
   .advance-sheet-hitter .hitter-pitch-half .table-wrap td { padding: 0 2px; line-height: 1; letter-spacing: 0; text-transform: none; }
   .advance-sheet-hitter .hitter-pitch-half td.player-name { white-space: nowrap !important; overflow: hidden; }
@@ -1332,6 +1336,22 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .hitter-spray-pair .spray-card h3 { font-size: 13px; margin: 0 0 6px; color: var(--santurce-gold); }
 .hitter-pitch-half tbody td.num,
 .hitter-pitch-half tbody td.rate-cell { font-weight: 700; }
+.hitter-heat-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 6px;
+}
+.zone-heat {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #F7F9FB;
+  border-radius: 4px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.advance-heat-pair .zone-heat { max-width: 220px; }
 .rate-cell { font-variant-numeric: tabular-nums; }
 
 .season-banner {

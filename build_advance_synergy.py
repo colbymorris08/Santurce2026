@@ -366,7 +366,7 @@ def api_get(path: str, token: str, params: dict | None = None) -> Any:
         return json.loads(resp.read().decode())
 
 
-def api_post(url: str, token: str, body: dict) -> Any:
+def api_post(url: str, token: str, body: dict, *, timeout_s: float = 180) -> Any:
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode(),
@@ -378,7 +378,7 @@ def api_post(url: str, token: str, body: dict) -> Any:
             "User-Agent": "SanturceAdvance/1.0",
         },
     )
-    with urllib.request.urlopen(req, timeout=180) as resp:
+    with urllib.request.urlopen(req, timeout=timeout_s) as resp:
         return json.loads(resp.read().decode())
 
 
@@ -437,6 +437,12 @@ def fetch_events_pages(
     season_ids: list[str] | str | None = None,
     max_events: int,
     take: int = 200,
+    pause_s: float = 0.12,
+    timeout_s: float = 180,
+    max_attempts: int = 3,
+    stop_before_year: int | None = None,
+    stop_outside_heat: bool = False,
+    compact: bool = False,
 ) -> list[dict]:
     """Paginate Synergy events/filter by teamIds, batterId, and/or pitcherId.
 
@@ -444,6 +450,8 @@ def fetch_events_pages(
     filter client-side via ``filter_events_by_leagues_years``.
     Prefer pitcherId (Montgomery-style) for pitcher count/hand usage — teamIds
     alone often omit ``pitcher.id`` (use defense.lineup.pitcher instead).
+    ``max_attempts`` includes the first try (2 = one retry). ``stop_before_year``
+    drops a newest-first page that is entirely older than that season and stops.
     """
     if isinstance(season_ids, str):
         season_ids = [season_ids]
@@ -467,31 +475,91 @@ def fetch_events_pages(
             body["seasonIds"] = season_ids
         if not team_id and not batter_id and not pitcher_id:
             break
-        try:
-            doc = api_post(EVENTS_FILTER_URL, token, body)
-        except urllib.error.HTTPError as exc:
-            label = pitcher_id or batter_id or team_id
-            if exc.code == 401 and auth_tries < 1:
-                auth_tries += 1
-                print(f"  events HTTP 401 id={label} — re-login and retry")
-                tok_path = Path("/tmp/synergy_token.txt")
-                if tok_path.exists():
-                    tok_path.unlink()
-                token = login_token()
-                continue
-            print(f"  events HTTP {exc.code} id={label} skip={skip}")
+        doc = None
+        for attempt in range(max(1, max_attempts)):
+            try:
+                doc = api_post(EVENTS_FILTER_URL, token, body, timeout_s=timeout_s)
+                break
+            except urllib.error.HTTPError as exc:
+                label = pitcher_id or batter_id or team_id
+                if exc.code == 401 and auth_tries < 1:
+                    auth_tries += 1
+                    print(f"  events HTTP 401 id={label} — re-login and retry")
+                    tok_path = Path("/tmp/synergy_token.txt")
+                    if tok_path.exists():
+                        tok_path.unlink()
+                    token = login_token()
+                    continue
+                print(f"  events HTTP {exc.code} id={label} skip={skip}")
+                doc = None
+                break
+            except (TimeoutError, urllib.error.URLError, json.JSONDecodeError) as exc:
+                label = pitcher_id or batter_id or team_id
+                if attempt + 1 < max_attempts:
+                    print(f"  events timeout id={label} skip={skip} — retry once: {exc}")
+                    doc = None
+                    continue
+                print(f"  events failed id={label} skip={skip}: {exc}")
+                doc = None
+        if not isinstance(doc, dict):
             break
         rows = doc.get("result") if isinstance(doc, dict) else None
         if not isinstance(rows, list) or not rows:
             break
-        out.extend(rows)
+        if stop_before_year is not None:
+            years_on_page = [event_season_year(ev) for ev in rows]
+            if years_on_page and max(years_on_page) < stop_before_year:
+                print(f"  stop before {stop_before_year} at skip={skip}")
+                break
+        if stop_outside_heat and not any(event_in_heat_window(ev) for ev in rows):
+            print(f"  stop outside heat window at skip={skip}")
+            break
+        if compact:
+            out.extend(_compact_heat_event(ev) for ev in rows)
+        else:
+            out.extend(rows)
         total = int(doc.get("totalRecords") or 0)
         skip += len(rows)
         print(f"  fetched {len(out)}/{min(max_events, total or max_events)} (page)")
         if skip >= total or len(rows) < take:
             break
-        time.sleep(0.12)
+        time.sleep(pause_s)
     return out
+
+
+def _compact_heat_event(ev: dict) -> dict:
+    """Keep only the fields location maps need so a full pull does not hold raw events."""
+    pitch = ev.get("pitch") or {}
+    pi = ev.get("pitcherInfo") or {}
+    bi = ev.get("batterInfo") or {}
+    count = ev.get("count") or {}
+    game = ev.get("game") or {}
+    league = game.get("league") if isinstance(game, dict) else None
+    return {
+        "eventType": "Pitch",
+        "inning": ev.get("inning"),
+        "inningTop": ev.get("inningTop"),
+        "inningPlateAppearanceNumber": ev.get("inningPlateAppearanceNumber"),
+        "plateAppearanceResult": ev.get("plateAppearanceResult"),
+        "count": {
+            "balls": count.get("balls") if isinstance(count, dict) else 0,
+            "strikes": count.get("strikes") if isinstance(count, dict) else 0,
+        },
+        "pitcherInfo": {"pitchingSide": pi.get("pitchingSide") if isinstance(pi, dict) else None},
+        "batterInfo": {"battingSide": bi.get("battingSide") if isinstance(bi, dict) else None},
+        "game": {
+            "id": game.get("id") or game.get("iid") if isinstance(game, dict) else None,
+            "season": game.get("season") if isinstance(game, dict) else None,
+            "league": {"id": league.get("id") if isinstance(league, dict) else ""},
+        },
+        "pitch": {
+            "px": pitch.get("px") if isinstance(pitch, dict) else None,
+            "pz": pitch.get("pz") if isinstance(pitch, dict) else None,
+            "pitchResult": pitch.get("pitchResult") if isinstance(pitch, dict) else None,
+            "strikeZoneInchesBottom": pitch.get("strikeZoneInchesBottom") if isinstance(pitch, dict) else None,
+            "strikeZoneInchesTop": pitch.get("strikeZoneInchesTop") if isinstance(pitch, dict) else None,
+        },
+    }
 
 
 def _norm_person(s: str) -> str:
@@ -516,6 +584,31 @@ def event_season_year(ev: dict) -> int:
         return int(g.get("season") or 0)
     except (TypeError, ValueError):
         return 0
+
+
+def event_in_heat_window(ev: dict) -> bool:
+    """Location maps: 2026 summer MLB/MiLB/LMB and LBPRC winter.
+
+    Synergy's latest LBPRC season is named 2025 (no 2026 winter season yet).
+    game.season for that winter is 2025. 2025 summer MLB/MiLB/LMB is excluded.
+    """
+    lid = event_league_id(ev)
+    yr = event_season_year(ev)
+    if lid == LEAGUE_LBPRC and yr == 2025:
+        return True
+    if lid in SUMMER_LEAGUE_IDS and yr == 2026:
+        return True
+    return False
+
+
+def event_league_short(ev: dict) -> str:
+    lid = event_league_id(ev)
+    return {
+        LEAGUE_LBPRC: "LBPRC",
+        LEAGUE_LMB: "LMB",
+        LEAGUE_MLB: "MLB",
+        LEAGUE_MILB: "MILB",
+    }.get(lid, lid or "?")
 
 
 def event_in_bunt_window(ev: dict) -> bool:
@@ -2777,6 +2870,360 @@ def refresh_windowed_bunt_samples(token: str, hitters: list[dict], select_all: d
     return token
 
 
+# Catcher view. px/pz are feet (Synergy). +px is the 1B side (catcher's right).
+# Columns: one chase bin, three plate thirds (17" plate), one chase bin.
+# Rows: batter strike zone (pitch.strikeZoneInchesBottom/Top, else 1.5–3.5 ft)
+# split into thirds, plus one chase row above and one below. Outside pitches
+# clamp into the edge bin. Row 0 is the top of the map.
+_PLATE_HALF_FT = (17.0 / 2.0) / 12.0
+_ZONE_THIRD_FT = (_PLATE_HALF_FT * 2.0) / 3.0
+HEAT_X_EDGES_FT = [
+    round(-_PLATE_HALF_FT - _ZONE_THIRD_FT, 4),
+    round(-_PLATE_HALF_FT, 4),
+    round(-_PLATE_HALF_FT + _ZONE_THIRD_FT, 4),
+    round(_PLATE_HALF_FT - _ZONE_THIRD_FT, 4),
+    round(_PLATE_HALF_FT, 4),
+    round(_PLATE_HALF_FT + _ZONE_THIRD_FT, 4),
+]
+HEAT_Z_NORM_EDGES = [round(-1.0 / 3.0, 4), 0.0, round(1.0 / 3.0, 4), round(2.0 / 3.0, 4), 1.0, round(4.0 / 3.0, 4)]
+HEAT_BINS = 5
+HEAT_METHOD = (
+    "5x5 catcher view. px/pz feet, +px = 1B (catcher's right). "
+    "Columns: chase | three plate thirds (17in) | chase; pitches outside clamp to the edge bin. "
+    "Rows: that pitch's strikeZoneInchesBottom/Top (else 1.5–3.5 ft) as thirds plus one chase row above and below; row 0 is up. "
+    "Hitter maps split on pitcherInfo.pitchingSide. Pitcher maps split on batterInfo.battingSide. "
+    "SLG = TB/AB on the terminal pitch of the PA only (Synergy copies plateAppearanceResult onto every pitch). "
+    "Whiff = (StrikeSwinging+FoulTip+MissedBunt) / swings."
+)
+
+
+def _heat_blank() -> dict[str, Any]:
+    n = HEAT_BINS * HEAT_BINS
+    return {
+        "tb": [0] * n,
+        "ab": [0] * n,
+        "whiffs": [0] * n,
+        "swings": [0] * n,
+        "located": 0,
+    }
+
+
+def _clamp_bin(value: float, edges: list[float]) -> int:
+    last = len(edges) - 2
+    if value < edges[0]:
+        return 0
+    if value >= edges[-1]:
+        return last
+    for i in range(last + 1):
+        if value < edges[i + 1]:
+            return i
+    return last
+
+
+def _pitch_zone_feet(pitch: dict) -> tuple[float, float]:
+    try:
+        top = pitch.get("strikeZoneInchesTop")
+        bot = pitch.get("strikeZoneInchesBottom")
+        if top is not None and bot is not None:
+            top_ft = float(top) / 12.0
+            bot_ft = float(bot) / 12.0
+            if top_ft > bot_ft + 0.35:
+                return bot_ft, top_ft
+    except (TypeError, ValueError):
+        pass
+    return 1.5, 3.5
+
+
+def _heat_cell(px: float, pz: float, bot_ft: float, top_ft: float) -> int | None:
+    height = top_ft - bot_ft
+    if height <= 0.2:
+        return None
+    col = _clamp_bin(px, HEAT_X_EDGES_FT)
+    z_norm = (pz - bot_ft) / height
+    row_from_bottom = _clamp_bin(z_norm, HEAT_Z_NORM_EDGES)
+    row = (HEAT_BINS - 1) - row_from_bottom
+    return row * HEAT_BINS + col
+
+
+def _pa_slg_contribution(pa: str | None) -> tuple[bool, int]:
+    """(counts as AB, total bases). Walks, HBP, and sac bunts/flies are not ABs."""
+    pa = pa or ""
+    if pa in PA_HIT:
+        return True, int(PA_TB.get(pa, 1))
+    if pa in PA_WALK or pa in ("SacrificeFly", "SacFly") or pa in PA_SAC_BUNT or "Bunt" in pa:
+        return False, 0
+    if pa in PA_AB_OUT or pa.endswith("out") or pa.endswith("Out"):
+        return True, 0
+    return False, 0
+
+
+def aggregate_location_heat(events: list[dict], *, split: str) -> dict[str, Any]:
+    """Bin px/pz into vs-R and vs-L grids.
+
+    split='pitcher_hand' for hitter maps (vs RHP / vs LHP).
+    split='batter_hand' for pitcher maps (SLG allowed vs RHH / vs LHH).
+    """
+    sides = {"R": _heat_blank(), "L": _heat_blank()}
+    terminal = _terminal_pa_indexes(events)
+    seen_pa: set[str] = set()
+    located = 0
+    for i, ev in enumerate(events):
+        pitch = ev.get("pitch") or {}
+        if not isinstance(pitch, dict):
+            continue
+        try:
+            px = float(pitch["px"])
+            pz = float(pitch["pz"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        hand = _pitcher_throws(ev) if split == "pitcher_hand" else _bat_side(ev)
+        if hand not in sides:
+            continue
+        bot, top = _pitch_zone_feet(pitch)
+        cell = _heat_cell(px, pz, bot, top)
+        if cell is None:
+            continue
+        side = sides[hand]
+        side["located"] += 1
+        located += 1
+        result = pitch.get("pitchResult")
+        if _is_swing(result):
+            side["swings"][cell] += 1
+            if _is_whiff(result):
+                side["whiffs"][cell] += 1
+        pa = ev.get("plateAppearanceResult")
+        if not pa or i not in terminal:
+            continue
+        game = ev.get("game") or {}
+        gid = str(game.get("id") or game.get("iid") or "")
+        pa_key = f"{gid}:{ev.get('inning')}:{ev.get('inningTop')}:{ev.get('inningPlateAppearanceNumber')}"
+        if pa_key in seen_pa:
+            continue
+        seen_pa.add(pa_key)
+        is_ab, tb = _pa_slg_contribution(str(pa))
+        if is_ab:
+            side["ab"][cell] += 1
+            side["tb"][cell] += tb
+    return {"located": located, "vs_r": sides["R"], "vs_l": sides["L"]}
+
+
+def _heat_has_map(rec: dict | None) -> bool:
+    return bool(rec and int(rec.get("located") or 0) > 0)
+
+
+def _located_sources(events: list[dict]) -> dict[str, int]:
+    """Count pitches that have px/pz, by league and game.season."""
+    counts: dict[str, int] = {}
+    for ev in events:
+        pitch = ev.get("pitch") or {}
+        if not isinstance(pitch, dict):
+            continue
+        try:
+            float(pitch["px"])
+            float(pitch["pz"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        key = f"{event_league_short(ev)} {event_season_year(ev)}"
+        counts[key] = counts.get(key, 0) + 1
+    return counts
+
+
+def _source_rollup(recs: list[dict]) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for rec in recs:
+        for key, n in (rec.get("sources") or {}).items():
+            out[str(key)] = out.get(str(key), 0) + int(n or 0)
+    return out
+
+
+def pull_location_heatmaps(token: str) -> dict[str, Any]:
+    """Re-pull events only to persist px/pz zone bins. Does not rebuild other advance stats."""
+    path = OUT / "advance_heatmaps.json"
+    log_path = OUT / "advance_heatmaps.jsonl"
+    prev: dict[str, Any] = {}
+    if path.is_file():
+        try:
+            prev = json.loads(path.read_text())
+        except Exception as exc:  # noqa: BLE001
+            print("heatmap checkpoint unreadable", exc)
+            prev = {}
+    # Prior checkpoints mixed 2025 summer or stopped at 800 newest pitches.
+    heat_window = "MLB/MiLB/LMB 2026 + LBPRC 2025"
+    if prev.get("window") == heat_window:
+        hitters_out = dict(prev.get("hitters") or {})
+        pitchers_out = dict(prev.get("pitchers") or {})
+    else:
+        hitters_out = {}
+        pitchers_out = {}
+    if log_path.is_file():
+        for line in log_path.read_text().splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            heat = row.get("heat") or {}
+            key = str(row.get("key") or "")
+            if not key or heat.get("window") != heat_window or not _heat_has_map(heat):
+                continue
+            if row.get("kind") == "pitcher":
+                pitchers_out[key] = heat
+            else:
+                hitters_out[key] = heat
+        print(
+            f"replayed log hitters={sum(1 for r in hitters_out.values() if _heat_has_map(r))} "
+            f"pitchers={sum(1 for r in pitchers_out.values() if _heat_has_map(r))}"
+        )
+
+    hitter_doc = json.loads((OUT / "advance_opposing_hitters.json").read_text())
+    hitters = hitter_doc.get("hitters") or []
+    arsenal = json.loads((OUT / "pregame_pitcher_arsenals.json").read_text())
+    arms = arsenal.get("pitchers") or []
+    # Prefer arsenal rows (what the pitcher advance renders); fill any extra opposing arms.
+    opp = json.loads((OUT / "advance_opposing_pitchers.json").read_text()).get("pitchers") or []
+    by_mlb: dict[int, dict] = {}
+    for row in opp:
+        try:
+            mid = int(row.get("mlb_id") or 0)
+        except (TypeError, ValueError):
+            continue
+        if mid and row.get("synergy_id"):
+            by_mlb[mid] = row
+    pitcher_jobs: list[dict] = []
+    seen_sid: set[str] = set()
+    for row in list(arms) + list(opp):
+        sid = str(row.get("synergy_id") or "")
+        if not sid or sid in seen_sid:
+            continue
+        seen_sid.add(sid)
+        try:
+            mid = int(row.get("mlb_id") or row.get("player_id") or 0)
+        except (TypeError, ValueError):
+            mid = 0
+        pitcher_jobs.append({
+            "synergy_id": sid,
+            "mlb_id": mid or None,
+            "name": row.get("name") or sid,
+            "team": row.get("team") or "",
+        })
+
+    def _save() -> None:
+        h_maps = sum(1 for r in hitters_out.values() if _heat_has_map(r))
+        p_maps = sum(1 for r in pitchers_out.values() if _heat_has_map(r))
+        doc = {
+            "updated": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "method": HEAT_METHOD,
+            "bins": HEAT_BINS,
+            "view": "catcher",
+            "x_edges_ft": HEAT_X_EDGES_FT,
+            "z_norm_edges": HEAT_Z_NORM_EDGES,
+            "scales": {"slg": [0.200, 0.420, 0.650], "whiff_pct": [10, 25, 40]},
+            "colors": "blue low, green mid, red high",
+            "window": heat_window,
+            "coverage": {
+                "hitters": len(hitters),
+                "hitters_with_maps": h_maps,
+                "pitchers": len(pitcher_jobs),
+                "pitchers_with_maps": p_maps,
+                "located_by_source": _source_rollup(list(hitters_out.values()) + list(pitchers_out.values())),
+            },
+            "hitters": hitters_out,
+            "pitchers": pitchers_out,
+        }
+        tmp = path.with_suffix(".json.tmp")
+        tmp.write_text(json.dumps(doc))
+        tmp.replace(path)
+        print(f"  checkpoint hitters {h_maps}/{len(hitters)} pitchers {p_maps}/{len(pitcher_jobs)}")
+
+    print(f"heatmap pull hitters={len(hitters)} pitchers={len(pitcher_jobs)} window={heat_window}")
+    import threading
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    save_lock = threading.Lock()
+
+    def live_token() -> str:
+        tok_path = Path("/tmp/synergy_token.txt")
+        if tok_path.is_file() and tok_path.stat().st_size > 100:
+            return tok_path.read_text().strip()
+        return token
+
+    def store(bucket: dict, key: str, heat: dict) -> None:
+        # A zero-event pull is a transport failure — leave it uncheckpointed so the next run retries.
+        if not heat.get("raw") and not heat.get("located"):
+            print(f"  no events for {heat.get('name')} — not checkpointed")
+            return
+        kind = "pitcher" if heat.get("synergy_id") and "mlb_id" in heat else "hitter"
+        with log_path.open("a") as fh:
+            fh.write(json.dumps({"kind": kind, "key": key, "heat": heat}) + "\n")
+        with save_lock:
+            bucket[key] = heat
+            _save()
+
+    def pull_hitter(item: tuple[int, dict]) -> None:
+        i, h = item
+        sid = str(h.get("synergy_id") or "")
+        name = h.get("name") or sid
+        if not sid or _heat_has_map(hitters_out.get(sid)):
+            print(f"=== heat hitter [{i}/{len(hitters)}] {name} · skip")
+            return
+        print(f"=== heat hitter [{i}/{len(hitters)}] {name}", flush=True)
+        raw = fetch_events_pages(
+            live_token(), batter_id=sid, max_events=8000, take=200, pause_s=0.02,
+            timeout_s=20, max_attempts=2, stop_outside_heat=True, compact=True,
+        )
+        kept = [ev for ev in raw if event_in_heat_window(ev)]
+        heat = aggregate_location_heat(kept, split="pitcher_hand")
+        heat["name"] = name
+        heat["team"] = h.get("team") or ""
+        heat["window"] = heat_window
+        heat["raw"] = len(raw)
+        heat["kept"] = len(kept)
+        heat["sources"] = _located_sources(kept)
+        print(f"  hitter {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
+        store(hitters_out, sid, heat)
+
+    def pull_pitcher(item: tuple[int, dict]) -> None:
+        i, job = item
+        sid = job["synergy_id"]
+        key = str(job["mlb_id"] or sid)
+        name = job["name"]
+        if _heat_has_map(pitchers_out.get(key)):
+            print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name} · skip")
+            return
+        print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name}", flush=True)
+        raw = fetch_events_pages(
+            live_token(), pitcher_id=sid, max_events=6000, take=200, pause_s=0.02,
+            timeout_s=20, max_attempts=2, stop_outside_heat=True, compact=True,
+        )
+        kept = [ev for ev in raw if event_in_heat_window(ev)]
+        heat = aggregate_location_heat(kept, split="batter_hand")
+        heat["name"] = name
+        heat["team"] = job["team"]
+        heat["synergy_id"] = sid
+        heat["mlb_id"] = job["mlb_id"]
+        heat["window"] = heat_window
+        heat["raw"] = len(raw)
+        heat["kept"] = len(kept)
+        heat["sources"] = _located_sources(kept)
+        print(f"  pitcher {name} located={heat['located']} kept={len(kept)} raw={len(raw)}", flush=True)
+        store(pitchers_out, key, heat)
+
+    hitter_jobs = [(i, h) for i, h in enumerate(hitters, 1)]
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futs = [pool.submit(pull_hitter, job) for job in hitter_jobs]
+        for fut in as_completed(futs):
+            fut.result()
+    pitcher_items = [(i, job) for i, job in enumerate(pitcher_jobs, 1)]
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futs = [pool.submit(pull_pitcher, job) for job in pitcher_items]
+        for fut in as_completed(futs):
+            fut.result()
+    _save()
+    return json.loads(path.read_text())
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--max-events-per-team", type=int, default=4000,
@@ -2797,6 +3244,8 @@ def main() -> None:
                     help="Recount hitter bunt PAs for LBPRC 2025 + 2026 summer and patch advance_opposing_hitters.json")
     ap.add_argument("--summer-lines-only", action="store_true",
                     help="Attach 2026 MLB/MiLB/LMB most-PA hitting lines onto advance_opposing_hitters.json")
+    ap.add_argument("--heatmaps-only", action="store_true",
+                    help="Pull px/pz zone bins into data/advance_heatmaps.json (does not rebuild other advance stats)")
     args = ap.parse_args()
 
     OUT.mkdir(parents=True, exist_ok=True)
@@ -2817,6 +3266,16 @@ def main() -> None:
 
     token = login_token(headed=args.headed)
     print("Synergy login ok")
+
+    if args.heatmaps_only:
+        doc = pull_location_heatmaps(token)
+        cov = doc.get("coverage") or {}
+        print(
+            f"HEATMAPS hitters {cov.get('hitters_with_maps')}/{cov.get('hitters')} "
+            f"pitchers {cov.get('pitchers_with_maps')}/{cov.get('pitchers')}"
+        )
+        print(doc.get("method"))
+        return
 
     if args.bunt_sample_only:
         path = OUT / "advance_opposing_hitters.json"
