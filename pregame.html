@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san68">
+<link rel="stylesheet" href="shared.css?v=san69">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san68"></script>
+<script src="i18n.js?v=san69"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san68';
+const ASSET_V = 'san69';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1407,8 +1407,17 @@ function renderSpray(){
 
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
+function advanceLeaguePitchBag(){
+  const data = CACHE.advanceHitters;
+  if(!data) return {};
+  if(data.select_all) return data.select_all;
+  if(!data._leaguePitchBag){
+    data._leaguePitchBag = aggregateHitters(data.hitters || [], 'League avg');
+  }
+  return data._leaguePitchBag;
+}
 function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null}={}){
-  const bag = CACHE.advanceHitters?.select_all || {};
+  const bag = advanceLeaguePitchBag();
   let rows;
   if(split && Array.isArray(bag[split+'_by_pitch_type'])) rows = bag[split+'_by_pitch_type'];
   else if(hand==='R' && risp) rows = bag.risp_vs_r_by_pitch_type||[];
@@ -2211,12 +2220,16 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         </div>
       </div>
     </div>
+    <div class="advance-card advance-band advance-band-heat advance-band-heat-left">
+      <div class="section-label">SLG heat · vs R / vs L</div>
+      ${heatMapsHtml}
+    </div>
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
         <div class="section-label">Pitch shapes · hitter view</div>
         <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId, {printPage:true})}</div>
       </div>
-      <div class="advance-card advance-band advance-band-heat">
+      <div class="advance-card advance-band advance-band-heat advance-band-heat-mid">
         <div class="section-label">SLG heat · vs R / vs L</div>
         ${heatMapsHtml}
       </div>
@@ -2284,6 +2297,10 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
           </div>
         </div>
       </div>
+      <div class="advance-card">
+        <div class="section-label">SLG heat · vs R / vs L</div>
+        ${heatMapsHtml}
+      </div>
     </div>
     <div class="advance-col">
       <div class="advance-card">
@@ -2329,7 +2346,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       html,body{min-height:0!important;height:auto!important}
       .advance-sheet-pitcher.advance-print-page{
         width:10.44in;height:6.0in;max-width:10.44in;max-height:6.0in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.874;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.961;
       }
       .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
       .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
@@ -2340,7 +2357,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
       .advance-sheet-pitcher .advance-heat-cell .zone-heat{width:1.7in;height:auto;max-height:2.02in;background:#F7F9FB}
       .advance-sheet-pitcher .zone-heat{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .advance-sheet-pitcher .advance-band-heat{grid-column:1 / span 2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0}
+      .advance-sheet-pitcher .advance-band-heat-left{grid-column:1;grid-row:2;align-self:end;justify-self:start;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
+      .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
       .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1;align-self:stretch;min-height:0;overflow:hidden}
       .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
@@ -2389,7 +2407,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-half td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none;white-space:normal}
       .advance-sheet-hitter .hitter-pitch-half td.player-name{white-space:nowrap!important;overflow:hidden}
       .advance-sheet-hitter .pitch-lab-long{display:inline-block;max-width:100%;font-size:8px!important;letter-spacing:-0.05em;white-space:nowrap;line-height:1;font-weight:700}
-      .advance-sheet-hitter .hitter-pitch-half thead th{background:#fff!important;color:#333;border-bottom-color:#ccc;font-size:7.5px;white-space:nowrap}
+      .advance-sheet-hitter .hitter-pitch-half thead th{background:#121c2e!important;color:#fff!important;border-bottom-color:#2a3a52;font-size:7.5px;white-space:nowrap}
       .advance-sheet-hitter .hitter-heat-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:1px 0 2px;flex:0 0 auto}
       .advance-sheet-hitter .zone-heat{width:auto;height:1.42in;max-width:100%;max-height:1.42in;background:#F7F9FB;-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
@@ -2405,7 +2423,11 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-sb-block .table-wrap{margin:0;background:#fff}
       .advance-sheet-hitter .hitter-sb-block thead th{background:#fff!important;color:#333;border-bottom-color:#ccc}
       .advance-sheet-hitter > .section-label{flex:0 0 auto}
-      .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:1px 0 2px;padding:2px 6px;background:#f4f7fb;border-color:#ccc;color:#111;font-size:9px}
+      .advance-sheet-hitter .spray-hit-legend{flex:0 0 auto;margin:1px 0 2px;padding:2px 6px;background:#121c2e!important;border-color:#2a3a52;color:#fff!important;font-size:9px}
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab,
+      .advance-sheet-hitter .spray-hit-legend .spray-hit-lab strong,
+      .advance-sheet-hitter .spray-hit-legend .fence-note{color:#fff!important}
+      .advance-sheet-hitter .hitter-sb-block thead th{background:#121c2e!important;color:#fff!important;border-bottom-color:#2a3a52}
       .advance-sheet-hitter .section-label{font-size:10px;margin:2px 0 1px}
       .advance-sheet-hitter .table-wrap table{font-size:9.5px;line-height:1.05}
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:0 4px;line-height:1.05}
