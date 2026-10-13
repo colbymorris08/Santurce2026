@@ -1619,10 +1619,12 @@ function zoneHeatSvg(side, metric, title){
     zoneRegionRects(z.cells, ox, oy, cell, gap).forEach(r=>{
       s+=`<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${st.fill}"/>`;
     });
+    const lp = zoneLabelAt(z.cells, ox, oy, cell, gap);
     if(z.den>0 && z.rate!=null){
-      const lp = zoneLabelAt(z.cells, ox, oy, cell, gap);
       const lab = metric==='whiff' ? String(Math.round(z.rate)) : z.rate.toFixed(3).replace(/^0/,'');
       s+=`<text x="${lp.x}" y="${lp.y}" text-anchor="middle" font-size="8" font-weight="700" fill="${st.fg}" font-family="IBM Plex Mono,ui-monospace,monospace">${lab}</text>`;
+    }else{
+      s+=`<text x="${lp.x}" y="${lp.y}" text-anchor="middle" font-size="8" font-weight="700" fill="${st.fg}" font-family="IBM Plex Mono,ui-monospace,monospace">—</text>`;
     }
   });
   const step=cell+gap;
