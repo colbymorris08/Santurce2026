@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-12T22:02:47Z",
-  "source": "Synergy pitcherId \u00b7 expanded LMP/ALPB/NPBML retry",
+  "updated": "2026-10-13T03:03:52Z",
+  "source": "Synergy pitcherId · expanded LMP/ALPB/NPBML retry",
   "season_meta": {
     "target_years": [
       2025,
@@ -191,9 +191,42 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 602993
+      "mlb_id": 602993,
+      "summer_line": {
+        "team": "SM",
+        "team_name": "Southern Maryland Blue Crabs (Waldorf, MD)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "15.2",
+        "outs": 47,
+        "g": 3,
+        "gs": 3,
+        "k": 15,
+        "bb": 11,
+        "k9": "8.6",
+        "bb9": "6.3",
+        "era": "5.17",
+        "fip": "4.12",
+        "whip": "2.04",
+        "h": 21,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera003edu",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5f8628c91cb0540001a546de",
@@ -349,7 +382,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 670103,
       "summer_line": {
@@ -369,7 +402,7 @@
         "k9": "7.5",
         "bb9": "3.7",
         "era": "5.14",
-        "fip": null,
+        "fip": "4.07",
         "whip": "1.60",
         "h": 83,
         "hr": 7,
@@ -382,7 +415,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -515,7 +548,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 681544,
       "summer_line": {
@@ -535,7 +568,7 @@
         "k9": "13.1",
         "bb9": "5.0",
         "era": "5.33",
-        "fip": null,
+        "fip": "3.93",
         "whip": "1.32",
         "h": 39,
         "hr": 7,
@@ -548,7 +581,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -720,7 +753,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 676047,
       "summer_line": {
@@ -740,7 +773,7 @@
         "k9": "9.1",
         "bb9": "5.8",
         "era": "4.76",
-        "fip": null,
+        "fip": "6.06",
         "whip": "1.43",
         "h": 36,
         "hr": 10,
@@ -753,7 +786,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -905,7 +938,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 701240,
       "summer_line": {
@@ -925,7 +958,7 @@
         "k9": "6.5",
         "bb9": "6.1",
         "era": "6.27",
-        "fip": null,
+        "fip": "5.15",
         "whip": "1.71",
         "h": 68,
         "hr": 6,
@@ -938,7 +971,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -1110,7 +1143,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 681808,
       "summer_line": {
@@ -1130,7 +1163,7 @@
         "k9": "8.7",
         "bb9": "2.9",
         "era": "4.33",
-        "fip": null,
+        "fip": "3.84",
         "whip": "1.34",
         "h": 72,
         "hr": 8,
@@ -1143,13 +1176,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "5cad08898df5e60d6c924061",
-      "name": "Jonathan Berm\u00fadez",
+      "name": "Jonathan Bermúdez",
       "pitches": 978,
       "count_mix": {
         "overall": [
@@ -1340,7 +1373,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 642834,
       "summer_line": {
@@ -1360,7 +1393,7 @@
         "k9": "7.3",
         "bb9": "3.4",
         "era": "5.52",
-        "fip": null,
+        "fip": "4.53",
         "whip": "1.52",
         "h": 105,
         "hr": 12,
@@ -1373,7 +1406,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -1553,9 +1586,42 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 837224
+      "mlb_id": 837224,
+      "summer_line": {
+        "team": "ORI",
+        "team_name": "Orix Buffaloes ()",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Foreign",
+        "league_name": "Japan Farm League",
+        "level": "Fgn",
+        "ip": "61.1",
+        "outs": 184,
+        "g": 20,
+        "gs": null,
+        "k": 50,
+        "bb": 37,
+        "k9": "7.3",
+        "bb9": "5.4",
+        "era": "3.23",
+        "fip": "3.85",
+        "whip": "1.53",
+        "h": 57,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=toumat000kai",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "590d4c864b8b5624b0640042",
@@ -1729,7 +1795,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 687424,
       "summer_line": {
@@ -1749,7 +1815,7 @@
         "k9": "8.2",
         "bb9": "6.5",
         "era": "2.86",
-        "fip": null,
+        "fip": "4.05",
         "whip": "1.27",
         "h": 12,
         "hr": 1,
@@ -1762,7 +1828,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -1980,7 +2046,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 687956
     },
@@ -2152,7 +2218,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 814354,
       "summer_line": {
@@ -2172,7 +2238,7 @@
         "k9": "12.8",
         "bb9": "6.2",
         "era": "6.71",
-        "fip": null,
+        "fip": "3.32",
         "whip": "1.81",
         "h": 60,
         "hr": 2,
@@ -2185,7 +2251,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -2382,7 +2448,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 801453,
       "summer_line": {
@@ -2402,7 +2468,7 @@
         "k9": "11.9",
         "bb9": "3.9",
         "era": "5.11",
-        "fip": null,
+        "fip": "4.18",
         "whip": "1.32",
         "h": 33,
         "hr": 6,
@@ -2415,7 +2481,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -2625,7 +2691,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 686662,
       "summer_line": {
@@ -2645,7 +2711,7 @@
         "k9": "4.6",
         "bb9": "5.4",
         "era": "6.94",
-        "fip": null,
+        "fip": "6.10",
         "whip": "2.23",
         "h": 19,
         "hr": 2,
@@ -2658,7 +2724,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -2865,7 +2931,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 801994,
       "summer_line": {
@@ -2885,7 +2951,7 @@
         "k9": "10.5",
         "bb9": "2.8",
         "era": "3.69",
-        "fip": null,
+        "fip": "4.22",
         "whip": "1.22",
         "h": 57,
         "hr": 12,
@@ -2898,7 +2964,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -3130,7 +3196,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 680725,
       "summer_line": {
@@ -3150,7 +3216,7 @@
         "k9": "8.1",
         "bb9": "4.5",
         "era": "4.20",
-        "fip": null,
+        "fip": "4.46",
         "whip": "1.45",
         "h": 79,
         "hr": 9,
@@ -3163,7 +3229,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -3330,7 +3396,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 676082,
       "summer_line": {
@@ -3350,7 +3416,7 @@
         "k9": "13.2",
         "bb9": "8.9",
         "era": "5.24",
-        "fip": null,
+        "fip": "5.24",
         "whip": "1.68",
         "h": 32,
         "hr": 7,
@@ -3363,7 +3429,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -3572,7 +3638,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 670369,
       "summer_line": {
@@ -3592,7 +3658,7 @@
         "k9": "9.0",
         "bb9": "6.4",
         "era": "7.71",
-        "fip": null,
+        "fip": "7.39",
         "whip": "2.14",
         "h": 10,
         "hr": 2,
@@ -3605,7 +3671,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -3810,7 +3876,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 701884,
       "summer_line": {
@@ -3830,7 +3896,7 @@
         "k9": "12.7",
         "bb9": "7.0",
         "era": "3.27",
-        "fip": null,
+        "fip": "3.19",
         "whip": "1.45",
         "h": 15,
         "hr": 1,
@@ -3843,7 +3909,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -4073,7 +4139,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 689450,
       "summer_line": {
@@ -4093,7 +4159,7 @@
         "k9": "11.8",
         "bb9": "3.4",
         "era": "1.31",
-        "fip": null,
+        "fip": "1.99",
         "whip": "1.05",
         "h": 23,
         "hr": 1,
@@ -4106,7 +4172,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -4325,7 +4391,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 687560,
       "summer_line": {
@@ -4345,7 +4411,7 @@
         "k9": "6.2",
         "bb9": "4.2",
         "era": "6.23",
-        "fip": null,
+        "fip": "3.33",
         "whip": "1.54",
         "h": 14,
         "hr": 0,
@@ -4358,7 +4424,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -4535,7 +4601,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 701856,
       "summer_line": {
@@ -4555,7 +4621,7 @@
         "k9": "12.4",
         "bb9": "3.8",
         "era": "4.29",
-        "fip": null,
+        "fip": "3.56",
         "whip": "1.20",
         "h": 44,
         "hr": 8,
@@ -4568,13 +4634,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "5abcb5312cb661f293636104",
-      "name": "Dereck Rodr\u00edguez",
+      "name": "Dereck Rodríguez",
       "pitches": 935,
       "count_mix": {
         "overall": [
@@ -4817,7 +4883,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 605446,
       "summer_line": {
@@ -4837,7 +4903,7 @@
         "k9": "7.3",
         "bb9": "2.1",
         "era": "4.12",
-        "fip": null,
+        "fip": "3.63",
         "whip": "1.53",
         "h": 51,
         "hr": 4,
@@ -4850,7 +4916,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -5024,7 +5090,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 703106,
       "summer_line": {
@@ -5044,7 +5110,7 @@
         "k9": "6.7",
         "bb9": "4.1",
         "era": "5.18",
-        "fip": null,
+        "fip": "5.07",
         "whip": "1.60",
         "h": 28,
         "hr": 3,
@@ -5057,7 +5123,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -5230,7 +5296,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 676454,
       "summer_line": {
@@ -5250,7 +5316,7 @@
         "k9": "9.6",
         "bb9": "4.4",
         "era": "3.16",
-        "fip": null,
+        "fip": "4.00",
         "whip": "1.34",
         "h": 44,
         "hr": 6,
@@ -5263,7 +5329,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -5471,9 +5537,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
-      "mlb_id": 814300
+      "mlb_id": 814300,
+      "summer_line": {
+        "team": "CHA",
+        "team_name": "Charleston Dirty Birds (Charleston, WV)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "54.2",
+        "outs": 164,
+        "g": 11,
+        "gs": 11,
+        "k": 51,
+        "bb": 24,
+        "k9": "8.4",
+        "bb9": "4.0",
+        "era": "5.27",
+        "fip": "3.80",
+        "whip": "1.61",
+        "h": 64,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cousin000jos",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5f87ee12d9b60b00014e1ef7",
@@ -5658,7 +5757,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 682624,
       "summer_line": {
@@ -5678,7 +5777,7 @@
         "k9": "12.7",
         "bb9": "6.9",
         "era": "4.89",
-        "fip": null,
+        "fip": "5.01",
         "whip": "1.58",
         "h": 43,
         "hr": 9,
@@ -5691,7 +5790,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -5906,7 +6005,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 687817,
       "summer_line": {
@@ -5926,7 +6025,7 @@
         "k9": "15.5",
         "bb9": "4.0",
         "era": "2.70",
-        "fip": null,
+        "fip": "2.20",
         "whip": "0.90",
         "h": 6,
         "hr": 1,
@@ -5939,13 +6038,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "57ceee025762021398ca545a",
-      "name": "Jos\u00e9 De Le\u00f3n",
+      "name": "José De León",
       "pitches": 900,
       "count_mix": {
         "overall": [
@@ -6133,7 +6232,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 592254
     },
@@ -6333,9 +6432,42 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 805727
+      "mlb_id": 805727,
+      "summer_line": {
+        "team": "YOR",
+        "team_name": "York Revolution (York, PA)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "63.1",
+        "outs": 190,
+        "g": 14,
+        "gs": 13,
+        "k": 55,
+        "bb": 26,
+        "k9": "7.8",
+        "bb9": "3.7",
+        "era": "6.68",
+        "fip": "5.50",
+        "whip": "1.67",
+        "h": 80,
+        "hr": 13,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=regala000nic",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5c4201293a22f215c43aeb3a",
@@ -6508,7 +6640,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 701539,
       "summer_line": {
@@ -6528,7 +6660,7 @@
         "k9": "11.8",
         "bb9": "8.0",
         "era": "7.17",
-        "fip": null,
+        "fip": "6.10",
         "whip": "1.88",
         "h": 21,
         "hr": 3,
@@ -6541,13 +6673,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "5f79fc49cfdd5600011f487f",
-      "name": "Luis Qui\u00f1ones",
+      "name": "Luis Quiñones",
       "pitches": 886,
       "count_mix": {
         "overall": [
@@ -6736,7 +6868,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 687879,
       "summer_line": {
@@ -6756,7 +6888,7 @@
         "k9": "14.8",
         "bb9": "8.6",
         "era": "3.60",
-        "fip": null,
+        "fip": "3.95",
         "whip": "1.50",
         "h": 11,
         "hr": 2,
@@ -6769,13 +6901,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "5c8ca0e3f52909811e302dfc",
-      "name": "Roel Ram\u00edrez",
+      "name": "Roel Ramírez",
       "pitches": 884,
       "count_mix": {
         "overall": [
@@ -6986,7 +7118,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 641995,
       "summer_line": {
@@ -7006,7 +7138,7 @@
         "k9": "12.3",
         "bb9": "1.8",
         "era": "1.76",
-        "fip": null,
+        "fip": "1.43",
         "whip": "0.89",
         "h": 32,
         "hr": 1,
@@ -7019,7 +7151,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -7190,9 +7322,42 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 676600
+      "mlb_id": 676600,
+      "summer_line": {
+        "team": "GAS",
+        "team_name": "Gastonia Ghost Peppers (Gastonia, NC)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "66.1",
+        "outs": 199,
+        "g": 12,
+        "gs": 12,
+        "k": 48,
+        "bb": 14,
+        "k9": "6.5",
+        "bb9": "1.9",
+        "era": "4.61",
+        "fip": "4.62",
+        "whip": "1.39",
+        "h": 78,
+        "hr": 11,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=lindow000eth",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "573d7065080cc2cbe8bf3063",
@@ -7394,7 +7559,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 592222,
       "summer_line": {
@@ -7414,7 +7579,7 @@
         "k9": "8.0",
         "bb9": "2.0",
         "era": "3.67",
-        "fip": null,
+        "fip": "3.43",
         "whip": "1.52",
         "h": 35,
         "hr": 3,
@@ -7427,7 +7592,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -7617,7 +7782,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 695256,
       "summer_line": {
@@ -7637,7 +7802,7 @@
         "k9": "9.2",
         "bb9": "3.4",
         "era": "4.09",
-        "fip": null,
+        "fip": "3.65",
         "whip": "1.18",
         "h": 50,
         "hr": 7,
@@ -7650,7 +7815,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -7833,7 +7998,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 656820
     },
@@ -8041,9 +8206,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 688162
+      "mlb_id": 688162,
+      "summer_line": {
+        "team": "KC",
+        "team_name": "Kane County Cougars (Geneva, IL)",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Independent",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "4.0",
+        "outs": 12,
+        "g": 1,
+        "gs": 1,
+        "k": 2,
+        "bb": 0,
+        "k9": "4.5",
+        "bb9": "0.0",
+        "era": "4.50",
+        "fip": "5.35",
+        "whip": "1.00",
+        "h": 4,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=komar-000bra",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5abcb5312cb661f293635b5c",
@@ -8230,7 +8428,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 621343,
       "summer_line": {
@@ -8250,7 +8448,7 @@
         "k9": "4.5",
         "bb9": "4.5",
         "era": "0.90",
-        "fip": null,
+        "fip": "5.50",
         "whip": "1.00",
         "h": 5,
         "hr": 1,
@@ -8263,7 +8461,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -8408,7 +8606,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 572383,
       "summer_line": {
@@ -8428,7 +8626,7 @@
         "k9": "10.6",
         "bb9": "0.6",
         "era": "1.76",
-        "fip": null,
+        "fip": "2.84",
         "whip": "1.11",
         "h": 16,
         "hr": 2,
@@ -8441,7 +8639,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -8668,7 +8866,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 663723,
       "summer_line": {
@@ -8688,7 +8886,7 @@
         "k9": "12.7",
         "bb9": "1.9",
         "era": "3.09",
-        "fip": null,
+        "fip": "1.60",
         "whip": "1.11",
         "h": 21,
         "hr": 1,
@@ -8701,7 +8899,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -8874,13 +9072,46 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
-      "mlb_id": 676221
+      "mlb_id": 676221,
+      "summer_line": {
+        "team": "NJ",
+        "team_name": "New Jersey Jackals (Little Falls, NJ)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "48.1",
+        "outs": 145,
+        "g": 41,
+        "gs": 2,
+        "k": 75,
+        "bb": 28,
+        "k9": "14.0",
+        "bb9": "5.2",
+        "era": "5.59",
+        "fip": "4.01",
+        "whip": "1.57",
+        "h": 48,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=benite001jor",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "573d7056080cc2cbe8bf2e95",
-      "name": "H\u00e9ctor Santiago",
+      "name": "Héctor Santiago",
       "pitches": 719,
       "count_mix": {
         "overall": [
@@ -9021,7 +9252,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 502327
     },
@@ -9189,9 +9420,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 683726
+      "mlb_id": 683726,
+      "summer_line": {
+        "team": "SM",
+        "team_name": "Southern Maryland Blue Crabs (Waldorf, MD)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "9.1",
+        "outs": 28,
+        "g": 11,
+        "gs": 0,
+        "k": 15,
+        "bb": 12,
+        "k9": "14.5",
+        "bb9": "11.6",
+        "era": "13.50",
+        "fip": "5.14",
+        "whip": "2.79",
+        "h": 14,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=santos002ped",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5fd12a915fe05a0e9fc11347",
@@ -9392,9 +9656,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 681938
+      "mlb_id": 681938,
+      "summer_line": {
+        "team": "LI",
+        "team_name": "Long Island Ducks (Central Islip, NY)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "15.0",
+        "outs": 45,
+        "g": 15,
+        "gs": 0,
+        "k": 23,
+        "bb": 6,
+        "k9": "13.8",
+        "bb9": "3.6",
+        "era": "4.80",
+        "fip": "2.30",
+        "whip": "1.27",
+        "h": 13,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=reyes-009ang",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5e203911cba3c7495422a551",
@@ -9584,7 +9881,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 689508,
       "summer_line": {
@@ -9604,7 +9901,7 @@
         "k9": "9.0",
         "bb9": "4.1",
         "era": "6.06",
-        "fip": null,
+        "fip": "3.40",
         "whip": "1.56",
         "h": 97,
         "hr": 4,
@@ -9617,13 +9914,13 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
     {
       "synergy_id": "59c8b5d844b2b8aa7efc596f",
-      "name": "Yacksel R\u00edos",
+      "name": "Yacksel Ríos",
       "pitches": 624,
       "count_mix": {
         "overall": [
@@ -9787,7 +10084,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 605441,
       "summer_line": {
@@ -9807,7 +10104,7 @@
         "k9": "7.9",
         "bb9": "5.3",
         "era": "4.24",
-        "fip": null,
+        "fip": "7.10",
         "whip": "1.47",
         "h": 15,
         "hr": 5,
@@ -9820,7 +10117,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -9972,7 +10269,7 @@
       "years": [
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 676769,
       "summer_line": {
@@ -9992,7 +10289,7 @@
         "k9": "7.0",
         "bb9": "2.2",
         "era": "4.86",
-        "fip": null,
+        "fip": "4.00",
         "whip": "1.23",
         "h": 33,
         "hr": 4,
@@ -10005,7 +10302,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -10180,7 +10477,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 688519,
       "summer_line": {
@@ -10200,7 +10497,7 @@
         "k9": "10.6",
         "bb9": "3.8",
         "era": "3.59",
-        "fip": null,
+        "fip": "3.69",
         "whip": "1.38",
         "h": 41,
         "hr": 5,
@@ -10213,7 +10510,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -10425,7 +10722,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 605167
     },
@@ -10620,7 +10917,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 678013,
       "summer_line": {
@@ -10640,7 +10937,7 @@
         "k9": "9.4",
         "bb9": "9.4",
         "era": "12.15",
-        "fip": null,
+        "fip": "8.05",
         "whip": "2.40",
         "h": 9,
         "hr": 2,
@@ -10653,7 +10950,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -10825,7 +11122,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 543071
     },
@@ -10983,7 +11280,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 656389
     },
@@ -11177,7 +11474,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 805749,
       "summer_line": {
@@ -11197,7 +11494,7 @@
         "k9": "7.6",
         "bb9": "4.1",
         "era": "12.74",
-        "fip": null,
+        "fip": "6.38",
         "whip": "1.98",
         "h": 27,
         "hr": 4,
@@ -11210,7 +11507,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -11347,9 +11644,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 703211
+      "mlb_id": 703211,
+      "summer_line": {
+        "team": "NJ",
+        "team_name": "New Jersey",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "22.0",
+        "outs": 66,
+        "g": 4,
+        "gs": 4,
+        "k": 27,
+        "bb": 8,
+        "k9": "11.0",
+        "bb9": "3.3",
+        "era": "6.14",
+        "fip": "3.33",
+        "whip": "1.46",
+        "h": 24,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ramire001rub",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5e04e5404b8b4f7430ff1067",
@@ -11550,7 +11880,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 572077
     },
@@ -11708,7 +12038,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 640485
     },
@@ -11846,7 +12176,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 656479
     },
@@ -11996,7 +12326,7 @@
       "years": [
         2024
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 668826,
       "summer_line": {
@@ -12016,7 +12346,7 @@
         "k9": "7.5",
         "bb9": "3.6",
         "era": "3.48",
-        "fip": null,
+        "fip": "3.30",
         "whip": "1.31",
         "h": 49,
         "hr": 2,
@@ -12029,7 +12359,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -12197,7 +12527,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 502179
     },
@@ -12355,9 +12685,42 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 663499
+      "mlb_id": 663499,
+      "summer_line": {
+        "team": "LC",
+        "team_name": "Lake Country",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Independent",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "1.0",
+        "outs": 3,
+        "g": 1,
+        "gs": 0,
+        "k": 1,
+        "bb": 2,
+        "k9": "9.0",
+        "bb9": "18.0",
+        "era": "0.00",
+        "fip": "7.10",
+        "whip": "3.00",
+        "h": 1,
+        "hr": 0,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=echeva000jj-",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5deb5e694b8b4f28d0143deb",
@@ -12463,7 +12826,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 692808
     },
@@ -12655,7 +13018,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 571772
     },
@@ -12827,9 +13190,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 683803
+      "mlb_id": 683803,
+      "summer_line": {
+        "team": "YAK",
+        "team_name": "Yakult",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Foreign",
+        "league_name": "Japan Farm League",
+        "level": "Fg",
+        "ip": "19.1",
+        "outs": 58,
+        "g": 20,
+        "gs": null,
+        "k": 24,
+        "bb": 4,
+        "k9": "11.2",
+        "bb9": "1.9",
+        "era": "2.79",
+        "fip": "2.74",
+        "whip": "1.50",
+        "h": 25,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=taguch000kaz",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5dd5e0fd4b8b4e95c8bbde70",
@@ -12969,7 +13365,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 425507
     },
@@ -13178,7 +13574,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 621249,
       "summer_line": {
@@ -13198,7 +13594,7 @@
         "k9": "2.7",
         "bb9": "6.8",
         "era": "6.75",
-        "fip": null,
+        "fip": "4.75",
         "whip": "2.25",
         "h": 10,
         "hr": 0,
@@ -13211,7 +13607,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -13346,7 +13742,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 642002
     },
@@ -13528,7 +13924,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 671045
     },
@@ -13700,9 +14096,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 602993
+      "mlb_id": 602993,
+      "summer_line": {
+        "team": "SM",
+        "team_name": "Southern Maryland Blue Crabs (Waldorf, MD)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "15.2",
+        "outs": 47,
+        "g": 3,
+        "gs": 3,
+        "k": 15,
+        "bb": 11,
+        "k9": "8.6",
+        "bb9": "6.3",
+        "era": "5.17",
+        "fip": "4.12",
+        "whip": "2.04",
+        "h": 21,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera003edu",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5d0d76e94b8b4e352c29c0a8",
@@ -13833,7 +14262,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 694365
     },
@@ -13990,9 +14419,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 695064
+      "mlb_id": 695064,
+      "summer_line": {
+        "team": "RP",
+        "team_name": "RedPocket",
+        "season": "Summer 2026",
+        "league": "PION",
+        "circuit": "Independent",
+        "league_name": "Pioneer League",
+        "level": "Ind",
+        "ip": "31.1",
+        "outs": 94,
+        "g": 14,
+        "gs": 3,
+        "k": 31,
+        "bb": 21,
+        "k9": "8.9",
+        "bb9": "6.0",
+        "era": "6.03",
+        "fip": "3.83",
+        "whip": "1.88",
+        "h": 38,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=mirand002agn",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5fd12a915fe05a0e9fc11543",
@@ -14142,7 +14604,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 676984
     },
@@ -14311,7 +14773,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 685387,
       "summer_line": {
@@ -14331,7 +14793,7 @@
         "k9": "9.6",
         "bb9": "9.6",
         "era": "15.43",
-        "fip": null,
+        "fip": "10.39",
         "whip": "3.00",
         "h": 9,
         "hr": 2,
@@ -14344,7 +14806,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -14511,7 +14973,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 623485
     },
@@ -14638,7 +15100,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 681154
     },
@@ -14805,9 +15267,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 693546
+      "mlb_id": 693546,
+      "summer_line": {
+        "team": "RP",
+        "team_name": "RedPocket",
+        "season": "Summer 2026",
+        "league": "PION",
+        "circuit": "Independent",
+        "league_name": "Pioneer League",
+        "level": "Ind",
+        "ip": "58.0",
+        "outs": 174,
+        "g": 16,
+        "gs": 11,
+        "k": 51,
+        "bb": 40,
+        "k9": "7.9",
+        "bb9": "6.2",
+        "era": "8.84",
+        "fip": "6.58",
+        "whip": "1.95",
+        "h": 73,
+        "hr": 13,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=velazq001rya",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5f8c915b1cb0540001a54b5c",
@@ -14957,9 +15452,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 801018
+      "mlb_id": 801018,
+      "summer_line": {
+        "team": "BRO",
+        "team_name": "Brockton",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "37.0",
+        "outs": 111,
+        "g": 8,
+        "gs": 7,
+        "k": 26,
+        "bb": 25,
+        "k9": "6.3",
+        "bb9": "6.1",
+        "era": "6.81",
+        "fip": "5.72",
+        "whip": "1.68",
+        "h": 37,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=melend001oma",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5fe4e8b9243e95ca6a016ecf",
@@ -15105,7 +15633,7 @@
         2024,
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 681505
     },
@@ -15237,9 +15765,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 676435
+      "mlb_id": 676435,
+      "summer_line": {
+        "team": "LIN",
+        "team_name": "Lincoln",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Independent",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "45.2",
+        "outs": 137,
+        "g": 27,
+        "gs": 3,
+        "k": 48,
+        "bb": 24,
+        "k9": "9.5",
+        "bb9": "4.7",
+        "era": "7.69",
+        "fip": "5.53",
+        "whip": "1.82",
+        "h": 59,
+        "hr": 9,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cortij000har",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5df286ca4b8b5006984fee0f",
@@ -15394,7 +15955,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 692937
     },
@@ -15576,7 +16137,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 806586
     },
@@ -15703,7 +16264,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 664371
     },
@@ -15845,7 +16406,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 676219
     },
@@ -16023,7 +16584,7 @@
         2025,
         2026
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 800278,
       "summer_line": {
@@ -16043,7 +16604,7 @@
         "k9": "10.0",
         "bb9": "11.0",
         "era": "3.00",
-        "fip": null,
+        "fip": "4.88",
         "whip": "2.11",
         "h": 8,
         "hr": 0,
@@ -16056,7 +16617,7 @@
           "team_through_hr": "MLB Stats API season pitching team split",
           "sb_allowed": "MLB Stats API pitching stolenBases",
           "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": null
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -16163,7 +16724,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 682032
     },
@@ -16335,7 +16896,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": 672990
     },
@@ -16472,7 +17033,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 669418
     },
@@ -16624,9 +17185,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 837228
+      "mlb_id": 837228,
+      "summer_line": {
+        "team": "ORI",
+        "team_name": "Orix",
+        "season": "Summer 2026",
+        "league": "JPPL",
+        "circuit": "Foreign",
+        "league_name": "Japan Pacific League",
+        "level": "Fg",
+        "ip": "47.0",
+        "outs": 141,
+        "g": 49,
+        "gs": null,
+        "k": 33,
+        "bb": 9,
+        "k9": "6.3",
+        "bb9": "1.7",
+        "era": "1.91",
+        "fip": "2.95",
+        "whip": "0.89",
+        "h": 33,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=mukuno000ren",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "64c3fdb77f5660770878e9cd",
@@ -16776,9 +17370,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 837222
+      "mlb_id": 837222,
+      "summer_line": {
+        "team": "SEI",
+        "team_name": "Seibu",
+        "season": "Summer 2026",
+        "league": "JPPL",
+        "circuit": "Foreign",
+        "league_name": "Japan Pacific League",
+        "level": "Fg",
+        "ip": "41.2",
+        "outs": 125,
+        "g": 32,
+        "gs": null,
+        "k": 40,
+        "bb": 15,
+        "k9": "8.6",
+        "bb9": "3.2",
+        "era": "1.51",
+        "fip": "2.57",
+        "whip": "1.08",
+        "h": 30,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=mameda000tai",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "607e90c12a20973e219e92ad",
@@ -16923,9 +17550,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
-      "mlb_id": 837223
+      "mlb_id": 837223,
+      "summer_line": {
+        "team": "TR",
+        "team_name": "Trois-Rivieres",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "34.2",
+        "outs": 104,
+        "g": 17,
+        "gs": 4,
+        "k": 30,
+        "bb": 15,
+        "k9": "7.8",
+        "bb9": "3.9",
+        "era": "8.05",
+        "fip": "5.44",
+        "whip": "1.85",
+        "h": 49,
+        "hr": 6,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=vega--001luc",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "62c884cdd1211cf37a8bb148",
@@ -17055,9 +17715,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 837221
+      "mlb_id": 837221,
+      "summer_line": {
+        "team": "SEI",
+        "team_name": "Seibu",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Foreign",
+        "league_name": "Japan Farm League",
+        "level": "Fg",
+        "ip": "36.1",
+        "outs": 109,
+        "g": 24,
+        "gs": null,
+        "k": 28,
+        "bb": 19,
+        "k9": "6.9",
+        "bb9": "4.7",
+        "era": "2.97",
+        "fip": "4.56",
+        "whip": "1.32",
+        "h": 29,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=aoyama000min",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "618780ddc379865a58bb271c",
@@ -17182,7 +17875,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 545814
     },
@@ -17314,7 +18007,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 519080
     },
@@ -17471,9 +18164,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 678725
+      "mlb_id": 678725,
+      "summer_line": {
+        "team": "SM",
+        "team_name": "Southern Maryland",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "9.1",
+        "outs": 28,
+        "g": 10,
+        "gs": 1,
+        "k": 6,
+        "bb": 5,
+        "k9": "5.8",
+        "bb9": "4.8",
+        "era": "16.39",
+        "fip": "9.31",
+        "whip": "2.46",
+        "h": 18,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cobos-000fra",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "58b45d364b8b536f7c313c03",
@@ -17578,7 +18304,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 682118
     },
@@ -17700,7 +18426,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
       "mlb_id": 693543
     },
@@ -17832,7 +18558,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 656080
     },
@@ -17984,9 +18710,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
-      "mlb_id": 690510
+      "mlb_id": 690510,
+      "summer_line": {
+        "team": "DE",
+        "team_name": "Down East",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "25.2",
+        "outs": 77,
+        "g": 6,
+        "gs": 5,
+        "k": 20,
+        "bb": 11,
+        "k9": "7.0",
+        "bb9": "3.9",
+        "era": "2.81",
+        "fip": "3.96",
+        "whip": "1.40",
+        "h": 25,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=kamine000bra",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "6815f4d63740a2ff27428ff1",
@@ -18126,9 +18885,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 837225
+      "mlb_id": 837225,
+      "summer_line": {
+        "team": "SOF",
+        "team_name": "Softbank",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Foreign",
+        "league_name": "Japan Farm League",
+        "level": "Fg",
+        "ip": "46.1",
+        "outs": 139,
+        "g": 8,
+        "gs": null,
+        "k": 37,
+        "bb": 23,
+        "k9": "7.2",
+        "bb9": "4.5",
+        "era": "2.53",
+        "fip": "3.40",
+        "whip": "1.27",
+        "h": 36,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ohno--000kaz",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5c40f327abc78f0b600bf2cf",
@@ -18223,9 +19015,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": 700994
+      "mlb_id": 700994,
+      "summer_line": {
+        "team": "LI",
+        "team_name": "Long Island",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "42.1",
+        "outs": 127,
+        "g": 47,
+        "gs": 1,
+        "k": 62,
+        "bb": 33,
+        "k9": "13.2",
+        "bb9": "7.0",
+        "era": "6.80",
+        "fip": "4.23",
+        "whip": "1.77",
+        "h": 42,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=crowle000gar",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5fd12a915fe05a0e9fc11267",
@@ -18325,7 +19150,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 681813
     },
@@ -18427,7 +19252,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 670406
     },
@@ -18559,7 +19384,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
       "mlb_id": 815949
     },
@@ -18641,9 +19466,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
-      "mlb_id": 666130
+      "mlb_id": 666130,
+      "summer_line": {
+        "team": "KC",
+        "team_name": "Kansas City",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Independent",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "25.0",
+        "outs": 75,
+        "g": 20,
+        "gs": 2,
+        "k": 18,
+        "bb": 15,
+        "k9": "6.5",
+        "bb9": "5.4",
+        "era": "5.04",
+        "fip": "4.98",
+        "whip": "1.56",
+        "h": 24,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=groome000jay",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5aeffb0b9559b26e7e9b7c09",
@@ -18733,7 +19591,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "MAY",
       "mlb_id": 657624
     },
@@ -18848,9 +19706,42 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAG",
-      "mlb_id": 676090
+      "mlb_id": 676090,
+      "summer_line": {
+        "team": "LI",
+        "team_name": "Long Island",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "59.2",
+        "outs": 179,
+        "g": 11,
+        "gs": 11,
+        "k": 56,
+        "bb": 28,
+        "k9": "8.4",
+        "bb9": "4.2",
+        "era": "4.07",
+        "fip": "5.76",
+        "whip": "1.32",
+        "h": 51,
+        "hr": 13,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=franci001har",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5e52ca0f7455336e875b7a5d",
@@ -18905,7 +19796,7 @@
       "years": [
         2025
       ],
-      "source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": 684841
     }
@@ -18930,5 +19821,15 @@
       "raw_leagues": {}
     }
   ],
-  "summer_line_source": "MLB Stats API season pitching, 2026 regular season (sportId 1 MLB, 11 AAA / 12 AA / 13 A+ / 14 A / 16 RK MiLB, 23 LMB). One row per pitcher: the team assignment with the most innings pitched. Counting stats, rates, and SB/CS allowed come from that team split; FIP is unavailable from this source and is not computed."
+  "summer_line_source": "MLB Stats API season pitching, 2026 regular season (sportId 1 MLB, 11 AAA / 12 AA / 13 A+ / 14 A / 16 RK MiLB, 23 LMB). One row per pitcher: the team assignment with the most innings pitched. Counting stats, rates, and SB/CS allowed come from that team split; FIP is unavailable from this source and is not computed.",
+  "summer_line_supplement": {
+    "sources": [
+      "MiLB.com embedded year-by-year pitching",
+      "Baseball Reference Register standard pitching",
+      "Baseball Reference register rows verified with Cursor WebFetch"
+    ],
+    "selection": "2026 regular-season team row with most innings; combined team totals ignored",
+    "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
+    "checkpoint": "data/pitcher_summer_supplement.json"
+  }
 }
