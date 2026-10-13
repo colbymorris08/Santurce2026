@@ -221,7 +221,10 @@ def main() -> None:
             season_meta = old.get("season_meta")
         except Exception:  # noqa: BLE001
             pass
-    empty_by = {str(e.get("synergy_id") or e.get("name")): e for e in prior_empty}
+    empty_by = {}
+    for e in prior_empty:
+        row = e if isinstance(e, dict) else {"name": str(e), "reason": "prior empty"}
+        empty_by[str(row.get("synergy_id") or row.get("name"))] = row
     for e in empty:
         empty_by[str(e.get("synergy_id") or e.get("name"))] = e
     ck.write_text(

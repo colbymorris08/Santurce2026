@@ -362,7 +362,7 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san59"></script>
+<script src="i18n.js?v=san60"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
@@ -1513,7 +1513,8 @@ function hitterHeatRecord(h){
 }
 function pitcherHeatRecord(p){
   const bag = CACHE.advanceHeatmaps || {};
-  const id = p && (p.mlb_id || p.player_id);
+  const rawId = p && (p.mlb_id || p.player_id);
+  const id = Number(rawId)>0 ? rawId : p && (p.synergy_id || rawId);
   if(id==null || id==='') return null;
   return (bag.pitchers || {})[String(id)] || null;
 }

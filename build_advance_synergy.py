@@ -3330,6 +3330,8 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
 
     hitter_doc = json.loads((OUT / "advance_opposing_hitters.json").read_text())
     hitters = hitter_doc.get("hitters") or []
+    valid_hitter_keys = {str(row.get("synergy_id")) for row in hitters if row.get("synergy_id")}
+    hitters_out = {key: value for key, value in hitters_out.items() if key in valid_hitter_keys}
     arsenal = json.loads((OUT / "pregame_pitcher_arsenals.json").read_text())
     arms = arsenal.get("pitchers") or []
     # Prefer arsenal rows (what the pitcher advance renders); fill any extra opposing arms.
@@ -3353,12 +3355,25 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
             mid = int(row.get("mlb_id") or row.get("player_id") or 0)
         except (TypeError, ValueError):
             mid = 0
+        if mid < 1:
+            mid = 0
         pitcher_jobs.append({
             "synergy_id": sid,
             "mlb_id": mid or None,
             "name": row.get("name") or sid,
             "team": row.get("team") or "",
         })
+    valid_pitcher_keys = {str(job["mlb_id"] or job["synergy_id"]) for job in pitcher_jobs}
+    for job in pitcher_jobs:
+        key = str(job["mlb_id"] or job["synergy_id"])
+        if key not in pitchers_out:
+            prior = next(
+                (rec for rec in pitchers_out.values() if rec.get("name") == job["name"] and _heat_has_map(rec)),
+                None,
+            )
+            if prior:
+                pitchers_out[key] = prior
+    pitchers_out = {key: value for key, value in pitchers_out.items() if key in valid_pitcher_keys}
 
     def _save() -> None:
         h_maps = sum(1 for r in hitters_out.values() if _heat_has_map(r))

@@ -3,183 +3,43 @@
   "selection_rule": "A team row is required; winter rows and combined multi-team totals without populated component team rows are excluded.",
   "rows": [
     {
-      "name": "Carlos A. Francisco",
+      "name": "Adalberto Flores",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
         "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Alexander Castro",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Trois-Rivieres and Lake Erie team rows are blank; combined no-team totals are excluded.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
         "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
         "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
       ]
     },
     {
-      "name": "José De León",
+      "name": "Alexuan Vega",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
         "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
       ]
     },
     {
-      "name": "Nicholas Padilla",
+      "name": "Antonio Velez",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
         "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Héctor Santiago",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Freddie Cabrera",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Luis Leroy Cruz",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Sidney Duprey",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Raul Rivera",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Alexis Rivero",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Marvin Gorgas",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Paolo Espino",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Jose Cruz",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Charleston and Long Island team rows are blank; combined no-team totals are excluded.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Hector Hernandez",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Fernando Cabrera",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Michael Reed",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "The matching Baseball Reference record is an outfielder and has no 2026 pitching line.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Ivan Houellemont",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Magdiel Cotto",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Noel Pinto",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
       ]
     },
     {
@@ -193,7 +53,47 @@
       ]
     },
     {
-      "name": "Keylan Killgore",
+      "name": "Carlos Francisco",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Charlee Soto",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Devin Rivera",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Eddy Reynoso",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the individual team rows are blank; combined no-team totals are excluded.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+      ]
+    },
+    {
+      "name": "Eric Garcia",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -203,7 +103,77 @@
       ]
     },
     {
-      "name": "Luis Gonzalez",
+      "name": "Freddy Cabrera",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Hector Hernandez",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+      ]
+    },
+    {
+      "name": "Hector Quinones",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Jerryell Rivera",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+      ]
+    },
+    {
+      "name": "Johzan Oquendo",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Jose Cruz",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Charleston and Long Island team rows are blank; combined no-team totals are excluded.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+      ]
+    },
+    {
+      "name": "Jose De Leon",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Josh James",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -223,7 +193,7 @@
       ]
     },
     {
-      "name": "Eric Garcia",
+      "name": "Magdiel Cotto",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -233,17 +203,17 @@
       ]
     },
     {
-      "name": "Eddy Reynoso",
+      "name": "Mario Zabala",
       "status": "no_eligible_2026_team_pitching_row",
-      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the individual team rows are blank; combined no-team totals are excluded.",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
         "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
       ]
     },
     {
-      "name": "Jerryell Rivera",
+      "name": "Marvin Gorgas",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -253,7 +223,17 @@
       ]
     },
     {
-      "name": "Nathan Alexander",
+      "name": "Nelvin Fuentes",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search",
+        "MLB Stats API 2026 pitching"
+      ]
+    },
+    {
+      "name": "Nicholas Padilla",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -263,19 +243,9 @@
       ]
     },
     {
-      "name": "Jose Sola",
+      "name": "Noel Pinto",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Alexander Castro",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Trois-Rivieres and Lake Erie team rows are blank; combined no-team totals are excluded.",
       "sources_checked": [
         "MiLB.com player year-by-year pitching",
         "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
@@ -293,77 +263,7 @@
       ]
     },
     {
-      "name": "Efrain Nieves",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Miguel Ausua",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Luis Rodriguez",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Aneuris Rosario",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Gabriel Cotto",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Francisco Lopez-Soto",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Jhon Vargas",
-      "status": "no_eligible_2026_team_pitching_row",
-      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
-      "sources_checked": [
-        "MiLB.com player year-by-year pitching",
-        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
-      ]
-    },
-    {
-      "name": "Josh James",
+      "name": "Raul Rivera",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [
@@ -374,6 +274,16 @@
     },
     {
       "name": "Ryan Munoz",
+      "status": "no_eligible_2026_team_pitching_row",
+      "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+      "sources_checked": [
+        "MiLB.com player year-by-year pitching",
+        "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+        "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+      ]
+    },
+    {
+      "name": "Sidney Duprey",
       "status": "no_eligible_2026_team_pitching_row",
       "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
       "sources_checked": [

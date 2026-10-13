@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T03:06:45Z",
+  "updated": "2026-10-13T04:41:48Z",
   "request_timeout_seconds": 20,
   "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
   "players": {
@@ -383,13 +383,13 @@
         "line": null
       },
       "verified_empty_audit": {
-        "name": "Carlos A. Francisco",
+        "name": "Carlos Francisco",
         "status": "no_eligible_2026_team_pitching_row",
         "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
-          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
         ]
       }
     },
@@ -979,13 +979,13 @@
         "line": null
       },
       "verified_empty_audit": {
-        "name": "José De León",
+        "name": "Jose De Leon",
         "status": "no_eligible_2026_team_pitching_row",
         "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
-          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
-          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
         ]
       }
     },
@@ -1875,8 +1875,14 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera002rau",
+        "candidates": [
+          "rivera002rau",
+          "rivera001rau"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Raul Rivera",
@@ -1921,8 +1927,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gorgas000mar",
+        "candidates": [
+          "gorgas000mar"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Marvin Gorgas",
@@ -2030,8 +2041,30 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cruz--022jos",
+        "candidates": [
+          "cruz--022jos",
+          "cruz--034jos",
+          "cruz--010jos",
+          "cruz--004jos",
+          "cruz--015jos",
+          "cruz--012jos",
+          "cruz--001jos",
+          "cruz--013jos",
+          "cruz--002jos",
+          "cruz--008jos",
+          "cruz--020jos",
+          "cruz--029jos",
+          "cruz--030jos",
+          "cruz--016jos",
+          "cruz--028jos",
+          "cruz--035jos",
+          "cruz--031jos",
+          "cruz--027jos"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Jose Cruz",
@@ -2053,8 +2086,25 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=hernan013hec",
+        "candidates": [
+          "hernan013hec",
+          "hernan012hec",
+          "hernan002hec",
+          "hernan005hec",
+          "hernan007hec",
+          "hernan006hec",
+          "hernan008hec",
+          "hernan001hec",
+          "hernan003hec",
+          "hernan004hec",
+          "hernan010hec",
+          "hernan009hec",
+          "hernan011hec"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Hector Hernandez",
@@ -2208,8 +2258,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cotto-000mag",
+        "candidates": [
+          "cotto-000mag"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Magdiel Cotto",
@@ -2281,8 +2336,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=pinto-000noe",
+        "candidates": [
+          "pinto-000noe"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Noel Pinto",
@@ -2317,8 +2377,11 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": null,
+        "candidates": [],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Ashton Goudeau",
@@ -2536,8 +2599,20 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=torres001jul",
+        "candidates": [
+          "torres001jul",
+          "torres006jul",
+          "torres008jul",
+          "torres003jul",
+          "torres002jul",
+          "torres009jul",
+          "torres004jul",
+          "torres011jul"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Julio Torres",
@@ -2559,8 +2634,17 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=garcia003eri",
+        "candidates": [
+          "garcia003eri",
+          "garcia006eri",
+          "garcia002eri",
+          "garcia001eri",
+          "garcia007eri"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Eric Garcia",
@@ -2582,8 +2666,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=reynos000edd",
+        "candidates": [
+          "reynos000edd"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Eddy Reynoso",
@@ -2605,8 +2694,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera001jer",
+        "candidates": [
+          "rivera001jer"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Jerryell Rivera",
@@ -2715,8 +2809,14 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=castro005ale",
+        "candidates": [
+          "castro005ale",
+          "castro002ale"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Alexander Castro",
@@ -2938,8 +3038,13 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rosa--002ram",
+        "candidates": [
+          "rosa--002ram"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Ramesis Rosa",
@@ -3372,8 +3477,11 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": null,
+        "candidates": [],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Josh James",
@@ -3445,8 +3553,14 @@
         "line": null
       },
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=munoz-000rya",
+        "candidates": [
+          "munoz-000rya",
+          "munoz-001rya"
+        ],
+        "rows": 0,
+        "line": null
       },
       "verified_empty_audit": {
         "name": "Ryan Munoz",
@@ -3456,6 +3570,1218 @@
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
           "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
+      }
+    },
+    "488880": {
+      "name": "Adalberto Flores",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/adalberto-flores-488880",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=flores001ada",
+        "candidates": [
+          "flores001ada",
+          "flores002ada"
+        ],
+        "rows": 0,
+        "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Adalberto Flores",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "688876": {
+      "name": "Carlos Torres",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/carlos-torres-688876",
+        "rows": 1,
+        "line": {
+          "team": "HFD",
+          "team_name": "Hartford Yard Goats",
+          "season": "Summer 2026",
+          "league": "AA",
+          "circuit": "MiLB.com",
+          "league_name": "EAS",
+          "level": null,
+          "ip": "62.2",
+          "outs": 188,
+          "g": 40,
+          "gs": 0,
+          "k": 54,
+          "bb": 14,
+          "k9": "7.8",
+          "bb9": "2.0",
+          "era": "3.59",
+          "fip": "3.96",
+          "whip": "1.26",
+          "h": 65,
+          "hr": 9,
+          "sb_allowed": 5,
+          "cs_allowed": 2,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/carlos-torres-688876",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "688014": {
+      "name": "Edwin Sanchez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/edwin-sanchez-688014",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
+        "candidates": [
+          "sanche004edw",
+          "sanche002edw",
+          "sanche006edw",
+          "sanche005edw",
+          "sanche001edw",
+          "sanche000edw"
+        ],
+        "rows": 2,
+        "line": {
+          "team": "LE",
+          "team_name": "Lake Erie Crushers (Avon, OH)",
+          "season": "Summer 2026",
+          "league": "FRON",
+          "circuit": "Independent",
+          "league_name": "Frontier League",
+          "level": "Ind",
+          "ip": "78.2",
+          "outs": 236,
+          "g": 20,
+          "gs": 13,
+          "k": 62,
+          "bb": 57,
+          "k9": "7.1",
+          "bb9": "6.5",
+          "era": "6.29",
+          "fip": "5.08",
+          "whip": "1.67",
+          "h": 74,
+          "hr": 7,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 2,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "806337": {
+      "name": "Jarret Whorf",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "664744": {
+      "name": "Jose Espada",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/jose-espada-664744",
+        "rows": 3,
+        "line": {
+          "team": "NOR",
+          "team_name": "Norfolk Tides",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "48.2",
+          "outs": 146,
+          "g": 41,
+          "gs": 0,
+          "k": 49,
+          "bb": 27,
+          "k9": "9.1",
+          "bb9": "5.0",
+          "era": "2.77",
+          "fip": "4.48",
+          "whip": "1.38",
+          "h": 40,
+          "hr": 6,
+          "sb_allowed": 6,
+          "cs_allowed": 0,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/jose-espada-664744",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "686924": {
+      "name": "Tyler Myrick",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/tyler-myrick-686924",
+        "rows": 0,
+        "line": null
+      },
+      "statsapi_lmb_fip": {
+        "status": "filled",
+        "fip": "90.10"
+      }
+    },
+    "683068": {
+      "name": "Zach Penrod",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/zach-penrod-683068",
+        "rows": 1,
+        "line": {
+          "team": "ROC",
+          "team_name": "Rochester Red Wings",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "46.1",
+          "outs": 139,
+          "g": 36,
+          "gs": 9,
+          "k": 41,
+          "bb": 34,
+          "k9": "8.0",
+          "bb9": "6.6",
+          "era": "4.27",
+          "fip": "5.41",
+          "whip": "1.73",
+          "h": 46,
+          "hr": 6,
+          "sb_allowed": 5,
+          "cs_allowed": 1,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/zach-penrod-683068",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "690148": {
+      "name": "Chris Kachmar",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/chris-kachmar-690148",
+        "rows": 1,
+        "line": {
+          "team": "NOR",
+          "team_name": "Norfolk Tides",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "31.1",
+          "outs": 94,
+          "g": 10,
+          "gs": 7,
+          "k": 26,
+          "bb": 20,
+          "k9": "7.5",
+          "bb9": "5.7",
+          "era": "5.74",
+          "fip": "4.60",
+          "whip": "1.72",
+          "h": 34,
+          "hr": 3,
+          "sb_allowed": 8,
+          "cs_allowed": 0,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/chris-kachmar-690148",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "675989": {
+      "name": "Cody Bolton",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/cody-bolton-675989",
+        "rows": 2,
+        "line": {
+          "team": "HOU",
+          "team_name": "Houston Astros",
+          "season": "Summer 2026",
+          "league": "MLB",
+          "circuit": "MiLB.com",
+          "league_name": "AL",
+          "level": null,
+          "ip": "20.0",
+          "outs": 60,
+          "g": 8,
+          "gs": 3,
+          "k": 22,
+          "bb": 14,
+          "k9": "9.9",
+          "bb9": "6.3",
+          "era": "5.40",
+          "fip": "5.10",
+          "whip": "1.75",
+          "h": 21,
+          "hr": 3,
+          "sb_allowed": 2,
+          "cs_allowed": 0,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/cody-bolton-675989",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "695684": {
+      "name": "Elmer Rodriguez",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/elmer-rodriguez-695684",
+        "rows": 2,
+        "line": {
+          "team": "SWB",
+          "team_name": "Scranton/Wilkes-Barre RailRiders",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "106.1",
+          "outs": 319,
+          "g": 21,
+          "gs": 21,
+          "k": 105,
+          "bb": 54,
+          "k9": "8.9",
+          "bb9": "4.6",
+          "era": "2.45",
+          "fip": "3.40",
+          "whip": "1.31",
+          "h": 85,
+          "hr": 5,
+          "sb_allowed": 7,
+          "cs_allowed": 8,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/elmer-rodriguez-695684",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "805678": {
+      "name": "Joe Riley",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/joe-riley-805678",
+        "rows": 0,
+        "line": null
+      },
+      "statsapi_lmb_fip": {
+        "status": "filled",
+        "fip": "5.07"
+      }
+    },
+    "670232": {
+      "name": "Ramon Rodriguez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/ramon-rodriguez-670232",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Ramon Rodriguez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "803035": {
+      "name": "Riley Gowens",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/riley-gowens-803035",
+        "rows": 3,
+        "line": {
+          "team": "CLT",
+          "team_name": "Charlotte Knights",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "27.2",
+          "outs": 83,
+          "g": 15,
+          "gs": 0,
+          "k": 23,
+          "bb": 10,
+          "k9": "7.5",
+          "bb9": "3.2",
+          "era": "5.20",
+          "fip": "5.09",
+          "whip": "1.27",
+          "h": 25,
+          "hr": 5,
+          "sb_allowed": 5,
+          "cs_allowed": 2,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/riley-gowens-803035",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "807485": {
+      "name": "Davian Garcia",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/davian-garcia-807485",
+        "rows": 1,
+        "line": {
+          "team": "HBG",
+          "team_name": "Harrisburg Senators",
+          "season": "Summer 2026",
+          "league": "AA",
+          "circuit": "MiLB.com",
+          "league_name": "EAS",
+          "level": null,
+          "ip": "27.2",
+          "outs": 83,
+          "g": 8,
+          "gs": 8,
+          "k": 24,
+          "bb": 23,
+          "k9": "7.8",
+          "bb9": "7.5",
+          "era": "3.90",
+          "fip": "5.02",
+          "whip": "1.66",
+          "h": 23,
+          "hr": 2,
+          "sb_allowed": 7,
+          "cs_allowed": 1,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/davian-garcia-807485",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "805248": {
+      "name": "Jonathan Haab",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/jonathan-haab-805248",
+        "rows": 0,
+        "line": null
+      },
+      "statsapi_lmb_fip": {
+        "status": "filled",
+        "fip": "4.15"
+      }
+    },
+    "605347": {
+      "name": "Jorge Lopez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/jorge-lopez-605347",
+        "rows": 0,
+        "line": null
+      },
+      "statsapi_lmb_fip": {
+        "status": "filled",
+        "fip": "2.37"
+      }
+    },
+    "446651": {
+      "name": "Miguel Martinez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/miguel-martinez-446651",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=martin014mig",
+        "candidates": [
+          "martin014mig",
+          "martin015mig",
+          "martin012mig",
+          "martin010mig",
+          "martin003mig",
+          "martin005mig",
+          "martin007mig",
+          "martin006mig",
+          "martin002mig",
+          "martin004mig",
+          "martin008mig",
+          "martin013mig",
+          "martin011mig"
+        ],
+        "rows": 1,
+        "line": {
+          "team": "TWI",
+          "team_name": "DSL Twins ()",
+          "season": "Summer 2026",
+          "league": "DOSL",
+          "circuit": "Baseball Reference",
+          "league_name": "Dominican Summer League",
+          "level": "FRk",
+          "ip": "26.0",
+          "outs": 78,
+          "g": 11,
+          "gs": 3,
+          "k": 30,
+          "bb": 23,
+          "k9": "10.4",
+          "bb9": "8.0",
+          "era": "6.92",
+          "fip": "5.68",
+          "whip": "1.89",
+          "h": 26,
+          "hr": 4,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 1,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=martin014mig",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      },
+      "verified_empty_audit": {
+        "name": "Miguel Martinez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "691012": {
+      "name": "Alex Santos",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "682992": {
+      "name": "Erik Rivera",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/erik-rivera-682992",
+        "rows": 2,
+        "line": {
+          "team": "POR",
+          "team_name": "Portland Sea Dogs",
+          "season": "Summer 2026",
+          "league": "AA",
+          "circuit": "MiLB.com",
+          "league_name": "EAS",
+          "level": null,
+          "ip": "59.0",
+          "outs": 177,
+          "g": 35,
+          "gs": 0,
+          "k": 88,
+          "bb": 41,
+          "k9": "13.4",
+          "bb9": "6.2",
+          "era": "5.34",
+          "fip": "3.93",
+          "whip": "1.56",
+          "h": 51,
+          "hr": 6,
+          "sb_allowed": 11,
+          "cs_allowed": 2,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/erik-rivera-682992",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "691786": {
+      "name": "Michael Morales",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/michael-morales-691786",
+        "rows": 1,
+        "line": {
+          "team": "ARK",
+          "team_name": "Arkansas Travelers",
+          "season": "Summer 2026",
+          "league": "AA",
+          "circuit": "MiLB.com",
+          "league_name": "TEX",
+          "level": null,
+          "ip": "66.1",
+          "outs": 199,
+          "g": 17,
+          "gs": 17,
+          "k": 59,
+          "bb": 42,
+          "k9": "8.0",
+          "bb9": "5.7",
+          "era": "6.11",
+          "fip": "5.60",
+          "whip": "1.51",
+          "h": 58,
+          "hr": 11,
+          "sb_allowed": 11,
+          "cs_allowed": 5,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/michael-morales-691786",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "690462": {
+      "name": "Ricky Castro",
+      "milb": {
+        "status": "line",
+        "source_url": "https://www.milb.com/player/ricky-castro-690462",
+        "rows": 2,
+        "line": {
+          "team": "STP",
+          "team_name": "St. Paul Saints",
+          "season": "Summer 2026",
+          "league": "AAA",
+          "circuit": "MiLB.com",
+          "league_name": "INT",
+          "level": null,
+          "ip": "60.1",
+          "outs": 181,
+          "g": 22,
+          "gs": 12,
+          "k": 67,
+          "bb": 28,
+          "k9": "10.0",
+          "bb9": "4.2",
+          "era": "5.52",
+          "fip": "5.55",
+          "whip": "1.59",
+          "h": 68,
+          "hr": 15,
+          "sb_allowed": 10,
+          "cs_allowed": 0,
+          "assignments": 1,
+          "source": "MiLB.com 2026 regular-season year-by-year pitching",
+          "source_url": "https://www.milb.com/player/ricky-castro-690462",
+          "field_sources": {
+            "team_through_hr": "MiLB.com year-by-year pitching",
+            "sb_allowed": "MiLB.com pitching stolenBases",
+            "cs_allowed": "MiLB.com pitching caughtStealing",
+            "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "458960": {
+      "name": "Jean Ortega",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/jean-ortega-458960",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Jean Ortega",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "-268179393": {
+      "name": "Johzan Oquendo",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=oquend000joh",
+        "candidates": [
+          "oquend000joh"
+        ],
+        "rows": 0,
+        "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Johzan Oquendo",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "-846506108": {
+      "name": "Alexuan Vega",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=vega--000ale",
+        "candidates": [
+          "vega--000ale"
+        ],
+        "rows": 0,
+        "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Alexuan Vega",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "-346674215": {
+      "name": "Hector Quinones",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=quinon001hec",
+        "candidates": [
+          "quinon001hec",
+          "quinon002hec"
+        ],
+        "rows": 0,
+        "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Hector Quinones",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "-165648089": {
+      "name": "Antonio Velez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=velez-001ant",
+        "candidates": [
+          "velez-001ant",
+          "velez-000ant"
+        ],
+        "rows": 0,
+        "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Antonio Velez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
+        ]
+      }
+    },
+    "name:jarrettebonet": {
+      "name": "Jarrette Bonet",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=bonet-000jar",
+        "candidates": [
+          "bonet-000jar"
+        ],
+        "rows": 2,
+        "line": {
+          "team": "WIL",
+          "team_name": "Wilson Warbirds (Wilson, NC)",
+          "season": "Summer 2026",
+          "league": "CARL",
+          "circuit": "Baseball Reference",
+          "league_name": "Carolina League",
+          "level": "A",
+          "ip": "109.1",
+          "outs": 328,
+          "g": 24,
+          "gs": 17,
+          "k": 100,
+          "bb": 55,
+          "k9": "8.2",
+          "bb9": "4.5",
+          "era": "4.86",
+          "fip": "4.37",
+          "whip": "1.43",
+          "h": 101,
+          "hr": 12,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 2,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=bonet-000jar",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:devinrivera": {
+      "name": "Devin Rivera",
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera002dev",
+        "candidates": [
+          "rivera002dev"
+        ],
+        "rows": 0,
+        "line": null
+      }
+    },
+    "name:jorhanlaboy": {
+      "name": "Jorhan Laboy",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=laboy-001jor",
+        "candidates": [
+          "laboy-001jor"
+        ],
+        "rows": 2,
+        "line": {
+          "team": "AS",
+          "team_name": "Alabama State Hornets ()",
+          "season": "Summer 2026",
+          "league": "SWAC",
+          "circuit": "Baseball Reference",
+          "league_name": "Southwestern Athletic Conference",
+          "level": "NCAA",
+          "ip": "89.1",
+          "outs": 268,
+          "g": 18,
+          "gs": 17,
+          "k": 67,
+          "bb": 25,
+          "k9": "6.8",
+          "bb9": "2.5",
+          "era": "4.84",
+          "fip": "4.44",
+          "whip": "1.48",
+          "h": 107,
+          "hr": 11,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 2,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=laboy-001jor",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:jeanpierreortiz": {
+      "name": "JeanPierre Ortiz",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ortiz-001jea",
+        "candidates": [
+          "ortiz-001jea"
+        ],
+        "rows": 1,
+        "line": {
+          "team": "DAY",
+          "team_name": "Dayton Dragons (Dayton, OH)",
+          "season": "Summer 2026",
+          "league": "MIDW",
+          "circuit": "Baseball Reference",
+          "league_name": "Midwest League",
+          "level": "A+",
+          "ip": "67.0",
+          "outs": 201,
+          "g": 17,
+          "gs": 17,
+          "k": 62,
+          "bb": 32,
+          "k9": "8.3",
+          "bb9": "4.3",
+          "era": "5.91",
+          "fip": "4.46",
+          "whip": "1.55",
+          "h": 72,
+          "hr": 8,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 1,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ortiz-001jea",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:tylergough": {
+      "name": "Tyler Gough",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gough-000tyl",
+        "candidates": [
+          "gough-000tyl"
+        ],
+        "rows": 3,
+        "line": {
+          "team": "GL",
+          "team_name": "Great Lakes Loons (Midland, MI)",
+          "season": "Summer 2026",
+          "league": "MIDW",
+          "circuit": "Baseball Reference",
+          "league_name": "Midwest League",
+          "level": "A+",
+          "ip": "42.0",
+          "outs": 126,
+          "g": 10,
+          "gs": 9,
+          "k": 55,
+          "bb": 25,
+          "k9": "11.8",
+          "bb9": "5.4",
+          "era": "1.71",
+          "fip": "2.72",
+          "whip": "0.98",
+          "h": 16,
+          "hr": 1,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 3,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gough-000tyl",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:randyramnarace": {
+      "name": "Randy Ramnarace",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ramnar000ran",
+        "candidates": [
+          "ramnar000ran"
+        ],
+        "rows": 1,
+        "line": {
+          "team": "COL",
+          "team_name": "Columbia Fireflies (Columbia, SC)",
+          "season": "Summer 2026",
+          "league": "CARL",
+          "circuit": "Baseball Reference",
+          "league_name": "Carolina League",
+          "level": "A",
+          "ip": "44.0",
+          "outs": 132,
+          "g": 30,
+          "gs": 1,
+          "k": 41,
+          "bb": 44,
+          "k9": "8.4",
+          "bb9": "9.0",
+          "era": "3.68",
+          "fip": "5.40",
+          "whip": "1.75",
+          "h": 33,
+          "hr": 3,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 1,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ramnar000ran",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:adielmelendez": {
+      "name": "Adiel Melendez",
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=melend000adi",
+        "candidates": [
+          "melend000adi"
+        ],
+        "rows": 1,
+        "line": {
+          "team": "AUG",
+          "team_name": "Augusta GreenJackets (Augusta, GA)",
+          "season": "Summer 2026",
+          "league": "CARL",
+          "circuit": "Baseball Reference",
+          "league_name": "Carolina League",
+          "level": "A",
+          "ip": "52.0",
+          "outs": 156,
+          "g": 26,
+          "gs": 0,
+          "k": 61,
+          "bb": 21,
+          "k9": "10.6",
+          "bb9": "3.6",
+          "era": "2.42",
+          "fip": "3.25",
+          "whip": "1.06",
+          "h": 34,
+          "hr": 4,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 1,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=melend000adi",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
+      }
+    },
+    "name:johzanoquendo": {
+      "name": "Johzan Oquendo",
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=oquend000joh",
+        "candidates": [
+          "oquend000joh"
+        ],
+        "rows": 0,
+        "line": null
+      }
+    },
+    "name:alexuanvega": {
+      "name": "Alexuan Vega",
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=vega--000ale",
+        "candidates": [
+          "vega--000ale"
+        ],
+        "rows": 0,
+        "line": null
+      }
+    },
+    "name:freddycabrera": {
+      "name": "Freddy Cabrera",
+      "baseball_reference": {
+        "status": "no_2026_summer_pitching",
+        "source_url": null,
+        "candidates": [],
+        "rows": 0,
+        "line": null
+      }
+    },
+    "name:nelvinfuentes": {
+      "name": "Nelvin Fuentes",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "name:hectorquinones": {
+      "name": "Hector Quinones",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "name:antoniovelez": {
+      "name": "Antonio Velez",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "name:mariozabala": {
+      "name": "Mario Zabala",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "name:eddydemurias": {
+      "name": "Eddy Demurias",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "name:charleesoto": {
+      "name": "Charlee Soto",
+      "baseball_reference": {
+        "status": "error",
+        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      }
+    },
+    "681493": {
+      "name": "Eddy Demurias",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.milb.com/player/eddy-demurias-681493",
+        "rows": 0,
+        "line": null
+      },
+      "statsapi_lmb_fip": {
+        "status": "filled",
+        "fip": "2.60"
+      },
+      "verified_empty_audit": {
+        "name": "Eddy Demurias",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search",
+          "MLB Stats API 2026 pitching"
         ]
       }
     }

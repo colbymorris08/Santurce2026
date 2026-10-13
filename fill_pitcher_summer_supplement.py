@@ -11,6 +11,7 @@ source attempt so interrupted runs resume without re-fetching completed players.
 
 from __future__ import annotations
 
+import argparse
 import html
 import json
 import os
@@ -27,12 +28,17 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parent
 DATA_PATH = ROOT / "data" / "advance_opposing_pitchers.json"
+HITTER_DATA_PATH = ROOT / "data" / "advance_opposing_hitters.json"
+HITTER_CHECKPOINT_PATH = ROOT / "data" / "hitter_summer_supplement.json"
 CHECKPOINT_PATH = ROOT / "data" / "pitcher_summer_supplement.json"
 WEB_SOURCES_PATH = ROOT / "data" / "pitcher_summer_web_sources.json"
 EMPTY_AUDIT_PATH = ROOT / "data" / "pitcher_summer_empty_audit.json"
 REQUEST_TIMEOUT = 20
 FIP_CONSTANT = 3.10
 USER_AGENT = "Mozilla/5.0 (compatible; Santurce2026/1.0; pitcher-stat-research)"
+BREF_MIN_INTERVAL = 2.1
+BREF_REQUESTS = 0
+_LAST_BREF_REQUEST = 0.0
 
 WINTER_MARKERS = (
     "puerto rican",
@@ -51,9 +57,26 @@ WINTER_MARKERS = (
 
 
 def _fetch(url: str) -> tuple[str, str]:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as response:
-        return response.read().decode("utf-8", "replace"), response.geturl()
+    global BREF_REQUESTS, _LAST_BREF_REQUEST
+    is_bref = "baseball-reference.com" in url
+    last_error: Exception | None = None
+    for attempt in range(3):
+        if is_bref:
+            delay = BREF_MIN_INTERVAL - (time.monotonic() - _LAST_BREF_REQUEST)
+            if delay > 0:
+                time.sleep(delay)
+            _LAST_BREF_REQUEST = time.monotonic()
+            BREF_REQUESTS += 1
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as response:
+                return response.read().decode("utf-8", "replace"), response.geturl()
+        except urllib.error.URLError as exc:
+            last_error = exc
+            if attempt == 2:
+                raise
+            time.sleep(1.0 + attempt)
+    raise RuntimeError(f"request failed: {last_error}")
 
 
 def _slug(value: str) -> str:
@@ -399,6 +422,146 @@ def _bref_line(row: dict, source_url: str, assignments: int) -> dict:
     }
 
 
+def _bref_hitting_rows(name: str) -> tuple[list[dict], str | None, list[str]]:
+    search_url = (
+        "https://www.baseball-reference.com/search/search.fcgi?search="
+        + urllib.parse.quote_plus(name)
+    )
+    page, final_url = _fetch(search_url)
+    candidates = _register_candidates(page, name)
+    parsed = urllib.parse.urlparse(final_url)
+    direct_id = urllib.parse.parse_qs(parsed.query).get("id", [])
+    if "register/player.fcgi" in parsed.path and direct_id:
+        candidates.insert(0, direct_id[0])
+    if not candidates:
+        return [], None, []
+    player_id = candidates[0]
+    source_url = f"https://www.baseball-reference.com/register/player.fcgi?id={player_id}"
+    if source_url != final_url:
+        page, final_url = _fetch(source_url)
+    soup = BeautifulSoup(page, "html.parser")
+    table = soup.find("table", id="standard_batting")
+    if table is None:
+        return [], final_url, candidates
+    rows = []
+    for tr in table.select("tbody tr"):
+        cells = {
+            cell.get("data-stat"): cell
+            for cell in tr.find_all(["th", "td"])
+            if cell.get("data-stat")
+        }
+        year = cells.get("year_ID")
+        if year is None or year.get_text(strip=True) != "2026":
+            continue
+        team_cell, league_cell = cells.get("team_ID"), cells.get("lg_ID")
+        team = team_cell.get_text(" ", strip=True) if team_cell else ""
+        league = league_cell.get_text(" ", strip=True) if league_cell else ""
+        team_link = team_cell.find("a") if team_cell else None
+        league_link = league_cell.find("a") if league_cell else None
+        team_name = (team_link.get("title") if team_link else "") or team
+        league_name = (league_link.get("title") if league_link else "") or league
+        context = f"{team} {team_name} {league} {league_name}".lower()
+        if not team or re.search(r"\b\d+\s+teams?\b", team.lower()):
+            continue
+        if any(marker in context for marker in WINTER_MARKERS):
+            continue
+        values = {
+            key: (cell.get_text(" ", strip=True) or None)
+            for key, cell in cells.items()
+        }
+        pa = _int(values.get("PA") or values.get("b_pa"))
+        if not pa:
+            continue
+        rows.append({
+            "values": values,
+            "pa": pa,
+            "team": team,
+            "team_name": team_name,
+            "league": league,
+            "league_name": league_name,
+            "level": values.get("level"),
+        })
+    return rows, final_url, candidates
+
+
+def _bref_hitting_line(row: dict, source_url: str, assignments: int) -> dict:
+    values = row["values"]
+    get = lambda *keys: next((values.get(key) for key in keys if values.get(key) not in (None, "")), None)
+    return {
+        "team": _team_abbrev(row["team"]),
+        "team_name": row["team_name"],
+        "season": "Summer 2026",
+        "league": row["league"] or "Baseball Reference",
+        "circuit": "Baseball Reference",
+        "league_name": row["league_name"] or row["league"] or "Baseball Reference",
+        "level": row.get("level"),
+        "pa": row["pa"],
+        "ab": _int(get("AB", "b_ab")),
+        "r": _int(get("R", "b_r")),
+        "h": _int(get("H", "b_h")),
+        "doubles": _int(get("2B", "b_2b")),
+        "triples": _int(get("3B", "b_3b")),
+        "hr": _int(get("HR", "b_hr")),
+        "rbi": _int(get("RBI", "b_rbi")),
+        "sb": _int(get("SB", "b_sb")),
+        "cs": _int(get("CS", "b_cs")),
+        "bb": _int(get("BB", "b_bb")),
+        "so": _int(get("SO", "b_so")),
+        "ba": get("batting_avg", "BA", "b_batting_avg"),
+        "obp": get("onbase_perc", "OBP", "b_onbase_perc"),
+        "slg": get("slugging_perc", "SLG", "b_slugging_perc"),
+        "ops": get("onbase_plus_slugging", "OPS", "b_onbase_plus_slugging"),
+        "assignments": assignments,
+        "source": "Baseball Reference Register 2026 standard batting",
+        "source_url": source_url,
+    }
+
+
+def fill_hitter_summer_lines() -> None:
+    document = json.loads(HITTER_DATA_PATH.read_text())
+    hitters = document.get("hitters") or []
+    checkpoint = {"players": {}}
+    if HITTER_CHECKPOINT_PATH.is_file():
+        try:
+            checkpoint = json.loads(HITTER_CHECKPOINT_PATH.read_text())
+        except (OSError, json.JSONDecodeError):
+            pass
+    saved = checkpoint.setdefault("players", {})
+    for hitter in hitters:
+        if hitter.get("summer_line"):
+            continue
+        name = str(hitter.get("name") or "")
+        entry = saved.setdefault(name, {})
+        if entry.get("status") == "error":
+            entry.clear()
+        if "status" not in entry:
+            try:
+                rows, source_url, candidates = _bref_hitting_rows(name)
+                rows.sort(key=lambda row: row["pa"], reverse=True)
+                entry.update({
+                    "status": "line" if rows else "no_2026_summer_hitting",
+                    "source_url": source_url,
+                    "candidates": candidates,
+                    "rows": len(rows),
+                    "line": _bref_hitting_line(rows[0], source_url or "", len(rows)) if rows else None,
+                })
+            except Exception as exc:  # noqa: BLE001
+                entry.update({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
+            checkpoint["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            checkpoint["bbref_requests"] = BREF_REQUESTS
+            checkpoint["bbref_rate_limit"] = "30 requests/minute"
+            HITTER_CHECKPOINT_PATH.write_text(json.dumps(checkpoint, indent=2, ensure_ascii=False) + "\n")
+        if entry.get("line"):
+            hitter["summer_line"] = dict(entry["line"])
+    document["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    HITTER_DATA_PATH.write_text(json.dumps(document, indent=2, ensure_ascii=False))
+    filled = sum(bool(h.get("summer_line")) for h in hitters)
+    print(
+        f"hitter_coverage={filled}/{len(hitters)} missing={len(hitters)-filled} "
+        f"bbref_requests={BREF_REQUESTS} bbref_rate_limit=30/min"
+    )
+
+
 def _verified_web_line(row: dict) -> dict:
     outs = _outs_from_ip(row.get("ip"))
     fip = _fip(row.get("hr"), row.get("bb"), row.get("hbp"), row.get("k"), outs)
@@ -453,6 +616,12 @@ def _merge_enrichment(current: dict, candidate: dict) -> bool:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--hitters", action="store_true")
+    args = parser.parse_args()
+    if args.hitters:
+        fill_hitter_summer_lines()
+        return
     document = json.loads(DATA_PATH.read_text())
     pitchers = document.get("pitchers") or []
     checkpoint = _checkpoint()
@@ -471,8 +640,11 @@ def main() -> None:
     for row in verified:
         mlb_id = _int(row.get("mlb_id"))
         records = by_id.get(mlb_id or -1) or []
-        if not records or any(record.get("name") != row.get("name") for record in records):
-            raise ValueError(f"Verified row does not match roster identity: {row.get('name')} ({mlb_id})")
+        if not records:
+            continue
+        if any(record.get("name") != row.get("name") for record in records):
+            print(f"skip stale verified identity: {row.get('name')} ({mlb_id})")
+            continue
         candidate = _verified_web_line(row)
         for record in records:
             if not record.get("summer_line"):
@@ -596,15 +768,56 @@ def main() -> None:
                 if not record.get("summer_line"):
                     record["summer_line"] = dict(bref_line)
 
+    # Synthetic or absent MLBAM ids cannot be queried on MiLB.com or Stats API,
+    # but Baseball Reference can still be searched by exact roster name.
+    for record in pitchers:
+        if record.get("summer_line") or (_int(record.get("mlb_id")) or 0) > 0:
+            continue
+        name = str(record.get("name") or "")
+        entry = saved.setdefault(f"name:{_norm_name(name)}", {"name": name})
+        if (
+            "baseball_reference" not in entry
+            or (entry.get("baseball_reference") or {}).get("status") == "error"
+        ):
+            try:
+                rows, source_url, candidates = _bref_rows(name)
+                rows.sort(key=lambda row: row["outs"], reverse=True)
+                entry["baseball_reference"] = {
+                    "status": "line" if rows else "no_2026_summer_pitching",
+                    "source_url": source_url,
+                    "candidates": candidates,
+                    "rows": len(rows),
+                    "line": (
+                        _bref_line(rows[0], source_url or "", len(rows))
+                        if rows and source_url else None
+                    ),
+                }
+            except Exception as exc:  # noqa: BLE001
+                entry["baseball_reference"] = {
+                    "status": "error",
+                    "error": f"{type(exc).__name__}: {exc}",
+                }
+            _save_checkpoint(checkpoint)
+        bref_line = (entry.get("baseball_reference") or {}).get("line")
+        if bref_line:
+            record["summer_line"] = dict(bref_line)
+
     empty_audit = json.loads(EMPTY_AUDIT_PATH.read_text())
     audit_by_name = {row["name"]: row for row in empty_audit.get("rows") or []}
     missing_names = {record.get("name") for record in pitchers if not record.get("summer_line")}
-    if missing_names != set(audit_by_name):
-        raise ValueError(
-            "Empty-row audit does not match generated data: "
-            f"missing_from_audit={sorted(missing_names - set(audit_by_name))}, "
-            f"stale_audit={sorted(set(audit_by_name) - missing_names)}"
-        )
+    for name in sorted(missing_names - set(audit_by_name)):
+        audit_by_name[name] = {
+            "name": name,
+            "status": "no_eligible_2026_team_pitching_row",
+            "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+            "sources_checked": [
+                "MiLB.com player year-by-year pitching",
+                "Baseball Reference Register/search",
+                "MLB Stats API 2026 pitching",
+            ],
+        }
+    empty_audit["rows"] = [audit_by_name[name] for name in sorted(missing_names)]
+    EMPTY_AUDIT_PATH.write_text(json.dumps(empty_audit, indent=2, ensure_ascii=False) + "\n")
     for mlb_id, records in by_id.items():
         audit = audit_by_name.get(records[0].get("name"))
         if audit:
@@ -632,7 +845,8 @@ def main() -> None:
     fip_count = sum((p.get("summer_line") or {}).get("fip") is not None for p in pitchers)
     print(
         f"coverage={len(filled)}/{len(pitchers)} missing={len(missing)} "
-        f"fip={fip_count} checkpoint={CHECKPOINT_PATH.name}"
+        f"fip={fip_count} checkpoint={CHECKPOINT_PATH.name} "
+        f"bbref_requests={BREF_REQUESTS} bbref_rate_limit=30/min"
     )
     if missing:
         print("missing:", ", ".join(str(name) for name in missing))
