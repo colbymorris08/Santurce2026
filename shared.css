@@ -1024,14 +1024,18 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     display: flex; flex-direction: column; gap: 1px; overflow: visible;
   }
   .advance-sheet-pitcher .advance-heat-cell .zone-heat,
+  .advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,
   .advance-sheet-pitcher .advance-heat-cell .zone-heat-7 {
     width: 1.7in;
     height: auto;
     max-height: 2.02in;
+    overflow: visible;
     background: #F7F9FB;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+  .advance-sheet-pitcher .zone-heat,
+  .advance-sheet-pitcher .zone-heat-vox,
   .advance-sheet-pitcher .zone-heat-7 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .advance-sheet-pitcher .advance-heat-cell .advance-heat-lab {
     color: #0a1633; font-size: 8.5px; line-height: 1; margin: 0; flex: 0 0 auto;
@@ -1231,8 +1235,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 1px 0 2px;
   }
   .advance-sheet-hitter .zone-heat,
+  .advance-sheet-hitter .zone-heat-vox,
   .advance-sheet-hitter .zone-heat-7 {
     width: auto; height: 1.42in; max-width: 100%; max-height: 1.42in;
+    overflow: visible;
     background: #F7F9FB;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1453,10 +1459,14 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   width: 100%;
   height: auto;
   display: block;
+  overflow: visible;
   background: #F7F9FB;
   border-radius: 4px;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+}
+.zone-heat text {
+  paint-order: stroke fill;
 }
 .advance-heat-pair .zone-heat { max-width: 220px; }
 .rate-cell { font-variant-numeric: tabular-nums; }
