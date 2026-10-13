@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T04:44:12Z",
+  "updated": "2026-10-13T20:41:23Z",
   "request_timeout_seconds": 20,
   "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
   "players": {
@@ -389,7 +389,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -985,7 +985,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -3598,7 +3598,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -4320,7 +4320,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -4348,7 +4348,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -4377,7 +4377,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -4406,7 +4406,7 @@
         "sources_checked": [
           "MiLB.com player year-by-year pitching",
           "Baseball Reference Register/search",
-          "MLB Stats API 2026 pitching"
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)"
         ]
       }
     },
@@ -4842,6 +4842,78 @@
           "Baseball Reference Register/search",
           "MLB Stats API 2026 pitching"
         ]
+      }
+    },
+    "-433762629": {
+      "name": "Joe Jimenez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-579003596": {
+      "name": "Anthony Borrero",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-693644039": {
+      "name": "Miguel Cirino",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-322791781": {
+      "name": "Keishin Saito",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-670692245": {
+      "name": "Haruse Narita",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-779812433": {
+      "name": "Saul Gonzalez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-426239217": {
+      "name": "Leonardo Rodriguez",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
+      }
+    },
+    "-324713460": {
+      "name": "Julio Ortiz",
+      "milb": {
+        "status": "no_2026_pitching",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0,
+        "line": null
       }
     }
   },

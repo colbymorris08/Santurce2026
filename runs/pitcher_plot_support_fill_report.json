@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T12:32:41Z",
+  "updated": "2026-10-13T20:42:01Z",
   "definitions": {
     "movement_plot": "At least one arsenal row with IVB and HB, matching the advance page XY predicate.",
     "whiff_rate": "At least one arsenal row has a whiff rate; plot_whiff_complete requires every plotted row.",
@@ -9,89 +9,33 @@
   "before": {
     "counts": {
       "roster": 94,
-      "movement_plot": 33,
-      "whiff_rate": 78,
-      "whiff_all_arsenal_rows": 54,
-      "plot_whiff_complete": 30,
-      "count": 82,
-      "heat_map": 80,
-      "all": 29
+      "movement_plot": 37,
+      "whiff_rate": 82,
+      "whiff_all_arsenal_rows": 60,
+      "plot_whiff_complete": 36,
+      "count": 83,
+      "heat_map": 81,
+      "all": 35
     },
     "plot_gaps": [
       {
-        "name": "Tyler Myrick",
-        "team": "CAG",
-        "player_id": 686924,
-        "missing_whiff": true,
-        "missing_count": false,
-        "missing_heat": false,
-        "synergy_id": "58e997e44b8b534848f38de0",
-        "filled_whiff": [
-          {
-            "type": "CH",
-            "whiff": 20.0,
-            "swings": 5
-          }
-        ],
-        "filled_count": [],
-        "filled_heat": []
-      },
-      {
-        "name": "Zach Penrod",
-        "team": "CAG",
-        "player_id": 683068,
-        "missing_whiff": true,
-        "missing_count": false,
-        "missing_heat": false,
-        "synergy_id": "6467b5ad1e180da51dae1f5c",
-        "filled_whiff": [
-          {
-            "type": "SI",
-            "whiff": 28.1,
-            "swings": 32
-          }
-        ],
-        "filled_count": [],
-        "filled_heat": []
-      },
-      {
-        "name": "Josh James",
-        "team": "PON",
-        "player_id": 657624,
+        "name": "Joe Jimenez",
+        "team": "CAR",
+        "player_id": -433762629,
         "missing_whiff": false,
-        "missing_count": false,
+        "missing_count": true,
         "missing_heat": true,
-        "synergy_id": "5aeffb0b9559b26e7e9b7c09",
-        "filled_whiff": [],
-        "filled_count": [],
-        "filled_heat": [
-          {
-            "side": "vs_l",
-            "window": "2024",
-            "ab": 24
-          }
-        ]
+        "result": "missing Synergy pitcherId"
       },
       {
-        "name": "Alex Santos",
-        "team": "PON",
-        "player_id": 691012,
+        "name": "Davian Garcia",
+        "team": "MAY",
+        "player_id": 807485,
         "missing_whiff": true,
         "missing_count": false,
         "missing_heat": false,
-        "synergy_id": "5d0d977d4b8b504a2c04114a",
-        "filled_whiff": [
-          {
-            "type": "CU",
-            "whiff": 35.5,
-            "swings": 31
-          },
-          {
-            "type": "CH",
-            "whiff": 18.8,
-            "swings": 16
-          }
-        ],
+        "synergy_id": "5f7429ef0f6ebc00019df118",
+        "filled_whiff": [],
         "filled_count": [],
         "filled_heat": []
       }
@@ -99,44 +43,28 @@
   },
   "site_packet_before": {
     "counts": {
-      "roster": 82,
-      "movement_plot": 33,
-      "whiff_rate": 78,
-      "whiff_all_arsenal_rows": 54,
-      "plot_whiff_complete": 30,
+      "roster": 91,
+      "movement_plot": 37,
+      "whiff_rate": 81,
+      "whiff_all_arsenal_rows": 59,
+      "plot_whiff_complete": 36,
       "count": 82,
-      "heat_map": 79,
-      "all": 29
+      "heat_map": 80,
+      "all": 35
     },
     "plot_gaps": [
       {
-        "name": "Tyler Myrick",
-        "team": "CAG",
-        "player_id": 686924,
-        "missing_whiff": true,
-        "missing_count": false,
-        "missing_heat": false
-      },
-      {
-        "name": "Zach Penrod",
-        "team": "CAG",
-        "player_id": 683068,
-        "missing_whiff": true,
-        "missing_count": false,
-        "missing_heat": false
-      },
-      {
-        "name": "Josh James",
-        "team": "PON",
-        "player_id": 657624,
+        "name": "Joe Jimenez",
+        "team": "CAR",
+        "player_id": -433762629,
         "missing_whiff": false,
-        "missing_count": false,
+        "missing_count": true,
         "missing_heat": true
       },
       {
-        "name": "Alex Santos",
-        "team": "PON",
-        "player_id": 691012,
+        "name": "Davian Garcia",
+        "team": "MAY",
+        "player_id": 807485,
         "missing_whiff": true,
         "missing_count": false,
         "missing_heat": false
@@ -145,79 +73,23 @@
   },
   "fills": [
     {
-      "name": "Tyler Myrick",
-      "team": "CAG",
-      "player_id": 686924,
-      "missing_whiff": true,
-      "missing_count": false,
-      "missing_heat": false,
-      "synergy_id": "58e997e44b8b534848f38de0",
-      "filled_whiff": [
-        {
-          "type": "CH",
-          "whiff": 20.0,
-          "swings": 5
-        }
-      ],
-      "filled_count": [],
-      "filled_heat": []
-    },
-    {
-      "name": "Zach Penrod",
-      "team": "CAG",
-      "player_id": 683068,
-      "missing_whiff": true,
-      "missing_count": false,
-      "missing_heat": false,
-      "synergy_id": "6467b5ad1e180da51dae1f5c",
-      "filled_whiff": [
-        {
-          "type": "SI",
-          "whiff": 28.1,
-          "swings": 32
-        }
-      ],
-      "filled_count": [],
-      "filled_heat": []
-    },
-    {
-      "name": "Josh James",
-      "team": "PON",
-      "player_id": 657624,
+      "name": "Joe Jimenez",
+      "team": "CAR",
+      "player_id": -433762629,
       "missing_whiff": false,
-      "missing_count": false,
+      "missing_count": true,
       "missing_heat": true,
-      "synergy_id": "5aeffb0b9559b26e7e9b7c09",
-      "filled_whiff": [],
-      "filled_count": [],
-      "filled_heat": [
-        {
-          "side": "vs_l",
-          "window": "2024",
-          "ab": 24
-        }
-      ]
+      "result": "missing Synergy pitcherId"
     },
     {
-      "name": "Alex Santos",
-      "team": "PON",
-      "player_id": 691012,
+      "name": "Davian Garcia",
+      "team": "MAY",
+      "player_id": 807485,
       "missing_whiff": true,
       "missing_count": false,
       "missing_heat": false,
-      "synergy_id": "5d0d977d4b8b504a2c04114a",
-      "filled_whiff": [
-        {
-          "type": "CU",
-          "whiff": 35.5,
-          "swings": 31
-        },
-        {
-          "type": "CH",
-          "whiff": 18.8,
-          "swings": 16
-        }
-      ],
+      "synergy_id": "5f7429ef0f6ebc00019df118",
+      "filled_whiff": [],
       "filled_count": [],
       "filled_heat": []
     }
@@ -225,27 +97,61 @@
   "after": {
     "counts": {
       "roster": 94,
-      "movement_plot": 33,
-      "whiff_rate": 78,
-      "whiff_all_arsenal_rows": 57,
-      "plot_whiff_complete": 33,
-      "count": 82,
+      "movement_plot": 37,
+      "whiff_rate": 82,
+      "whiff_all_arsenal_rows": 60,
+      "plot_whiff_complete": 36,
+      "count": 83,
       "heat_map": 81,
-      "all": 33
+      "all": 35
     },
-    "plot_gaps": []
+    "plot_gaps": [
+      {
+        "name": "Joe Jimenez",
+        "team": "CAR",
+        "player_id": -433762629,
+        "missing_whiff": false,
+        "missing_count": true,
+        "missing_heat": true
+      },
+      {
+        "name": "Davian Garcia",
+        "team": "MAY",
+        "player_id": 807485,
+        "missing_whiff": true,
+        "missing_count": false,
+        "missing_heat": false
+      }
+    ]
   },
   "site_packet_after": {
     "counts": {
-      "roster": 82,
-      "movement_plot": 33,
-      "whiff_rate": 78,
-      "whiff_all_arsenal_rows": 57,
-      "plot_whiff_complete": 33,
+      "roster": 91,
+      "movement_plot": 37,
+      "whiff_rate": 81,
+      "whiff_all_arsenal_rows": 59,
+      "plot_whiff_complete": 36,
       "count": 82,
       "heat_map": 80,
-      "all": 33
+      "all": 35
     },
-    "plot_gaps": []
+    "plot_gaps": [
+      {
+        "name": "Joe Jimenez",
+        "team": "CAR",
+        "player_id": -433762629,
+        "missing_whiff": false,
+        "missing_count": true,
+        "missing_heat": true
+      },
+      {
+        "name": "Davian Garcia",
+        "team": "MAY",
+        "player_id": 807485,
+        "missing_whiff": true,
+        "missing_count": false,
+        "missing_heat": false
+      }
+    ]
   }
 }
