@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san69">
+<link rel="stylesheet" href="shared.css?v=san70">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san69"></script>
+<script src="i18n.js?v=san70"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san69';
+const ASSET_V = 'san70';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1504,17 +1504,87 @@ function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   </tbody></table></div>
 </div>`;
 }
-/** Blue (low) → green (mid) → red (high). Anchors: SLG .200/.420/.650, whiff 10/25/40. */
-function heatRateStyle(metric, rate){
-  const anchors = metric==='whiff' ? [10, 25, 40] : [0.200, 0.420, 0.650];
-  let t;
-  if(rate <= anchors[1]) t = Math.max(0, (rate - anchors[0]) / (anchors[1] - anchors[0])) * 0.5;
-  else t = Math.min(1, 0.5 + (rate - anchors[1]) / (anchors[2] - anchors[1]) * 0.5);
-  const blue=[37,99,196], green=[39,158,74], red=[208,46,46];
-  const mix=(a,c,u)=>a.map((v,i)=>Math.round(v+(c[i]-v)*u));
-  const rgb = t<=0.5 ? mix(blue, green, t/0.5) : mix(green, red, (t-0.5)/0.5);
-  const fg = (t>0.18 && t<0.74) ? '#0B1F33' : '#fff';
-  return {fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg};
+/** 25-cell indices pooled into seven catcher-view regions (row 0 up, col 0 = 3B). */
+const HEAT_ZONE_DEFS = [
+  { id:'up_3b', cells:[[0,0],[0,1],[1,0],[2,0]] },
+  { id:'up_1b', cells:[[0,3],[0,4],[1,4],[2,4]] },
+  { id:'top_zone', cells:[[0,2],[1,1],[1,2],[1,3]] },
+  { id:'mid_zone', cells:[[2,1],[2,2],[2,3]] },
+  { id:'bot_zone', cells:[[3,1],[3,2],[3,3],[4,2]] },
+  { id:'down_3b', cells:[[3,0],[4,0],[4,1]] },
+  { id:'down_1b', cells:[[3,4],[4,3],[4,4]] },
+];
+const HEAT_CLUSTER_RGB = { red:[208,46,46], green:[39,158,74], blue:[37,99,196] };
+function heatClusterStyle(cluster){
+  const rgb = HEAT_CLUSTER_RGB[cluster];
+  if(!rgb) return { fill:'#E7EEF5', fg:'#64748B' };
+  const fg = cluster==='green' ? '#0B1F33' : '#fff';
+  return { fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg };
+}
+/** Per-chart relative red / green / blue among zones that have samples. */
+function heatZoneClusterColors(zoneRates){
+  const active = zoneRates.filter(z=>z.den>0);
+  const out = new Map();
+  zoneRates.forEach(z=>{ if(z.den<=0) out.set(z.id, null); });
+  if(!active.length) return out;
+  const sorted = [...active].sort((a,b)=>a.rate-b.rate || a.id.localeCompare(b.id));
+  const n = sorted.length;
+  const mean = sorted.reduce((s,z)=>s+z.rate,0)/n;
+  const medIdx = n===7 ? 3 : Math.floor((n-1)/2);
+  const colorAt = (i)=>{
+    if(i===n-1) return 'red';
+    if(i===0) return 'blue';
+    if(i===medIdx && n>=3) return 'green';
+    if(n>=2 && i===n-2) return 'red';
+    if(n>=2 && i===1) return 'blue';
+    return null;
+  };
+  sorted.forEach((z,i)=>{
+    const c = colorAt(i);
+    if(c) out.set(z.id, c);
+  });
+  if(n===7){
+    const medRate = sorted[3].rate;
+    const i2 = 2, i4 = 4;
+    if(out.get(sorted[i2].id)==null && out.get(sorted[i4].id)==null){
+      const greenIdx = Math.abs(sorted[i2].rate-medRate) <= Math.abs(sorted[i4].rate-medRate) ? i2 : i4;
+      const otherIdx = greenIdx===i2 ? i4 : i2;
+      out.set(sorted[greenIdx].id, 'green');
+      out.set(sorted[otherIdx].id, sorted[otherIdx].rate>mean ? 'red' : 'blue');
+    }
+  }
+  sorted.forEach(z=>{
+    if(out.get(z.id)!=null) return;
+    out.set(z.id, z.rate>mean ? 'red' : 'blue');
+  });
+  return out;
+}
+function poolHeatSideZones(side, metric){
+  const nums = side ? (metric==='whiff' ? side.whiffs : side.tb) : null;
+  const dens = side ? (metric==='whiff' ? side.swings : side.ab) : null;
+  const nGrid = 5;
+  return HEAT_ZONE_DEFS.map(def=>{
+    let num=0, den=0;
+    def.cells.forEach(([r,c])=>{
+      const i = r*nGrid+c;
+      den += dens ? (dens[i]||0) : 0;
+      num += nums ? (nums[i]||0) : 0;
+    });
+    const rate = den>0 ? (metric==='whiff' ? (100*num/den) : (num/den)) : null;
+    return { id:def.id, cells:def.cells, num, den, rate };
+  });
+}
+function zoneRegionRects(cells, ox, oy, cell, gap){
+  const step = cell+gap, bleed = gap/2;
+  return cells.map(([r,c])=>({
+    x: ox+c*step-bleed, y: oy+r*step-bleed, w: cell+gap, h: cell+gap,
+  }));
+}
+function zoneLabelAt(cells, ox, oy, cell, gap){
+  const step = cell+gap;
+  let sx=0, sy=0;
+  cells.forEach(([r,c])=>{ sx += ox+c*step+cell/2; sy += oy+r*step+cell/2; });
+  return { x: sx/cells.length, y: sy/cells.length+3.2 };
 }
 function hitterHeatRecord(h){
   const bag = CACHE.advanceHeatmaps || {};
@@ -1528,39 +1598,33 @@ function pitcherHeatRecord(p){
   return (bag.pitchers || {})[String(id)] || null;
 }
 /**
- * 5×5 catcher-view zone. Inner 3×3 is the plate × the batter's strike zone.
- * metric 'slg' uses tb/ab; 'whiff' uses whiffs/swings. Row 0 is up.
+ * Seven-zone catcher view (pooled from the underlying 5×5 bins). Inner 3×3 outline = strike zone.
+ * metric 'slg' uses pooled tb/ab; 'whiff' uses pooled whiffs/swings. Row 0 is up.
  */
 function zoneHeatSvg(side, metric, title){
   const W=168, H=196, n=5, cell=26, gap=1.5, ox=16, oy=18;
-  const empty = '#E7EEF5';
-  const nums = side ? (metric==='whiff' ? side.whiffs : side.tb) : null;
-  const dens = side ? (metric==='whiff' ? side.swings : side.ab) : null;
+  const zones = poolHeatSideZones(side, metric);
   let totalDen=0, totalNum=0;
-  if(dens){ dens.forEach((d,i)=>{ totalDen+=d||0; totalNum+=(nums[i]||0); }); }
+  zones.forEach(z=>{ totalDen+=z.den; totalNum+=z.num; });
+  const clusters = heatZoneClusterColors(zones);
   const label = metric==='whiff'
     ? (totalDen ? `${Math.round(100*totalNum/totalDen)}% · ${totalDen} sw` : 'no swings')
     : (totalDen ? `${(totalNum/totalDen).toFixed(3).replace(/^0/,'')} · ${totalDen} AB` : 'no AB');
-  let s=`<svg class="zone-heat" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
+  let s=`<svg class="zone-heat zone-heat-7" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
   s+=`<rect width="${W}" height="${H}" fill="#F7F9FB" rx="4"/>`;
   s+=`<text x="${W/2}" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${title}</text>`;
-  for(let r=0;r<n;r++){
-    for(let c=0;c<n;c++){
-      const i=r*n+c;
-      const x=ox+c*(cell+gap), y=oy+r*(cell+gap);
-      const den=dens? (dens[i]||0) : 0;
-      const num=nums? (nums[i]||0) : 0;
-      let fill=empty, fg='#64748B', lab='';
-      if(den>0){
-        const rate = metric==='whiff' ? (100*num/den) : (num/den);
-        const st=heatRateStyle(metric, rate);
-        fill=st.fill; fg=st.fg;
-        lab = metric==='whiff' ? String(Math.round(rate)) : rate.toFixed(3).replace(/^0/,'');
-      }
-      s+=`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${fill}"/>`;
-      if(lab) s+=`<text x="${x+cell/2}" y="${y+cell/2+3.2}" text-anchor="middle" font-size="7.5" font-weight="700" fill="${fg}" font-family="IBM Plex Mono,ui-monospace,monospace">${lab}</text>`;
+  zones.forEach(z=>{
+    const cluster = z.den>0 ? clusters.get(z.id) : null;
+    const st = heatClusterStyle(cluster);
+    zoneRegionRects(z.cells, ox, oy, cell, gap).forEach(r=>{
+      s+=`<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${st.fill}"/>`;
+    });
+    if(z.den>0 && z.rate!=null){
+      const lp = zoneLabelAt(z.cells, ox, oy, cell, gap);
+      const lab = metric==='whiff' ? String(Math.round(z.rate)) : z.rate.toFixed(3).replace(/^0/,'');
+      s+=`<text x="${lp.x}" y="${lp.y}" text-anchor="middle" font-size="8" font-weight="700" fill="${st.fg}" font-family="IBM Plex Mono,ui-monospace,monospace">${lab}</text>`;
     }
-  }
+  });
   const step=cell+gap;
   const zx=ox+step-0.6, zy=oy+step-0.6, zs=step*3+0.2;
   s+=`<rect x="${zx}" y="${zy}" width="${zs}" height="${zs}" fill="none" stroke="#0B1F33" stroke-width="1.6"/>`;
@@ -2355,8 +2419,8 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-short{padding:3px 2px;column-gap:0}
       .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:4px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
       .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
-      .advance-sheet-pitcher .advance-heat-cell .zone-heat{width:1.7in;height:auto;max-height:2.02in;background:#F7F9FB}
-      .advance-sheet-pitcher .zone-heat{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.7in;height:auto;max-height:2.02in;background:#F7F9FB}
+      .advance-sheet-pitcher .zone-heat,.advance-sheet-pitcher .zone-heat-7{-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-pitcher .advance-band-heat-left{grid-column:1;grid-row:2;align-self:end;justify-self:start;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
@@ -2409,7 +2473,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .pitch-lab-long{display:inline-block;max-width:100%;font-size:8px!important;letter-spacing:-0.05em;white-space:nowrap;line-height:1;font-weight:700}
       .advance-sheet-hitter .hitter-pitch-half thead th{background:#121c2e!important;color:#fff!important;border-bottom-color:#2a3a52;font-size:7.5px;white-space:nowrap}
       .advance-sheet-hitter .hitter-heat-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:1px 0 2px;flex:0 0 auto}
-      .advance-sheet-hitter .zone-heat{width:auto;height:1.42in;max-width:100%;max-height:1.42in;background:#F7F9FB;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-hitter .zone-heat,.advance-sheet-hitter .zone-heat-7{width:auto;height:1.42in;max-width:100%;max-height:1.42in;background:#F7F9FB;-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-sheet-hitter .hitter-pitch-half tbody td:not(.rate-cell){background:#fff!important;color:#111;border-bottom-color:#e2e8f0}
       .advance-sheet-hitter .hitter-pitch-half tbody td.num,
       .advance-sheet-hitter .hitter-pitch-half tbody td.rate-cell{font-weight:700}
