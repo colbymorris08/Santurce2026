@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T20:09:51Z",
+  "updated": "2026-10-13T20:16:50Z",
   "answer": "33/94 was how many pitcher pages drew an XY movement plot, not how many pitched in MLB, AAA, or big-league spring training.",
   "appearances_2024_2026": {
     "mlb": 11,
@@ -20,51 +20,25 @@
         ]
       },
       "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
-    },
-    {
-      "team": "MAY",
-      "name": "Davian Garcia",
-      "mlb_id": 807485,
-      "levels": {
-        "mlb": [],
-        "aaa": [],
-        "spring": [
-          "2026"
-        ]
-      },
-      "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
-    },
-    {
-      "team": "PON",
-      "name": "Michael Morales",
-      "mlb_id": 691786,
-      "levels": {
-        "mlb": [],
-        "aaa": [],
-        "spring": [
-          "2026"
-        ]
-      },
-      "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
     }
   ],
   "coverage": {
     "hitters": {
       "roster": 98,
-      "season_bar": 82,
+      "season_bar": 84,
       "heat": 77,
       "advance_whiff": 76,
       "count_splits": 75,
-      "all": 73
+      "all": 74
     },
     "pitchers": {
       "roster": 94,
-      "movement_plot": 35,
+      "movement_plot": 37,
       "whiff": 82,
       "counts": 83,
       "heat": 81,
-      "season_bar": 75,
-      "all": 34
+      "season_bar": 85,
+      "all": 36
     }
   },
   "dashed_hitter_season_bars": [
@@ -81,13 +55,7 @@
     "PON Samuel Hernandez",
     "SJU Emmanuel Garcia",
     "SJU Ivan Houellemont",
-    "SJU Yasiel Puig",
-    "SJU Ruben Ramirez",
-    "SJU Curtis Terry"
+    "SJU Ruben Ramirez"
   ],
-  "synergy_reapplied": {
-    "hitters": 0,
-    "pitchers": 0
-  },
-  "bbref_requests": 6
+  "bbref_requests": 55
 }

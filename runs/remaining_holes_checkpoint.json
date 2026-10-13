@@ -1681,7 +1681,7 @@
       "bats": "R"
     }
   },
-  "updated": "2026-10-13T20:09:51Z",
+  "updated": "2026-10-13T20:17:17Z",
   "appearances": {
     "446651": {
       "mlb": [],
@@ -2889,8 +2889,8 @@
       }
     },
     "CAG|josemiranda": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-season",
+      "source": "no-season",
       "line": null
     },
     "CAG|edisonmora": {
@@ -2909,18 +2909,18 @@
       "line": null
     },
     "CAR|jeffreycaglianone": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-register-page",
+      "source": "no-register-page",
       "line": null
     },
     "CAR|slaterdebrun": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-register-page",
+      "source": "no-register-page",
       "line": null
     },
     "CAR|mervylmelendez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-register-page",
+      "source": "no-register-page",
       "line": null
     },
     "CAR|miguelpabon": {
@@ -2957,8 +2957,8 @@
       }
     },
     "MAY|cameroncauley": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-register-page",
+      "source": "no-register-page",
       "line": null
     },
     "MAY|mariofeliciano": {
@@ -3096,8 +3096,8 @@
       }
     },
     "PON|samuelhernandez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-season",
+      "source": "no-season",
       "line": null
     },
     "PON|kevinsanta": {
@@ -3175,13 +3175,40 @@
       "line": null
     },
     "SJU|yasielpuig": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "KIW",
+        "team_name": "Kiwoom Heroes (Seoul, Seoul)",
+        "season": "Summer 2025",
+        "league": "KBO",
+        "circuit": "Baseball Reference",
+        "league_name": "KBO League",
+        "level": "Fgn",
+        "pa": 172,
+        "ab": 156,
+        "r": 17,
+        "h": 33,
+        "doubles": 2,
+        "triples": 0,
+        "hr": 6,
+        "rbi": 20,
+        "sb": 0,
+        "cs": 0,
+        "bb": 12,
+        "so": 38,
+        "ba": ".212",
+        "obp": ".285",
+        "slg": ".340",
+        "ops": ".625",
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard batting",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=puig--000yas"
+      }
     },
     "SJU|rubenramirez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-season",
+      "source": "no-season",
       "line": null
     },
     "SJU|jadielsanchez": {
@@ -3217,9 +3244,36 @@
       }
     },
     "SJU|curtisterry": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "LEX",
+        "team_name": "Lexington Legends (Lexington, KY)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Baseball Reference",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "pa": 383,
+        "ab": 340,
+        "r": 69,
+        "h": 104,
+        "doubles": 16,
+        "triples": 0,
+        "hr": 27,
+        "rbi": 88,
+        "sb": 0,
+        "cs": 0,
+        "bb": 28,
+        "so": 45,
+        "ba": ".306",
+        "obp": ".373",
+        "slg": ".591",
+        "ops": ".965",
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard batting",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=terry-000cur"
+      }
     }
   },
   "pitcher_lines": {
@@ -3266,19 +3320,48 @@
       "line": null
     },
     "MAY|antoniovelez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
-    },
-    "PON|hectorquinones": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
-    },
-    "PON|mariozabala": {
       "status": "no-season",
       "source": "no-season",
       "line": null
+    },
+    "PON|hectorquinones": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "PON|mariozabala": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "LE",
+        "team_name": "Lake Elsinore Storm (Lake Elsinore, CA)",
+        "season": "2025 summer",
+        "league": "CALL",
+        "circuit": "Baseball Reference",
+        "league_name": "California League",
+        "level": "A",
+        "ip": "9.2",
+        "outs": 29,
+        "g": 6,
+        "gs": 0,
+        "k": 10,
+        "bb": 5,
+        "k9": "9.3",
+        "bb9": "4.7",
+        "era": "6.52",
+        "fip": "2.58",
+        "whip": "2.17",
+        "h": 16,
+        "hr": 0,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=zabala000mar",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
+        }
+      }
     },
     "SJU|anthonyborrero": {
       "status": "line",
@@ -3378,15 +3461,39 @@
         "source": "Local LBPRC 2025 season pitching file"
       }
     },
-    "SJU|julioortiz": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
-    },
     "SJU|leonardorodriguez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "NJ",
+        "team_name": "New Jersey Jackals (Little Falls, NJ)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Baseball Reference",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 21,
+        "gs": 0,
+        "k": 40,
+        "bb": 8,
+        "k9": "10.9",
+        "bb9": "2.2",
+        "era": "4.91",
+        "fip": "3.25",
+        "whip": "1.15",
+        "h": 30,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig010leo",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
     },
     "SJU|alexuanvega": {
       "status": "no-season",
@@ -3462,8 +3569,8 @@
       }
     },
     "SJU|freddycabrera": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-register-page",
+      "source": "no-register-page",
       "line": null
     },
     "CAG|sebastianrodriguez": {
@@ -3472,9 +3579,38 @@
       "line": null
     },
     "CAR|saulgonzalez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "LIN",
+        "team_name": "Lincoln Saltdogs (Lincoln, NE)",
+        "season": "2025 summer",
+        "league": "AA",
+        "circuit": "Baseball Reference",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "1.0",
+        "outs": 3,
+        "g": 2,
+        "gs": 0,
+        "k": 1,
+        "bb": 1,
+        "k9": "9.0",
+        "bb9": "9.0",
+        "era": "0.00",
+        "fip": "7.10",
+        "whip": "1.00",
+        "h": 0,
+        "hr": 0,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gonzal003sau",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
+        }
+      }
     },
     "CAR|johzanoquendo": {
       "status": "line",
@@ -3511,19 +3647,53 @@
       }
     },
     "CAR|ramonrodriguez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-season",
+      "source": "no-season",
       "line": null
     },
     "MAY|luiscruz": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
+      "status": "no-season",
+      "source": "no-season",
       "line": null
     },
     "MAY|nelvinfuentes": {
       "status": "no-season",
       "source": "no-season",
       "line": null
+    },
+    "SJU|julioortiz": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "GAT",
+        "team_name": "Gateway Grizzlies (Sauget, IL)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Baseball Reference",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 33,
+        "gs": 0,
+        "k": 46,
+        "bb": 30,
+        "k9": "12.5",
+        "bb9": "8.2",
+        "era": "3.55",
+        "fip": "4.49",
+        "whip": "1.54",
+        "h": 21,
+        "hr": 3,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ortiz-005jul",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
     }
   },
   "movement": {
@@ -3857,17 +4027,6 @@
         "spring": []
       }
     },
-    "MAY|daviangarcia": {
-      "status": "no-tracked-movement",
-      "reason": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked",
-      "levels": {
-        "mlb": [],
-        "aaa": [],
-        "spring": [
-          "2026"
-        ]
-      }
-    },
     "MAY|jonathanhaab": {
       "status": "not-qualified",
       "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
@@ -3994,9 +4153,22 @@
         "spring": []
       }
     },
+    "MAY|daviangarcia": {
+      "status": "filled",
+      "source": "MLB Statcast spring 2026",
+      "season": null,
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      }
+    },
     "PON|michaelmorales": {
-      "status": "no-tracked-movement",
-      "reason": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked",
+      "status": "filled",
+      "source": "MLB Statcast spring 2026",
+      "season": null,
       "levels": {
         "mlb": [],
         "aaa": [],
