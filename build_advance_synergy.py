@@ -7,7 +7,8 @@ Outputs (under data/):
   advance_opposing_hitters.json   — Select-all + per-hitter pitch-type / RISP / bunts+SB
   pregame_spray_charts.json       — enriched with Synergy spray (keeps MLB Statcast when present)
 
-Roster gate: only players on Puerto Rico (LBPRC) opposing rosters (CAG/CAR/MAY/PON/SJU).
+Roster gate: only players on the current Puerto Rico (LBPRC) opposing rosters
+(CAG/CAR/MAY/PON/SJU) stored under the legacy-compatible roster filename.
 Grouping: PR team from local LBPRC roster (not summer club).
 Sample expansion: for those players only, attach winter LBPRC + summer MLB/MiLB/LMB
 events for target years (default 2025–2026). Summer-only players are excluded.
@@ -3613,7 +3614,7 @@ def main() -> None:
 
     season_meta = {
         "target_years": list(target_years),
-        "roster_source": "LBPRC opposing PR rosters (CAG/CAR/MAY/PON/SJU) from lbprc_2025_rosters.json",
+        "roster_source": "2026-27 LBPRC opposing rosters (CAG/CAR/MAY/PON/SJU) from the legacy-compatible lbprc_2025_rosters.json filename",
         "sample_leagues": {
             "winter": ["LBPRC"],
             "summer": ["MLB", "MILB", "LMB"],

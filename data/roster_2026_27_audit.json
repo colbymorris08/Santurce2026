@@ -1,0 +1,473 @@
+{
+  "updated": "2026-10-13T03:13:56Z",
+  "season": "2026-27",
+  "base_sources": [
+    "/Users/colbymorris/Downloads/2026 Santurce League Roster-1.xlsx",
+    "/Users/colbymorris/Downloads/2026-27 LBPRC PRESEASON ROSTERS-1.xlsx"
+  ],
+  "transactions": [
+    {
+      "tweet_id": "2108744698424947150",
+      "url": "https://x.com/mop_knows/status/2108744698424947150",
+      "exact_text": "Hearing that the most outstanding player in NPB Ni-Gun this year, OF Yuta Nakami(20 HR/20 D/.909 OPS), along with rookie training player Keishin Saito will be active this winter with Senadores de San Juan.\n\nSecond straight year that the Lions send talent to this team.\n\n#LBPRC🇵🇷❄️",
+      "applied": [
+        "Add Yuta Nakami (OF) to SJU",
+        "Add Keishin Saito (P) to SJU"
+      ]
+    },
+    {
+      "tweet_id": "2108748202379727101",
+      "url": "https://x.com/mop_knows/status/2108748202379727101",
+      "exact_text": "20-year old righty rookie Haruse Narita is also going along with them to San Juan.\n\nHe posted a 2.45 ERA with 27 K’s in 29.1 innings on the farm. Has to work with his control, as he gave 20 walks in them.",
+      "applied": [
+        "Add Haruse Narita (P) to SJU"
+      ]
+    },
+    {
+      "tweet_id": "2108571420041138608",
+      "url": "https://x.com/lbprc/status/2108571420041138608",
+      "exact_text": "MOVIMIENTOS ✅\nTRANSACCIONES — 8 DE OCTUBRE DE 2026\nLeones de Ponce — RECIBEN: +MARIO ZABALA, RHP\nSenadores de San Juan — RECIBEN: +FREDDY CABRERA, RHP",
+      "applied": [
+        "Add Mario Zabala (P) to PON and remove him from every other team",
+        "Add Freddy Cabrera (P) to SJU and remove him from every other team"
+      ]
+    }
+  ],
+  "team_counts": {
+    "SAN": 65,
+    "CAG": 36,
+    "CAR": 38,
+    "MAY": 46,
+    "PON": 38,
+    "SJU": 34
+  },
+  "unmatched_players": [
+    {
+      "team": "SAN",
+      "name": "Trey Braithwaite",
+      "position": "P",
+      "synthetic_id": -667432779
+    },
+    {
+      "team": "SAN",
+      "name": "Joshua Torres",
+      "position": "P",
+      "synthetic_id": -114075284
+    },
+    {
+      "team": "SAN",
+      "name": "Juan Cruz",
+      "position": "IF",
+      "synthetic_id": -108026908
+    },
+    {
+      "team": "SAN",
+      "name": "Nicolas Perez",
+      "position": "IF",
+      "synthetic_id": -789987369
+    },
+    {
+      "team": "SAN",
+      "name": "Jackson Ross",
+      "position": "IF",
+      "synthetic_id": -527853052
+    },
+    {
+      "team": "SAN",
+      "name": "Derick Andiarena",
+      "position": "OF",
+      "synthetic_id": -533438595
+    },
+    {
+      "team": "SAN",
+      "name": "Jose Ortiz",
+      "position": "OF",
+      "synthetic_id": -249891432
+    },
+    {
+      "team": "SAN",
+      "name": "Edwin Alicea",
+      "position": "P",
+      "synthetic_id": -509515430
+    },
+    {
+      "team": "SAN",
+      "name": "Luis Calderon",
+      "position": "P",
+      "synthetic_id": -283863159
+    },
+    {
+      "team": "SAN",
+      "name": "Jorhan Castro",
+      "position": "IF",
+      "synthetic_id": -574284888
+    },
+    {
+      "team": "SAN",
+      "name": "Edgar Colon",
+      "position": "P",
+      "synthetic_id": -301498672
+    },
+    {
+      "team": "SAN",
+      "name": "Dominic Hamel",
+      "position": "P",
+      "synthetic_id": -682585200
+    },
+    {
+      "team": "SAN",
+      "name": "Michael Martinez",
+      "position": "P",
+      "synthetic_id": -286366361
+    },
+    {
+      "team": "SAN",
+      "name": "Jatniel McCLOUD",
+      "position": "OF",
+      "synthetic_id": -314940206
+    },
+    {
+      "team": "SAN",
+      "name": "Joseph Montalvo",
+      "position": "P",
+      "synthetic_id": -145641423
+    },
+    {
+      "team": "SAN",
+      "name": "Sebastian Rolon",
+      "position": "IF",
+      "synthetic_id": -174247804
+    },
+    {
+      "team": "SAN",
+      "name": "Neftali Soto",
+      "position": "1B",
+      "synthetic_id": -804253303
+    },
+    {
+      "team": "SAN",
+      "name": "Nick Travieso",
+      "position": "P",
+      "synthetic_id": -477757957
+    },
+    {
+      "team": "SAN",
+      "name": "Javier Vaz",
+      "position": "IF",
+      "synthetic_id": -716231335
+    },
+    {
+      "team": "CAG",
+      "name": "Jean Correa",
+      "position": "SS",
+      "synthetic_id": -617163636
+    },
+    {
+      "team": "CAG",
+      "name": "Edison Mora",
+      "position": "SS",
+      "synthetic_id": -348534068
+    },
+    {
+      "team": "CAG",
+      "name": "Brett Rodriguez",
+      "position": "OF",
+      "synthetic_id": -380914779
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "position": "P",
+      "synthetic_id": -831444931
+    },
+    {
+      "team": "CAR",
+      "name": "Jarrette Bonet",
+      "position": "P",
+      "synthetic_id": -359955779
+    },
+    {
+      "team": "CAR",
+      "name": "Jeffrey Caglianone",
+      "position": "1B",
+      "synthetic_id": -328572418
+    },
+    {
+      "team": "CAR",
+      "name": "Slater DeBrun",
+      "position": "OF",
+      "synthetic_id": -267216895
+    },
+    {
+      "team": "CAR",
+      "name": "Edian Espinal",
+      "position": "C",
+      "synthetic_id": -601861522
+    },
+    {
+      "team": "CAR",
+      "name": "Jandaniel Gonzalez",
+      "position": "C",
+      "synthetic_id": -617073888
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "position": "P",
+      "synthetic_id": -779812433
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Jimenez",
+      "position": "P",
+      "synthetic_id": -433762629
+    },
+    {
+      "team": "CAR",
+      "name": "Adiel Melendez",
+      "position": "P",
+      "synthetic_id": -158179355
+    },
+    {
+      "team": "CAR",
+      "name": "Mervyl Melendez",
+      "position": "OF",
+      "synthetic_id": -268338446
+    },
+    {
+      "team": "CAR",
+      "name": "Christian Olivo",
+      "position": "SS",
+      "synthetic_id": -654236427
+    },
+    {
+      "team": "CAR",
+      "name": "Johzan Oquendo",
+      "position": "P",
+      "synthetic_id": -268179393
+    },
+    {
+      "team": "CAR",
+      "name": "JeanPierre Ortiz",
+      "position": "P",
+      "synthetic_id": -863509874
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Silva",
+      "position": "SS",
+      "synthetic_id": -213606773
+    },
+    {
+      "team": "MAY",
+      "name": "Fabian Bonilla",
+      "position": "OF",
+      "synthetic_id": -722051519
+    },
+    {
+      "team": "MAY",
+      "name": "Cameron Cauley",
+      "position": "SS",
+      "synthetic_id": -677575556
+    },
+    {
+      "team": "MAY",
+      "name": "Javier Crespo",
+      "position": "INF",
+      "synthetic_id": -161299452
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Cruz",
+      "position": "P",
+      "synthetic_id": -163227368
+    },
+    {
+      "team": "MAY",
+      "name": "Eddy Demurias",
+      "position": "P",
+      "synthetic_id": -887923890
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "position": "P",
+      "synthetic_id": -346943911
+    },
+    {
+      "team": "MAY",
+      "name": "Jamal George",
+      "position": "INF",
+      "synthetic_id": -840209350
+    },
+    {
+      "team": "MAY",
+      "name": "Cameron Maldonado",
+      "position": "OF",
+      "synthetic_id": -689891100
+    },
+    {
+      "team": "MAY",
+      "name": "Yahil Melendez",
+      "position": "SS",
+      "synthetic_id": -229984899
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "position": "P",
+      "synthetic_id": -465760315
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "position": "P",
+      "synthetic_id": -165648089
+    },
+    {
+      "team": "PON",
+      "name": "Tyler Gough",
+      "position": "P",
+      "synthetic_id": -368999174
+    },
+    {
+      "team": "PON",
+      "name": "Samuel Hernandez",
+      "position": "C",
+      "synthetic_id": -411650644
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "position": "P",
+      "synthetic_id": -259860308
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "position": "P",
+      "synthetic_id": -346674215
+    },
+    {
+      "team": "PON",
+      "name": "Gabriel Rosado",
+      "position": "C",
+      "synthetic_id": -173185958
+    },
+    {
+      "team": "PON",
+      "name": "Charlee Soto",
+      "position": "P",
+      "synthetic_id": -458228708
+    },
+    {
+      "team": "PON",
+      "name": "Mario Zabala",
+      "position": "P",
+      "synthetic_id": -174792236
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "position": "P",
+      "synthetic_id": -579003596
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "position": "P",
+      "synthetic_id": -693644039
+    },
+    {
+      "team": "SJU",
+      "name": "Edrick Felix",
+      "position": "3B",
+      "synthetic_id": -105523587
+    },
+    {
+      "team": "SJU",
+      "name": "Emmanuel Garcia",
+      "position": "OF",
+      "synthetic_id": -413913713
+    },
+    {
+      "team": "SJU",
+      "name": "Julio Ortiz",
+      "position": "P",
+      "synthetic_id": -324713460
+    },
+    {
+      "team": "SJU",
+      "name": "Yasiel Puig",
+      "position": "OF",
+      "synthetic_id": -567461302
+    },
+    {
+      "team": "SJU",
+      "name": "Randy Ramnarace",
+      "position": "P",
+      "synthetic_id": -842689811
+    },
+    {
+      "team": "SJU",
+      "name": "Ediel Rivera",
+      "position": "C",
+      "synthetic_id": -402052164
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "position": "P",
+      "synthetic_id": -426239217
+    },
+    {
+      "team": "SJU",
+      "name": "Ramon Rodriguez",
+      "position": "C",
+      "synthetic_id": -525279548
+    },
+    {
+      "team": "SJU",
+      "name": "Nate Scantlin",
+      "position": "OF",
+      "synthetic_id": -287993659
+    },
+    {
+      "team": "SJU",
+      "name": "Curtis Terry",
+      "position": "INF",
+      "synthetic_id": -300458390
+    },
+    {
+      "team": "SJU",
+      "name": "Alexuan Vega",
+      "position": "P",
+      "synthetic_id": -846506108
+    },
+    {
+      "team": "SJU",
+      "name": "Yuta Nakami",
+      "position": "OF",
+      "synthetic_id": -373965065
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "position": "P",
+      "synthetic_id": -322791781
+    },
+    {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "position": "P",
+      "synthetic_id": -670692245
+    },
+    {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "position": "P",
+      "synthetic_id": -280803405
+    }
+  ],
+  "note": "Synthetic negative IDs keep unmatched spreadsheet/post additions visible without inventing MLBAM IDs."
+}

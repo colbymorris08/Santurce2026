@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Compact roster + rate cache for the strategy and small-ball pregame cards.
 
-Rosters stay on the current LBPRC teams in lbprc_2025_rosters.json (PR players
-are not moved). Counting stats: LBPRC 2025 hitting/pitching. 2026 summer
+Rosters use the 2026-27 team assignments stored in lbprc_2025_rosters.json
+(the legacy filename is retained for site compatibility). Counting stats: LBPRC 2025 hitting/pitching. 2026 summer
 SB/CS/sac bunts: MLB + MiLB + LMB season files. Platoon whiff/AVG/OPS and bunt
 situation counts: Synergy advance hitters when the player is in that file.
 """
@@ -301,7 +301,7 @@ def main() -> None:
     hitters = [p for p in players if p["role"] == "H"]
     pitchers = [p for p in players if p["role"] == "P"]
     gaps = {
-        "roster_source": "data/lbprc_2025_rosters.json (current LBPRC teams; PR players not moved)",
+        "roster_source": "data/lbprc_2025_rosters.json (2026-27 workbooks plus supplied October transactions)",
         "sb_2b_3b_split": "Synergy sb_from_1b / sb_from_2b is 0 for every advance hitter — runner heuristic did not record steals. LBPRC and 2026 summer files only have total SB/CS.",
         "sprint_speed": "No sprint-speed field in the caches. SPD column is blank.",
         "pitcher_platoon": "No vs-LHB / vs-RHB outcome split (K/GB/WH/BB/OPS) in the pitching cache. Both rows repeat the season line.",
