@@ -1,0 +1,4009 @@
+{
+  "resolved_ids": {
+    "CAG|gabrielcancel": {
+      "mlb_id": 663708,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|wonbincho": {
+      "mlb_id": 800231,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|jeancorrea": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAG|treicruz": {
+      "mlb_id": 669360,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|carsondemartini": {
+      "mlb_id": 701831,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|alanespinal": {
+      "mlb_id": 694541,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|jaimeferrer": {
+      "mlb_id": 695634,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|bryangonzalezgarcia": {
+      "mlb_id": 811314,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|janhernandez": {
+      "mlb_id": 641685,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|vimaelmachin": {
+      "mlb_id": 605353,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|gustavomelendez": {
+      "mlb_id": 828116,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|josemiranda": {
+      "mlb_id": 811368,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|edisonmora": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAG|brettrodriguez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAG|hectorsantiago": {
+      "mlb_id": 502327,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|bryantorres": {
+      "mlb_id": 663494,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|luisvazquez": {
+      "mlb_id": 676679,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|onixvega": {
+      "mlb_id": 681974,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|nelsonvelazquez": {
+      "mlb_id": 676369,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|jeffreycaglianone": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|sabinceballos": {
+      "mlb_id": 694754,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|slaterdebrun": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|edwindiaz": {
+      "mlb_id": 621242,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|edianespinal": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|jandanielgonzalez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|enriquehernandez": {
+      "mlb_id": 571771,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|kenenirizarry": {
+      "mlb_id": 681515,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|mervylmelendez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|yassermercedes": {
+      "mlb_id": 703160,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|christianolivo": {
+      "mlb_id": 700840,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Christian Olivo"
+    },
+    "CAR|jorelortega": {
+      "mlb_id": 687567,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|abimelecortiz": {
+      "mlb_id": 694673,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAR|denielortiz": {
+      "mlb_id": 811765,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|miguelpabon": {
+      "mlb_id": 682196,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|adrianrodriguez": {
+      "mlb_id": 703641,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|johnathanrodriguez": {
+      "mlb_id": 671286,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|josesilva": {
+      "mlb_id": 122231,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Jose Silva"
+    },
+    "CAR|trentyoungblood": {
+      "mlb_id": 827636,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|darrenbaker": {
+      "mlb_id": 671117,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|fabianbonilla": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|luiscampusano": {
+      "mlb_id": 669134,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|rubencastro": {
+      "mlb_id": 657538,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|cameroncauley": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|carloscortes": {
+      "mlb_id": 666126,
+      "throws": "S",
+      "source": "roster id"
+    },
+    "MAY|javiercrespo": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|adriandelcastillo": {
+      "mlb_id": 680728,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|isandiaz": {
+      "mlb_id": 656371,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|mariofeliciano": {
+      "mlb_id": 666128,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|edrickfelix": {
+      "mlb_id": 703742,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|jamalgeorge": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|darellhernaiz": {
+      "mlb_id": 687231,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|ryanhernandez": {
+      "mlb_id": 689659,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|ivanluciano": {
+      "mlb_id": 813930,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|matthewlugo": {
+      "mlb_id": 683090,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|cameronmaldonado": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|yahilmelendez": {
+      "mlb_id": 806161,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Yahil Melendez"
+    },
+    "MAY|robertomerced": {
+      "mlb_id": 680107,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|danielortiz": {
+      "mlb_id": 543611,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "MAY|devinortiz": {
+      "mlb_id": 668776,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|edwinrios": {
+      "mlb_id": 621458,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|emmanuelrivera": {
+      "mlb_id": 656896,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|yadielrivera": {
+      "mlb_id": 592680,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|shawnross": {
+      "mlb_id": 676566,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|abrahamtoro": {
+      "mlb_id": 647351,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|cartertrice": {
+      "mlb_id": 807714,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|adamzebrowski": {
+      "mlb_id": 700845,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|nolanarenado": {
+      "mlb_id": 571448,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|chrisarroyo": {
+      "mlb_id": 701360,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|aldemarburgos": {
+      "mlb_id": 664757,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|samuelhernandez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|yeniellaboy": {
+      "mlb_id": 702596,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|juanmontero": {
+      "mlb_id": 695467,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|johnmontes": {
+      "mlb_id": 694264,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|ezequielpagan": {
+      "mlb_id": 681868,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|jacobreimer": {
+      "mlb_id": 702544,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|gabrielrosado": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|romeosanabria": {
+      "mlb_id": 703804,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|kevinsanta": {
+      "mlb_id": 667576,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|eliserrano": {
+      "mlb_id": 702501,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|williamsimoneit": {
+      "mlb_id": 686766,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|josetorres": {
+      "mlb_id": 686958,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|jesmuelvalentin": {
+      "mlb_id": 621044,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|randaldiaz": {
+      "mlb_id": 695538,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|robertoenriquez": {
+      "mlb_id": 690702,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "SJU|edrickfelix": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|emmanuelgarcia": {
+      "mlb_id": 444481,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Emmanuel Garcia"
+    },
+    "SJU|luishernandez": {
+      "mlb_id": 801346,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|ivanhouellemont": {
+      "mlb_id": 671045,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|dyanjorge": {
+      "mlb_id": 694170,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|delvinperez": {
+      "mlb_id": 666206,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|yasielpuig": {
+      "mlb_id": 624577,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Yasiel Puig"
+    },
+    "SJU|rubenramirez": {
+      "mlb_id": 703211,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|edielrivera": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|ramonrodriguez": {
+      "mlb_id": 670232,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Ramón Rodríguez"
+    },
+    "SJU|jadielsanchez": {
+      "mlb_id": 689909,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|natescantlin": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|curtisterry": {
+      "mlb_id": 663799,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Curtis Terry"
+    },
+    "SJU|yutanakami": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAG|jorgebenitez": {
+      "mlb_id": 676221,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|magdielcotto": {
+      "mlb_id": 694365,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|josedeleon": {
+      "mlb_id": 592254,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|joseespada": {
+      "mlb_id": 664744,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|adalbertoflores": {
+      "mlb_id": 488880,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|marvingorgas": {
+      "mlb_id": 656479,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|anthonymaldonado": {
+      "mlb_id": 687424,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|tylermyrick": {
+      "mlb_id": 686924,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|nicholaspadilla": {
+      "mlb_id": 656820,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|zachpenrod": {
+      "mlb_id": 683068,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|yackselrios": {
+      "mlb_id": 605441,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|sebastianrodriguez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAG|edwinsanchez": {
+      "mlb_id": 688014,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|carlostorres": {
+      "mlb_id": 688876,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|christiantorres": {
+      "mlb_id": 670369,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAG|duaneunderwood": {
+      "mlb_id": 621249,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAG|jarretwhorf": {
+      "mlb_id": null,
+      "reason": "roster id 806337 is Stats API Jarret Whorff"
+    },
+    "CAR|osvaldoberrios": {
+      "mlb_id": 676047,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|codybolton": {
+      "mlb_id": 675989,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|jarrettebonet": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|raymondburgos": {
+      "mlb_id": 670103,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAR|alexandercastro": {
+      "mlb_id": 669418,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|mattgivin": {
+      "mlb_id": 676769,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|saulgonzalez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|rileygowens": {
+      "mlb_id": 803035,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|joejimenez": {
+      "mlb_id": 641729,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Joe Jiménez"
+    },
+    "CAR|chriskachmar": {
+      "mlb_id": 690148,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|adielmelendez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|johzanoquendo": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "CAR|jeanpierreortiz": {
+      "mlb_id": 701370,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "JeanPierre Ortiz"
+    },
+    "CAR|eddyreynoso": {
+      "mlb_id": 664371,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|joeriley": {
+      "mlb_id": 805678,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|elmerrodriguez": {
+      "mlb_id": 695684,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|ramonrodriguez": {
+      "mlb_id": 670232,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "CAR|ramesisrosa": {
+      "mlb_id": 545814,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "CAR|ricardovelez": {
+      "mlb_id": 703106,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|luiscruz": {
+      "mlb_id": 606133,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Luis Cruz"
+    },
+    "MAY|eddydemurias": {
+      "mlb_id": 681493,
+      "throws": "R",
+      "source": "Stats API name search",
+      "fullName": "Eddy Demurias"
+    },
+    "MAY|carlosfrancisco": {
+      "mlb_id": 687956,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|nelvinfuentes": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|daviangarcia": {
+      "mlb_id": 807485,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|ashtongoudeau": {
+      "mlb_id": 623485,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|jonathanhaab": {
+      "mlb_id": 805248,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|hectorhernandez": {
+      "mlb_id": 571772,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "MAY|jorgelopez": {
+      "mlb_id": 605347,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|miguelmartinez": {
+      "mlb_id": 446651,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "MAY|luisquinonez": {
+      "mlb_id": null,
+      "reason": "roster id 687879 is Stats API Luis Quiñones"
+    },
+    "MAY|angelreyes": {
+      "mlb_id": 681938,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|devinrivera": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|bryantsalgado": {
+      "mlb_id": 687560,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|kazutotaguchi": {
+      "mlb_id": 683803,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "MAY|lucasvega": {
+      "mlb_id": 837223,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "MAY|antoniovelez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "MAY|derekwest": {
+      "mlb_id": 663723,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|jonathanbermudez": {
+      "mlb_id": 642834,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|rickycastro": {
+      "mlb_id": 690462,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|alexclaudio": {
+      "mlb_id": 592222,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|haroldcortijo": {
+      "mlb_id": 676435,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|ericgarcia": {
+      "mlb_id": 806586,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|tylergough": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|joshjames": {
+      "mlb_id": 657624,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|jorhanlaboy": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|andrewmarrero": {
+      "mlb_id": 687817,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|omarmelendez": {
+      "mlb_id": 801018,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|michaelmorales": {
+      "mlb_id": 691786,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|orlandoortizmayr": {
+      "mlb_id": 689508,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|noelpinto": {
+      "mlb_id": 676984,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|hectorquinones": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|erikrivera": {
+      "mlb_id": 682992,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|gabrielrodriguez": {
+      "mlb_id": 676082,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|alexsantos": {
+      "mlb_id": 691012,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|charleesoto": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "PON|erictorres": {
+      "mlb_id": 701539,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|juliotorres": {
+      "mlb_id": 692937,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|lennytorres": {
+      "mlb_id": 678013,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|mariozabala": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|anthonyborrero": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|miguelcirino": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|josecruz": {
+      "mlb_id": 692808,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|sidneyduprey": {
+      "mlb_id": 656389,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "SJU|agnelmiranda": {
+      "mlb_id": 695064,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|ryanmunoz": {
+      "mlb_id": 684841,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "SJU|jeanortega": {
+      "mlb_id": 458960,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|julioortiz": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|randyramnarace": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|jerryellrivera": {
+      "mlb_id": 676219,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "SJU|raulrivera": {
+      "mlb_id": 572077,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|leonardorodriguez": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|bradytedesco": {
+      "mlb_id": 805749,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "SJU|alexuanvega": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|ryanvelazquez": {
+      "mlb_id": 693546,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "SJU|keishinsaito": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|harusenarita": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    },
+    "SJU|freddycabrera": {
+      "mlb_id": null,
+      "reason": "no unique Stats API name match"
+    }
+  },
+  "people": {
+    "502327": {
+      "fullName": "Héctor Santiago",
+      "throws": "L",
+      "bats": "R"
+    },
+    "543611": {
+      "fullName": "Danny Ortiz",
+      "throws": "L",
+      "bats": "L"
+    },
+    "571448": {
+      "fullName": "Nolan Arenado",
+      "throws": "R",
+      "bats": "R"
+    },
+    "571771": {
+      "fullName": "Enrique Hernández",
+      "throws": "R",
+      "bats": "R"
+    },
+    "592680": {
+      "fullName": "Yadiel Rivera",
+      "throws": "R",
+      "bats": "R"
+    },
+    "605353": {
+      "fullName": "Vimael Machín",
+      "throws": "R",
+      "bats": "L"
+    },
+    "621044": {
+      "fullName": "Jesmuel Valentín",
+      "throws": "R",
+      "bats": "S"
+    },
+    "621242": {
+      "fullName": "Edwin Díaz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "621458": {
+      "fullName": "Edwin Rios",
+      "throws": "R",
+      "bats": "L"
+    },
+    "641685": {
+      "fullName": "Jan Hernandez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "647351": {
+      "fullName": "Abraham Toro",
+      "throws": "R",
+      "bats": "S"
+    },
+    "656371": {
+      "fullName": "Isan Díaz",
+      "throws": "R",
+      "bats": "L"
+    },
+    "656896": {
+      "fullName": "Emmanuel Rivera",
+      "throws": "R",
+      "bats": "R"
+    },
+    "657538": {
+      "fullName": "Ruben Castro",
+      "throws": "R",
+      "bats": "L"
+    },
+    "663494": {
+      "fullName": "Bryan Torres",
+      "throws": "R",
+      "bats": "L"
+    },
+    "663708": {
+      "fullName": "Gabriel Cancel",
+      "throws": "R",
+      "bats": "R"
+    },
+    "664757": {
+      "fullName": "Aldemar Burgos",
+      "throws": "R",
+      "bats": "R"
+    },
+    "666126": {
+      "fullName": "Carlos Cortes",
+      "throws": "S",
+      "bats": "L"
+    },
+    "666128": {
+      "fullName": "Mario Feliciano",
+      "throws": "R",
+      "bats": "R"
+    },
+    "666206": {
+      "fullName": "Delvin Pérez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "667576": {
+      "fullName": "Kevin Santa",
+      "throws": "R",
+      "bats": "L"
+    },
+    "668776": {
+      "fullName": "Devin Ortiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "669134": {
+      "fullName": "Luis Campusano",
+      "throws": "R",
+      "bats": "R"
+    },
+    "669360": {
+      "fullName": "Trei Cruz",
+      "throws": "R",
+      "bats": "S"
+    },
+    "671045": {
+      "fullName": "Ivan Houellemont",
+      "throws": "R",
+      "bats": "S"
+    },
+    "671117": {
+      "fullName": "Darren Baker",
+      "throws": "R",
+      "bats": "L"
+    },
+    "671286": {
+      "fullName": "Johnathan Rodríguez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676369": {
+      "fullName": "Nelson Velázquez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676566": {
+      "fullName": "Shawn Ross",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676679": {
+      "fullName": "Luis Vázquez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "680107": {
+      "fullName": "Robbie Merced",
+      "throws": "R",
+      "bats": "R"
+    },
+    "680728": {
+      "fullName": "Adrian Del Castillo",
+      "throws": "R",
+      "bats": "L"
+    },
+    "681515": {
+      "fullName": "Kenen Irizarry",
+      "throws": "R",
+      "bats": "L"
+    },
+    "681868": {
+      "fullName": "Ezequiel Pagan",
+      "throws": "R",
+      "bats": "L"
+    },
+    "681974": {
+      "fullName": "Onix Vega",
+      "throws": "R",
+      "bats": "R"
+    },
+    "682196": {
+      "fullName": "Miguel Pabon",
+      "throws": "R",
+      "bats": "R"
+    },
+    "683090": {
+      "fullName": "Matthew Lugo",
+      "throws": "R",
+      "bats": "R"
+    },
+    "686766": {
+      "fullName": "William Simoneit",
+      "throws": "R",
+      "bats": "R"
+    },
+    "686958": {
+      "fullName": "Jose Torres",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687231": {
+      "fullName": "Darell Hernaiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687567": {
+      "fullName": "Jorel Ortega",
+      "throws": "R",
+      "bats": "R"
+    },
+    "689659": {
+      "fullName": "Ryan Hernandez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "689909": {
+      "fullName": "Jadiel Sanchez",
+      "throws": "R",
+      "bats": "S"
+    },
+    "690702": {
+      "fullName": "Roby Enriquez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "694170": {
+      "fullName": "Dyan Jorge",
+      "throws": "R",
+      "bats": "R"
+    },
+    "694264": {
+      "fullName": "John Montes",
+      "throws": "R",
+      "bats": "L"
+    },
+    "694541": {
+      "fullName": "Alan Espinal",
+      "throws": "R",
+      "bats": "R"
+    },
+    "694673": {
+      "fullName": "Abimelec Ortiz",
+      "throws": "L",
+      "bats": "L"
+    },
+    "694754": {
+      "fullName": "Sabin Ceballos",
+      "throws": "R",
+      "bats": "R"
+    },
+    "695467": {
+      "fullName": "Juan Montero",
+      "throws": "R",
+      "bats": "R"
+    },
+    "695538": {
+      "fullName": "Randal Diaz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "695634": {
+      "fullName": "Jaime Ferrer",
+      "throws": "R",
+      "bats": "R"
+    },
+    "700845": {
+      "fullName": "Adam Zebrowski",
+      "throws": "R",
+      "bats": "R"
+    },
+    "701360": {
+      "fullName": "Chris Arroyo",
+      "throws": "L",
+      "bats": "L"
+    },
+    "701831": {
+      "fullName": "Carson DeMartini",
+      "throws": "R",
+      "bats": "L"
+    },
+    "702501": {
+      "fullName": "Eli Serrano III",
+      "throws": "L",
+      "bats": "L"
+    },
+    "702544": {
+      "fullName": "Jacob Reimer",
+      "throws": "R",
+      "bats": "R"
+    },
+    "702596": {
+      "fullName": "Yeniel Laboy",
+      "throws": "R",
+      "bats": "L"
+    },
+    "703160": {
+      "fullName": "Yasser Mercedes",
+      "throws": "R",
+      "bats": "R"
+    },
+    "703211": {
+      "fullName": "Ruben Ramirez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "703641": {
+      "fullName": "Adrian Rodriguez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "703742": {
+      "fullName": "Edrick Felix",
+      "throws": "R",
+      "bats": "R"
+    },
+    "703804": {
+      "fullName": "Romeo Sanabria",
+      "throws": "R",
+      "bats": "L"
+    },
+    "800231": {
+      "fullName": "Won-Bin Cho",
+      "throws": "L",
+      "bats": "L"
+    },
+    "801346": {
+      "fullName": "Luis Hernandez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "807714": {
+      "fullName": "Carter Trice",
+      "throws": "R",
+      "bats": "R"
+    },
+    "811314": {
+      "fullName": "Bryan Gonzalez Garcia",
+      "throws": "R",
+      "bats": "R"
+    },
+    "811368": {
+      "fullName": "Jose Miranda",
+      "throws": "R",
+      "bats": "R"
+    },
+    "811765": {
+      "fullName": "Deniel Ortiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "813930": {
+      "fullName": "Ivan Luciano",
+      "throws": "R",
+      "bats": "L"
+    },
+    "827636": {
+      "fullName": "Trent Youngblood",
+      "throws": "R",
+      "bats": "L"
+    },
+    "828116": {
+      "fullName": "Gustavo Melendez",
+      "throws": "R",
+      "bats": "L"
+    },
+    "700840": {
+      "fullName": "Christian Olivo",
+      "throws": "R",
+      "bats": "R"
+    },
+    "122231": {
+      "fullName": "Jose Silva",
+      "throws": "R",
+      "bats": "R"
+    },
+    "806161": {
+      "fullName": "Yahil Melendez",
+      "throws": "R",
+      "bats": "L"
+    },
+    "444481": {
+      "fullName": "Emmanuel Garcia",
+      "throws": "R",
+      "bats": "L"
+    },
+    "624577": {
+      "fullName": "Yasiel Puig",
+      "throws": "R",
+      "bats": "R"
+    },
+    "670232": {
+      "fullName": "Ramón Rodríguez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "663799": {
+      "fullName": "Curtis Terry",
+      "throws": "R",
+      "bats": "R"
+    },
+    "446651": {
+      "fullName": "Miguel Martinez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "458960": {
+      "fullName": "Jean Ortega",
+      "throws": "R",
+      "bats": "R"
+    },
+    "488880": {
+      "fullName": "Adalberto Flores",
+      "throws": "R",
+      "bats": "R"
+    },
+    "545814": {
+      "fullName": "Ramesis Rosa",
+      "throws": "L",
+      "bats": "L"
+    },
+    "571772": {
+      "fullName": "Hector Hernandez",
+      "throws": "L",
+      "bats": "S"
+    },
+    "572077": {
+      "fullName": "Raul Rivera",
+      "throws": "R",
+      "bats": "R"
+    },
+    "592222": {
+      "fullName": "Alex Claudio",
+      "throws": "L",
+      "bats": "L"
+    },
+    "592254": {
+      "fullName": "José De León",
+      "throws": "R",
+      "bats": "R"
+    },
+    "605347": {
+      "fullName": "Jorge López",
+      "throws": "R",
+      "bats": "R"
+    },
+    "605441": {
+      "fullName": "Yacksel Ríos",
+      "throws": "R",
+      "bats": "R"
+    },
+    "621249": {
+      "fullName": "Duane Underwood Jr.",
+      "throws": "R",
+      "bats": "R"
+    },
+    "623485": {
+      "fullName": "Ashton Goudeau",
+      "throws": "R",
+      "bats": "R"
+    },
+    "642834": {
+      "fullName": "Jonathan Bermúdez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "656389": {
+      "fullName": "Sidney Duprey",
+      "throws": "L",
+      "bats": "L"
+    },
+    "656479": {
+      "fullName": "Marvin Gorgas",
+      "throws": "R",
+      "bats": "R"
+    },
+    "656820": {
+      "fullName": "Nicholas Padilla",
+      "throws": "R",
+      "bats": "R"
+    },
+    "657624": {
+      "fullName": "Josh James",
+      "throws": "R",
+      "bats": "R"
+    },
+    "663723": {
+      "fullName": "Derek West",
+      "throws": "R",
+      "bats": "R"
+    },
+    "664371": {
+      "fullName": "Eddy Reynoso",
+      "throws": "R",
+      "bats": "R"
+    },
+    "664744": {
+      "fullName": "Jose Espada",
+      "throws": "R",
+      "bats": "R"
+    },
+    "669418": {
+      "fullName": "Alexander Castro",
+      "throws": "R",
+      "bats": "R"
+    },
+    "670103": {
+      "fullName": "Raymond Burgos",
+      "throws": "L",
+      "bats": "L"
+    },
+    "670369": {
+      "fullName": "Christian Torres",
+      "throws": "L",
+      "bats": "L"
+    },
+    "675989": {
+      "fullName": "Cody Bolton",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676047": {
+      "fullName": "Osvaldo Berrios",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676082": {
+      "fullName": "Gabriel Rodriguez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "676219": {
+      "fullName": "Jerryell Rivera",
+      "throws": "L",
+      "bats": "L"
+    },
+    "676221": {
+      "fullName": "Jorge Benitez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "676435": {
+      "fullName": "Harold Cortijo",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676769": {
+      "fullName": "Matt Givin",
+      "throws": "R",
+      "bats": "R"
+    },
+    "676984": {
+      "fullName": "Noel Pinto",
+      "throws": "L",
+      "bats": "L"
+    },
+    "678013": {
+      "fullName": "Lenny Torres Jr.",
+      "throws": "R",
+      "bats": "R"
+    },
+    "681938": {
+      "fullName": "Angel Reyes",
+      "throws": "R",
+      "bats": "R"
+    },
+    "682992": {
+      "fullName": "Erik Rivera",
+      "throws": "L",
+      "bats": "L"
+    },
+    "683068": {
+      "fullName": "Zach Penrod",
+      "throws": "L",
+      "bats": "L"
+    },
+    "683803": {
+      "fullName": "Kazuto Taguchi",
+      "throws": "L",
+      "bats": "L"
+    },
+    "684841": {
+      "fullName": "Ryan Munoz",
+      "throws": "L",
+      "bats": "R"
+    },
+    "686924": {
+      "fullName": "Tyler Myrick",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687424": {
+      "fullName": "Anthony Maldonado",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687560": {
+      "fullName": "Bryant Salgado",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687817": {
+      "fullName": "Andrew Marrero",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687879": {
+      "fullName": "Luis Quiñones",
+      "throws": "R",
+      "bats": "R"
+    },
+    "687956": {
+      "fullName": "Carlos A. Francisco",
+      "throws": "R",
+      "bats": "R"
+    },
+    "688014": {
+      "fullName": "Edwin Sanchez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "688876": {
+      "fullName": "Carlos Torres",
+      "throws": "R",
+      "bats": "R"
+    },
+    "689508": {
+      "fullName": "Orlando Ortiz-Mayr",
+      "throws": "R",
+      "bats": "R"
+    },
+    "690148": {
+      "fullName": "Chris Kachmar",
+      "throws": "R",
+      "bats": "R"
+    },
+    "690462": {
+      "fullName": "Ricky Castro",
+      "throws": "R",
+      "bats": "R"
+    },
+    "691012": {
+      "fullName": "Alex Santos II",
+      "throws": "R",
+      "bats": "R"
+    },
+    "691786": {
+      "fullName": "Michael Morales",
+      "throws": "R",
+      "bats": "R"
+    },
+    "692808": {
+      "fullName": "Jose Cruz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "692937": {
+      "fullName": "Julio Torres",
+      "throws": "L",
+      "bats": "L"
+    },
+    "693546": {
+      "fullName": "Ryan Velazquez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "694365": {
+      "fullName": "Magdiel Cotto",
+      "throws": "L",
+      "bats": "L"
+    },
+    "695064": {
+      "fullName": "Agnel Miranda",
+      "throws": "R",
+      "bats": "R"
+    },
+    "695684": {
+      "fullName": "Elmer Rodríguez",
+      "throws": "R",
+      "bats": "L"
+    },
+    "701539": {
+      "fullName": "Eric Torres",
+      "throws": "L",
+      "bats": "L"
+    },
+    "703106": {
+      "fullName": "Ricardo Velez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "801018": {
+      "fullName": "Omar Melendez",
+      "throws": "L",
+      "bats": "L"
+    },
+    "803035": {
+      "fullName": "Riley Gowens",
+      "throws": "R",
+      "bats": "R"
+    },
+    "805248": {
+      "fullName": "Jonathan Haab",
+      "throws": "R",
+      "bats": "R"
+    },
+    "805678": {
+      "fullName": "Joe Riley",
+      "throws": "R",
+      "bats": "R"
+    },
+    "805749": {
+      "fullName": "Brady Tedesco",
+      "throws": "L",
+      "bats": "S"
+    },
+    "806337": {
+      "fullName": "Jarret Whorff",
+      "throws": "R",
+      "bats": "R"
+    },
+    "806586": {
+      "fullName": "Eric Garcia",
+      "throws": "R",
+      "bats": "R"
+    },
+    "807485": {
+      "fullName": "Davian Garcia",
+      "throws": "R",
+      "bats": "R"
+    },
+    "837223": {
+      "fullName": "Lucas Vega",
+      "throws": "R",
+      "bats": "R"
+    },
+    "641729": {
+      "fullName": "Joe Jiménez",
+      "throws": "R",
+      "bats": "R"
+    },
+    "701370": {
+      "fullName": "JeanPierre Ortiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "606133": {
+      "fullName": "Luis Cruz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "681493": {
+      "fullName": "Eddy Demurias",
+      "throws": "R",
+      "bats": "R"
+    }
+  },
+  "updated": "2026-10-13T20:09:51Z",
+  "appearances": {
+    "446651": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "458960": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "488880": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "545814": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "571772": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "572077": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "592222": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "592254": {
+      "mlb": [
+        "2025"
+      ],
+      "aaa": [
+        "2025"
+      ],
+      "spring": [],
+      "detail": {
+        "mlb:2025": {
+          "games": 1,
+          "ip": "6.2",
+          "team": "Boston Red Sox"
+        },
+        "aaa:2025": {
+          "games": 22,
+          "ip": "75.1",
+          "team": "Worcester Red Sox"
+        }
+      }
+    },
+    "605347": {
+      "mlb": [
+        "2025",
+        "2024"
+      ],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "mlb:2025": {
+          "games": 26,
+          "ip": "24.2",
+          "team": "Washington Nationals"
+        },
+        "spring:2025": {
+          "games": 4,
+          "ip": "3.2",
+          "team": "Washington Nationals"
+        },
+        "mlb:2024": {
+          "games": 28,
+          "ip": "26.1",
+          "team": "New York Mets"
+        },
+        "aaa:2024": {
+          "games": 5,
+          "ip": "4.1",
+          "team": "Iowa Cubs"
+        },
+        "spring:2024": {
+          "games": 8,
+          "ip": "8.0",
+          "team": "New York Mets"
+        }
+      }
+    },
+    "605441": {
+      "mlb": [
+        "2026"
+      ],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "mlb:2026": {
+          "games": 1,
+          "ip": "1.2",
+          "team": "Chicago Cubs"
+        },
+        "aaa:2026": {
+          "games": 11,
+          "ip": "17.0",
+          "team": "Iowa Cubs"
+        },
+        "spring:2026": {
+          "games": 3,
+          "ip": "2.1",
+          "team": "Chicago Cubs"
+        },
+        "aaa:2025": {
+          "games": 2,
+          "ip": "2.0",
+          "team": "Syracuse Mets"
+        },
+        "spring:2025": {
+          "games": 3,
+          "ip": "2.1",
+          "team": "New York Mets"
+        },
+        "aaa:2024": {
+          "games": 27,
+          "ip": "30.0",
+          "team": "Syracuse Mets"
+        },
+        "spring:2024": {
+          "games": 4,
+          "ip": "5.0",
+          "team": "New York Mets"
+        }
+      }
+    },
+    "606133": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "621249": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2024"
+      ],
+      "detail": {
+        "aaa:2024": {
+          "games": 32,
+          "ip": "38.2",
+          "team": "Scranton/Wilkes-Barre RailRiders"
+        },
+        "spring:2024": {
+          "games": 4,
+          "ip": "4.1",
+          "team": "New York Yankees"
+        }
+      }
+    },
+    "623485": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "641729": {
+      "mlb": [
+        "2024"
+      ],
+      "aaa": [
+        "2026"
+      ],
+      "spring": [
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 3,
+          "ip": "2.2",
+          "team": "Gwinnett Stripers"
+        },
+        "mlb:2024": {
+          "games": 69,
+          "ip": "68.2",
+          "team": "Atlanta Braves"
+        },
+        "spring:2024": {
+          "games": 7,
+          "ip": "6.2",
+          "team": "Atlanta Braves"
+        }
+      }
+    },
+    "642834": {
+      "mlb": [
+        "2024"
+      ],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [],
+      "detail": {
+        "mlb:2024": {
+          "games": 3,
+          "ip": "6.2",
+          "team": "Miami Marlins"
+        },
+        "aaa:2024": {
+          "games": 7,
+          "ip": "26.2",
+          "team": "Jacksonville Jumbo Shrimp"
+        }
+      }
+    },
+    "656389": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "656479": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "656820": {
+      "mlb": [],
+      "aaa": [
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2025": {
+          "games": 34,
+          "ip": "42.1",
+          "team": "Lehigh Valley IronPigs"
+        },
+        "spring:2025": {
+          "games": 7,
+          "ip": "7.0",
+          "team": "Philadelphia Phillies"
+        },
+        "aaa:2024": {
+          "games": 25,
+          "ip": "30.2",
+          "team": "Charlotte Knights"
+        },
+        "spring:2024": {
+          "games": 6,
+          "ip": "6.2",
+          "team": "Chicago White Sox"
+        }
+      }
+    },
+    "657624": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2024"
+      ],
+      "detail": {
+        "aaa:2024": {
+          "games": 9,
+          "ip": "7.2",
+          "team": "Memphis Redbirds"
+        },
+        "spring:2024": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "St. Louis Cardinals"
+        }
+      }
+    },
+    "663723": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "664371": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "664744": {
+      "mlb": [
+        "2026",
+        "2025"
+      ],
+      "aaa": [
+        "2026",
+        "2025"
+      ],
+      "spring": [
+        "2026",
+        "2025"
+      ],
+      "detail": {
+        "mlb:2026": {
+          "games": 1,
+          "ip": "1.0",
+          "team": "Baltimore Orioles"
+        },
+        "aaa:2026": {
+          "games": 41,
+          "ip": "48.2",
+          "team": "Norfolk Tides"
+        },
+        "spring:2026": {
+          "games": 4,
+          "ip": "4.0",
+          "team": "Baltimore Orioles"
+        },
+        "mlb:2025": {
+          "games": 1,
+          "ip": "3.0",
+          "team": "Baltimore Orioles"
+        },
+        "aaa:2025": {
+          "games": 12,
+          "ip": "15.0",
+          "team": "El Paso Chihuahuas"
+        },
+        "spring:2025": {
+          "games": 6,
+          "ip": "5.0",
+          "team": "San Diego Padres"
+        }
+      }
+    },
+    "669418": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "670103": {
+      "mlb": [
+        "2026",
+        "2024"
+      ],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2025"
+      ],
+      "detail": {
+        "mlb:2026": {
+          "games": 9,
+          "ip": "21.1",
+          "team": "Boston Red Sox"
+        },
+        "aaa:2026": {
+          "games": 17,
+          "ip": "70.0",
+          "team": "Worcester Red Sox"
+        },
+        "aaa:2025": {
+          "games": 17,
+          "ip": "23.0",
+          "team": "Sacramento River Cats"
+        },
+        "spring:2025": {
+          "games": 4,
+          "ip": "3.2",
+          "team": "San Francisco Giants"
+        },
+        "mlb:2024": {
+          "games": 1,
+          "ip": "1.0",
+          "team": "San Francisco Giants"
+        },
+        "aaa:2024": {
+          "games": 14,
+          "ip": "26.2",
+          "team": "Sacramento River Cats"
+        }
+      }
+    },
+    "670232": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "670369": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "675989": {
+      "mlb": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "mlb:2026": {
+          "games": 8,
+          "ip": "20.0",
+          "team": "Houston Astros"
+        },
+        "aaa:2026": {
+          "games": 8,
+          "ip": "9.2",
+          "team": "Sugar Land Space Cowboys"
+        },
+        "spring:2026": {
+          "games": 1,
+          "ip": "0.2",
+          "team": "Houston Astros"
+        },
+        "mlb:2025": {
+          "games": 1,
+          "ip": "2.0",
+          "team": "Cleveland Guardians"
+        },
+        "aaa:2025": {
+          "games": 4,
+          "ip": "13.2",
+          "team": "Sugar Land Space Cowboys"
+        },
+        "spring:2025": {
+          "games": 4,
+          "ip": "3.2",
+          "team": "Seattle Mariners"
+        },
+        "mlb:2024": {
+          "games": 17,
+          "ip": "18.2",
+          "team": "Seattle Mariners"
+        },
+        "aaa:2024": {
+          "games": 33,
+          "ip": "29.1",
+          "team": "Tacoma Rainiers"
+        },
+        "spring:2024": {
+          "games": 8,
+          "ip": "7.0",
+          "team": "Seattle Mariners"
+        }
+      }
+    },
+    "676047": {
+      "mlb": [],
+      "aaa": [
+        "2026",
+        "2025"
+      ],
+      "spring": [],
+      "detail": {
+        "aaa:2026": {
+          "games": 28,
+          "ip": "45.1",
+          "team": "Worcester Red Sox"
+        },
+        "aaa:2025": {
+          "games": 12,
+          "ip": "14.2",
+          "team": "Memphis Redbirds"
+        }
+      }
+    },
+    "676082": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "676219": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "676221": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "spring:2025": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "Los Angeles Dodgers"
+        },
+        "aaa:2024": {
+          "games": 26,
+          "ip": "35.2",
+          "team": "Worcester Red Sox"
+        },
+        "spring:2024": {
+          "games": 7,
+          "ip": "7.2",
+          "team": "Boston Red Sox"
+        }
+      }
+    },
+    "676435": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "676769": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [],
+      "detail": {
+        "aaa:2024": {
+          "games": 1,
+          "ip": "3.0",
+          "team": "Scranton/Wilkes-Barre RailRiders"
+        }
+      }
+    },
+    "676984": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "678013": {
+      "mlb": [],
+      "aaa": [
+        "2026",
+        "2025"
+      ],
+      "spring": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 5,
+          "ip": "6.2",
+          "team": "Lehigh Valley IronPigs"
+        },
+        "spring:2026": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "Philadelphia Phillies"
+        },
+        "aaa:2025": {
+          "games": 43,
+          "ip": "44.0",
+          "team": "Louisville Bats"
+        },
+        "spring:2025": {
+          "games": 7,
+          "ip": "7.0",
+          "team": "Cincinnati Reds"
+        },
+        "spring:2024": {
+          "games": 3,
+          "ip": "3.0",
+          "team": "Cleveland Guardians"
+        }
+      }
+    },
+    "681493": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2024"
+      ],
+      "detail": {
+        "spring:2024": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "Cincinnati Reds"
+        }
+      }
+    },
+    "681938": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2024"
+      ],
+      "detail": {
+        "aaa:2024": {
+          "games": 10,
+          "ip": "19.1",
+          "team": "Toledo Mud Hens"
+        },
+        "spring:2024": {
+          "games": 2,
+          "ip": "2.0",
+          "team": "Detroit Tigers"
+        }
+      }
+    },
+    "682992": {
+      "mlb": [],
+      "aaa": [
+        "2026"
+      ],
+      "spring": [],
+      "detail": {
+        "aaa:2026": {
+          "games": 1,
+          "ip": "3.2",
+          "team": "Worcester Red Sox"
+        }
+      }
+    },
+    "683068": {
+      "mlb": [
+        "2024"
+      ],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2026",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 36,
+          "ip": "46.1",
+          "team": "Rochester Red Wings"
+        },
+        "spring:2026": {
+          "games": 6,
+          "ip": "5.0",
+          "team": "Washington Nationals"
+        },
+        "aaa:2025": {
+          "games": 6,
+          "ip": "6.1",
+          "team": "Worcester Red Sox"
+        },
+        "mlb:2024": {
+          "games": 7,
+          "ip": "4.0",
+          "team": "Boston Red Sox"
+        },
+        "aaa:2024": {
+          "games": 15,
+          "ip": "27.1",
+          "team": "Worcester Red Sox"
+        },
+        "spring:2024": {
+          "games": 1,
+          "ip": "1.0",
+          "team": "Boston Red Sox"
+        }
+      }
+    },
+    "683803": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "684841": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "686924": {
+      "mlb": [],
+      "aaa": [
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2025": {
+          "games": 7,
+          "ip": "14.2",
+          "team": "Sacramento River Cats"
+        },
+        "spring:2025": {
+          "games": 2,
+          "ip": "2.1",
+          "team": "San Francisco Giants"
+        },
+        "aaa:2024": {
+          "games": 26,
+          "ip": "34.0",
+          "team": "Sacramento River Cats"
+        },
+        "spring:2024": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "San Francisco Giants"
+        }
+      }
+    },
+    "687424": {
+      "mlb": [
+        "2025",
+        "2024"
+      ],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 20,
+          "ip": "22.0",
+          "team": "Sugar Land Space Cowboys"
+        },
+        "spring:2026": {
+          "games": 6,
+          "ip": "6.1",
+          "team": "Houston Astros"
+        },
+        "mlb:2025": {
+          "games": 6,
+          "ip": "6.0",
+          "team": "Athletics"
+        },
+        "aaa:2025": {
+          "games": 41,
+          "ip": "47.2",
+          "team": "Las Vegas Aviators"
+        },
+        "spring:2025": {
+          "games": 4,
+          "ip": "3.2",
+          "team": "Athletics"
+        },
+        "mlb:2024": {
+          "games": 16,
+          "ip": "19.0",
+          "team": "Miami Marlins"
+        },
+        "aaa:2024": {
+          "games": 33,
+          "ip": "46.1",
+          "team": "Jacksonville Jumbo Shrimp"
+        },
+        "spring:2024": {
+          "games": 7,
+          "ip": "6.0",
+          "team": "Miami Marlins"
+        }
+      }
+    },
+    "687560": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "687817": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "spring:2025": {
+          "games": 2,
+          "ip": "0.2",
+          "team": "St. Louis Cardinals"
+        },
+        "spring:2024": {
+          "games": 2,
+          "ip": "1.0",
+          "team": "St. Louis Cardinals"
+        }
+      }
+    },
+    "687956": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "spring:2025": {
+          "games": 4,
+          "ip": "3.2",
+          "team": "Philadelphia Phillies"
+        },
+        "spring:2024": {
+          "games": 6,
+          "ip": "3.1",
+          "team": "Philadelphia Phillies"
+        }
+      }
+    },
+    "688014": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "688876": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "689508": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "690148": {
+      "mlb": [],
+      "aaa": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "spring": [
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 10,
+          "ip": "31.1",
+          "team": "Norfolk Tides"
+        },
+        "aaa:2025": {
+          "games": 9,
+          "ip": "38.1",
+          "team": "Iowa Cubs"
+        },
+        "spring:2025": {
+          "games": 2,
+          "ip": "2.0",
+          "team": "Chicago Cubs"
+        },
+        "aaa:2024": {
+          "games": 2,
+          "ip": "2.2",
+          "team": "Iowa Cubs"
+        },
+        "spring:2024": {
+          "games": 1,
+          "ip": "0.2",
+          "team": "Chicago Cubs"
+        }
+      }
+    },
+    "690462": {
+      "mlb": [],
+      "aaa": [
+        "2026"
+      ],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 22,
+          "ip": "60.1",
+          "team": "St. Paul Saints"
+        },
+        "spring:2026": {
+          "games": 1,
+          "ip": "1.0",
+          "team": "Minnesota Twins"
+        }
+      }
+    },
+    "691012": {
+      "mlb": [],
+      "aaa": [
+        "2026"
+      ],
+      "spring": [
+        "2026",
+        "2025",
+        "2024"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 10,
+          "ip": "11.2",
+          "team": "Sugar Land Space Cowboys"
+        },
+        "spring:2026": {
+          "games": 1,
+          "ip": "0.1",
+          "team": "Houston Astros"
+        },
+        "spring:2025": {
+          "games": 1,
+          "ip": "1.0",
+          "team": "Houston Astros"
+        },
+        "spring:2024": {
+          "games": 1,
+          "ip": "2.0",
+          "team": "Houston Astros"
+        }
+      }
+    },
+    "691786": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "spring:2026": {
+          "games": 2,
+          "ip": "2.1",
+          "team": "Seattle Mariners"
+        }
+      }
+    },
+    "692808": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "692937": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "693546": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "694365": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "695064": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "695684": {
+      "mlb": [
+        "2026"
+      ],
+      "aaa": [
+        "2026",
+        "2025"
+      ],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "mlb:2026": {
+          "games": 6,
+          "ip": "26.2",
+          "team": "New York Yankees"
+        },
+        "aaa:2026": {
+          "games": 21,
+          "ip": "106.1",
+          "team": "Scranton/Wilkes-Barre RailRiders"
+        },
+        "spring:2026": {
+          "games": 2,
+          "ip": "6.0",
+          "team": "New York Yankees"
+        },
+        "aaa:2025": {
+          "games": 1,
+          "ip": "5.0",
+          "team": "Scranton/Wilkes-Barre RailRiders"
+        }
+      }
+    },
+    "701370": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "spring:2026": {
+          "games": 1,
+          "ip": "0.2",
+          "team": "Cincinnati Reds"
+        }
+      }
+    },
+    "701539": {
+      "mlb": [],
+      "aaa": [
+        "2024"
+      ],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "spring:2026": {
+          "games": 3,
+          "ip": "3.2",
+          "team": "Baltimore Orioles"
+        },
+        "aaa:2024": {
+          "games": 6,
+          "ip": "7.1",
+          "team": "Salt Lake Bees"
+        }
+      }
+    },
+    "703106": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "spring:2026": {
+          "games": 1,
+          "ip": "0.2",
+          "team": "Texas Rangers"
+        }
+      }
+    },
+    "801018": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "803035": {
+      "mlb": [],
+      "aaa": [
+        "2026"
+      ],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "aaa:2026": {
+          "games": 15,
+          "ip": "27.2",
+          "team": "Charlotte Knights"
+        },
+        "spring:2026": {
+          "games": 4,
+          "ip": "2.2",
+          "team": "Chicago White Sox"
+        }
+      }
+    },
+    "805248": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "805678": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "805749": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "806586": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    },
+    "807485": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [
+        "2026"
+      ],
+      "detail": {
+        "spring:2026": {
+          "games": 1,
+          "ip": "2.0",
+          "team": "Washington Nationals"
+        }
+      }
+    },
+    "837223": {
+      "mlb": [],
+      "aaa": [],
+      "spring": [],
+      "detail": {}
+    }
+  },
+  "hitter_lines": {
+    "CAG|jeancorrea": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|janhernandez": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "CAR",
+        "team_name": "Gigantes de Carolina",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 122,
+        "ab": 109,
+        "r": 13,
+        "h": 20,
+        "doubles": 4,
+        "triples": 0,
+        "hr": 1,
+        "rbi": 9,
+        "sb": 6,
+        "cs": 0,
+        "bb": 11,
+        "so": 31,
+        "ba": ".183",
+        "obp": ".254",
+        "slg": ".248",
+        "ops": ".502",
+        "games": 36,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "CAG|josemiranda": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAG|edisonmora": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|brettrodriguez": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|hectorsantiago": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAR|jeffreycaglianone": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|slaterdebrun": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|mervylmelendez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|miguelpabon": {
+      "status": "line",
+      "source": "statsapi",
+      "line": {
+        "team": "SB",
+        "team_name": "South Bend Cubs",
+        "season": "Summer 2025",
+        "league": "MID",
+        "circuit": "MiLB",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "pa": 221,
+        "ab": 193,
+        "r": 20,
+        "h": 37,
+        "doubles": 3,
+        "triples": 1,
+        "hr": 1,
+        "rbi": 14,
+        "sb": 6,
+        "cs": 0,
+        "bb": 24,
+        "so": 64,
+        "ba": ".192",
+        "obp": ".286",
+        "slg": ".233",
+        "ops": ".519",
+        "games": 59,
+        "sport_id": 13,
+        "assignments": 1,
+        "source": "MLB Stats API 2025 regular-season hitting team split"
+      }
+    },
+    "MAY|cameroncauley": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "MAY|mariofeliciano": {
+      "status": "line",
+      "source": "statsapi",
+      "line": {
+        "team": "AGS",
+        "team_name": "Rieleros de Aguascalientes",
+        "season": "Summer 2025",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "pa": 29,
+        "ab": 24,
+        "r": 4,
+        "h": 11,
+        "doubles": 2,
+        "triples": 0,
+        "hr": 0,
+        "rbi": 5,
+        "sb": 0,
+        "cs": 1,
+        "bb": 3,
+        "so": 1,
+        "ba": ".458",
+        "obp": ".517",
+        "slg": ".542",
+        "ops": "1.059",
+        "games": 12,
+        "sport_id": 23,
+        "assignments": 2,
+        "source": "MLB Stats API 2025 regular-season hitting team split"
+      }
+    },
+    "MAY|cameronmaldonado": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "MAY|robertomerced": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 22,
+        "ab": 20,
+        "r": 8,
+        "h": 1,
+        "doubles": 0,
+        "triples": 1,
+        "hr": 0,
+        "rbi": 1,
+        "sb": 1,
+        "cs": 0,
+        "bb": 1,
+        "so": 7,
+        "ba": ".050",
+        "obp": ".095",
+        "slg": ".150",
+        "ops": ".245",
+        "games": 20,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "MAY|yadielrivera": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 53,
+        "ab": 46,
+        "r": 4,
+        "h": 6,
+        "doubles": 1,
+        "triples": 0,
+        "hr": 0,
+        "rbi": 0,
+        "sb": 0,
+        "cs": 0,
+        "bb": 1,
+        "so": 14,
+        "ba": ".130",
+        "obp": ".184",
+        "slg": ".152",
+        "ops": ".336",
+        "games": 24,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "PON|aldemarburgos": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 58,
+        "ab": 51,
+        "r": 8,
+        "h": 12,
+        "doubles": 3,
+        "triples": 0,
+        "hr": 0,
+        "rbi": 4,
+        "sb": 0,
+        "cs": 2,
+        "bb": 3,
+        "so": 9,
+        "ba": ".235",
+        "obp": ".278",
+        "slg": ".294",
+        "ops": ".572",
+        "games": 27,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "PON|samuelhernandez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "PON|kevinsanta": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 69,
+        "ab": 58,
+        "r": 9,
+        "h": 12,
+        "doubles": 2,
+        "triples": 0,
+        "hr": 0,
+        "rbi": 3,
+        "sb": 0,
+        "cs": 0,
+        "bb": 5,
+        "so": 7,
+        "ba": ".207",
+        "obp": ".288",
+        "slg": ".241",
+        "ops": ".529",
+        "games": 27,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "PON|jesmuelvalentin": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 164,
+        "ab": 144,
+        "r": 16,
+        "h": 31,
+        "doubles": 6,
+        "triples": 1,
+        "hr": 0,
+        "rbi": 8,
+        "sb": 4,
+        "cs": 2,
+        "bb": 13,
+        "so": 30,
+        "ba": ".215",
+        "obp": ".278",
+        "slg": ".271",
+        "ops": ".549",
+        "games": 38,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "SJU|emmanuelgarcia": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|ivanhouellemont": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|yasielpuig": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "SJU|rubenramirez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "SJU|jadielsanchez": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "SJU",
+        "team_name": "Senadores de San Juan",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 122,
+        "ab": 102,
+        "r": 7,
+        "h": 24,
+        "doubles": 6,
+        "triples": 0,
+        "hr": 1,
+        "rbi": 7,
+        "sb": 3,
+        "cs": 0,
+        "bb": 10,
+        "so": 12,
+        "ba": ".235",
+        "obp": ".310",
+        "slg": ".324",
+        "ops": ".634",
+        "games": 37,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "SJU|curtisterry": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    }
+  },
+  "pitcher_lines": {
+    "CAR|joejimenez": {
+      "status": "line",
+      "source": "statsapi",
+      "line": {
+        "team": "GWN",
+        "team_name": "Gwinnett Stripers",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "2.2",
+        "outs": 8,
+        "g": 3,
+        "gs": 0,
+        "k": 2,
+        "bb": 2,
+        "k9": "6.8",
+        "bb9": "6.8",
+        "era": "6.75",
+        "fip": null,
+        "whip": "2.25",
+        "h": 4,
+        "hr": 0,
+        "sb_allowed": 3,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
+    },
+    "MAY|devinrivera": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "MAY|antoniovelez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "PON|hectorquinones": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "PON|mariozabala": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|anthonyborrero": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "SM",
+        "team_name": "Southern Maryland Blue Crabs (Waldorf, MD)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Baseball Reference",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "35.1",
+        "outs": 106,
+        "g": 10,
+        "gs": 3,
+        "k": 20,
+        "bb": 17,
+        "k9": "5.1",
+        "bb9": "4.3",
+        "era": "8.92",
+        "fip": "6.52",
+        "whip": "1.95",
+        "h": 52,
+        "hr": 8,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=borrer000ant",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
+    },
+    "SJU|miguelcirino": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "DE",
+        "team_name": "Down East Bird Dawgs (Kinston, NC)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Baseball Reference",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "26.1",
+        "outs": 79,
+        "g": 13,
+        "gs": 2,
+        "k": 18,
+        "bb": 15,
+        "k9": "6.2",
+        "bb9": "5.1",
+        "era": "6.15",
+        "fip": "6.25",
+        "whip": "1.71",
+        "h": 30,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cirino000mig",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
+    },
+    "SJU|jeanortega": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "CAR",
+        "team_name": "Gigantes de Carolina",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "3.2",
+        "outs": 11,
+        "g": 3,
+        "gs": 0,
+        "k": 2,
+        "bb": 0,
+        "k9": "4.9",
+        "bb9": "0.0",
+        "era": "7.36",
+        "fip": "5.55",
+        "whip": "1.91",
+        "h": 7,
+        "hr": 1,
+        "sb_allowed": 1,
+        "cs_allowed": 0,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
+      }
+    },
+    "SJU|julioortiz": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "SJU|leonardorodriguez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "SJU|alexuanvega": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|keishinsaito": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "Seibu",
+        "team_name": "Saitama Seibu Lions ()",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Baseball Reference",
+        "league_name": "Japan Farm League",
+        "level": "Fgn",
+        "ip": "3.0",
+        "outs": 9,
+        "g": 2,
+        "gs": null,
+        "k": 2,
+        "bb": 4,
+        "k9": "6.0",
+        "bb9": "12.0",
+        "era": "21.00",
+        "fip": "11.10",
+        "whip": "3.00",
+        "h": 5,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=saito-000kei",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
+    },
+    "SJU|harusenarita": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "Seibu",
+        "team_name": "Saitama Seibu Lions ()",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Baseball Reference",
+        "league_name": "Japan Farm League",
+        "level": "Fgn",
+        "ip": "29.1",
+        "outs": 88,
+        "g": 30,
+        "gs": null,
+        "k": 27,
+        "bb": 20,
+        "k9": "8.3",
+        "bb9": "6.1",
+        "era": "2.15",
+        "fip": "3.95",
+        "whip": "1.29",
+        "h": 18,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=narita000har",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
+    },
+    "SJU|freddycabrera": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAG|sebastianrodriguez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|saulgonzalez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|johzanoquendo": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "SB",
+        "team_name": "South Bend Cubs (South Bend, IN)",
+        "season": "2025 summer",
+        "league": "MIDW",
+        "circuit": "Baseball Reference",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 24,
+        "gs": 0,
+        "k": 43,
+        "bb": 16,
+        "k9": "11.7",
+        "bb9": "4.4",
+        "era": "1.64",
+        "fip": "3.10",
+        "whip": "0.94",
+        "h": 15,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=oquend000joh",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
+        }
+      }
+    },
+    "CAR|ramonrodriguez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "MAY|luiscruz": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "MAY|nelvinfuentes": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    }
+  },
+  "movement": {
+    "CAG|adalbertoflores": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAG|marvingorgas": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAG|sebastianrodriguez": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAG|edwinsanchez": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAG|carlostorres": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAG|christiantorres": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|jarrettebonet": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|alexandercastro": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|saulgonzalez": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|joejimenez": {
+      "status": "filled",
+      "source": "Prospect Savant 2026",
+      "season": 2026,
+      "pitches": [
+        {
+          "type": "FF",
+          "name": "4-Seam",
+          "velo": 92.7,
+          "spin": 2385,
+          "ivb": 16.74,
+          "hb_pitcher": 8.76,
+          "hb_hitter": -8.76,
+          "usage": 61.5,
+          "pitches": 32,
+          "ps_stuff": 100.1,
+          "whiff": 26.7,
+          "xwoba": 0.367
+        },
+        {
+          "type": "SL",
+          "name": "Slider",
+          "velo": 82.9,
+          "spin": 2130,
+          "ivb": 2.31,
+          "hb_pitcher": -6.38,
+          "hb_hitter": 6.38,
+          "usage": 28.8,
+          "pitches": 15,
+          "ps_stuff": 100.5,
+          "whiff": 27.3,
+          "xwoba": 0.716
+        },
+        {
+          "type": "CH",
+          "name": "Changeup",
+          "velo": 88.3,
+          "spin": 2174,
+          "ivb": 6.1,
+          "hb_pitcher": 16.32,
+          "hb_hitter": -16.32,
+          "usage": 9.6,
+          "pitches": 5,
+          "ps_stuff": 73.8,
+          "whiff": 100.0,
+          "xwoba": null
+        }
+      ],
+      "packed": {
+        "usage_by_count": {},
+        "seasons": []
+      },
+      "levels": {
+        "mlb": [
+          "2024"
+        ],
+        "aaa": [
+          "2026"
+        ],
+        "spring": [
+          "2024"
+        ]
+      }
+    },
+    "CAR|adielmelendez": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|johzanoquendo": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|jeanpierreortiz": {
+      "status": "filled",
+      "source": "Prospect Savant 2025",
+      "season": 2025,
+      "pitches": [
+        {
+          "type": "FF",
+          "name": "4-Seam",
+          "velo": 93.2,
+          "spin": 2150,
+          "ivb": 17.78,
+          "hb_pitcher": 8.24,
+          "hb_hitter": -8.24,
+          "usage": 52.6,
+          "pitches": 319,
+          "ps_stuff": 100.9,
+          "whiff": 20.8,
+          "xwoba": 0.304
+        },
+        {
+          "type": "SL",
+          "name": "Slider",
+          "velo": 82.8,
+          "spin": 2246,
+          "ivb": 2.08,
+          "hb_pitcher": -6.59,
+          "hb_hitter": 6.59,
+          "usage": 18.6,
+          "pitches": 113,
+          "ps_stuff": 87.5,
+          "whiff": 22.8,
+          "xwoba": 0.258
+        },
+        {
+          "type": "CH",
+          "name": "Changeup",
+          "velo": 85.7,
+          "spin": 1588,
+          "ivb": 8.58,
+          "hb_pitcher": 14.01,
+          "hb_hitter": -14.01,
+          "usage": 17.7,
+          "pitches": 107,
+          "ps_stuff": 81.4,
+          "whiff": 17.8,
+          "xwoba": 0.312
+        },
+        {
+          "type": "CU",
+          "name": "Curveball",
+          "velo": 80.0,
+          "spin": 2236,
+          "ivb": -2.31,
+          "hb_pitcher": -8.54,
+          "hb_hitter": 8.54,
+          "usage": 4.6,
+          "pitches": 28,
+          "ps_stuff": 80.4,
+          "whiff": 25.0,
+          "xwoba": 0.066
+        },
+        {
+          "type": "SI",
+          "name": "Sinker",
+          "velo": 92.6,
+          "spin": 2105,
+          "ivb": 14.35,
+          "hb_pitcher": 13.1,
+          "hb_hitter": -13.1,
+          "usage": 3.3,
+          "pitches": 20,
+          "ps_stuff": 87.8,
+          "whiff": 33.3,
+          "xwoba": 0.44
+        },
+        {
+          "type": "FC",
+          "name": "Cutter",
+          "velo": 85.9,
+          "spin": 2256,
+          "ivb": 6.48,
+          "hb_pitcher": -5.84,
+          "hb_hitter": 5.84,
+          "usage": 3.1,
+          "pitches": 19,
+          "ps_stuff": 108.3,
+          "whiff": 18.2,
+          "xwoba": 0.436
+        }
+      ],
+      "packed": {
+        "usage_by_count": {},
+        "seasons": []
+      },
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      }
+    },
+    "CAR|eddyreynoso": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|joeriley": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|ramonrodriguez": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "CAR|ramesisrosa": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|luiscruz": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|eddydemurias": {
+      "status": "no-tracked-movement",
+      "reason": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2024"
+        ]
+      }
+    },
+    "MAY|nelvinfuentes": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|daviangarcia": {
+      "status": "no-tracked-movement",
+      "reason": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      }
+    },
+    "MAY|jonathanhaab": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|hectorhernandez": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|miguelmartinez": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|devinrivera": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|bryantsalgado": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|kazutotaguchi": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|lucasvega": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|antoniovelez": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "MAY|derekwest": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|haroldcortijo": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|ericgarcia": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|tylergough": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|jorhanlaboy": {
+      "status": "not-qualified",
+      "reason": "no unique Stats API name match",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|omarmelendez": {
+      "status": "not-qualified",
+      "reason": "no MLB, AAA, or MLB spring appearance in 2024-2026",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": []
+      }
+    },
+    "PON|michaelmorales": {
+      "status": "no-tracked-movement",
+      "reason": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked",
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      }
+    }
+  }
+}

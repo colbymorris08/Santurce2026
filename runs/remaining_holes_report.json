@@ -1,0 +1,93 @@
+{
+  "updated": "2026-10-13T20:09:51Z",
+  "answer": "33/94 was how many pitcher pages drew an XY movement plot, not how many pitched in MLB, AAA, or big-league spring training.",
+  "appearances_2024_2026": {
+    "mlb": 11,
+    "aaa": 26,
+    "spring": 28,
+    "any": 33
+  },
+  "qualified_still_without_plot": [
+    {
+      "team": "MAY",
+      "name": "Eddy Demurias",
+      "mlb_id": 681493,
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2024"
+        ]
+      },
+      "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
+    },
+    {
+      "team": "MAY",
+      "name": "Davian Garcia",
+      "mlb_id": 807485,
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      },
+      "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
+    },
+    {
+      "team": "PON",
+      "name": "Michael Morales",
+      "mlb_id": 691786,
+      "levels": {
+        "mlb": [],
+        "aaa": [],
+        "spring": [
+          "2026"
+        ]
+      },
+      "why": "MLB spring only, and neither spring Statcast nor regular-season/AAA movement was tracked"
+    }
+  ],
+  "coverage": {
+    "hitters": {
+      "roster": 98,
+      "season_bar": 82,
+      "heat": 77,
+      "advance_whiff": 76,
+      "count_splits": 75,
+      "all": 73
+    },
+    "pitchers": {
+      "roster": 94,
+      "movement_plot": 35,
+      "whiff": 82,
+      "counts": 83,
+      "heat": 81,
+      "season_bar": 75,
+      "all": 34
+    }
+  },
+  "dashed_hitter_season_bars": [
+    "CAG Jean Correa",
+    "CAG Jose Miranda",
+    "CAG Edison Mora",
+    "CAG Brett Rodriguez",
+    "CAG Hector Santiago",
+    "CAR Jeffrey Caglianone",
+    "CAR Slater DeBrun",
+    "CAR Mervyl Melendez",
+    "MAY Cameron Cauley",
+    "MAY Cameron Maldonado",
+    "PON Samuel Hernandez",
+    "SJU Emmanuel Garcia",
+    "SJU Ivan Houellemont",
+    "SJU Yasiel Puig",
+    "SJU Ruben Ramirez",
+    "SJU Curtis Terry"
+  ],
+  "synergy_reapplied": {
+    "hitters": 0,
+    "pitchers": 0
+  },
+  "bbref_requests": 6
+}

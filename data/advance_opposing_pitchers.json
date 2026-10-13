@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T12:19:42Z",
+  "updated": "2026-10-13T20:09:51Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -7489,7 +7489,37 @@
       ],
       "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "CAR",
-      "mlb_id": -268179393
+      "mlb_id": -268179393,
+      "summer_line": {
+        "team": "SB",
+        "team_name": "South Bend Cubs (South Bend, IN)",
+        "season": "2025 summer",
+        "league": "MIDW",
+        "circuit": "Baseball Reference",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 24,
+        "gs": 0,
+        "k": 43,
+        "bb": 16,
+        "k9": "11.7",
+        "bb9": "4.4",
+        "era": "1.64",
+        "fip": "3.10",
+        "whip": "0.94",
+        "h": 15,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=oquend000joh",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
+        }
+      }
     },
     {
       "synergy_id": "590d4c864b8b5624b0640042",
