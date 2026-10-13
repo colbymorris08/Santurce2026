@@ -1455,6 +1455,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   gap: 6px;
   margin-top: 6px;
 }
+/* Advance heat map layer order (san73) */
 .zone-heat {
   width: 100%;
   height: auto;

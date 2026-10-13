@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san72">
+<link rel="stylesheet" href="shared.css?v=san73">
 </head>
 <body>
 <div class="topbar">
@@ -106,6 +106,12 @@
       <div class="filter-field"><label data-i18n="search">Search</label>
         <input id="adv-p-search" placeholder="Pitcher" oninput="fillAdvancePitchers()">
       </div>
+      <div class="filter-field"><label>Heat map</label>
+        <select data-heat-geom-select onchange="setHeatGeometryMode(this.value)">
+          <option value="vox">Option 1 · 5×5 vox</option>
+          <option value="pooled7">Option 2 · 7 pooled zones</option>
+        </select>
+      </div>
     </div>
     <div class="advance-export-bar">
       <div class="advance-export-head">
@@ -138,6 +144,12 @@
       </div>
       <div class="filter-field"><label data-i18n="search">Search</label>
         <input id="adv-search" placeholder="Hitter" oninput="fillAdvanceHitters()">
+      </div>
+      <div class="filter-field"><label>Heat map</label>
+        <select data-heat-geom-select onchange="setHeatGeometryMode(this.value)">
+          <option value="vox">Option 1 · 5×5 vox</option>
+          <option value="pooled7">Option 2 · 7 pooled zones</option>
+        </select>
       </div>
     </div>
     <div class="advance-export-bar">
@@ -362,12 +374,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san72"></script>
+<script src="i18n.js?v=san73"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san72';
+const ASSET_V = 'san73';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1441,21 +1453,39 @@ function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null
   const o = bag.overall || {};
   return o[metric]!=null ? Number(o[metric]) : null;
 }
-const HEAT_RGB = { blue:[37,99,196], green:[39,158,74], red:[208,46,46] };
+const HEAT_RGB = { blue:[37,99,196], yellow:[255,204,0], red:[208,46,46] };
 function heatRgbMix(a, c, u){
   return a.map((v,i)=>Math.round(v+(c[i]-v)*u));
 }
-/** Blue (low) → green (avg) → red (high) vs league same-pitch-type average. */
+/** Blue (low) → yellow (avg) → red (high) vs league same-pitch-type average. Two-segment; no olive. */
 function rateHeatStyle(val, avg){
   if(val==null || avg==null || Number.isNaN(Number(val)) || Number.isNaN(Number(avg))) return '';
   const v=Number(val), a=Number(avg);
   const denom = Math.max(Math.abs(a), a>1 ? 0.05 : 0.01);
   const z = Math.max(-1, Math.min(1, (v-a)/denom));
   const t = (z+1)/2;
-  const {blue, green, red} = HEAT_RGB;
-  const rgb = t<=0.5 ? heatRgbMix(blue, green, t/0.5) : heatRgbMix(green, red, (t-0.5)/0.5);
+  const {blue, yellow, red} = HEAT_RGB;
+  const rgb = t<=0.5 ? heatRgbMix(blue, yellow, t/0.5) : heatRgbMix(yellow, red, (t-0.5)/0.5);
   const fg = Math.abs(z)<0.35 ? '#0B1F33' : '#fff';
   return `background:rgb(${rgb[0]},${rgb[1]},${rgb[2]});color:${fg}`;
+}
+const HEAT_GEOM_STORAGE_KEY = 'santurce_advance_heat_geom';
+function getHeatGeometryMode(){
+  try{
+    const v = localStorage.getItem(HEAT_GEOM_STORAGE_KEY);
+    return v==='pooled7' ? 'pooled7' : 'vox';
+  }catch(e){ return 'vox'; }
+}
+function setHeatGeometryMode(mode){
+  const v = mode==='pooled7' ? 'pooled7' : 'vox';
+  try{ localStorage.setItem(HEAT_GEOM_STORAGE_KEY, v); }catch(e){}
+  syncHeatGeomSelects();
+  renderPitcherAdvance();
+  renderAdvanceHitters();
+}
+function syncHeatGeomSelects(){
+  const v = getHeatGeometryMode();
+  document.querySelectorAll('[data-heat-geom-select]').forEach(el=>{ el.value = v; });
 }
 function pitchAbbrev(raw){
   const code = normalizePitchCode(raw);
@@ -1516,14 +1546,14 @@ const HEAT_ZONE_DEFS = [
   { id:'down_3b', cells:[[3,0],[4,0],[4,1]] },
   { id:'down_1b', cells:[[3,4],[4,3],[4,4]] },
 ];
-const HEAT_CLUSTER_RGB = { red:HEAT_RGB.red, green:HEAT_RGB.green, blue:HEAT_RGB.blue };
+const HEAT_CLUSTER_RGB = { red:HEAT_RGB.red, yellow:HEAT_RGB.yellow, blue:HEAT_RGB.blue };
 function heatClusterStyle(cluster){
   const rgb = HEAT_CLUSTER_RGB[cluster];
   if(!rgb) return { fill:'#E7EEF5', fg:'#64748B' };
-  const fg = cluster==='green' ? '#0B1F33' : '#fff';
+  const fg = cluster==='yellow' ? '#0B1F33' : '#fff';
   return { fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg };
 }
-/** Per-chart relative red / green / blue among zones that have samples. */
+/** Per-chart relative red / yellow / blue among zones that have samples. */
 function heatZoneClusterColors(zoneRates){
   const active = zoneRates.filter(z=>z.den>0);
   const out = new Map();
@@ -1536,7 +1566,7 @@ function heatZoneClusterColors(zoneRates){
   const colorAt = (i)=>{
     if(i===n-1) return 'red';
     if(i===0) return 'blue';
-    if(i===medIdx && n>=3) return 'green';
+    if(i===medIdx && n>=3) return 'yellow';
     if(n>=2 && i===n-2) return 'red';
     if(n>=2 && i===1) return 'blue';
     return null;
@@ -1549,9 +1579,9 @@ function heatZoneClusterColors(zoneRates){
     const medRate = sorted[3].rate;
     const i2 = 2, i4 = 4;
     if(out.get(sorted[i2].id)==null && out.get(sorted[i4].id)==null){
-      const greenIdx = Math.abs(sorted[i2].rate-medRate) <= Math.abs(sorted[i4].rate-medRate) ? i2 : i4;
-      const otherIdx = greenIdx===i2 ? i4 : i2;
-      out.set(sorted[greenIdx].id, 'green');
+      const yellowIdx = Math.abs(sorted[i2].rate-medRate) <= Math.abs(sorted[i4].rate-medRate) ? i2 : i4;
+      const otherIdx = yellowIdx===i2 ? i4 : i2;
+      out.set(sorted[yellowIdx].id, 'yellow');
       out.set(sorted[otherIdx].id, sorted[otherIdx].rate>mean ? 'red' : 'blue');
     }
   }
@@ -1560,6 +1590,17 @@ function heatZoneClusterColors(zoneRates){
     out.set(z.id, z.rate>mean ? 'red' : 'blue');
   });
   return out;
+}
+/** Blue (low) → yellow (mid) → red (high). Anchors: SLG .200/.420/.650, whiff 10/25/40. */
+function heatRateStyle(metric, rate){
+  const anchors = metric==='whiff' ? [10, 25, 40] : [0.200, 0.420, 0.650];
+  let t;
+  if(rate <= anchors[1]) t = Math.max(0, (rate - anchors[0]) / (anchors[1] - anchors[0])) * 0.5;
+  else t = Math.min(1, 0.5 + (rate - anchors[1]) / (anchors[2] - anchors[1]) * 0.5);
+  const {blue, yellow, red} = HEAT_RGB;
+  const rgb = t<=0.5 ? heatRgbMix(blue, yellow, t/0.5) : heatRgbMix(yellow, red, (t-0.5)/0.5);
+  const fg = (t>0.22 && t<0.78) ? '#0B1F33' : '#fff';
+  return {fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg};
 }
 function zoneHeatTextSvg(x, y, lab, fg, fontSize){
   const fs = fontSize || 8;
@@ -1605,10 +1646,56 @@ function pitcherHeatRecord(p){
   return (bag.pitchers || {})[String(id)] || null;
 }
 /**
- * Seven-zone catcher view (pooled from 5×5 bins). Inner 3×3 outline = strike zone.
- * metric 'slg' uses pooled tb/ab; 'whiff' uses pooled whiffs/swings. Row 0 is up.
+ * 5×5 catcher-view zone (vox). Inner 3×3 is the plate × the batter's strike zone.
+ * metric 'slg' uses tb/ab; 'whiff' uses whiffs/swings. Row 0 is up.
  */
-function zoneHeatSvg(side, metric, title){
+function zoneHeatSvgVox(side, metric, title){
+  const W=168, H=196, n=5, cell=26, gap=1.5, ox=16, oy=18;
+  const empty = '#E7EEF5';
+  const nums = side ? (metric==='whiff' ? side.whiffs : side.tb) : null;
+  const dens = side ? (metric==='whiff' ? side.swings : side.ab) : null;
+  let totalDen=0, totalNum=0;
+  if(dens){ dens.forEach((d,i)=>{ totalDen+=d||0; totalNum+=(nums[i]||0); }); }
+  const label = metric==='whiff'
+    ? (totalDen ? `${Math.round(100*totalNum/totalDen)}% · ${totalDen} sw` : 'no swings')
+    : (totalDen ? `${(totalNum/totalDen).toFixed(3).replace(/^0/,'')} · ${totalDen} AB` : 'no AB');
+  const rects=[], texts=[];
+  for(let r=0;r<n;r++){
+    for(let c=0;c<n;c++){
+      const i=r*n+c;
+      const x=ox+c*(cell+gap), y=oy+r*(cell+gap);
+      const den=dens? (dens[i]||0) : 0;
+      const num=nums? (nums[i]||0) : 0;
+      let fill=empty, fg='#64748B', lab='';
+      if(den>0){
+        const rate = metric==='whiff' ? (100*num/den) : (num/den);
+        const st=heatRateStyle(metric, rate);
+        fill=st.fill; fg=st.fg;
+        lab = metric==='whiff' ? String(Math.round(rate)) : rate.toFixed(3).replace(/^0/,'');
+      }
+      rects.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${fill}"/>`);
+      if(lab) texts.push(zoneHeatTextSvg(x+cell/2, y+cell/2+3.2, lab, fg, 7.5));
+    }
+  }
+  let s=`<svg class="zone-heat zone-heat-vox" viewBox="0 0 ${W} ${H}" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
+  s+=`<rect width="${W}" height="${H}" fill="#F7F9FB" rx="4"/>`;
+  s+=`<text x="${W/2}" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${title}</text>`;
+  s+=rects.join('');
+  const step=cell+gap;
+  const zx=ox+step-0.6, zy=oy+step-0.6, zs=step*3+0.2;
+  s+=`<rect x="${zx}" y="${zy}" width="${zs}" height="${zs}" fill="none" stroke="#0B1F33" stroke-width="1.6"/>`;
+  const pcx=ox+n*step/2-gap/2, py=oy+n*step+6;
+  s+=`<path d="M ${pcx-16} ${py} H ${pcx+16} V ${py+7} L ${pcx} ${py+16} L ${pcx-16} ${py+7} Z" fill="#fff" stroke="#0B1F33" stroke-width="1.1"/>`;
+  s+=`<text x="8" y="${py+8}" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">3B</text>`;
+  s+=`<text x="${W-8}" y="${py+8}" text-anchor="end" font-size="7" fill="#64748B" font-family="system-ui,sans-serif">1B</text>`;
+  s+=texts.join('');
+  s+=`<text x="${W/2}" y="${H-4}" text-anchor="middle" font-size="7.5" fill="#334155" font-family="system-ui,sans-serif">${label}</text>`;
+  return s+'</svg>';
+}
+/**
+ * Option 2: seven-zone catcher view (pooled from 5×5 bins). Inner 3×3 outline = strike zone.
+ */
+function zoneHeatSvg7(side, metric, title){
   const W=168, H=196, n=5, cell=26, gap=1.5, ox=16, oy=18;
   const zones = poolHeatSideZones(side, metric);
   let totalDen=0, totalNum=0;
@@ -1628,6 +1715,8 @@ function zoneHeatSvg(side, metric, title){
     if(z.den>0 && z.rate!=null){
       const lab = metric==='whiff' ? String(Math.round(z.rate)) : z.rate.toFixed(3).replace(/^0/,'');
       texts.push(zoneHeatTextSvg(lp.x, lp.y, lab, st.fg, 8));
+    }else{
+      texts.push(zoneHeatTextSvg(lp.x, lp.y, '—', st.fg, 8));
     }
   });
   let s=`<svg class="zone-heat zone-heat-7" viewBox="0 0 ${W} ${H}" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
@@ -1644,6 +1733,11 @@ function zoneHeatSvg(side, metric, title){
   s+=texts.join('');
   s+=`<text x="${W/2}" y="${H-4}" text-anchor="middle" font-size="7.5" fill="#334155" font-family="system-ui,sans-serif">${label}</text>`;
   return s+'</svg>';
+}
+function zoneHeatSvg(side, metric, title){
+  return getHeatGeometryMode()==='pooled7'
+    ? zoneHeatSvg7(side, metric, title)
+    : zoneHeatSvgVox(side, metric, title);
 }
 function hitterHeatPairHtml(h, hand){
   const side = (function(){
@@ -3237,8 +3331,10 @@ Promise.all([
   fillArsenalTeamSelects();
   fillArsenalSelects();
   syncPovSelects();
+  syncHeatGeomSelects();
   applyI18n();
   syncPovSelects();
+  syncHeatGeomSelects();
   renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderSpray();
   renderUsage();
   renderTth();
