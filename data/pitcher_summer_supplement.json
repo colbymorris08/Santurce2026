@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T03:03:53Z",
+  "updated": "2026-10-13T03:06:45Z",
   "request_timeout_seconds": 20,
   "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
   "players": {
@@ -381,6 +381,16 @@
         "candidates": [],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Carlos A. Francisco",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "814354": {
@@ -967,6 +977,16 @@
         ],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "José De León",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "805727": {
@@ -1232,6 +1252,16 @@
         "candidates": [],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Nicholas Padilla",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "688162": {
@@ -1390,6 +1420,16 @@
         ],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Héctor Santiago",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "683726": {
@@ -1654,6 +1694,16 @@
         ],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Freddie Cabrera",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "678013": {
@@ -1713,6 +1763,16 @@
         ],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Luis Leroy Cruz",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "656389": {
@@ -1731,6 +1791,16 @@
         ],
         "rows": 0,
         "line": null
+      },
+      "verified_empty_audit": {
+        "name": "Sidney Duprey",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "805749": {
@@ -1807,6 +1877,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Raul Rivera",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "640485": {
@@ -1820,6 +1900,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Alexis Rivero",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "656479": {
@@ -1833,6 +1923,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Marvin Gorgas",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "668826": {
@@ -1859,6 +1959,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Paolo Espino",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "663499": {
@@ -1922,6 +2032,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Jose Cruz",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Charleston and Long Island team rows are blank; combined no-team totals are excluded.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "571772": {
@@ -1935,6 +2055,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Hector Hernandez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "683803": {
@@ -1998,6 +2128,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Fernando Cabrera",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "621249": {
@@ -2024,6 +2164,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Michael Reed",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "The matching Baseball Reference record is an outfielder and has no 2026 pitching line.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "671045": {
@@ -2037,6 +2187,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Ivan Houellemont",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "694365": {
@@ -2050,6 +2210,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Magdiel Cotto",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "695064": {
@@ -2113,6 +2283,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Noel Pinto",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "685387": {
@@ -2139,6 +2319,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Ashton Goudeau",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "681154": {
@@ -2152,6 +2342,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Keylan Killgore",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "693546": {
@@ -2265,6 +2465,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Luis Gonzalez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "676435": {
@@ -2328,6 +2538,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Julio Torres",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "806586": {
@@ -2341,6 +2561,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Eric Garcia",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "664371": {
@@ -2354,6 +2584,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Eddy Reynoso",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the individual team rows are blank; combined no-team totals are excluded.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "676219": {
@@ -2367,6 +2607,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Jerryell Rivera",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "800278": {
@@ -2421,6 +2671,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Nathan Alexander",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "672990": {
@@ -2434,6 +2694,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Jose Sola",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "669418": {
@@ -2447,6 +2717,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Alexander Castro",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "Baseball Reference has a 2026 combined 2 Teams total, but the Trois-Rivieres and Lake Erie team rows are blank; combined no-team totals are excluded.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "837228": {
@@ -2660,6 +2940,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Ramesis Rosa",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "519080": {
@@ -2673,6 +2963,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Efrain Nieves",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "678725": {
@@ -2736,6 +3036,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Miguel Ausua",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "693543": {
@@ -2749,6 +3059,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Luis Rodriguez",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "656080": {
@@ -2762,6 +3082,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Aneuris Rosario",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "690510": {
@@ -2925,6 +3255,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Gabriel Cotto",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "670406": {
@@ -2938,6 +3278,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Francisco Lopez-Soto",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "815949": {
@@ -2951,6 +3301,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Jhon Vargas",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "666130": {
@@ -3014,6 +3374,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Josh James",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     },
     "676090": {
@@ -3077,6 +3447,16 @@
       "baseball_reference": {
         "status": "error",
         "error": "HTTPError: HTTP Error 429: Too Many Requests"
+      },
+      "verified_empty_audit": {
+        "name": "Ryan Munoz",
+        "status": "no_eligible_2026_team_pitching_row",
+        "reason": "No 2026 summer regular-season team pitching row was found in the checked structured/register sources.",
+        "sources_checked": [
+          "MiLB.com player year-by-year pitching",
+          "Baseball Reference Register/search (including indexed independent, Mexican, and Japanese records)",
+          "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23"
+        ]
       }
     }
   }

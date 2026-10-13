@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T03:03:52Z",
+  "updated": "2026-10-13T03:06:45Z",
   "source": "Synergy pitcherId · expanded LMP/ALPB/NPBML retry",
   "season_meta": {
     "target_years": [
@@ -19830,6 +19830,7 @@
     ],
     "selection": "2026 regular-season team row with most innings; combined team totals ignored",
     "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
-    "checkpoint": "data/pitcher_summer_supplement.json"
+    "checkpoint": "data/pitcher_summer_supplement.json",
+    "empty_row_audit": "data/pitcher_summer_empty_audit.json"
   }
 }

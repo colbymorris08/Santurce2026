@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parent
 DATA_PATH = ROOT / "data" / "advance_opposing_pitchers.json"
 CHECKPOINT_PATH = ROOT / "data" / "pitcher_summer_supplement.json"
 WEB_SOURCES_PATH = ROOT / "data" / "pitcher_summer_web_sources.json"
+EMPTY_AUDIT_PATH = ROOT / "data" / "pitcher_summer_empty_audit.json"
 REQUEST_TIMEOUT = 20
 FIP_CONSTANT = 3.10
 USER_AGENT = "Mozilla/5.0 (compatible; Santurce2026/1.0; pitcher-stat-research)"
@@ -595,6 +596,22 @@ def main() -> None:
                 if not record.get("summer_line"):
                     record["summer_line"] = dict(bref_line)
 
+    empty_audit = json.loads(EMPTY_AUDIT_PATH.read_text())
+    audit_by_name = {row["name"]: row for row in empty_audit.get("rows") or []}
+    missing_names = {record.get("name") for record in pitchers if not record.get("summer_line")}
+    if missing_names != set(audit_by_name):
+        raise ValueError(
+            "Empty-row audit does not match generated data: "
+            f"missing_from_audit={sorted(missing_names - set(audit_by_name))}, "
+            f"stale_audit={sorted(set(audit_by_name) - missing_names)}"
+        )
+    for mlb_id, records in by_id.items():
+        audit = audit_by_name.get(records[0].get("name"))
+        if audit:
+            entry = saved.setdefault(str(mlb_id), {"name": records[0].get("name")})
+            entry["verified_empty_audit"] = audit
+            _save_checkpoint(checkpoint)
+
     document["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     document["summer_line_supplement"] = {
         "sources": [
@@ -605,6 +622,7 @@ def main() -> None:
         "selection": "2026 regular-season team row with most innings; combined team totals ignored",
         "fip_formula": checkpoint["fip_formula"],
         "checkpoint": "data/pitcher_summer_supplement.json",
+        "empty_row_audit": "data/pitcher_summer_empty_audit.json",
     }
     DATA_PATH.write_text(json.dumps(document, indent=2, ensure_ascii=False))
     _save_checkpoint(checkpoint)
