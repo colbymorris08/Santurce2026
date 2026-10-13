@@ -1163,10 +1163,10 @@
           "whiff": 30.9,
           "xwoba": 0.362,
           "usage_l": 44.4,
-          "miss_l": null,
+          "miss_l": 14.6,
           "pitches_l": 248,
           "usage_r": 38.9,
-          "miss_r": null,
+          "miss_r": 26.1,
           "pitches_r": 222
         },
         {
@@ -1183,10 +1183,10 @@
           "whiff": 58.1,
           "xwoba": 0.235,
           "usage_l": 30.9,
-          "miss_l": null,
+          "miss_l": 52.1,
           "pitches_l": 173,
           "usage_r": 45.7,
-          "miss_r": null,
+          "miss_r": 41.6,
           "pitches_r": 261
         },
         {
@@ -1203,10 +1203,10 @@
           "whiff": 46.5,
           "xwoba": 0.244,
           "usage_l": 20.8,
-          "miss_l": null,
+          "miss_l": 34.8,
           "pitches_l": 116,
           "usage_r": 12.3,
-          "miss_r": null,
+          "miss_r": 21.4,
           "pitches_r": 70
         },
         {
@@ -1226,8 +1226,8 @@
           "pitches_l": 14,
           "usage_r": 2.6,
           "pitches_r": 15,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 42.9,
+          "miss_r": 100.0
         },
         {
           "type": "CH",
@@ -1246,7 +1246,7 @@
           "pitches_l": 5,
           "usage_r": 0.5,
           "pitches_r": 3,
-          "miss_l": null,
+          "miss_l": 33.3,
           "miss_r": null
         },
         {
@@ -1264,7 +1264,7 @@
           "xwoba": null,
           "usage_l": 0.4,
           "pitches_l": 2,
-          "miss_l": null
+          "miss_l": 0.0
         },
         {
           "type": "FC",
@@ -1668,7 +1668,10 @@
             "usage": 0.5
           }
         ]
-      }
+      },
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 955
     },
     {
       "name": "Adalberto Flores",
@@ -2081,8 +2084,8 @@
           "pitches_l": 48,
           "usage_r": 60.0,
           "pitches_r": 54,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 25.0,
+          "miss_r": 11.5
         },
         {
           "type": "SL",
@@ -2101,8 +2104,8 @@
           "pitches_l": 20,
           "usage_r": 36.7,
           "pitches_r": 33,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 37.5,
+          "miss_r": 25.0
         },
         {
           "type": "CH",
@@ -2121,8 +2124,8 @@
           "pitches_l": 20,
           "usage_r": 3.3,
           "pitches_r": 3,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 33.3,
+          "miss_r": 0.0
         },
         {
           "type": "CU",
@@ -2330,7 +2333,10 @@
         "vs_LHH": 89,
         "vs_RHH": 90
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 188
     },
     {
       "name": "Anthony Maldonado",
@@ -4255,7 +4261,9 @@
           "usage_l": 45.5,
           "pitches_l": 10,
           "usage_r": 33.3,
-          "pitches_r": 15
+          "pitches_r": 15,
+          "miss_l": 0.0,
+          "miss_r": 10.0
         },
         {
           "type": "SL",
@@ -4273,7 +4281,9 @@
           "usage_l": 13.6,
           "pitches_l": 3,
           "usage_r": 40.0,
-          "pitches_r": 18
+          "pitches_r": 18,
+          "miss_l": 0.0,
+          "miss_r": 33.3
         },
         {
           "type": "CH",
@@ -4291,7 +4301,9 @@
           "usage_l": 36.4,
           "pitches_l": 8,
           "usage_r": 13.3,
-          "pitches_r": 6
+          "pitches_r": 6,
+          "miss_l": 0.0,
+          "miss_r": 66.7
         },
         {
           "type": "CU",
@@ -4307,7 +4319,8 @@
           "whiff": 0.0,
           "xwoba": null,
           "usage_r": 11.1,
-          "pitches_r": 5
+          "pitches_r": 5,
+          "miss_r": 0.0
         },
         {
           "type": "SI",
@@ -4546,7 +4559,10 @@
         "vs_LHH": 22,
         "vs_RHH": 45
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 69
     },
     {
       "name": "Carlos Torres",
@@ -4574,7 +4590,9 @@
           "usage_l": 25.5,
           "pitches_l": 100,
           "usage_r": 57.6,
-          "pitches_r": 258
+          "pitches_r": 258,
+          "miss_l": 40.6,
+          "miss_r": 37.7
         },
         {
           "type": "FF",
@@ -4592,7 +4610,9 @@
           "usage_l": 45.4,
           "pitches_l": 178,
           "usage_r": 27.2,
-          "pitches_r": 122
+          "pitches_r": 122,
+          "miss_l": 16.1,
+          "miss_r": 10.4
         },
         {
           "type": "CU",
@@ -4610,7 +4630,9 @@
           "usage_l": 22.2,
           "pitches_l": 87,
           "usage_r": 5.4,
-          "pitches_r": 24
+          "pitches_r": 24,
+          "miss_l": 16.7,
+          "miss_r": 20.0
         },
         {
           "type": "SI",
@@ -4628,7 +4650,9 @@
           "usage_l": 2.0,
           "pitches_l": 8,
           "usage_r": 4.7,
-          "pitches_r": 21
+          "pitches_r": 21,
+          "miss_l": 33.3,
+          "miss_r": 20.0
         },
         {
           "type": "FC",
@@ -4646,7 +4670,9 @@
           "usage_l": 1.0,
           "pitches_l": 4,
           "usage_r": 4.5,
-          "pitches_r": 20
+          "pitches_r": 20,
+          "miss_l": 66.7,
+          "miss_r": 8.3
         },
         {
           "type": "FS",
@@ -4664,7 +4690,8 @@
           "usage_l": 2.3,
           "pitches_l": 9,
           "usage_r": 0.2,
-          "pitches_r": 1
+          "pitches_r": 1,
+          "miss_l": 40.0
         },
         {
           "type": "CH",
@@ -4682,7 +4709,9 @@
           "usage_l": 1.5,
           "pitches_l": 6,
           "usage_r": 0.2,
-          "pitches_r": 1
+          "pitches_r": 1,
+          "miss_l": 0.0,
+          "miss_r": 0.0
         },
         {
           "type": "PO",
@@ -5039,7 +5068,10 @@
         "vs_LHH": 392,
         "vs_RHH": 448
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 879
     },
     {
       "name": "Christian Torres",
@@ -9634,12 +9666,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 40.1,
           "xwoba": null,
           "usage_l": 40.2,
           "pitches_l": 121,
           "usage_r": 55.6,
-          "pitches_r": 225
+          "pitches_r": 225,
+          "miss_l": 40.8,
+          "miss_r": 39.8
         },
         {
           "type": "FC",
@@ -9652,12 +9686,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 26.5,
           "xwoba": null,
           "usage_l": 27.9,
           "pitches_l": 84,
           "usage_r": 26.4,
-          "pitches_r": 107
+          "pitches_r": 107,
+          "miss_l": 23.5,
+          "miss_r": 28.6
         },
         {
           "type": "FF",
@@ -9670,12 +9706,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 25.0,
           "xwoba": null,
           "usage_l": 29.6,
           "pitches_l": 89,
           "usage_r": 18.0,
-          "pitches_r": 73
+          "pitches_r": 73,
+          "miss_l": 25.0,
+          "miss_r": 25.0
         },
         {
           "type": "CU",
@@ -9704,10 +9742,11 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 0.0,
           "xwoba": null,
           "usage_l": 1.0,
-          "pitches_l": 3
+          "pitches_l": 3,
+          "miss_l": 0.0
         }
       ],
       "usage_by_count": {
@@ -9935,7 +9974,10 @@
         "vs_LHH": 301,
         "vs_RHH": 405
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025 fallback",
+      "synergy_whiff_events": 625
     },
     {
       "name": "JeanPierre Ortiz",
@@ -9964,8 +10006,8 @@
           "pitches_l": 343,
           "usage_r": 54.0,
           "pitches_r": 320,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 22.6,
+          "miss_r": 20.4
         },
         {
           "type": "SL",
@@ -9984,8 +10026,8 @@
           "pitches_l": 118,
           "usage_r": 31.0,
           "pitches_r": 184,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 44.0,
+          "miss_r": 23.3
         },
         {
           "type": "CH",
@@ -10004,8 +10046,8 @@
           "pitches_l": 97,
           "usage_r": 12.6,
           "pitches_r": 75,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 31.1,
+          "miss_r": 42.4
         },
         {
           "type": "FC",
@@ -10025,7 +10067,7 @@
           "usage_r": 1.3,
           "pitches_r": 8,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": 0.0
         },
         {
           "type": "CU",
@@ -10044,7 +10086,7 @@
           "pitches_l": 2,
           "usage_r": 0.8,
           "pitches_r": 5,
-          "miss_l": null,
+          "miss_l": 0.0,
           "miss_r": null
         },
         {
@@ -10334,7 +10376,10 @@
         "vs_LHH": 561,
         "vs_RHH": 593
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 1191
     },
     {
       "name": "Eddy Reynoso",
@@ -11492,8 +11537,8 @@
           "pitches_l": 42,
           "usage_r": 55.6,
           "pitches_r": 55,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 4.8,
+          "miss_r": 4.8
         },
         {
           "type": "SL",
@@ -11512,8 +11557,8 @@
           "pitches_l": 13,
           "usage_r": 17.2,
           "pitches_r": 17,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 25.0,
+          "miss_r": 0.0
         },
         {
           "type": "CH",
@@ -11532,8 +11577,8 @@
           "pitches_l": 2,
           "usage_r": 26.3,
           "pitches_r": 26,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 42.9
         },
         {
           "type": "CU",
@@ -11749,7 +11794,10 @@
         "vs_LHH": 59,
         "vs_RHH": 99
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 171
     },
     {
       "name": "Ricardo Velez",
@@ -12092,14 +12140,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 13.5,
           "xwoba": null,
           "usage_l": 42.8,
           "pitches_l": 83,
           "usage_r": 38.1,
           "pitches_r": 144,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 16.2,
+          "miss_r": 11.9
         },
         {
           "type": "CH",
@@ -12112,14 +12160,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 37.0,
           "xwoba": null,
           "usage_l": 2.1,
           "pitches_l": 4,
           "usage_r": 38.4,
           "pitches_r": 145,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 37.4
         },
         {
           "type": "SL",
@@ -12132,14 +12180,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 28.3,
           "xwoba": null,
           "usage_l": 42.8,
           "pitches_l": 83,
           "usage_r": 8.7,
           "pitches_r": 33,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 22.6,
+          "miss_r": 40.0
         },
         {
           "type": "CU",
@@ -12152,14 +12200,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 17.4,
           "xwoba": null,
           "usage_l": 9.3,
           "pitches_l": 18,
           "usage_r": 13.8,
           "pitches_r": 52,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 26.7
         },
         {
           "type": "SI",
@@ -12172,14 +12220,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 20.0,
           "xwoba": null,
           "usage_l": 2.6,
           "pitches_l": 5,
           "usage_r": 0.8,
           "pitches_r": 3,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 25.0,
+          "miss_r": 0.0
         },
         {
           "type": "FC",
@@ -12192,13 +12240,13 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 0.0,
           "xwoba": null,
           "usage_l": 0.5,
           "pitches_l": 1,
           "usage_r": 0.3,
           "pitches_r": 1,
-          "miss_l": null,
+          "miss_l": 0.0,
           "miss_r": null
         }
       ],
@@ -12317,6 +12365,65 @@
             "usage": 1.4,
             "pitches": 2
           }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 59,
+            "usage": 36.0
+          },
+          {
+            "type": "CH",
+            "pitches": 53,
+            "usage": 32.3
+          },
+          {
+            "type": "CU",
+            "pitches": 25,
+            "usage": 15.2
+          },
+          {
+            "type": "SL",
+            "pitches": 24,
+            "usage": 14.6
+          },
+          {
+            "type": "SI",
+            "pitches": 3,
+            "usage": 1.8
+          }
+        ],
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 227,
+            "usage": 39.7
+          },
+          {
+            "type": "CH",
+            "pitches": 149,
+            "usage": 26.0
+          },
+          {
+            "type": "SL",
+            "pitches": 116,
+            "usage": 20.3
+          },
+          {
+            "type": "CU",
+            "pitches": 70,
+            "usage": 12.2
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 1.4
+          },
+          {
+            "type": "FC",
+            "pitches": 2,
+            "usage": 0.3
+          }
         ]
       },
       "platoon": {
@@ -12406,7 +12513,10 @@
         "vs_LHH": 194,
         "vs_RHH": 378
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 609
     },
     {
       "name": "Eddy Demurias",
@@ -13370,7 +13480,9 @@
           "usage_l": 34.4,
           "pitches_l": 101,
           "usage_r": 58.8,
-          "pitches_r": 153
+          "pitches_r": 153,
+          "miss_l": 37.5,
+          "miss_r": 33.3
         },
         {
           "type": "FF",
@@ -13388,7 +13500,9 @@
           "usage_l": 51.7,
           "pitches_l": 152,
           "usage_r": 32.3,
-          "pitches_r": 84
+          "pitches_r": 84,
+          "miss_l": 31.0,
+          "miss_r": 29.4
         },
         {
           "type": "FS",
@@ -13406,7 +13520,9 @@
           "usage_l": 10.9,
           "pitches_l": 32,
           "usage_r": 1.2,
-          "pitches_r": 3
+          "pitches_r": 3,
+          "miss_l": 43.8,
+          "miss_r": 100.0
         },
         {
           "type": "FC",
@@ -13424,7 +13540,9 @@
           "usage_l": 3.1,
           "pitches_l": 9,
           "usage_r": 7.3,
-          "pitches_r": 19
+          "pitches_r": 19,
+          "miss_l": 16.7,
+          "miss_r": 20.0
         },
         {
           "type": "CU",
@@ -13672,7 +13790,10 @@
         "vs_LHH": 294,
         "vs_RHH": 260
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 570
     },
     {
       "name": "Ashton Goudeau",
@@ -14869,10 +14990,10 @@
           "whiff": 10.0,
           "xwoba": 0.15,
           "usage_l": 47.1,
-          "miss_l": null,
+          "miss_l": 16.7,
           "pitches_l": 112,
           "usage_r": 49.2,
-          "miss_r": null,
+          "miss_r": 15.8,
           "pitches_r": 117
         },
         {
@@ -14889,10 +15010,10 @@
           "whiff": 25.0,
           "xwoba": 0.313,
           "usage_l": 9.2,
-          "miss_l": null,
+          "miss_l": 0.0,
           "pitches_l": 22,
           "usage_r": 27.7,
-          "miss_r": null,
+          "miss_r": 31.8,
           "pitches_r": 66
         },
         {
@@ -14912,8 +15033,8 @@
           "pitches_l": 51,
           "usage_r": 10.9,
           "pitches_r": 26,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 37.5,
+          "miss_r": 33.3
         },
         {
           "type": "SI",
@@ -14929,10 +15050,10 @@
           "whiff": 9.1,
           "xwoba": 0.398,
           "usage_l": 11.8,
-          "miss_l": null,
+          "miss_l": 33.3,
           "pitches_l": 28,
           "usage_r": 10.9,
-          "miss_r": null,
+          "miss_r": 33.3,
           "pitches_r": 26
         },
         {
@@ -14949,7 +15070,7 @@
           "whiff": 20.0,
           "xwoba": 0.377,
           "usage_l": 9.2,
-          "miss_l": null,
+          "miss_l": 33.3,
           "pitches_l": 22,
           "usage_r": 1.3,
           "miss_r": null,
@@ -15460,7 +15581,10 @@
             "usage": 1.3
           }
         ]
-      }
+      },
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 168
     },
     {
       "name": "Miguel Martinez",
@@ -16478,8 +16602,8 @@
           "pitches_l": 269,
           "usage_r": 42.4,
           "pitches_r": 388,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 11.8,
+          "miss_r": 14.2
         },
         {
           "type": "SL",
@@ -16498,8 +16622,8 @@
           "pitches_l": 66,
           "usage_r": 36.1,
           "pitches_r": 330,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 12.8,
+          "miss_r": 26.1
         },
         {
           "type": "CU",
@@ -16518,8 +16642,8 @@
           "pitches_l": 71,
           "usage_r": 11.5,
           "pitches_r": 105,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 10.0,
+          "miss_r": 25.6
         },
         {
           "type": "CH",
@@ -16538,8 +16662,8 @@
           "pitches_l": 61,
           "usage_r": 4.4,
           "pitches_r": 40,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 16.7,
+          "miss_r": 23.8
         },
         {
           "type": "SI",
@@ -16558,8 +16682,8 @@
           "pitches_l": 26,
           "usage_r": 3.4,
           "pitches_r": 31,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 7.7,
+          "miss_r": 5.9
         },
         {
           "type": "FC",
@@ -16578,8 +16702,8 @@
           "pitches_l": 5,
           "usage_r": 2.3,
           "pitches_r": 21,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 50.0,
+          "miss_r": 37.5
         },
         {
           "type": "FS",
@@ -16917,7 +17041,10 @@
         "vs_LHH": 501,
         "vs_RHH": 915
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2024",
+      "synergy_whiff_events": 1765
     },
     {
       "name": "Bryant Salgado",
@@ -16946,8 +17073,8 @@
           "pitches_l": 314,
           "usage_r": 58.4,
           "pitches_r": 340,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 14.3,
+          "miss_r": 12.8
         },
         {
           "type": "SL",
@@ -16966,8 +17093,8 @@
           "pitches_l": 75,
           "usage_r": 28.2,
           "pitches_r": 164,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 27.8,
+          "miss_r": 21.4
         },
         {
           "type": "FC",
@@ -16986,8 +17113,8 @@
           "pitches_l": 23,
           "usage_r": 8.2,
           "pitches_r": 48,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 12.5,
+          "miss_r": 5.9
         },
         {
           "type": "CU",
@@ -17006,7 +17133,7 @@
           "pitches_l": 38,
           "usage_r": 4.0,
           "pitches_r": 23,
-          "miss_l": null,
+          "miss_l": 40.0,
           "miss_r": null
         },
         {
@@ -17026,7 +17153,7 @@
           "pitches_l": 33,
           "usage_r": 0.5,
           "pitches_r": 3,
-          "miss_l": null,
+          "miss_l": 22.2,
           "miss_r": null
         },
         {
@@ -17046,8 +17173,8 @@
           "pitches_l": 1,
           "usage_r": 0.3,
           "pitches_r": 2,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 0.0
         },
         {
           "type": "FS",
@@ -17365,7 +17492,10 @@
         "vs_LHH": 485,
         "vs_RHH": 582
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 374
     },
     {
       "name": "Kazuto Taguchi",
@@ -18011,12 +18141,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 15.8,
           "xwoba": null,
           "usage_l": 47.7,
           "pitches_l": 31,
           "usage_r": 56.0,
-          "pitches_r": 79
+          "pitches_r": 79,
+          "miss_l": 17.0,
+          "miss_r": 15.4
         },
         {
           "type": "SL",
@@ -18029,12 +18161,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 26.1,
           "xwoba": null,
           "usage_l": 38.5,
           "pitches_l": 25,
           "usage_r": 19.1,
-          "pitches_r": 27
+          "pitches_r": 27,
+          "miss_l": 27.8,
+          "miss_r": 25.0
         },
         {
           "type": "CH",
@@ -18047,12 +18181,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 33.6,
           "xwoba": null,
           "usage_l": 1.5,
           "pitches_l": 1,
           "usage_r": 17.7,
-          "pitches_r": 25
+          "pitches_r": 25,
+          "miss_l": 10.0,
+          "miss_r": 35.4
         },
         {
           "type": "CU",
@@ -18065,12 +18201,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 9.5,
           "xwoba": null,
           "usage_l": 9.2,
           "pitches_l": 6,
           "usage_r": 3.5,
-          "pitches_r": 5
+          "pitches_r": 5,
+          "miss_l": 12.5,
+          "miss_r": 7.7
         },
         {
           "type": "FC",
@@ -18083,12 +18221,14 @@
           "hb_pitcher": null,
           "hb_hitter": null,
           "ps_stuff": null,
-          "whiff": null,
+          "whiff": 0.0,
           "xwoba": null,
           "usage_l": 3.1,
           "pitches_l": 2,
           "usage_r": 3.5,
-          "pitches_r": 5
+          "pitches_r": 5,
+          "miss_l": 0.0,
+          "miss_r": 0.0
         }
       ],
       "usage_by_count": {
@@ -18334,7 +18474,10 @@
         "vs_LHH": 65,
         "vs_RHH": 141
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2024 fallback",
+      "synergy_whiff_events": 1538
     },
     {
       "name": "Derek West",
@@ -18363,8 +18506,8 @@
           "pitches_l": 370,
           "usage_r": 57.7,
           "pitches_r": 402,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 19.4,
+          "miss_r": 32.7
         },
         {
           "type": "SL",
@@ -18383,8 +18526,8 @@
           "pitches_l": 50,
           "usage_r": 26.4,
           "pitches_r": 184,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 16.7,
+          "miss_r": 52.5
         },
         {
           "type": "CU",
@@ -18403,8 +18546,8 @@
           "pitches_l": 95,
           "usage_r": 7.6,
           "pitches_r": 53,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 15.0,
+          "miss_r": 0.0
         },
         {
           "type": "FC",
@@ -18423,8 +18566,8 @@
           "pitches_l": 32,
           "usage_r": 6.9,
           "pitches_r": 48,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 37.5,
+          "miss_r": 0.0
         },
         {
           "type": "CH",
@@ -18443,8 +18586,8 @@
           "pitches_l": 18,
           "usage_r": 1.0,
           "pitches_r": 7,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 33.3,
+          "miss_r": 75.0
         },
         {
           "type": "FS",
@@ -18463,7 +18606,7 @@
           "pitches_l": 10,
           "usage_r": 0.3,
           "pitches_r": 2,
-          "miss_l": null,
+          "miss_l": 0.0,
           "miss_r": null
         },
         {
@@ -18826,7 +18969,10 @@
         "vs_LHH": 581,
         "vs_RHH": 697
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 773
     },
     {
       "name": "Jonathan Bermudez",
@@ -20347,8 +20493,8 @@
           "pitches_l": 59,
           "usage_r": 72.1,
           "pitches_r": 88,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 8.3,
+          "miss_r": 42.9
         },
         {
           "type": "SL",
@@ -20367,8 +20513,8 @@
           "pitches_l": 8,
           "usage_r": 23.8,
           "pitches_r": 29,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 33.3,
+          "miss_r": 33.3
         },
         {
           "type": "FS",
@@ -20387,8 +20533,8 @@
           "pitches_l": 5,
           "usage_r": 2.5,
           "pitches_r": 3,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 0.0
         },
         {
           "type": "CU",
@@ -20459,7 +20605,7 @@
           "xwoba": null,
           "usage_l": 1.2,
           "pitches_l": 1,
-          "miss_l": null
+          "miss_l": 0.0
         }
       ],
       "usage_by_count": {
@@ -20720,7 +20866,10 @@
         "vs_LHH": 80,
         "vs_RHH": 122
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 220
     },
     {
       "name": "Tyler Gough",
@@ -22128,8 +22277,8 @@
           "pitches_l": 45,
           "usage_r": 59.7,
           "pitches_r": 83,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 36.4,
+          "miss_r": 35.1
         },
         {
           "type": "CH",
@@ -22148,8 +22297,8 @@
           "pitches_l": 8,
           "usage_r": 23.7,
           "pitches_r": 33,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 50.0,
+          "miss_r": 31.2
         },
         {
           "type": "CU",
@@ -22168,8 +22317,8 @@
           "pitches_l": 14,
           "usage_r": 10.1,
           "pitches_r": 14,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 33.3,
+          "miss_r": 40.0
         },
         {
           "type": "SL",
@@ -22189,7 +22338,7 @@
           "usage_r": 6.5,
           "pitches_r": 9,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": 0.0
         },
         {
           "type": "FC",
@@ -22427,7 +22576,10 @@
         "vs_LHH": 74,
         "vs_RHH": 139
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 220
     },
     {
       "name": "Michael Morales",
@@ -22455,7 +22607,9 @@
           "usage_l": 31.3,
           "pitches_l": 195,
           "usage_r": 29.6,
-          "pitches_r": 163
+          "pitches_r": 163,
+          "miss_l": 13.1,
+          "miss_r": 17.4
         },
         {
           "type": "FC",
@@ -22473,7 +22627,9 @@
           "usage_l": 19.6,
           "pitches_l": 122,
           "usage_r": 25.8,
-          "pitches_r": 142
+          "pitches_r": 142,
+          "miss_l": 13.2,
+          "miss_r": 28.8
         },
         {
           "type": "SL",
@@ -22491,7 +22647,9 @@
           "usage_l": 12.2,
           "pitches_l": 76,
           "usage_r": 26.5,
-          "pitches_r": 146
+          "pitches_r": 146,
+          "miss_l": 38.5,
+          "miss_r": 32.4
         },
         {
           "type": "CU",
@@ -22509,7 +22667,9 @@
           "usage_l": 17.7,
           "pitches_l": 110,
           "usage_r": 13.6,
-          "pitches_r": 75
+          "pitches_r": 75,
+          "miss_l": 38.0,
+          "miss_r": 44.4
         },
         {
           "type": "CH",
@@ -22527,7 +22687,9 @@
           "usage_l": 19.3,
           "pitches_l": 120,
           "usage_r": 4.2,
-          "pitches_r": 23
+          "pitches_r": 23,
+          "miss_l": 32.5,
+          "miss_r": 9.1
         },
         {
           "type": "SI",
@@ -22846,7 +23008,10 @@
         "vs_LHH": 623,
         "vs_RHH": 551
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 1221
     },
     {
       "name": "Orlando Ortiz-Mayr",
@@ -23291,8 +23456,8 @@
           "pitches_l": 83,
           "usage_r": 61.3,
           "pitches_r": 95,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 17.9,
+          "miss_r": 15.9
         },
         {
           "type": "SL",
@@ -23311,8 +23476,8 @@
           "pitches_l": 46,
           "usage_r": 12.9,
           "pitches_r": 20,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 30.0,
+          "miss_r": 45.5
         },
         {
           "type": "CH",
@@ -23331,8 +23496,8 @@
           "pitches_l": 6,
           "usage_r": 25.2,
           "pitches_r": 39,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 33.3,
+          "miss_r": 40.9
         },
         {
           "type": "FC",
@@ -23351,7 +23516,7 @@
           "pitches_l": 3,
           "usage_r": 0.6,
           "pitches_r": 1,
-          "miss_l": null,
+          "miss_l": 0.0,
           "miss_r": null
         },
         {
@@ -23590,7 +23755,10 @@
         "vs_LHH": 139,
         "vs_RHH": 155
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 315
     },
     {
       "name": "Hector Quinones",
@@ -25094,8 +25262,8 @@
           "pitches_l": 12,
           "usage_r": 39.4,
           "pitches_r": 13,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 14.3,
+          "miss_r": 28.6
         },
         {
           "type": "SL",
@@ -25115,7 +25283,7 @@
           "usage_r": 27.3,
           "pitches_r": 9,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": 100.0
         },
         {
           "type": "FC",
@@ -25134,8 +25302,8 @@
           "pitches_l": 2,
           "usage_r": 21.2,
           "pitches_r": 7,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 66.7
         },
         {
           "type": "CH",
@@ -25154,8 +25322,8 @@
           "pitches_l": 4,
           "usage_r": 6.1,
           "pitches_r": 2,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 100.0
         },
         {
           "type": "SI",
@@ -25411,7 +25579,10 @@
         "vs_LHH": 21,
         "vs_RHH": 33
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2026 summer",
+      "synergy_whiff_events": 57
     },
     {
       "name": "Eric Torres",
@@ -26859,8 +27030,8 @@
           "pitches_l": 79,
           "usage_r": 54.1,
           "pitches_r": 72,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 5.6,
+          "miss_r": 8.8
         },
         {
           "type": "CH",
@@ -26879,8 +27050,8 @@
           "pitches_l": 14,
           "usage_r": 41.4,
           "pitches_r": 55,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 23.3
         },
         {
           "type": "SL",
@@ -26899,8 +27070,8 @@
           "pitches_l": 42,
           "usage_r": 4.5,
           "pitches_r": 6,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 31.6,
+          "miss_r": 100.0
         },
         {
           "type": "CU",
@@ -27100,7 +27271,10 @@
         "vs_LHH": 135,
         "vs_RHH": 133
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 313
     },
     {
       "name": "Agnel Miranda",
@@ -27971,8 +28145,8 @@
           "pitches_l": 69,
           "usage_r": 68.7,
           "pitches_r": 57,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 22.6,
+          "miss_r": 13.0
         },
         {
           "type": "SL",
@@ -27991,8 +28165,8 @@
           "pitches_l": 17,
           "usage_r": 21.7,
           "pitches_r": 18,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 25.0
         },
         {
           "type": "CH",
@@ -28012,7 +28186,7 @@
           "usage_r": 8.4,
           "pitches_r": 7,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": 0.0
         },
         {
           "type": "FS",
@@ -28210,7 +28384,10 @@
         "vs_LHH": 87,
         "vs_RHH": 83
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 200
     },
     {
       "name": "Raul Rivera",
@@ -28239,8 +28416,8 @@
           "pitches_l": 62,
           "usage_r": 37.5,
           "pitches_r": 30,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 10.7,
+          "miss_r": 7.1
         },
         {
           "type": "CU",
@@ -28259,8 +28436,8 @@
           "pitches_l": 17,
           "usage_r": 27.5,
           "pitches_r": 22,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 28.6,
+          "miss_r": 16.7
         },
         {
           "type": "SL",
@@ -28279,8 +28456,8 @@
           "pitches_l": 10,
           "usage_r": 28.8,
           "pitches_r": 23,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 28.6
         },
         {
           "type": "CH",
@@ -28299,7 +28476,7 @@
           "pitches_l": 26,
           "usage_r": 2.5,
           "pitches_r": 2,
-          "miss_l": null,
+          "miss_l": 31.2,
           "miss_r": null
         },
         {
@@ -28319,8 +28496,8 @@
           "pitches_l": 6,
           "usage_r": 3.8,
           "pitches_r": 3,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 0.0
         },
         {
           "type": "SI",
@@ -28583,7 +28760,10 @@
         "vs_LHH": 121,
         "vs_RHH": 80
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 239
     },
     {
       "name": "Leonardo Rodriguez",
@@ -29381,8 +29561,8 @@
           "pitches_l": 69,
           "usage_r": 52.0,
           "pitches_r": 64,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 12.8,
+          "miss_r": 18.5
         },
         {
           "type": "SL",
@@ -29401,8 +29581,8 @@
           "pitches_l": 13,
           "usage_r": 39.0,
           "pitches_r": 48,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 50.0,
+          "miss_r": 35.7
         },
         {
           "type": "CH",
@@ -29421,8 +29601,8 @@
           "pitches_l": 16,
           "usage_r": 3.3,
           "pitches_r": 4,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 50.0,
+          "miss_r": 0.0
         },
         {
           "type": "FS",
@@ -29441,8 +29621,8 @@
           "pitches_l": 8,
           "usage_r": 5.7,
           "pitches_r": 7,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 25.0,
+          "miss_r": 25.0
         },
         {
           "type": "FC",
@@ -29680,7 +29860,10 @@
         "vs_LHH": 107,
         "vs_RHH": 123
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 263
     },
     {
       "name": "Keishin Saito",
@@ -29751,8 +29934,8 @@
           "pitches_l": 98,
           "usage_r": 35.4,
           "pitches_r": 92,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 2.6,
+          "miss_r": 6.1
         },
         {
           "type": "SL",
@@ -29771,8 +29954,8 @@
           "pitches_l": 63,
           "usage_r": 38.1,
           "pitches_r": 99,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 15.6,
+          "miss_r": 14.5
         },
         {
           "type": "SI",
@@ -29791,8 +29974,8 @@
           "pitches_l": 68,
           "usage_r": 18.5,
           "pitches_r": 48,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 15.4,
+          "miss_r": 4.5
         },
         {
           "type": "CH",
@@ -29811,8 +29994,8 @@
           "pitches_l": 76,
           "usage_r": 5.4,
           "pitches_r": 14,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 14.3,
+          "miss_r": 33.3
         },
         {
           "type": "CU",
@@ -29831,8 +30014,8 @@
           "pitches_l": 8,
           "usage_r": 2.3,
           "pitches_r": 6,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 0.0
         },
         {
           "type": "FS",
@@ -29851,8 +30034,8 @@
           "pitches_l": 6,
           "usage_r": 0.4,
           "pitches_r": 1,
-          "miss_l": null,
-          "miss_r": null
+          "miss_l": 0.0,
+          "miss_r": 100.0
         },
         {
           "type": "FC",
@@ -30170,7 +30353,10 @@
         "vs_LHH": 320,
         "vs_RHH": 260
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_window": "2025",
+      "synergy_whiff_events": 643
     }
   ],
   "updated": "2026-10-13T04:41:44Z",

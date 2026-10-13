@@ -3362,6 +3362,10 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
             "mlb_id": mid or None,
             "name": row.get("name") or sid,
             "team": row.get("team") or "",
+            "has_event_evidence": bool(
+                int(row.get("synergy_count_pitches") or row.get("pitches") or 0)
+                or (row.get("count_mix") or {}).get("overall")
+            ),
         })
     valid_pitcher_keys = {str(job["mlb_id"] or job["synergy_id"]) for job in pitcher_jobs}
     for job in pitcher_jobs:
@@ -3438,6 +3442,7 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
             or (
                 existing.get("complete")
                 and existing.get("fallback_version") == HEAT_FALLBACK_VERSION
+                and not int((h.get("overall") or {}).get("pitches") or 0)
             )
         ):
             print(f"=== heat hitter [{i}/{len(hitters)}] {name} · skip")
@@ -3475,6 +3480,7 @@ def pull_location_heatmaps(token: str) -> dict[str, Any]:
         if _heat_has_map(existing) or (
             existing.get("complete")
             and existing.get("fallback_version") == HEAT_FALLBACK_VERSION
+            and not job.get("has_event_evidence")
         ):
             print(f"=== heat pitcher [{i}/{len(pitcher_jobs)}] {name} · skip")
             return
