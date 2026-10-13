@@ -51,6 +51,17 @@ SPRING_RANGES = (
     ("2025", "2025-02-15", "2025-03-26"),
     ("2024", "2024-02-15", "2024-03-27"),
 )
+HITTER_NAME_ALIASES: dict[str, list[str]] = {
+    "josemiranda": ["Jose F Miranda"],
+    "samuelhernandez": ["Sammy Hernandez"],
+}
+PITCHER_NAME_ALIASES: dict[str, list[str]] = {
+    "freddycabrera": ["Freddie Cabrera"],
+}
+MLB_ID_OVERRIDES: dict[str, int] = {
+    "CAR|jeffreycaglianone": 695506,
+    "MAY|cameroncauley": 695508,
+}
 
 
 class RequestTimeout(Exception):
@@ -199,6 +210,11 @@ def search_person(name: str, *, pitcher: bool) -> dict | None:
 def resolve_ids(players: list[dict], checkpoint: dict, *, pitcher: bool) -> None:
     resolved = checkpoint.setdefault("resolved_ids", {})
     people_cache = checkpoint.setdefault("people", {})
+    for player in players:
+        key = player_key(player)
+        override = MLB_ID_OVERRIDES.get(key)
+        if override:
+            resolved[key] = {"mlb_id": override, "source": "manual override"}
     known = [player["id"] for player in players if player["id"] > 0 and player_key(player) not in resolved]
     if known:
         for person_id, person in people_by_ids(known).items():
@@ -506,16 +522,48 @@ def local_hitting_line(row: dict) -> dict:
     }
 
 
+def _local_name_rows(player: dict, by_name: dict, aliases: dict[str, list[str]]) -> list[dict]:
+    names = [player["name"], *aliases.get(norm(player["name"]), [])]
+    matches: list[dict] = []
+    for name in names:
+        matches.extend(by_name.get(norm(name)) or [])
+    if not matches:
+        return []
+    team = str(player.get("team") or "")
+    team_rows = [row for row in matches if str(row.get("teamAbbrev") or "") == team]
+    pool = team_rows or matches
+    identities = {int(item.get("playerId") or 0) for item in pool}
+    if len(pool) == 1 or (pool and len(identities) == 1):
+        return pool
+    return []
+
+
 def local_hitting_for(player: dict, checkpoint: dict, by_id: dict, by_name: dict) -> dict | None:
     person_id = mlb_id_for(player, checkpoint) or (player["id"] if player["id"] > 0 else 0)
     row = by_id.get(person_id or 0)
     if row:
         return local_hitting_line(row)
-    matches = by_name.get(norm(player["name"])) or []
-    identities = {int(item.get("playerId") or 0) for item in matches}
-    if len(matches) == 1 or (matches and len(identities) == 1):
+    matches = _local_name_rows(player, by_name, HITTER_NAME_ALIASES)
+    if matches:
         best = max(matches, key=lambda item: int(item.get("plateAppearances") or 0))
         return local_hitting_line(best)
+    return None
+
+
+def local_pitching_for(player: dict, checkpoint: dict, by_id: dict, by_name: dict) -> dict | None:
+    import backfill_pitcher_prior_seasons as prior
+
+    person_id = mlb_id_for(player, checkpoint) or (player["id"] if player["id"] > 0 else 0)
+    row = by_id.get(person_id or 0)
+    if row:
+        return prior.winter_line(row)
+    matches = _local_name_rows(player, by_name, PITCHER_NAME_ALIASES)
+    if matches:
+        best = max(
+            matches,
+            key=lambda item: prior.outs_from_ip(item.get("inningsPitched")),
+        )
+        return prior.winter_line(best)
     return None
 
 
@@ -1156,15 +1204,8 @@ def main() -> None:
         line = pitcher_2026.get(person_id) or pitcher_2025.get(person_id)
         source = "statsapi" if line else None
         if not line:
-            local = pitch_by_id.get(person_id)
-            if not local:
-                matches = pitch_by_name.get(norm(player["name"])) or []
-                identities = {int(item.get("playerId") or 0) for item in matches}
-                if matches and (len(matches) == 1 or len(identities) == 1):
-                    local = max(matches, key=lambda item: prior.outs_from_ip(item.get("inningsPitched")))
-            if local:
-                line = prior.winter_line(local)
-                source = "local-lbprc"
+            line = local_pitching_for(player, checkpoint, pitch_by_id, pitch_by_name)
+            source = "local-lbprc" if line else None
         if not line:
             try:
                 page, url = register_page(player["name"])

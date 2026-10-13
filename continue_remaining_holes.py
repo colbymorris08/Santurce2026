@@ -90,6 +90,20 @@ def lookup_line(player: dict, checkpoint: dict, *, pitcher: bool):
     cached = cache.get(key) or {}
     if cached.get("line"):
         return cached["line"], cached.get("source")
+    if pitcher:
+        pitch_by_id, pitch_by_name = holes.local_pitching_index()
+        local = holes.local_pitching_for(player, checkpoint, pitch_by_id, pitch_by_name)
+        if local:
+            cache[key] = {"status": "line", "source": "local-lbprc", "line": local}
+            holes.save_checkpoint(checkpoint)
+            return local, "local-lbprc"
+    else:
+        hit_by_id, hit_by_name = holes.local_hitting_index()
+        local = holes.local_hitting_for(player, checkpoint, hit_by_id, hit_by_name)
+        if local:
+            cache[key] = {"status": "line", "source": "local-lbprc", "line": local}
+            holes.save_checkpoint(checkpoint)
+            return local, "local-lbprc"
     person_id = holes.mlb_id_for(player, checkpoint)
     choose = holes.bref_pitching_choice if pitcher else holes.bref_hitting_choice
     try:

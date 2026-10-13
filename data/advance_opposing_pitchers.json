@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T20:42:07Z",
+  "updated": "2026-10-13T20:56:36Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -8434,7 +8434,33 @@
       "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "SJU",
       "mlb_id": null,
-      "window_used": "2026+2025 pool"
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "36.0",
+        "outs": 108,
+        "g": 9,
+        "gs": 9,
+        "k": 9,
+        "bb": 13,
+        "k9": "2.2",
+        "bb9": "3.2",
+        "era": "4.25",
+        "fip": "4.57",
+        "whip": "1.56",
+        "h": 43,
+        "hr": 2,
+        "sb_allowed": 5,
+        "cs_allowed": 2,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
+      }
     },
     {
       "synergy_id": "5f84b8c41cb0540001a544d9",
@@ -15818,6 +15844,44 @@
         "assignments": 1,
         "source": "Baseball Reference Register 2026 standard pitching",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ortiz-005jul",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      },
+      "source": "Season line attached for a roster arm that has no Synergy packet"
+    },
+    {
+      "synergy_id": null,
+      "name": "Ramon Rodriguez",
+      "team": "CAR",
+      "mlb_id": 670232,
+      "throws": "R",
+      "summer_line": {
+        "team": "PP",
+        "team_name": "Point Park Pioneers ()",
+        "season": "Summer 2026",
+        "league": "MEC",
+        "circuit": "Baseball Reference",
+        "league_name": "Mountain East Conference",
+        "level": "NCAA",
+        "ip": "63.2",
+        "outs": 191,
+        "g": 14,
+        "gs": 11,
+        "k": 65,
+        "bb": 11,
+        "k9": "9.2",
+        "bb9": "1.6",
+        "era": "3.68",
+        "fip": "2.83",
+        "whip": "1.19",
+        "h": 65,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig024ram",
         "field_sources": {
           "team_through_hr": "Baseball Reference Register 2026 standard pitching"
         }

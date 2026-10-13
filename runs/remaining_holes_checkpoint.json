@@ -640,9 +640,8 @@
       "source": "roster id"
     },
     "CAR|ramonrodriguez": {
-      "mlb_id": 670232,
-      "throws": "R",
-      "source": "roster id"
+      "mlb_id": null,
+      "reason": "roster id 670232 is catcher Ramón Rodríguez in Stats API; name-only lookup"
     },
     "CAR|ramesisrosa": {
       "mlb_id": 545814,
@@ -1681,7 +1680,7 @@
       "bats": "R"
     }
   },
-  "updated": "2026-10-13T20:42:05Z",
+  "updated": "2026-10-13T20:53:25Z",
   "appearances": {
     "446651": {
       "mlb": [],
@@ -2851,11 +2850,6 @@
     }
   },
   "hitter_lines": {
-    "CAG|jeancorrea": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
     "CAG|janhernandez": {
       "status": "line",
       "source": "local-lbprc",
@@ -2887,41 +2881,6 @@
         "assignments": 1,
         "source": "Local LBPRC 2025 hitting file"
       }
-    },
-    "CAG|josemiranda": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "CAG|edisonmora": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "CAG|brettrodriguez": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "CAG|hectorsantiago": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "CAR|jeffreycaglianone": {
-      "status": "no-register-page",
-      "source": "no-register-page",
-      "line": null
-    },
-    "CAR|slaterdebrun": {
-      "status": "no-register-page",
-      "source": "no-register-page",
-      "line": null
-    },
-    "CAR|mervylmelendez": {
-      "status": "no-register-page",
-      "source": "no-register-page",
-      "line": null
     },
     "CAR|miguelpabon": {
       "status": "line",
@@ -2956,11 +2915,6 @@
         "source": "MLB Stats API 2025 regular-season hitting team split"
       }
     },
-    "MAY|cameroncauley": {
-      "status": "no-register-page",
-      "source": "no-register-page",
-      "line": null
-    },
     "MAY|mariofeliciano": {
       "status": "line",
       "source": "statsapi",
@@ -2993,11 +2947,6 @@
         "assignments": 2,
         "source": "MLB Stats API 2025 regular-season hitting team split"
       }
-    },
-    "MAY|cameronmaldonado": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
     },
     "MAY|robertomerced": {
       "status": "line",
@@ -3095,11 +3044,6 @@
         "source": "Local LBPRC 2025 hitting file"
       }
     },
-    "PON|samuelhernandez": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
     "PON|kevinsanta": {
       "status": "line",
       "source": "local-lbprc",
@@ -3164,16 +3108,6 @@
         "source": "Local LBPRC 2025 hitting file"
       }
     },
-    "SJU|emmanuelgarcia": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "SJU|ivanhouellemont": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
     "SJU|yasielpuig": {
       "status": "line",
       "source": "baseball-reference",
@@ -3205,11 +3139,6 @@
         "source": "Baseball Reference Register 2025 standard batting",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=puig--000yas"
       }
-    },
-    "SJU|rubenramirez": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
     },
     "SJU|jadielsanchez": {
       "status": "line",
@@ -3274,6 +3203,130 @@
         "source": "Baseball Reference Register 2026 standard batting",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=terry-000cur"
       }
+    },
+    "CAG|jeancorrea": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|josemiranda": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "CAG",
+        "team_name": "Criollos de Caguas",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 99,
+        "ab": 87,
+        "r": 12,
+        "h": 20,
+        "doubles": 3,
+        "triples": 0,
+        "hr": 2,
+        "rbi": 8,
+        "sb": 0,
+        "cs": 0,
+        "bb": 9,
+        "so": 17,
+        "ba": ".230",
+        "obp": ".313",
+        "slg": ".333",
+        "ops": ".646",
+        "games": 24,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "CAG|edisonmora": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|brettrodriguez": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAG|hectorsantiago": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "CAR|jeffreycaglianone": {
+      "status": "no-register-page",
+      "source": "no-register-page",
+      "line": null
+    },
+    "CAR|slaterdebrun": {
+      "status": "no-register-page",
+      "source": "no-register-page",
+      "line": null
+    },
+    "CAR|mervylmelendez": {
+      "status": "no-register-page",
+      "source": "no-register-page",
+      "line": null
+    },
+    "MAY|cameroncauley": {
+      "status": "no-register-page",
+      "source": "no-register-page",
+      "line": null
+    },
+    "MAY|cameronmaldonado": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "PON|samuelhernandez": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "pa": 76,
+        "ab": 65,
+        "r": 6,
+        "h": 17,
+        "doubles": 5,
+        "triples": 0,
+        "hr": 0,
+        "rbi": 11,
+        "sb": 1,
+        "cs": 1,
+        "bb": 6,
+        "so": 10,
+        "ba": ".262",
+        "obp": ".324",
+        "slg": ".338",
+        "ops": ".662",
+        "games": 24,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 hitting file"
+      }
+    },
+    "SJU|emmanuelgarcia": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|ivanhouellemont": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|rubenramirez": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
     }
   },
   "pitcher_lines": {
@@ -3313,21 +3366,6 @@
           "fip": null
         }
       }
-    },
-    "MAY|devinrivera": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "MAY|antoniovelez": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "PON|hectorquinones": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
     },
     "PON|mariozabala": {
       "status": "line",
@@ -3495,11 +3533,6 @@
         }
       }
     },
-    "SJU|alexuanvega": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
     "SJU|keishinsaito": {
       "status": "line",
       "source": "baseball-reference",
@@ -3567,16 +3600,6 @@
           "team_through_hr": "Baseball Reference Register 2026 standard pitching"
         }
       }
-    },
-    "SJU|freddycabrera": {
-      "status": "no-register-page",
-      "source": "no-register-page",
-      "line": null
-    },
-    "CAG|sebastianrodriguez": {
-      "status": "ambiguous-register-name",
-      "source": "ambiguous-register-name",
-      "line": null
     },
     "CAR|saulgonzalez": {
       "status": "line",
@@ -3646,21 +3669,6 @@
         }
       }
     },
-    "CAR|ramonrodriguez": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "MAY|luiscruz": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
-    "MAY|nelvinfuentes": {
-      "status": "no-season",
-      "source": "no-season",
-      "line": null
-    },
     "SJU|julioortiz": {
       "status": "line",
       "source": "baseball-reference",
@@ -3693,6 +3701,105 @@
         "field_sources": {
           "team_through_hr": "Baseball Reference Register 2026 standard pitching"
         }
+      }
+    },
+    "CAG|sebastianrodriguez": {
+      "status": "ambiguous-register-name",
+      "source": "ambiguous-register-name",
+      "line": null
+    },
+    "CAR|ramonrodriguez": {
+      "status": "line",
+      "source": "baseball-reference",
+      "line": {
+        "team": "PP",
+        "team_name": "Point Park Pioneers ()",
+        "season": "Summer 2026",
+        "league": "MEC",
+        "circuit": "Baseball Reference",
+        "league_name": "Mountain East Conference",
+        "level": "NCAA",
+        "ip": "63.2",
+        "outs": 191,
+        "g": 14,
+        "gs": 11,
+        "k": 65,
+        "bb": 11,
+        "k9": "9.2",
+        "bb9": "1.6",
+        "era": "3.68",
+        "fip": "2.83",
+        "whip": "1.19",
+        "h": 65,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig024ram",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
+    },
+    "MAY|luiscruz": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "MAY|nelvinfuentes": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "MAY|devinrivera": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "MAY|antoniovelez": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "PON|hectorquinones": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|alexuanvega": {
+      "status": "no-season",
+      "source": "no-season",
+      "line": null
+    },
+    "SJU|freddycabrera": {
+      "status": "line",
+      "source": "local-lbprc",
+      "line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "36.0",
+        "outs": 108,
+        "g": 9,
+        "gs": 9,
+        "k": 9,
+        "bb": 13,
+        "k9": "2.2",
+        "bb9": "3.2",
+        "era": "4.25",
+        "fip": "4.57",
+        "whip": "1.56",
+        "h": 43,
+        "hr": 2,
+        "sb_allowed": 5,
+        "cs_allowed": 2,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     }
   },

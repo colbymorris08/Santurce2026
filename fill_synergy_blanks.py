@@ -249,7 +249,27 @@ def heat_key(player: dict, row: dict, heat: dict) -> str:
     return str((row or {}).get("synergy_id") or player_id)
 
 
-def fetch_player(token: str, *, pitcher_id: str | None = None, batter_id: str | None = None) -> tuple[str, list[dict], dict]:
+BROAD_LEAGUE_SCAN_IDS = {
+    "67e6d014be559430bd271882",  # Haruse Narita (Japan / non-MLB Synergy leagues)
+    "681d6486373abc5e4678b3f2",  # Keishin Saitoh
+    "67d4c6f2a94c63becc93c932",  # Yuta Nakami
+}
+
+
+def _retain_for_synergy_id(synergy_id: str | None):
+    if synergy_id in BROAD_LEAGUE_SCAN_IDS:
+        return lambda ev: bas.event_season_year(ev) in {2024, 2025, 2026}
+    return bas.event_in_heat_fallback_scan
+
+
+def fetch_player(
+    token: str,
+    *,
+    pitcher_id: str | None = None,
+    batter_id: str | None = None,
+    synergy_id: str | None = None,
+) -> tuple[str, list[dict], dict]:
+    retain = _retain_for_synergy_id(synergy_id or pitcher_id or batter_id)
     scan: dict = {}
     events = bas.fetch_events_pages(
         token,
@@ -261,7 +281,7 @@ def fetch_player(token: str, *, pitcher_id: str | None = None, batter_id: str | 
         timeout_s=20,
         max_attempts=3,
         stop_before_year=2024,
-        retain=bas.event_in_heat_fallback_scan,
+        retain=retain,
         max_scan=30000,
         scan_out=scan,
     )
@@ -282,7 +302,7 @@ def fetch_player(token: str, *, pitcher_id: str | None = None, batter_id: str | 
             timeout_s=20,
             max_attempts=3,
             stop_before_year=2024,
-            retain=bas.event_in_heat_fallback_scan,
+            retain=retain,
             max_scan=30000,
             scan_out=scan,
         )
@@ -428,8 +448,12 @@ def apply_hitter(row: dict, packed: dict, heat: dict) -> dict:
 
 
 def pack_pitcher(events: list[dict], scan: dict, synergy_id: str) -> dict:
-    windows = window_rows(events)
-    label, selected = first_chart_window(windows)
+    if synergy_id in BROAD_LEAGUE_SCAN_IDS and events:
+        label, selected = "2025 broad", events
+        windows = window_rows(events)
+    else:
+        windows = window_rows(events)
+        label, selected = first_chart_window(windows)
     counts = []
     for name in ("2026 summer", "2025", "2024"):
         mix = count_from(windows[name]) if chartable(windows[name]) else {}
@@ -452,9 +476,13 @@ def pack_pitcher(events: list[dict], scan: dict, synergy_id: str) -> dict:
     }
 
 
-def pack_hitter_pull(events: list[dict], scan: dict, team: str) -> dict:
-    windows = window_rows(events)
-    label, selected = first_chart_window(windows)
+def pack_hitter_pull(events: list[dict], scan: dict, team: str, *, synergy_id: str = "") -> dict:
+    if synergy_id in BROAD_LEAGUE_SCAN_IDS and events:
+        label, selected = "2025 broad", events
+        windows = window_rows(events)
+    else:
+        windows = window_rows(events)
+        label, selected = first_chart_window(windows)
     return {
         "complete": bool(scan.get("complete")),
         "scanned": int(scan.get("scanned") or 0),
@@ -543,7 +571,7 @@ def main() -> None:
         print(f"=== pitcher [{index}/{len(targets_p)}] {player['team']} {player['name']}", flush=True)
         cached = (checkpoint.get("pitchers") or {}).get(sid)
         if not cached or not cached.get("complete"):
-            token, events, scan = fetch_player(token, pitcher_id=sid)
+            token, events, scan = fetch_player(token, pitcher_id=sid, synergy_id=sid)
             cached = pack_pitcher(events, scan, sid)
             checkpoint.setdefault("pitchers", {})[sid] = cached
             checkpoint["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -573,8 +601,8 @@ def main() -> None:
         print(f"=== hitter [{index}/{len(targets_h)}] {player['team']} {player['name']}", flush=True)
         cached = (checkpoint.get("hitters") or {}).get(sid)
         if not cached or not cached.get("complete"):
-            token, events, scan = fetch_player(token, batter_id=sid)
-            cached = pack_hitter_pull(events, scan, player["team"])
+            token, events, scan = fetch_player(token, batter_id=sid, synergy_id=sid)
+            cached = pack_hitter_pull(events, scan, player["team"], synergy_id=sid)
             checkpoint.setdefault("hitters", {})[sid] = cached
             checkpoint["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             CHECKPOINT.write_text(json.dumps(checkpoint) + "\n")
