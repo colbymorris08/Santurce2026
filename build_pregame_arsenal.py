@@ -287,7 +287,12 @@ def count_mix_from_usage(usage_by_count: dict) -> dict:
 
 def build_row(base: dict, ps_pitches: list, ps_season, ps_source, sc: dict) -> dict:
     pitches = ps_pitches
-    if (not pitches) and sc.get("overall"):
+    has_movement = any(
+        p.get("ivb") is not None
+        and (p.get("hb_hitter") is not None or p.get("hb") is not None)
+        for p in pitches
+    )
+    if (not has_movement) and sc.get("overall"):
         pitches = [
             {
                 "type": p["type"],
@@ -375,16 +380,28 @@ def main() -> None:
         pid = int(base["player_id"])
         base = {**base, "throws": throws.get(pid) or base.get("throws")}
         cached = existing.get(pid)
-        # Reuse Statcast if already built; always refresh PS movement cheaply when missing
-        need_ps = not (cached and cached.get("arsenal"))
-        need_sc = bool(base.get("mlb_debut")) and not (
-            cached and (cached.get("usage_by_count") or cached.get("platoon"))
+        # Synergy can supply usage/velo/whiff rows without Trackman movement.
+        # Keep checking Prospect Savant until an IVB/HB movement plot is present.
+        has_movement = bool(
+            cached
+            and any(
+                p.get("ivb") is not None
+                and (p.get("hb_hitter") is not None or p.get("hb") is not None)
+                for p in (cached.get("arsenal") or [])
+            )
         )
+        need_ps = not has_movement
+        need_sc = bool(pid > 0 and not has_movement)
 
         ps_pitches, ps_season, ps_source = [], None, None
         if need_ps or not cached:
             ps_pitches, ps_season, ps_source = fetch_ps_arsenal(pid)
             time.sleep(0.08)
+            # A failed PS lookup must not erase useful Synergy usage/velo/whiff.
+            if not ps_pitches and cached:
+                ps_pitches = cached.get("arsenal") or []
+                ps_season = cached.get("ps_season")
+                ps_source = cached.get("ps_source")
         else:
             ps_pitches = cached.get("arsenal") or []
             ps_season = cached.get("ps_season")
@@ -405,6 +422,19 @@ def main() -> None:
             }
 
         row = build_row(base, ps_pitches, ps_season, ps_source, sc)
+        if cached:
+            for key in (
+                "synergy_id",
+                "synergy_count_source",
+                "synergy_count_pitches",
+                "synergy_leagues",
+                "synergy_years",
+                "synergy_usage_source",
+                "synergy_hand_n",
+                "synergy_hand_source",
+            ):
+                if cached.get(key) is not None:
+                    row[key] = cached[key]
         pitchers.append(row)
         if i % 15 == 0:
             out_path.write_text(

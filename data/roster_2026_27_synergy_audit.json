@@ -1,0 +1,4423 @@
+{
+  "updated": "2026-10-13T04:12:13Z",
+  "rate_limit": "30 roster players/minute",
+  "players": [
+    {
+      "name": "Alan Espinal",
+      "team": "CAG",
+      "position": "C",
+      "mlb_id": 694541,
+      "player_id": 694541,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f9b5021e75c190001cd7ef0",
+      "synergy_name": "Alan Espinal",
+      "raw_events": 1500,
+      "stats_events": 1381,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Brett Rodriguez",
+      "team": "CAG",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -380914779,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Rodriguez"
+      ]
+    },
+    {
+      "name": "Bryan Gonzalez Garcia",
+      "team": "CAG",
+      "position": "C",
+      "mlb_id": 811314,
+      "player_id": 811314,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Bryan Garcia",
+        "Bryan Garcia",
+        "Bryan Garcia",
+        "Bryan Garcia"
+      ]
+    },
+    {
+      "name": "Bryan Torres",
+      "team": "CAG",
+      "position": "OF",
+      "mlb_id": 663494,
+      "player_id": 663494,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "582b7fed35be47a9274db261"
+    },
+    {
+      "name": "Carson Demartini",
+      "team": "CAG",
+      "position": "INF",
+      "mlb_id": 701831,
+      "player_id": 701831,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f8d3bdd1cb0540001a54bd1",
+      "synergy_name": "Carson DeMartini",
+      "raw_events": 1500,
+      "stats_events": 1150,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Edison Mora",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -348534068,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "60b8878f2b2ec8ce41c51685",
+      "synergy_name": "Edison Mora",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Gabriel Cancel",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": 663708,
+      "player_id": 663708,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5322cb661f293636c20"
+    },
+    {
+      "name": "Gustavo Melendez",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": 828116,
+      "player_id": 828116,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "63091afbda00e150d56a94fb"
+    },
+    {
+      "name": "Hector Santiago",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": 502327,
+      "player_id": 502327,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "573d7056080cc2cbe8bf2e95",
+      "synergy_name": "Santiago",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Jaime Ferrer",
+      "team": "CAG",
+      "position": "OF",
+      "mlb_id": 695634,
+      "player_id": 695634,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5ed4845ca87a9b83ecfbe4c6",
+      "synergy_name": "Jaime Ferrer",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jan Hernandez",
+      "team": "CAG",
+      "position": "OF",
+      "mlb_id": 641685,
+      "player_id": 641685,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5c8b4e76f52909811e4f88e8"
+    },
+    {
+      "name": "Jean Correa",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -617163636,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "60bbd21bd052b6537cc09cae",
+      "synergy_name": "Jean Correa",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Jose Miranda",
+      "team": "CAG",
+      "position": "3B",
+      "mlb_id": 811368,
+      "player_id": 811368,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "636cc7cd1b1c550664d3b7b9",
+      "synergy_name": "Jose Miranda",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Luis Vazquez",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": 676679,
+      "player_id": 676679,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5322cb661f293637e3b"
+    },
+    {
+      "name": "Nelson Velazquez",
+      "team": "CAG",
+      "position": "RF",
+      "mlb_id": 676369,
+      "player_id": 676369,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5c8ca0e2f52909811e30178e"
+    },
+    {
+      "name": "Onix Vega",
+      "team": "CAG",
+      "position": "C",
+      "mlb_id": 681974,
+      "player_id": 681974,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "60bcbcc4e22410a01cd610d2"
+    },
+    {
+      "name": "Trei Cruz",
+      "team": "CAG",
+      "position": "SS",
+      "mlb_id": 669360,
+      "player_id": 669360,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5a7b2339da5c2a07448c84fd",
+      "synergy_name": "Trei Cruz",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Vimael Machin",
+      "team": "CAG",
+      "position": "UTL",
+      "mlb_id": 605353,
+      "player_id": 605353,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "573d7590080cc2cbe8c2cb7f"
+    },
+    {
+      "name": "Won-Bin Cho",
+      "team": "CAG",
+      "position": "OF",
+      "mlb_id": 800231,
+      "player_id": 800231,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "620adb5939589048a6cb9f86",
+      "synergy_name": "Won-Bin Cho",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Adalberto Flores",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 488880,
+      "player_id": 488880,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5dd5dec14b8b4e95c8bbde6a",
+      "synergy_name": "Flores",
+      "raw_events": 932,
+      "stats_events": 511,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Anthony Maldonado",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 687424,
+      "player_id": 687424,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "590d4c864b8b5624b0640042",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 721,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Carlos Torres",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 688876,
+      "player_id": 688876,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e25fda0455b981528c9dc59",
+      "synergy_name": "Carlos Torres",
+      "raw_events": 1500,
+      "stats_events": 879,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Christian Torres",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 670369,
+      "player_id": 670369,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5a4cbda4c6deb2ec2b2a6f96",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 436,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Duane Underwood Jr.",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 621249,
+      "player_id": 621249,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "573d7590080cc2cbe8c2cb4e"
+    },
+    {
+      "name": "Edwin Sanchez",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 688014,
+      "player_id": 688014,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd12a915fe05a0e9fc1144f",
+      "synergy_name": "Edwin Sanchez",
+      "raw_events": 69,
+      "stats_events": 69,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jarret Whorf",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 806337,
+      "player_id": 806337,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e20823150c03b26e0aed09e",
+      "synergy_name": "Jarret Whorff",
+      "raw_events": 1500,
+      "stats_events": 915,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jorge Benitez",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 676221,
+      "player_id": 676221,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5fd12a915fe05a0e9fc112e2"
+    },
+    {
+      "name": "Jose De Leon",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 592254,
+      "player_id": 592254,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "57ceee025762021398ca545a"
+    },
+    {
+      "name": "Jose Espada",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 664744,
+      "player_id": 664744,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5834aaa835be47a9276386f9",
+      "synergy_name": "Jose Espada",
+      "raw_events": 1500,
+      "stats_events": 1151,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Magdiel Cotto",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 694365,
+      "player_id": 694365,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5d0d76e94b8b4e352c29c0a8"
+    },
+    {
+      "name": "Marvin Gorgas",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 656479,
+      "player_id": 656479,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5834ab0935be47a927638df7",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 188,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Nicholas Padilla",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 656820,
+      "player_id": 656820,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5834aaf335be47a927638c2b"
+    },
+    {
+      "name": "Sebastian Rodriguez",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -831444931,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Rodriguez, Sebastian",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez Mercado",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian  Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez",
+        "Sebastian Rodriguez"
+      ]
+    },
+    {
+      "name": "Tyler Myrick",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 686924,
+      "player_id": 686924,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "58e997e44b8b534848f38de0",
+      "synergy_name": "Tyler Myrick",
+      "raw_events": 1500,
+      "stats_events": 21,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Yacksel Rios",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 605441,
+      "player_id": 605441,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "59c8b5d844b2b8aa7efc596f"
+    },
+    {
+      "name": "Zach Penrod",
+      "team": "CAG",
+      "position": "P",
+      "mlb_id": 683068,
+      "player_id": 683068,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "6467b5ad1e180da51dae1f5c",
+      "synergy_name": "Zach Penrod",
+      "raw_events": 1500,
+      "stats_events": 848,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Abimelec Ortiz",
+      "team": "CAR",
+      "position": "1B",
+      "mlb_id": 694673,
+      "player_id": 694673,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5f934f7fd5f749000139bc4c"
+    },
+    {
+      "name": "Adrian Rodriguez",
+      "team": "CAR",
+      "position": "IF",
+      "mlb_id": 703641,
+      "player_id": 703641,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "6121c9e40276b963e175902d"
+    },
+    {
+      "name": "Christian Olivo",
+      "team": "CAR",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -654236427,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "607f269c5e7b4977beddab98",
+      "synergy_name": "Christian Olivo",
+      "raw_events": 1500,
+      "stats_events": 1225,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Deniel Ortiz",
+      "team": "CAR",
+      "position": "3B",
+      "mlb_id": 811765,
+      "player_id": 811765,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "616a7487c122029009e74180"
+    },
+    {
+      "name": "Edian Espinal",
+      "team": "CAR",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -601861522,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f849e771cb0540001a544be",
+      "synergy_name": "Edian Espinal",
+      "raw_events": 1500,
+      "stats_events": 1423,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Edwin Diaz",
+      "team": "CAR",
+      "position": "SS",
+      "mlb_id": 621242,
+      "player_id": 621242,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5332cb661f2936389c1"
+    },
+    {
+      "name": "Enrique Hernandez",
+      "team": "CAR",
+      "position": "SS",
+      "mlb_id": 571771,
+      "player_id": 571771,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "573d7067080cc2cbe8bf306b",
+      "synergy_name": "Hernandez",
+      "raw_events": 1500,
+      "stats_events": 676,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jandaniel Gonzalez",
+      "team": "CAR",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -617073888,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": []
+    },
+    {
+      "name": "Jeffrey Caglianone",
+      "team": "CAR",
+      "position": "1B",
+      "mlb_id": null,
+      "player_id": -328572418,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": []
+    },
+    {
+      "name": "Johnathan Rodriguez",
+      "team": "CAR",
+      "position": "RF",
+      "mlb_id": 671286,
+      "player_id": 671286,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5fd12a915fe05a0e9fc11589"
+    },
+    {
+      "name": "Jorel Ortega",
+      "team": "CAR",
+      "position": "2B",
+      "mlb_id": 687567,
+      "player_id": 687567,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5fffaecbdd02e5c98cadeb6b",
+      "synergy_name": "Jorel Ortega",
+      "raw_events": 1500,
+      "stats_events": 851,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jose Silva",
+      "team": "CAR",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -213606773,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Jose Silva",
+        "Jose Silva",
+        "Joseph Silva",
+        "Jose Silva",
+        "Jose Silva"
+      ]
+    },
+    {
+      "name": "Kenen Irizarry",
+      "team": "CAR",
+      "position": "IF",
+      "mlb_id": 681515,
+      "player_id": 681515,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5fd12a915fe05a0e9fc1127c"
+    },
+    {
+      "name": "Mervyl Melendez",
+      "team": "CAR",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -268338446,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": []
+    },
+    {
+      "name": "Miguel Pabon",
+      "team": "CAR",
+      "position": "SS",
+      "mlb_id": 682196,
+      "player_id": 682196,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5fd12a915fe05a0e9fc11395"
+    },
+    {
+      "name": "Sabin Ceballos",
+      "team": "CAR",
+      "position": "3B",
+      "mlb_id": 694754,
+      "player_id": 694754,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "600c39e16416d8c9ea744be1"
+    },
+    {
+      "name": "Slater DeBrun",
+      "team": "CAR",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -267216895,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": []
+    },
+    {
+      "name": "Trent Youngblood",
+      "team": "CAR",
+      "position": "OF",
+      "mlb_id": 827636,
+      "player_id": 827636,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "622f5cc61005b7894cf3d707",
+      "synergy_name": "Trent Youngblood",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Yasser Mercedes",
+      "team": "CAR",
+      "position": "OF",
+      "mlb_id": 703160,
+      "player_id": 703160,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5e6d611664e6c62e5866f6e9",
+      "synergy_name": "Yasser Mercedes",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Adiel Melendez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -158179355,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fffbfa940027c458d128dec",
+      "synergy_name": "Adiel Melendez",
+      "raw_events": 1500,
+      "stats_events": 848,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Alexander Castro",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 669418,
+      "player_id": 669418,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5a78a1fdda5c2a72b4c2eda4",
+      "synergy_name": null,
+      "raw_events": 674,
+      "stats_events": 198,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Chris Kachmar",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 690148,
+      "player_id": 690148,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "582b8a1d35be47a9274e12a8",
+      "synergy_name": "Chris Kachmar",
+      "raw_events": 1500,
+      "stats_events": 560,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Cody Bolton",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 675989,
+      "player_id": 675989,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f139b51e0962f87ad7e8c15",
+      "synergy_name": "Bolton",
+      "raw_events": 1500,
+      "stats_events": 514,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Eddy Reynoso",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 664371,
+      "player_id": 664371,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5834aa3035be47a927637ec2",
+      "synergy_name": null,
+      "raw_events": 918,
+      "stats_events": 225,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Elmer Rodriguez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 695684,
+      "player_id": 695684,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f70df9e93b2350001cd5843",
+      "synergy_name": "Elmer Rodriguez-Cruz",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jarrette Bonet",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -359955779,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "60ca08f50a5437fe8e8f5129",
+      "synergy_name": "Jarrette Bonet",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "JeanPierre Ortiz",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -863509874,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f85ceedd9b60b00014e1d40",
+      "synergy_name": "JeanPierre Ortiz",
+      "raw_events": 1500,
+      "stats_events": 1191,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Joe Jimenez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -433762629,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Jimenez",
+        "Joe Jimenez",
+        "Joe Jimenez",
+        "Joel Jimenez",
+        "Joeseph Jimenez",
+        "Joel Jimenez"
+      ]
+    },
+    {
+      "name": "Joe Riley",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 805678,
+      "player_id": 805678,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "6266f2ccf340c2395a244fec",
+      "synergy_name": "Joe Riley",
+      "raw_events": 1032,
+      "stats_events": 259,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Johzan Oquendo",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -268179393,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Oquendo"
+      ]
+    },
+    {
+      "name": "Matt Givin",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 676769,
+      "player_id": 676769,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "60b8f2dce22410a01cd50436"
+    },
+    {
+      "name": "Osvaldo Berrios",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 676047,
+      "player_id": 676047,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "61878530c379865a58bb2725",
+      "synergy_name": null,
+      "raw_events": 1200,
+      "stats_events": 1200,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Raymond Burgos",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 670103,
+      "player_id": 670103,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f8628c91cb0540001a546de",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ricardo Velez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 703106,
+      "player_id": 703106,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "618f3cf9ed5d3e62bc9ecf40"
+    },
+    {
+      "name": "Riley Gowens",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 803035,
+      "player_id": 803035,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5c44db00ceada624e425e854",
+      "synergy_name": "Riley Gowens",
+      "raw_events": 1500,
+      "stats_events": 826,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Saul Gonzalez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -779812433,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Gonzalez",
+        "Saul Gonzalez",
+        "Saul Gonzalez"
+      ]
+    },
+    {
+      "name": "Abraham Toro",
+      "team": "MAY",
+      "position": "INF",
+      "mlb_id": 647351,
+      "player_id": 647351,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5abcb5322cb661f2936379a5",
+      "synergy_name": "Toro-Hernandez",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Adam Zebrowski",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 700845,
+      "player_id": 700845,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "612334a9953ce4571b7a9885",
+      "synergy_name": "Zebrowski, Adam Michael",
+      "raw_events": 1500,
+      "stats_events": 1138,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Adrian Del Castillo",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 680728,
+      "player_id": 680728,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5c44a59029c75d6bac21c73d",
+      "synergy_name": "Adrian Del Castillo",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Cameron Cauley",
+      "team": "MAY",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -677575556,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f347f2e3f7f178688ed53db",
+      "synergy_name": "Cameron Cauley",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Cameron Maldonado",
+      "team": "MAY",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -689891100,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": []
+    },
+    {
+      "name": "Carlos Cortes",
+      "team": "MAY",
+      "position": "LF",
+      "mlb_id": 666126,
+      "player_id": 666126,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5c76448485d07ba9765189bd",
+      "synergy_name": "Carlos Cortes",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Carter Trice",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 807714,
+      "player_id": 807714,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "602da37a546065e992c14b52",
+      "synergy_name": "Carter Trice",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Daniel Ortiz",
+      "team": "MAY",
+      "position": "OF",
+      "mlb_id": 543611,
+      "player_id": 543611,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "59c8a59044b2b8aa7ec74f8c"
+    },
+    {
+      "name": "Darell Hernaiz",
+      "team": "MAY",
+      "position": "SS",
+      "mlb_id": 687231,
+      "player_id": 687231,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5e6935bf7455336e8750e2a3"
+    },
+    {
+      "name": "Darren Baker",
+      "team": "MAY",
+      "position": "OF",
+      "mlb_id": 671117,
+      "player_id": 671117,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5a84b921da5c2a5b3c2f77bd",
+      "synergy_name": "Darren Baker",
+      "raw_events": 1500,
+      "stats_events": 351,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Devin Ortiz",
+      "team": "MAY",
+      "position": "UTL",
+      "mlb_id": 668776,
+      "player_id": 668776,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5a7b611ada5c2a167c19aca0",
+      "synergy_name": "Devin Ortiz",
+      "raw_events": 1500,
+      "stats_events": 956,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Edrick Felix",
+      "team": "MAY",
+      "position": "INF",
+      "mlb_id": 703742,
+      "player_id": 703742,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "614cb4f5ca5c16eb53c1a6ac",
+      "synergy_name": "Edrick Felix",
+      "raw_events": 654,
+      "stats_events": 51,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Edwin Rios",
+      "team": "MAY",
+      "position": "3B",
+      "mlb_id": 621458,
+      "player_id": 621458,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5a4cb9b7c6deb2ec2b179b9a",
+      "synergy_name": "Rios",
+      "raw_events": 1500,
+      "stats_events": 684,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Emmanuel Rivera",
+      "team": "MAY",
+      "position": "3B",
+      "mlb_id": 656896,
+      "player_id": 656896,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5312cb661f293635860"
+    },
+    {
+      "name": "Fabian Bonilla",
+      "team": "MAY",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -722051519,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "648842013374a02dab6ccfd0",
+      "synergy_name": "Fabian Bonilla",
+      "raw_events": 48,
+      "stats_events": 48,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Isan Diaz",
+      "team": "MAY",
+      "position": "2B",
+      "mlb_id": 656371,
+      "player_id": 656371,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5322cb661f2936371c4"
+    },
+    {
+      "name": "Ivan Luciano",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 813930,
+      "player_id": 813930,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "634407ef8125843e5afdc6c3"
+    },
+    {
+      "name": "Jamal George",
+      "team": "MAY",
+      "position": "INF",
+      "mlb_id": null,
+      "player_id": -840209350,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Jamal George",
+        "Jamal George"
+      ]
+    },
+    {
+      "name": "Javier Crespo",
+      "team": "MAY",
+      "position": "INF",
+      "mlb_id": null,
+      "player_id": -161299452,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "61fe524e42507027318a36f6",
+      "synergy_name": "Javier Crespo",
+      "raw_events": 444,
+      "stats_events": 444,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Luis Campusano",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 669134,
+      "player_id": 669134,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5abcb5312cb661f2936359ad",
+      "synergy_name": "Campusano",
+      "raw_events": 1500,
+      "stats_events": 1190,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Mario Feliciano",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 666128,
+      "player_id": 666128,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5312cb661f2936356e5"
+    },
+    {
+      "name": "Matthew Lugo",
+      "team": "MAY",
+      "position": "LF",
+      "mlb_id": 683090,
+      "player_id": 683090,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5b623c3b4b8b598318c71b56"
+    },
+    {
+      "name": "Roberto Merced",
+      "team": "MAY",
+      "position": "IF",
+      "mlb_id": 680107,
+      "player_id": 680107,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5a6e1a33da5c2a6aa44a3705"
+    },
+    {
+      "name": "Ruben Castro",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 657538,
+      "player_id": 657538,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5abcb5312cb661f293635166",
+      "synergy_name": "Ruben Castro",
+      "raw_events": 1500,
+      "stats_events": 942,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ryan Hernandez",
+      "team": "MAY",
+      "position": "1B",
+      "mlb_id": 689659,
+      "player_id": 689659,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5a86ed09da5c2a6478545721",
+      "synergy_name": "Ryan Hernandez",
+      "raw_events": 1500,
+      "stats_events": 405,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Shawn Ross",
+      "team": "MAY",
+      "position": "C",
+      "mlb_id": 676566,
+      "player_id": 676566,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "62031461f43ef499fa336e17"
+    },
+    {
+      "name": "Yadiel Rivera",
+      "team": "MAY",
+      "position": "3B",
+      "mlb_id": 592680,
+      "player_id": 592680,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "573d70d1080cc2cbe8bf320a"
+    },
+    {
+      "name": "Yahil Melendez",
+      "team": "MAY",
+      "position": "SS",
+      "mlb_id": null,
+      "player_id": -229984899,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f821d2d1cb0540001a542c8",
+      "synergy_name": "Yahil Melendez",
+      "raw_events": 1500,
+      "stats_events": 876,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Angel Reyes",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 681938,
+      "player_id": 681938,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd12a915fe05a0e9fc11347",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 323,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Antonio Velez",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -165648089,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Velez"
+      ]
+    },
+    {
+      "name": "Ashton Goudeau",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 623485,
+      "player_id": 623485,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5abcb5312cb661f293635acb"
+    },
+    {
+      "name": "Bryant Salgado",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 687560,
+      "player_id": 687560,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e1d054446ce1b4784ea9779",
+      "synergy_name": null,
+      "raw_events": 1488,
+      "stats_events": 1197,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Carlos Francisco",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 687956,
+      "player_id": 687956,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "60b888f42b2ec8ce41c5168e",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 315,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Davian Garcia",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 807485,
+      "player_id": 807485,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f7429ef0f6ebc00019df118",
+      "synergy_name": "Davian Garcia",
+      "raw_events": 1500,
+      "stats_events": 570,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Derek West",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 663723,
+      "player_id": 663723,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "582b882b35be47a9274e0009",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 1301,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Devin Rivera",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -465760315,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fffa4f63a2a6815cfe1da77",
+      "synergy_name": "Devin Rivera",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Eddy Demurias",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -887923890,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "582b877935be47a9274df61a",
+      "synergy_name": "Eddy Demurias",
+      "raw_events": 462,
+      "stats_events": 170,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Hector Hernandez",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 571772,
+      "player_id": 571772,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5c7a392a85d07ba97655f43d",
+      "synergy_name": null,
+      "raw_events": 774,
+      "stats_events": 363,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jonathan Haab",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 805248,
+      "player_id": 805248,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "62a17f964a6526afee3ca9b0",
+      "synergy_name": "Jonathan Haab",
+      "raw_events": 1500,
+      "stats_events": 1046,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jorge Lopez",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 605347,
+      "player_id": 605347,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "59f06461f934491175c1c932",
+      "synergy_name": "Jorge Lopez",
+      "raw_events": 1500,
+      "stats_events": 505,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Kazuto Taguchi",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 683803,
+      "player_id": 683803,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "58dbb4a735268c61b07755e4",
+      "synergy_name": null,
+      "raw_events": 957,
+      "stats_events": 403,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Lucas Vega",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 837223,
+      "player_id": 837223,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "607e90c12a20973e219e92ad",
+      "synergy_name": null,
+      "raw_events": 253,
+      "stats_events": 176,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Luis Cruz",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -163227368,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Luis Alfonso Cruz",
+        "Luis Cruz",
+        "Luis De La Cruz",
+        "Luis De La Cruz",
+        "Luis Cruz",
+        "Luis De La Cruz",
+        "Luis De La Cruz",
+        "Luis Cruz",
+        "Luis Cruz",
+        "Luis De La Cruz",
+        "Luis De La Cruz",
+        "Luis de la Cruz",
+        "Luis De la Cruz",
+        "Luis Cruz",
+        "Luis Cruz",
+        "Luis De La Cruz",
+        "Luis De La Cruz",
+        "Luis  Cruz",
+        "Luis Cruz",
+        "Luis de la Cruz",
+        "Luis Cruz",
+        "Luis Cruz",
+        "Luis DONOTUSE Cruz",
+        "Luis Cruz",
+        "Luis Cruz",
+        "Luis Cruz"
+      ]
+    },
+    {
+      "name": "Luis Quinonez",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 687879,
+      "player_id": 687879,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5f79fc49cfdd5600011f487f"
+    },
+    {
+      "name": "Miguel Martinez",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": 446651,
+      "player_id": 446651,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd0cfc2af4a6f44dfdcb350",
+      "synergy_name": "Miguel Martinez",
+      "raw_events": 1047,
+      "stats_events": 275,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Nelvin Fuentes",
+      "team": "MAY",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -346943911,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5deb67e44b8b4f28d0143e46",
+      "synergy_name": "Nelvin Fuentes",
+      "raw_events": 408,
+      "stats_events": 408,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Aldemar Burgos",
+      "team": "PON",
+      "position": "CF",
+      "mlb_id": 664757,
+      "player_id": 664757,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5834ab4d35be47a9276391c2"
+    },
+    {
+      "name": "Chris Arroyo",
+      "team": "PON",
+      "position": "1B",
+      "mlb_id": 701360,
+      "player_id": 701360,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5f849fe51cb0540001a544c6"
+    },
+    {
+      "name": "Eli Serrano",
+      "team": "PON",
+      "position": "OF",
+      "mlb_id": 702501,
+      "player_id": 702501,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f82b39dd9b60b00014e19e5",
+      "synergy_name": "Eli Serrano III",
+      "raw_events": 1500,
+      "stats_events": 1316,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ezequiel Pagan",
+      "team": "PON",
+      "position": "CF",
+      "mlb_id": 681868,
+      "player_id": 681868,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "6245fcbe4e0f79f6c6925a08"
+    },
+    {
+      "name": "Gabriel Rosado",
+      "team": "PON",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -173185958,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Gabriel Rosado",
+        "Gabriel Rosado",
+        "Gabriel Rosado"
+      ]
+    },
+    {
+      "name": "Jacob Reimer",
+      "team": "PON",
+      "position": "INF",
+      "mlb_id": 702544,
+      "player_id": 702544,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5f3504fc3f7f178688ed5412",
+      "synergy_name": "Jacob Reimer",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jesmuel Valentin",
+      "team": "PON",
+      "position": "2B",
+      "mlb_id": 621044,
+      "player_id": 621044,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5a4cb9b8c6deb2ec2b17b273"
+    },
+    {
+      "name": "John Montes",
+      "team": "PON",
+      "position": "2B",
+      "mlb_id": 694264,
+      "player_id": 694264,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "6021ce6a620705ab60a19cde"
+    },
+    {
+      "name": "Jose Torres",
+      "team": "PON",
+      "position": "INF",
+      "mlb_id": 686958,
+      "player_id": 686958,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5b6240cd4b8b598318c71c79",
+      "synergy_name": "Jose Torres",
+      "raw_events": 1500,
+      "stats_events": 841,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Juan Montero",
+      "team": "PON",
+      "position": "C",
+      "mlb_id": 695467,
+      "player_id": 695467,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "618777c7c379865a58bb2607"
+    },
+    {
+      "name": "Kevin Santa",
+      "team": "PON",
+      "position": "IF",
+      "mlb_id": 667576,
+      "player_id": 667576,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5a4ccd8cc6deb2ec2b6b25b9"
+    },
+    {
+      "name": "Nolan Arenado",
+      "team": "PON",
+      "position": "3B",
+      "mlb_id": 571448,
+      "player_id": 571448,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "573d7056080cc2cbe8bf2d57",
+      "synergy_name": "Arenado",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Romeo Sanabria",
+      "team": "PON",
+      "position": "C",
+      "mlb_id": 703804,
+      "player_id": 703804,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "60100e076416d8c9ea744ca5",
+      "synergy_name": "Romeo Sanabria",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Samuel Hernandez",
+      "team": "PON",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -411650644,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez",
+        "Samuel Hernandez"
+      ]
+    },
+    {
+      "name": "William Simoneit",
+      "team": "PON",
+      "position": "C",
+      "mlb_id": 686766,
+      "player_id": 686766,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "58d92c1e4b8b533e00f4db3a"
+    },
+    {
+      "name": "Yeniel Laboy",
+      "team": "PON",
+      "position": "3B",
+      "mlb_id": 702596,
+      "player_id": 702596,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5f83cdd3d9b60b00014e1b30"
+    },
+    {
+      "name": "Alex Claudio",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 592222,
+      "player_id": 592222,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "573d7065080cc2cbe8bf3063"
+    },
+    {
+      "name": "Alex Santos",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 691012,
+      "player_id": 691012,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5d0d977d4b8b504a2c04114a",
+      "synergy_name": "Alex Santos",
+      "raw_events": 1500,
+      "stats_events": 1179,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Andrew Marrero",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 687817,
+      "player_id": 687817,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e48606406c7bff564766247",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 856,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Charlee Soto",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -458228708,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f889f3e1cb0540001a5488d",
+      "synergy_name": "Charlee Soto",
+      "raw_events": 1500,
+      "stats_events": 57,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Eric Garcia",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 806586,
+      "player_id": 806586,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "603a6a6e94720836d4b3ef1d",
+      "synergy_name": null,
+      "raw_events": 220,
+      "stats_events": 220,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Eric Torres",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 701539,
+      "player_id": 701539,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5c4201293a22f215c43aeb3a"
+    },
+    {
+      "name": "Erik Rivera",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 682992,
+      "player_id": 682992,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f8b05e9d9b60b00014e20de",
+      "synergy_name": "Rivera",
+      "raw_events": 1500,
+      "stats_events": 1232,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Gabriel Rodriguez",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 676082,
+      "player_id": 676082,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "618783e7c379865a58bb2720",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 1460,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Harold Cortijo",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 676435,
+      "player_id": 676435,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd12a915fe05a0e9fc11318",
+      "synergy_name": null,
+      "raw_events": 1329,
+      "stats_events": 301,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Hector Quinones",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -346674215,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "638e3074774478a128320d48",
+      "synergy_name": "Hector Quinones",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Jonathan Bermudez",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 642834,
+      "player_id": 642834,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5cad08898df5e60d6c924061"
+    },
+    {
+      "name": "Jorhan Laboy",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -259860308,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "6115b53de911423818fc3fc1",
+      "synergy_name": "Jorhan Laboy",
+      "raw_events": 1400,
+      "stats_events": 1400,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Josh James",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 657624,
+      "player_id": 657624,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5aeffb0b9559b26e7e9b7c09"
+    },
+    {
+      "name": "Julio Torres",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 692937,
+      "player_id": 692937,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5df286ca4b8b5006984fee0f",
+      "synergy_name": null,
+      "raw_events": 562,
+      "stats_events": 211,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Lenny Torres",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 678013,
+      "player_id": 678013,
+      "kind": "pitcher",
+      "status": "preserved",
+      "synergy_id": "5f84b8c41cb0540001a544d9"
+    },
+    {
+      "name": "Mario Zabala",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -174792236,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5d0d95b24b8b504a2c040fdf",
+      "synergy_name": "Mario Zabala",
+      "raw_events": 369,
+      "stats_events": 178,
+      "window_used": "2025 fallback"
+    },
+    {
+      "name": "Michael Morales",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 691786,
+      "player_id": 691786,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5d46fdb14b8b4f2d3c4aeb5d",
+      "synergy_name": "Michael Morales",
+      "raw_events": 1500,
+      "stats_events": 1221,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Noel Pinto",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 676984,
+      "player_id": 676984,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd12a915fe05a0e9fc11543",
+      "synergy_name": null,
+      "raw_events": 417,
+      "stats_events": 315,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Omar Melendez",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 801018,
+      "player_id": 801018,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f8c915b1cb0540001a54b5c",
+      "synergy_name": null,
+      "raw_events": 1173,
+      "stats_events": 220,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Orlando Ortiz-Mayr",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 689508,
+      "player_id": 689508,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e203911cba3c7495422a551",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ricky Castro",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": 690462,
+      "player_id": 690462,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5cf9745329c59c0498923390",
+      "synergy_name": "Ricky Castro",
+      "raw_events": 1500,
+      "stats_events": 1463,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Tyler Gough",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -368999174,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5f387d65d812f7433020842b",
+      "synergy_name": "Tyler Gough",
+      "raw_events": 1500,
+      "stats_events": 1130,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Curtis Terry",
+      "team": "SJU",
+      "position": "INF",
+      "mlb_id": null,
+      "player_id": -300458390,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Terry"
+      ]
+    },
+    {
+      "name": "Delvin Perez",
+      "team": "SJU",
+      "position": "SS",
+      "mlb_id": 666206,
+      "player_id": 666206,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5abcb5332cb661f2936388ac"
+    },
+    {
+      "name": "Dyan Jorge",
+      "team": "SJU",
+      "position": "INF",
+      "mlb_id": 694170,
+      "player_id": 694170,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "64a3b302d4352e67b5c93a76",
+      "synergy_name": "Jorge, Dyan Yamel",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ediel Rivera",
+      "team": "SJU",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -402052164,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "627c2fea453834a0759cf711",
+      "synergy_name": "Ediel Rivera",
+      "raw_events": 1115,
+      "stats_events": 920,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Edrick Felix",
+      "team": "SJU",
+      "position": "3B",
+      "mlb_id": null,
+      "player_id": -105523587,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "614cb4f5ca5c16eb53c1a6ac"
+    },
+    {
+      "name": "Emmanuel Garcia",
+      "team": "SJU",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -413913713,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Garcia, Emmanuel",
+        "Emmanuel Garcia",
+        "Emmanuel Garcia",
+        "Emmanuel Garcia"
+      ]
+    },
+    {
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "position": "IF",
+      "mlb_id": 671045,
+      "player_id": 671045,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "5834ab3935be47a927639054",
+      "synergy_name": "Ivan Houellemont",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Jadiel Sanchez",
+      "team": "SJU",
+      "position": "RF",
+      "mlb_id": 689909,
+      "player_id": 689909,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5fd12a915fe05a0e9fc111f6"
+    },
+    {
+      "name": "Luis Hernandez",
+      "team": "SJU",
+      "position": "C",
+      "mlb_id": 801346,
+      "player_id": 801346,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "5fcfc763b92d134ff91d69b4",
+      "synergy_name": "Luis Hernandez",
+      "raw_events": 1500,
+      "stats_events": 683,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Nate Scantlin",
+      "team": "SJU",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -287993659,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "60b0dfaf16318d1ebdea823b",
+      "synergy_name": "Nate Scantlin",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Randal Diaz",
+      "team": "SJU",
+      "position": "SS",
+      "mlb_id": 695538,
+      "player_id": 695538,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5f8c688d1cb0540001a54b0c"
+    },
+    {
+      "name": "Roberto Enriquez",
+      "team": "SJU",
+      "position": "RF",
+      "mlb_id": 690702,
+      "player_id": 690702,
+      "kind": "hitter",
+      "status": "preserved",
+      "synergy_id": "5a6cc749da5c2a48fcc2933d"
+    },
+    {
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "position": "IF",
+      "mlb_id": 703211,
+      "player_id": 703211,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "610d24816f71458169c84c6a",
+      "synergy_name": "Ruben Ramirez",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Yasiel Puig",
+      "team": "SJU",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -567461302,
+      "kind": "hitter",
+      "status": "populated",
+      "synergy_id": "573d7056080cc2cbe8bf2f39",
+      "synergy_name": "Yasiel Puig",
+      "raw_events": 1342,
+      "stats_events": 1342,
+      "window_used": "2024 fallback"
+    },
+    {
+      "name": "Yuta Nakami",
+      "team": "SJU",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -373965065,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "67d4c6f2a94c63becc93c932",
+      "synergy_name": "Yuta Nakami",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Agnel Miranda",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 695064,
+      "player_id": 695064,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "6145ec759b656db70d4bc2c0",
+      "synergy_name": null,
+      "raw_events": 736,
+      "stats_events": 353,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Alexuan Vega",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -846506108,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Vega"
+      ]
+    },
+    {
+      "name": "Anthony Borrero",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -579003596,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "6a3f5afcbf122fd43965efeb",
+      "synergy_name": "Anthony Borrero",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Brady Tedesco",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 805749,
+      "player_id": 805749,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "623d659e2b7aa6e7196c79e7",
+      "synergy_name": null,
+      "raw_events": 1500,
+      "stats_events": 1287,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Freddy Cabrera",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -280803405,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5deb80664b8b4f28d0144221",
+      "synergy_name": "Freddie Cabrera",
+      "raw_events": 1053,
+      "stats_events": 643,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Haruse Narita",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -670692245,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "67e6d014be559430bd271882",
+      "synergy_name": "Haruse Narita",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Jean Ortega",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 458960,
+      "player_id": 458960,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Jean Carlos Ortega"
+      ]
+    },
+    {
+      "name": "Jerryell Rivera",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 676219,
+      "player_id": 676219,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5fd12a915fe05a0e9fc11483",
+      "synergy_name": null,
+      "raw_events": 372,
+      "stats_events": 200,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jose Cruz",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 692808,
+      "player_id": 692808,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5deb5e694b8b4f28d0143deb",
+      "synergy_name": null,
+      "raw_events": 946,
+      "stats_events": 187,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Julio Ortiz",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -324713460,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Julio Ortiz",
+        "Julio Ortiz"
+      ]
+    },
+    {
+      "name": "Keishin Saito",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -322791781,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "681d6486373abc5e4678b3f2",
+      "synergy_name": "Keishin Saitoh",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Leonardo Rodriguez",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -426239217,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Leonardo Rodriguez",
+        "Leonardo Rodriguez",
+        "Leonardo Rodriguez",
+        "Leonardo Rodriguez",
+        "Leonardo Rodriguez"
+      ]
+    },
+    {
+      "name": "Miguel Cirino",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -693644039,
+      "kind": "pitcher",
+      "status": "unresolved",
+      "search_candidates": [
+        "Cirino, Miguel Angel",
+        "Miguel Cirino Allende"
+      ]
+    },
+    {
+      "name": "Randy Ramnarace",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -842689811,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "60fb2668f97523255ad9db6f",
+      "synergy_name": "Randy Ramnarace",
+      "raw_events": 1500,
+      "stats_events": 868,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Raul Rivera",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 572077,
+      "player_id": 572077,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e04e5404b8b4f7430ff1067",
+      "synergy_name": null,
+      "raw_events": 516,
+      "stats_events": 239,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ryan Munoz",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 684841,
+      "player_id": 684841,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e52ca0f7455336e875b7a5d",
+      "synergy_name": null,
+      "raw_events": 738,
+      "stats_events": 10,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ryan Velazquez",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 693546,
+      "player_id": 693546,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5e1f3a8808f07a4f286d3fa9",
+      "synergy_name": null,
+      "raw_events": 1052,
+      "stats_events": 263,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Sidney Duprey",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": 656389,
+      "player_id": 656389,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5834aa2d35be47a927637d92",
+      "synergy_name": null,
+      "raw_events": 618,
+      "stats_events": 313,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ramesis Rosa",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 545814,
+      "player_id": 545814,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "618780ddc379865a58bb271c",
+      "synergy_name": null,
+      "raw_events": 363,
+      "stats_events": 171,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Ramon Rodriguez",
+      "team": "CAR",
+      "position": "P",
+      "mlb_id": 670232,
+      "player_id": 670232,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "5c8ca0e1f52909811e2ff72f",
+      "synergy_name": "Rodriguez",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Ramon Rodriguez",
+      "team": "SJU",
+      "position": "C",
+      "mlb_id": null,
+      "player_id": -525279548,
+      "kind": "hitter",
+      "status": "unresolved",
+      "search_candidates": [
+        "Rodriguez",
+        "Ramon Rodriguez",
+        "Ramon Rodriguez",
+        "Ramon Rodriguez"
+      ]
+    }
+  ],
+  "five_additions": [
+    {
+      "name": "Mario Zabala",
+      "team": "PON",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -174792236,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5d0d95b24b8b504a2c040fdf",
+      "synergy_name": "Mario Zabala",
+      "raw_events": 369,
+      "stats_events": 178,
+      "window_used": "2025 fallback"
+    },
+    {
+      "name": "Yuta Nakami",
+      "team": "SJU",
+      "position": "OF",
+      "mlb_id": null,
+      "player_id": -373965065,
+      "kind": "hitter",
+      "status": "empty",
+      "synergy_id": "67d4c6f2a94c63becc93c932",
+      "synergy_name": "Yuta Nakami",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Freddy Cabrera",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -280803405,
+      "kind": "pitcher",
+      "status": "populated",
+      "synergy_id": "5deb80664b8b4f28d0144221",
+      "synergy_name": "Freddie Cabrera",
+      "raw_events": 1053,
+      "stats_events": 643,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Haruse Narita",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -670692245,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "67e6d014be559430bd271882",
+      "synergy_name": "Haruse Narita",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    },
+    {
+      "name": "Keishin Saito",
+      "team": "SJU",
+      "position": "P",
+      "mlb_id": null,
+      "player_id": -322791781,
+      "kind": "pitcher",
+      "status": "empty",
+      "synergy_id": "681d6486373abc5e4678b3f2",
+      "synergy_name": "Keishin Saitoh",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none"
+    }
+  ],
+  "coverage_definition": {
+    "pitcher_all": "Synergy events plus pitch types, velocity, IVB/HB movement plot, whiff/miss, and heat when location exists",
+    "hitter_all": "Synergy events plus vs-R and vs-L pitch tables, whiff, and heat when location exists",
+    "empty": "No eligible Synergy events after 2026+2025, 2025, then 2024 fallback",
+    "counting": "Unique opposing-roster players by normalized name; duplicate Edrick Felix roster rows count once"
+  },
+  "coverage": {
+    "pitchers": {
+      "all": [
+        {
+          "name": "Jorge Benitez",
+          "team": "CAG",
+          "missing": [],
+          "events": 747,
+          "synergy_id": "5fd12a915fe05a0e9fc112e2",
+          "summer_line": true
+        },
+        {
+          "name": "Magdiel Cotto",
+          "team": "CAG",
+          "missing": [],
+          "events": 309,
+          "synergy_id": "5d0d76e94b8b4e352c29c0a8",
+          "summer_line": false
+        },
+        {
+          "name": "Jose De Leon",
+          "team": "CAG",
+          "missing": [],
+          "events": 900,
+          "synergy_id": "57ceee025762021398ca545a",
+          "summer_line": false
+        },
+        {
+          "name": "Jose Espada",
+          "team": "CAG",
+          "missing": [],
+          "events": 1130,
+          "synergy_id": "5834aaa835be47a9276386f9",
+          "summer_line": true
+        },
+        {
+          "name": "Anthony Maldonado",
+          "team": "CAG",
+          "missing": [],
+          "events": 688,
+          "synergy_id": "590d4c864b8b5624b0640042",
+          "summer_line": true
+        },
+        {
+          "name": "Tyler Myrick",
+          "team": "CAG",
+          "missing": [],
+          "events": 19,
+          "synergy_id": "58e997e44b8b534848f38de0",
+          "summer_line": true
+        },
+        {
+          "name": "Nicholas Padilla",
+          "team": "CAG",
+          "missing": [],
+          "events": 808,
+          "synergy_id": "5834aaf335be47a927638c2b",
+          "summer_line": false
+        },
+        {
+          "name": "Zach Penrod",
+          "team": "CAG",
+          "missing": [],
+          "events": 825,
+          "synergy_id": "6467b5ad1e180da51dae1f5c",
+          "summer_line": true
+        },
+        {
+          "name": "Yacksel Rios",
+          "team": "CAG",
+          "missing": [],
+          "events": 624,
+          "synergy_id": "59c8b5d844b2b8aa7efc596f",
+          "summer_line": true
+        },
+        {
+          "name": "Duane Underwood Jr.",
+          "team": "CAG",
+          "missing": [],
+          "events": 322,
+          "synergy_id": "573d7590080cc2cbe8c2cb4e",
+          "summer_line": true
+        },
+        {
+          "name": "Jarret Whorf",
+          "team": "CAG",
+          "missing": [],
+          "events": 889,
+          "synergy_id": "5e20823150c03b26e0aed09e",
+          "summer_line": true
+        },
+        {
+          "name": "Osvaldo Berrios",
+          "team": "CAR",
+          "missing": [],
+          "events": 1181,
+          "synergy_id": "61878530c379865a58bb2725",
+          "summer_line": true
+        },
+        {
+          "name": "Cody Bolton",
+          "team": "CAR",
+          "missing": [],
+          "events": 507,
+          "synergy_id": "5f139b51e0962f87ad7e8c15",
+          "summer_line": true
+        },
+        {
+          "name": "Raymond Burgos",
+          "team": "CAR",
+          "missing": [],
+          "events": 1446,
+          "synergy_id": "5f8628c91cb0540001a546de",
+          "summer_line": true
+        },
+        {
+          "name": "Matt Givin",
+          "team": "CAR",
+          "missing": [],
+          "events": 617,
+          "synergy_id": "60b8f2dce22410a01cd50436",
+          "summer_line": true
+        },
+        {
+          "name": "Riley Gowens",
+          "team": "CAR",
+          "missing": [],
+          "events": 745,
+          "synergy_id": "5c44db00ceada624e425e854",
+          "summer_line": true
+        },
+        {
+          "name": "Chris Kachmar",
+          "team": "CAR",
+          "missing": [],
+          "events": 543,
+          "synergy_id": "582b8a1d35be47a9274e12a8",
+          "summer_line": true
+        },
+        {
+          "name": "Elmer Rodriguez",
+          "team": "CAR",
+          "missing": [],
+          "events": 1468,
+          "synergy_id": "5f70df9e93b2350001cd5843",
+          "summer_line": true
+        },
+        {
+          "name": "Ricardo Velez",
+          "team": "CAR",
+          "missing": [],
+          "events": 932,
+          "synergy_id": "618f3cf9ed5d3e62bc9ecf40",
+          "summer_line": true
+        },
+        {
+          "name": "Carlos Francisco",
+          "team": "MAY",
+          "missing": [],
+          "events": 309,
+          "synergy_id": "60b888f42b2ec8ce41c5168e",
+          "summer_line": false
+        },
+        {
+          "name": "Ashton Goudeau",
+          "team": "MAY",
+          "missing": [],
+          "events": 283,
+          "synergy_id": "5abcb5312cb661f293635acb",
+          "summer_line": false
+        },
+        {
+          "name": "Jorge Lopez",
+          "team": "MAY",
+          "missing": [],
+          "events": 476,
+          "synergy_id": "59f06461f934491175c1c932",
+          "summer_line": true
+        },
+        {
+          "name": "Luis Quinonez",
+          "team": "MAY",
+          "missing": [],
+          "events": 886,
+          "synergy_id": "5f79fc49cfdd5600011f487f",
+          "summer_line": true
+        },
+        {
+          "name": "Angel Reyes",
+          "team": "MAY",
+          "missing": [],
+          "events": 301,
+          "synergy_id": "5fd12a915fe05a0e9fc11347",
+          "summer_line": true
+        },
+        {
+          "name": "Jonathan Bermudez",
+          "team": "PON",
+          "missing": [],
+          "events": 978,
+          "synergy_id": "5cad08898df5e60d6c924061",
+          "summer_line": true
+        },
+        {
+          "name": "Ricky Castro",
+          "team": "PON",
+          "missing": [],
+          "events": 1413,
+          "synergy_id": "5cf9745329c59c0498923390",
+          "summer_line": true
+        },
+        {
+          "name": "Alex Claudio",
+          "team": "PON",
+          "missing": [],
+          "events": 868,
+          "synergy_id": "573d7065080cc2cbe8bf3063",
+          "summer_line": true
+        },
+        {
+          "name": "Josh James",
+          "team": "PON",
+          "missing": [],
+          "events": 21,
+          "synergy_id": "5aeffb0b9559b26e7e9b7c09",
+          "summer_line": false
+        },
+        {
+          "name": "Andrew Marrero",
+          "team": "PON",
+          "missing": [],
+          "events": 804,
+          "synergy_id": "5e48606406c7bff564766247",
+          "summer_line": true
+        },
+        {
+          "name": "Erik Rivera",
+          "team": "PON",
+          "missing": [],
+          "events": 1187,
+          "synergy_id": "5f8b05e9d9b60b00014e20de",
+          "summer_line": true
+        },
+        {
+          "name": "Alex Santos",
+          "team": "PON",
+          "missing": [],
+          "events": 1123,
+          "synergy_id": "5d0d977d4b8b504a2c04114a",
+          "summer_line": true
+        },
+        {
+          "name": "Eric Torres",
+          "team": "PON",
+          "missing": [],
+          "events": 888,
+          "synergy_id": "5c4201293a22f215c43aeb3a",
+          "summer_line": true
+        },
+        {
+          "name": "Lenny Torres",
+          "team": "PON",
+          "missing": [],
+          "events": 575,
+          "synergy_id": "5f84b8c41cb0540001a544d9",
+          "summer_line": true
+        }
+      ],
+      "partial": [
+        {
+          "name": "Adalberto Flores",
+          "team": "CAG",
+          "missing": [
+            "movement"
+          ],
+          "events": 497,
+          "synergy_id": "5dd5dec14b8b4e95c8bbde6a",
+          "summer_line": false
+        },
+        {
+          "name": "Marvin Gorgas",
+          "team": "CAG",
+          "missing": [
+            "movement"
+          ],
+          "events": 179,
+          "synergy_id": "5834ab0935be47a927638df7",
+          "summer_line": false
+        },
+        {
+          "name": "Edwin Sanchez",
+          "team": "CAG",
+          "missing": [
+            "movement"
+          ],
+          "events": 67,
+          "synergy_id": "5fd12a915fe05a0e9fc1144f",
+          "summer_line": false
+        },
+        {
+          "name": "Carlos Torres",
+          "team": "CAG",
+          "missing": [
+            "movement"
+          ],
+          "events": 840,
+          "synergy_id": "5e25fda0455b981528c9dc59",
+          "summer_line": true
+        },
+        {
+          "name": "Christian Torres",
+          "team": "CAG",
+          "missing": [
+            "movement"
+          ],
+          "events": 399,
+          "synergy_id": "5a4cbda4c6deb2ec2b2a6f96",
+          "summer_line": true
+        },
+        {
+          "name": "Jarrette Bonet",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 1423,
+          "synergy_id": "60ca08f50a5437fe8e8f5129",
+          "summer_line": false
+        },
+        {
+          "name": "Alexander Castro",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 179,
+          "synergy_id": "5a78a1fdda5c2a72b4c2eda4",
+          "summer_line": false
+        },
+        {
+          "name": "Adiel Melendez",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 797,
+          "synergy_id": "5fffbfa940027c458d128dec",
+          "summer_line": false
+        },
+        {
+          "name": "JeanPierre Ortiz",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 1154,
+          "synergy_id": "5f85ceedd9b60b00014e1d40",
+          "summer_line": false
+        },
+        {
+          "name": "Eddy Reynoso",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 196,
+          "synergy_id": "5834aa3035be47a927637ec2",
+          "summer_line": false
+        },
+        {
+          "name": "Joe Riley",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 256,
+          "synergy_id": "6266f2ccf340c2395a244fec",
+          "summer_line": true
+        },
+        {
+          "name": "Ramesis Rosa",
+          "team": "CAR",
+          "missing": [
+            "movement"
+          ],
+          "events": 158,
+          "synergy_id": "618780ddc379865a58bb271c",
+          "summer_line": false
+        },
+        {
+          "name": "Eddy Demurias",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 169,
+          "synergy_id": "582b877935be47a9274df61a",
+          "summer_line": false
+        },
+        {
+          "name": "Nelvin Fuentes",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 379,
+          "synergy_id": "5deb67e44b8b4f28d0143e46",
+          "summer_line": false
+        },
+        {
+          "name": "Davian Garcia",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 554,
+          "synergy_id": "5f7429ef0f6ebc00019df118",
+          "summer_line": true
+        },
+        {
+          "name": "Jonathan Haab",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 1004,
+          "synergy_id": "62a17f964a6526afee3ca9b0",
+          "summer_line": true
+        },
+        {
+          "name": "Hector Hernandez",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 336,
+          "synergy_id": "5c7a392a85d07ba97655f43d",
+          "summer_line": false
+        },
+        {
+          "name": "Miguel Martinez",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 263,
+          "synergy_id": "5fd0cfc2af4a6f44dfdcb350",
+          "summer_line": false
+        },
+        {
+          "name": "Devin Rivera",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 1416,
+          "synergy_id": "5fffa4f63a2a6815cfe1da77",
+          "summer_line": false
+        },
+        {
+          "name": "Bryant Salgado",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 1067,
+          "synergy_id": "5e1d054446ce1b4784ea9779",
+          "summer_line": true
+        },
+        {
+          "name": "Kazuto Taguchi",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 331,
+          "synergy_id": "58dbb4a735268c61b07755e4",
+          "summer_line": true
+        },
+        {
+          "name": "Lucas Vega",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 162,
+          "synergy_id": "607e90c12a20973e219e92ad",
+          "summer_line": true
+        },
+        {
+          "name": "Derek West",
+          "team": "MAY",
+          "missing": [
+            "movement"
+          ],
+          "events": 1278,
+          "synergy_id": "582b882b35be47a9274e0009",
+          "summer_line": true
+        },
+        {
+          "name": "Harold Cortijo",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 283,
+          "synergy_id": "5fd12a915fe05a0e9fc11318",
+          "summer_line": true
+        },
+        {
+          "name": "Eric Garcia",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 202,
+          "synergy_id": "603a6a6e94720836d4b3ef1d",
+          "summer_line": false
+        },
+        {
+          "name": "Tyler Gough",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 1085,
+          "synergy_id": "5f387d65d812f7433020842b",
+          "summer_line": false
+        },
+        {
+          "name": "Jorhan Laboy",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 1350,
+          "synergy_id": "6115b53de911423818fc3fc1",
+          "summer_line": false
+        },
+        {
+          "name": "Omar Melendez",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 213,
+          "synergy_id": "5f8c915b1cb0540001a54b5c",
+          "summer_line": true
+        },
+        {
+          "name": "Michael Morales",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 1174,
+          "synergy_id": "5d46fdb14b8b4f2d3c4aeb5d",
+          "summer_line": true
+        },
+        {
+          "name": "Orlando Ortiz-Mayr",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 1172,
+          "synergy_id": "5e203911cba3c7495422a551",
+          "summer_line": true
+        },
+        {
+          "name": "Noel Pinto",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 294,
+          "synergy_id": "5fd12a915fe05a0e9fc11543",
+          "summer_line": false
+        },
+        {
+          "name": "Gabriel Rodriguez",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 1382,
+          "synergy_id": "618783e7c379865a58bb2720",
+          "summer_line": true
+        },
+        {
+          "name": "Charlee Soto",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 54,
+          "synergy_id": "5f889f3e1cb0540001a5488d",
+          "summer_line": false
+        },
+        {
+          "name": "Julio Torres",
+          "team": "PON",
+          "missing": [
+            "movement"
+          ],
+          "events": 197,
+          "synergy_id": "5df286ca4b8b5006984fee0f",
+          "summer_line": false
+        },
+        {
+          "name": "Mario Zabala",
+          "team": "PON",
+          "missing": [
+            "velocity",
+            "movement"
+          ],
+          "events": 170,
+          "synergy_id": "5d0d95b24b8b504a2c040fdf",
+          "summer_line": false
+        },
+        {
+          "name": "Jose Cruz",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 174,
+          "synergy_id": "5deb5e694b8b4f28d0143deb",
+          "summer_line": false
+        },
+        {
+          "name": "Sidney Duprey",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 268,
+          "synergy_id": "5834aa2d35be47a927637d92",
+          "summer_line": false
+        },
+        {
+          "name": "Agnel Miranda",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 296,
+          "synergy_id": "6145ec759b656db70d4bc2c0",
+          "summer_line": true
+        },
+        {
+          "name": "Ryan Munoz",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 10,
+          "synergy_id": "5e52ca0f7455336e875b7a5d",
+          "summer_line": false
+        },
+        {
+          "name": "Randy Ramnarace",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 808,
+          "synergy_id": "60fb2668f97523255ad9db6f",
+          "summer_line": false
+        },
+        {
+          "name": "Jerryell Rivera",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 170,
+          "synergy_id": "5fd12a915fe05a0e9fc11483",
+          "summer_line": false
+        },
+        {
+          "name": "Raul Rivera",
+          "team": "SJU",
+          "missing": [
+            "velocity",
+            "movement"
+          ],
+          "events": 201,
+          "synergy_id": "5e04e5404b8b4f7430ff1067",
+          "summer_line": false
+        },
+        {
+          "name": "Brady Tedesco",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 1195,
+          "synergy_id": "623d659e2b7aa6e7196c79e7",
+          "summer_line": true
+        },
+        {
+          "name": "Ryan Velazquez",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 230,
+          "synergy_id": "5e1f3a8808f07a4f286d3fa9",
+          "summer_line": true
+        },
+        {
+          "name": "Freddy Cabrera",
+          "team": "SJU",
+          "missing": [
+            "movement"
+          ],
+          "events": 580,
+          "synergy_id": "5deb80664b8b4f28d0144221",
+          "summer_line": false
+        }
+      ],
+      "empty": [
+        {
+          "name": "Sebastian Rodriguez",
+          "team": "CAG",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Saul Gonzalez",
+          "team": "CAR",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Joe Jimenez",
+          "team": "CAR",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Johzan Oquendo",
+          "team": "CAR",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Ramon Rodriguez",
+          "team": "CAR",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "5c8ca0e1f52909811e2ff72f",
+          "summer_line": false
+        },
+        {
+          "name": "Luis Cruz",
+          "team": "MAY",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Antonio Velez",
+          "team": "MAY",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Hector Quinones",
+          "team": "PON",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "638e3074774478a128320d48",
+          "summer_line": false
+        },
+        {
+          "name": "Anthony Borrero",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "6a3f5afcbf122fd43965efeb",
+          "summer_line": false
+        },
+        {
+          "name": "Miguel Cirino",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Jean Ortega",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Julio Ortiz",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Leonardo Rodriguez",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Alexuan Vega",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Keishin Saito",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "681d6486373abc5e4678b3f2",
+          "summer_line": false
+        },
+        {
+          "name": "Haruse Narita",
+          "team": "SJU",
+          "missing": [
+            "pitch_types",
+            "velocity",
+            "movement",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "67e6d014be559430bd271882",
+          "summer_line": false
+        }
+      ]
+    },
+    "hitters": {
+      "all": [
+        {
+          "name": "Gabriel Cancel",
+          "team": "CAG",
+          "missing": [],
+          "events": 2390,
+          "synergy_id": "5abcb5322cb661f293636c20",
+          "summer_line": true
+        },
+        {
+          "name": "Won-Bin Cho",
+          "team": "CAG",
+          "missing": [],
+          "events": 1479,
+          "synergy_id": "620adb5939589048a6cb9f86",
+          "summer_line": true
+        },
+        {
+          "name": "Trei Cruz",
+          "team": "CAG",
+          "missing": [],
+          "events": 1478,
+          "synergy_id": "5a7b2339da5c2a07448c84fd",
+          "summer_line": true
+        },
+        {
+          "name": "Carson Demartini",
+          "team": "CAG",
+          "missing": [],
+          "events": 1138,
+          "synergy_id": "5f8d3bdd1cb0540001a54bd1",
+          "summer_line": true
+        },
+        {
+          "name": "Alan Espinal",
+          "team": "CAG",
+          "missing": [],
+          "events": 1350,
+          "synergy_id": "5f9b5021e75c190001cd7ef0",
+          "summer_line": true
+        },
+        {
+          "name": "Jaime Ferrer",
+          "team": "CAG",
+          "missing": [],
+          "events": 1464,
+          "synergy_id": "5ed4845ca87a9b83ecfbe4c6",
+          "summer_line": true
+        },
+        {
+          "name": "Jan Hernandez",
+          "team": "CAG",
+          "missing": [],
+          "events": 567,
+          "synergy_id": "5c8b4e76f52909811e4f88e8",
+          "summer_line": false
+        },
+        {
+          "name": "Vimael Machin",
+          "team": "CAG",
+          "missing": [],
+          "events": 2450,
+          "synergy_id": "573d7590080cc2cbe8c2cb7f",
+          "summer_line": true
+        },
+        {
+          "name": "Gustavo Melendez",
+          "team": "CAG",
+          "missing": [],
+          "events": 315,
+          "synergy_id": "63091afbda00e150d56a94fb",
+          "summer_line": true
+        },
+        {
+          "name": "Bryan Torres",
+          "team": "CAG",
+          "missing": [],
+          "events": 2276,
+          "synergy_id": "582b7fed35be47a9274db261",
+          "summer_line": true
+        },
+        {
+          "name": "Luis Vazquez",
+          "team": "CAG",
+          "missing": [],
+          "events": 2424,
+          "synergy_id": "5abcb5322cb661f293637e3b",
+          "summer_line": true
+        },
+        {
+          "name": "Onix Vega",
+          "team": "CAG",
+          "missing": [],
+          "events": 862,
+          "synergy_id": "60bcbcc4e22410a01cd610d2",
+          "summer_line": true
+        },
+        {
+          "name": "Nelson Velazquez",
+          "team": "CAG",
+          "missing": [],
+          "events": 2281,
+          "synergy_id": "5c8ca0e2f52909811e30178e",
+          "summer_line": true
+        },
+        {
+          "name": "Sabin Ceballos",
+          "team": "CAR",
+          "missing": [],
+          "events": 2470,
+          "synergy_id": "600c39e16416d8c9ea744be1",
+          "summer_line": true
+        },
+        {
+          "name": "Edwin Diaz",
+          "team": "CAR",
+          "missing": [],
+          "events": 2006,
+          "synergy_id": "5abcb5332cb661f2936389c1",
+          "summer_line": true
+        },
+        {
+          "name": "Edian Espinal",
+          "team": "CAR",
+          "missing": [],
+          "events": 1397,
+          "synergy_id": "5f849e771cb0540001a544be",
+          "summer_line": false
+        },
+        {
+          "name": "Enrique Hernandez",
+          "team": "CAR",
+          "missing": [],
+          "events": 665,
+          "synergy_id": "573d7067080cc2cbe8bf306b",
+          "summer_line": true
+        },
+        {
+          "name": "Kenen Irizarry",
+          "team": "CAR",
+          "missing": [],
+          "events": 434,
+          "synergy_id": "5fd12a915fe05a0e9fc1127c",
+          "summer_line": false
+        },
+        {
+          "name": "Yasser Mercedes",
+          "team": "CAR",
+          "missing": [],
+          "events": 1474,
+          "synergy_id": "5e6d611664e6c62e5866f6e9",
+          "summer_line": true
+        },
+        {
+          "name": "Christian Olivo",
+          "team": "CAR",
+          "missing": [],
+          "events": 1207,
+          "synergy_id": "607f269c5e7b4977beddab98",
+          "summer_line": false
+        },
+        {
+          "name": "Jorel Ortega",
+          "team": "CAR",
+          "missing": [],
+          "events": 827,
+          "synergy_id": "5fffaecbdd02e5c98cadeb6b",
+          "summer_line": true
+        },
+        {
+          "name": "Abimelec Ortiz",
+          "team": "CAR",
+          "missing": [],
+          "events": 2445,
+          "synergy_id": "5f934f7fd5f749000139bc4c",
+          "summer_line": true
+        },
+        {
+          "name": "Deniel Ortiz",
+          "team": "CAR",
+          "missing": [],
+          "events": 2464,
+          "synergy_id": "616a7487c122029009e74180",
+          "summer_line": true
+        },
+        {
+          "name": "Miguel Pabon",
+          "team": "CAR",
+          "missing": [],
+          "events": 1139,
+          "synergy_id": "5fd12a915fe05a0e9fc11395",
+          "summer_line": false
+        },
+        {
+          "name": "Adrian Rodriguez",
+          "team": "CAR",
+          "missing": [],
+          "events": 2340,
+          "synergy_id": "6121c9e40276b963e175902d",
+          "summer_line": true
+        },
+        {
+          "name": "Johnathan Rodriguez",
+          "team": "CAR",
+          "missing": [],
+          "events": 2448,
+          "synergy_id": "5fd12a915fe05a0e9fc11589",
+          "summer_line": true
+        },
+        {
+          "name": "Trent Youngblood",
+          "team": "CAR",
+          "missing": [],
+          "events": 1481,
+          "synergy_id": "622f5cc61005b7894cf3d707",
+          "summer_line": true
+        },
+        {
+          "name": "Darren Baker",
+          "team": "MAY",
+          "missing": [],
+          "events": 347,
+          "synergy_id": "5a84b921da5c2a5b3c2f77bd",
+          "summer_line": true
+        },
+        {
+          "name": "Luis Campusano",
+          "team": "MAY",
+          "missing": [],
+          "events": 1172,
+          "synergy_id": "5abcb5312cb661f2936359ad",
+          "summer_line": true
+        },
+        {
+          "name": "Ruben Castro",
+          "team": "MAY",
+          "missing": [],
+          "events": 917,
+          "synergy_id": "5abcb5312cb661f293635166",
+          "summer_line": false
+        },
+        {
+          "name": "Cameron Cauley",
+          "team": "MAY",
+          "missing": [],
+          "events": 1475,
+          "synergy_id": "5f347f2e3f7f178688ed53db",
+          "summer_line": false
+        },
+        {
+          "name": "Carlos Cortes",
+          "team": "MAY",
+          "missing": [],
+          "events": 1475,
+          "synergy_id": "5c76448485d07ba9765189bd",
+          "summer_line": true
+        },
+        {
+          "name": "Javier Crespo",
+          "team": "MAY",
+          "missing": [],
+          "events": 431,
+          "synergy_id": "61fe524e42507027318a36f6",
+          "summer_line": false
+        },
+        {
+          "name": "Adrian Del Castillo",
+          "team": "MAY",
+          "missing": [],
+          "events": 1481,
+          "synergy_id": "5c44a59029c75d6bac21c73d",
+          "summer_line": true
+        },
+        {
+          "name": "Isan Diaz",
+          "team": "MAY",
+          "missing": [],
+          "events": 2380,
+          "synergy_id": "5abcb5322cb661f2936371c4",
+          "summer_line": true
+        },
+        {
+          "name": "Mario Feliciano",
+          "team": "MAY",
+          "missing": [],
+          "events": 378,
+          "synergy_id": "5abcb5312cb661f2936356e5",
+          "summer_line": false
+        },
+        {
+          "name": "Edrick Felix",
+          "team": "MAY",
+          "missing": [],
+          "events": 51,
+          "synergy_id": "614cb4f5ca5c16eb53c1a6ac",
+          "summer_line": false
+        },
+        {
+          "name": "Darell Hernaiz",
+          "team": "MAY",
+          "missing": [],
+          "events": 2358,
+          "synergy_id": "5e6935bf7455336e8750e2a3",
+          "summer_line": true
+        },
+        {
+          "name": "Ryan Hernandez",
+          "team": "MAY",
+          "missing": [],
+          "events": 402,
+          "synergy_id": "5a86ed09da5c2a6478545721",
+          "summer_line": true
+        },
+        {
+          "name": "Ivan Luciano",
+          "team": "MAY",
+          "missing": [],
+          "events": 1782,
+          "synergy_id": "634407ef8125843e5afdc6c3",
+          "summer_line": true
+        },
+        {
+          "name": "Matthew Lugo",
+          "team": "MAY",
+          "missing": [],
+          "events": 2412,
+          "synergy_id": "5b623c3b4b8b598318c71b56",
+          "summer_line": true
+        },
+        {
+          "name": "Yahil Melendez",
+          "team": "MAY",
+          "missing": [],
+          "events": 853,
+          "synergy_id": "5f821d2d1cb0540001a542c8",
+          "summer_line": false
+        },
+        {
+          "name": "Roberto Merced",
+          "team": "MAY",
+          "missing": [],
+          "events": 89,
+          "synergy_id": "5a6e1a33da5c2a6aa44a3705",
+          "summer_line": false
+        },
+        {
+          "name": "Daniel Ortiz",
+          "team": "MAY",
+          "missing": [],
+          "events": 2020,
+          "synergy_id": "59c8a59044b2b8aa7ec74f8c",
+          "summer_line": true
+        },
+        {
+          "name": "Devin Ortiz",
+          "team": "MAY",
+          "missing": [],
+          "events": 949,
+          "synergy_id": "5a7b611ada5c2a167c19aca0",
+          "summer_line": true
+        },
+        {
+          "name": "Edwin Rios",
+          "team": "MAY",
+          "missing": [],
+          "events": 668,
+          "synergy_id": "5a4cb9b7c6deb2ec2b179b9a",
+          "summer_line": true
+        },
+        {
+          "name": "Emmanuel Rivera",
+          "team": "MAY",
+          "missing": [],
+          "events": 2294,
+          "synergy_id": "5abcb5312cb661f293635860",
+          "summer_line": true
+        },
+        {
+          "name": "Yadiel Rivera",
+          "team": "MAY",
+          "missing": [],
+          "events": 192,
+          "synergy_id": "573d70d1080cc2cbe8bf320a",
+          "summer_line": false
+        },
+        {
+          "name": "Shawn Ross",
+          "team": "MAY",
+          "missing": [],
+          "events": 2330,
+          "synergy_id": "62031461f43ef499fa336e17",
+          "summer_line": true
+        },
+        {
+          "name": "Abraham Toro",
+          "team": "MAY",
+          "missing": [],
+          "events": 1487,
+          "synergy_id": "5abcb5322cb661f2936379a5",
+          "summer_line": true
+        },
+        {
+          "name": "Carter Trice",
+          "team": "MAY",
+          "missing": [],
+          "events": 1483,
+          "synergy_id": "602da37a546065e992c14b52",
+          "summer_line": true
+        },
+        {
+          "name": "Adam Zebrowski",
+          "team": "MAY",
+          "missing": [],
+          "events": 1131,
+          "synergy_id": "612334a9953ce4571b7a9885",
+          "summer_line": true
+        },
+        {
+          "name": "Nolan Arenado",
+          "team": "PON",
+          "missing": [],
+          "events": 1484,
+          "synergy_id": "573d7056080cc2cbe8bf2d57",
+          "summer_line": true
+        },
+        {
+          "name": "Chris Arroyo",
+          "team": "PON",
+          "missing": [],
+          "events": 522,
+          "synergy_id": "5f849fe51cb0540001a544c6",
+          "summer_line": true
+        },
+        {
+          "name": "Aldemar Burgos",
+          "team": "PON",
+          "missing": [],
+          "events": 311,
+          "synergy_id": "5834ab4d35be47a9276391c2",
+          "summer_line": false
+        },
+        {
+          "name": "Yeniel Laboy",
+          "team": "PON",
+          "missing": [],
+          "events": 73,
+          "synergy_id": "5f83cdd3d9b60b00014e1b30",
+          "summer_line": false
+        },
+        {
+          "name": "Juan Montero",
+          "team": "PON",
+          "missing": [],
+          "events": 418,
+          "synergy_id": "618777c7c379865a58bb2607",
+          "summer_line": true
+        },
+        {
+          "name": "John Montes",
+          "team": "PON",
+          "missing": [],
+          "events": 288,
+          "synergy_id": "6021ce6a620705ab60a19cde",
+          "summer_line": false
+        },
+        {
+          "name": "Ezequiel Pagan",
+          "team": "PON",
+          "missing": [],
+          "events": 565,
+          "synergy_id": "6245fcbe4e0f79f6c6925a08",
+          "summer_line": false
+        },
+        {
+          "name": "Jacob Reimer",
+          "team": "PON",
+          "missing": [],
+          "events": 1470,
+          "synergy_id": "5f3504fc3f7f178688ed5412",
+          "summer_line": true
+        },
+        {
+          "name": "Romeo Sanabria",
+          "team": "PON",
+          "missing": [],
+          "events": 1486,
+          "synergy_id": "60100e076416d8c9ea744ca5",
+          "summer_line": true
+        },
+        {
+          "name": "Kevin Santa",
+          "team": "PON",
+          "missing": [],
+          "events": 262,
+          "synergy_id": "5a4ccd8cc6deb2ec2b6b25b9",
+          "summer_line": false
+        },
+        {
+          "name": "Eli Serrano",
+          "team": "PON",
+          "missing": [],
+          "events": 1302,
+          "synergy_id": "5f82b39dd9b60b00014e19e5",
+          "summer_line": true
+        },
+        {
+          "name": "William Simoneit",
+          "team": "PON",
+          "missing": [],
+          "events": 1373,
+          "synergy_id": "58d92c1e4b8b533e00f4db3a",
+          "summer_line": true
+        },
+        {
+          "name": "Jose Torres",
+          "team": "PON",
+          "missing": [],
+          "events": 834,
+          "synergy_id": "5b6240cd4b8b598318c71c79",
+          "summer_line": true
+        },
+        {
+          "name": "Jesmuel Valentin",
+          "team": "PON",
+          "missing": [],
+          "events": 855,
+          "synergy_id": "5a4cb9b8c6deb2ec2b17b273",
+          "summer_line": false
+        },
+        {
+          "name": "Randal Diaz",
+          "team": "SJU",
+          "missing": [],
+          "events": 2389,
+          "synergy_id": "5f8c688d1cb0540001a54b0c",
+          "summer_line": true
+        },
+        {
+          "name": "Roberto Enriquez",
+          "team": "SJU",
+          "missing": [],
+          "events": 562,
+          "synergy_id": "5a6cc749da5c2a48fcc2933d",
+          "summer_line": false
+        },
+        {
+          "name": "Luis Hernandez",
+          "team": "SJU",
+          "missing": [],
+          "events": 673,
+          "synergy_id": "5fcfc763b92d134ff91d69b4",
+          "summer_line": true
+        },
+        {
+          "name": "Dyan Jorge",
+          "team": "SJU",
+          "missing": [],
+          "events": 1465,
+          "synergy_id": "64a3b302d4352e67b5c93a76",
+          "summer_line": true
+        },
+        {
+          "name": "Delvin Perez",
+          "team": "SJU",
+          "missing": [],
+          "events": 484,
+          "synergy_id": "5abcb5332cb661f2936388ac",
+          "summer_line": false
+        },
+        {
+          "name": "Yasiel Puig",
+          "team": "SJU",
+          "missing": [],
+          "events": 1315,
+          "synergy_id": "573d7056080cc2cbe8bf2f39",
+          "summer_line": false
+        },
+        {
+          "name": "Ediel Rivera",
+          "team": "SJU",
+          "missing": [],
+          "events": 898,
+          "synergy_id": "627c2fea453834a0759cf711",
+          "summer_line": false
+        },
+        {
+          "name": "Jadiel Sanchez",
+          "team": "SJU",
+          "missing": [],
+          "events": 409,
+          "synergy_id": "5fd12a915fe05a0e9fc111f6",
+          "summer_line": false
+        }
+      ],
+      "partial": [
+        {
+          "name": "Fabian Bonilla",
+          "team": "MAY",
+          "missing": [
+            "vs_L_pitch_types"
+          ],
+          "events": 46,
+          "synergy_id": "648842013374a02dab6ccfd0",
+          "summer_line": false
+        }
+      ],
+      "empty": [
+        {
+          "name": "Jean Correa",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "60bbd21bd052b6537cc09cae",
+          "summer_line": false
+        },
+        {
+          "name": "Bryan Gonzalez Garcia",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": true
+        },
+        {
+          "name": "Jose Miranda",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "636cc7cd1b1c550664d3b7b9",
+          "summer_line": false
+        },
+        {
+          "name": "Edison Mora",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "60b8878f2b2ec8ce41c51685",
+          "summer_line": false
+        },
+        {
+          "name": "Brett Rodriguez",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Hector Santiago",
+          "team": "CAG",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "573d7056080cc2cbe8bf2e95",
+          "summer_line": false
+        },
+        {
+          "name": "Jeffrey Caglianone",
+          "team": "CAR",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Slater DeBrun",
+          "team": "CAR",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Jandaniel Gonzalez",
+          "team": "CAR",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Mervyl Melendez",
+          "team": "CAR",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Jose Silva",
+          "team": "CAR",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Jamal George",
+          "team": "MAY",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Cameron Maldonado",
+          "team": "MAY",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Samuel Hernandez",
+          "team": "PON",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Gabriel Rosado",
+          "team": "PON",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Emmanuel Garcia",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Ivan Houellemont",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "5834ab3935be47a927639054",
+          "summer_line": false
+        },
+        {
+          "name": "Ruben Ramirez",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "610d24816f71458169c84c6a",
+          "summer_line": false
+        },
+        {
+          "name": "Ramon Rodriguez",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Nate Scantlin",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "60b0dfaf16318d1ebdea823b",
+          "summer_line": false
+        },
+        {
+          "name": "Curtis Terry",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff",
+            "heat"
+          ],
+          "events": 0,
+          "synergy_id": null,
+          "summer_line": false
+        },
+        {
+          "name": "Yuta Nakami",
+          "team": "SJU",
+          "missing": [
+            "vs_R_pitch_types",
+            "vs_L_pitch_types",
+            "whiff"
+          ],
+          "events": 0,
+          "synergy_id": "67d4c6f2a94c63becc93c932",
+          "summer_line": false
+        }
+      ]
+    }
+  },
+  "summary": {
+    "pitchers": {
+      "all": 33,
+      "partial": 45,
+      "empty": 16
+    },
+    "hitters": {
+      "all": 74,
+      "partial": 1,
+      "empty": 22
+    }
+  }
+}
