@@ -25,7 +25,12 @@
         "santia002hec"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/hector-santiago-502327",
+        "rows": 0
+      }
     },
     "Jan Hernandez": {
       "status": "no_2026_summer_hitting",
@@ -34,7 +39,12 @@
         "hernan000jan"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/jan-hernandez-641685",
+        "rows": 0
+      }
     },
     "Jean Correa": {
       "status": "no_2026_summer_hitting",
@@ -54,7 +64,12 @@
         "mirand006jos"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/jose-miranda-811368",
+        "rows": 0
+      }
     },
     "Christian Olivo": {
       "status": "line",
@@ -262,7 +277,12 @@
         "pabon-000mig"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/miguel-pabon-682196",
+        "rows": 0
+      }
     },
     "Slater DeBrun": {
       "status": "no_2026_summer_hitting",
@@ -436,14 +456,24 @@
       "source_url": null,
       "candidates": [],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/mario-feliciano-666128",
+        "rows": 0
+      }
     },
     "Roberto Merced": {
       "status": "no_2026_summer_hitting",
       "source_url": null,
       "candidates": [],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.mlb.com/milb",
+        "rows": 0
+      }
     },
     "Ruben Castro": {
       "status": "line",
@@ -490,7 +520,12 @@
       "source_url": null,
       "candidates": [],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/yadiel-rivera-592680",
+        "rows": 0
+      }
     },
     "Yahil Melendez": {
       "status": "line",
@@ -535,7 +570,12 @@
         "burgos000ald"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/aldemar-burgos-664757",
+        "rows": 0
+      }
     },
     "Ezequiel Pagan": {
       "status": "line",
@@ -615,7 +655,12 @@
       "source_url": null,
       "candidates": [],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/jesmuel-valentin-621044",
+        "rows": 0
+      }
     },
     "John Montes": {
       "status": "line",
@@ -660,7 +705,12 @@
         "santa-000kev"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/kevin-santa-667576",
+        "rows": 0
+      }
     },
     "Samuel Hernandez": {
       "status": "no_2026_summer_hitting",
@@ -805,7 +855,12 @@
         "houell000iva"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/ivan-houellemont-671045",
+        "rows": 0
+      }
     },
     "Jadiel Sanchez": {
       "status": "no_2026_summer_hitting",
@@ -814,7 +869,12 @@
         "sanche000jad"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/jadiel-sanchez-689909",
+        "rows": 0
+      }
     },
     "Nate Scantlin": {
       "status": "line",
@@ -929,7 +989,12 @@
         "ramire004rub"
       ],
       "rows": 0,
-      "line": null
+      "line": null,
+      "milb": {
+        "status": "no_2026_hitting",
+        "source_url": "https://www.milb.com/player/ruben-ramirez-703211",
+        "rows": 0
+      }
     },
     "Yasiel Puig": {
       "status": "no_2026_summer_hitting",
@@ -977,5 +1042,18 @@
   },
   "updated": "2026-10-13T04:39:16Z",
   "bbref_requests": 9,
-  "bbref_rate_limit": "30 requests/minute"
+  "bbref_rate_limit": "30 requests/minute",
+  "bbref_requests_cumulative": 173,
+  "bbref_request_history": {
+    "previous_reported": 116,
+    "completion_runs": 57,
+    "minimum_interval_seconds": 2.0,
+    "maximum_rate": "30 requests/minute"
+  },
+  "sources_checked": [
+    "Baseball Reference Register/search",
+    "MiLB.com 2026 year-by-year hitting",
+    "MLB Stats API 2026 sports 1, 11, 12, 13, 14, 16",
+    "MLB Stats API LMB 2026 sport 23"
+  ]
 }

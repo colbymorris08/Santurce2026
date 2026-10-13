@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T04:41:48Z",
+  "updated": "2026-10-13T04:44:12Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -14603,7 +14603,40 @@
       "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
       "team": "PON",
       "mlb_id": null,
-      "window_used": "2026+2025 pool"
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "FM",
+        "team_name": "Fort Myers Mighty Mussels (Fort Myers, FL)",
+        "season": "Summer 2026",
+        "league": "FLOR",
+        "circuit": "Baseball Reference",
+        "league_name": "Florida State League",
+        "level": "A",
+        "ip": "2.2",
+        "outs": 8,
+        "g": 2,
+        "gs": 2,
+        "k": 3,
+        "bb": 1,
+        "k9": "10.1",
+        "bb9": "3.4",
+        "era": "16.88",
+        "fip": "6.85",
+        "whip": "2.25",
+        "h": 5,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=soto--000cha",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "synergy_id": "5aeffb0b9559b26e7e9b7c09",

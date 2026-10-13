@@ -813,7 +813,7 @@ def main() -> None:
             "sources_checked": [
                 "MiLB.com player year-by-year pitching",
                 "Baseball Reference Register/search",
-                "MLB Stats API 2026 pitching",
+                "MLB Stats API 2026 pitching sports 1, 11, 12, 13, 14, 16, 23 (LMB)",
             ],
         }
     empty_audit["rows"] = [audit_by_name[name] for name in sorted(missing_names)]

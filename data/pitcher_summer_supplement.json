@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T04:41:48Z",
+  "updated": "2026-10-13T04:44:12Z",
   "request_timeout_seconds": 20,
   "fip_formula": "(13*HR + 3*(BB+HBP) - 2*K) / IP + 3.10",
   "players": {
@@ -4723,29 +4723,51 @@
     "name:nelvinfuentes": {
       "name": "Nelvin Fuentes",
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=fuente002nel",
+        "candidates": [
+          "fuente002nel"
+        ],
+        "rows": 0,
+        "line": null
       }
     },
     "name:hectorquinones": {
       "name": "Hector Quinones",
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=quinon001hec",
+        "candidates": [
+          "quinon001hec",
+          "quinon002hec"
+        ],
+        "rows": 0,
+        "line": null
       }
     },
     "name:antoniovelez": {
       "name": "Antonio Velez",
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=velez-001ant",
+        "candidates": [
+          "velez-001ant",
+          "velez-000ant"
+        ],
+        "rows": 0,
+        "line": null
       }
     },
     "name:mariozabala": {
       "name": "Mario Zabala",
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "no_2026_summer_pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=zabala000mar",
+        "candidates": [
+          "zabala000mar"
+        ],
+        "rows": 0,
+        "line": null
       }
     },
     "name:eddydemurias": {
@@ -4758,8 +4780,45 @@
     "name:charleesoto": {
       "name": "Charlee Soto",
       "baseball_reference": {
-        "status": "error",
-        "error": "HTTPError: HTTP Error 429: Too Many Requests"
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=soto--000cha",
+        "candidates": [
+          "soto--000cha"
+        ],
+        "rows": 1,
+        "line": {
+          "team": "FM",
+          "team_name": "Fort Myers Mighty Mussels (Fort Myers, FL)",
+          "season": "Summer 2026",
+          "league": "FLOR",
+          "circuit": "Baseball Reference",
+          "league_name": "Florida State League",
+          "level": "A",
+          "ip": "2.2",
+          "outs": 8,
+          "g": 2,
+          "gs": 2,
+          "k": 3,
+          "bb": 1,
+          "k9": "10.1",
+          "bb9": "3.4",
+          "era": "16.88",
+          "fip": "6.85",
+          "whip": "2.25",
+          "h": 5,
+          "hr": 1,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 1,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=soto--000cha",
+          "field_sources": {
+            "team_through_hr": "Baseball Reference Register standard pitching",
+            "sb_allowed": null,
+            "cs_allowed": null,
+            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+          }
+        }
       }
     },
     "681493": {
@@ -4785,5 +4844,18 @@
         ]
       }
     }
-  }
+  },
+  "bbref_requests_cumulative": 136,
+  "bbref_request_history": {
+    "previous_reported": 56,
+    "completion_runs": 80,
+    "minimum_interval_seconds": 2.1,
+    "maximum_rate": "30 requests/minute"
+  },
+  "sources_checked": [
+    "Baseball Reference Register/search",
+    "MiLB.com 2026 year-by-year pitching",
+    "MLB Stats API 2026 sports 1, 11, 12, 13, 14, 16",
+    "MLB Stats API LMB 2026 sport 23"
+  ]
 }
