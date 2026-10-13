@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san56">
+<link rel="stylesheet" href="shared.css?v=san57">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san56"></script>
+<script src="i18n.js?v=san57"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san56';
+const ASSET_V = 'san57';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2048,6 +2048,55 @@ function hitterSummerBarHtml(h){
     </table>
   </div>`;
 }
+function pitcherSummerLineFor(playerId){
+  const rows = CACHE.advancePitchers?.pitchers || [];
+  return rows.find(r=>Number(r.mlb_id)===Number(playerId))?.summer_line || null;
+}
+/** Two-row 2026 summer pitching line: labels, then the most-IP team assignment. */
+function pitcherSummerBarHtml(p){
+  if(!p) return '';
+  const line = p.summer_line || pitcherSummerLineFor(p.mlb_id || p.player_id);
+  const dash = '—';
+  const num = (v) => (v==null || v==='') ? dash : String(v);
+  const rate = (v, places) => {
+    if(v==null || v==='') return dash;
+    const n = Number(v);
+    return Number.isFinite(n) ? n.toFixed(places) : dash;
+  };
+  const tipTeam = line
+    ? [line.team_name, line.level, line.league_name].filter(Boolean).join(' · ')
+    : '';
+  const cols = [
+    ['Team', line && line.team ? line.team : dash, tipTeam],
+    ['Season', 'Summer 2026', '2026 regular season'],
+    ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
+    ['IP', num(line && line.ip), ''],
+    ['G', num(line && line.g), ''],
+    ['GS', num(line && line.gs), ''],
+    ['K', num(line && line.k), ''],
+    ['BB', num(line && line.bb), ''],
+    ['K/9', line ? rate(line.k9, 1) : dash, ''],
+    ['BB/9', line ? rate(line.bb9, 1) : dash, ''],
+    ['ERA', line ? rate(line.era, 2) : dash, ''],
+    ['FIP', line ? rate(line.fip, 2) : dash, 'Not supplied by source'],
+    ['WHIP', line ? rate(line.whip, 2) : dash, ''],
+    ['H', num(line && line.h), ''],
+    ['HR', num(line && line.hr), ''],
+    ['SB allowed', num(line && line.sb_allowed), ''],
+    ['CS allowed', num(line && line.cs_allowed), ''],
+  ];
+  const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
+  const vals = cols.map(([,val,tip])=>{
+    const t = tip ? ` title="${escHtml(tip)}"` : '';
+    return `<td${t}>${escHtml(val)}</td>`;
+  }).join('');
+  return `<div class="pitcher-summer-bar">
+    <table>
+      <thead><tr>${heads}</tr></thead>
+      <tbody><tr>${vals}</tr></tbody>
+    </table>
+  </div>`;
+}
 /** PDF-only top bar: picture | handedness | name | team */
 function advancePdfStripHtml(headHtml, handLabel, name, team){
   return `<div class="advance-pdf-strip">
@@ -2116,6 +2165,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     const teamLabel = p.team || '';
     return `<div class="advance-sheet advance-sheet-pitcher advance-print-page">
   ${advancePdfStripHtml(headPdf, handLabel, p.name, teamLabel)}
+  ${pitcherSummerBarHtml(p)}
   <div class="advance-layout advance-layout-pitcher advance-layout-pitcher-print">
     <div class="advance-col advance-col-charts">
       <div class="advance-card advance-card-compact">
@@ -2185,6 +2235,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       </div>
     </div>
   </div>
+  ${pitcherSummerBarHtml(p)}
   <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
   <div class="advance-short">
     <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
@@ -2293,6 +2344,11 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-pdf-hand,.advance-pdf-name{font-size:26px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
       .advance-pdf-team{font-size:24px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
       .advance-pdf-headshot{width:32px;height:40px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
+      .advance-sheet-pitcher .pitcher-summer-bar{flex:0 0 auto;margin:0 0 2px;overflow:hidden;border:none;border-radius:0;background:#fff}
+      .advance-sheet-pitcher .pitcher-summer-bar table{width:100%;border-collapse:collapse;background:#fff;font-size:7px;line-height:1;table-layout:auto}
+      .advance-sheet-pitcher .pitcher-summer-bar th,
+      .advance-sheet-pitcher .pitcher-summer-bar td{padding:1px 1px;text-align:center;white-space:nowrap;letter-spacing:0;text-transform:none;font-weight:700;line-height:1;background:#fff!important;color:#000!important;border-bottom:1px solid #ccc;position:static;cursor:default}
+      .advance-sheet-pitcher .pitcher-summer-bar th{font-size:6.5px;color:#333!important}
       .advance-sheet-pitcher .advance-photo-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
       .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
       .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
@@ -3059,12 +3115,13 @@ Promise.all([
   fetch('data/fps_cache.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({})),
   fetch('data/pregame_pitcher_arsenals.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
   fetch('data/advance_rodriguez.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/advance_opposing_pitchers.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({pitchers:[]})),
   fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/advance_heatmaps.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({hitters:{},pitchers:{}})),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
-  CACHE={lineup, matchup, hvp, br, spray, arsenals, advanceRodriguez, advanceHitters, advanceHeatmaps, tth, cardStats};
+]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();

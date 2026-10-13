@@ -872,6 +872,38 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-pdf-headshot {
     width: 32px; height: 40px; border-color: #bbb; background: #eef2f7;
   }
+  .advance-sheet-pitcher .pitcher-summer-bar {
+    flex: 0 0 auto;
+    margin: 0 0 2px;
+    overflow: hidden;
+    border: none;
+    border-radius: 0;
+    background: #fff;
+  }
+  .advance-sheet-pitcher .pitcher-summer-bar table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    table-layout: auto;
+    font-size: 7px;
+    line-height: 1;
+  }
+  .advance-sheet-pitcher .pitcher-summer-bar th,
+  .advance-sheet-pitcher .pitcher-summer-bar td {
+    padding: 1px;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 700;
+    line-height: 1;
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    position: static;
+    cursor: default;
+  }
+  .advance-sheet-pitcher .pitcher-summer-bar th { font-size: 6.5px; color: #333; }
   .advance-sheet-pitcher .advance-headshot,
   .advance-sheet-pitcher .advance-hero { display: none !important; }
   .advance-sheet-pitcher .advance-hero-compact {
@@ -1260,6 +1292,45 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 }
 .hitter-summer-bar tbody tr:hover,
 .hitter-summer-bar tbody tr:hover td { background: #fff; }
+.pitcher-summer-bar {
+  margin: 8px 0 10px;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+.pitcher-summer-bar table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  color: #111;
+  font-variant-numeric: tabular-nums;
+  table-layout: auto;
+}
+.pitcher-summer-bar thead th,
+.pitcher-summer-bar tbody td {
+  text-align: center;
+  padding: 5px 4px;
+  white-space: nowrap;
+  letter-spacing: 0;
+  text-transform: none;
+  position: static;
+  cursor: default;
+  background: #fff;
+  color: #111;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.pitcher-summer-bar thead th {
+  font-size: 11px;
+  background: #f4f7fb;
+  color: #1a2744;
+  border-bottom: 1px solid #ccc;
+}
+.pitcher-summer-bar tbody tr:hover,
+.pitcher-summer-bar tbody tr:hover td { background: #fff; }
 .hitter-pitch-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
