@@ -1,0 +1,43 @@
+{
+  "updated": "2026-10-13T12:21:52Z",
+  "roster_source": "data/lbprc_2025_rosters.json, opposing teams CAG/CAR/MAY/PON/SJU",
+  "definitions": {
+    "hitter_heat_map": "All four maps have samples: vs-R SLG/Whiff and vs-L SLG/Whiff",
+    "pitcher_heat_map": "Both maps have samples: SLG vs R and SLG vs L",
+    "hitter_all_data": "Season line + four heat maps + overall and vs-R/vs-L Synergy tables",
+    "pitcher_all_data": "Season line + two heat maps + movement numbers for every arsenal row + miss rate for every arsenal row"
+  },
+  "coverage": {
+    "hitters": {
+      "roster": 98,
+      "stat_bar": 73,
+      "heat_map": 76,
+      "all_data": 64
+    },
+    "pitchers": {
+      "roster": 94,
+      "stat_bar": 74,
+      "heat_map": 79,
+      "all_data": 24
+    }
+  },
+  "pitcher_site_packets": {
+    "total": 82,
+    "season_counts": {
+      "2026 summer": 54,
+      "2025 summer": 4,
+      "winter": 16,
+      "empty": 8
+    },
+    "still_empty": [
+      "Devin Rivera",
+      "Johzan Oquendo",
+      "Alexuan Vega",
+      "Freddy Cabrera",
+      "Nelvin Fuentes",
+      "Hector Quinones",
+      "Antonio Velez",
+      "Mario Zabala"
+    ]
+  }
+}

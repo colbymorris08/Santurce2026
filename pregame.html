@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san61">
+<link rel="stylesheet" href="shared.css?v=san62">
 </head>
 <body>
 <div class="topbar">
@@ -362,12 +362,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san61"></script>
+<script src="i18n.js?v=san62"></script>
 <script src="cards.js?v=san51"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san61';
+const ASSET_V = 'san62';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2007,7 +2007,15 @@ function fmtSlashRate(v){
   const out = n.toFixed(3);
   return out.startsWith('0') ? out.slice(1) : out;
 }
-/** Two-row 2026 summer line: labels, then the most-PA MLB/MiLB/LMB assignment. */
+function statLineSeasonLabel(line){
+  if(!line) return '—';
+  const raw = String(line.season || '').trim();
+  if(!raw) return '—';
+  if(/^summer 2026$/i.test(raw)) return '2026 summer';
+  if(/^summer 2025$/i.test(raw)) return '2025 summer';
+  return raw;
+}
+/** Two-row season line: labels, then the selected team assignment. */
 function hitterSummerBarHtml(h){
   if(!h || String(h.name||'').startsWith('Select All')) return '';
   const line = h.summer_line || null;
@@ -2018,7 +2026,7 @@ function hitterSummerBarHtml(h){
     : '';
   const cols = [
     ['Team', line && line.team ? line.team : dash, tipTeam],
-    ['Season', 'Summer 2026', '2026 regular season'],
+    ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
     ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
     ['PA', num(line && line.pa), ''],
     ['AB', num(line && line.ab), ''],
@@ -2053,7 +2061,7 @@ function pitcherSummerLineFor(playerId){
   const rows = CACHE.advancePitchers?.pitchers || [];
   return rows.find(r=>Number(r.mlb_id)===Number(playerId))?.summer_line || null;
 }
-/** Two-row 2026 summer pitching line: labels, then the most-IP team assignment. */
+/** Two-row pitching season line: labels, then the selected team assignment. */
 function pitcherSummerBarHtml(p){
   if(!p) return '';
   const line = p.summer_line || pitcherSummerLineFor(p.mlb_id || p.player_id);
@@ -2069,7 +2077,7 @@ function pitcherSummerBarHtml(p){
     : '';
   const cols = [
     ['Team', line && line.team ? line.team : dash, tipTeam],
-    ['Season', 'Summer 2026', '2026 regular season'],
+    ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
     ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
     ['IP', num(line && line.ip), ''],
     ['G', num(line && line.g), ''],
