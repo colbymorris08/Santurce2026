@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san76">
+<link rel="stylesheet" href="shared.css?v=san77">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san76';
+const ASSET_V = 'san77';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1686,6 +1686,7 @@ function zoneHeatSvgVox(side, metric, title){
       const fill=st.fill, fg=st.fg;
       rects.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${fill}"/>`);
       if(lab) texts.push(zoneHeatTextSvg(x+cell/2, y+cell/2+3.2, lab, fg, 7.5));
+      else texts.push(zoneHeatTextSvg(x+cell/2, y+cell/2+3.2, '—', fg, 7.5));
     }
   }
   let s=`<svg class="zone-heat zone-heat-vox" viewBox="0 0 ${W} ${H}" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${title}">`;
