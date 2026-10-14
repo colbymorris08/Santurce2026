@@ -2466,7 +2466,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <td class="num">${a.whiff!=null?Number(a.whiff).toFixed(0)+'%':(a.miss_l!=null||a.miss_r!=null?((((Number(a.miss_l)||0)+(Number(a.miss_r)||0))/((a.miss_l!=null?1:0)+(a.miss_r!=null?1:0))).toFixed(0)+'%'):'—')}</td>
     </tr>`;
   }).join('');
-  const countUsageCharts=pitcherCountUsageChartsHtml(p, {printPage:!!printPage});
+  const countUsageCharts=pitcherCountUsageChartsHtml(p, {compact:!!printPage});
 
   // PDF export only: slim strip (compact roster headshot + name) + three equal thirds
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
