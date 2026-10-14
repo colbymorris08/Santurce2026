@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san74">
+<link rel="stylesheet" href="shared.css?v=san75">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san74';
+const ASSET_V = 'san75';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1457,17 +1457,18 @@ const HEAT_RGB = { blue:[37,99,196], yellow:[255,204,0], red:[208,46,46] };
 function heatRgbMix(a, c, u){
   return a.map((v,i)=>Math.round(v+(c[i]-v)*u));
 }
-/** Blue (low) → yellow (avg) → red (high) vs league same-pitch-type average. Two-segment; no olive. */
+/** Hitter pitch-type rate cells: blue (low) → near white (avg) → red (high) vs league same-pitch average. */
 function rateHeatStyle(val, avg){
   if(val==null || avg==null || Number.isNaN(Number(val)) || Number.isNaN(Number(avg))) return '';
   const v=Number(val), a=Number(avg);
   const denom = Math.max(Math.abs(a), a>1 ? 0.05 : 0.01);
   const z = Math.max(-1, Math.min(1, (v-a)/denom));
   const t = (z+1)/2;
-  const {blue, yellow, red} = HEAT_RGB;
-  const rgb = t<=0.5 ? heatRgbMix(blue, yellow, t/0.5) : heatRgbMix(yellow, red, (t-0.5)/0.5);
-  const fg = Math.abs(z)<0.35 ? '#0B1F33' : '#fff';
-  return `background:rgb(${rgb[0]},${rgb[1]},${rgb[2]});color:${fg}`;
+  const r = Math.round(40 + t*200);
+  const g = Math.round(110 - Math.abs(z)*70);
+  const b = Math.round(220 - t*180);
+  const fg = Math.abs(z)>0.45 ? '#fff' : '#0a1633';
+  return `background:rgb(${r},${g},${b});color:${fg}`;
 }
 const HEAT_GEOM_STORAGE_KEY = 'santurce_advance_heat_geom';
 function getHeatGeometryMode(){
