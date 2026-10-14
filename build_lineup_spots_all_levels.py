@@ -180,14 +180,21 @@ def finalize(agg, names):
     return out
 
 
+def santurce_hitters_from_lbprc() -> dict[int, str]:
+    rosters = json.loads((OUT / "lbprc_2025_rosters.json").read_text())
+    for team in rosters.values():
+        if team.get("teamAbbrev") == "SAN":
+            return {
+                int(p["id"]): p["name"]
+                for p in team.get("players") or []
+                if p.get("position") != "P" and p.get("id")
+            }
+    raise SystemExit("SAN not found in lbprc_2025_rosters.json")
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    rosters = json.loads((OUT / "lidom_2025_rosters.json").read_text())
-    names = {
-        int(p["id"]): p["name"]
-        for p in rosters["685"]["players"]
-        if p.get("position") != "P" and p.get("id")
-    }
+    names = santurce_hitters_from_lbprc()
     print(f"Santurce hitters: {len(names)}")
     agg = defaultdict(empty_counter)
 
