@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san80">
+<link rel="stylesheet" href="shared.css?v=san81">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san80';
+const ASSET_V = 'san81';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2309,6 +2309,14 @@ function statLineSeasonLabel(line){
   if(/^summer 2025$/i.test(raw)) return '2025 summer';
   return raw;
 }
+/** MiLB lines show the level (AAA, AA, A+, A, ROK), not the league abbrev (INT, PCL, EAS). */
+function statBarLeague(line){
+  if(!line) return '—';
+  const level = String(line.level || '').trim();
+  const milb = {AAA:'AAA', AA:'AA', 'A+':'A+', A:'A', ROK:'ROK', Rk:'ROK', RK:'ROK', FRk:'ROK'};
+  if(milb[level]) return milb[level];
+  return line.league ? String(line.league) : '—';
+}
 /** Two-row season line: labels, then the selected team assignment. */
 function hitterSummerBarHtml(h){
   if(!h || String(h.name||'').startsWith('Select All')) return '';
@@ -2321,7 +2329,7 @@ function hitterSummerBarHtml(h){
   const cols = [
     ['Team', line && line.team ? line.team : dash, tipTeam],
     ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
-    ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
+    ['League', statBarLeague(line), line && line.league_name ? line.league_name : ''],
     ['PA', num(line && line.pa), ''],
     ['AB', num(line && line.ab), ''],
     ['R', num(line && line.r), ''],
@@ -2372,7 +2380,7 @@ function pitcherSummerBarHtml(p){
   const cols = [
     ['Team', line && line.team ? line.team : dash, tipTeam],
     ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
-    ['League', line && line.league ? line.league : dash, line && line.league_name ? line.league_name : ''],
+    ['League', statBarLeague(line), line && line.league_name ? line.league_name : ''],
     ['IP', num(line && line.ip), ''],
     ['G', num(line && line.g), ''],
     ['GS', num(line && line.gs), ''],
