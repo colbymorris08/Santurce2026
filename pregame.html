@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san77">
+<link rel="stylesheet" href="shared.css?v=san78">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san77';
+const ASSET_V = 'san78';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1852,6 +1852,123 @@ function advanceUsageBars(arsenal, side){
     </div>`;
   }).join('');
 }
+function advanceUsageBarsFromMixRows(rows, {compact=false}={}){
+  const sorted=[...mergePitchUsageRows(rows||[])].sort((a,b)=>(Number(b.usage)||0)-(Number(a.usage)||0));
+  return sorted.map(r=>{
+    const code=normalizePitchCode(r.type||'')||String(r.type||'?').toUpperCase();
+    const hasU=r.usage!=null && r.usage!=='';
+    const u=hasU?Number(r.usage):0;
+    const color=advancePitchColor(code);
+    return `<div class="advance-usage-row${compact?' advance-usage-row-compact':''}">
+      <span><span class="advance-dot" style="background:${color}"></span> <strong>${code}</strong></span>
+      <div class="advance-usage-bar"><span style="width:${hasU?Math.min(100,u):0}%;background:${color}"></span></div>
+      <span class="num">${hasU?u.toFixed(0)+'%':'—'}</span>
+    </div>`;
+  }).join('') || `<div class="note">${compact?'—':'No pitches in sample'}</div>`;
+}
+function pairsToCountMixRows(pairs){
+  return (pairs||[]).map(([type, usage])=>({
+    type: normalizePitchCode(type)||String(type||'').toUpperCase(),
+    usage: usage!=null?Number(usage):null,
+    pitches: null,
+  }));
+}
+/** Restrict Synergy count mix to pitch types thrown to this batter hand; recompute usage %. */
+function countMixForPlatoonHand(countRows, platHandRows){
+  const handTypes=new Set(
+    mergePitchUsageRows(platHandRows||[]).map(r=>normalizePitchCode(r.type)||String(r.type||'').toUpperCase()).filter(Boolean)
+  );
+  if(!handTypes.size) return [];
+  const filtered=mergePitchUsageRows(countRows||[]).filter(r=>{
+    const c=normalizePitchCode(r.type)||String(r.type||'').toUpperCase();
+    return c && handTypes.has(c);
+  });
+  if(!filtered.length) return [];
+  let total=filtered.reduce((s,r)=>s+(Number(r.pitches)||0),0);
+  if(total>0){
+    return filtered.map(r=>({
+      type:r.type,
+      pitches:r.pitches,
+      usage:Math.round(1000*(Number(r.pitches)||0)/total)/10,
+    }));
+  }
+  const weightSum=filtered.reduce((s,r)=>s+(Number(r.usage)||0),0);
+  if(!weightSum) return filtered;
+  return filtered.map(r=>({
+    type:r.type,
+    pitches:r.pitches,
+    usage:Math.round(1000*(Number(r.usage)||0)/weightSum)/10,
+  }));
+}
+function buildCountHandMixFromRow(row){
+  if(!row) return null;
+  if(row.count_hand_mix) return row.count_hand_mix;
+  const platoon=row.platoon||{};
+  const cm=row.count_mix||{};
+  const ubc=row.usage_by_count||{};
+  const pick=(ck)=>cm[ck]||ubc[ck]||[];
+  const side=(hand, ck)=>{
+    const handKey=hand==='l'?'vs_LHB':'vs_RHB';
+    const direct=cm[`${ck}_${handKey}`]||cm[`${ck}_${hand}`]||null;
+    if(direct&&direct.length) return mergePitchUsageRows(direct);
+    const nested=cm[ck];
+    if(nested&&typeof nested==='object'&&!Array.isArray(nested)&&nested[handKey]) return mergePitchUsageRows(nested[handKey]);
+    if(ck==='overall') return mergePitchUsageRows(platoon[handKey]||[]);
+    return countMixForPlatoonHand(pick(ck), platoon[handKey]);
+  };
+  return {
+    overall:{vs_LHB:side('l','overall'), vs_RHB:side('r','overall')},
+    '0-0':{vs_LHB:side('l','0-0'), vs_RHB:side('r','0-0')},
+    '2_strikes':{vs_LHB:side('l','2_strikes'), vs_RHB:side('r','2_strikes')},
+  };
+}
+function buildCountHandMixFromFullPacket(full){
+  if(!full) return null;
+  if(full.count_hand_mix) return full.count_hand_mix;
+  const ar=full.arsenal||[];
+  const overallL=ar.map(a=>({type:a.code, usage:a.usage_l, pitches:null})).filter(r=>r.usage!=null);
+  const overallR=ar.map(a=>({type:a.code, usage:a.usage_r, pitches:null})).filter(r=>r.usage!=null);
+  const shortR=full.short_vs_rhh||{};
+  const shortL=full.short_vs_lhh||{};
+  const countPairSide=(handKey, countKey)=>{
+    const sidePairs=handKey==='vs_LHB'?shortL[countKey]:null;
+    if(sidePairs&&sidePairs.length) return pairsToCountMixRows(sidePairs);
+    const combined=pairsToCountMixRows(shortR[countKey]);
+    const platHand=handKey==='vs_LHB'?overallL:overallR;
+    return countMixForPlatoonHand(combined, platHand);
+  };
+  return {
+    overall:{vs_LHB:overallL, vs_RHB:overallR},
+    '0-0':{vs_LHB:countPairSide('vs_LHB','0-0'), vs_RHB:countPairSide('vs_RHB','0-0')},
+    '2_strikes':{vs_LHB:countPairSide('vs_LHB','2_strikes'), vs_RHB:countPairSide('vs_RHB','2_strikes')},
+  };
+}
+function pitcherCountUsageChartsHtml(p, {compact=false}={}){
+  const mix=p.count_hand_mix||{};
+  const vs=p.usage_vs_hand||{};
+  const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
+  const blocks=[
+    ['Overall usage', 'overall'],
+    ['0–0 count', '0-0'],
+    ['2K count', '2_strikes'],
+  ];
+  return blocks.map(([title, key])=>{
+    const slice=mix[key]||{};
+    return `<div class="advance-count-usage-block${compact?' advance-count-usage-block-compact':''}">
+      <div class="advance-count-usage-title">${title}</div>
+      <div class="advance-usage-split advance-count-usage-pair">
+        <div class="advance-usage-side">
+          <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
+          ${advanceUsageBarsFromMixRows(slice.vs_LHB, {compact})}
+        </div>
+        <div class="advance-usage-side">
+          <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
+          ${advanceUsageBarsFromMixRows(slice.vs_RHB, {compact})}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
 function advancePitcherIndex(){
   const byId = new Map();
   arsenalPitchers().forEach(r=>{
@@ -2124,6 +2241,7 @@ function scaffoldPitcherPacket(row){
     bio: `${row.throws||'?'}HP · ${row.team||'—'}`,
     subtitle: `${row.throws||'?'}HP · ${row.team||'—'}`,
     arsenal,
+    count_hand_mix: buildCountHandMixFromRow(row),
     short_vs_rhh: {
       overall: overallPairs,
       '0-0': countMixPairs(zero),
@@ -2149,6 +2267,7 @@ function resolvePitcherPacket(playerId){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
       team: full.team || (row && row.team) || '',
+      count_hand_mix: buildCountHandMixFromFullPacket(full) || buildCountHandMixFromRow(row),
       // Curated Trackman HB matches catcher/hitter-facing (+ = 1B).
       _hbView: 'hitter',
     });
@@ -2347,7 +2466,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <td class="num">${a.whiff!=null?Number(a.whiff).toFixed(0)+'%':(a.miss_l!=null||a.miss_r!=null?((((Number(a.miss_l)||0)+(Number(a.miss_r)||0))/((a.miss_l!=null?1:0)+(a.miss_r!=null?1:0))).toFixed(0)+'%'):'—')}</td>
     </tr>`;
   }).join('');
-  const short=p.short_vs_rhh||{};
+  const countUsageCharts=pitcherCountUsageChartsHtml(p, {printPage:!!printPage});
 
   // PDF export only: slim strip (compact roster headshot + name) + three equal thirds
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
@@ -2367,13 +2486,9 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   ${pitcherSummerBarHtml(p)}
   <div class="advance-layout advance-layout-pitcher advance-layout-pitcher-print">
     <div class="advance-col advance-col-charts">
-      <div class="advance-card advance-card-compact">
-        <div class="section-label">Count usage · 0–0 &amp; 2K</div>
-        <div class="advance-short">
-          <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
-          <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
-          <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
-        </div>
+      <div class="advance-card advance-card-compact advance-card-count-usage">
+        <div class="section-label">Count usage vs hand</div>
+        <div class="advance-count-usage-grid">${countUsageCharts}</div>
       </div>
       <div class="advance-card advance-card-compact">
         <div class="section-label">Arsenal snapshot</div>
@@ -2400,10 +2515,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
           </div>
         </div>
       </div>
-    </div>
-    <div class="advance-card advance-band advance-band-heat advance-band-heat-left">
-      <div class="section-label">SLG heat · vs R / vs L</div>
-      ${heatMapsHtml}
     </div>
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
@@ -2434,16 +2545,14 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <div class="advance-hero-meta">
         <h2>${p.name}</h2>
         <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
-        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Synergy count (Overall / 0–0 / 2K) + vs LHH/RHH usage when pulled. SLG heat is binned from Synergy plate location. PDF layout is three equal thirds with a small roster headshot in the name strip.</div>
+        <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Count usage (overall / 0–0 / 2K) split vs LHH &amp; RHH when Synergy hand splits exist. SLG heat is binned from Synergy plate location. PDF layout is three equal thirds with a small roster headshot in the name strip.</div>
       </div>
     </div>
   </div>
   ${pitcherSummerBarHtml(p)}
-  <div class="section-label" style="margin-top:6px">Count usage · 0–0 &amp; 2 strikes</div>
-  <div class="advance-short">
-    <div class="advance-short-col"><span class="advance-short-h">Overall</span>${shortColHtml(short.overall)}</div>
-    <div class="advance-short-col"><span class="advance-short-h">0–0</span>${shortColHtml(short['0-0'])}</div>
-    <div class="advance-short-col"><span class="advance-short-h">2 strikes</span>${shortColHtml(short['2_strikes'])}</div>
+  <div class="advance-card" style="margin-top:6px">
+    <div class="section-label">Count usage vs hand</div>
+    <div class="advance-count-usage-grid">${countUsageCharts}</div>
   </div>
   <div class="advance-layout advance-layout-pitcher">
     <div class="advance-col">
@@ -2477,10 +2586,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
             ${advanceUsageBars(arsenal,'r')}
           </div>
         </div>
-      </div>
-      <div class="advance-card">
-        <div class="section-label">SLG heat · vs R / vs L</div>
-        ${heatMapsHtml}
       </div>
     </div>
     <div class="advance-col">
@@ -2531,15 +2636,20 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       }
       .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
       .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
-      .advance-sheet-pitcher .advance-short-col+.advance-short-col{border-left:1px solid #bbb}
-      .advance-sheet-pitcher .advance-short-col{padding:0 8px}
-      .advance-sheet-pitcher .advance-short{padding:3px 2px;column-gap:0}
+      .advance-sheet-pitcher .advance-arsenal-table thead th,
+      .advance-sheet-pitcher .advance-card table thead th{color:#fff!important}
+      .advance-sheet-pitcher .advance-count-usage-grid{display:flex;flex-direction:column;gap:2px;min-height:0}
+      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-count-usage-title{font-size:7px;font-weight:700;color:#0a1633;margin:0 0 1px;letter-spacing:.04em;text-transform:uppercase}
+      .advance-sheet-pitcher .advance-count-usage-pair{gap:4px}
+      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-usage-side h4{font-size:7px;margin:0 0 0}
+      .advance-sheet-pitcher .advance-usage-row-compact{font-size:7px;line-height:1;margin-bottom:0;grid-template-columns:28px 1fr 22px}
+      .advance-sheet-pitcher .advance-usage-row-compact .advance-usage-bar{height:4px}
+      .advance-sheet-pitcher .advance-card-count-usage{padding:2px 4px}
       .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:4px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
       .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
       .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.7in;height:auto;max-height:2.02in;overflow:visible;background:#F7F9FB}
       .advance-sheet-pitcher .zone-heat,.advance-sheet-pitcher .zone-heat-vox,.advance-sheet-pitcher .zone-heat-7{-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .zone-heat text{paint-order:stroke fill}
-      .advance-sheet-pitcher .advance-band-heat-left{grid-column:1;grid-row:2;align-self:end;justify-self:start;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
       .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1;align-self:stretch;min-height:0;overflow:hidden}
