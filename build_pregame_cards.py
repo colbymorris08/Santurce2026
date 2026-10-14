@@ -2,9 +2,10 @@
 """Compact roster + rate cache for the strategy and small-ball pregame cards.
 
 Rosters use the 2026-27 team assignments stored in lbprc_2025_rosters.json
-(the legacy filename is retained for site compatibility). Counting stats: LBPRC 2025 when that line exists. If it does not, the
-2026 then 2025 MLB Stats API season line (K/GB/AVG/OPS or pitcher K/GB/BB/OPS).
-2026 summer SB/CS/sac bunts still come from the MLB + MiLB + LMB season files.
+(the legacy filename is retained for site compatibility). Strategy-card rates use the newest season that actually has a line:
+2026 summer, then 2025-26 winter, then 2025 summer, then the next older
+winter, then the next older summer. 2026 summer SB/CS/sac bunts still come
+from the MLB + MiLB + LMB season files.
 Platoon whiff and bunt situations: Synergy advance hitters when the player is
 in that file. Whiff is not invented when Synergy has no swings.
 """
@@ -301,6 +302,139 @@ def norm_name(name: str) -> str:
     return " ".join(text.lower().split())
 
 
+def season_rank(label: str) -> tuple | None:
+    """Higher sorts first. Summer 2026, then winter 2025-26, then summer 2025."""
+    text = (label or "").lower().replace("–", "-")
+    years = [int(year) for year in re.findall(r"20\d{2}", text)]
+    if not years:
+        return None
+    if any(token in text for token in ("winter", "lbprc", "lidom", "lmp")):
+        if len(years) >= 2:
+            return (years[-1], 0)
+        return (years[0] + 1, 0)
+    return (years[-1], 1)
+
+
+def season_text(rank: tuple, team: str | None = None) -> str:
+    year, kind = rank
+    if kind == 1:
+        label = f"Summer {year}"
+    else:
+        label = f"Winter {year - 1}-{str(year)[2:]}"
+    team = (team or "").strip()
+    return f"{label} {team}".strip()
+
+
+def choose_line(candidates: list) -> dict | None:
+    best = None
+    best_key = None
+    for line in candidates:
+        if not line or not line.get("rank"):
+            continue
+        sample = int(line.get("pa") or line.get("bf") or 0)
+        if sample < 1:
+            continue
+        key = (line["rank"], sample, line.get("gb") is not None)
+        if best_key is None or key > best_key:
+            best = line
+            best_key = key
+    return best
+
+
+def _accumulate_rows(files: list[str], kind: str) -> dict[int, dict]:
+    buckets: dict[int, dict] = {}
+    for fname in files:
+        rows = load(fname) or []
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            pid = int(row.get("playerId") or 0)
+            if pid <= 0:
+                continue
+            sample = int(num(row.get("plateAppearances" if kind == "hitting" else "battersFaced")) or 0)
+            if sample < 1:
+                continue
+            bucket = buckets.setdefault(pid, {
+                "pa": 0, "bf": 0, "so": 0, "bb": 0, "go": 0, "ao": 0, "gs": 0,
+                "avg_w": 0.0, "ops_w": 0.0, "w": 0.0, "team": None, "team_n": 0,
+            })
+            weight = float(sample)
+            if kind == "hitting":
+                bucket["pa"] += sample
+            else:
+                bucket["bf"] += sample
+                bucket["bb"] += int(num(row.get("baseOnBalls")) or 0)
+                bucket["gs"] += int(num(row.get("gamesStarted")) or 0)
+            bucket["so"] += int(num(row.get("strikeOuts")) or 0)
+            bucket["go"] += int(num(row.get("groundOuts")) or 0)
+            bucket["ao"] += int(num(row.get("airOuts")) or 0)
+            avg = num(row.get("avg"))
+            ops = num(row.get("ops"))
+            if avg is not None:
+                bucket["avg_w"] += avg * weight
+            if ops is not None:
+                bucket["ops_w"] += ops * weight
+            bucket["w"] += weight
+            abbrev = row.get("teamAbbrev") or row.get("teamName")
+            if abbrev and sample >= bucket["team_n"]:
+                bucket["team"] = abbrev
+                bucket["team_n"] = sample
+    return buckets
+
+
+def hitting_candidates_from_files(files: list[str], label: str) -> dict[int, dict]:
+    rank = season_rank(label)
+    out = {}
+    for pid, bucket in _accumulate_rows(files, "hitting").items():
+        pa = bucket["pa"]
+        if not pa or not rank:
+            continue
+        out[pid] = {
+            "rank": rank,
+            "pa": pa,
+            "k": pct(bucket["so"], pa),
+            "gb": pct(bucket["go"], bucket["go"] + bucket["ao"]) if (bucket["go"] + bucket["ao"]) else None,
+            "avg": round(bucket["avg_w"] / bucket["w"], 3) if bucket["w"] else None,
+            "ops": round(bucket["ops_w"] / bucket["w"], 3) if bucket["w"] else None,
+            "src": season_text(rank, bucket.get("team")),
+        }
+    return out
+
+
+def pitching_candidates_from_files(files: list[str], label: str) -> dict[int, dict]:
+    rank = season_rank(label)
+    out = {}
+    for pid, bucket in _accumulate_rows(files, "pitching").items():
+        bf = bucket["bf"]
+        if not bf or not rank:
+            continue
+        out[pid] = {
+            "rank": rank,
+            "bf": bf,
+            "k": pct(bucket["so"], bf),
+            "gb": pct(bucket["go"], bucket["go"] + bucket["ao"]) if (bucket["go"] + bucket["ao"]) else None,
+            "bb": pct(bucket["bb"], bf),
+            "ops": round(bucket["ops_w"] / bucket["w"], 3) if bucket["w"] else None,
+            "avg": round(bucket["avg_w"] / bucket["w"], 3) if bucket["w"] else None,
+            "gs": bucket["gs"],
+            "src": season_text(rank, bucket.get("team")),
+        }
+    return out
+
+
+def tagged_api_line(line: dict | None, kind: str) -> dict | None:
+    if not line:
+        return None
+    rank = season_rank(line.get("src") or "")
+    sample = int(line.get("pa") or 0) if kind == "hitting" else int(line.get("bf") or 0)
+    if not rank or sample < 1:
+        return None
+    tagged = dict(line)
+    tagged["rank"] = rank
+    tagged["src"] = season_text(rank, line.get("team"))
+    return tagged
+
+
 def rates_from_summer_line(line: dict | None) -> dict | None:
     """K/AVG/OPS from a researched batting line. GB is omitted when GO/AO are absent."""
     if not line:
@@ -317,14 +451,17 @@ def rates_from_summer_line(line: dict | None) -> dict | None:
     ops = num(line.get("ops"))
     if avg is None and ops is None:
         return None
-    label = " ".join(str(part) for part in (line.get("season"), line.get("team")) if part)
+    rank = season_rank(str(line.get("season") or ""))
+    if not rank:
+        return None
     return {
+        "rank": rank,
         "pa": pa,
         "k": pct(so, pa),
         "gb": None,
         "avg": avg,
         "ops": ops,
-        "src": label or "season line",
+        "src": season_text(rank, line.get("team")),
     }
 
 
@@ -386,6 +523,22 @@ def main() -> None:
         if pid:
             arsenal_by[int(pid)] = p
 
+    summer_hit = hitting_candidates_from_files(
+        ["mlb_2026_hitting.json", "milb_2026_hitting.json", "mexico_2026_hitting.json"],
+        "Summer 2026",
+    )
+    winter_hit = hitting_candidates_from_files(
+        ["lbprc_2025_hitting.json", "lidom_2025_hitting.json", "lmp_2025_hitting.json"],
+        "Winter 2025-26",
+    )
+    summer_pit = pitching_candidates_from_files(
+        ["mlb_2026_pitching.json", "milb_2026_pitching.json", "mexico_2026_pitching.json"],
+        "Summer 2026",
+    )
+    winter_pit = pitching_candidates_from_files(
+        ["lbprc_2025_pitching.json", "lidom_2025_pitching.json", "lmp_2025_pitching.json"],
+        "Winter 2025-26",
+    )
     roster_ids = []
     for team in rosters.values():
         for p in team.get("players") or []:
@@ -447,33 +600,24 @@ def main() -> None:
                     wh_l, wh_l_pa = vs_l["wh"], vs_l["pa"]
                 if vs_r and vs_r.get("wh") is not None:
                     wh_r, wh_r_pa = vs_r["wh"], vs_r["pa"]
-                src = "LBPRC 2025" if hit and pa else None
-                api_hit = api.get("hitting")
-                if (not hit or not pa) and api_hit:
-                    pa = int(api_hit.get("pa") or 0)
-                    so = 0
-                    go = ao = 0
-                    src = api_hit.get("src")
-                    hitter_k = api_hit.get("k")
-                    hitter_gb = api_hit.get("gb")
-                    hitter_avg = api_hit.get("avg")
-                    hitter_ops = api_hit.get("ops")
+                named = adv_by_name.get((abbrev, norm_name(name)))
+                chosen = choose_line([
+                    summer_hit.get(pid),
+                    winter_hit.get(pid),
+                    tagged_api_line(api.get("hitting"), "hitting"),
+                    rates_from_summer_line(((adv or named or {}).get("summer_line"))),
+                ])
+                if chosen:
+                    pa = int(chosen.get("pa") or 0)
+                    src = chosen.get("src")
+                    hitter_k = chosen.get("k")
+                    hitter_gb = chosen.get("gb")
+                    hitter_avg = chosen.get("avg")
+                    hitter_ops = chosen.get("ops")
                 else:
-                    hitter_k = pct(so, pa) if hit else None
-                    hitter_gb = pct(go, go + ao) if hit and (go + ao) else None
-                    hitter_avg = num(hit.get("avg")) if hit else None
-                    hitter_ops = num(hit.get("ops")) if hit else None
-                if hitter_k is None and hitter_avg is None:
-                    named = adv_by_name.get((abbrev, norm_name(name)))
-                    line = ((adv or named or {}).get("summer_line"))
-                    rates = rates_from_summer_line(line)
-                    if rates:
-                        pa = rates["pa"]
-                        hitter_k = rates["k"]
-                        hitter_gb = rates["gb"]
-                        hitter_avg = rates["avg"]
-                        hitter_ops = rates["ops"]
-                        src = rates["src"]
+                    src = None
+                    pa = 0
+                    hitter_k = hitter_gb = hitter_avg = hitter_ops = None
                 hitter = {
                     "pa": pa,
                     "k": hitter_k,
@@ -527,24 +671,25 @@ def main() -> None:
                             wden += n
                     if wden:
                         wh = round(wnum / wden, 1)
-                src_p = "LBPRC 2025" if pit and bf else ("arsenal whiff only" if wh is not None else None)
-                api_pit = api.get("pitching")
-                if (not pit or not bf) and api_pit and api_pit.get("bf"):
-                    bf = int(api_pit.get("bf") or 0)
-                    src_p = api_pit.get("src")
-                    pit_k = api_pit.get("k")
-                    pit_gb = api_pit.get("gb")
-                    pit_bb = api_pit.get("bb")
-                    pit_ops = api_pit.get("ops")
-                    pit_avg = api_pit.get("avg")
-                    pit_gs = int(api_pit.get("gs") or 0)
+                chosen_p = choose_line([
+                    summer_pit.get(pid),
+                    winter_pit.get(pid),
+                    tagged_api_line(api.get("pitching"), "pitching"),
+                ])
+                if chosen_p:
+                    bf = int(chosen_p.get("bf") or 0)
+                    src_p = chosen_p.get("src")
+                    pit_k = chosen_p.get("k")
+                    pit_gb = chosen_p.get("gb")
+                    pit_bb = chosen_p.get("bb")
+                    pit_ops = chosen_p.get("ops")
+                    pit_avg = chosen_p.get("avg")
+                    pit_gs = int(chosen_p.get("gs") or 0)
                 else:
-                    pit_k = pct(so, bf) if pit and bf else None
-                    pit_gb = pct(go, go + ao) if pit and (go + ao) else None
-                    pit_bb = pct(bb, bf) if pit and bf else None
-                    pit_ops = num(pit.get("ops")) if pit else None
-                    pit_avg = num(pit.get("avg")) if pit else None
-                    pit_gs = int(num(pit.get("gamesStarted")) or 0) if pit else 0
+                    src_p = "arsenal whiff only" if wh is not None else None
+                    bf = 0
+                    pit_k = pit_gb = pit_bb = pit_ops = pit_avg = None
+                    pit_gs = 0
                 pitcher = {
                     "bf": bf,
                     "k": pit_k,
