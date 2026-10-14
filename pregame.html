@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san78">
+<link rel="stylesheet" href="shared.css?v=san79">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san78';
+const ASSET_V = 'san79';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1837,21 +1837,6 @@ function advanceMovementSvg(arsenal, throws='R', hbView='pitcher'){
   s+=`<text x="10" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 10 ${H/2})">Induced Vertical Break (in)</text>`;
   return s+'</svg>';
 }
-function advanceUsageBars(arsenal, side){
-  // side: 'l' | 'r' — Use% only (Whiff lives on arsenal table; Miss was the same metric)
-  const keyU = side==='l' ? 'usage_l' : 'usage_r';
-  const rows=[...(arsenal||[])].sort((a,b)=>(Number(b[keyU])||0)-(Number(a[keyU])||0));
-  return rows.map(a=>{
-    const hasU = a[keyU]!=null && a[keyU]!=='';
-    const u = hasU ? Number(a[keyU]) : 0;
-    const color=advancePitchColor(a.code);
-    return `<div class="advance-usage-row">
-      <span><span class="advance-dot" style="background:${color}"></span> <strong>${a.code}</strong></span>
-      <div class="advance-usage-bar"><span style="width:${hasU?Math.min(100,u):0}%;background:${color}"></span></div>
-      <span class="num">${hasU?u.toFixed(0)+'%':'—'}</span>
-    </div>`;
-  }).join('');
-}
 function advanceUsageBarsFromMixRows(rows, {compact=false}={}){
   const sorted=[...mergePitchUsageRows(rows||[])].sort((a,b)=>(Number(b.usage)||0)-(Number(a.usage)||0));
   return sorted.map(r=>{
@@ -2447,8 +2432,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     <div class="advance-heat-cell">${zoneHeatSvg(heatRec && heatRec.vs_l, 'slg', 'SLG vs L')}</div>
   </div>`;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
-  const vs=p.usage_vs_hand||{};
-  const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
   const hbView = p._hbView || 'pitcher';
   const arRows=arsenal.map(a=>{
     const c=advancePitchColor(a.code);
@@ -2502,19 +2485,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="section-label">Pitch descriptions</div>
         <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
       </div>
-      <div class="advance-card advance-card-compact">
-        <div class="section-label">Usage vs hand</div>
-        <div class="advance-usage-split">
-          <div class="advance-usage-side">
-            <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
-            ${advanceUsageBars(arsenal,'l')}
-          </div>
-          <div class="advance-usage-side">
-            <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
-            ${advanceUsageBars(arsenal,'r')}
-          </div>
-        </div>
-      </div>
     </div>
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
@@ -2567,25 +2537,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       <div class="advance-card">
         <div class="section-label">Pitch descriptions</div>
         <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
-      </div>
-      <div class="advance-card">
-        <div class="section-label">Usage vs hand</div>
-        <div class="advance-usage-split">
-          <div class="advance-usage-side">
-            <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
-            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span>
-            </div>
-            ${advanceUsageBars(arsenal,'l')}
-          </div>
-          <div class="advance-usage-side">
-            <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
-            <div class="advance-usage-row" style="color:var(--muted);font-size:10px;margin-bottom:2px">
-              <span></span><span></span><span class="num">Use</span>
-            </div>
-            ${advanceUsageBars(arsenal,'r')}
-          </div>
-        </div>
       </div>
     </div>
     <div class="advance-col">
