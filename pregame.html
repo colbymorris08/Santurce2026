@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san79">
+<link rel="stylesheet" href="shared.css?v=san80">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san79';
+const ASSET_V = 'san80';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2473,7 +2473,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         <div class="section-label">Count usage vs hand</div>
         <div class="advance-count-usage-grid">${countUsageCharts}</div>
       </div>
-      <div class="advance-card advance-card-compact">
+      <div class="advance-card advance-card-compact advance-card-arsenal">
         <div class="section-label">Arsenal snapshot</div>
         <div class="table-wrap"><table class="advance-arsenal-table"><thead><tr>
           <th>Pitch</th><th class="num">Use%</th><th class="num">vs L</th><th class="num">vs R</th>
@@ -2587,6 +2587,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       }
       .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
       .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
+      .advance-sheet-pitcher .advance-usage-side h4{color:#000!important}
       .advance-sheet-pitcher .advance-arsenal-table thead th,
       .advance-sheet-pitcher .advance-card table thead th{color:#fff!important}
       .advance-sheet-pitcher .advance-count-usage-grid{display:flex;flex-direction:column;gap:2px;min-height:0}
@@ -2603,7 +2604,10 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .zone-heat text{paint-order:stroke fill}
       .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
-      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1;align-self:stretch;min-height:0;overflow:hidden}
+      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:0;overflow:hidden}
+      .advance-sheet-pitcher .advance-card-arsenal{flex:0 0 auto;overflow:visible}
+      .advance-sheet-pitcher .advance-card-arsenal .table-wrap{overflow:visible}
+      .advance-sheet-pitcher .advance-card-count-usage{flex:1 1 auto;min-height:0;overflow:hidden}
       .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
       .advance-sheet-pitcher .advance-col-release{grid-column:3;grid-row:1 / span 2}
       .advance-sheet-pitcher .advance-layout-pitcher-print,

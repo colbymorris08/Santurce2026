@@ -945,7 +945,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   }
   /* Charts stay in the top of the left third. Heat maps take the empty
      band under the charts and the full middle third, side by side. */
-  .advance-sheet-pitcher .advance-col-charts { grid-column: 1; grid-row: 1; align-self: stretch; }
+  .advance-sheet-pitcher .advance-col-charts { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; }
   .advance-sheet-pitcher .advance-col-middle { display: contents; }
   .advance-sheet-pitcher .advance-band-movement { grid-column: 2; grid-row: 1; min-height: 0; }
   .advance-sheet-pitcher .advance-col-release { grid-column: 3; grid-row: 1 / span 2; }
@@ -1023,7 +1023,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   }
   .advance-sheet-pitcher .advance-usage-row strong,
   .advance-sheet-pitcher .advance-usage-row .num { color: #000 !important; }
-  .advance-sheet-pitcher .advance-usage-side h4 { margin: 0 0 1px; font-size: 8px; }
+  .advance-sheet-pitcher .advance-usage-side h4 { margin: 0 0 1px; font-size: 8px; color: #000 !important; }
+  .advance-sheet-pitcher .advance-card-arsenal { flex: 0 0 auto; overflow: visible; }
+  .advance-sheet-pitcher .advance-card-arsenal .table-wrap { overflow: visible; }
+  .advance-sheet-pitcher .advance-card-count-usage { flex: 1 1 auto; min-height: 0; overflow: hidden; }
   .advance-sheet-pitcher .advance-usage-bar { height: 5px; }
   /* vs L / vs R sit side by side. Right edge stays on the middle column;
      the pair still reaches left under the charts. Each box is a near-square
