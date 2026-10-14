@@ -15887,6 +15887,44 @@
         }
       },
       "source": "Season line attached for a roster arm that has no Synergy packet"
+    },
+    {
+      "synergy_id": null,
+      "name": "Sebastian Rodriguez",
+      "team": "CAG",
+      "mlb_id": null,
+      "throws": "R",
+      "summer_line": {
+        "team": "LC",
+        "team_name": "Lake Country DockHounds (Oconomowoc, WI)",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Baseball Reference",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "52.2",
+        "outs": 158,
+        "g": 9,
+        "gs": 9,
+        "k": 36,
+        "bb": 14,
+        "k9": "6.2",
+        "bb9": "2.4",
+        "era": "4.61",
+        "fip": "4.18",
+        "whip": "1.39",
+        "h": 59,
+        "hr": 6,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig001seb",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      },
+      "source": "Season line attached for a roster arm that has no Synergy packet"
     }
   ],
   "empty": [
@@ -15904,10 +15942,6 @@
     },
     {
       "name": "Zach Penrod",
-      "reason": "prior empty"
-    },
-    {
-      "name": "Sebastian Rodriguez",
       "reason": "prior empty"
     },
     {
