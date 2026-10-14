@@ -2,9 +2,11 @@
 """Compact roster + rate cache for the strategy and small-ball pregame cards.
 
 Rosters use the 2026-27 team assignments stored in lbprc_2025_rosters.json
-(the legacy filename is retained for site compatibility). Counting stats: LBPRC 2025 hitting/pitching. 2026 summer
-SB/CS/sac bunts: MLB + MiLB + LMB season files. Platoon whiff/AVG/OPS and bunt
-situation counts: Synergy advance hitters when the player is in that file.
+(the legacy filename is retained for site compatibility). Counting stats: LBPRC 2025 when that line exists. If it does not, the
+2026 then 2025 MLB Stats API season line (K/GB/AVG/OPS or pitcher K/GB/BB/OPS).
+2026 summer SB/CS/sac bunts still come from the MLB + MiLB + LMB season files.
+Platoon whiff and bunt situations: Synergy advance hitters when the player is
+in that file. Whiff is not invented when Synergy has no swings.
 """
 
 from __future__ import annotations
@@ -12,6 +14,7 @@ from __future__ import annotations
 import json
 import re
 import unicodedata
+import urllib.request
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -106,6 +109,225 @@ def agg_pitch_rows(rows: list | None) -> dict | None:
     }
 
 
+def _api_get(url: str) -> dict:
+    req = urllib.request.Request(url, headers={"User-Agent": "santurce-cards"})
+    with urllib.request.urlopen(req, timeout=40) as response:
+        return json.loads(response.read().decode())
+
+
+def _best_split(splits: list, kind: str) -> dict | None:
+    best = None
+    best_n = -1
+    for split in splits or []:
+        stat = split.get("stat") or {}
+        if kind == "hitting":
+            n = int(stat.get("plateAppearances") or 0)
+        else:
+            n = int(stat.get("battersFaced") or stat.get("plateAppearances") or 0)
+        if n > best_n:
+            best_n = n
+            best = split
+    return best if best_n > 0 else None
+
+
+def _hit_from_stat(stat: dict, season: str, sport: str) -> dict:
+    pa = int(stat.get("plateAppearances") or 0)
+    so = int(stat.get("strikeOuts") or 0)
+    go = int(stat.get("groundOuts") or 0)
+    ao = int(stat.get("airOuts") or 0)
+    return {
+        "pa": pa,
+        "k": pct(so, pa),
+        "gb": pct(go, go + ao) if (go + ao) else None,
+        "avg": num(stat.get("avg")),
+        "ops": num(stat.get("ops")),
+        "sb": int(stat.get("stolenBases") or 0),
+        "cs": int(stat.get("caughtStealing") or 0),
+        "sac": int(stat.get("sacBunts") or 0),
+        "src": f"{sport or 'MLB'} {season}",
+    }
+
+
+def _pit_from_stat(stat: dict, season: str, sport: str) -> dict:
+    bf = int(stat.get("battersFaced") or stat.get("plateAppearances") or 0)
+    so = int(stat.get("strikeOuts") or 0)
+    bb = int(stat.get("baseOnBalls") or 0)
+    go = int(stat.get("groundOuts") or 0)
+    ao = int(stat.get("airOuts") or 0)
+    return {
+        "bf": bf,
+        "k": pct(so, bf) if bf else None,
+        "gb": pct(go, go + ao) if (go + ao) else None,
+        "bb": pct(bb, bf) if bf else None,
+        "ops": num(stat.get("ops")),
+        "avg": num(stat.get("avg")),
+        "gs": int(stat.get("gamesStarted") or 0),
+        "src": f"{sport or 'MLB'} {season}",
+    }
+
+
+def season_api_lines(player_ids: list[int]) -> dict[int, dict]:
+    """Most recent regular-season line on MLB Stats API, 2026 then 2025."""
+    cache_path = DATA / "card_season_api.json"
+    cached = json.loads(cache_path.read_text()) if cache_path.exists() else {}
+    for season in ("2026", "2025"):
+        pending = []
+        for pid in player_ids:
+            if pid <= 0:
+                continue
+            row = cached.get(str(pid)) or {}
+            if row.get("hitting") or row.get("pitching"):
+                continue
+            if season == "2025" and row.get("checked_2025"):
+                continue
+            pending.append(pid)
+        for i in range(0, len(pending), 40):
+            chunk = pending[i:i + 40]
+            ids = ",".join(str(pid) for pid in chunk)
+            url = (
+                "https://statsapi.mlb.com/api/v1/people?personIds="
+                + ids
+                + "&hydrate=stats(group=[hitting,pitching],type=[season],season="
+                + season
+                + ",gameType=R)"
+            )
+            try:
+                payload = _api_get(url)
+            except Exception as exc:
+                print(f"  stats api {season} chunk failed: {exc}")
+                continue
+            seen = set()
+            for person in payload.get("people") or []:
+                pid = int(person.get("id") or 0)
+                if not pid:
+                    continue
+                seen.add(pid)
+                row = cached.setdefault(str(pid), {})
+                for block in person.get("stats") or []:
+                    group = ((block.get("group") or {}).get("displayName") or "").lower()
+                    kind = "hitting" if "hit" in group else "pitching" if "pitch" in group else ""
+                    if not kind or row.get(kind):
+                        continue
+                    split = _best_split(block.get("splits") or [], kind)
+                    if not split:
+                        continue
+                    stat = split.get("stat") or {}
+                    sport = ((split.get("sport") or {}).get("abbreviation") or "").upper()
+                    built = _hit_from_stat(stat, season, sport) if kind == "hitting" else _pit_from_stat(stat, season, sport)
+                    built["team"] = (split.get("team") or {}).get("name")
+                    row[kind] = built
+                if season == "2025":
+                    row["checked_2025"] = True
+            for pid in chunk:
+                if pid not in seen and season == "2025":
+                    cached.setdefault(str(pid), {})["checked_2025"] = True
+        cache_path.write_text(json.dumps(cached, ensure_ascii=False))
+    # Older seasons for ids that never appeared in 2026 or 2025.
+    for kind, group in (("hitting", "hitting"), ("pitching", "pitching")):
+        pending = []
+        for pid in player_ids:
+            if pid <= 0:
+                continue
+            row = cached.get(str(pid)) or {}
+            if row.get(kind) or row.get(f"checked_yby_{kind}"):
+                continue
+            pending.append(pid)
+        for i in range(0, len(pending), 20):
+            chunk = pending[i:i + 20]
+            ids = ",".join(str(pid) for pid in chunk)
+            url = (
+                "https://statsapi.mlb.com/api/v1/people?personIds="
+                + ids
+                + "&hydrate=stats(group=["
+                + group
+                + "],type=[yearByYear],sportIds=[1,11,12,13,14,16,23])"
+            )
+            try:
+                payload = _api_get(url)
+            except Exception as exc:
+                print(f"  year-by-year {kind} chunk failed: {exc}")
+                continue
+            seen = set()
+            for person in payload.get("people") or []:
+                pid = int(person.get("id") or 0)
+                if not pid:
+                    continue
+                seen.add(pid)
+                row = cached.setdefault(str(pid), {})
+                row[f"checked_yby_{kind}"] = True
+                if row.get(kind):
+                    continue
+                splits = []
+                for block in person.get("stats") or []:
+                    splits.extend(block.get("splits") or [])
+                split = _latest_split(splits, kind)
+                if not split:
+                    continue
+                stat = split.get("stat") or {}
+                season = str(split.get("season") or "")
+                sport = ((split.get("sport") or {}).get("abbreviation") or "").upper()
+                built = _hit_from_stat(stat, season, sport) if kind == "hitting" else _pit_from_stat(stat, season, sport)
+                built["team"] = (split.get("team") or {}).get("name")
+                row[kind] = built
+            for pid in chunk:
+                if pid not in seen:
+                    cached.setdefault(str(pid), {})[f"checked_yby_{kind}"] = True
+    cache_path.write_text(json.dumps(cached, ensure_ascii=False))
+    return {int(k): v for k, v in cached.items()}
+
+
+def _latest_split(splits: list, kind: str) -> dict | None:
+    best = None
+    best_key = (-1, -1)
+    for split in splits or []:
+        stat = split.get("stat") or {}
+        if kind == "hitting":
+            n = int(stat.get("plateAppearances") or 0)
+        else:
+            n = int(stat.get("battersFaced") or stat.get("plateAppearances") or 0)
+        if n <= 0:
+            continue
+        season = int(split.get("season") or 0)
+        key = (season, n)
+        if key > best_key:
+            best_key = key
+            best = split
+    return best
+
+
+def norm_name(name: str) -> str:
+    text = unicodedata.normalize("NFKD", name or "")
+    text = "".join(c for c in text if not unicodedata.combining(c))
+    return " ".join(text.lower().split())
+
+
+def rates_from_summer_line(line: dict | None) -> dict | None:
+    """K/AVG/OPS from a researched batting line. GB is omitted when GO/AO are absent."""
+    if not line:
+        return None
+    pa = int(line.get("pa") or 0)
+    ab = int(line.get("ab") or 0)
+    hits = int(line.get("h") or 0)
+    so = int(line.get("so") or 0)
+    if pa < 1:
+        return None
+    avg = num(line.get("ba"))
+    if avg is None and ab:
+        avg = round(hits / ab, 3)
+    ops = num(line.get("ops"))
+    if avg is None and ops is None:
+        return None
+    label = " ".join(str(part) for part in (line.get("season"), line.get("team")) if part)
+    return {
+        "pa": pa,
+        "k": pct(so, pa),
+        "gb": None,
+        "avg": avg,
+        "ops": ops,
+        "src": label or "season line",
+    }
+
+
 def summer_by_id() -> dict[int, dict]:
     agg: dict[int, dict] = defaultdict(lambda: {"sb": 0, "cs": 0, "sac": 0, "pa": 0, "sources": []})
     for fname, label in (
@@ -150,10 +372,13 @@ def main() -> None:
             pit_by[pid] = r
 
     adv_by = {}
+    adv_by_name = {}
     for h in advance.get("hitters") or []:
         mid = h.get("mlb_id")
         if mid:
             adv_by[int(mid)] = h
+        team_abbrev = h.get("team") or ""
+        adv_by_name[(team_abbrev, norm_name(h.get("name") or ""))] = h
 
     arsenal_by = {}
     for p in arsenals:
@@ -161,6 +386,14 @@ def main() -> None:
         if pid:
             arsenal_by[int(pid)] = p
 
+    roster_ids = []
+    for team in rosters.values():
+        for p in team.get("players") or []:
+            pid = int(p.get("id") or 0)
+            if pid > 0:
+                roster_ids.append(pid)
+    print(f"fetching season lines for {len(set(roster_ids))} roster ids")
+    api_lines = season_api_lines(sorted(set(roster_ids)))
     summer = summer_by_id()
     players = []
     seen = set()
@@ -179,6 +412,7 @@ def main() -> None:
             adv = adv_by.get(pid)
             arm = arsenal_by.get(pid)
             su = summer.get(pid)
+            api = api_lines.get(pid) or {}
 
             role = "P" if roster_pos == "P" else "H"
             bats = (adv or {}).get("bats") or None
@@ -213,12 +447,39 @@ def main() -> None:
                     wh_l, wh_l_pa = vs_l["wh"], vs_l["pa"]
                 if vs_r and vs_r.get("wh") is not None:
                     wh_r, wh_r_pa = vs_r["wh"], vs_r["pa"]
+                src = "LBPRC 2025" if hit and pa else None
+                api_hit = api.get("hitting")
+                if (not hit or not pa) and api_hit:
+                    pa = int(api_hit.get("pa") or 0)
+                    so = 0
+                    go = ao = 0
+                    src = api_hit.get("src")
+                    hitter_k = api_hit.get("k")
+                    hitter_gb = api_hit.get("gb")
+                    hitter_avg = api_hit.get("avg")
+                    hitter_ops = api_hit.get("ops")
+                else:
+                    hitter_k = pct(so, pa) if hit else None
+                    hitter_gb = pct(go, go + ao) if hit and (go + ao) else None
+                    hitter_avg = num(hit.get("avg")) if hit else None
+                    hitter_ops = num(hit.get("ops")) if hit else None
+                if hitter_k is None and hitter_avg is None:
+                    named = adv_by_name.get((abbrev, norm_name(name)))
+                    line = ((adv or named or {}).get("summer_line"))
+                    rates = rates_from_summer_line(line)
+                    if rates:
+                        pa = rates["pa"]
+                        hitter_k = rates["k"]
+                        hitter_gb = rates["gb"]
+                        hitter_avg = rates["avg"]
+                        hitter_ops = rates["ops"]
+                        src = rates["src"]
                 hitter = {
                     "pa": pa,
-                    "k": pct(so, pa) if hit else None,
-                    "gb": pct(go, go + ao) if hit and (go + ao) else None,
-                    "avg": num(hit.get("avg")) if hit else None,
-                    "ops": num(hit.get("ops")) if hit else None,
+                    "k": hitter_k,
+                    "gb": hitter_gb,
+                    "avg": hitter_avg,
+                    "ops": hitter_ops,
                     "wh": wh,
                     "wh_l": wh_l,
                     "wh_r": wh_r,
@@ -241,7 +502,7 @@ def main() -> None:
                     "bunts_vl": int((vs_l or {}).get("bunts") or 0) if adv else None,
                     "bunts_vr": int((vs_r or {}).get("bunts") or 0) if adv else None,
                     "in_synergy": bool(adv),
-                    "src": "LBPRC 2025" if hit else None,
+                    "src": src,
                 }
                 if role == "P" and (not hit or pa < 5):
                     # Pitchers stay pitchers; keep a thin hitter block only when they actually hit.
@@ -266,17 +527,35 @@ def main() -> None:
                             wden += n
                     if wden:
                         wh = round(wnum / wden, 1)
+                src_p = "LBPRC 2025" if pit and bf else ("arsenal whiff only" if wh is not None else None)
+                api_pit = api.get("pitching")
+                if (not pit or not bf) and api_pit and api_pit.get("bf"):
+                    bf = int(api_pit.get("bf") or 0)
+                    src_p = api_pit.get("src")
+                    pit_k = api_pit.get("k")
+                    pit_gb = api_pit.get("gb")
+                    pit_bb = api_pit.get("bb")
+                    pit_ops = api_pit.get("ops")
+                    pit_avg = api_pit.get("avg")
+                    pit_gs = int(api_pit.get("gs") or 0)
+                else:
+                    pit_k = pct(so, bf) if pit and bf else None
+                    pit_gb = pct(go, go + ao) if pit and (go + ao) else None
+                    pit_bb = pct(bb, bf) if pit and bf else None
+                    pit_ops = num(pit.get("ops")) if pit else None
+                    pit_avg = num(pit.get("avg")) if pit else None
+                    pit_gs = int(num(pit.get("gamesStarted")) or 0) if pit else 0
                 pitcher = {
                     "bf": bf,
-                    "k": pct(so, bf) if pit and bf else None,
-                    "gb": pct(go, go + ao) if pit and (go + ao) else None,
-                    "bb": pct(bb, bf) if pit and bf else None,
-                    "ops": num(pit.get("ops")) if pit else None,
-                    "avg": num(pit.get("avg")) if pit else None,
+                    "k": pit_k,
+                    "gb": pit_gb,
+                    "bb": pit_bb,
+                    "ops": pit_ops,
+                    "avg": pit_avg,
                     "wh": wh,
-                    "gs": int(num(pit.get("gamesStarted")) or 0) if pit else 0,
+                    "gs": pit_gs,
                     "hand_split": False,
-                    "src": "LBPRC 2025" if pit else ("arsenal whiff only" if wh is not None else None),
+                    "src": src_p,
                 }
 
             if role == "P":

@@ -211,7 +211,8 @@
     const rows = ['L', 'R'].map((side, i) => {
       const line = sideLine(h, side, player.id);
       const sample = line.sample || 0;
-      const seasonTitle = tr('LBPRC 2025 season line (no platoon split)', 'Línea de temporada LBPRC 2025 (sin split de platoon)');
+      const seasonLabel = h.src || 'LBPRC 2025';
+      const seasonTitle = tr(`${seasonLabel} season line (no platoon split)`, `Línea ${seasonLabel} (sin split de platoon)`);
       const splitTitle = tr(`Synergy vs ${side}HP · ${line.sample} PA`, `Synergy vs ${side}HP · ${line.sample} PA`);
       const whTitle = line.whSrc === 'hand'
         ? tr(`Synergy whiff vs ${side}HP · ${line.whPa} PA`, `Whiff Synergy vs ${side}HP · ${line.whPa} PA`)
@@ -239,7 +240,8 @@
       return `<tr>${whoHtml}${ttpCell}<td>L</td><td></td><td></td><td></td><td></td><td></td></tr>
         <tr><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     }
-    const title = tr('LBPRC 2025 season line, repeated on L and R (no platoon split)', 'Línea LBPRC 2025, repetida en L y R (sin split de platoon)');
+    const seasonLabel = p.src || 'LBPRC 2025';
+    const title = tr(`${seasonLabel} season line, repeated on L and R (no platoon split)`, `Línea ${seasonLabel}, repetida en L y R (sin split de platoon)`);
     const sample = p.bf || 0;
     const cells = [
       statCell(fmtPct(p.k), tonePitcher('k', p.k, sample), title),
