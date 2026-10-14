@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san75">
+<link rel="stylesheet" href="shared.css?v=san76">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san75';
+const ASSET_V = 'san76';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1453,9 +1453,63 @@ function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null
   const o = bag.overall || {};
   return o[metric]!=null ? Number(o[metric]) : null;
 }
-const HEAT_RGB = { blue:[37,99,196], yellow:[255,204,0], red:[208,46,46] };
-function heatRgbMix(a, c, u){
-  return a.map((v,i)=>Math.round(v+(c[i]-v)*u));
+const HEAT_MAP_EMPTY = { fill:'#E7EEF5', fg:'#64748B' };
+/** Five discrete tiers for plate-location heat maps (per-map quintiles). */
+const HEAT_MAP_TIERS = [
+  { fill:'rgb(37, 99, 196)', fg:'#fff' },
+  { fill:'rgb(186, 214, 240)', fg:'#0a1633' },
+  { fill:'rgb(255, 255, 255)', fg:'#0a1633' },
+  { fill:'rgb(245, 186, 186)', fg:'#0a1633' },
+  { fill:'rgb(208, 46, 46)', fg:'#fff' },
+];
+/**
+ * Rank sampled cells/zones within one heat map; ties at a boundary use average rank (toward middle).
+ * 1→white; 2→light blue/light red; 3→light blue/white/light red; 4→light blue/white/white/light red; 5+→quintiles.
+ */
+function assignHeatMapTiers(sampled){
+  const tierByKey = new Map();
+  const n = sampled.length;
+  if(!n) return tierByKey;
+  const sorted = [...sampled].sort((a,b)=> a.rate-b.rate || String(a.key).localeCompare(String(b.key)));
+  if(n===1){ tierByKey.set(sorted[0].key, 2); return tierByKey; }
+  if(n===2){
+    tierByKey.set(sorted[0].key, 1);
+    tierByKey.set(sorted[1].key, 3);
+    return tierByKey;
+  }
+  if(n===3){
+    tierByKey.set(sorted[0].key, 1);
+    tierByKey.set(sorted[1].key, 2);
+    tierByKey.set(sorted[2].key, 3);
+    return tierByKey;
+  }
+  if(n===4){
+    tierByKey.set(sorted[0].key, 1);
+    tierByKey.set(sorted[1].key, 2);
+    tierByKey.set(sorted[2].key, 2);
+    tierByKey.set(sorted[3].key, 3);
+    return tierByKey;
+  }
+  let i = 0;
+  while(i<n){
+    let j = i;
+    while(j+1<n && sorted[j+1].rate===sorted[i].rate) j++;
+    const avgIdx = (i+j)/2;
+    const tier = Math.min(4, Math.floor(avgIdx*5/n));
+    for(let k=i; k<=j; k++) tierByKey.set(sorted[k].key, tier);
+    i = j+1;
+  }
+  return tierByKey;
+}
+function heatMapStyleFromTier(tier){
+  if(tier==null) return HEAT_MAP_EMPTY;
+  return HEAT_MAP_TIERS[tier] || HEAT_MAP_EMPTY;
+}
+function heatMapStylesForSampled(sampled){
+  const tiers = assignHeatMapTiers(sampled);
+  const out = new Map();
+  tiers.forEach((tier, key)=> out.set(key, heatMapStyleFromTier(tier)));
+  return out;
 }
 /** Hitter pitch-type rate cells: blue (low) → near white (avg) → red (high) vs league same-pitch average. */
 function rateHeatStyle(val, avg){
@@ -1547,62 +1601,6 @@ const HEAT_ZONE_DEFS = [
   { id:'down_3b', cells:[[3,0],[4,0],[4,1]] },
   { id:'down_1b', cells:[[3,4],[4,3],[4,4]] },
 ];
-const HEAT_CLUSTER_RGB = { red:HEAT_RGB.red, yellow:HEAT_RGB.yellow, blue:HEAT_RGB.blue };
-function heatClusterStyle(cluster){
-  const rgb = HEAT_CLUSTER_RGB[cluster];
-  if(!rgb) return { fill:'#E7EEF5', fg:'#64748B' };
-  const fg = cluster==='yellow' ? '#0B1F33' : '#fff';
-  return { fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg };
-}
-/** Per-chart relative red / yellow / blue among zones that have samples. */
-function heatZoneClusterColors(zoneRates){
-  const active = zoneRates.filter(z=>z.den>0);
-  const out = new Map();
-  zoneRates.forEach(z=>{ if(z.den<=0) out.set(z.id, null); });
-  if(!active.length) return out;
-  const sorted = [...active].sort((a,b)=>a.rate-b.rate || a.id.localeCompare(b.id));
-  const n = sorted.length;
-  const mean = sorted.reduce((s,z)=>s+z.rate,0)/n;
-  const medIdx = n===7 ? 3 : Math.floor((n-1)/2);
-  const colorAt = (i)=>{
-    if(i===n-1) return 'red';
-    if(i===0) return 'blue';
-    if(i===medIdx && n>=3) return 'yellow';
-    if(n>=2 && i===n-2) return 'red';
-    if(n>=2 && i===1) return 'blue';
-    return null;
-  };
-  sorted.forEach((z,i)=>{
-    const c = colorAt(i);
-    if(c) out.set(z.id, c);
-  });
-  if(n===7){
-    const medRate = sorted[3].rate;
-    const i2 = 2, i4 = 4;
-    if(out.get(sorted[i2].id)==null && out.get(sorted[i4].id)==null){
-      const yellowIdx = Math.abs(sorted[i2].rate-medRate) <= Math.abs(sorted[i4].rate-medRate) ? i2 : i4;
-      const otherIdx = yellowIdx===i2 ? i4 : i2;
-      out.set(sorted[yellowIdx].id, 'yellow');
-      out.set(sorted[otherIdx].id, sorted[otherIdx].rate>mean ? 'red' : 'blue');
-    }
-  }
-  sorted.forEach(z=>{
-    if(out.get(z.id)!=null) return;
-    out.set(z.id, z.rate>mean ? 'red' : 'blue');
-  });
-  return out;
-}
-/** Blue (low) → yellow (mid) → red (high). Anchors: SLG .200/.420/.650, whiff 10/25/40. */
-function heatRateStyle(metric, rate){
-  const anchors = metric==='whiff' ? [10, 25, 40] : [0.200, 0.420, 0.650];
-  let t;
-  if(rate <= anchors[1]) t = Math.max(0, (rate - anchors[0]) / (anchors[1] - anchors[0])) * 0.5;
-  else t = Math.min(1, 0.5 + (rate - anchors[1]) / (anchors[2] - anchors[1]) * 0.5);
-  const {blue, yellow, red} = HEAT_RGB;
-  const rgb = t<=0.5 ? heatRgbMix(blue, yellow, t/0.5) : heatRgbMix(yellow, red, (t-0.5)/0.5);
-  const fg = (t>0.22 && t<0.78) ? '#0B1F33' : '#fff';
-  return {fill:`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fg};
-}
 function zoneHeatTextSvg(x, y, lab, fg, fontSize){
   const fs = fontSize || 8;
   const stroke = (fg==='#fff') ? 'rgba(11,31,51,0.88)' : 'rgba(255,255,255,0.92)';
@@ -1652,7 +1650,6 @@ function pitcherHeatRecord(p){
  */
 function zoneHeatSvgVox(side, metric, title){
   const W=168, H=196, n=5, cell=26, gap=1.5, ox=16, oy=18;
-  const empty = '#E7EEF5';
   const nums = side ? (metric==='whiff' ? side.whiffs : side.tb) : null;
   const dens = side ? (metric==='whiff' ? side.swings : side.ab) : null;
   let totalDen=0, totalNum=0;
@@ -1660,6 +1657,19 @@ function zoneHeatSvgVox(side, metric, title){
   const label = metric==='whiff'
     ? (totalDen ? `${Math.round(100*totalNum/totalDen)}% · ${totalDen} sw` : 'no swings')
     : (totalDen ? `${(totalNum/totalDen).toFixed(3).replace(/^0/,'')} · ${totalDen} AB` : 'no AB');
+  const sampled=[];
+  if(dens){
+    for(let r=0;r<n;r++) for(let c=0;c<n;c++){
+      const i=r*n+c;
+      const den=dens[i]||0;
+      if(den>0){
+        const num=nums? (nums[i]||0) : 0;
+        const rate = metric==='whiff' ? (100*num/den) : (num/den);
+        sampled.push({ key:i, rate });
+      }
+    }
+  }
+  const cellStyles = heatMapStylesForSampled(sampled);
   const rects=[], texts=[];
   for(let r=0;r<n;r++){
     for(let c=0;c<n;c++){
@@ -1667,13 +1677,13 @@ function zoneHeatSvgVox(side, metric, title){
       const x=ox+c*(cell+gap), y=oy+r*(cell+gap);
       const den=dens? (dens[i]||0) : 0;
       const num=nums? (nums[i]||0) : 0;
-      let fill=empty, fg='#64748B', lab='';
+      let st = HEAT_MAP_EMPTY, lab='';
       if(den>0){
+        st = cellStyles.get(i) || HEAT_MAP_EMPTY;
         const rate = metric==='whiff' ? (100*num/den) : (num/den);
-        const st=heatRateStyle(metric, rate);
-        fill=st.fill; fg=st.fg;
         lab = metric==='whiff' ? String(Math.round(rate)) : rate.toFixed(3).replace(/^0/,'');
       }
+      const fill=st.fill, fg=st.fg;
       rects.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="${fill}"/>`);
       if(lab) texts.push(zoneHeatTextSvg(x+cell/2, y+cell/2+3.2, lab, fg, 7.5));
     }
@@ -1701,14 +1711,15 @@ function zoneHeatSvg7(side, metric, title){
   const zones = poolHeatSideZones(side, metric);
   let totalDen=0, totalNum=0;
   zones.forEach(z=>{ totalDen+=z.den; totalNum+=z.num; });
-  const clusters = heatZoneClusterColors(zones);
+  const zoneStyles = heatMapStylesForSampled(
+    zones.filter(z=>z.den>0).map(z=>({ key:z.id, rate:z.rate }))
+  );
   const label = metric==='whiff'
     ? (totalDen ? `${Math.round(100*totalNum/totalDen)}% · ${totalDen} sw` : 'no swings')
     : (totalDen ? `${(totalNum/totalDen).toFixed(3).replace(/^0/,'')} · ${totalDen} AB` : 'no AB');
   const rects=[], texts=[];
   zones.forEach(z=>{
-    const cluster = z.den>0 ? clusters.get(z.id) : null;
-    const st = heatClusterStyle(cluster);
+    const st = z.den>0 ? (zoneStyles.get(z.id) || HEAT_MAP_EMPTY) : HEAT_MAP_EMPTY;
     zoneRegionRects(z.cells, ox, oy, cell, gap).forEach(r=>{
       rects.push(`<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${st.fill}"/>`);
     });
