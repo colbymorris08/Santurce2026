@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san81">
+<link rel="stylesheet" href="shared.css?v=san85">
 </head>
 <body>
 <div class="topbar">
@@ -379,7 +379,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san84';
+const ASSET_V = 'san85';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2489,10 +2489,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
         ${hasHand?'':'<div class="note" style="margin-top:4px">vs L / vs R blank until Synergy hand splits exist.</div>'}
       </div>
-      <div class="advance-card advance-card-compact">
-        <div class="section-label">Pitch descriptions</div>
-        <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
-      </div>
     </div>
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
@@ -2612,10 +2608,10 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .zone-heat text{paint-order:stroke fill}
       .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
       .advance-sheet-pitcher .advance-col-middle{display:contents}
-      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:0;overflow:hidden}
+      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:0;overflow:visible}
       .advance-sheet-pitcher .advance-card-arsenal{flex:0 0 auto;overflow:visible}
       .advance-sheet-pitcher .advance-card-arsenal .table-wrap{overflow:visible}
-      .advance-sheet-pitcher .advance-card-count-usage{flex:1 1 auto;min-height:0;overflow:hidden}
+      .advance-sheet-pitcher .advance-card-count-usage{flex:0 0 auto;min-height:0;overflow:visible}
       .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
       .advance-sheet-pitcher .advance-col-release{grid-column:3;grid-row:1 / span 2}
       .advance-sheet-pitcher .advance-layout-pitcher-print,

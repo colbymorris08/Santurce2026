@@ -957,7 +957,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     gap: 4px;
   }
   .advance-sheet-pitcher .advance-col-charts {
-    overflow: hidden;
+    overflow: visible;
     min-height: 0;
     align-self: stretch;
     gap: 0;
@@ -1026,7 +1026,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-usage-side h4 { margin: 0 0 1px; font-size: 8px; color: #000 !important; }
   .advance-sheet-pitcher .advance-card-arsenal { flex: 0 0 auto; overflow: visible; }
   .advance-sheet-pitcher .advance-card-arsenal .table-wrap { overflow: visible; }
-  .advance-sheet-pitcher .advance-card-count-usage { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+  .advance-sheet-pitcher .advance-card-count-usage { flex: 0 0 auto; min-height: 0; overflow: visible; }
   .advance-sheet-pitcher .advance-usage-bar { height: 5px; }
   /* vs L / vs R sit side by side. Right edge stays on the middle column;
      the pair still reaches left under the charts. Each box is a near-square
