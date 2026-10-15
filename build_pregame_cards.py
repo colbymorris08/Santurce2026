@@ -4,7 +4,9 @@
 Rosters use the 2026-27 team assignments stored in lbprc_2025_rosters.json
 (the legacy filename is retained for site compatibility). Strategy-card rates use the newest season that actually has a line:
 2026 summer, then 2025-26 winter, then 2025 summer, then the next older
-winter, then the next older summer. 2026 summer SB/CS/sac bunts still come
+winter, then the next older summer. An independent-league line is skipped
+when that player has no Synergy whiff or count tables, so the next real
+season is used. 2026 summer SB/CS/sac bunts still come
 from the MLB + MiLB + LMB season files.
 Platoon whiff and bunt situations: Synergy advance hitters when the player is
 in that file. Whiff is not invented when Synergy has no swings.
@@ -465,11 +467,40 @@ def rates_from_summer_line(line: dict | None) -> dict | None:
     }
 
 
+INDY_LEAGUES = {"ATLL", "FRON", "AA", "PION", "USBL"}
+COUNT_TABLES = (
+    "pre2k_vs_r_by_pitch_type",
+    "pre2k_vs_l_by_pitch_type",
+    "twok_vs_r_by_pitch_type",
+    "twok_vs_l_by_pitch_type",
+)
+
+
+def is_indy_line(line: dict | None) -> bool:
+    if not line:
+        return False
+    if str(line.get("level") or "") == "Ind":
+        return True
+    return str(line.get("league") or "") in INDY_LEAGUES
+
+
+def has_synergy_detail(packet: dict | None) -> bool:
+    """Whiff or count-usage tables. An indy counting line does not supply these."""
+    if not packet:
+        return False
+    overall = packet.get("overall") or {}
+    if int(overall.get("swings") or 0) > 0:
+        return True
+    return any(packet.get(key) for key in COUNT_TABLES)
+
+
 def confirmed_hitting_lines() -> dict[int, dict]:
     """Lines for roster ids the season files and Stats API do not carry."""
     raw = load("card_confirmed_lines.json") or {}
     out = {}
     for key, row in raw.items():
+        if row.get("role") == "P":
+            continue
         rank = season_rank(str(row.get("season") or ""))
         pa = int(row.get("pa") or 0)
         if not rank or pa < 1:
@@ -486,6 +517,34 @@ def confirmed_hitting_lines() -> dict[int, dict]:
             "ops": num(row.get("ops")),
             "sb": int(row.get("sb") or 0),
             "cs": int(row.get("cs") or 0),
+            "src": row.get("src") or season_text(rank, row.get("team")),
+        }
+    return out
+
+
+def confirmed_pitching_lines() -> dict[int, dict]:
+    raw = load("card_confirmed_lines.json") or {}
+    out = {}
+    for key, row in raw.items():
+        if row.get("role") != "P":
+            continue
+        rank = season_rank(str(row.get("season") or ""))
+        bf = int(row.get("bf") or 0)
+        if not rank or bf < 1:
+            continue
+        so = int(row.get("so") or 0)
+        bb = int(row.get("bb") or 0)
+        go = int(row.get("go") or 0)
+        ao = int(row.get("ao") or 0)
+        out[int(key)] = {
+            "rank": rank,
+            "bf": bf,
+            "k": pct(so, bf),
+            "gb": pct(go, go + ao) if (go + ao) else None,
+            "bb": pct(bb, bf),
+            "ops": num(row.get("ops")),
+            "avg": num(row.get("avg")),
+            "gs": int(row.get("gs") or 0),
             "src": row.get("src") or season_text(rank, row.get("team")),
         }
     return out
@@ -574,6 +633,7 @@ def main() -> None:
     print(f"fetching season lines for {len(set(roster_ids))} roster ids")
     api_lines = season_api_lines(sorted(set(roster_ids)))
     confirmed = confirmed_hitting_lines()
+    confirmed_pit = confirmed_pitching_lines()
     summer = summer_by_id()
     players = []
     seen = set()
@@ -628,11 +688,15 @@ def main() -> None:
                 if vs_r and vs_r.get("wh") is not None:
                     wh_r, wh_r_pa = vs_r["wh"], vs_r["pa"]
                 named = adv_by_name.get((abbrev, norm_name(name)))
+                packet = adv or named or {}
+                summer_rates = rates_from_summer_line(packet.get("summer_line"))
+                if is_indy_line(packet.get("summer_line")) and not has_synergy_detail(packet):
+                    summer_rates = None
                 chosen = choose_line([
                     summer_hit.get(pid),
                     winter_hit.get(pid),
                     tagged_api_line(api.get("hitting"), "hitting"),
-                    rates_from_summer_line(((adv or named or {}).get("summer_line"))),
+                    summer_rates,
                     confirmed.get(pid),
                 ])
                 if chosen:
@@ -703,6 +767,7 @@ def main() -> None:
                     summer_pit.get(pid),
                     winter_pit.get(pid),
                     tagged_api_line(api.get("pitching"), "pitching"),
+                    confirmed_pit.get(pid),
                 ])
                 if chosen_p:
                     bf = int(chosen_p.get("bf") or 0)
