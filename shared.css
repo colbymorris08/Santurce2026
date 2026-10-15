@@ -1572,7 +1572,7 @@ input.tth-input:focus {
 .sc-editors { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .sc-editor {
   background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
-  padding: 10px; max-height: 320px; overflow: auto;
+  padding: 10px; max-height: 460px; overflow: auto;
 }
 .sc-editor-h { font-weight: 800; color: var(--santurce-gold); margin-bottom: 6px; }
 .sc-editor-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 8px 0 4px; }
@@ -1584,6 +1584,8 @@ input.tth-input:focus {
 .sc-order li.sc-empty { color: var(--muted); font-size: 12px; }
 .sc-grip { cursor: grab; color: var(--santurce-gold); font-weight: 800; }
 .sc-edit-name { font-size: 13px; }
+.sc-order li .sc-name-select { flex: 1; min-width: 0; }
+.sc-order li .sc-pos-select { max-width: 92px; }
 .sc-pool, .sc-arms { display: flex; flex-wrap: wrap; gap: 4px 10px; }
 .sc-pool-item, .sc-arm { display: flex; gap: 4px; align-items: center; font-size: 12px; }
 .sc-editor-actions { display: flex; gap: 6px; margin: 6px 0; }

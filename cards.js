@@ -1,7 +1,7 @@
 /* Strategy card + small-ball card.
    Lineup / pen state: localStorage santurce_strategy_lineup_v1
    Team notes: localStorage santurce_smallball_notes_v1
-   Shape: { opponent, santurceHome, teams: { ABBR: { sp, pen: [id], lineup: [{id, pos}] } } }
+   Shape: { opponent, santurceHome, teams: { ABBR: { sp, pen: [id], lineup: [{id, pos}], bench: [{id, pos}] } } }
    Notes: { team, notes: { ABBR: "..." } }
 */
 (function () {
@@ -12,7 +12,7 @@
     ['6', 'SS'], ['7', 'LF'], ['8', 'CF'], ['9', 'RF'], ['DH', 'DH'],
   ];
   const POS_LABEL = Object.fromEntries(POS);
-  const DEFAULT_POS = { C: '2', '1B': '3', '2B': '4', '3B': '5', SS: '6', LF: '7', CF: '8', RF: '9', OF: '8', IF: '4', DH: 'DH', P: '1' };
+  const DEFAULT_POS = { C: '2', '1B': '3', '2B': '4', '3B': '5', SS: '6', LF: '7', CF: '8', RF: '9', OF: '8', IF: '4', INF: '4', UTL: 'DH', DH: 'DH', P: '1' };
 
   let DATA = null;
   let byId = new Map();
@@ -53,10 +53,16 @@
     return (DATA.players || []).filter((p) => p.team === abbrev);
   }
   function ensureTeam(state, abbrev) {
-    if (!state.teams[abbrev]) state.teams[abbrev] = { sp: null, pen: [], lineup: [] };
+    if (!state.teams[abbrev]) state.teams[abbrev] = { sp: null, pen: [], lineup: [], bench: [] };
     const st = state.teams[abbrev];
     const ids = new Set(roster(abbrev).map((p) => p.id));
-    st.lineup = (st.lineup || []).filter((r) => r && ids.has(Number(r.id))).map((r) => ({ id: Number(r.id), pos: String(r.pos || 'DH') }));
+    const keepRow = (r) => {
+      if (!r || !ids.has(Number(r.id))) return null;
+      const player = byId.get(Number(r.id));
+      return { id: Number(r.id), pos: String(r.pos || (player ? defaultPos(player) : 'DH')) };
+    };
+    st.lineup = (st.lineup || []).map(keepRow).filter(Boolean);
+    st.bench = (st.bench || []).map(keepRow).filter(Boolean).filter((r) => !st.lineup.some((line) => line.id === r.id));
     st.pen = (st.pen || []).map(Number).filter((id) => ids.has(id) && id !== Number(st.sp));
     st.sp = st.sp != null && ids.has(Number(st.sp)) ? Number(st.sp) : null;
     return st;
@@ -309,11 +315,14 @@
       const who = whoCell('', 'P', '—', '');
       hitterRows += hitterStatRows(null, who, '');
     }
-    const bench = hitters.filter((p) => !lineupIds.has(p.id)).sort((a, b) => a.last.localeCompare(b.last));
-    const benchRows = bench.map((p) => {
-      const who = whoCell('B', '', cardLast(p, hitters), batsClass(p));
-      return hitterStatRows(p, who, esc(sbText(p.hitter)));
-    }).join('') || emptyHitterPair('B');
+    const benchSlots = st.bench.length ? st.bench : [null];
+    const benchRows = benchSlots.map((slot) => {
+      if (!slot) return emptyHitterPair('PH');
+      const player = byId.get(slot.id);
+      if (!player) return emptyHitterPair('PH');
+      const who = whoCell('PH', posName(slot.pos), cardLast(player, hitters), batsClass(player));
+      return hitterStatRows(player, who, esc(sbText(player.hitter)));
+    }).join('');
 
     const penIds = st.pen.filter((id) => id !== st.sp);
     const pen = penIds.map((id) => byId.get(id)).filter(Boolean).sort((a, b) => a.last.localeCompare(b.last));
@@ -346,7 +355,7 @@
       <div class="sc-date">${esc(dateStr)}</div>
       <div class="sc-bar">HITTERS</div>
       ${hitterTable(hitters, hitterRows)}
-      <div class="sc-bar">BENCH</div>
+      <div class="sc-bar">BENCH / PH</div>
       ${hitterTable(hitters, benchRows)}
       <div class="sc-bar">PITCHERS</div>
       ${pitcherTable(pitRows)}
@@ -357,26 +366,39 @@
     return POS.map(([code, name]) => `<option value="${code}"${code === selected ? ' selected' : ''}>${code === 'DH' ? 'DH' : code + ' ' + name}</option>`).join('');
   }
 
+  function playerOptions(hitters, selectedId, blocked) {
+    const blank = `<option value="">${tr('Select hitter', 'Elegir bateador')}</option>`;
+    const opts = hitters.slice().sort((a, b) => a.last.localeCompare(b.last) || a.name.localeCompare(b.name)).map((p) => {
+      if (blocked.has(p.id) && p.id !== selectedId) return '';
+      return `<option value="${p.id}"${p.id === selectedId ? ' selected' : ''}>${esc(p.name)}</option>`;
+    }).join('');
+    return blank + opts;
+  }
+
+  function hitterSlot(abbrev, listName, row, hitters, blocked) {
+    const selected = row ? row.id : '';
+    const pos = row ? row.pos : 'DH';
+    const drag = listName === 'lineup' && row
+      ? `draggable="true" data-id="${row.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)" ondragover="CardApp.dragOver(event)" ondrop="CardApp.dropLineup(event)"`
+      : '';
+    return `<li ${drag}>
+      ${listName === 'lineup' && row ? `<span class="sc-grip" title="${tr('Drag to reorder', 'Arrastra para ordenar')}">↕</span>` : ''}
+      <select class="sc-pos-select" onmousedown="event.stopPropagation()" ${row ? '' : 'disabled'} onchange="CardApp.setPos('${esc(abbrev)}', '${listName}', ${row ? row.id : 0}, this.value)">${posOptions(pos)}</select>
+      <select class="sc-name-select" onmousedown="event.stopPropagation()" onchange="CardApp.setRowPlayer('${esc(abbrev)}', '${listName}', ${row ? row.id : 0}, this.value)">${playerOptions(hitters, selected, blocked)}</select>
+    </li>`;
+  }
+
   function editorSide(abbrev, state) {
     const st = ensureTeam(state, abbrev);
     const people = roster(abbrev);
     const hitters = people.filter((p) => p.role === 'H');
     const pitchers = people.filter((p) => p.role === 'P').slice().sort((a, b) => a.last.localeCompare(b.last));
     const lineupIds = new Set(st.lineup.map((r) => r.id));
-    const order = st.lineup.map((r) => {
-      const p = byId.get(r.id);
-      if (!p) return '';
-      return `<li draggable="true" data-id="${r.id}" data-team="${esc(abbrev)}"
-        ondragstart="CardApp.dragStart(event)" ondragover="CardApp.dragOver(event)" ondrop="CardApp.dropLineup(event)">
-        <input type="checkbox" checked onchange="CardApp.toggleLineup('${esc(abbrev)}', ${r.id}, this.checked)" title="${tr('In today\'s lineup', 'En la alineación de hoy')}">
-        <span class="sc-grip" title="${tr('Drag to reorder', 'Arrastra para ordenar')}">↕</span>
-        <select onmousedown="event.stopPropagation()" onchange="CardApp.setPos('${esc(abbrev)}', ${r.id}, this.value)">${posOptions(r.pos)}</select>
-        <span class="sc-edit-name">${esc(p.name)}</span>
-      </li>`;
-    }).join('');
-    const pool = hitters.filter((p) => !lineupIds.has(p.id)).sort((a, b) => a.last.localeCompare(b.last)).map((p) =>
-      `<label class="sc-pool-item"><input type="checkbox" onchange="CardApp.toggleLineup('${esc(abbrev)}', ${p.id}, this.checked)"> ${esc(p.name)}</label>`
-    ).join('');
+    const benchIds = new Set(st.bench.map((r) => r.id));
+    const order = st.lineup.map((r) => hitterSlot(abbrev, 'lineup', r, hitters, new Set([...lineupIds, ...benchIds]))).join('');
+    const bench = st.bench.map((r) => hitterSlot(abbrev, 'bench', r, hitters, new Set([...lineupIds, ...benchIds]))).join('');
+    const addLine = hitterSlot(abbrev, 'lineup', null, hitters, new Set([...lineupIds, ...benchIds]));
+    const addBench = hitterSlot(abbrev, 'bench', null, hitters, new Set([...lineupIds, ...benchIds]));
     const arms = pitchers.map((p) => {
       const sp = st.sp === p.id;
       const pen = st.pen.includes(p.id);
@@ -388,12 +410,13 @@
     }).join('');
     return `<div class="sc-editor">
       <div class="sc-editor-h">${esc(teamMeta(abbrev).abbrev)} · ${tr('Today\'s card', 'Carta de hoy')}</div>
-      <div class="sc-editor-label">${tr('Lineup — check, then drag', 'Alineación — marca y arrastra')}</div>
-      <ul class="sc-order">${order || `<li class="sc-empty">${tr('No hitters in the lineup yet.', 'Aún no hay bateadores en la alineación.')}</li>`}</ul>
-      <div class="sc-editor-label">${tr('Rest of the hitters → bench', 'Resto de bateadores → banca')}</div>
-      <div class="sc-pool">${pool}</div>
+      <div class="sc-editor-label">${tr('Lineup — position defaults to the natural spot', 'Alineación — la posición natural es la inicial')}</div>
+      <ul class="sc-order">${order}${addLine}</ul>
+      <div class="sc-editor-label">${tr('Bench / pinch hitters', 'Banca / bateadores emergentes')}</div>
+      <ul class="sc-order">${bench}${addBench}</ul>
       <div class="sc-editor-actions">
         <button type="button" onclick="CardApp.clearLineup('${esc(abbrev)}')">${tr('Clear lineup', 'Vaciar alineación')}</button>
+        <button type="button" onclick="CardApp.clearBench('${esc(abbrev)}')">${tr('Clear bench', 'Vaciar banca')}</button>
         <button type="button" onclick="CardApp.clearSp('${esc(abbrev)}')">${tr('Clear SP', 'Quitar abridor')}</button>
       </div>
       <div class="sc-editor-label">${tr('Pitchers — radio = SP, check = pen', 'Pitchers — radio = abridor, check = bullpen')}</div>
@@ -431,6 +454,12 @@
           'Verde = fortaleza, rojo = punto débil. K/GB repiten la línea de temporada en ambas manos. WH es el whiff Synergy contra esa mano, o el whiff general si ese lado no tiene swings. AVG/OPS usan el split con 15+ PA. TTP es el tiempo al home guardado en la pestaña de pop times.'
         )}</p>
         <div class="sc-toolbar-right">
+          <label>${tr('Home team', 'Equipo de home')}
+            <select onchange="CardApp.setHomeTeam(this.value)">
+              <option value="SAN"${state.santurceHome ? ' selected' : ''}>${esc(teamMeta('SAN').name)}</option>
+              <option value="${esc(state.opponent)}"${state.santurceHome ? '' : ' selected'}>${esc(teamMeta(state.opponent).name)}</option>
+            </select>
+          </label>
           <label>${tr('Opponent', 'Rival')}
             <select onchange="CardApp.setOpponent(this.value)">${oppOpts}</select>
           </label>
@@ -725,10 +754,19 @@
   }
 
   function withStrategy(fn) {
+    const x = window.scrollX;
+    const y = window.scrollY;
+    const editors = [...document.querySelectorAll('.sc-editor')].map((el) => el.scrollTop);
     const state = loadStrategy();
     fn(state);
     saveStrategy(state);
     renderStrategy();
+    const restore = () => {
+      window.scrollTo(x, y);
+      document.querySelectorAll('.sc-editor').forEach((el, i) => { el.scrollTop = editors[i] || 0; });
+    };
+    restore();
+    requestAnimationFrame(restore);
   }
 
   const CARD_CSS = `
@@ -784,7 +822,7 @@
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
 
-  function openPrint(title, inner, orientation) {
+  function openPrint(title, inner, orientation, extraCss) {
     const w = window.open('', '_blank');
     if (!w) {
       alert(tr('Pop-up blocked — allow pop-ups to export PDF.', 'El navegador bloqueó la ventana. Permite pop-ups para exportar el PDF.'));
@@ -792,12 +830,13 @@
     }
     const portrait = orientation === 'portrait';
     const page = portrait ? 'letter portrait' : 'letter landscape';
-    const wide = portrait ? '8.0in' : '10.5in';
-    const tallIn = portrait ? 10.15 : 7.7;
+    const wide = portrait ? '8.0in' : '10.7in';
+    const tallIn = portrait ? 10.15 : 7.55;
     w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(title)}</title>
       <style>
-        @page { size: ${page}; margin: 0.28in; }
+        @page { size: ${page}; margin: 0.22in; }
         ${CARD_CSS}
+        ${extraCss || ''}
         #fit{width:${wide};transform-origin:top left}
       </style></head><body><div id="fit">${inner}</div></body></html>`);
     w.document.close();
@@ -826,6 +865,7 @@
     refresh,
     setOpponent(v) { withStrategy((s) => { s.opponent = v; }); },
     setHome(flag) { withStrategy((s) => { s.santurceHome = !!flag; }); },
+    setHomeTeam(abbrev) { withStrategy((s) => { s.santurceHome = abbrev === 'SAN'; }); },
     toggleLineup(team, id, on) {
       withStrategy((s) => {
         const st = ensureTeam(s, team);
@@ -840,14 +880,39 @@
         }
       });
     },
-    setPos(team, id, pos) {
+    setPos(team, listName, id, pos) {
       withStrategy((s) => {
         const st = ensureTeam(s, team);
-        const row = st.lineup.find((r) => r.id === Number(id));
+        const list = listName === 'bench' ? st.bench : st.lineup;
+        const row = list.find((r) => r.id === Number(id));
         if (row) row.pos = pos;
       });
     },
+    setRowPlayer(team, listName, oldId, newId) {
+      withStrategy((s) => {
+        const st = ensureTeam(s, team);
+        const list = listName === 'bench' ? st.bench : st.lineup;
+        const other = listName === 'bench' ? st.lineup : st.bench;
+        const pid = Number(newId);
+        const previous = Number(oldId);
+        if (!pid) {
+          if (listName === 'bench') st.bench = list.filter((r) => r.id !== previous);
+          else st.lineup = list.filter((r) => r.id !== previous);
+          return;
+        }
+        if (list.some((r) => r.id === pid) || other.some((r) => r.id === pid)) return;
+        const player = byId.get(pid);
+        const pos = player ? defaultPos(player) : 'DH';
+        const row = list.find((r) => r.id === previous);
+        if (row) {
+          row.id = pid;
+          row.pos = pos;
+        } else if (listName === 'bench') st.bench.push({ id: pid, pos });
+        else st.lineup.push({ id: pid, pos });
+      });
+    },
     clearLineup(team) { withStrategy((s) => { ensureTeam(s, team).lineup = []; }); },
+    clearBench(team) { withStrategy((s) => { ensureTeam(s, team).bench = []; }); },
     clearSp(team) { withStrategy((s) => { ensureTeam(s, team).sp = null; }); },
     setSp(team, id) {
       withStrategy((s) => {
@@ -906,7 +971,16 @@
     exportStrategy() {
       const el = document.getElementById('strategy-sheet');
       if (!el) return;
-      openPrint('Strategy card', el.outerHTML, 'portrait');
+      openPrint('Strategy card', el.outerHTML, 'landscape', `
+        .sc-pair{gap:14px}
+        .sc-grid{font-size:12px;table-layout:fixed}
+        .sc-grid th{font-size:10px;padding:3px 4px}
+        .sc-grid td{padding:2px 4px}
+        .sc-head{min-height:50px;padding:8px 12px}
+        .sc-head-name{font-size:18px}
+        .sc-who{font-size:12px}
+        .sc-bar{font-size:12px;padding:4px 0}
+      `);
     },
     exportSmallBall() {
       const el = document.getElementById('smallball-sheet');
