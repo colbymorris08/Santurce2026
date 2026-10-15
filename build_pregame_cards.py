@@ -465,6 +465,32 @@ def rates_from_summer_line(line: dict | None) -> dict | None:
     }
 
 
+def confirmed_hitting_lines() -> dict[int, dict]:
+    """Lines for roster ids the season files and Stats API do not carry."""
+    raw = load("card_confirmed_lines.json") or {}
+    out = {}
+    for key, row in raw.items():
+        rank = season_rank(str(row.get("season") or ""))
+        pa = int(row.get("pa") or 0)
+        if not rank or pa < 1:
+            continue
+        so = int(row.get("so") or 0)
+        go = int(row.get("go") or 0)
+        ao = int(row.get("ao") or 0)
+        out[int(key)] = {
+            "rank": rank,
+            "pa": pa,
+            "k": pct(so, pa),
+            "gb": pct(go, go + ao) if (go + ao) else None,
+            "avg": num(row.get("avg")),
+            "ops": num(row.get("ops")),
+            "sb": int(row.get("sb") or 0),
+            "cs": int(row.get("cs") or 0),
+            "src": row.get("src") or season_text(rank, row.get("team")),
+        }
+    return out
+
+
 def summer_by_id() -> dict[int, dict]:
     agg: dict[int, dict] = defaultdict(lambda: {"sb": 0, "cs": 0, "sac": 0, "pa": 0, "sources": []})
     for fname, label in (
@@ -547,6 +573,7 @@ def main() -> None:
                 roster_ids.append(pid)
     print(f"fetching season lines for {len(set(roster_ids))} roster ids")
     api_lines = season_api_lines(sorted(set(roster_ids)))
+    confirmed = confirmed_hitting_lines()
     summer = summer_by_id()
     players = []
     seen = set()
@@ -606,6 +633,7 @@ def main() -> None:
                     winter_hit.get(pid),
                     tagged_api_line(api.get("hitting"), "hitting"),
                     rates_from_summer_line(((adv or named or {}).get("summer_line"))),
+                    confirmed.get(pid),
                 ])
                 if chosen:
                     pa = int(chosen.get("pa") or 0)
@@ -632,10 +660,10 @@ def main() -> None:
                     "sb": sb if hit else None,
                     "cs": cs if hit else None,
                     "sac": sac if hit else None,
-                    "summer_sb": int(su["sb"]) if su else 0,
-                    "summer_cs": int(su["cs"]) if su else 0,
+                    "summer_sb": int(su["sb"]) if su else int((chosen or {}).get("sb") or 0),
+                    "summer_cs": int(su["cs"]) if su else int((chosen or {}).get("cs") or 0),
                     "summer_sac": int(su["sac"]) if su else 0,
-                    "summer_sources": (su or {}).get("sources") or [],
+                    "summer_sources": (su or {}).get("sources") or ([] if not (chosen or {}).get("sb") else ["confirmed"]),
                     "vs_l": vs_l if vs_l and vs_l["pa"] >= 15 else None,
                     "vs_r": vs_r if vs_r and vs_r["pa"] >= 15 else None,
                     "sb2": sb2,
