@@ -414,8 +414,22 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   width: 9px; height: 9px; border-radius: 50%; display: inline-block;
   border: 1px solid rgba(255,255,255,0.85); box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
 }
-.advance-movement-wrap { display: flex; justify-content: center; }
+.advance-movement-wrap { display: flex; flex-direction: column; align-items: center; }
 .advance-movement-wrap svg { width: 100%; max-width: 360px; height: auto; }
+.advance-upload-plot {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 340 / 280;
+  min-height: 0;
+  margin: 0 auto;
+}
+.advance-upload-plot img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+}
 .advance-arm {
   display: grid; gap: 8px;
 }
@@ -1099,6 +1113,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
   }
   .advance-sheet-pitcher .advance-movement-wrap svg { width: 100%; height: 100%; max-width: none; max-height: 100%; }
+  .advance-sheet-pitcher .advance-movement-frame { width: 100%; height: 100%; max-width: none; display: flex; align-items: center; justify-content: center; }
+  .advance-sheet-pitcher .advance-movement-frame .advance-movement-shot { width: 100%; height: 100%; object-fit: cover; object-position: center; }
   .advance-sheet-pitcher .advance-placeholder-heat {
     display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; margin: 0;
   }
