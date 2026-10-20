@@ -381,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san122';
+const ASSET_V = 'san123';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2113,33 +2113,105 @@ function sortByLastName(arr, nameFn){
   });
 }
 const PITCHER_MEDIA_PREFIX = 'santurce_pm_v1:';
+const PITCHER_MEDIA_DB = 'santurce_pm_db';
+const PITCHER_MEDIA_STORE = 'media';
+const PITCHER_MEDIA_CACHE = new Map();
 function pitcherMediaKey(id, slot){ return PITCHER_MEDIA_PREFIX + String(id||'') + ':' + slot; }
+function pitcherMediaCacheKey(id, slot){ return String(id||'') + ':' + slot; }
+function openPitcherMediaDb(){
+  return new Promise((resolve, reject)=>{
+    if(!window.indexedDB){ reject(new Error('no indexedDB')); return; }
+    const req = indexedDB.open(PITCHER_MEDIA_DB, 1);
+    req.onupgradeneeded = ()=>{
+      const db = req.result;
+      if(!db.objectStoreNames.contains(PITCHER_MEDIA_STORE)) db.createObjectStore(PITCHER_MEDIA_STORE);
+    };
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error || new Error('indexedDB open failed'));
+  });
+}
+function idbPutMedia(key, value){
+  return openPitcherMediaDb().then(db => new Promise((resolve, reject)=>{
+    const tx = db.transaction(PITCHER_MEDIA_STORE, 'readwrite');
+    tx.objectStore(PITCHER_MEDIA_STORE).put(value, key);
+    tx.oncomplete = ()=>{ db.close(); resolve(); };
+    tx.onerror = ()=>{ db.close(); reject(tx.error); };
+  }));
+}
+function idbDeleteMedia(key){
+  return openPitcherMediaDb().then(db => new Promise((resolve, reject)=>{
+    const tx = db.transaction(PITCHER_MEDIA_STORE, 'readwrite');
+    tx.objectStore(PITCHER_MEDIA_STORE).delete(key);
+    tx.oncomplete = ()=>{ db.close(); resolve(); };
+    tx.onerror = ()=>{ db.close(); reject(tx.error); };
+  })).catch(()=>{});
+}
+/** IndexedDB holds the pictures (localStorage tops out around 5MB). Old localStorage snaps are moved over once. */
+function loadPitcherMediaStore(){
+  const finish = (pairs)=>{
+    (pairs||[]).forEach(([k,v])=>{
+      if(k && String(v||'').startsWith('data:image')) PITCHER_MEDIA_CACHE.set(String(k), v);
+    });
+    const legacy = [];
+    try {
+      for(let i=0;i<localStorage.length;i++){
+        const k = localStorage.key(i);
+        if(!k || !k.startsWith(PITCHER_MEDIA_PREFIX)) continue;
+        const v = localStorage.getItem(k) || '';
+        if(!v.startsWith('data:image')) continue;
+        legacy.push([k.slice(PITCHER_MEDIA_PREFIX.length), v]);
+      }
+    } catch(e){}
+    return Promise.all(legacy.map(([key, v])=>{
+      if(!PITCHER_MEDIA_CACHE.has(key)) PITCHER_MEDIA_CACHE.set(key, v);
+      return idbPutMedia(key, v).then(()=>{ try { localStorage.removeItem(PITCHER_MEDIA_PREFIX + key); } catch(e){} }).catch(()=>{});
+    }));
+  };
+  return openPitcherMediaDb().then(db => new Promise((resolve, reject)=>{
+    const tx = db.transaction(PITCHER_MEDIA_STORE, 'readonly');
+    const store = tx.objectStore(PITCHER_MEDIA_STORE);
+    const keysReq = store.getAllKeys();
+    const valsReq = store.getAll();
+    tx.oncomplete = ()=>{
+      db.close();
+      const keys = keysReq.result || [];
+      const vals = valsReq.result || [];
+      resolve(keys.map((k,i)=>[k, vals[i]]));
+    };
+    tx.onerror = ()=>{ db.close(); reject(tx.error); };
+  })).then(finish).catch(()=> finish([]));
+}
 function getPitcherMedia(id, slot){
   if(id==null || id==='') return '';
-  try {
-    const direct = localStorage.getItem(pitcherMediaKey(id, slot)) || '';
-    if(direct) return direct;
-    // Fall back across id aliases (MLB id vs roster hash) so snaps don't vanish after roster refreshes.
-    const row = resolvePitcherMediaRow(id);
-    if(!row) return '';
-    const aliases = new Set([String(id), String(row.player_id||''), String(row.mlb_id||'')].filter(Boolean));
-    for(const alt of aliases){
-      if(alt === String(id)) continue;
-      const v = localStorage.getItem(pitcherMediaKey(alt, slot)) || '';
-      if(v){
-        try { localStorage.setItem(pitcherMediaKey(id, slot), v); } catch(e){}
-        return v;
-      }
+  const direct = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(id, slot)) || '';
+  if(direct) return direct;
+  const row = resolvePitcherMediaRow(id);
+  if(!row) return '';
+  const aliases = [row.player_id, row.mlb_id].map(v => v==null ? '' : String(v)).filter(Boolean);
+  for(const alt of aliases){
+    if(alt === String(id)) continue;
+    const v = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(alt, slot)) || '';
+    if(v){
+      setPitcherMedia(id, slot, v);
+      return v;
     }
-    return '';
-  } catch(e){ return ''; }
+  }
+  return '';
 }
 function setPitcherMedia(id, slot, dataUrl){
-  try { localStorage.setItem(pitcherMediaKey(id, slot), dataUrl); return true; }
-  catch(e){ alert('Browser storage full — clear an old upload or use a smaller image.'); return false; }
+  const key = pitcherMediaCacheKey(id, slot);
+  PITCHER_MEDIA_CACHE.set(key, dataUrl);
+  idbPutMedia(key, dataUrl).catch(()=>{
+    try { localStorage.setItem(pitcherMediaKey(id, slot), dataUrl); }
+    catch(e){ alert('Could not save that picture in this browser. Export uploads → JSON so it is not only on this page.'); }
+  });
+  return true;
 }
 function clearPitcherMedia(id, slot, ev){
   if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+  const key = pitcherMediaCacheKey(id, slot);
+  PITCHER_MEDIA_CACHE.delete(key);
+  idbDeleteMedia(key);
   try { localStorage.removeItem(pitcherMediaKey(id, slot)); } catch(e){}
   renderPitcherAdvance();
 }
@@ -2199,16 +2271,12 @@ function downloadPitcherMedia(id, slot, name, ev){
 function exportAllPitcherMedia(){
   const items = [];
   try {
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (!k || !k.startsWith(PITCHER_MEDIA_PREFIX)) continue;
-      const v = localStorage.getItem(k) || '';
-      if (!v.startsWith('data:image')) continue;
-      const rest = k.slice(PITCHER_MEDIA_PREFIX.length);
-      const idx = rest.lastIndexOf(':');
+    for (const [rest, v] of PITCHER_MEDIA_CACHE) {
+      if (!v || !String(v).startsWith('data:image')) continue;
+      const idx = String(rest).lastIndexOf(':');
       if (idx < 0) continue;
-      const id = rest.slice(0, idx);
-      const slot = rest.slice(idx + 1);
+      const id = String(rest).slice(0, idx);
+      const slot = String(rest).slice(idx + 1);
       const row = resolvePitcherMediaRow(id);
       const name = row ? row.name : '';
       const team = row ? (row.team || '') : '';
@@ -2230,7 +2298,7 @@ function exportAllPitcherMedia(){
     return;
   }
   if (!items.length) {
-    alert('No delivery/movement uploads found in this browser’s localStorage.');
+    alert('No delivery/movement uploads found in this browser.');
     return;
   }
   items.sort((a, b) => String(a.filename).localeCompare(String(b.filename)));
@@ -2250,7 +2318,7 @@ function exportAllPitcherMedia(){
   URL.revokeObjectURL(a.href);
   alert(`Exported ${items.length} named snaps (${Object.entries(byKind).map(([k,n])=>`${k}:${n}`).join(', ')}).\nEach file in JSON is named last_first_delivery|movement.\nSave under Downloads, then:\npython3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json`);
 }
-function compressImageFile(file, maxW=1400, quality=0.84){
+function compressImageFile(file, maxW=1000, quality=0.72){
   return new Promise((resolve, reject)=>{
     if(!file || !String(file.type||'').startsWith('image/')){
       reject(new Error('Not an image')); return;
@@ -2303,27 +2371,26 @@ function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, plot=false, re
     ${body}
   </label>
   ${actions}
-  <div class="advance-upload-note">Uploads stay in this browser until you <strong>Export uploads → JSON</strong> (names each file last_first_delivery|movement) or Save file… — then import into assets/ for GitHub.</div>`;
+  <div class="advance-upload-note">Pictures stay in this browser (larger storage than before) until you <strong>Export uploads → JSON</strong>. Hard-refresh once if an older page said storage was full.</div>`;
 }
 function arsenalHasXyPlot(arsenal){
   return chartPitchRows(arsenal||[],'code').some(a=>a && a.hb!=null && a.ivb!=null);
 }
-/** Site + PDF: repo/local pitch-data screenshot wins; else XY; else upload slot. */
+/** XY (MLB/AAA or inches read off a pitcher-view screenshot) draws the hitter-view chart. Screenshot is only the fallback. */
 function advanceMovementBlockHtml(p, playerId, {printPage=false}={}){
   const arsenal = p.arsenal||[];
   const hbView = p._hbView || 'pitcher';
   const repoImg = p.arsenal_image || null;
   const uploadSrc = getPitcherMedia(playerId, 'arsenal') || '';
   const shotSrc = uploadSrc || repoImg || '';
-  // TruMedia / pitcher-view screenshot (e.g. Zabala) — do not hide behind computed XY.
+  if(arsenalHasXyPlot(arsenal)){
+    return advanceMovementSvg(arsenal, p.throws||'R', hbView);
+  }
   if(shotSrc){
     if(printPage){
       return `<div class="advance-movement-frame"><img class="advance-media-img advance-movement-shot" src="${shotSrc}" alt="Pitch data · pitcher view"/></div>`;
     }
     return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Pitch data · pitcher view', {plot:true, repoFallback:repoImg, name:p.name});
-  }
-  if(arsenalHasXyPlot(arsenal)){
-    return advanceMovementSvg(arsenal, p.throws||'R', hbView);
   }
   if(printPage){
     return `<div class="advance-movement-frame"><div class="advance-placeholder advance-placeholder-heat">Pitch shapes · pitcher view</div></div>`;
@@ -2332,8 +2399,9 @@ function advanceMovementBlockHtml(p, playerId, {printPage=false}={}){
 }
 /** Computed XY = hitter view; uploaded/repo screenshot = pitcher view. */
 function advanceMovementSectionLabel(p){
-  if((p && p.arsenal_image) || false) return 'Pitch data · pitcher view';
-  return arsenalHasXyPlot(p && p.arsenal) ? 'Pitch shapes · hitter view' : 'Pitch shapes · pitcher view';
+  if(arsenalHasXyPlot(p && p.arsenal)) return 'Pitch shapes · hitter view';
+  if(p && p.arsenal_image) return 'Pitch data · pitcher view';
+  return 'Pitch shapes · pitcher view';
 }
 function printMediaBlock(src, emptyLabel){
   if(src) return `<img class="advance-media-img" src="${src}" alt="${emptyLabel}"/>`;
@@ -2562,7 +2630,7 @@ function pitcherSummerLineFor(pOrId, synergyId, name, team){
   const tm = packet ? packet.team : team;
   const idNum = playerId != null && playerId !== '' ? Number(playerId) : NaN;
   let row = null;
-  if(Number.isFinite(idNum) && idNum > 0){
+  if(Number.isFinite(idNum) && idNum !== 0){
     row = rows.find(r => Number(r.mlb_id) === idNum || Number(r.player_id) === idNum);
   }
   if(!row && sid){
@@ -3625,6 +3693,7 @@ window.addEventListener('hashchange', ()=>{
 });
 
 Promise.all([
+  loadPitcherMediaStore(),
   fetch('data/pregame_lineup_spots.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_pitcher_vs_batter.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
   fetch('data/pregame_hitter_vs_pitcher.json?v='+ASSET_V).then(r=>r.json()).catch(()=>[]),
@@ -3638,7 +3707,7 @@ Promise.all([
   fetch('data/advance_heatmaps.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({hitters:{},pitchers:{}})),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
+]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
   CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
