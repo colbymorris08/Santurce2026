@@ -95,7 +95,7 @@
 
   <div id="panel-pitcher-advance" class="panel active">
     <div class="section-label" data-i18n="pitcherAdvanceLabel">Pitcher advance</div>
-    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Pitch shapes = hitter view. SLG heat vs R then vs L is drawn from Synergy plate location. Click delivery to upload; if arsenal XY is empty, upload a TruMedia screenshot (browser-local). Export selected arms — one landscape page each.</div>
+    <div class="note" data-i18n-html="pitcherAdvanceNote">Team → pitcher. Full arsenal (usage / velo / IVB / HB / spin / whiff + hand splits when Statcast-tracked). Computed pitch shapes = hitter view; your uploaded movement screenshot = pitcher view. SLG heat vs R then vs L is drawn from Synergy plate location. Click delivery to upload; if arsenal XY is empty, upload a TruMedia / pitcher-view screenshot (browser-local). Export selected arms — one landscape page each.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-p-team" onchange="fillAdvancePitchers()"></select>
@@ -375,12 +375,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san105"></script>
-<script src="cards.js?v=san105"></script>
+<script src="i18n.js?v=san106"></script>
+<script src="cards.js?v=san106"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san105';
+const ASSET_V = 'san106';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -612,7 +612,11 @@ function fillArsenalSelects(kind) {
     if(!sel) return;
     const prev=sel.value;
     const rows=filterArsenalList(q, team);
-    sel.innerHTML = rows.map(r=>`<option value="${r.player_id}">${r.name}${r.throws?' ('+r.throws+'HP)':''} · ${r.team||''}</option>`).join('')
+    sel.innerHTML = rows.map(r=>{
+      const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'LHP'
+        : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'RHP' : '');
+      return `<option value="${r.player_id}">${r.name}${hand?' ('+hand+')':''} · ${r.team||''}</option>`;
+    }).join('')
       || '<option value="">—</option>';
     if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
     renderFn();
@@ -2035,7 +2039,9 @@ function fillAdvancePitchers(){
   const prev = pitcherSel.value;
   pitcherSel.innerHTML = list.map(r=>{
     const tag = r.packet==='full' ? ' · full packet' : '';
-    return `<option value="${r.player_id}">${r.name}${r.throws?' ('+r.throws+'HP)':''} · ${r.team||''}${tag}</option>`;
+    const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'LHP'
+      : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'RHP' : '');
+    return `<option value="${r.player_id}">${r.name}${hand?' ('+hand+')':''} · ${r.team||''}${tag}</option>`;
   }).join('') || '<option value="">—</option>';
   if([...pitcherSel.options].some(o=>o.value===prev)) pitcherSel.value = prev;
   else if([...pitcherSel.options].some(o=>o.value===String(RODRIGUEZ_MLB_ID))) pitcherSel.value = String(RODRIGUEZ_MLB_ID);
@@ -2157,11 +2163,15 @@ function advanceMovementBlockHtml(p, playerId, {printPage=false}={}){
   const uploadSrc = getPitcherMedia(playerId, 'arsenal') || '';
   if(printPage){
     const inner = uploadSrc
-      ? `<img class="advance-media-img advance-movement-shot" src="${uploadSrc}" alt="Pitch shapes"/>`
-      : `<div class="advance-placeholder advance-placeholder-heat">Pitch shapes</div>`;
+      ? `<img class="advance-media-img advance-movement-shot" src="${uploadSrc}" alt="Pitch shapes · pitcher view"/>`
+      : `<div class="advance-placeholder advance-placeholder-heat">Pitch shapes · pitcher view</div>`;
     return `<div class="advance-movement-frame">${inner}</div>`;
   }
-  return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Pitch shapes', {plot:true, name:p.name});
+  return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Pitch shapes · pitcher view', {plot:true, name:p.name});
+}
+/** Computed XY = hitter view; uploaded screenshot = pitcher view. */
+function advanceMovementSectionLabel(p){
+  return arsenalHasXyPlot(p && p.arsenal) ? 'Pitch shapes · hitter view' : 'Pitch shapes · pitcher view';
 }
 function printMediaBlock(src, emptyLabel){
   if(src) return `<img class="advance-media-img" src="${src}" alt="${emptyLabel}"/>`;
@@ -2173,7 +2183,11 @@ function fillAdvanceExportList(list){
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
   const sorted = sortByLastName(list||[], r=>r.name);
-  el.innerHTML = sorted.map(r=>`<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${formatLastFirst(r.name)}${r.throws?' ('+r.throws+')':''} · ${r.team||''}</label>`).join('')
+  el.innerHTML = sorted.map(r=>{
+    const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'L'
+      : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'R' : '');
+    return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''} · ${r.team||''}</label>`;
+  }).join('')
     || '<span class="note">No pitchers in filter.</span>';
   const all = document.getElementById('adv-p-select-all');
   if(all) all.checked = false;
@@ -2229,13 +2243,18 @@ function scaffoldPitcherPacket(row){
     else two = [];
   }
   const mlbId = row.player_id;
+  const throwHand = String(row.throws || '').trim().toUpperCase().startsWith('L') ? 'L'
+    : (String(row.throws || '').trim().toUpperCase().startsWith('R') ? 'R' : '');
+  const handLabel = throwHand ? `${throwHand}HP` : '—';
   const overallPairs = (overallMix && overallMix.length)
     ? countMixPairs(overallMix)
     : arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]);
+  const summer_line = row.summer_line || pitcherSummerLineFor(mlbId, row.synergy_id, row.name, row.team);
   return {
-    name: row.name, mlb_id: mlbId, synergy_id: row.synergy_id || null, throws: row.throws || 'R', team: row.team || '',
-    bio: `${row.throws||'?'}HP · ${row.team||'—'}`,
-    subtitle: `${row.throws||'?'}HP · ${row.team||'—'}`,
+    name: row.name, mlb_id: mlbId, synergy_id: row.synergy_id || null, throws: throwHand || row.throws || '', team: row.team || '',
+    bio: `${handLabel} · ${row.team||'—'}`,
+    subtitle: `${handLabel} · ${row.team||'—'}`,
+    summer_line,
     arsenal,
     count_hand_mix: buildCountHandMixFromRow(row),
     short_vs_rhh: {
@@ -2288,7 +2307,7 @@ function advancePdfPitcherHand(throws){
   const t = String(throws||'').trim().toUpperCase();
   if(t.startsWith('L')) return 'LHP';
   if(t.startsWith('R')) return 'RHP';
-  return t || '—';
+  return '—';
 }
 function advancePdfHitterHand(bats){
   const b = String(bats||'').trim().toUpperCase();
@@ -2370,14 +2389,33 @@ function hitterSummerBarHtml(h){
     </table>
   </div>`;
 }
-function pitcherSummerLineFor(playerId){
+function pitcherSummerLineFor(pOrId, synergyId, name, team){
   const rows = CACHE.advancePitchers?.pitchers || [];
-  return rows.find(r=>Number(r.mlb_id)===Number(playerId))?.summer_line || null;
+  if(!rows.length) return null;
+  const packet = (pOrId && typeof pOrId === 'object') ? pOrId : null;
+  const playerId = packet ? (packet.mlb_id ?? packet.player_id) : pOrId;
+  const sid = packet ? packet.synergy_id : synergyId;
+  const nm = packet ? packet.name : name;
+  const tm = packet ? packet.team : team;
+  const idNum = playerId != null && playerId !== '' ? Number(playerId) : NaN;
+  let row = null;
+  if(Number.isFinite(idNum) && idNum > 0){
+    row = rows.find(r => Number(r.mlb_id) === idNum || Number(r.player_id) === idNum);
+  }
+  if(!row && sid){
+    row = rows.find(r => String(r.synergy_id || '') === String(sid));
+  }
+  if(!row && nm){
+    const needle = String(nm).toLowerCase();
+    row = rows.find(r => String(r.name || '').toLowerCase() === needle && (!tm || String(r.team || '') === String(tm)));
+    if(!row) row = rows.find(r => String(r.name || '').toLowerCase() === needle);
+  }
+  return row?.summer_line || null;
 }
 /** Two-row pitching season line: labels, then the selected team assignment. */
 function pitcherSummerBarHtml(p){
   if(!p) return '';
-  const line = p.summer_line || pitcherSummerLineFor(p.mlb_id || p.player_id);
+  const line = p.summer_line || pitcherSummerLineFor(p);
   const dash = '—';
   const num = (v) => (v==null || v==='') ? dash : String(v);
   const rate = (v, places) => {
@@ -2503,7 +2541,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     </div>
     <div class="advance-col advance-col-middle">
       <div class="advance-card advance-band advance-band-movement">
-        <div class="section-label">Pitch shapes · hitter view</div>
+        <div class="section-label">${advanceMovementSectionLabel(p)}</div>
         <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId, {printPage:true})}</div>
       </div>
       <div class="advance-card advance-band advance-band-heat advance-band-heat-mid">
@@ -2556,7 +2594,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     </div>
     <div class="advance-col">
       <div class="advance-card">
-        <div class="section-label">Pitch shapes · hitter view</div>
+        <div class="section-label">${advanceMovementSectionLabel(p)}</div>
         <div class="advance-movement-wrap">${advanceMovementBlockHtml(p, playerId)}</div>
       </div>
       <div class="advance-card">

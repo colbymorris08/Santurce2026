@@ -321,7 +321,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc112e2",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 747,
       "synergy_leagues": {
         "LBPRC": 113,
@@ -334,7 +334,7 @@
         "vs_LHH": 292,
         "vs_RHH": 455
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Magdiel Cotto",
@@ -617,7 +617,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5d0d76e94b8b4e352c29c0a8",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 309,
       "synergy_leagues": {
         "LBPRC": 52,
@@ -630,7 +630,7 @@
         "vs_LHH": 83,
         "vs_RHH": 226
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jose De Leon",
@@ -1016,7 +1016,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "57ceee025762021398ca545a",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 900,
       "synergy_leagues": {
         "LBPRC": 640,
@@ -1030,7 +1030,7 @@
         "vs_LHH": 417,
         "vs_RHH": 483
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -1557,7 +1557,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5834aaa835be47a9276386f9",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1130,
       "synergy_leagues": {
         "MILB": 887,
@@ -1568,12 +1568,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 559,
         "vs_RHH": 571
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -1669,7 +1669,7 @@
           }
         ]
       },
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 955
     },
@@ -2042,7 +2042,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5dd5dec14b8b4e95c8bbde6a",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 497,
       "synergy_leagues": {
         "LBPRC": 497
@@ -2050,12 +2050,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 219,
         "vs_RHH": 278
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Marvin Gorgas",
@@ -2320,7 +2320,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5834ab0935be47a927638df7",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 179,
       "synergy_leagues": {
         "LBPRC": 179
@@ -2328,13 +2328,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 89,
         "vs_RHH": 90
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 188
     },
@@ -2687,7 +2687,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "590d4c864b8b5624b0640042",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 688,
       "synergy_leagues": {
         "LMB": 193,
@@ -2699,12 +2699,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 270,
         "vs_RHH": 418
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -2898,7 +2898,7 @@
           "usage_l": 11.1,
           "pitches_l": 1,
           "miss_l": null,
-          "whiff_source": "Synergy pitcherId events · 2024–2026 fallback sample"
+          "whiff_source": "Synergy pitcherId events \u00b7 2024\u20132026 fallback sample"
         }
       ],
       "usage_by_count": {
@@ -3001,7 +3001,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "58e997e44b8b534848f38de0",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 19,
       "synergy_leagues": {
         "LMB": 19
@@ -3009,12 +3009,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 9,
         "vs_RHH": 10
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Nicholas Padilla",
@@ -3379,7 +3379,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5834aaf335be47a927638c2b",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 808,
       "synergy_leagues": {
         "LBPRC": 62,
@@ -3392,7 +3392,7 @@
         "vs_LHH": 447,
         "vs_RHH": 361
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -3600,7 +3600,7 @@
           "usage_r": 0.2,
           "pitches_r": 1,
           "miss_r": null,
-          "whiff_source": "Synergy pitcherId events · 2024–2026 fallback sample"
+          "whiff_source": "Synergy pitcherId events \u00b7 2024\u20132026 fallback sample"
         }
       ],
       "usage_by_count": {
@@ -3818,7 +3818,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "6467b5ad1e180da51dae1f5c",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 825,
       "synergy_leagues": {
         "MILB": 801,
@@ -3827,12 +3827,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 262,
         "vs_RHH": 563
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Yacksel Rios",
@@ -4122,7 +4122,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "59c8b5d844b2b8aa7efc596f",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 624,
       "synergy_leagues": {
         "MILB": 276,
@@ -4137,7 +4137,7 @@
         "vs_LHH": 365,
         "vs_RHH": 259
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -4546,7 +4546,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc1144f",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 67,
       "synergy_leagues": {
         "LBPRC": 67
@@ -4554,13 +4554,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 22,
         "vs_RHH": 45
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 69
     },
@@ -5055,7 +5055,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e25fda0455b981528c9dc59",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 840,
       "synergy_leagues": {
         "MILB": 840
@@ -5063,13 +5063,13 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 392,
         "vs_RHH": 448
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 879
     },
@@ -5449,7 +5449,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5a4cbda4c6deb2ec2b2a6f96",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 399,
       "synergy_leagues": {
         "LMB": 157,
@@ -5459,12 +5459,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 160,
         "vs_RHH": 239
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Duane Underwood Jr.",
@@ -5847,7 +5847,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "573d7590080cc2cbe8c2cb4e",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 322,
       "synergy_leagues": {
         "LMB": 135,
@@ -5861,7 +5861,7 @@
         "vs_LHH": 180,
         "vs_RHH": 142
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jarret Whorf",
@@ -6229,7 +6229,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e20823150c03b26e0aed09e",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 889,
       "synergy_leagues": {
         "MILB": 889
@@ -6237,12 +6237,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 434,
         "vs_RHH": 455
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Osvaldo Berrios",
@@ -6674,7 +6674,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "61878530c379865a58bb2725",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1181,
       "synergy_leagues": {
         "MILB": 1003,
@@ -6684,12 +6684,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 488,
         "vs_RHH": 693
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Cody Bolton",
@@ -7092,7 +7092,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f139b51e0962f87ad7e8c15",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 507,
       "synergy_leagues": {
         "MILB": 150,
@@ -7101,18 +7101,18 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 251,
         "vs_RHH": 256
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jarrette Bonet",
       "player_id": -359955779,
       "team": "CAR",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -7549,7 +7549,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "60ca08f50a5437fe8e8f5129",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1423,
       "synergy_leagues": {
         "MILB": 1423
@@ -7557,12 +7557,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 714,
         "vs_RHH": 709
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Raymond Burgos",
@@ -7919,7 +7919,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f8628c91cb0540001a546de",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1446,
       "synergy_leagues": {
         "MLB": 292,
@@ -7928,12 +7928,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 383,
         "vs_RHH": 1063
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Alexander Castro",
@@ -8180,7 +8180,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5a78a1fdda5c2a72b4c2eda4",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 179,
       "synergy_leagues": {
         "LBPRC": 179
@@ -8188,12 +8188,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 77,
         "vs_RHH": 102
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Matt Givin",
@@ -8528,7 +8528,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "60b8f2dce22410a01cd50436",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 617,
       "synergy_leagues": {
         "LMB": 617
@@ -8540,7 +8540,7 @@
         "vs_LHH": 307,
         "vs_RHH": 310
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Saul Gonzalez",
@@ -8914,7 +8914,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5c44db00ceada624e425e854",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 745,
       "synergy_leagues": {
         "MILB": 703,
@@ -8923,12 +8923,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 377,
         "vs_RHH": 368
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Joe Jimenez",
@@ -9377,7 +9377,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "582b8a1d35be47a9274e12a8",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 543,
       "synergy_leagues": {
         "MILB": 543
@@ -9385,18 +9385,18 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 319,
         "vs_RHH": 224
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Adiel Melendez",
       "player_id": -158179355,
       "team": "CAR",
-      "throws": null,
+      "throws": "L",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -9673,7 +9673,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fffbfa940027c458d128dec",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 797,
       "synergy_leagues": {
         "MILB": 797
@@ -9681,18 +9681,18 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 368,
         "vs_RHH": 429
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Johzan Oquendo",
       "player_id": -268179393,
       "team": "CAR",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -10001,7 +10001,7 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 706,
       "synergy_id": "5fd12a915fe05a0e9fc113e6",
       "synergy_leagues": {
@@ -10012,13 +10012,13 @@
         2024,
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 301,
         "vs_RHH": 405
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025 fallback",
       "synergy_whiff_events": 625
     },
@@ -10419,7 +10419,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f85ceedd9b60b00014e1d40",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1154,
       "synergy_leagues": {
         "MILB": 1120,
@@ -10428,13 +10428,13 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 561,
         "vs_RHH": 593
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 1191
     },
@@ -10709,7 +10709,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5834aa3035be47a927637ec2",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 196,
       "synergy_leagues": {
         "LBPRC": 196
@@ -10717,12 +10717,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 55,
         "vs_RHH": 141
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Joe Riley",
@@ -11079,7 +11079,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "6266f2ccf340c2395a244fec",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 256,
       "synergy_leagues": {
         "LMB": 256
@@ -11087,12 +11087,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 117,
         "vs_RHH": 139
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Elmer Rodriguez",
@@ -11530,7 +11530,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f70df9e93b2350001cd5843",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1468,
       "synergy_leagues": {
         "MILB": 1209,
@@ -11539,12 +11539,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 655,
         "vs_RHH": 813
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Ramon Rodriguez",
@@ -11839,7 +11839,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "618780ddc379865a58bb271c",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 158,
       "synergy_leagues": {
         "LBPRC": 158
@@ -11847,13 +11847,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 59,
         "vs_RHH": 99
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 171
     },
@@ -12160,7 +12160,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "618f3cf9ed5d3e62bc9ecf40",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 932,
       "synergy_leagues": {
         "MILB": 526,
@@ -12175,7 +12175,7 @@
         "vs_LHH": 489,
         "vs_RHH": 443
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Luis Cruz",
@@ -12558,7 +12558,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
       "synergy_id": "5deb84764b8b4f28d0144310",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 572,
       "synergy_leagues": {
         "LBPRC": 572
@@ -12566,13 +12566,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 194,
         "vs_RHH": 378
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 609
     },
@@ -12580,7 +12580,7 @@
       "name": "Eddy Demurias",
       "player_id": -887923890,
       "team": "MAY",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -12857,7 +12857,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "582b877935be47a9274df61a",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 169,
       "synergy_leagues": {
         "LMB": 169
@@ -12865,12 +12865,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 51,
         "vs_RHH": 118
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Carlos Francisco",
@@ -13131,7 +13131,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "60b888f42b2ec8ce41c5168e",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 309,
       "synergy_leagues": {
         "LBPRC": 309
@@ -13139,12 +13139,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 161,
         "vs_RHH": 148
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -13220,7 +13220,7 @@
       "name": "Nelvin Fuentes",
       "player_id": -346943911,
       "team": "MAY",
-      "throws": null,
+      "throws": "L",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -13497,7 +13497,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5deb67e44b8b4f28d0143e46",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 379,
       "synergy_leagues": {
         "LBPRC": 366
@@ -13505,12 +13505,12 @@
       "synergy_years": [
         2024
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 92,
         "vs_RHH": 287
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Davian Garcia",
@@ -13847,7 +13847,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f7429ef0f6ebc00019df118",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 554,
       "synergy_leagues": {
         "MILB": 532,
@@ -13856,13 +13856,13 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 294,
         "vs_RHH": 260
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 570
     },
@@ -14178,7 +14178,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5abcb5312cb661f293635acb",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 283,
       "synergy_leagues": {
         "LBPRC": 283
@@ -14191,7 +14191,7 @@
         "vs_LHH": 104,
         "vs_RHH": 179
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jonathan Haab",
@@ -14572,7 +14572,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "62a17f964a6526afee3ca9b0",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1004,
       "synergy_leagues": {
         "LMB": 1004
@@ -14580,12 +14580,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 309,
         "vs_RHH": 695
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Hector Hernandez",
@@ -15022,7 +15022,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5c7a392a85d07ba97655f43d",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 336,
       "synergy_leagues": {
         "LBPRC": 336
@@ -15030,12 +15030,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 96,
         "vs_RHH": 240
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jorge Lopez",
@@ -15520,7 +15520,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "59f06461f934491175c1c932",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 476,
       "synergy_leagues": {
         "LMB": 162,
@@ -15530,12 +15530,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 238,
         "vs_RHH": 238
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -15653,7 +15653,7 @@
           }
         ]
       },
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 168
     },
@@ -15930,7 +15930,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd0cfc2af4a6f44dfdcb350",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 263,
       "synergy_leagues": {
         "LBPRC": 263
@@ -15938,12 +15938,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 38,
         "vs_RHH": 225
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Luis Quinonez",
@@ -16316,7 +16316,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f79fc49cfdd5600011f487f",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 886,
       "synergy_leagues": {
         "MILB": 388,
@@ -16331,7 +16331,7 @@
         "vs_LHH": 430,
         "vs_RHH": 456
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Angel Reyes",
@@ -16631,7 +16631,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc11347",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 301,
       "synergy_leagues": {
         "LBPRC": 301
@@ -16639,18 +16639,18 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 117,
         "vs_RHH": 184
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Devin Rivera",
       "player_id": -465760315,
       "team": "MAY",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -17099,7 +17099,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fffa4f63a2a6815cfe1da77",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1416,
       "synergy_leagues": {
         "LBPRC": 432
@@ -17107,13 +17107,13 @@
       "synergy_years": [
         2024
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 501,
         "vs_RHH": 915
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2024",
       "synergy_whiff_events": 1765
     },
@@ -17548,7 +17548,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e1d054446ce1b4784ea9779",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1067,
       "synergy_leagues": {
         "LMB": 321,
@@ -17558,13 +17558,13 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 485,
         "vs_RHH": 582
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 374
     },
@@ -17898,7 +17898,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "58dbb4a735268c61b07755e4",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 331,
       "synergy_leagues": {
         "LBPRC": 331
@@ -17906,12 +17906,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 112,
         "vs_RHH": 219
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Lucas Vega",
@@ -18176,7 +18176,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "607e90c12a20973e219e92ad",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 162,
       "synergy_leagues": {
         "LBPRC": 162
@@ -18184,18 +18184,18 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 65,
         "vs_RHH": 97
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Antonio Velez",
       "player_id": -165648089,
       "team": "MAY",
-      "throws": null,
+      "throws": "L",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -18531,7 +18531,7 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 206,
       "synergy_id": "5c3caa482ae7c358342282d7",
       "synergy_leagues": {
@@ -18540,13 +18540,13 @@
       "synergy_years": [
         2024
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 65,
         "vs_RHH": 141
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2024 fallback",
       "synergy_whiff_events": 1538
     },
@@ -19025,7 +19025,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "582b882b35be47a9274e0009",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1278,
       "synergy_leagues": {
         "LMB": 762,
@@ -19035,13 +19035,13 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 581,
         "vs_RHH": 697
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 773
     },
@@ -19434,7 +19434,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5cad08898df5e60d6c924061",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 978,
       "synergy_leagues": {
         "LMB": 978
@@ -19446,7 +19446,7 @@
         "vs_LHH": 208,
         "vs_RHH": 770
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Ricky Castro",
@@ -19849,7 +19849,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5cf9745329c59c0498923390",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1413,
       "synergy_leagues": {
         "MILB": 1413
@@ -19857,12 +19857,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 811,
         "vs_RHH": 602
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Alex Claudio",
@@ -20225,7 +20225,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "573d7065080cc2cbe8bf3063",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 868,
       "synergy_leagues": {
         "LMB": 681,
@@ -20239,7 +20239,7 @@
         "vs_LHH": 429,
         "vs_RHH": 439
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Harold Cortijo",
@@ -20522,7 +20522,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc11318",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 283,
       "synergy_leagues": {
         "LBPRC": 283
@@ -20530,12 +20530,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 129,
         "vs_RHH": 154
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Eric Garcia",
@@ -20924,7 +20924,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "603a6a6e94720836d4b3ef1d",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 202,
       "synergy_leagues": {
         "LBPRC": 202
@@ -20932,13 +20932,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 80,
         "vs_RHH": 122
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 220
     },
@@ -20946,7 +20946,7 @@
       "name": "Tyler Gough",
       "player_id": -368999174,
       "team": "PON",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -21283,7 +21283,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f387d65d812f7433020842b",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1085,
       "synergy_leagues": {
         "MILB": 1085
@@ -21291,12 +21291,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 491,
         "vs_RHH": 594
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Josh James",
@@ -21519,7 +21519,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5aeffb0b9559b26e7e9b7c09",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 21,
       "synergy_leagues": {
         "LBPRC": 21
@@ -21531,13 +21531,13 @@
         "vs_LHH": 8,
         "vs_RHH": 13
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jorhan Laboy",
       "player_id": -259860308,
       "team": "PON",
-      "throws": null,
+      "throws": "L",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -21856,18 +21856,18 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "6115b53de911423818fc3fc1",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1350,
       "synergy_leagues": {},
       "synergy_years": [
         2024
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 345,
         "vs_RHH": 1005
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Andrew Marrero",
@@ -22198,7 +22198,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e48606406c7bff564766247",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 804,
       "synergy_leagues": {
         "MILB": 281,
@@ -22209,12 +22209,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 351,
         "vs_RHH": 453
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "statcast_count_mix": {
         "0-0": [
           {
@@ -22634,7 +22634,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f8c915b1cb0540001a54b5c",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 213,
       "synergy_leagues": {
         "LBPRC": 213
@@ -22642,13 +22642,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 74,
         "vs_RHH": 139
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 220
     },
@@ -23080,7 +23080,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5d46fdb14b8b4f2d3c4aeb5d",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1174,
       "synergy_leagues": {
         "MILB": 1123,
@@ -23089,13 +23089,13 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 623,
         "vs_RHH": 551
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 1221
     },
@@ -23500,7 +23500,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e203911cba3c7495422a551",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1172,
       "synergy_leagues": {
         "MILB": 1172
@@ -23508,12 +23508,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 616,
         "vs_RHH": 556
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Noel Pinto",
@@ -23828,7 +23828,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc11543",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 294,
       "synergy_leagues": {
         "LBPRC": 294
@@ -23836,13 +23836,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 139,
         "vs_RHH": 155
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 315
     },
@@ -23850,7 +23850,7 @@
       "name": "Hector Quinones",
       "player_id": -346674215,
       "team": "PON",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -24108,7 +24108,7 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 247,
       "synergy_id": "638e3074774478a128320d48",
       "synergy_leagues": {
@@ -24118,12 +24118,12 @@
         2022,
         2023
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 49,
         "vs_RHH": 198
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Erik Rivera",
@@ -24476,7 +24476,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f8b05e9d9b60b00014e20de",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1187,
       "synergy_leagues": {
         "MILB": 1187
@@ -24484,12 +24484,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 370,
         "vs_RHH": 817
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Gabriel Rodriguez",
@@ -24821,7 +24821,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "618783e7c379865a58bb2720",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1382,
       "synergy_leagues": {
         "MILB": 924,
@@ -24831,12 +24831,12 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 479,
         "vs_RHH": 903
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Alex Santos",
@@ -24947,7 +24947,7 @@
           "pitches_r": 2,
           "miss_l": null,
           "miss_r": null,
-          "whiff_source": "Synergy pitcherId events · 2024–2026 fallback sample"
+          "whiff_source": "Synergy pitcherId events \u00b7 2024\u20132026 fallback sample"
         },
         {
           "type": "CH",
@@ -24968,7 +24968,7 @@
           "pitches_r": 3,
           "miss_l": null,
           "miss_r": null,
-          "whiff_source": "Synergy pitcherId events · 2024–2026 fallback sample"
+          "whiff_source": "Synergy pitcherId events \u00b7 2024\u20132026 fallback sample"
         }
       ],
       "usage_by_count": {
@@ -25306,7 +25306,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5d0d977d4b8b504a2c04114a",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1123,
       "synergy_leagues": {
         "MILB": 1123
@@ -25314,18 +25314,18 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 546,
         "vs_RHH": 577
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Charlee Soto",
       "player_id": -458228708,
       "team": "PON",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -25652,7 +25652,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f889f3e1cb0540001a5488d",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 54,
       "synergy_leagues": {
         "MILB": 54
@@ -25660,13 +25660,13 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 21,
         "vs_RHH": 33
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2026 summer",
       "synergy_whiff_events": 57
     },
@@ -25967,7 +25967,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5c4201293a22f215c43aeb3a",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 888,
       "synergy_leagues": {
         "MILB": 456,
@@ -25982,7 +25982,7 @@
         "vs_LHH": 308,
         "vs_RHH": 580
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Julio Torres",
@@ -26265,7 +26265,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5df286ca4b8b5006984fee0f",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 197,
       "synergy_leagues": {
         "LBPRC": 197
@@ -26273,12 +26273,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 77,
         "vs_RHH": 120
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Lenny Torres",
@@ -26618,7 +26618,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5f84b8c41cb0540001a544d9",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 575,
       "synergy_leagues": {
         "MILB": 309,
@@ -26633,13 +26633,13 @@
         "vs_LHH": 255,
         "vs_RHH": 320
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Mario Zabala",
       "player_id": -174792236,
       "team": "PON",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -26796,7 +26796,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5d0d95b24b8b504a2c040fdf",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 170,
       "synergy_leagues": {
         "MILB": 170
@@ -26804,12 +26804,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 66,
         "vs_RHH": 104
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Anthony Borrero",
@@ -27075,7 +27075,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5deb5e694b8b4f28d0143deb",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 174,
       "synergy_leagues": {
         "LBPRC": 174
@@ -27083,12 +27083,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 42,
         "vs_RHH": 132
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Sidney Duprey",
@@ -27345,7 +27345,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5834aa2d35be47a927637d92",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 268,
       "synergy_leagues": {
         "LBPRC": 268
@@ -27353,13 +27353,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 135,
         "vs_RHH": 133
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 313
     },
@@ -27644,7 +27644,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "6145ec759b656db70d4bc2c0",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 296,
       "synergy_leagues": {
         "LBPRC": 296
@@ -27652,12 +27652,12 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 148,
         "vs_RHH": 148
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Ryan Munoz",
@@ -27797,7 +27797,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e52ca0f7455336e875b7a5d",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 10,
       "synergy_leagues": {
         "LBPRC": 10
@@ -27805,7 +27805,7 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jean Ortega",
@@ -27853,7 +27853,7 @@
       "name": "Randy Ramnarace",
       "player_id": -842689811,
       "team": "SJU",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -28190,7 +28190,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "60fb2668f97523255ad9db6f",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 808,
       "synergy_leagues": {
         "MILB": 808
@@ -28198,12 +28198,12 @@
       "synergy_years": [
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 368,
         "vs_RHH": 440
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Jerryell Rivera",
@@ -28458,7 +28458,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5fd12a915fe05a0e9fc11483",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 170,
       "synergy_leagues": {
         "LBPRC": 170
@@ -28466,13 +28466,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 87,
         "vs_RHH": 83
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 200
     },
@@ -28834,7 +28834,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e04e5404b8b4f7430ff1067",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 201,
       "synergy_leagues": {
         "LBPRC": 201
@@ -28842,13 +28842,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 121,
         "vs_RHH": 80
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 239
     },
@@ -29273,7 +29273,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "623d659e2b7aa6e7196c79e7",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 1195,
       "synergy_leagues": {
         "LMB": 306,
@@ -29283,18 +29283,18 @@
         2025,
         2026
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 361,
         "vs_RHH": 834
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Alexuan Vega",
       "player_id": -846506108,
       "team": "SJU",
-      "throws": null,
+      "throws": "L",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -29603,7 +29603,7 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 605,
       "synergy_id": "5fd12a915fe05a0e9fc11468",
       "synergy_leagues": {
@@ -29614,12 +29614,12 @@
         2021,
         2022
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 169,
         "vs_RHH": 436
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)"
     },
     {
       "name": "Ryan Velazquez",
@@ -29934,7 +29934,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5e1f3a8808f07a4f286d3fa9",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 230,
       "synergy_leagues": {
         "LBPRC": 230
@@ -29942,13 +29942,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 107,
         "vs_RHH": 123
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 263
     },
@@ -30000,7 +30000,7 @@
       "name": "Freddy Cabrera",
       "player_id": -280803405,
       "team": "SJU",
-      "throws": null,
+      "throws": "R",
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
@@ -30429,7 +30429,7 @@
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked. Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
       "synergy_id": "5deb80664b8b4f28d0144221",
-      "synergy_count_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_count_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_count_pitches": 580,
       "synergy_leagues": {
         "LBPRC": 580
@@ -30437,13 +30437,13 @@
       "synergy_years": [
         2025
       ],
-      "synergy_usage_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "synergy_usage_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
       "synergy_hand_n": {
         "vs_LHH": 320,
         "vs_RHH": 260
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "synergy_whiff_source": "Synergy events/filter pitcherId · whiffs/swings",
+      "synergy_hand_source": "Synergy events/filter pitcherId \u00b7 Count + Left/Right (hitter)",
+      "synergy_whiff_source": "Synergy events/filter pitcherId \u00b7 whiffs/swings",
       "synergy_whiff_window": "2025",
       "synergy_whiff_events": 643
     }
