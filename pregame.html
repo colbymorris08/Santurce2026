@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san116">
+<link rel="stylesheet" href="shared.css?v=san118">
 </head>
 <body>
 <div class="topbar">
@@ -375,12 +375,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san116"></script>
-<script src="cards.js?v=san116"></script>
+<script src="i18n.js?v=san118"></script>
+<script src="cards.js?v=san118"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san116';
+const ASSET_V = 'san118';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -578,15 +578,44 @@ function lookupPitchRow(byCode, code){
   return null;
 }
 
+function cardRosterPlayers() {
+  return (CACHE.cardStats && CACHE.cardStats.players) || [];
+}
+/** Full pitcher roster: arsenals file + any card-roster arms still missing a row. */
 function arsenalPitchers() {
-  return (CACHE.arsenals && CACHE.arsenals.pitchers) || [];
+  const fromFile = [...((CACHE.arsenals && CACHE.arsenals.pitchers) || [])];
+  const byKey = new Map(fromFile.map(r => [`${r.team || ''}|${r.name || ''}`, r]));
+  const byId = new Map(fromFile.filter(r => r && r.player_id != null).map(r => [Number(r.player_id), r]));
+  cardRosterPlayers().filter(p => p.role === 'P').forEach(p => {
+    const key = `${p.team || ''}|${p.name || ''}`;
+    const existing = byId.get(Number(p.id)) || byKey.get(key);
+    if (existing) {
+      if (!existing.throws && p.throws) existing.throws = p.throws;
+      return;
+    }
+    const row = {
+      player_id: Number(p.id),
+      name: p.name,
+      team: p.team || '',
+      throws: p.throws || null,
+      arsenal: [],
+      count_mix: {},
+      platoon: {},
+      usage_by_count: {},
+      _from_roster: true,
+    };
+    fromFile.push(row);
+    byKey.set(key, row);
+    byId.set(Number(p.id), row);
+  });
+  return fromFile;
 }
 function filterArsenalList(q, team) {
   const qq = (q||'').toLowerCase();
   return arsenalPitchers().filter(r=>{
     if(team && team!=='all' && r.team!==team) return false;
     if(qq && !`${r.name} ${r.team}`.toLowerCase().includes(qq)) return false;
-    return (r.arsenal||[]).length > 0;
+    return true; // entire roster — empty arsenal still listed
   });
 }
 function fillArsenalTeamSelects() {
@@ -779,13 +808,17 @@ function tunnelPairsHtml(pitches, view=MOVEMENT_POV, throws='R') {
     <div class="table-wrap"><table><thead><tr><th>Pair</th><th class="num">Δ movement</th></tr></thead><tbody>${rows||'<tr><td colspan="2">—</td></tr>'}</tbody></table></div>`;
 }
 function pitcherMeta(p) {
-  if(!p) return '<div class="empty">Select a pitcher with arsenal data.</div>';
+  if(!p) return '<div class="empty">Select a pitcher.</div>';
   const src=[p.ps_source && `${p.ps_source} ${p.ps_season||''}`, p.statcast_source && `${p.statcast_source} ${(p.statcast_seasons||[]).join('/')}`]
     .filter(Boolean).join(' · ') || '—';
+  const hasXy = (p.arsenal||[]).some(a => a && (a.ivb!=null) && (a.hb_pitcher!=null || a.hb_hitter!=null || a.hb!=null));
+  const plot = hasXy
+    ? movementSvg(p.arsenal,{throws:p.throws||'R'})
+    : `<div class="note" style="padding:12px">No movement plot yet for this arm.</div>`;
   return `<div class="arsenal-plot-card">
     <h3>${p.name}${p.throws?' · '+p.throws+'HP':''}${p.team?' · '+p.team:''}</h3>
     <div class="sub">${povLabel()} · Stuff+ ${p.stuff_plus??'—'} · ${src}</div>
-    ${movementSvg(p.arsenal,{throws:p.throws||'R'})}
+    ${plot}
   </div>`;
 }
 function renderUsage(){
@@ -1995,7 +2028,7 @@ function advancePitcherIndex(){
     byId.set(id, {
       player_id: id,
       name: full.name || prev.name || 'Dereck Rodríguez',
-      team: prev.team || 'CAG',
+      team: prev.team || 'SAN',
       throws: full.throws || prev.throws || 'R',
       has_arsenal: true,
       packet: 'full',
@@ -2039,15 +2072,14 @@ function fillAdvancePitchers(){
   teamSel.value = (prevTeam==='all' || teams.includes(prevTeam)) ? prevTeam : 'all';
   const team = teamSel.value;
   const q = (searchEl?.value || '').toLowerCase();
-  const filtered = rows.filter(r=>{
+  const list = rows.filter(r=>{
     if(team!=='all' && r.team!==team) return false;
     if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
     return true;
-  }).filter(r=> r.packet==='full' || r.has_arsenal || !q);
-  const list = filtered.filter(r=> r.packet==='full' || r.has_arsenal);
+  });
   const prev = pitcherSel.value;
   pitcherSel.innerHTML = list.map(r=>{
-    const tag = r.packet==='full' ? ' · full packet' : '';
+    const tag = r.packet==='full' ? ' · full packet' : (r.has_arsenal ? '' : ' · roster');
     const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'LHP'
       : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'RHP' : '');
     return `<option value="${r.player_id}">${r.name}${hand?' ('+hand+')':''} · ${r.team||''}${tag}</option>`;
@@ -2304,7 +2336,7 @@ function resolvePitcherPacket(playerId){
       _hbView: 'hitter',
     });
   }
-  if(row && (row.arsenal||[]).length) return scaffoldPitcherPacket(row);
+  if(row) return scaffoldPitcherPacket(row);
   return null;
 }
 function fmtSigned(v){
@@ -2634,7 +2666,7 @@ function renderPitcherAdvance(){
   const id = document.getElementById('adv-p-pitcher')?.value;
   const p = resolvePitcherPacket(id);
   if(!p){
-    el.innerHTML = '<div class="note">Select a pitcher with arsenal data.</div>';
+    el.innerHTML = '<div class="note">Select a pitcher.</div>';
     return;
   }
   el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
@@ -2942,6 +2974,25 @@ function aggregateHitters(hitters, label){
     non_risp_vs_r_by_pitch_type, non_risp_vs_l_by_pitch_type, pre2k_vs_r_by_pitch_type, pre2k_vs_l_by_pitch_type, twok_vs_r_by_pitch_type, twok_vs_l_by_pitch_type,
   };
 }
+/** Full hitter roster: Synergy advance file + card-roster hitters not yet in that pull. */
+function advanceHitterList(){
+  const hitters = [...((CACHE.advanceHitters?.hitters) || [])];
+  const seen = new Set(hitters.map(h => `${h.team || ''}|${h.name || ''}`));
+  cardRosterPlayers().filter(p => p.role === 'H').forEach(p => {
+    const key = `${p.team || ''}|${p.name || ''}`;
+    if (seen.has(key)) return;
+    hitters.push({
+      synergy_id: `roster:${p.id}`,
+      name: p.name,
+      team: p.team || '',
+      bats: p.bats || null,
+      overall: {},
+      _from_roster: true,
+    });
+    seen.add(key);
+  });
+  return hitters;
+}
 function fillAdvanceHitters(){
   const teamEl=document.getElementById('adv-team');
   const searchEl=document.getElementById('adv-search');
@@ -2949,7 +3000,7 @@ function fillAdvanceHitters(){
   if(!teamEl||!sel) return;
   const team=teamEl.value;
   const q=(searchEl?.value||'').toLowerCase();
-  const hitters=(CACHE.advanceHitters?.hitters)||[];
+  const hitters=advanceHitterList();
   const filtered=hitters.filter(h=>{
     if(team!=='all' && h.team!==team) return false;
     if(q && !(h.name||'').toLowerCase().includes(q)) return false;
@@ -2957,7 +3008,10 @@ function fillAdvanceHitters(){
   });
   const prev=sel.value;
   const opts=['<option value="__all__">Select All (aggregate)</option>']
-    .concat(filtered.map(h=>`<option value="${h.synergy_id}">${h.name} (${h.team})</option>`));
+    .concat(filtered.map(h=>{
+      const tag = h._from_roster ? ' · roster' : '';
+      return `<option value="${h.synergy_id}">${h.name} (${h.team})${tag}</option>`;
+    }));
   sel.innerHTML=opts.join('');
   if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
   fillHitterExportList(filtered);
@@ -2980,7 +3034,7 @@ function resolveAdvanceHitter(id){
   const data=CACHE.advanceHitters;
   if(!data) return null;
   if(id==='__all__') return data.select_all || null;
-  return (data.hitters||[]).find(x=>String(x.synergy_id)===String(id)) || null;
+  return advanceHitterList().find(x=>String(x.synergy_id)===String(id)) || null;
 }
 function hitterSbBlockHtml(h){
   const o=h.overall||{};
