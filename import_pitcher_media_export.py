@@ -25,11 +25,13 @@ ARS = ROOT / "data" / "pregame_pitcher_arsenals.json"
 
 def alpha(s: str) -> str:
     nk = unicodedata.normalize("NFKD", s or "")
+    # Keep word breaks from hyphens/spaces as underscore joins via split_name
     return re.sub(r"[^A-Za-z]", "", "".join(c for c in nk if not unicodedata.combining(c))).lower()
 
 
 def split_name(name: str) -> tuple[str, str]:
-    parts = [p for p in re.split(r"\s+", (name or "").strip()) if p]
+    cleaned = re.sub(r"[-_/]+", " ", name or "")
+    parts = [p for p in re.split(r"\s+", cleaned.strip()) if p]
     if not parts:
         return "", ""
     if len(parts) == 1:

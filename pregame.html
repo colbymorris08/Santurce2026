@@ -381,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san121';
+const ASSET_V = 'san122';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2116,7 +2116,23 @@ const PITCHER_MEDIA_PREFIX = 'santurce_pm_v1:';
 function pitcherMediaKey(id, slot){ return PITCHER_MEDIA_PREFIX + String(id||'') + ':' + slot; }
 function getPitcherMedia(id, slot){
   if(id==null || id==='') return '';
-  try { return localStorage.getItem(pitcherMediaKey(id, slot)) || ''; } catch(e){ return ''; }
+  try {
+    const direct = localStorage.getItem(pitcherMediaKey(id, slot)) || '';
+    if(direct) return direct;
+    // Fall back across id aliases (MLB id vs roster hash) so snaps don't vanish after roster refreshes.
+    const row = resolvePitcherMediaRow(id);
+    if(!row) return '';
+    const aliases = new Set([String(id), String(row.player_id||''), String(row.mlb_id||'')].filter(Boolean));
+    for(const alt of aliases){
+      if(alt === String(id)) continue;
+      const v = localStorage.getItem(pitcherMediaKey(alt, slot)) || '';
+      if(v){
+        try { localStorage.setItem(pitcherMediaKey(id, slot), v); } catch(e){}
+        return v;
+      }
+    }
+    return '';
+  } catch(e){ return ''; }
 }
 function setPitcherMedia(id, slot, dataUrl){
   try { localStorage.setItem(pitcherMediaKey(id, slot), dataUrl); return true; }
@@ -2414,7 +2430,7 @@ function scaffoldPitcherPacket(row){
     } : {},
     _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
     _synergy_count: !!(row.synergy_count_source || (row.count_mix && (row.count_mix['0-0']||row.count_mix['2_strikes']))),
-    arm_slot_image: null,
+    arm_slot_image: row.arm_slot_image || null,
     arsenal_image: row.arsenal_image || null,
     headshot_url: (Number(mlbId)>0) ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
