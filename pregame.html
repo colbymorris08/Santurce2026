@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san107">
+<link rel="stylesheet" href="shared.css?v=san108">
 </head>
 <body>
 <div class="topbar">
@@ -375,12 +375,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san107"></script>
-<script src="cards.js?v=san107"></script>
+<script src="i18n.js?v=san108"></script>
+<script src="cards.js?v=san108"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san107';
+const ASSET_V = 'san108';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2162,24 +2162,31 @@ function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, plot=false, re
 function arsenalHasXyPlot(arsenal){
   return chartPitchRows(arsenal||[],'code').some(a=>a && a.hb!=null && a.ivb!=null);
 }
-/** Site + PDF: draw XY when populated; else localStorage arsenal upload (empty-only). */
+/** Site + PDF: repo/local pitch-data screenshot wins; else XY; else upload slot. */
 function advanceMovementBlockHtml(p, playerId, {printPage=false}={}){
   const arsenal = p.arsenal||[];
   const hbView = p._hbView || 'pitcher';
+  const repoImg = p.arsenal_image || null;
+  const uploadSrc = getPitcherMedia(playerId, 'arsenal') || '';
+  const shotSrc = uploadSrc || repoImg || '';
+  // TruMedia / pitcher-view screenshot (e.g. Zabala) — do not hide behind computed XY.
+  if(shotSrc){
+    if(printPage){
+      return `<div class="advance-movement-frame"><img class="advance-media-img advance-movement-shot" src="${shotSrc}" alt="Pitch data · pitcher view"/></div>`;
+    }
+    return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Pitch data · pitcher view', {plot:true, repoFallback:repoImg, name:p.name});
+  }
   if(arsenalHasXyPlot(arsenal)){
     return advanceMovementSvg(arsenal, p.throws||'R', hbView);
   }
-  const uploadSrc = getPitcherMedia(playerId, 'arsenal') || '';
   if(printPage){
-    const inner = uploadSrc
-      ? `<img class="advance-media-img advance-movement-shot" src="${uploadSrc}" alt="Pitch shapes · pitcher view"/>`
-      : `<div class="advance-placeholder advance-placeholder-heat">Pitch shapes · pitcher view</div>`;
-    return `<div class="advance-movement-frame">${inner}</div>`;
+    return `<div class="advance-movement-frame"><div class="advance-placeholder advance-placeholder-heat">Pitch shapes · pitcher view</div></div>`;
   }
-  return pitcherUploadSlotHtml(playerId, 'arsenal', uploadSrc, 'Pitch shapes · pitcher view', {plot:true, name:p.name});
+  return pitcherUploadSlotHtml(playerId, 'arsenal', '', 'Pitch shapes · pitcher view', {plot:true, name:p.name});
 }
-/** Computed XY = hitter view; uploaded screenshot = pitcher view. */
+/** Computed XY = hitter view; uploaded/repo screenshot = pitcher view. */
 function advanceMovementSectionLabel(p){
+  if((p && p.arsenal_image) || false) return 'Pitch data · pitcher view';
   return arsenalHasXyPlot(p && p.arsenal) ? 'Pitch shapes · hitter view' : 'Pitch shapes · pitcher view';
 }
 function printMediaBlock(src, emptyLabel){
@@ -2278,7 +2285,8 @@ function scaffoldPitcherPacket(row){
     _has_hand_split: hasPlatoon || arsenal.some(a=>a.usage_l!=null || a.usage_r!=null),
     _synergy_count: !!(row.synergy_count_source || (row.count_mix && (row.count_mix['0-0']||row.count_mix['2_strikes']))),
     arm_slot_image: null,
-    headshot_url: mlbId ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
+    arsenal_image: row.arsenal_image || null,
+    headshot_url: (Number(mlbId)>0) ? `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current` : null,
     _scaffold: true,
     _hbView: 'pitcher',
   };
