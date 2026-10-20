@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san90">
+<link rel="stylesheet" href="shared.css?v=san105">
 </head>
 <body>
 <div class="topbar">
@@ -127,11 +127,12 @@
 
   <div id="panel-hitter-advance" class="panel">
     <div class="section-label" data-i18n="hitterAdvanceLabel">Hitter advance — Synergy</div>
-    <div class="note" data-i18n="hitterAdvanceNote">LBPRC opposing teams (CAG / CAR / MAY / PON / SJU). Two columns, vs R and vs L, each stacked non-RISP, RISP, non-2K, 2K, then SLG and Whiff heat maps. Colored vs league avg. Portrait PDF: one page per hitter.</div>
+    <div class="note" data-i18n="hitterAdvanceNote">Santurce and LBPRC opposing teams. Two columns, vs R and vs L, each stacked non-RISP, RISP, non-2K, 2K, then SLG and Whiff heat maps. Colored vs league avg. Portrait PDF: one page per hitter.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-team" onchange="fillAdvanceHitters()">
           <option value="all">All Teams</option>
+          <option value="SAN">SAN</option>
           <option value="CAG">CAG</option>
           <option value="CAR">CAR</option>
           <option value="MAY">MAY</option>
@@ -374,12 +375,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san74"></script>
-<script src="cards.js?v=san88"></script>
+<script src="i18n.js?v=san105"></script>
+<script src="cards.js?v=san105"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san90';
+const ASSET_V = 'san105';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1638,11 +1639,17 @@ function hitterHeatRecord(h){
   return (bag.hitters || {})[String(h && h.synergy_id || '')] || null;
 }
 function pitcherHeatRecord(p){
-  const bag = CACHE.advanceHeatmaps || {};
-  const rawId = p && (p.mlb_id || p.player_id);
-  const id = Number(rawId)>0 ? rawId : p && (p.synergy_id || rawId);
-  if(id==null || id==='') return null;
-  return (bag.pitchers || {})[String(id)] || null;
+  const bag = (CACHE.advanceHeatmaps || {}).pitchers || {};
+  if(!p) return null;
+  const keys = [];
+  const rawId = p.mlb_id || p.player_id;
+  if(Number(rawId)>0) keys.push(String(rawId));
+  if(p.synergy_id) keys.push(String(p.synergy_id));
+  if(rawId!=null && rawId!=='') keys.push(String(rawId));
+  for(const key of keys){
+    if(bag[key] && Number(bag[key].located)>0) return bag[key];
+  }
+  return null;
 }
 /**
  * 5×5 catcher-view zone (vox). Inner 3×3 is the plate × the batter's strike zone.
@@ -2226,7 +2233,7 @@ function scaffoldPitcherPacket(row){
     ? countMixPairs(overallMix)
     : arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]);
   return {
-    name: row.name, mlb_id: mlbId, throws: row.throws || 'R', team: row.team || '',
+    name: row.name, mlb_id: mlbId, synergy_id: row.synergy_id || null, throws: row.throws || 'R', team: row.team || '',
     bio: `${row.throws||'?'}HP · ${row.team||'—'}`,
     subtitle: `${row.throws||'?'}HP · ${row.team||'—'}`,
     arsenal,

@@ -11,6 +11,7 @@
     ['1', 'P'], ['2', 'C'], ['3', '1B'], ['4', '2B'], ['5', '3B'],
     ['6', 'SS'], ['7', 'LF'], ['8', 'CF'], ['9', 'RF'], ['DH', 'DH'],
   ];
+  const STARTER_POS = ['2', '3', '4', '5', '6', '7', '8', '9', 'DH'];
   const POS_LABEL = Object.fromEntries(POS);
   const DEFAULT_POS = { C: '2', '1B': '3', '2B': '4', '3B': '5', SS: '6', LF: '7', CF: '8', RF: '9', OF: '8', IF: '4', INF: '4', UTL: 'DH', DH: 'DH', P: '1' };
 
@@ -61,8 +62,23 @@
       const player = byId.get(Number(r.id));
       return { id: Number(r.id), pos: String(r.pos || (player ? defaultPos(player) : 'DH')) };
     };
-    st.lineup = (st.lineup || []).map(keepRow).filter(Boolean);
+    const lineupRows = (st.lineup || []).map(keepRow).filter(Boolean);
+    const used = new Set();
+    const kept = [];
+    const overflow = [];
+    lineupRows.forEach((row) => {
+      const pos = STARTER_POS.includes(row.pos) ? row.pos : '';
+      if (!pos || used.has(pos) || kept.length >= 9) overflow.push(row);
+      else {
+        used.add(pos);
+        kept.push({ id: row.id, pos });
+      }
+    });
+    st.lineup = kept;
     st.bench = (st.bench || []).map(keepRow).filter(Boolean).filter((r) => !st.lineup.some((line) => line.id === r.id));
+    overflow.forEach((row) => {
+      if (!st.bench.some((b) => b.id === row.id)) st.bench.push(row);
+    });
     st.pen = (st.pen || []).map(Number).filter((id) => ids.has(id) && id !== Number(st.sp));
     st.sp = st.sp != null && ids.has(Number(st.sp)) ? Number(st.sp) : null;
     return st;
@@ -80,6 +96,11 @@
   }
   function posName(code) { return POS_LABEL[code] || code || ''; }
   function defaultPos(player) { return DEFAULT_POS[player.roster_pos] || 'DH'; }
+  function openStarterPos(lineup, prefer) {
+    const used = new Set((lineup || []).map((r) => r.pos));
+    if (prefer && STARTER_POS.includes(prefer) && !used.has(prefer)) return prefer;
+    return STARTER_POS.find((pos) => !used.has(pos)) || '';
+  }
   function cardLast(player, peers) {
     const same = peers.filter((p) => p.last === player.last && p.role === player.role);
     if (same.length < 2) return player.last;
@@ -138,11 +159,27 @@
     return '';
   }
 
-  function sbText(h) {
-    if (!h || h.sb == null) return '';
-    const bits = [`${h.sb}/${(h.sb || 0) + (h.cs || 0)}`];
-    if (h.summer_sb || h.summer_cs) bits.push(`Su ${h.summer_sb || 0}/${(h.summer_sb || 0) + (h.summer_cs || 0)}`);
+  function sbRatio(sb, cs) {
+    return `${sb || 0}/${(sb || 0) + (cs || 0)}`;
+  }
+  function sbAttemptText(h) {
+    if (!h) return '';
+    const bits = [];
+    if (h.sb != null) bits.push(`LBPRC: ${sbRatio(h.sb, h.cs)}`);
+    const levels = h.summer_levels || [];
+    if (levels.length) {
+      levels.forEach((row) => {
+        if (!(row.sb || row.cs)) return;
+        bits.push(`${row.league}: ${sbRatio(row.sb, row.cs)}`);
+      });
+    } else if (h.summer_sb || h.summer_cs) {
+      const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed');
+      bits.push(`${src.length ? src.join('/') : '2026'}: ${sbRatio(h.summer_sb, h.summer_cs)}`);
+    }
     return bits.join(' ');
+  }
+  function sbText(h) {
+    return sbAttemptText(h);
   }
 
   function aggWhiff(rows) {
@@ -249,14 +286,15 @@
     const seasonLabel = p.src || 'LBPRC 2025';
     const title = tr(`${seasonLabel} season line, repeated on L and R (no platoon split)`, `Línea ${seasonLabel}, repetida en L y R (sin split de platoon)`);
     const sample = p.bf || 0;
-    const cells = [
+    const whFor = (side) => (side === 'L' && p.wh_l != null) ? p.wh_l : ((side === 'R' && p.wh_r != null) ? p.wh_r : p.wh);
+    const rowFor = (side) => [
       statCell(fmtPct(p.k), tonePitcher('k', p.k, sample), title),
       statCell(fmtPct(p.gb), tonePitcher('gb', p.gb, sample), title),
-      statCell(fmtPct(p.wh), tonePitcher('wh', p.wh, sample), p.wh == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
+      statCell(fmtPct(whFor(side)), tonePitcher('wh', whFor(side), sample), whFor(side) == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
       statCell(fmtPct(p.bb), tonePitcher('bb', p.bb, sample), title),
       statCell(fmtAvg(p.ops), tonePitcher('ops', p.ops, sample), title),
     ].join('');
-    return `<tr>${whoHtml}${ttpCell}<td class="sc-vs">L</td>${cells}</tr><tr><td class="sc-vs">R</td>${cells}</tr>`;
+    return `<tr>${whoHtml}${ttpCell}<td class="sc-vs">L</td>${rowFor('L')}</tr><tr><td class="sc-vs">R</td>${rowFor('R')}</tr>`;
   }
 
   function whoCell(order, pos, last, bats, rowspan) {
@@ -298,7 +336,7 @@
     const pitchers = people.filter((p) => p.role === 'P');
     const inOrder = st.lineup.map((r) => byId.get(r.id)).filter(Boolean);
     const lineupIds = new Set(st.lineup.map((r) => r.id));
-    const slots = st.lineup.slice();
+    const slots = st.lineup.slice(0, 9);
     while (slots.length < 9) slots.push(null);
     let hitterRows = slots.map((slot, i) => {
       if (!slot) return emptyHitterPair(String(i + 1));
@@ -362,8 +400,12 @@
     </section>`;
   }
 
-  function posOptions(selected) {
-    return POS.map(([code, name]) => `<option value="${code}"${code === selected ? ' selected' : ''}>${code === 'DH' ? 'DH' : code + ' ' + name}</option>`).join('');
+  function posOptions(selected, taken) {
+    const block = taken || new Set();
+    return POS.filter(([code]) => code !== '1').map(([code, name]) => {
+      const dis = block.has(code) && code !== selected ? ' disabled' : '';
+      return `<option value="${code}"${code === selected ? ' selected' : ''}${dis}>${code === 'DH' ? 'DH' : code + ' ' + name}</option>`;
+    }).join('');
   }
 
   function playerOptions(hitters, selectedId, blocked) {
@@ -375,7 +417,7 @@
     return blank + opts;
   }
 
-  function hitterSlot(abbrev, listName, row, hitters, blocked) {
+  function hitterSlot(abbrev, listName, row, hitters, blocked, taken) {
     const selected = row ? row.id : '';
     const pos = row ? row.pos : 'DH';
     const drag = listName === 'lineup' && row
@@ -383,7 +425,7 @@
       : '';
     return `<li ${drag}>
       ${listName === 'lineup' && row ? `<span class="sc-grip" title="${tr('Drag to reorder', 'Arrastra para ordenar')}">↕</span>` : ''}
-      <select class="sc-pos-select" onmousedown="event.stopPropagation()" ${row ? '' : 'disabled'} onchange="CardApp.setPos('${esc(abbrev)}', '${listName}', ${row ? row.id : 0}, this.value)">${posOptions(pos)}</select>
+      <select class="sc-pos-select" onmousedown="event.stopPropagation()" ${row ? '' : 'disabled'} onchange="CardApp.setPos('${esc(abbrev)}', '${listName}', ${row ? row.id : 0}, this.value)">${posOptions(pos, listName === 'lineup' ? taken : null)}</select>
       <select class="sc-name-select" onmousedown="event.stopPropagation()" onchange="CardApp.setRowPlayer('${esc(abbrev)}', '${listName}', ${row ? row.id : 0}, this.value)">${playerOptions(hitters, selected, blocked)}</select>
     </li>`;
   }
@@ -395,9 +437,11 @@
     const pitchers = people.filter((p) => p.role === 'P').slice().sort((a, b) => a.last.localeCompare(b.last));
     const lineupIds = new Set(st.lineup.map((r) => r.id));
     const benchIds = new Set(st.bench.map((r) => r.id));
-    const order = st.lineup.map((r) => hitterSlot(abbrev, 'lineup', r, hitters, new Set([...lineupIds, ...benchIds]))).join('');
-    const bench = st.bench.map((r) => hitterSlot(abbrev, 'bench', r, hitters, new Set([...lineupIds, ...benchIds]))).join('');
-    const addLine = hitterSlot(abbrev, 'lineup', null, hitters, new Set([...lineupIds, ...benchIds]));
+    const blocked = new Set([...lineupIds, ...benchIds]);
+    const order = st.lineup.map((r) => hitterSlot(abbrev, 'lineup', r, hitters, blocked, new Set(st.lineup.filter((other) => other.id !== r.id).map((other) => other.pos)))).join('');
+    const bench = st.bench.map((r) => hitterSlot(abbrev, 'bench', r, hitters, blocked)).join('');
+    const positionsFull = STARTER_POS.every((pos) => st.lineup.some((r) => r.pos === pos));
+    const addLine = st.lineup.length >= 9 || positionsFull ? '' : hitterSlot(abbrev, 'lineup', null, hitters, blocked);
     const addBench = hitterSlot(abbrev, 'bench', null, hitters, new Set([...lineupIds, ...benchIds]));
     const arms = pitchers.map((p) => {
       const sp = st.sp === p.id;
@@ -410,7 +454,7 @@
     }).join('');
     return `<div class="sc-editor">
       <div class="sc-editor-h">${esc(teamMeta(abbrev).abbrev)} · ${tr('Today\'s card', 'Carta de hoy')}</div>
-      <div class="sc-editor-label">${tr('Lineup — position defaults to the natural spot', 'Alineación — la posición natural es la inicial')}</div>
+      <div class="sc-editor-label">${tr('Starters — 9 hitters, one player per position', 'Titulares — 9 bateadores, un jugador por posición')}</div>
       <ul class="sc-order">${order}${addLine}</ul>
       <div class="sc-editor-label">${tr('Bench / pinch hitters', 'Banca / bateadores emergentes')}</div>
       <ul class="sc-order">${bench}${addBench}</ul>
@@ -419,7 +463,7 @@
         <button type="button" onclick="CardApp.clearBench('${esc(abbrev)}')">${tr('Clear bench', 'Vaciar banca')}</button>
         <button type="button" onclick="CardApp.clearSp('${esc(abbrev)}')">${tr('Clear SP', 'Quitar abridor')}</button>
       </div>
-      <div class="sc-editor-label">${tr('Pitchers — radio = SP, check = pen', 'Pitchers — radio = abridor, check = bullpen')}</div>
+      <div class="sc-editor-label">${tr('Pitchers — one starter (radio), check = pen', 'Pitchers — un abridor (radio), check = bullpen')}</div>
       <div class="sc-editor-actions">
         <button type="button" onclick="CardApp.checkAllPen('${esc(abbrev)}', true)">${tr('All to pen', 'Todos al bullpen')}</button>
         <button type="button" onclick="CardApp.checkAllPen('${esc(abbrev)}', false)">${tr('Clear pen', 'Vaciar bullpen')}</button>
@@ -475,6 +519,7 @@
         ${sheetSide(left, state)}
         ${sheetSide(right, state)}
       </div>`;
+    saveStrategy(state);
   }
 
   function band(n) {
@@ -532,13 +577,14 @@
         `LBPRC SB ${h.sb}/${att}${pct == null ? '' : ' (' + pct + '%)'}.`
       ));
     }
-    if (h.summer_sb || h.summer_cs) {
+    const levels = (h.summer_levels || []).filter((row) => row.sb || row.cs);
+    if (levels.length) {
+      const line = levels.map((row) => `${row.league} ${sbRatio(row.sb, row.cs)}`).join(', ');
+      bits.push(`${line}.`);
+    } else if (h.summer_sb || h.summer_cs) {
       const att = (h.summer_sb || 0) + (h.summer_cs || 0);
-      const src = (h.summer_sources || []).join('+') || '2026';
-      bits.push(tr(
-        `2026 summer ${h.summer_sb || 0}/${att} (${src}).`,
-        `Verano 2026 ${h.summer_sb || 0}/${att} (${src}).`
-      ));
+      const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed').join('/') || '2026';
+      bits.push(`${src} ${h.summer_sb || 0}/${att}.`);
     }
     if (!h.sb_split && ((h.sb || 0) + (h.summer_sb || 0) > 0)) {
       bits.push(tr(
@@ -585,11 +631,16 @@
         ));
       }
     }
-    if (h.sac != null || h.summer_sac) {
+    if (h.sac != null || h.summer_sac || (h.summer_levels || []).some((row) => row.sac)) {
       const parts = [];
-      if (h.sac != null) parts.push(`LBPRC ${h.sac}`);
-      if (h.summer_sac) parts.push(tr(`summer ${h.summer_sac}`, `verano ${h.summer_sac}`));
-      bits.push(tr(`Sac bunts: ${parts.join(' · ')}.`, `Toques de sacrificio: ${parts.join(' · ')}.`));
+      if (h.sac != null) parts.push(`LBPRC: ${h.sac}`);
+      const levels = (h.summer_levels || []).filter((row) => row.sac);
+      if (levels.length) levels.forEach((row) => parts.push(`${row.league}: ${row.sac}`));
+      else if (h.summer_sac) {
+        const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed').join('/') || '2026';
+        parts.push(`${src}: ${h.summer_sac}`);
+      }
+      bits.push(tr(`Sac bunts ${parts.join(' ')}.`, `Toques de sacrificio ${parts.join(' ')}.`));
     }
     if (h.in_synergy && h.bunts != null && !major) {
       bits.push(tr(`Synergy bunt attempts: ${h.bunts}.`, `Intentos de toque Synergy: ${h.bunts}.`));
@@ -624,33 +675,43 @@
     if (!h || (h.sb == null && !h.summer_sb && !h.summer_cs)) {
       return '<td colspan="2">—</td>';
     }
-    const lbN = h.sb || 0;
-    const suN = h.summer_sb || 0;
-    const lbTxt = h.sb != null ? `${h.sb}/${lbN + (h.cs || 0)}` : '';
-    const suTxt = (h.summer_sb || h.summer_cs) ? `Su ${h.summer_sb || 0}/${(h.summer_sb || 0) + (h.summer_cs || 0)}` : '';
+    const text = sbAttemptText(h);
     const b = band(stealScore(h));
     const cls = b ? `sb-${b}` : '';
     const title = tr(
-      'Total stolen bases. The cache has no 2B vs 3B split, so this count spans both columns. Summer is listed when 2026 MLB/MiLB/LMB totals exist.',
-      'Total de bases robadas. El caché no trae split 2B vs 3B, así que este conteo cubre ambas columnas. El verano aparece cuando hay totales 2026 de MLB/MiLB/LMB.'
+      'Stolen bases over attempts. LBPRC is the winter line. The other label is the league of the other line: MLB, AAA, AA, A+, A, LMB, or Indy.',
+      'Bases robadas sobre intentos. LBPRC es la línea de invierno. La otra etiqueta es la liga de la otra línea: MLB, AAA, AA, A+, A, LMB o Indy.'
     );
-    const lines = [];
-    if (suTxt && suN > lbN) {
-      lines.push(`<b>${esc(suTxt)}</b>`);
-      if (lbTxt) lines.push(`<small>${esc(lbTxt)} LBPRC</small>`);
-    } else {
-      lines.push(`<b>${esc(lbTxt || suTxt || '—')}</b>`);
-      if (suTxt && lbTxt) lines.push(`<small>${esc(suTxt)}</small>`);
-    }
+    const lines = [`<b>${esc(text)}</b>`];
     if (b) lines.push(`<small>${esc(bandWord(b))}</small>`);
     return `<td class="${cls}" colspan="2" title="${esc(title)}">${lines.join('')}</td>`;
   }
 
+  function sacText(h) {
+    if (!h) return '';
+    const bits = [];
+    if (h.sac != null) bits.push(`LBPRC: ${h.sac}`);
+    const levels = (h.summer_levels || []).filter((row) => row.sac);
+    if (levels.length) levels.forEach((row) => bits.push(`${row.league}: ${row.sac}`));
+    else if (h.summer_sac) {
+      const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed').join('/') || '2026';
+      bits.push(`${src}: ${h.summer_sac}`);
+    }
+    return bits.join(' ');
+  }
   function sacCell(h) {
+    const text = sacText(h);
+    if (!text) return '<td>—</td>';
     const n = sacTotal(h);
-    const extra = h && h.sac != null && h.summer_sac ? `Su ${h.summer_sac}` : '';
-    const title = tr('Sacrifice bunts (LBPRC + 2026 summer when present)', 'Toques de sacrificio (LBPRC + verano 2026 si hay)');
-    return countCell(n, extra, title);
+    const b = band(n);
+    const cls = b ? `sb-${b}` : '';
+    const title = tr(
+      'Sacrifice bunts. LBPRC is the winter line. The other label is the league: MLB, AAA, AA, A+, A, LMB, or Indy.',
+      'Toques de sacrificio. LBPRC es la línea de invierno. La otra etiqueta es la liga: MLB, AAA, AA, A+, A, LMB o Indy.'
+    );
+    const lines = [`<b>${esc(text)}</b>`];
+    if (b) lines.push(`<small>${esc(bandWord(b))}</small>`);
+    return `<td class="${cls}" title="${esc(title)}">${lines.join('')}</td>`;
   }
   function hitCell(h) {
     if (!h || !h.in_synergy || h.bunts == null) {
@@ -871,9 +932,10 @@
         const st = ensureTeam(s, team);
         const pid = Number(id);
         if (on) {
-          if (!st.lineup.some((r) => r.id === pid)) {
+          if (st.lineup.length < 9 && !st.lineup.some((r) => r.id === pid)) {
             const player = byId.get(pid);
-            st.lineup.push({ id: pid, pos: player ? defaultPos(player) : 'DH' });
+            const pos = openStarterPos(st.lineup, player ? defaultPos(player) : 'DH');
+            if (pos) st.lineup.push({ id: pid, pos });
           }
         } else {
           st.lineup = st.lineup.filter((r) => r.id !== pid);
@@ -885,7 +947,9 @@
         const st = ensureTeam(s, team);
         const list = listName === 'bench' ? st.bench : st.lineup;
         const row = list.find((r) => r.id === Number(id));
-        if (row) row.pos = pos;
+        if (!row) return;
+        if (listName !== 'bench' && (pos === '1' || list.some((other) => other.id !== row.id && other.pos === pos))) return;
+        row.pos = pos;
       });
     },
     setRowPlayer(team, listName, oldId, newId) {
@@ -902,13 +966,17 @@
         }
         if (list.some((r) => r.id === pid) || other.some((r) => r.id === pid)) return;
         const player = byId.get(pid);
-        const pos = player ? defaultPos(player) : 'DH';
         const row = list.find((r) => r.id === previous);
+        const others = listName === 'bench' ? [] : st.lineup.filter((r) => !row || r.id !== row.id);
+        const pos = listName === 'bench'
+          ? (player ? defaultPos(player) : 'DH')
+          : openStarterPos(others, player ? defaultPos(player) : 'DH');
+        if (listName !== 'bench' && !pos) return;
         if (row) {
           row.id = pid;
           row.pos = pos;
         } else if (listName === 'bench') st.bench.push({ id: pid, pos });
-        else st.lineup.push({ id: pid, pos });
+        else if (st.lineup.length < 9) st.lineup.push({ id: pid, pos });
       });
     },
     clearLineup(team) { withStrategy((s) => { ensureTeam(s, team).lineup = []; }); },
