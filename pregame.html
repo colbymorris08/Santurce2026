@@ -118,9 +118,10 @@
         <strong>Mass PDF export</strong>
         <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
+        <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery).</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery). <strong>Export uploads → JSON</strong> saves browser delivery/movement pictures for GitHub (run <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>).</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -380,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san118';
+const ASSET_V = 'san120';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2135,6 +2136,53 @@ function downloadPitcherMedia(id, slot, name, ev){
   const base = String(name||id||'pitcher').replace(/[^\w.-]+/g,'_').toLowerCase();
   a.download = base + '_' + slot + '.jpg';
   document.body.appendChild(a); a.click(); a.remove();
+}
+/** Dump every santurce_pm_v1 upload in this browser for committing to the repo. */
+function exportAllPitcherMedia(){
+  const items = [];
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k || !k.startsWith(PITCHER_MEDIA_PREFIX)) continue;
+      const v = localStorage.getItem(k) || '';
+      if (!v.startsWith('data:image')) continue;
+      const rest = k.slice(PITCHER_MEDIA_PREFIX.length);
+      const idx = rest.lastIndexOf(':');
+      if (idx < 0) continue;
+      const id = rest.slice(0, idx);
+      const slot = rest.slice(idx + 1);
+      const row = arsenalPitchers().find(r => String(r.player_id) === String(id));
+      items.push({
+        player_id: id,
+        slot,
+        name: row ? row.name : '',
+        team: row ? row.team : '',
+        data_url: v,
+        bytes: v.length,
+      });
+    }
+  } catch (e) {
+    alert('Could not read browser storage: ' + e);
+    return;
+  }
+  if (!items.length) {
+    alert('No delivery/movement uploads found in this browser’s localStorage.');
+    return;
+  }
+  const bySlot = items.reduce((a, x) => { a[x.slot] = (a[x.slot] || 0) + 1; return a; }, {});
+  const blob = new Blob([JSON.stringify({
+    exported_at: new Date().toISOString(),
+    origin: location.origin + location.pathname,
+    count: items.length,
+    by_slot: bySlot,
+    items,
+  }, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'santurce_pitcher_media_export.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(a.href);
+  alert(`Exported ${items.length} uploads (${Object.entries(bySlot).map(([k,n])=>`${k}:${n}`).join(', ')}).\nSave under Downloads, then:\npython3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json`);
 }
 function compressImageFile(file, maxW=1400, quality=0.84){
   return new Promise((resolve, reject)=>{

@@ -1,10 +1,10 @@
 {
-  "name": "Dereck Rodr\u00edguez",
+  "name": "Dereck Rodríguez",
   "mlb_id": 605446,
   "throws": "R",
   "bats": "R",
-  "bio": "6\u20320\u2033 \u00b7 208 lbs \u00b7 R/R \u00b7 Age 34 \u00b7 MLB ID 605446",
-  "subtitle": "RHP \u00b7 Dorados de Chihuahua (LMB) \u00b7 Advance Report",
+  "bio": "6′0″ · 208 lbs · R/R · Age 34 · MLB ID 605446",
+  "subtitle": "RHP · Dorados de Chihuahua (LMB) · Advance Report",
   "source": "Synergy / Trackman sample (automated from advance packet builders)",
   "builder": "pitch-tips/scripts/build_rodriguez_advance.py",
   "seasons": {
@@ -39,17 +39,17 @@
   },
   "overview": [
     "4S / SL foundation; CU is the primary third pitch.",
-    "CH is LHH-leaning; FC bridges FF\u2192SL movement.",
-    "High \u00be slot. 2S omitted (<2% usage).",
-    "Source: Synergy/Trackman \u00b7 629 pitches \u00b7 19 G / 5 GS."
+    "CH is LHH-leaning; FC bridges FF→SL movement.",
+    "High ¾ slot. 2S omitted (<2% usage).",
+    "Source: Synergy/Trackman · 629 pitches · 19 G / 5 GS."
   ],
   "approach": [
-    "vs LHH: more 4S + CH; CU posts elite K% (54.5%) in-sample \u2014 hunt chase below zone after FF elevate.",
+    "vs LHH: more 4S + CH; CU posts elite K% (54.5%) in-sample — hunt chase below zone after FF elevate.",
     "vs RHH: SL jumps to ~33% usage; keep FC/SL sequence glove-side, CU as putaway.",
     "In-zone overall ~51%; Strike% 67%. Force chase on SL/CU after early FF strikes.",
-    "Ahead \u2192 SL/CU; Behind \u2192 4S/FC in zone."
+    "Ahead → SL/CU; Behind → 4S/FC in zone."
   ],
-  "delivery_note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033.",
+  "delivery_note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~−15″ / 74″.",
   "headshot_url": "https://img.mlbstatic.com/mlb-photos/image/upload/w_213,q_auto:best/v1/people/605446/headshot/67/current",
   "headshot_local": "assets/advance/rodriguez_headshot.png",
   "arm_slot_image": "assets/advance/rodriguez_arm_slot.png",
@@ -58,7 +58,7 @@
     "rel_x_in": -15.0,
     "rel_z_in": 74.0,
     "arm_angle_approx_deg": 11.5,
-    "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~\u221215\u2033 / 74\u2033."
+    "note": "Visual arm-slot reference (high three-quarters). Trackman RelX/RelZ ~−15″ / 74″."
   },
   "totals": {
     "pitches": 629,
@@ -88,7 +88,7 @@
       "gb": 46.0,
       "usage_l": 39.2,
       "usage_r": 33.4,
-      "desc": "Below-avg ride, some cut. T92 in 2026, avg ~89. Works up; damage middle/up. Low whiff on FB."
+      "desc": "89.4 mph · IVB +13.8 · HB -4.6 · spin 2256 · whiff 27% · use 36% · GB 46%"
     },
     {
       "code": "SL",
@@ -107,7 +107,7 @@
       "gb": 48.0,
       "usage_l": 20.8,
       "usage_r": 32.9,
-      "desc": "Cutter-slider profile; ~5\u2033 gloveside. Works middle/down. Damage in zone."
+      "desc": "85.5 mph · -3.9 off FB · IVB +5.5 · HB +4.5 · spin 2317 · whiff 18% · use 28% · GB 48%"
     },
     {
       "code": "CU",
@@ -126,7 +126,7 @@
       "gb": 42.0,
       "usage_l": 16.0,
       "usage_r": 19.0,
-      "desc": "Slurve shape, get-me-over. ~13 mph off FB. Spit if it starts bottom half."
+      "desc": "75.6 mph · -13.8 off FB · IVB -11.0 · HB +9.1 · spin 2487 · whiff 34% · use 18% · GB 42%"
     },
     {
       "code": "FC",
@@ -145,7 +145,7 @@
       "gb": 36.0,
       "usage_l": 8.8,
       "usage_r": 8.1,
-      "desc": "FF\u2192SL bridge; more common first pitch than putaway. GB / in on hands."
+      "desc": "87.7 mph · -1.7 off FB · IVB +11.3 · HB +0.8 · spin 2282 · whiff 16% · use 8% · GB 36%"
     },
     {
       "code": "CH",
@@ -164,7 +164,7 @@
       "gb": 47.0,
       "usage_l": 14.0,
       "usage_r": 4.6,
-      "desc": "Not a runner CH; limited arm-side. Works away; LHH-leaning."
+      "desc": "82.4 mph · -7.0 off FB · IVB +8.7 · HB -6.9 · spin 1620 · whiff 23% · use 8% · GB 47%"
     }
   ],
   "usage_vs_hand": {

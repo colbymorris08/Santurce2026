@@ -1,0 +1,746 @@
+{
+  "note": "Delivery = browser localStorage santurce_pm_v1:{id}:delivery OR repo arm_slot_image / *_delivery.*",
+  "has_repo_delivery": [
+    {
+      "team": "SAN",
+      "name": "Dereck Rodriguez",
+      "id": 605446,
+      "arm_slot_image": "assets/advance/rodriguez_arm_slot.png"
+    },
+    {
+      "team": "PON",
+      "name": "Jonathan Bermudez",
+      "id": 642834,
+      "arm_slot_image": "assets/advance/bermudez_jonathan_delivery.jpg"
+    }
+  ],
+  "missing_count": 121,
+  "missing": [
+    {
+      "team": "SAN",
+      "name": "Bryan Escanio",
+      "id": 572363,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Andrew Baker",
+      "id": 687900,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Trey Braithwaite",
+      "id": -667432779,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Carlos Espinosa",
+      "id": 800514,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Jack Hartman",
+      "id": 689713,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "David Lebron",
+      "id": 673933,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Angel Lopez",
+      "id": 810862,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Francisco Mateo",
+      "id": 688965,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Miguel Mejia",
+      "id": 531565,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Jose Rodriguez",
+      "id": 692064,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Rafael Sanchez",
+      "id": 803596,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Daryl Thompson",
+      "id": 444354,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Joshua Torres",
+      "id": -114075284,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Josh Trentadue",
+      "id": 815048,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Austin Warner",
+      "id": 677369,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Edwin Alicea",
+      "id": -509515430,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Luis Calderon",
+      "id": -283863159,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Edgar Colon",
+      "id": -301498672,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Fernando Cruz",
+      "id": 518585,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Alexis Diaz",
+      "id": 664747,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Jason Garcia",
+      "id": 592329,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Dominic Hamel",
+      "id": -682585200,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Michael Martinez",
+      "id": -286366361,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Joseph Montalvo",
+      "id": -145641423,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Jordan Morales",
+      "id": 803409,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Jose Pena",
+      "id": 700247,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Eduardo Rivera",
+      "id": 700842,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SAN",
+      "name": "Nick Travieso",
+      "id": -477757957,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Jorge Benitez",
+      "id": 676221,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Magdiel Cotto",
+      "id": 694365,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Jose De Leon",
+      "id": 592254,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Jose Espada",
+      "id": 664744,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "id": 488880,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "id": 656479,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Anthony Maldonado",
+      "id": 687424,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Tyler Myrick",
+      "id": 686924,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Nicholas Padilla",
+      "id": 656820,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Zach Penrod",
+      "id": 683068,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Yacksel Rios",
+      "id": 605441,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "id": -831444931,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "id": 688014,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Carlos Torres",
+      "id": 688876,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "id": 670369,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Duane Underwood Jr.",
+      "id": 621249,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Jarret Whorf",
+      "id": 806337,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Osvaldo Berrios",
+      "id": 676047,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Cody Bolton",
+      "id": 675989,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Jarrette Bonet",
+      "id": -359955779,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Raymond Burgos",
+      "id": 670103,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "id": 669418,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Matt Givin",
+      "id": 676769,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "id": -779812433,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Riley Gowens",
+      "id": 803035,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Jimenez",
+      "id": -433762629,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Chris Kachmar",
+      "id": 690148,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Adiel Melendez",
+      "id": -158179355,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Johzan Oquendo",
+      "id": -268179393,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "JeanPierre Ortiz",
+      "id": -863509874,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "id": 664371,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Riley",
+      "id": 805678,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Elmer Rodriguez",
+      "id": 695684,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "id": 670232,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "id": 545814,
+      "arm_slot_image": null
+    },
+    {
+      "team": "CAR",
+      "name": "Ricardo Velez",
+      "id": 703106,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Cruz",
+      "id": -163227368,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Eddy Demurias",
+      "id": -887923890,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Carlos Francisco",
+      "id": 687956,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "id": -346943911,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Davian Garcia",
+      "id": 807485,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Ashton Goudeau",
+      "id": 623485,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Jonathan Haab",
+      "id": 805248,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "id": 571772,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Jorge Lopez",
+      "id": 605347,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "id": 446651,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Quinonez",
+      "id": 687879,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Angel Reyes",
+      "id": 681938,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "id": -465760315,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Bryant Salgado",
+      "id": 687560,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "id": 683803,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "id": 837223,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "id": -165648089,
+      "arm_slot_image": null
+    },
+    {
+      "team": "MAY",
+      "name": "Derek West",
+      "id": 663723,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Ricky Castro",
+      "id": 690462,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Alex Claudio",
+      "id": 592222,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Harold Cortijo",
+      "id": 676435,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Eric Garcia",
+      "id": 806586,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Tyler Gough",
+      "id": -368999174,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Josh James",
+      "id": 657624,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "id": -259860308,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Andrew Marrero",
+      "id": 687817,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "id": 801018,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Michael Morales",
+      "id": 691786,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Orlando Ortiz-Mayr",
+      "id": 689508,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "id": 676984,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "id": -346674215,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Erik Rivera",
+      "id": 682992,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Gabriel Rodriguez",
+      "id": 676082,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Alex Santos",
+      "id": 691012,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Charlee Soto",
+      "id": -458228708,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Eric Torres",
+      "id": 701539,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Julio Torres",
+      "id": 692937,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Lenny Torres",
+      "id": 678013,
+      "arm_slot_image": null
+    },
+    {
+      "team": "PON",
+      "name": "Mario Zabala",
+      "id": -174792236,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "id": -579003596,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "id": -693644039,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "id": 692808,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Sidney Duprey",
+      "id": 656389,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Agnel Miranda",
+      "id": 695064,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "id": 684841,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "id": 458960,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Julio Ortiz",
+      "id": -324713460,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Randy Ramnarace",
+      "id": -842689811,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Jerryell Rivera",
+      "id": 676219,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Raul Rivera",
+      "id": 572077,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "id": -426239217,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Brady Tedesco",
+      "id": 805749,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Alexuan Vega",
+      "id": -846506108,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Velazquez",
+      "id": 693546,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "id": -322791781,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "id": -670692245,
+      "arm_slot_image": null
+    },
+    {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "id": -280803405,
+      "arm_slot_image": null
+    }
+  ]
+}

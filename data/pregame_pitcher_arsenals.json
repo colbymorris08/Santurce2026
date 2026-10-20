@@ -23114,7 +23114,8 @@
         "vs_LHH": 208,
         "vs_RHH": 770
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "arm_slot_image": "assets/advance/bermudez_jonathan_delivery.jpg"
     },
     {
       "name": "Jorhan Laboy",
@@ -26846,11 +26847,61 @@
       "name": "Andrew Baker",
       "team": "SAN",
       "throws": null,
-      "arsenal": [],
+      "arsenal": [
+        {
+          "type": "FC",
+          "name": "Cutter",
+          "velo": 87.7,
+          "spin": 2309,
+          "ivb": 0.45,
+          "hb_pitcher": -2.88,
+          "hb_hitter": 2.88,
+          "usage": 51.0,
+          "pitches": 372
+        },
+        {
+          "type": "FF",
+          "name": "4-Seam",
+          "velo": 97.4,
+          "spin": 2398,
+          "ivb": 12.12,
+          "hb_pitcher": 6.69,
+          "hb_hitter": -6.69,
+          "usage": 39.5,
+          "pitches": 288
+        },
+        {
+          "type": "SL",
+          "name": "Slider",
+          "velo": 85.0,
+          "spin": 2331,
+          "ivb": -1.15,
+          "hb_pitcher": -7.08,
+          "hb_hitter": 7.08,
+          "usage": 9.3,
+          "pitches": 68
+        },
+        {
+          "type": "CH",
+          "name": "Changeup",
+          "velo": 87.1,
+          "spin": 1434,
+          "ivb": 3.6,
+          "hb_pitcher": 10.44,
+          "hb_hitter": -10.44,
+          "usage": 0.1,
+          "pitches": 1
+        }
+      ],
       "count_mix": {},
       "platoon": {},
       "usage_by_count": {},
-      "note": "roster scaffold — no movement plot yet"
+      "note": "roster scaffold — no movement plot yet",
+      "view": "hitter",
+      "movement_source": "Prospect Savant 2026",
+      "movement_season": 2026,
+      "ps_season": 2026,
+      "ps_source": "Prospect Savant"
     },
     {
       "player_id": 810862,
@@ -26890,11 +26941,41 @@
       "name": "Carlos Espinosa",
       "team": "SAN",
       "throws": null,
-      "arsenal": [],
+      "arsenal": [
+        {
+          "type": "FF",
+          "name": "FF",
+          "velo": 93.6,
+          "spin": 2119,
+          "ivb": 16.32,
+          "hb_pitcher": 6.3,
+          "hb_hitter": -6.3,
+          "usage": 50.0,
+          "pitches": 2
+        },
+        {
+          "type": "SL",
+          "name": "SL",
+          "velo": 83.8,
+          "spin": 2038,
+          "ivb": 2.16,
+          "hb_pitcher": 1.32,
+          "hb_hitter": -1.32,
+          "usage": 50.0,
+          "pitches": 2
+        }
+      ],
       "count_mix": {},
       "platoon": {},
       "usage_by_count": {},
-      "note": "roster scaffold — no movement plot yet"
+      "note": "roster scaffold — no movement plot yet",
+      "view": "hitter",
+      "movement_source": "MLB Statcast spring 2025",
+      "movement_season": 2025,
+      "statcast_source": "MLB Statcast spring 2025",
+      "statcast_seasons": [
+        "2025"
+      ]
     },
     {
       "player_id": 444354,
@@ -26927,7 +27008,8 @@
       "count_mix": {},
       "platoon": {},
       "usage_by_count": {},
-      "note": "roster scaffold — no movement plot yet"
+      "note": "roster scaffold — no movement plot yet",
+      "arm_slot_image": "assets/advance/rodriguez_arm_slot.png"
     },
     {
       "player_id": -682585200,
@@ -30651,7 +30733,7 @@
       "movement_source": "TruMedia SPLITS screenshot"
     }
   ],
-  "updated": "2026-10-13T20:56:43Z",
+  "updated": "2026-10-20T04:39:39Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",

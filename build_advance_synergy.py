@@ -207,7 +207,7 @@ RODRIGUEZ_SEED = {
             "gb": 46.0,
             "usage_l": 39.2,
             "usage_r": 33.4,
-            "desc": "Below-avg ride, some cut. T92 in 2026, avg ~89. Works up; damage middle/up. Low whiff on FB.",
+            "desc": "89.4 mph · IVB +13.8 · HB -4.6 · spin 2256 · whiff 27% · use 36% · GB 46%",
         },
         {
             "code": "SL",
@@ -226,7 +226,7 @@ RODRIGUEZ_SEED = {
             "gb": 48.0,
             "usage_l": 20.8,
             "usage_r": 32.9,
-            "desc": "Cutter-slider profile; ~5″ gloveside. Works middle/down. Damage in zone.",
+            "desc": "85.5 mph · -3.9 off FB · IVB +5.5 · HB +4.5 · spin 2317 · whiff 18% · use 28% · GB 48%",
         },
         {
             "code": "CU",
@@ -245,7 +245,7 @@ RODRIGUEZ_SEED = {
             "gb": 42.0,
             "usage_l": 16.0,
             "usage_r": 19.0,
-            "desc": "Slurve shape, get-me-over. ~13 mph off FB. Spit if it starts bottom half.",
+            "desc": "75.6 mph · -13.8 off FB · IVB -11.0 · HB +9.1 · spin 2487 · whiff 34% · use 18% · GB 42%",
         },
         {
             "code": "FC",
@@ -264,7 +264,7 @@ RODRIGUEZ_SEED = {
             "gb": 36.0,
             "usage_l": 8.8,
             "usage_r": 8.1,
-            "desc": "FF→SL bridge; more common first pitch than putaway. GB / in on hands.",
+            "desc": "87.7 mph · -1.7 off FB · IVB +11.3 · HB +0.8 · spin 2282 · whiff 16% · use 8% · GB 36%",
         },
         {
             "code": "CH",
@@ -283,7 +283,7 @@ RODRIGUEZ_SEED = {
             "gb": 47.0,
             "usage_l": 14.0,
             "usage_r": 4.6,
-            "desc": "Not a runner CH; limited arm-side. Works away; LHH-leaning.",
+            "desc": "82.4 mph · -7.0 off FB · IVB +8.7 · HB -6.9 · spin 1620 · whiff 23% · use 8% · GB 47%",
         },
     ],
     "usage_vs_hand": {
@@ -628,17 +628,18 @@ def event_in_heat_window(ev: dict) -> bool:
 HEAT_PRIMARY_WINDOW = "2026+2025 pool"
 HEAT_2025_FALLBACK = "2025 fallback"
 HEAT_2024_FALLBACK = "2024 fallback"
-HEAT_FALLBACK_VERSION = 2
+HEAT_2023_FALLBACK = "2023 fallback"
+HEAT_FALLBACK_VERSION = 3
 
 
 def event_in_heat_fallback_scan(ev: dict) -> bool:
-    """Keep eligible newer leagues plus any 2024 event for the final fallback.
+    """Keep eligible newer leagues plus any 2024 or 2023 event for the fallback.
 
     Some older Synergy events, including A.J. Candelario's 2024 sample, omit
-    game.league.id. The final year fallback therefore keys on season alone.
+    game.league.id. The year fallbacks therefore key on season alone.
     """
     year = event_season_year(ev)
-    return year == 2024 or (
+    return year in {2023, 2024} or (
         year in {2025, 2026}
         and event_league_id(ev) in (SUMMER_LEAGUE_IDS | WINTER_LEAGUE_IDS)
     )
@@ -660,6 +661,10 @@ def select_heat_window(events: list[dict]) -> tuple[list[dict], str]:
         (
             HEAT_2024_FALLBACK,
             [ev for ev in events if event_season_year(ev) == 2024],
+        ),
+        (
+            HEAT_2023_FALLBACK,
+            [ev for ev in events if event_season_year(ev) == 2023],
         ),
     )
     for label, rows in windows:
