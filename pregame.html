@@ -121,7 +121,7 @@
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery). <strong>Export uploads → JSON</strong> saves browser delivery/movement pictures for GitHub (run <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>).</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -381,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san120';
+const ASSET_V = 'san121';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2127,17 +2127,59 @@ function clearPitcherMedia(id, slot, ev){
   try { localStorage.removeItem(pitcherMediaKey(id, slot)); } catch(e){}
   renderPitcherAdvance();
 }
+/** delivery | movement — storage still uses slot "arsenal" for movement uploads. */
+function pitcherMediaKind(slot){
+  return slot === 'delivery' ? 'delivery' : 'movement';
+}
+function alphaNamePart(s){
+  return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z]/g,'').toLowerCase();
+}
+function pitcherMediaFileStem(name, id){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  let stem = '';
+  if(parts.length >= 2){
+    const first = alphaNamePart(parts[0]);
+    const last = alphaNamePart(parts.slice(1).join(' '));
+    stem = (last && first) ? (last + '_' + first) : (last || first);
+  } else if(parts.length === 1){
+    stem = alphaNamePart(parts[0]);
+  }
+  return stem || ('id_' + String(id||'unknown'));
+}
+function pitcherMediaFilename(name, id, slot, dataUrl){
+  const kind = pitcherMediaKind(slot);
+  let ext = 'jpg';
+  if(String(dataUrl||'').startsWith('data:image/png')) ext = 'png';
+  else if(String(dataUrl||'').startsWith('data:image/webp')) ext = 'webp';
+  return pitcherMediaFileStem(name, id) + '_' + kind + '.' + ext;
+}
+function resolvePitcherMediaRow(id){
+  const sid = String(id||'');
+  const rows = arsenalPitchers();
+  let row = rows.find(r => String(r.player_id) === sid);
+  if(row) return row;
+  row = rows.find(r => r.mlb_id != null && String(r.mlb_id) === sid);
+  if(row) return row;
+  const cards = (CACHE.cardStats && CACHE.cardStats.players) || [];
+  const c = cards.find(p => p && p.role === 'P' && String(p.id) === sid);
+  if(c){
+    return rows.find(r => String(r.player_id) === String(c.id) || r.name === c.name)
+      || { player_id: c.id, name: c.name, team: c.team };
+  }
+  return null;
+}
 function downloadPitcherMedia(id, slot, name, ev){
   if(ev){ ev.preventDefault(); ev.stopPropagation(); }
   const data = getPitcherMedia(id, slot);
   if(!data) return;
+  const row = resolvePitcherMediaRow(id);
+  const nm = (row && row.name) || name || id;
   const a = document.createElement('a');
   a.href = data;
-  const base = String(name||id||'pitcher').replace(/[^\w.-]+/g,'_').toLowerCase();
-  a.download = base + '_' + slot + '.jpg';
+  a.download = pitcherMediaFilename(nm, id, slot, data);
   document.body.appendChild(a); a.click(); a.remove();
 }
-/** Dump every santurce_pm_v1 upload in this browser for committing to the repo. */
+/** Dump every santurce_pm_v1 upload — each item named {last}_{first}_delivery|movement.ext */
 function exportAllPitcherMedia(){
   const items = [];
   try {
@@ -2151,12 +2193,18 @@ function exportAllPitcherMedia(){
       if (idx < 0) continue;
       const id = rest.slice(0, idx);
       const slot = rest.slice(idx + 1);
-      const row = arsenalPitchers().find(r => String(r.player_id) === String(id));
+      const row = resolvePitcherMediaRow(id);
+      const name = row ? row.name : '';
+      const team = row ? (row.team || '') : '';
+      const kind = pitcherMediaKind(slot);
+      const filename = pitcherMediaFilename(name, id, slot, v);
       items.push({
         player_id: id,
-        slot,
-        name: row ? row.name : '',
-        team: row ? row.team : '',
+        slot,           // storage key: delivery | arsenal
+        kind,           // delivery | movement
+        name,
+        team,
+        filename,
         data_url: v,
         bytes: v.length,
       });
@@ -2169,12 +2217,14 @@ function exportAllPitcherMedia(){
     alert('No delivery/movement uploads found in this browser’s localStorage.');
     return;
   }
-  const bySlot = items.reduce((a, x) => { a[x.slot] = (a[x.slot] || 0) + 1; return a; }, {});
+  items.sort((a, b) => String(a.filename).localeCompare(String(b.filename)));
+  const byKind = items.reduce((a, x) => { a[x.kind] = (a[x.kind] || 0) + 1; return a; }, {});
   const blob = new Blob([JSON.stringify({
     exported_at: new Date().toISOString(),
     origin: location.origin + location.pathname,
     count: items.length,
-    by_slot: bySlot,
+    by_kind: byKind,
+    naming: '{lastname}_{firstname}_delivery|movement.jpg — from pitcher page + slot',
     items,
   }, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
@@ -2182,7 +2232,7 @@ function exportAllPitcherMedia(){
   a.download = 'santurce_pitcher_media_export.json';
   document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(a.href);
-  alert(`Exported ${items.length} uploads (${Object.entries(bySlot).map(([k,n])=>`${k}:${n}`).join(', ')}).\nSave under Downloads, then:\npython3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json`);
+  alert(`Exported ${items.length} named snaps (${Object.entries(byKind).map(([k,n])=>`${k}:${n}`).join(', ')}).\nEach file in JSON is named last_first_delivery|movement.\nSave under Downloads, then:\npython3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json`);
 }
 function compressImageFile(file, maxW=1400, quality=0.84){
   return new Promise((resolve, reject)=>{
@@ -2237,7 +2287,7 @@ function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, plot=false, re
     ${body}
   </label>
   ${actions}
-  <div class="advance-upload-note">Uploads stay in this browser (localStorage) unless you Save file… and commit under assets/. They appear in PDF export on this device.</div>`;
+  <div class="advance-upload-note">Uploads stay in this browser until you <strong>Export uploads → JSON</strong> (names each file last_first_delivery|movement) or Save file… — then import into assets/ for GitHub.</div>`;
 }
 function arsenalHasXyPlot(arsenal){
   return chartPitchRows(arsenal||[],'code').some(a=>a && a.hb!=null && a.ivb!=null);
