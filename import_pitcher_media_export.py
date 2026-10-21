@@ -118,7 +118,7 @@ def main() -> int:
         export_fn = str(it.get("filename") or "").strip()
         m = re.match(r"^([A-Za-z0-9_.-]+?)_(delivery|movement|pitch_data)\.[A-Za-z0-9]+$", export_fn, re.I)
         if m:
-            stem = alpha(m.group(1).replace("-", "_")) or stem
+            stem = re.sub(r"[^a-z0-9_]+", "", m.group(1).replace("-", "_").lower()) or stem
         suffix = "delivery" if kind == "delivery" else "pitch_data"
         fname = f"{stem}_{suffix}.{ext}"
 
