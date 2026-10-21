@@ -381,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san127';
+const ASSET_V = 'san128';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2729,23 +2729,46 @@ function advancePdfStripHtml(headHtml, handLabel, name, team){
     <span class="advance-pdf-team">${team||''}</span>
   </div>`;
 }
+function mlbHeadshotUrls(id){
+  const n = Number(id);
+  if(!(n>0)) return [];
+  const s = String(n);
+  return [
+    `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${s}/headshot/67/current`,
+    `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${s}/headshot/milb/current`,
+  ];
+}
+function onHeadshotError(img){
+  const next = String(img.dataset.next||'').split('|').filter(Boolean);
+  if(next.length){
+    img.dataset.next = next.slice(1).join('|');
+    img.src = next[0];
+    return;
+  }
+  img.onerror = null;
+  if(String(img.className||'').includes('advance-pdf-headshot')){
+    img.style.display = 'none';
+    return;
+  }
+  const cls = img.className || 'advance-headshot';
+  img.outerHTML = `<div class="${cls} advance-headshot-placeholder" aria-hidden="true"></div>`;
+}
+function headshotImgHtml(id, alt, cls, localSrc){
+  const urls = [];
+  if(localSrc) urls.push(localSrc);
+  mlbHeadshotUrls(id).forEach(u=>{ if(!urls.includes(u)) urls.push(u); });
+  if(!urls.length) return '';
+  const rest = urls.slice(1).join('|');
+  return `<img class="${cls}" src="${urls[0]}" alt="${alt||''}" data-next="${rest}" onerror="onHeadshotError(this)"/>`;
+}
 function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   if(!p) return '';
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
   const playerId = mlbId != null ? String(mlbId) : String(p.player_id||'');
-  const headRemote = (Number(mlbId)>0)
-    ? (p.headshot_url || `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`)
-    : '';
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
-  const headHtml=headRemote
-    ? `<img class="advance-headshot" src="${headRemote}" alt="${p.name}"
-           onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-    : (headLocal
-      ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-      : blankHead);
+  const headHtml = headshotImgHtml(mlbId, p.name, 'advance-headshot', headLocal) || blankHead;
   const repoRow = resolvePitcherMediaRow(playerId);
   const repoDelivery = p.arm_slot_image || (repoRow && repoRow.arm_slot_image) || null;
   const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
@@ -2778,13 +2801,7 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
   if(printPage){
     const deliveryPrint = printMediaBlock(deliverySrc, 'Delivery / release snapshot');
-    const headPdf = headRemote
-      ? `<img class="advance-pdf-headshot" src="${headRemote}" alt="${p.name}"
-             onerror="this.onerror=null;this.style.display='none'"/>`
-      : (headLocal
-        ? `<img class="advance-pdf-headshot" src="${headLocal}" alt="${p.name}"
-               onerror="this.onerror=null;this.style.display='none'"/>`
-        : '');
+    const headPdf = headshotImgHtml(mlbId, p.name, 'advance-pdf-headshot', headLocal);
     const handLabel = advancePdfPitcherHand(p.throws);
     const teamLabel = p.team || '';
     return `<div class="advance-sheet advance-sheet-pitcher advance-print-page">
@@ -3485,19 +3502,14 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
   const o=h.overall||{};
   const pageClass = printPage ? 'advance-sheet-hitter advance-print-page' : '';
   const idPrefix = printPage ? `pdf-${prefix}${h.synergy_id||'all'}-` : prefix;
-  const head = (h.synergy_id && !String(h.name||'').startsWith('Select All')) ? hitterHeadshotUrl(h) : '';
+  const headId = h.mlb_id || h.player_id || h.mlbam;
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml = (!h.synergy_id || h.name?.startsWith('Select All'))
     ? blankHead
-    : (head
-        ? `<img class="advance-headshot" src="${head}" alt="${h.name}" onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
-        : blankHead);
+    : (headshotImgHtml(headId, h.name, 'advance-headshot', h.headshot_url) || blankHead);
   const statsLine = `${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'} · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}`;
   if(printPage){
-    const headPdf = head
-      ? `<img class="advance-pdf-headshot" src="${head}" alt="${h.name}"
-             onerror="this.onerror=null;this.style.display='none'"/>`
-      : '';
+    const headPdf = headshotImgHtml(headId, h.name, 'advance-pdf-headshot', h.headshot_url);
     const handLabel = advancePdfHitterHand(h.bats);
     const teamLabel = h.team || '';
     return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
