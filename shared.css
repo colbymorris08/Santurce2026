@@ -636,9 +636,11 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 }
 .advance-layout-pitcher .advance-card-arm-slot .advance-arm img,
 .advance-layout-pitcher .advance-card-arm-slot .advance-arm-full {
-  max-height: none;
-  min-height: 300px;
-  object-fit: cover;
+  max-height: 520px;
+  min-height: 0;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   object-position: center top;
 }
 /* Arsenal snapshot: white column headers (not muted gray) */

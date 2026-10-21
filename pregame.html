@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san118">
+<link rel="stylesheet" href="shared.css?v=san127">
 </head>
 <body>
 <div class="topbar">
@@ -381,7 +381,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san126';
+const ASSET_V = 'san127';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2164,7 +2164,9 @@ function loadPitcherMediaStore(){
     } catch(e){}
     return Promise.all(legacy.map(([key, v])=>{
       if(!PITCHER_MEDIA_CACHE.has(key)) PITCHER_MEDIA_CACHE.set(key, v);
-      return idbPutMedia(key, v).then(()=>{ try { localStorage.removeItem(PITCHER_MEDIA_PREFIX + key); } catch(e){} }).catch(()=>{});
+      // Keep the localStorage copy. The updated page reads IndexedDB, but an
+      // older Safari tab still shows these pictures from localStorage.
+      return idbPutMedia(key, v).catch(()=>{});
     }));
   };
   return openPitcherMediaDb().then(db => new Promise((resolve, reject)=>{
@@ -2181,21 +2183,51 @@ function loadPitcherMediaStore(){
     tx.onerror = ()=>{ db.close(); reject(tx.error); };
   })).then(finish).catch(()=> finish([]));
 }
+function legacyPitcherMedia(id, slot){
+  try {
+    const v = localStorage.getItem(pitcherMediaKey(id, slot)) || '';
+    return v.startsWith('data:image') ? v : '';
+  } catch(e){ return ''; }
+}
 function getPitcherMedia(id, slot){
   if(id==null || id==='') return '';
-  const direct = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(id, slot)) || '';
+  const direct = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(id, slot)) || legacyPitcherMedia(id, slot);
   if(direct) return direct;
   const row = resolvePitcherMediaRow(id);
   if(!row) return '';
   const aliases = [row.player_id, row.mlb_id].map(v => v==null ? '' : String(v)).filter(Boolean);
   for(const alt of aliases){
     if(alt === String(id)) continue;
-    const v = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(alt, slot)) || '';
+    const v = PITCHER_MEDIA_CACHE.get(pitcherMediaCacheKey(alt, slot)) || legacyPitcherMedia(alt, slot);
     if(v){
       setPitcherMedia(id, slot, v);
       return v;
     }
   }
+  // Same pitcher, older id still sitting in this browser (Safari tab that has not migrated).
+  const needle = String(row.name||'').toLowerCase().replace(/\s+/g,' ').trim();
+  if(!needle) return '';
+  const consider = (key, v)=>{
+    if(!v || !String(v).startsWith('data:image')) return '';
+    const idx = String(key).lastIndexOf(':');
+    if(idx<0 || String(key).slice(idx+1)!==slot) return '';
+    const other = resolvePitcherMediaRow(String(key).slice(0, idx));
+    const name = other ? String(other.name||'') : '';
+    if(name.toLowerCase().replace(/\s+/g,' ').trim()!==needle) return '';
+    return v;
+  };
+  for(const [key, v] of PITCHER_MEDIA_CACHE){
+    const hit = consider(key, v);
+    if(hit){ setPitcherMedia(id, slot, hit); return hit; }
+  }
+  try {
+    for(let i=0;i<localStorage.length;i++){
+      const full = localStorage.key(i);
+      if(!full || !full.startsWith(PITCHER_MEDIA_PREFIX)) continue;
+      const hit = consider(full.slice(PITCHER_MEDIA_PREFIX.length), localStorage.getItem(full)||'');
+      if(hit){ setPitcherMedia(id, slot, hit); return hit; }
+    }
+  } catch(e){}
   return '';
 }
 function setPitcherMedia(id, slot, dataUrl){
@@ -2359,7 +2391,7 @@ function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, plot=false, re
   const tallCls = tall ? ' advance-placeholder-tall' : '';
   const plotCls = plot ? ' advance-upload-plot' : '';
   const body = has
-    ? `<img src="${shown}" alt="${label}" loading="lazy"/>`
+    ? `<img src="${shown}" alt="${label}"/>`
     : `<div class="advance-upload-cta"><strong>${label}</strong>Click to choose image<br><span style="opacity:.85">JPG / PNG · saved in this browser</span></div>`;
   const safeName = String(name||'').replace(/\\/g,'\\').replace(/'/g,"\\'");
   const actions = src ? `<div class="advance-upload-actions">
@@ -2702,7 +2734,9 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   const arsenal=p.arsenal||[];
   const mlbId=p.mlb_id;
   const playerId = mlbId != null ? String(mlbId) : String(p.player_id||'');
-  const headRemote=p.headshot_url || (mlbId?`https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`:'');
+  const headRemote = (Number(mlbId)>0)
+    ? (p.headshot_url || `https://img.mlbstatic.com/mlb-photos/image/upload/c_fill,g_face,h_320,w_200/v1/people/${mlbId}/headshot/67/current`)
+    : '';
   const headLocal=(Number(mlbId)===RODRIGUEZ_MLB_ID && p.headshot_local) ? p.headshot_local : '';
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml=headRemote
@@ -2712,7 +2746,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
       ? `<img class="advance-headshot" src="${headLocal}" alt="${p.name}"
              onerror="this.onerror=null;this.outerHTML='<div class=\'advance-headshot advance-headshot-placeholder\' aria-hidden=\'true\'></div>'"/>`
       : blankHead);
-  const repoDelivery = p.arm_slot_image || null;
+  const repoRow = resolvePitcherMediaRow(playerId);
+  const repoDelivery = p.arm_slot_image || (repoRow && repoRow.arm_slot_image) || null;
   const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
   const heatRec = pitcherHeatRecord(p);
   const heatMapsHtml = `<div class="advance-heat-pair">
