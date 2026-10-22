@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san155">
+<link rel="stylesheet" href="shared.css?v=san156">
 </head>
 <body>
 <div class="topbar">
@@ -380,11 +380,11 @@
   </div>
 </main>
 <script src="i18n.js?v=san118"></script>
-<script src="cards.js?v=san153"></script>
+<script src="cards.js?v=san156"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san155';
+const ASSET_V = 'san156';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2233,18 +2233,18 @@ function fillAdvancePitchers(){
   teamSel.innerHTML = '<option value="all">All Teams</option>' + teams.map(t=>`<option value="${t}">${t}</option>`).join('');
   teamSel.value = (prevTeam==='all' || teams.includes(prevTeam)) ? prevTeam : 'all';
   const team = teamSel.value;
-  const q = (searchEl?.value || '').toLowerCase();
-  const list = rows.filter(r=>{
+  const q = normPersonName(searchEl?.value || '');
+  const list = sortByLastName(rows.filter(r=>{
     if(team!=='all' && r.team!==team) return false;
-    if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
+    if(q && !normPersonName(`${r.name} ${formatLastFirst(r.name)} ${r.team}`).includes(q)) return false;
     return true;
-  });
+  }), r=>r.name);
   const prev = pitcherSel.value;
   pitcherSel.innerHTML = list.map(r=>{
     const tag = r.packet==='full' ? ' · full packet' : (r.has_arsenal ? '' : ' · roster');
     const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'LHP'
       : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'RHP' : '');
-    return `<option value="${r.player_id}">${r.name}${hand?' ('+hand+')':''} · ${r.team||''}${tag}</option>`;
+    return `<option value="${r.player_id}">${formatLastFirst(r.name)}${hand?' ('+hand+')':''} · ${r.team||''}${tag}</option>`;
   }).join('') || '<option value="">—</option>';
   if([...pitcherSel.options].some(o=>o.value===prev)) pitcherSel.value = prev;
   else if([...pitcherSel.options].some(o=>o.value===String(RODRIGUEZ_MLB_ID))) pitcherSel.value = String(RODRIGUEZ_MLB_ID);
@@ -2252,19 +2252,28 @@ function fillAdvancePitchers(){
   renderPitcherAdvance();
 }
 
-function lastNameKey(name){
+const NAME_SUFFIXES = new Set(['jr','sr','ii','iii','iv','v']);
+const NAME_PARTICLES = new Set(['de','del','la','los','las','da','dos','van','von']);
+function namePieces(name){
   const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
-  if(!parts.length) return '';
-  return parts[parts.length-1].toLocaleLowerCase();
+  const suffix = [];
+  while(parts.length && NAME_SUFFIXES.has(parts[parts.length-1].toLowerCase().replace(/\./g,''))) suffix.unshift(parts.pop());
+  let n = 1;
+  if(parts.length >= 3 && NAME_PARTICLES.has(parts[parts.length-3].toLowerCase()) && NAME_PARTICLES.has(parts[parts.length-2].toLowerCase())) n = 3;
+  else if(parts.length >= 2 && NAME_PARTICLES.has(parts[parts.length-2].toLowerCase())) n = 2;
+  if(!parts.length) return { last: suffix.join(' '), first: '', suffix: '' };
+  return { last: parts.slice(-n).join(' '), first: parts.slice(0, -n).join(' '), suffix: suffix.join(' ') };
 }
-/** Display as "Last, First" to match last-name A–Z sort in mass-export lists. */
+function lastNameKey(name){
+  return namePieces(name).last.toLocaleLowerCase();
+}
+/** Display as "Last, First" so an A–Z last-name list reads in order. */
 function formatLastFirst(name){
-  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
-  if(!parts.length) return '';
-  if(parts.length === 1) return parts[0];
-  const last = parts[parts.length-1];
-  const first = parts.slice(0, -1).join(' ');
-  return last + ', ' + first;
+  const { last, first, suffix } = namePieces(name);
+  if(!last && !first) return '';
+  const lastBit = suffix ? (last + ' ' + suffix).trim() : last;
+  if(!first) return lastBit;
+  return lastBit + ', ' + first;
 }
 function sortByLastName(arr, nameFn){
   return [...(arr||[])].sort((a,b)=>{
@@ -3659,18 +3668,18 @@ function fillAdvanceHitters(){
   const sel=document.getElementById('adv-hitter');
   if(!teamEl||!sel) return;
   const team=teamEl.value;
-  const q=(searchEl?.value||'').toLowerCase();
+  const q=normPersonName(searchEl?.value||'');
   const hitters=advanceHitterList();
-  const filtered=hitters.filter(h=>{
+  const filtered=sortByLastName(hitters.filter(h=>{
     if(team!=='all' && h.team!==team) return false;
-    if(q && !(h.name||'').toLowerCase().includes(q)) return false;
+    if(q && !normPersonName(`${h.name} ${formatLastFirst(h.name)} ${h.team}`).includes(q)) return false;
     return true;
-  });
+  }), h=>h.name);
   const prev=sel.value;
   const opts=['<option value="__all__">Select All (aggregate)</option>']
     .concat(filtered.map(h=>{
       const tag = h._from_roster ? ' · roster' : '';
-      return `<option value="${hitterListId(h)}">${h.name} (${h.team})${tag}</option>`;
+      return `<option value="${hitterListId(h)}">${formatLastFirst(h.name)} · ${h.team||''}${tag}</option>`;
     }));
   sel.innerHTML=opts.join('');
   if([...sel.options].some(o=>o.value===prev)) sel.value=prev;

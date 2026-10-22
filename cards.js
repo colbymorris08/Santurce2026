@@ -461,11 +461,27 @@
     }).join('');
   }
 
+  const NAME_SUFFIXES = new Set(['jr', 'sr', 'ii', 'iii', 'iv', 'v']);
+  const NAME_PARTICLES = new Set(['de', 'del', 'la', 'los', 'las', 'da', 'dos', 'van', 'von']);
+  function lastComma(name) {
+    const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+    const suffix = [];
+    while (parts.length && NAME_SUFFIXES.has(parts[parts.length - 1].toLowerCase().replace(/\./g, ''))) suffix.unshift(parts.pop());
+    if (!parts.length) return suffix.join(' ');
+    let n = 1;
+    if (parts.length >= 3 && NAME_PARTICLES.has(parts[parts.length - 3].toLowerCase()) && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 3;
+    else if (parts.length >= 2 && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 2;
+    const last = parts.slice(-n).join(' ');
+    const first = parts.slice(0, -n).join(' ');
+    const lastBit = suffix.length ? `${last} ${suffix.join(' ')}`.trim() : last;
+    return first ? `${lastBit}, ${first}` : lastBit;
+  }
+
   function playerOptions(hitters, selectedId, blocked) {
     const blank = `<option value="">${tr('Select hitter', 'Elegir bateador')}</option>`;
     const opts = hitters.slice().sort((a, b) => a.last.localeCompare(b.last) || a.name.localeCompare(b.name)).map((p) => {
       if (blocked.has(p.id) && p.id !== selectedId) return '';
-      return `<option value="${p.id}"${p.id === selectedId ? ' selected' : ''}>${esc(p.name)}</option>`;
+      return `<option value="${p.id}"${p.id === selectedId ? ' selected' : ''}>${esc(lastComma(p.name))}</option>`;
     }).join('');
     return blank + opts;
   }
@@ -501,21 +517,18 @@
       const dis = !on && lineupFull ? ' disabled' : '';
       return `<label class="sc-roster-row">
         <input type="checkbox" ${on ? 'checked' : ''}${dis} onchange="CardApp.toggleLineup('${esc(abbrev)}', ${p.id}, this.checked)">
-        <span draggable="true" data-id="${p.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)">${esc(p.name)}</span>
+        <span draggable="true" data-id="${p.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)">${esc(lastComma(p.name))}</span>
       </label>`;
     }).join('');
-    const starterChecks = pitchers.map((p) => {
-      const on = st.sp === p.id;
-      return `<label class="sc-roster-row">
-        <input type="radio" name="sp-${esc(abbrev)}" ${on ? 'checked' : ''} onchange="CardApp.setSp('${esc(abbrev)}', ${p.id})">
-        <span>${esc(p.name)}</span>
-      </label>`;
-    }).join('');
+    const starterSelect = `<select class="sc-sp-select" onchange="CardApp.setSp('${esc(abbrev)}', this.value)">
+      <option value="">${tr('Select starter', 'Elegir abridor')}</option>
+      ${pitchers.map((p) => `<option value="${p.id}"${st.sp === p.id ? ' selected' : ''}>${esc(lastComma(p.name))}</option>`).join('')}
+    </select>`;
     const spots = slots.map((row, i) => {
       const taken = new Set(slots.filter((other) => other && (!row || other.id !== row.id)).map((other) => other.pos));
       const player = row ? byId.get(row.id) : null;
       const body = player
-        ? `<span class="sc-edit-name" draggable="true" data-id="${row.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)">${esc(player.name)}</span>
+        ? `<span class="sc-edit-name" draggable="true" data-id="${row.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)">${esc(lastComma(player.name))}</span>
            <select class="sc-pos-select" onmousedown="event.stopPropagation()" onchange="CardApp.setPos('${esc(abbrev)}', 'lineup', ${row.id}, this.value)">${posOptions(row.pos, taken)}</select>`
         : `<span class="sc-empty">${tr('Drop hitter', 'Suelta un bateador')}</span>`;
       return `<li class="sc-spot${player ? ' sc-filled' : ''}" data-slot="${i}" data-team="${esc(abbrev)}" ondragover="CardApp.dragOver(event)" ondrop="CardApp.dropOnSpot(event)">
@@ -527,14 +540,14 @@
       const on = benchIds.has(p.id);
       return `<label class="sc-roster-row">
         <input type="checkbox" ${on ? 'checked' : ''} onchange="CardApp.toggleBench('${esc(abbrev)}', ${p.id}, this.checked)">
-        <span>${esc(p.name)}</span>
+        <span>${esc(lastComma(p.name))}</span>
       </label>`;
     }).join('') || `<div class="sc-empty">${tr('Every hitter is in the lineup.', 'Todos los bateadores están en la alineación.')}</div>`;
     const penChecks = pitchers.filter((p) => p.id !== st.sp).map((p) => {
       const on = st.pen.includes(p.id);
       return `<label class="sc-roster-row">
         <input type="checkbox" ${on ? 'checked' : ''} onchange="CardApp.togglePen('${esc(abbrev)}', ${p.id}, this.checked)">
-        <span>${esc(p.name)}</span>
+        <span>${esc(lastComma(p.name))}</span>
       </label>`;
     }).join('') || `<div class="sc-empty">${tr('No other pitchers.', 'No hay más pitchers.')}</div>`;
     return `<div class="sc-editor">
@@ -544,7 +557,7 @@
       <div class="sc-editor-label">${tr('Order — drag a name onto a spot, then pick a position', 'Orden — arrastra un nombre a un turno y elige posición')}</div>
       <ol class="sc-spots">${spots}</ol>
       <div class="sc-editor-label">${tr('Starter — one pitcher. Prints under the DH. Does not hit.', 'Abridor — un pitcher. Va debajo del DH. No batea.')}</div>
-      <div class="sc-roster-list">${starterChecks}</div>
+      <div class="sc-sp-wrap">${starterSelect}</div>
       <div class="sc-editor-label">${tr('Bench — hitters left off the lineup', 'Banca — bateadores fuera de la alineación')}</div>
       <div class="sc-roster-list">${benchChecks}</div>
       <div class="sc-editor-label">${tr('Bullpen — pitchers other than the starter', 'Bullpen — pitchers que no abren')}</div>
@@ -1055,7 +1068,9 @@
     setSp(team, id) {
       withStrategy((s) => {
         const st = ensureTeam(s, team);
-        const player = byId.get(Number(id));
+        const pid = Number(id);
+        if (!pid) { st.sp = null; return; }
+        const player = byId.get(pid);
         if (!player || player.role !== 'P' || player.team !== team) return;
         st.sp = player.id;
         st.pen = st.pen.filter((x) => x !== st.sp);
