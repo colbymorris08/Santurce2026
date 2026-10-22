@@ -45,11 +45,13 @@ REGULAR_RANGES = (
     ("2026", "2026-03-28", "2026-10-01"),
     ("2025", "2025-03-27", "2025-10-05"),
     ("2024", "2024-03-28", "2024-10-05"),
+    ("2023", "2023-03-30", "2023-10-01"),
 )
 SPRING_RANGES = (
     ("2026", "2026-02-15", "2026-03-27"),
     ("2025", "2025-02-15", "2025-03-26"),
     ("2024", "2024-02-15", "2024-03-27"),
+    ("2023", "2023-02-24", "2023-03-28"),
 )
 HITTER_NAME_ALIASES: dict[str, list[str]] = {
     "josemiranda": ["Jose F Miranda"],
@@ -109,10 +111,12 @@ def get_json(url: str) -> dict:
     raise RuntimeError(f"{type(last).__name__}: {last}")
 
 
-def roster_players() -> tuple[list[dict], list[dict]]:
+def roster_players(*, include_santurce: bool = False) -> tuple[list[dict], list[dict]]:
+    """LBPRC roster pitchers/hitters. Santurce omitted by default (home club);
+    pass include_santurce=True to fill SAN movement / cards too."""
     pitchers, hitters = [], []
     for team in load("lbprc_2025_rosters.json").values():
-        if team.get("teamAbbrev") == "SAN":
+        if team.get("teamAbbrev") == "SAN" and not include_santurce:
             continue
         for player in team.get("players") or []:
             row = {
@@ -809,7 +813,7 @@ def local_pitching_index() -> tuple[dict[int, dict], dict[str, list[dict]]]:
 
 
 def pack_ps(pid: int) -> tuple[list[dict], int | None]:
-    for season in (2026, 2025, 2024):
+    for season in (2026, 2025, 2024, 2023, 2022):
         try:
             rows = bpa.http_json(f"{bpa.PS_BASE}/stuff/{pid}/{season}", timeout=20)
         except Exception as exc:  # noqa: BLE001

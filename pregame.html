@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san127">
+<link rel="stylesheet" href="shared.css?v=san147">
 </head>
 <body>
 <div class="topbar">
@@ -118,6 +118,8 @@
         <strong>Mass PDF export</strong>
         <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
+        <button type="button" class="btn" onclick="exportAdvanceZip()">Export selected → ZIP</button>
+        <button type="button" class="btn" onclick="exportArmSlotZip()">Arm slots → ZIP</button>
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
@@ -128,7 +130,7 @@
 
   <div id="panel-hitter-advance" class="panel">
     <div class="section-label" data-i18n="hitterAdvanceLabel">Hitter advance — Synergy</div>
-    <div class="note" data-i18n="hitterAdvanceNote">Santurce and LBPRC opposing teams. Two columns, vs R and vs L, each stacked non-RISP, RISP, non-2K, 2K, then SLG and Whiff heat maps. Colored vs league avg. Portrait PDF: one page per hitter.</div>
+    <div class="note" data-i18n="hitterAdvanceNote">Santurce and LBPRC opposing teams. Two columns, vs R and vs L. Each column is Overall, RISP, and 2K, then SLG and Whiff heat maps. Colored vs league avg. Portrait PDF: one page per hitter.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="adv-team" onchange="fillAdvanceHitters()">
@@ -159,6 +161,7 @@
         <strong>Mass PDF export</strong>
         <label class="advance-check"><input type="checkbox" id="adv-h-select-all" onchange="toggleHitterExportAll(this.checked)"> Select all (filtered)</label>
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
+        <button type="button" class="btn" onclick="exportHitterAdvanceZip()">Export selected → ZIP</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
       <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · two columns (vs R | vs L), each stacked non-RISP, RISP, non-2K, 2K · SLG and Whiff heat · sprays · bunts.</div>
@@ -377,11 +380,11 @@
   </div>
 </main>
 <script src="i18n.js?v=san118"></script>
-<script src="cards.js?v=san118"></script>
+<script src="cards.js?v=san135"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san129';
+const ASSET_V = 'san147';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1581,11 +1584,16 @@ function syncHeatGeomSelects(){
   const v = getHeatGeometryMode();
   document.querySelectorAll('[data-heat-geom-select]').forEach(el=>{ el.value = v; });
 }
-function pitchAbbrev(raw){
+function displayPitchCode(raw){
   const code = normalizePitchCode(raw);
-  if(code==='FS') return 'splitter';
-  if(code==='ST') return 'sweeper';
-  return (code && code!=='UN') ? code : String(raw||'—');
+  if(code==='FC') return 'CT';
+  if(code==='ST') return 'SW';
+  return (code && code!=='UN') ? code : '';
+}
+function pitchAbbrev(raw){
+  const shown = displayPitchCode(raw);
+  if(shown) return shown;
+  return String(raw||'—');
 }
 function pitchAbbrevHtml(raw){
   const lab = pitchAbbrev(raw);
@@ -1821,9 +1829,8 @@ function hitterPitchSideHtml(h, hand){
   const H = hand.toLowerCase();
   return `<div class="hitter-pitch-side">
   <div class="section-label hitter-pitch-side-title">vs ${hand}</div>
-  ${pitchTypeTableHtml(h['non_risp_vs_'+H+'_by_pitch_type'], 'non-RISP', {split:'non_risp_vs_'+H, mode:'situ'})}
+  ${pitchTypeTableHtml(h['vs_'+H+'_by_pitch_type'], 'Overall', {split:'vs_'+H, mode:'situ'})}
   ${pitchTypeTableHtml(h['risp_vs_'+H+'_by_pitch_type'], 'RISP', {split:'risp_vs_'+H, mode:'situ'})}
-  ${pitchTypeTableHtml(h['pre2k_vs_'+H+'_by_pitch_type'], 'non-2K', {split:'pre2k_vs_'+H, mode:'count'})}
   ${pitchTypeTableHtml(h['twok_vs_'+H+'_by_pitch_type'], '2K', {split:'twok_vs_'+H, mode:'count'})}
   ${hitterHeatPairHtml(h, hand)}
 </div>`;
@@ -1885,7 +1892,7 @@ function advanceMovementSvg(arsenal, throws='R', hbView='pitcher'){
     const r=Math.max(6, Math.min(12, 5 + p.usage*0.11));
     const x=sx(p.hb), y=sy(p.ivb);
     s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${p.color}" stroke="#fff" stroke-width="1.4"/>`;
-    s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${p.code}</text>`;
+    s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${displayPitchCode(p.code)||p.code}</text>`;
   });
   s+=`<text x="${W/2}" y="${H-5}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  ${viewLab} · + = 1B</text>`;
   s+=`<text x="10" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 10 ${H/2})">Induced Vertical Break (in)</text>`;
@@ -1982,31 +1989,171 @@ function buildCountHandMixFromFullPacket(full){
     '2_strikes':{vs_LHB:countPairSide('vs_LHB','2_strikes'), vs_RHB:countPairSide('vs_RHB','2_strikes')},
   };
 }
-function pitcherCountUsageChartsHtml(p, {compact=false}={}){
-  const mix=p.count_hand_mix||{};
-  const vs=p.usage_vs_hand||{};
-  const nL=vs.vs_LHH?.n, nR=vs.vs_RHH?.n;
-  const blocks=[
-    ['Overall usage', 'overall'],
-    ['0–0 count', '0-0'],
-    ['2K count', '2_strikes'],
-  ];
-  return blocks.map(([title, key])=>{
-    const slice=mix[key]||{};
-    return `<div class="advance-count-usage-block${compact?' advance-count-usage-block-compact':''}">
-      <div class="advance-count-usage-title">${title}</div>
-      <div class="advance-usage-split advance-count-usage-pair">
-        <div class="advance-usage-side">
-          <h4>vs LHH${nL!=null?` · n=${nL}`:''}</h4>
-          ${advanceUsageBarsFromMixRows(slice.vs_LHB, {compact})}
-        </div>
-        <div class="advance-usage-side">
-          <h4>vs RHH${nR!=null?` · n=${nR}`:''}</h4>
-          ${advanceUsageBarsFromMixRows(slice.vs_RHB, {compact})}
-        </div>
-      </div>
-    </div>`;
+const USAGE_FASTBALLS = new Set(['FF','FA','SI','FT','FC']);
+function usageMenu(p){
+  return (p.arsenal||[]).filter(a=>{
+    if(!isChartPitch(a.code)) return false;
+    return (Number(a.usage)||0) >= 4 || (Number(a.pitches)||0) >= 12;
+  });
+}
+function usageVeloTag(a){
+  const p25 = Number(a && a.velo_p25);
+  const p75 = Number(a && a.velo_p75);
+  const p90 = Number(a && a.velo_p90);
+  if(isFinite(p25) && isFinite(p75) && isFinite(p90)){
+    const lo = Math.round(p25);
+    const hi = Math.round(p75);
+    const top = Math.round(p90);
+    const band = lo === hi ? String(lo) : `${lo}-${hi}`;
+    return ` (${band} T${top})`;
+  }
+  const v = Number(a && a.velo);
+  if(!isFinite(v)) return '';
+  return ` (${Math.round(v)})`;
+}
+/** Drop a Synergy pitch the arsenal does not throw. A generic FF is split across the arsenal fastballs. */
+function alignRowsToArsenal(rows, menu){
+  const types = new Set(menu.map(a=>normalizePitchCode(a.code)).filter(Boolean));
+  const fast = menu.filter(a=>USAGE_FASTBALLS.has(normalizePitchCode(a.code)));
+  const fastW = fast.reduce((s,a)=>s+(Number(a.pitches)||Number(a.usage)||0), 0) || fast.length || 1;
+  const bag = new Map();
+  const add = (code, pitches)=>{
+    if(!code || !types.has(code)) return;
+    const cur = bag.get(code) || {type:code, pitches:0};
+    cur.pitches += Number(pitches)||0;
+    bag.set(code, cur);
+  };
+  (rows||[]).forEach(r=>{
+    const code = normalizePitchCode(r.type || r.code);
+    if(!code || !isChartPitch(code)) return;
+    const pitches = Number(r.pitches)||0;
+    const usage = r.usage!=null ? Number(r.usage) : 0;
+    const weight = pitches > 0 ? pitches : usage;
+    if(!weight) return;
+    if(types.has(code)){ add(code, weight); return; }
+    if(USAGE_FASTBALLS.has(code) && fast.length){
+      fast.forEach(a=>{
+        const share = (Number(a.pitches)||Number(a.usage)||1) / fastW;
+        add(normalizePitchCode(a.code), weight * share);
+      });
+    }
+  });
+  const total = [...bag.values()].reduce((s,r)=>s+r.pitches, 0);
+  if(!total) return [];
+  return [...bag.values()].map(r=>({
+    type: r.type,
+    pitches: r.pitches,
+    usage: Math.round(1000 * r.pitches / total) / 10,
+  })).filter(r=>r.usage >= 1).sort((a,b)=>b.usage-a.usage);
+}
+function arsenalUsageRows(menu){
+  const total = menu.reduce((s,a)=>s+(Number(a.pitches)||0), 0);
+  return menu.map(a=>{
+    const code = normalizePitchCode(a.code);
+    const pitches = Number(a.pitches)||0;
+    const usage = total > 0 ? Math.round(1000 * pitches / total) / 10 : Number(a.usage);
+    return {type:code, pitches, usage};
+  }).filter(r=>r.type && (Number(r.usage)||0) >= 1).sort((a,b)=>(b.usage||0)-(a.usage||0));
+}
+function handSampleTrusted(n, arsenalPitches){
+  const sample = Number(n)||0;
+  const big = Number(arsenalPitches)||0;
+  // A hand chart has to be a real sample. Under 80 pitches, or under half of a
+  // 200-pitch arsenal, keep the larger mix instead of a short tagged slice.
+  if(sample < 80) return false;
+  if(big >= 200 && sample < big * 0.5) return false;
+  return true;
+}
+function usageTone(pct){
+  if(pct==null || !isFinite(Number(pct))) return '';
+  if(Number(pct) >= 45) return 'usage-hi';
+  if(Number(pct) <= 15) return 'usage-lo';
+  return '';
+}
+function usagePitchLabel(code, menu){
+  const row = menu.find(a=>normalizePitchCode(a.code)===code);
+  return `${displayPitchCode(code)||code}${usageVeloTag(row)}`;
+}
+function usageSectionRows(title, rows, menu){
+  if(!rows || !rows.length) return '';
+  const body = rows.map(r=>{
+    const tone = usageTone(r.usage);
+    const iz = r.iz!=null ? `${Math.round(Number(r.iz))}%` : '—';
+    return `<tr>
+      <td class="usage-pitch">${usagePitchLabel(r.type, menu)}</td>
+      <td class="num ${tone}">${r.usage!=null?Math.round(Number(r.usage))+'%':'—'}</td>
+      <td class="num">${iz}</td>
+    </tr>`;
   }).join('');
+  return `<tr class="usage-section"><td colspan="3">${title}</td></tr>${body}`;
+}
+function pitcherHandUsageTable(p, handKey, title){
+  const menu = usageMenu(p);
+  if(!menu.length) return `<div class="usage-hand"><div class="usage-hand-title">${title}</div><div class="note">No arsenal sample.</div></div>`;
+  const arsenalN = menu.reduce((s,a)=>s+(Number(a.pitches)||0), 0);
+  const mix = p.count_hand_mix || {};
+  const sideKey = handKey==='L' ? 'vs_LHB' : 'vs_RHB';
+  const n = handKey==='L' ? p.usage_vs_hand?.vs_LHH?.n : p.usage_vs_hand?.vs_RHH?.n;
+  const trusted = handSampleTrusted(n, arsenalN);
+  const overallRaw = trusted ? ((mix.overall||{})[sideKey] || []) : [];
+  let overall = alignRowsToArsenal(overallRaw, menu);
+  let sampleN = trusted ? n : arsenalN;
+  let sampleNote = trusted ? '' : 'full mix';
+  if(!overall.length || (!trusted && menu.length >= 2)){
+    overall = arsenalUsageRows(menu);
+    sampleN = arsenalN || sampleN;
+    sampleNote = trusted ? '' : 'full mix';
+  }
+  const handRows = (key)=>{
+    const block = (p.count_hand_mix || {})[key] || {};
+    const rows = block[sideKey];
+    if(!Array.isArray(rows) || !rows.length) return null;
+    return alignRowsToArsenal(rows, menu);
+  };
+  const handN = (key)=>{
+    const rows = ((p.count_hand_mix || {})[key] || {})[sideKey];
+    if(!Array.isArray(rows)) return 0;
+    return rows.reduce((s,r)=>s+(Number(r.pitches)||0), 0);
+  };
+  const handOverall = handN('overall') >= 80 ? handRows('overall') : null;
+  if(handOverall && handOverall.length){
+    overall = handOverall;
+    sampleN = Math.round((overall||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0));
+    sampleNote = '';
+  }
+  const sections = [
+    ['OVERALL', overall],
+    ['0-0', handRows('0-0') || (trusted ? alignRowsToArsenal((mix['0-0']||{})[sideKey], menu) : [])],
+    ['HITTER AHEAD', handRows('hitter_ahead') || []],
+    ['2K', handRows('2_strikes') || (trusted ? alignRowsToArsenal((mix['2_strikes']||{})[sideKey], menu) : [])],
+    ['3-2', handRows('3-2') || []],
+    ['RISP', handRows('risp') || []],
+  ];
+  const countOk = (rows)=>{
+    const nP = (rows||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0);
+    return nP >= 1;
+  };
+  const body = sections.map(([label, rows], i)=>{
+    if(i>0 && !countOk(rows)) return '';
+    const nP = Math.round((rows||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0));
+    const title = nP ? `${label} · ${nP}` : label;
+    return usageSectionRows(title, rows, menu);
+  }).join('');
+  const nBit = sampleN ? ` · ${sampleN}${sampleNote?` ${sampleNote}`:''}` : '';
+  return `<div class="usage-hand">
+    <div class="usage-hand-title">${title}${nBit}</div>
+    <table class="usage-matrix">
+      <thead><tr><th></th><th>USAGE</th><th>IN ZONE</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+  </div>`;
+}
+function pitcherCountUsageChartsHtml(p){
+  return `<div class="usage-hands">
+    ${pitcherHandUsageTable(p, 'L', 'v. LHH')}
+    ${pitcherHandUsageTable(p, 'R', 'v. RHH')}
+  </div>
+  <div class="note usage-zone-note">In-zone % stays blank until that pitch has a zone sample. Hitter ahead is 2-0, 3-1, and 3-0 only. A hand under 80 pitches uses the larger arsenal mix for Overall so a short tagged sample does not replace it.</div>`;
 }
 function advancePitcherIndex(){
   const byId = new Map();
@@ -2482,7 +2629,9 @@ function scaffoldPitcherPacket(row){
     // Hand-split miss is the same swinging-strike/whiff rate — do not duplicate
     // overall Whiff into Miss columns (shown only on arsenal table).
     return {
-      code, name: a.name || code, usage, velo: a.velo, ivb: a.ivb, hb, spin: a.spin, whiff,
+      code, name: a.name || code, usage, velo: a.velo, max_velo: a.max_velo,
+      velo_p25: a.velo_p25, velo_p75: a.velo_p75, velo_p90: a.velo_p90, pitches: a.pitches,
+      pitches_l: a.pitches_l, pitches_r: a.pitches_r, ivb: a.ivb, hb, spin: a.spin, whiff,
       miss_l: null, miss_r: null, k_l: a.k_l ?? null, k_r: a.k_r ?? null,
       strike: null, iz: null, gb: null,
       usage_l, usage_r, ps_stuff: a.ps_stuff,
@@ -2545,7 +2694,7 @@ function resolvePitcherPacket(playerId){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
       team: full.team || (row && row.team) || '',
-      count_hand_mix: buildCountHandMixFromFullPacket(full) || buildCountHandMixFromRow(row),
+      count_hand_mix: (row && row.count_hand_mix) || buildCountHandMixFromFullPacket(full) || buildCountHandMixFromRow(row),
       // Curated Trackman HB matches catcher/hitter-facing (+ = 1B).
       _hbView: 'hitter',
     });
@@ -2784,11 +2933,11 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     const hbPitcher = toPitcherArmHb(a.hb, p.throws||'R', a._hbView || hbView);
     const hbShow = hitterGeoHb(hbPitcher, p.throws||'R');
     return `<tr>
-      <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${a.code}</td>
+      <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${displayPitchCode(a.code)||a.code}</td>
       <td class="num">${a.usage!=null?a.usage+'%':'—'}</td>
       <td class="num">${a.usage_l!=null?a.usage_l+'%':'—'}</td>
       <td class="num">${a.usage_r!=null?a.usage_r+'%':'—'}</td>
-      <td class="num">${a.velo??'—'}</td>
+      <td class="num velo-band">${usageVeloTag(a).trim()||'—'}</td>
       <td class="num">${fmtSigned(a.ivb)}</td>
       <td class="num">${fmtSigned(hbShow)}</td>
       <td class="num">${a.spin??'—'}</td>
@@ -2870,10 +3019,6 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
         </tr></thead><tbody>${arRows||'<tr><td colspan="9">No arsenal rows</td></tr>'}</tbody></table></div>
         ${hasHand?'':'<div class="note" style="margin-top:6px">vs L / vs R blank until Synergy Left/Right (or Statcast) hand splits exist.</div>'}
       </div>
-      <div class="advance-card">
-        <div class="section-label">Pitch descriptions</div>
-        <div class="advance-desc">${arsenal.map(a=>`<div><strong style="color:${advancePitchColor(a.code)}">${a.code}</strong> — ${a.desc||''}</div>`).join('')||'—'}</div>
-      </div>
     </div>
     <div class="advance-col">
       <div class="advance-card">
@@ -2915,7 +3060,48 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
   const margin = pageMargin || (orientation === 'portrait'
     ? '1.15in 0.28in 0.28in 0.28in'
     : '0.78in 0.28in 0.28in 0.28in');
-  const pitcherH = orientation === 'portrait' ? '' : `
+  const pitcherH = orientation === 'portrait' ? `
+      html,body{min-height:0!important;height:auto!important}
+      .advance-sheet-pitcher.advance-print-page{
+        width:7.86in;max-width:7.86in;height:auto;max-height:10.15in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:1;
+      }
+      .advance-sheet-pitcher .advance-pdf-strip{display:flex;align-items:center;gap:6px 8px;border-bottom:1px solid #ccc;margin-bottom:3px;padding-bottom:2px}
+      .advance-sheet-pitcher .advance-pdf-hand,.advance-sheet-pitcher .advance-pdf-name{font-size:22px;font-weight:700;color:#000;line-height:1}
+      .advance-sheet-pitcher .advance-pdf-team{font-size:18px;font-weight:600;color:#000}
+      .advance-sheet-pitcher .advance-pdf-headshot{width:36px;height:46px;object-fit:cover;object-position:center 12%;border-radius:4px}
+      .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}
+      .advance-sheet-pitcher .pitcher-summer-bar{margin:0 0 4px}
+      .advance-sheet-pitcher .pitcher-summer-bar table{font-size:8px}
+      .advance-sheet-pitcher .advance-layout-pitcher-print,
+      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
+        display:grid!important;grid-template-columns:1.25fr .75fr!important;grid-template-rows:auto auto auto!important;
+        gap:4px!important;flex:1 1 auto;min-height:0;width:100%;
+      }
+      .advance-sheet-pitcher .advance-col-charts,.advance-sheet-pitcher .advance-col-middle{display:contents!important}
+      .advance-sheet-pitcher .advance-card-count-usage{grid-column:1 / -1;grid-row:1;padding:1px 3px;overflow:visible}
+      .advance-sheet-pitcher .advance-card-arsenal{grid-column:1;grid-row:2;align-self:start;overflow:visible}
+      .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:2;min-height:0;max-height:2.05in}
+      .advance-sheet-pitcher .advance-band-heat-mid{grid-column:1;grid-row:3;width:auto;max-width:100%;justify-self:start}
+      .advance-sheet-pitcher .advance-col-release{grid-column:2;grid-row:3;max-height:2.15in}
+      .advance-sheet-pitcher .usage-hands{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+      .advance-sheet-pitcher .usage-hand-title{font-size:10px;font-weight:800;text-align:center;margin:0}
+      .advance-sheet-pitcher .usage-matrix{font-size:8px}
+      .advance-sheet-pitcher .usage-matrix th,.advance-sheet-pitcher .usage-matrix td{padding:0 2px;line-height:1.05}
+      .advance-sheet-pitcher .usage-pitch{text-align:left;white-space:nowrap}
+      .advance-sheet-pitcher .usage-section td{font-size:8px;font-weight:800;letter-spacing:.06em;text-align:center;padding:0;border-top:1.5px solid #111}
+      .advance-sheet-pitcher .usage-hi,.advance-sheet-pitcher .usage-lo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-pitcher .usage-zone-note{display:none}
+      .advance-sheet-pitcher .advance-arsenal-table{font-size:9px}
+      .advance-sheet-pitcher .advance-arsenal-table th,.advance-sheet-pitcher .advance-arsenal-table td{padding:1px 3px}
+      .advance-sheet-pitcher .velo-band{white-space:nowrap;font-weight:700}
+      .advance-sheet-pitcher .advance-movement-wrap{max-height:1.85in}
+      .advance-sheet-pitcher .advance-movement-wrap svg{width:100%;height:1.85in}
+      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+      .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.55in;height:auto;max-height:1.8in}
+      .advance-sheet-pitcher .advance-photo-wrap{max-height:2.0in;display:flex;align-items:center;justify-content:center}
+      .advance-sheet-pitcher .advance-media-img{max-height:2.0in;width:100%;object-fit:contain}
+      ` : `
       html,body{min-height:0!important;height:auto!important}
       .advance-sheet-pitcher.advance-print-page{
         width:10.44in;height:6.0in;max-width:10.44in;max-height:6.0in;overflow:hidden;
@@ -2926,6 +3112,13 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-usage-side h4{color:#000!important}
       .advance-sheet-pitcher .advance-arsenal-table thead th,
       .advance-sheet-pitcher .advance-card table thead th{color:#fff!important}
+      .advance-sheet-pitcher .usage-hands{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+      .advance-sheet-pitcher .usage-hand-title{font-size:9px;margin:0}
+      .advance-sheet-pitcher .usage-matrix{font-size:7px}
+      .advance-sheet-pitcher .usage-matrix th,.advance-sheet-pitcher .usage-matrix td{padding:0 2px}
+      .advance-sheet-pitcher .usage-section td{font-size:9px;letter-spacing:.08em;padding:2px 0;border-top:1.5px solid #111}
+      .advance-sheet-pitcher .usage-hi,.advance-sheet-pitcher .usage-lo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-pitcher .usage-zone-note{display:none}
       .advance-sheet-pitcher .advance-count-usage-grid{display:flex;flex-direction:column;gap:2px;min-height:0}
       .advance-sheet-pitcher .advance-count-usage-block-compact .advance-count-usage-title{font-size:7px;font-weight:700;color:#0a1633;margin:0 0 1px;letter-spacing:.04em;text-transform:uppercase}
       .advance-sheet-pitcher .advance-count-usage-pair{gap:4px}
@@ -2984,7 +3177,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .hitter-pitch-grid{grid-template-columns:1fr 1fr!important;width:100%;gap:2px 6px;flex:0 0 auto;margin:1px 0 2px}
       .advance-sheet-hitter .hitter-pitch-side{display:flex;flex-direction:column;gap:1px;min-width:0}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:11px;margin:0;letter-spacing:.04em}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:9px;margin:0;letter-spacing:.04em}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px;margin:2px 0 0;letter-spacing:.1em;text-align:center;font-weight:800;border-top:2px solid #111}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap,
       .advance-sheet-hitter .hitter-pitch-half table{width:100%;background:#fff;border-color:#ccc;box-shadow:none;color:#111}
       .advance-sheet-hitter .hitter-pitch-half table{font-size:8px;line-height:1;table-layout:fixed}
@@ -3017,7 +3210,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-hitter .table-wrap table{font-size:9.5px;line-height:1.05}
       .advance-sheet-hitter .table-wrap th,.advance-sheet-hitter .table-wrap td{padding:0 4px;line-height:1.05}
       .advance-sheet-hitter .hitter-pitch-side-title{font-size:11px}
-      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:9px}
+      .advance-sheet-hitter .hitter-pitch-half .section-label{font-size:11px;text-align:center;font-weight:800;letter-spacing:.1em;border-top:2px solid #111}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap table{font-size:8px;line-height:1;table-layout:fixed}
       .advance-sheet-hitter .hitter-pitch-half .table-wrap th,.advance-sheet-hitter .hitter-pitch-half .table-wrap td{padding:0 2px;line-height:1;letter-spacing:0;text-transform:none}
       .advance-sheet-hitter .hitter-spray-pair canvas,
@@ -3070,7 +3263,112 @@ function exportAdvancePdf(){
   const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
   if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
   const body = sheets.map(p=>buildPitcherAdvanceSheetHtml(p,{printPage:true})).join('\n');
-  openAdvancePrintWindow('Pitcher Advance Export', body);
+  openAdvancePrintWindow('Pitcher Advance Export', body, {orientation:'portrait', pageMargin:'0.32in'});
+}
+function crc32Bytes(bytes){
+  let c = ~0;
+  for(let i=0;i<bytes.length;i++){
+    c ^= bytes[i];
+    for(let k=0;k<8;k++) c = (c >>> 1) ^ (0xEDB88320 & -(c & 1));
+  }
+  return ~c >>> 0;
+}
+function zipStore(files){
+  const enc = new TextEncoder();
+  const parts = [];
+  const central = [];
+  let offset = 0;
+  files.forEach(f=>{
+    const name = enc.encode(f.name);
+    const data = f.data;
+    const crc = crc32Bytes(data);
+    const local = new Uint8Array(30 + name.length);
+    const view = new DataView(local.buffer);
+    view.setUint32(0, 0x04034b50, true);
+    view.setUint16(4, 20, true);
+    view.setUint32(14, crc, true);
+    view.setUint32(18, data.length, true);
+    view.setUint32(22, data.length, true);
+    view.setUint16(26, name.length, true);
+    local.set(name, 30);
+    parts.push(local, data);
+    const cen = new Uint8Array(46 + name.length);
+    const cv = new DataView(cen.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, name.length, true);
+    cv.setUint32(42, offset, true);
+    cen.set(name, 46);
+    central.push(cen);
+    offset += local.length + data.length;
+  });
+  const cenStart = offset;
+  let cenSize = 0;
+  central.forEach(c=>{ parts.push(c); cenSize += c.length; });
+  const end = new Uint8Array(22);
+  const ev = new DataView(end.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, files.length, true);
+  ev.setUint16(10, files.length, true);
+  ev.setUint32(12, cenSize, true);
+  ev.setUint32(16, cenStart, true);
+  parts.push(end);
+  return new Blob(parts, {type:'application/zip'});
+}
+function downloadBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+function playerFileStem(name){
+  const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+  if(!parts.length) return 'player';
+  const last = parts[parts.length-1];
+  const first = parts.slice(0, -1).join('_') || 'player';
+  return `${last}_${first}`.replace(/[^\w.-]+/g, '_');
+}
+function sheetHtmlFile(title, body){
+  const base = location.href.replace(/[^/]*$/, '');
+  const css = new URL('shared.css?v=san147', base).href;
+  const page = body.includes('advance-sheet-pitcher') || body.includes('advance-sheet-hitter')
+    ? '<style>@page{size:letter portrait;margin:0.32in}</style>'
+    : '';
+  const html = `<!doctype html><html><head><meta charset="utf-8"><base href="${base}"><title>${title}</title><link rel="stylesheet" href="${css}">${page}</head><body>${body}</body></html>`;
+  return new TextEncoder().encode(html);
+}
+function exportAdvanceZip(){
+  const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
+  const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
+  const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
+  if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
+  const files = sheets.map(p=>({
+    name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.html`,
+    data: sheetHtmlFile(p.name, buildPitcherAdvanceSheetHtml(p, {printPage:true})),
+  }));
+  downloadBlob(zipStore(files), 'pitcher_advance_sheets.zip');
+}
+async function exportArmSlotZip(){
+  const rows = arsenalPitchers().filter(p=>p && p.team && p.team!=='SAN' && p.arm_slot_image);
+  if(!rows.length){ alert('No opposing arm-slot photos are on the site.'); return; }
+  const files = [];
+  for(const p of sortByLastName(rows, r=>r.name)){
+    try{
+      const res = await fetch(p.arm_slot_image);
+      if(!res.ok) continue;
+      files.push({
+        name: `${p.team}/${playerFileStem(p.name)}.jpg`,
+        data: new Uint8Array(await res.arrayBuffer()),
+      });
+    }catch(e){}
+  }
+  if(!files.length){ alert('Could not read the arm-slot photos.'); return; }
+  downloadBlob(zipStore(files), 'arm_slots_by_team.zip');
 }
 
 function rateOrNull(num, den){
@@ -3208,24 +3506,90 @@ function aggregateHitters(hitters, label){
     non_risp_vs_r_by_pitch_type, non_risp_vs_l_by_pitch_type, pre2k_vs_r_by_pitch_type, pre2k_vs_l_by_pitch_type, twok_vs_r_by_pitch_type, twok_vs_l_by_pitch_type,
   };
 }
+function normPersonName(s){
+  return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z ]/g,' ').replace(/\s+/g,' ').trim();
+}
+function positivePersonId(v){
+  const n = Number(v);
+  return n>0 ? n : 0;
+}
+function cleanHeadshotSrc(src){
+  const s = String(src||'');
+  if(!s || /\/people\/-\d+\//.test(s)) return '';
+  return s;
+}
+function hitterListId(h){
+  if(!h) return '';
+  if(h.synergy_id) return String(h.synergy_id);
+  const mlb = positivePersonId(h.mlb_id);
+  if(mlb) return 'mlb:'+mlb;
+  if(h._roster_id!=null) return 'roster:'+h._roster_id;
+  return 'name:'+(h.team||'')+'|'+normPersonName(h.name);
+}
+/** One row per person. Same name on a team, same Synergy id, or same MLB id collapses. */
+function dedupeHitterRows(rows){
+  const out=[];
+  const byName=new Map();
+  const bySid=new Map();
+  const byMlb=new Map();
+  const better=(a,b)=>{
+    const pa=(a.overall&&a.overall.pitches)||0;
+    const pb=(b.overall&&b.overall.pitches)||0;
+    if(pb!==pa) return pb>pa ? b : a;
+    const ab=positivePersonId(a.mlb_id)?1:0;
+    const bb=positivePersonId(b.mlb_id)?1:0;
+    return bb>ab ? b : a;
+  };
+  (rows||[]).forEach(h=>{
+    if(!h || !h.name) return;
+    const nameKey=`${h.team||''}|${normPersonName(h.name)}`;
+    const sid=h.synergy_id ? String(h.synergy_id) : '';
+    const mlb=positivePersonId(h.mlb_id);
+    const prev = byName.get(nameKey) || (sid && bySid.get(sid)) || (mlb && byMlb.get(mlb)) || null;
+    const keep = prev ? better(prev, h) : h;
+    if(prev && prev!==keep){
+      const i=out.indexOf(prev);
+      if(i>=0) out[i]=keep;
+    } else if(!prev) out.push(keep);
+    byName.set(`${keep.team||''}|${normPersonName(keep.name)}`, keep);
+    if(keep.synergy_id) bySid.set(String(keep.synergy_id), keep);
+    const km=positivePersonId(keep.mlb_id);
+    if(km) byMlb.set(km, keep);
+  });
+  return out;
+}
 /** Full hitter roster: Synergy advance file + card-roster hitters not yet in that pull. */
 function advanceHitterList(){
-  const hitters = [...((CACHE.advanceHitters?.hitters) || [])];
-  const seen = new Set(hitters.map(h => `${h.team || ''}|${h.name || ''}`));
-  cardRosterPlayers().filter(p => p.role === 'H').forEach(p => {
-    const key = `${p.team || ''}|${p.name || ''}`;
-    if (seen.has(key)) return;
+  const hitters = ((CACHE.advanceHitters?.hitters) || []).map(h=>({...h}));
+  const cards = cardRosterPlayers().filter(p => p.role === 'H');
+  const cardByName=new Map(cards.map(p=>[`${p.team||''}|${normPersonName(p.name)}`, p]));
+  hitters.forEach(h=>{
+    const card=cardByName.get(`${h.team||''}|${normPersonName(h.name)}`);
+    if(card && !positivePersonId(h.mlb_id) && positivePersonId(card.id)) h.mlb_id=Number(card.id);
+    if(card) h._roster_id=card.id;
+    h.headshot_url=cleanHeadshotSrc(h.headshot_url);
+  });
+  const seen=new Set(dedupeHitterRows(hitters).map(h=>`${h.team||''}|${normPersonName(h.name)}`));
+  const mlbSeen=new Set(hitters.map(h=>positivePersonId(h.mlb_id)).filter(Boolean));
+  cards.forEach(p=>{
+    const key=`${p.team||''}|${normPersonName(p.name)}`;
+    const mlb=positivePersonId(p.id);
+    if(seen.has(key) || (mlb && mlbSeen.has(mlb))) return;
     hitters.push({
       synergy_id: `roster:${p.id}`,
+      _roster_id: p.id,
+      mlb_id: mlb || null,
       name: p.name,
       team: p.team || '',
       bats: p.bats || null,
       overall: {},
+      headshot_url: '',
       _from_roster: true,
     });
     seen.add(key);
+    if(mlb) mlbSeen.add(mlb);
   });
-  return hitters;
+  return dedupeHitterRows(hitters);
 }
 function fillAdvanceHitters(){
   const teamEl=document.getElementById('adv-team');
@@ -3244,7 +3608,7 @@ function fillAdvanceHitters(){
   const opts=['<option value="__all__">Select All (aggregate)</option>']
     .concat(filtered.map(h=>{
       const tag = h._from_roster ? ' · roster' : '';
-      return `<option value="${h.synergy_id}">${h.name} (${h.team})${tag}</option>`;
+      return `<option value="${hitterListId(h)}">${h.name} (${h.team})${tag}</option>`;
     }));
   sel.innerHTML=opts.join('');
   if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
@@ -3256,7 +3620,10 @@ function fillHitterExportList(list){
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
   const sorted = sortByLastName(list||[], h=>h.name);
-  el.innerHTML = sorted.map(h=>`<label class="advance-check"><input type="checkbox" value="${h.synergy_id}" ${prev.has(String(h.synergy_id))?'checked':''}> ${formatLastFirst(h.name)} · ${h.team||''}</label>`).join('')
+  el.innerHTML = sorted.map(h=>{
+    const id=hitterListId(h);
+    return `<label class="advance-check"><input type="checkbox" value="${id}" ${prev.has(id)?'checked':''}> ${formatLastFirst(h.name)} · ${h.team||''}</label>`;
+  }).join('')
     || '<span class="note">No hitters in filter.</span>';
   const all = document.getElementById('adv-h-select-all');
   if(all) all.checked = false;
@@ -3268,7 +3635,7 @@ function resolveAdvanceHitter(id){
   const data=CACHE.advanceHitters;
   if(!data) return null;
   if(id==='__all__') return data.select_all || null;
-  return advanceHitterList().find(x=>String(x.synergy_id)===String(id)) || null;
+  return advanceHitterList().find(x=>hitterListId(x)===String(id)) || null;
 }
 function hitterSbBlockHtml(h){
   const o=h.overall||{};
@@ -3502,14 +3869,15 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
   const o=h.overall||{};
   const pageClass = printPage ? 'advance-sheet-hitter advance-print-page' : '';
   const idPrefix = printPage ? `pdf-${prefix}${h.synergy_id||'all'}-` : prefix;
-  const headId = h.mlb_id || h.player_id || h.mlbam;
+  const headId = [h.mlb_id, h.player_id, h.mlbam].map(positivePersonId).find(Boolean) || '';
+  const headLocal = cleanHeadshotSrc(h.headshot_url);
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
-  const headHtml = (!h.synergy_id || h.name?.startsWith('Select All'))
+  const headHtml = (h.name?.startsWith('Select All'))
     ? blankHead
-    : (headshotImgHtml(headId, h.name, 'advance-headshot', h.headshot_url) || blankHead);
+    : (headshotImgHtml(headId, h.name, 'advance-headshot', headLocal) || blankHead);
   const statsLine = `${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'} · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}`;
   if(printPage){
-    const headPdf = headshotImgHtml(headId, h.name, 'advance-pdf-headshot', h.headshot_url);
+    const headPdf = headshotImgHtml(headId, h.name, 'advance-pdf-headshot', headLocal);
     const handLabel = advancePdfHitterHand(h.bats);
     const teamLabel = h.team || '';
     return `<div class="advance-sheet ${pageClass}" data-hitter-id="${h.synergy_id||''}">
@@ -3565,7 +3933,7 @@ function renderAdvanceHitters(){
     }
     spraySourceHitters = filtered;
   } else {
-    h = (data.hitters||[]).find(x=>x.synergy_id===id);
+    h = resolveAdvanceHitter(id);
     spraySourceHitters = h ? [h] : [];
   }
   if(!h){ el.innerHTML='<div class="note">No hitter selected.</div>'; return; }
@@ -3629,6 +3997,28 @@ function exportHitterAdvancePdf(){
       }, 280);
     }
   });
+}
+
+function exportHitterAdvanceZip(){
+  const checked = [...document.querySelectorAll('#adv-h-export-list input[type=checkbox]:checked')].map(i=>i.value);
+  let ids = checked.slice();
+  if(!ids.length){
+    const cur = document.getElementById('adv-hitter')?.value;
+    if(cur && cur!=='__all__') ids = [cur];
+  }
+  const files = [];
+  ids.forEach(id=>{
+    const h = resolveAdvanceHitter(id);
+    if(!h || !h.name || String(h.name).startsWith('Select All')) return;
+    let sprayUrls = null;
+    try { sprayUrls = bakeHitterSprayPairDataUrls([h]); } catch(e){ sprayUrls = null; }
+    files.push({
+      name: `${h.team||'TEAM'}/${playerFileStem(h.name)}.html`,
+      data: sheetHtmlFile(h.name, buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:'z-', sprayUrls})),
+    });
+  });
+  if(!files.length){ alert('Select at least one hitter to export.'); return; }
+  downloadBlob(zipStore(files), 'hitter_advance_sheets.zip');
 }
 
 

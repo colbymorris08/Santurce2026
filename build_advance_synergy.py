@@ -1632,8 +1632,8 @@ def _league_code(name: str, family: str) -> str:
     return "".join(p[0] for p in parts if p[:1].isalpha()).upper()[:4] or family
 
 
-def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
-    """Primary 2026 summer line per MLBAM id (most PA across MLB / MiLB / LMB)."""
+def fetch_2026_summer_lines(mlb_ids: list[int], season: int = 2026) -> dict[int, dict]:
+    """Primary summer line per MLBAM id (most PA across MLB / MiLB / LMB)."""
     ids = sorted({int(i) for i in mlb_ids if i})
     if not ids:
         return {}
@@ -1643,7 +1643,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
         try:
             d = _statsapi_json(
                 "https://statsapi.mlb.com/api/v1/teams"
-                f"?sportId={sport_id}&season=2026"
+                f"?sportId={sport_id}&season={season}"
             )
             fetches_ok += 1
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
@@ -1663,7 +1663,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
             url = (
                 "https://statsapi.mlb.com/api/v1/people?personIds="
                 + ",".join(str(x) for x in chunk)
-                + "&hydrate=stats(group=[hitting],type=[season],season=2026,"
+                + f"&hydrate=stats(group=[hitting],type=[season],season={season},"
                 + f"sportId={sport_id})"
             )
             try:
@@ -1678,7 +1678,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
                     continue
                 for g in p.get("stats") or []:
                     for split in g.get("splits") or []:
-                        if str(split.get("season") or "") != "2026":
+                        if str(split.get("season") or "") != str(season):
                             continue
                         if split.get("gameType") not in (None, "", "R"):
                             continue
@@ -1709,7 +1709,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
                         })
             time.sleep(0.05)
     if fetches_ok == 0:
-        raise RuntimeError("MLB Stats API returned no 2026 summer hitting payloads")
+        raise RuntimeError(f"MLB Stats API returned no {season} summer hitting payloads")
     out: dict[int, dict] = {}
     for pid, rows in by_player.items():
         rows.sort(key=lambda r: (r["pa"], r["ab"], r["g"]), reverse=True)
@@ -1720,7 +1720,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int]) -> dict[int, dict]:
         line = {
             "team": team,
             "team_name": best["team_name"] or team,
-            "season": "Summer 2026",
+            "season": f"Summer {season}",
             "league": _league_code(league_name, best["family"]),
             "circuit": best["family"],
             "league_name": league_name or None,
@@ -2501,6 +2501,64 @@ def discover_pr_roster_pitchers(
         print(f"  roster-gated pitchers matched={matched} (running total={len(found)})")
         time.sleep(0.1)
     return found
+
+
+HITTER_AHEAD_COUNTS = {(2, 0), (3, 1), (3, 0)}
+SITUATION_KEYS = ("overall", "0-0", "hitter_ahead", "2_strikes", "3-2", "risp")
+
+
+def hand_situation_mix(events: list[dict]) -> dict[str, dict]:
+    """Pitch mix by batter hand for the advance rows.
+
+    Hitter ahead is only 2-0, 3-1, and 3-0. RISP means a runner on 2nd or 3rd
+    when the pitch is thrown. 3-2 is that count by itself. 2K is any two-strike count.
+    """
+    sides = {
+        hand: {key: defaultdict(int) for key in SITUATION_KEYS}
+        for hand in ("L", "R")
+    }
+    for ev in events:
+        pitch = ev.get("pitch") or {}
+        code = _pitch_code(pitch.get("pitchKind") or pitch.get("pitchType"))
+        if not code or code in _CHART_SKIP_CODES:
+            continue
+        side = _bat_side(ev)
+        if side not in sides:
+            continue
+        count = ev.get("count") or {}
+        try:
+            balls, strikes = int(count.get("balls") or 0), int(count.get("strikes") or 0)
+        except (TypeError, ValueError):
+            balls, strikes = 0, 0
+        bag = sides[side]
+        bag["overall"][code] += 1
+        if balls == 0 and strikes == 0:
+            bag["0-0"][code] += 1
+        if (balls, strikes) in HITTER_AHEAD_COUNTS:
+            bag["hitter_ahead"][code] += 1
+        if strikes >= 2:
+            bag["2_strikes"][code] += 1
+        if balls == 3 and strikes == 2:
+            bag["3-2"][code] += 1
+        if _runners_risp(ev):
+            bag["risp"][code] += 1
+
+    def pack(counter: dict) -> list[dict]:
+        total = sum(counter.values())
+        rows = [
+            {"type": code, "pitches": n, "usage": round(100.0 * n / total, 1) if total else 0}
+            for code, n in counter.items()
+        ]
+        rows.sort(key=lambda row: -(row["pitches"] or 0))
+        return rows
+
+    out: dict[str, dict] = {}
+    for key in SITUATION_KEYS:
+        out[key] = {
+            "vs_LHB": pack(sides["L"][key]),
+            "vs_RHB": pack(sides["R"][key]),
+        }
+    return out
 
 
 def aggregate_pitcher_count_mixes(events: list[dict]) -> dict[str, dict]:

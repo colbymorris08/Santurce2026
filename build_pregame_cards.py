@@ -517,6 +517,7 @@ def confirmed_hitting_lines() -> dict[int, dict]:
             "ops": num(row.get("ops")),
             "sb": int(row.get("sb") or 0),
             "cs": int(row.get("cs") or 0),
+            "source": row.get("source") or "",
             "src": row.get("src") or season_text(rank, row.get("team")),
         }
     return out
@@ -550,13 +551,149 @@ def confirmed_pitching_lines() -> dict[int, dict]:
     return out
 
 
+SB_LEVELS = {
+    "MLB": "MLB",
+    "AAA": "AAA",
+    "AA": "AA",
+    "A+": "A+",
+    "A": "A",
+    "RK": "RK",
+    "ROK": "RK",
+    "MEX": "LMB",
+    "LMB": "LMB",
+    "IND": "Indy",
+    "INDY": "Indy",
+}
+SB_LEVEL_ORDER = ["MLB", "AAA", "AA", "A+", "A", "RK", "LMB", "Indy"]
+
+
+def sb_level_label(raw: str | None) -> str | None:
+    key = str(raw or "").strip().upper()
+    if not key:
+        return None
+    return SB_LEVELS.get(key, key)
+
+
+def league_from_text(text: str | None) -> str | None:
+    """Level named in a confirmed-line note, such as '(AAA)' or 'Mexican League'."""
+    found = []
+    for raw in re.findall(r"\((AAA|AA|A\+|A|RK|MLB|LMB|MEX|Indy|Ind)\)", text or "", flags=re.I):
+        label = sb_level_label(raw)
+        if label and label not in found:
+            found.append(label)
+    if found:
+        return "/".join(found)
+    low = (text or "").lower()
+    if any(token in low for token in ("mexican", "lmb", " liga mex")):
+        return "LMB"
+    if any(token in low for token in ("indy", "independent", "atlantic league", "frontier", "american association")):
+        return "Indy"
+    if "mlb" in low and "milb" not in low:
+        return "MLB"
+    if "aaa" in low:
+        return "AAA"
+    if re.search(r"\baa\b", low):
+        return "AA"
+    if "milb" in low:
+        return "MiLB"
+    return None
+
+
+def summer_level_rows(levels: dict) -> list[dict]:
+    rows = []
+    seen = set()
+    for label in SB_LEVEL_ORDER:
+        row = levels.get(label)
+        if not row or not (row["sb"] or row["cs"] or row.get("sac")):
+            continue
+        rows.append({"league": label, "sb": row["sb"], "cs": row["cs"], "sac": int(row.get("sac") or 0)})
+        seen.add(label)
+    for label, row in levels.items():
+        if label in seen or not (row["sb"] or row["cs"] or row.get("sac")):
+            continue
+        rows.append({"league": label, "sb": row["sb"], "cs": row["cs"], "sac": int(row.get("sac") or 0)})
+    return rows
+
+
+def advance_packet(pid: int, team: str, name: str, by_id: dict, by_name: dict) -> dict | None:
+    """Synergy packet for this roster row. A placeholder id can use the same team and name."""
+    named = by_name.get((team, norm_name(name)))
+    direct = by_id.get(pid)
+
+    def swings(rec: dict | None) -> int:
+        return int(((rec or {}).get("overall") or {}).get("swings") or 0)
+
+    if direct and swings(direct):
+        return direct
+    if not named:
+        return direct
+    mid = named.get("mlb_id")
+    if pid > 0 and mid and int(mid) != int(pid):
+        return direct
+    if swings(named) or not direct:
+        return named
+    return direct
+
+
+def rodriguez_whiff() -> dict | None:
+    """Usage-weighted miss rates from the Synergy Rodriguez packet. Miss here is whiff."""
+    doc = load("advance_rodriguez.json") or {}
+    arsenal = doc.get("arsenal") or []
+    if not arsenal:
+        return None
+    left_n = left_d = right_n = right_d = 0.0
+    for pitch in arsenal:
+        left_w = num(pitch.get("usage_l")) or 0
+        right_w = num(pitch.get("usage_r")) or 0
+        if pitch.get("miss_l") is not None and left_w:
+            left_n += float(pitch["miss_l"]) * left_w
+            left_d += left_w
+        if pitch.get("miss_r") is not None and right_w:
+            right_n += float(pitch["miss_r"]) * right_w
+            right_d += right_w
+    overall = num((doc.get("totals") or {}).get("miss_pct"))
+    if overall is None and not left_d and not right_d:
+        return None
+    return {
+        "wh": overall,
+        "wh_l": round(left_n / left_d, 1) if left_d else overall,
+        "wh_r": round(right_n / right_d, 1) if right_d else overall,
+    }
+
+
+def saved_whiff() -> dict[int, dict]:
+    """Player-level Synergy whiff saved by fill_card_whiff.py.
+
+    The opposing advance file omits Santurce, and a truncated team pull misses
+    players whose swings are in 2026 MLB/MiLB. This cache is what the card
+    uses when the advance packet has no whiff.
+    """
+    doc = load("card_whiff.json") or {}
+    out = {}
+    for row in doc.get("players") or []:
+        try:
+            out[int(row["id"])] = row
+        except (KeyError, TypeError, ValueError):
+            continue
+    return out
+
+
+def fill_whiff_from_cache(pid: int, wh, wh_l, wh_r, wh_l_pa, wh_r_pa, cache: dict):
+    saved = cache.get(int(pid)) or {}
+    if saved.get("wh") is None:
+        return wh, wh_l, wh_r, wh_l_pa, wh_r_pa
+    if wh is None:
+        wh = saved.get("wh")
+    if wh_l is None and saved.get("wh_l") is not None:
+        wh_l, wh_l_pa = saved.get("wh_l"), saved.get("swings_l")
+    if wh_r is None and saved.get("wh_r") is not None:
+        wh_r, wh_r_pa = saved.get("wh_r"), saved.get("swings_r")
+    return wh, wh_l, wh_r, wh_l_pa, wh_r_pa
+
+
 def summer_by_id() -> dict[int, dict]:
-    agg: dict[int, dict] = defaultdict(lambda: {"sb": 0, "cs": 0, "sac": 0, "pa": 0, "sources": []})
-    for fname, label in (
-        ("mlb_2026_hitting.json", "MLB"),
-        ("milb_2026_hitting.json", "MiLB"),
-        ("mexico_2026_hitting.json", "LMB"),
-    ):
+    agg: dict[int, dict] = defaultdict(lambda: {"sb": 0, "cs": 0, "sac": 0, "pa": 0, "levels": {}})
+    for fname in ("mlb_2026_hitting.json", "milb_2026_hitting.json", "mexico_2026_hitting.json"):
         rows = load(fname) or []
         if not isinstance(rows, list):
             continue
@@ -565,14 +702,233 @@ def summer_by_id() -> dict[int, dict]:
             if not pid:
                 continue
             pid = int(pid)
+            label = sb_level_label(r.get("_level")) or "MiLB"
             a = agg[pid]
-            a["sb"] += int(r.get("stolenBases") or 0)
-            a["cs"] += int(r.get("caughtStealing") or 0)
+            sb = int(r.get("stolenBases") or 0)
+            cs = int(r.get("caughtStealing") or 0)
+            a["sb"] += sb
+            a["cs"] += cs
             a["sac"] += int(r.get("sacBunts") or 0)
             a["pa"] += int(num(r.get("plateAppearances")) or 0)
-            if label not in a["sources"]:
-                a["sources"].append(label)
-    return {pid: row for pid, row in agg.items() if row["sb"] or row["cs"] or row["sac"] or row["pa"]}
+            bucket = a["levels"].setdefault(label, {"sb": 0, "cs": 0, "sac": 0})
+            bucket["sb"] += sb
+            bucket["cs"] += cs
+            bucket["sac"] += int(r.get("sacBunts") or 0)
+    out = {}
+    for pid, row in agg.items():
+        if not (row["sb"] or row["cs"] or row["sac"] or row["pa"]):
+            continue
+        levels = summer_level_rows(row["levels"])
+        row["levels"] = levels
+        row["sources"] = [level["league"] for level in levels]
+        out[pid] = row
+    return out
+
+
+GB_SPORTS = (1, 11, 12, 13, 14, 16, 23)
+SUMMER_GB_FILES = {
+    "hitting": ("milb_2026_hitting.json", "mlb_2026_hitting.json", "mexico_2026_hitting.json"),
+    "pitching": ("milb_2026_pitching.json", "mlb_2026_pitching.json", "mexico_2026_pitching.json"),
+}
+WINTER_GB_FILES = {
+    "hitting": ("lbprc_2025_hitting.json", "lidom_2025_hitting.json"),
+    "pitching": ("lbprc_2025_pitching.json", "lidom_2025_pitching.json"),
+}
+
+
+def _gb_year(src: str | None) -> tuple[str, int] | None:
+    text = (src or "").lower()
+    years = [int(year) for year in re.findall(r"20\d{2}", text)]
+    if not years:
+        return None
+    if "winter" in text:
+        return ("winter", years[0])
+    return ("summer", years[-1])
+
+
+def _sum_ground_outs(files: tuple[str, ...], pid: int) -> tuple[int, int]:
+    go = ao = 0
+    for fname in files:
+        for row in load(fname) or []:
+            if int(row.get("playerId") or 0) != pid:
+                continue
+            go += int(num(row.get("groundOuts")) or 0)
+            ao += int(num(row.get("airOuts")) or 0)
+    return go, ao
+
+
+def _local_ground_ball(pid: int, src: str | None, kind: str) -> float | None:
+    if pid <= 0:
+        return None
+    window = _gb_year(src)
+    if not window:
+        return None
+    season_kind, year = window
+    if season_kind == "winter" and year == 2025:
+        files = WINTER_GB_FILES[kind]
+    elif season_kind == "summer" and year == 2026:
+        files = SUMMER_GB_FILES[kind]
+    else:
+        return None
+    go, ao = _sum_ground_outs(files, pid)
+    return pct(go, go + ao) if (go + ao) else None
+
+
+GB_NAME_ALIASES = {
+    "cameron cauley": "cam cauley",
+    "jeffrey caglianone": "jac caglianone",
+    "dominic hamel": "dom hamel",
+    "cameron maldonado": "cam maldonado",
+}
+
+
+def _stats_ground_index(group: str, season: int) -> dict[int, dict]:
+    """player id -> per-level ground-out splits and a normalized name."""
+    found: dict[int, dict] = {}
+    for sport in GB_SPORTS:
+        offset = 0
+        while True:
+            url = (
+                "https://statsapi.mlb.com/api/v1/stats?stats=season"
+                f"&group={group}&season={season}&sportId={sport}"
+                f"&playerPool=ALL&gameType=R&limit=2000&offset={offset}"
+            )
+            try:
+                payload = _api_get(url)
+            except Exception as exc:
+                print(f"  gb stats {group} {season} sport {sport} offset {offset}: {exc}")
+                break
+            block = (payload.get("stats") or [{}])[0]
+            splits = block.get("splits") or []
+            for split in splits:
+                player = split.get("player") or {}
+                pid = int(player.get("id") or 0)
+                stat = split.get("stat") or {}
+                if pid <= 0:
+                    continue
+                sample = int(stat.get("plateAppearances") or stat.get("battersFaced") or 0)
+                bag = found.setdefault(pid, {"name": norm_name(player.get("fullName") or ""), "splits": []})
+                if player.get("fullName"):
+                    bag["name"] = norm_name(player["fullName"])
+                bag["splits"].append({
+                    "sample": sample,
+                    "go": int(stat.get("groundOuts") or 0),
+                    "ao": int(stat.get("airOuts") or 0),
+                })
+            total = int(block.get("totalSplits") or 0)
+            offset += len(splits)
+            if not splits or offset >= total:
+                break
+    return found
+
+
+def _rate_from_splits(splits: list[dict], sample: int) -> float | None:
+    """Use the level whose PA/BF matches the card line; otherwise the full season."""
+    exact = [row for row in splits if sample and row["sample"] == sample and (row["go"] + row["ao"])]
+    if len(exact) == 1:
+        row = exact[0]
+        return pct(row["go"], row["go"] + row["ao"])
+    go = sum(row["go"] for row in splits)
+    ao = sum(row["ao"] for row in splits)
+    total = sum(row["sample"] for row in splits)
+    if sample and total == sample and (go + ao):
+        return pct(go, go + ao)
+    if not sample and (go + ao):
+        return pct(go, go + ao)
+    if len(exact) > 1 and (go + ao):
+        return pct(go, go + ao)
+    return None
+
+
+def fill_missing_ground_balls(players: list[dict]) -> int:
+    """Fill GB% from ground outs / (ground outs + air outs). Does not invent a rate."""
+    pools: dict[tuple[str, int], dict[int, dict]] = {}
+    names: dict[tuple[str, int], dict[str, list[int]]] = {}
+    filled = 0
+
+    def pool(kind: str, year: int) -> dict[int, dict]:
+        key = (kind, year)
+        if key not in pools:
+            group = "hitting" if kind == "hitting" else "pitching"
+            print(f"  loading {group} ground outs {year}")
+            pools[key] = _stats_ground_index(group, year)
+            by_name: dict[str, list[int]] = {}
+            for pid, bag in pools[key].items():
+                if bag.get("name"):
+                    by_name.setdefault(bag["name"], []).append(pid)
+            names[key] = by_name
+        return pools[key]
+
+    for player in players:
+        kind = "hitting" if player.get("role") == "H" else "pitching"
+        block_name = "hitter" if kind == "hitting" else "pitcher"
+        block = player.get(block_name) or {}
+        if not block or block.get("gb") is not None:
+            continue
+        src = block.get("src") or ""
+        if src == "arsenal whiff only":
+            src = ""
+        pid = int(player.get("id") or 0)
+        rate = _local_ground_ball(pid, src, kind)
+        window = _gb_year(src)
+        # A college or NPB line does not have MLB ground outs. Leave it for a
+        # source that actually publishes GO/AO, instead of borrowing another league.
+        borrowed_ok = not any(token in src.lower() for token in ("college", "npb", "lotte", "seibu", " sei"))
+        years = []
+        if window and window[0] == "summer" and borrowed_ok:
+            years = [window[1]]
+        elif not window:
+            years = [2026, 2025]
+        sample = int(block.get("pa") or block.get("bf") or 0)
+        for year in years:
+            if rate is not None:
+                break
+            index = pool(kind, year)
+            bag = index.get(pid) if pid > 0 else None
+            if bag is None and pid <= 0:
+                wanted = norm_name(player.get("name") or "")
+                wanted = GB_NAME_ALIASES.get(wanted, wanted)
+                hits = names[(kind, year)].get(wanted) or []
+                if len(hits) == 1:
+                    bag = index.get(hits[0])
+            if bag:
+                rate = _rate_from_splits(bag.get("splits") or [], sample)
+        if rate is None or rate == block.get("gb"):
+            continue
+        block["gb"] = rate
+        filled += 1
+
+    # A card line for one level should use that level's ground outs, not the
+    # sum of every level the player touched that year.
+    for player in players:
+        kind = "hitting" if player.get("role") == "H" else "pitching"
+        block = player.get("hitter" if kind == "hitting" else "pitcher") or {}
+        if not block or block.get("gb") is None:
+            continue
+        window = _gb_year(block.get("src") or "")
+        if not window or window[0] != "summer":
+            continue
+        sample = int(block.get("pa") or block.get("bf") or 0)
+        if sample < 1:
+            continue
+        pid = int(player.get("id") or 0)
+        index = pool(kind, window[1])
+        bag = index.get(pid) if pid > 0 else None
+        if bag is None and pid <= 0:
+            wanted = GB_NAME_ALIASES.get(norm_name(player.get("name") or ""), norm_name(player.get("name") or ""))
+            hits = names[(kind, window[1])].get(wanted) or []
+            if len(hits) == 1:
+                bag = index.get(hits[0])
+        if not bag:
+            continue
+        exact = [row for row in bag.get("splits") or [] if row["sample"] == sample and (row["go"] + row["ao"])]
+        if len(exact) != 1:
+            continue
+        rate = pct(exact[0]["go"], exact[0]["go"] + exact[0]["ao"])
+        if rate is not None and rate != block.get("gb"):
+            block["gb"] = rate
+            filled += 1
+    return filled
 
 
 def main() -> None:
@@ -601,6 +957,8 @@ def main() -> None:
             adv_by[int(mid)] = h
         team_abbrev = h.get("team") or ""
         adv_by_name[(team_abbrev, norm_name(h.get("name") or ""))] = h
+
+    whiff_cache = saved_whiff()
 
     arsenal_by = {}
     for p in arsenals:
@@ -649,7 +1007,7 @@ def main() -> None:
             roster_pos = (p.get("position") or "").upper()
             hit = hit_by.get(pid)
             pit = pit_by.get(pid)
-            adv = adv_by.get(pid)
+            adv = advance_packet(pid, abbrev, name, adv_by, adv_by_name)
             arm = arsenal_by.get(pid)
             su = summer.get(pid)
             api = api_lines.get(pid) or {}
@@ -687,6 +1045,9 @@ def main() -> None:
                     wh_l, wh_l_pa = vs_l["wh"], vs_l["pa"]
                 if vs_r and vs_r.get("wh") is not None:
                     wh_r, wh_r_pa = vs_r["wh"], vs_r["pa"]
+                wh, wh_l, wh_r, wh_l_pa, wh_r_pa = fill_whiff_from_cache(
+                    pid, wh, wh_l, wh_r, wh_l_pa, wh_r_pa, whiff_cache
+                )
                 named = adv_by_name.get((abbrev, norm_name(name)))
                 packet = adv or named or {}
                 summer_rates = rates_from_summer_line(packet.get("summer_line"))
@@ -710,6 +1071,15 @@ def main() -> None:
                     src = None
                     pa = 0
                     hitter_k = hitter_gb = hitter_avg = hitter_ops = None
+                summer_levels = list((su or {}).get("levels") or [])
+                if not summer_levels and chosen and (chosen.get("sb") or chosen.get("cs")):
+                    league = league_from_text(f"{chosen.get('source') or ''} {chosen.get('src') or ''}")
+                    if league and "winter" not in str(chosen.get("src") or "").lower():
+                        summer_levels = [{
+                            "league": league,
+                            "sb": int(chosen.get("sb") or 0),
+                            "cs": int(chosen.get("cs") or 0),
+                        }]
                 hitter = {
                     "pa": pa,
                     "k": hitter_k,
@@ -724,10 +1094,11 @@ def main() -> None:
                     "sb": sb if hit else None,
                     "cs": cs if hit else None,
                     "sac": sac if hit else None,
-                    "summer_sb": int(su["sb"]) if su else int((chosen or {}).get("sb") or 0),
-                    "summer_cs": int(su["cs"]) if su else int((chosen or {}).get("cs") or 0),
+                    "summer_sb": sum(int(level.get("sb") or 0) for level in summer_levels),
+                    "summer_cs": sum(int(level.get("cs") or 0) for level in summer_levels),
                     "summer_sac": int(su["sac"]) if su else 0,
-                    "summer_sources": (su or {}).get("sources") or ([] if not (chosen or {}).get("sb") else ["confirmed"]),
+                    "summer_sources": [level["league"] for level in summer_levels],
+                    "summer_levels": summer_levels,
                     "vs_l": vs_l if vs_l and vs_l["pa"] >= 15 else None,
                     "vs_r": vs_r if vs_r and vs_r["pa"] >= 15 else None,
                     "sb2": sb2,
@@ -763,6 +1134,14 @@ def main() -> None:
                             wden += n
                     if wden:
                         wh = round(wnum / wden, 1)
+                rod = rodriguez_whiff() if pid == 605446 else None
+                if rod:
+                    wh = rod.get("wh")
+                wh_l = (rod or {}).get("wh_l")
+                wh_r = (rod or {}).get("wh_r")
+                wh, wh_l, wh_r, _wh_l_pa, _wh_r_pa = fill_whiff_from_cache(
+                    pid, wh, wh_l, wh_r, None, None, whiff_cache
+                )
                 chosen_p = choose_line([
                     summer_pit.get(pid),
                     winter_pit.get(pid),
@@ -791,6 +1170,8 @@ def main() -> None:
                     "ops": pit_ops,
                     "avg": pit_avg,
                     "wh": wh,
+                    "wh_l": wh_l,
+                    "wh_r": wh_r,
                     "gs": pit_gs,
                     "hand_split": False,
                     "src": src_p,
@@ -814,6 +1195,9 @@ def main() -> None:
                 }
             )
 
+    filled_gb = fill_missing_ground_balls(players)
+    print(f"  ground balls filled: {filled_gb}")
+
     # Gaps for the UI footnote / ship report
     hitters = [p for p in players if p["role"] == "H"]
     pitchers = [p for p in players if p["role"] == "P"]
@@ -823,7 +1207,7 @@ def main() -> None:
         "sprint_speed": "No sprint-speed field in the caches. SPD column is blank.",
         "pitcher_platoon": "No vs-LHB / vs-RHB outcome split (K/GB/WH/BB/OPS) in the pitching cache. Both rows repeat the season line.",
         "hitter_platoon_k_gb": "K% and GB% are season totals. WH is the Synergy whiff vs that hand when swings exist, otherwise the hitter's overall whiff. AVG/OPS use the Synergy split only when that side has at least 15 PA.",
-        "santurce_synergy": "The Synergy hitter file is opposing clubs only. A SAN roster player gets bunt/hand lines only when the same MLBAM id appears there (usually tagged to another club). Everyone else on SAN is counting stats only.",
+        "santurce_synergy": "WH is Synergy whiffs/swings. Players missing from the opposing advance file, including Santurce, use data/card_whiff.json (2026 summer, then LBPRC, then 2025 summer). A player with no swings in that window stays blank.",
         "sju_in_br_file": "pregame_baserunning_bunting.json omits SJU; SJU counting stats come from lbprc_2025_hitting.json.",
         "hitters": len(hitters),
         "pitchers": len(pitchers),

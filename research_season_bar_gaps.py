@@ -48,6 +48,11 @@ TARGETS = [
 FORCED_URL: dict[tuple[str, str], str] = {
     ("SJU", "Emmanuel Garcia"): "https://www.baseball-reference.com/register/player.fcgi?id=garcia020man",
     ("CAG", "Sebastian Rodriguez"): "https://www.baseball-reference.com/register/player.fcgi?id=rodrig001seb",
+    ("MAY", "Devin Rivera"): "https://www.baseball-reference.com/register/player.fcgi?id=rivera002dev",
+    ("MAY", "Antonio Velez"): "https://www.baseball-reference.com/register/player.fcgi?id=velez-001ant",
+    ("MAY", "Nelvin Fuentes"): "https://www.baseball-reference.com/register/player.fcgi?id=fuente002nel",
+    ("PON", "Hector Quinones"): "https://www.baseball-reference.com/register/player.fcgi?id=quinon002hec",
+    ("SJU", "Alexuan Vega"): "https://www.baseball-reference.com/register/player.fcgi?id=vega--000ale",
 }
 
 REGISTER_CANDIDATES: dict[str, list[str]] = {
@@ -57,7 +62,7 @@ REGISTER_CANDIDATES: dict[str, list[str]] = {
     "Hector Santiago": ["santia002hec"],
     "Emmanuel Garcia": ["garcia020man"],
     "Ivan Houellemont": ["houell000iva"],
-    "Ruben Ramirez": ["ramire003rub", "ramire001rub", "ramire002rub", "ramire004rub", "ramire000rub"],
+    "Ruben Ramirez": ["ramire003rub", "ramire000rub"],
     "Slater DeBrun": ["debru001sla", "debru000sla", "debru002sla", "debrun001sla"],
     "Cameron Maldonado": [],
     "Sebastian Rodriguez": ["rodrig001seb"],
@@ -367,6 +372,9 @@ def research_player(role: str, team: str, name: str) -> dict[str, Any]:
             metric = (line or {}).get("pa") or (line or {}).get("outs") or 0
             if score < 100 and (team, name) not in FORCED_URL:
                 log.append({"url": final, "score": score, "skipped": True})
+                continue
+            if (team, name) not in FORCED_URL and not is_pr(meta_text):
+                log.append({"url": final, "score": score, "skipped": True, "reason": "not Puerto Rico birth"})
                 continue
             log.append({"url": final, "score": score, "pr": is_pr(meta_text), "line": bool(line)})
             if line and (

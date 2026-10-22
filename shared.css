@@ -375,6 +375,25 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   flex-direction: column;
   gap: 10px;
 }
+.usage-hands { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+.usage-hand-title { text-align: center; font-weight: 800; font-size: 15px; letter-spacing: .04em; color: #111; margin: 0 0 4px; }
+.usage-matrix { width: 100%; border-collapse: collapse; background: #fff; color: #111; font-size: 12px; }
+.usage-matrix th, .usage-matrix td { border: 1px solid #e6e8ee; padding: 3px 6px; text-align: center; background: #fff; color: #111; }
+.usage-matrix thead th { font-size: 10px; letter-spacing: .06em; font-weight: 800; }
+.usage-pitch { text-align: left !important; font-weight: 700; white-space: nowrap; }
+.velo-band { white-space: nowrap; font-weight: 700; }
+.usage-section td {
+  text-align: center !important; font-size: 16px; font-weight: 800; letter-spacing: .14em;
+  border-top: 2px solid #111; padding: 7px 4px;
+}
+.usage-hi { background: #3d9b4a !important; color: #fff !important; font-weight: 800; }
+.usage-lo { background: #e15b5b !important; color: #fff !important; font-weight: 800; }
+.usage-zone-note { margin-top: 6px; }
+.hitter-pitch-half .section-label {
+  text-align: center; font-size: 15px; font-weight: 800; letter-spacing: .12em;
+  border-top: 2px solid #111; padding-top: 6px; color: #111;
+}
+@media (max-width: 720px) { .usage-hands { grid-template-columns: 1fr; } }
 .advance-count-usage-block .advance-count-usage-title {
   font-size: 11px;
   font-weight: 700;
@@ -881,25 +900,23 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .metric-card-title, .section-label, .advance-hero-meta h2 { color: #0a1633; }
   .metric-takeaway { background: #fff5f5; color: #111; }
 
-  /* Pitcher PDF: landscape one page, three equal thirds + compact header headshot.
-     6.0in drops another empty 0.5in (was 6.5in). Width is the content box
-     (11 − 0.28 − 0.28 = 10.44in) so a sliver cannot spill a second page.
-     Body min-height 100vh must not apply — it paginates past the sheet. */
+  /* Pitcher PDF: portrait one page so the usage tables, velo bands, and
+     count rows stay on the sheet. Width is 8.5 − 0.32 − 0.32. */
   body:has(.advance-sheet-pitcher) {
     min-height: 0 !important;
     height: auto !important;
   }
   .advance-sheet-pitcher.advance-print-page {
-    width: 10.44in;
-    max-width: 10.44in;
-    height: 6.0in;
-    max-height: 6.0in;
+    width: 7.86in;
+    max-width: 7.86in;
+    height: auto;
+    max-height: 10.15in;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     margin: 0 !important;
-    zoom: 0.961; /* 0.874 × 1.10 — ~10% larger; still one landscape page */
+    zoom: 1;
   }
   .advance-sheet-pitcher .advance-pdf-strip {
     flex: 0 0 auto;
@@ -959,32 +976,30 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-hero-compact h2 { font-size: 15px; }
   .advance-sheet-pitcher .advance-layout-pitcher-print,
   .advance-sheet-pitcher .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print {
-    grid-template-columns: 1fr 1fr 1fr !important;
-    /* Heat row is the portrait boxes; charts take whatever height is left. */
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 5px !important;
-    flex: 1 1 auto;
-    min-height: 0;
-    align-items: stretch;
+    display: grid !important;
+    grid-template-columns: 1.25fr 0.75fr !important;
+    grid-template-rows: auto auto auto !important;
+    gap: 6px !important;
   }
-  /* Charts stay in the top of the left third. Heat maps take the empty
-     band under the charts and the full middle third, side by side. */
-  .advance-sheet-pitcher .advance-col-charts { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; }
-  .advance-sheet-pitcher .advance-col-middle { display: contents; }
-  .advance-sheet-pitcher .advance-band-movement { grid-column: 2; grid-row: 1; min-height: 0; }
-  .advance-sheet-pitcher .advance-col-release { grid-column: 3; grid-row: 1 / span 2; }
   .advance-sheet-pitcher .advance-col-charts,
+  .advance-sheet-pitcher .advance-col-middle { display: contents !important; }
+  .advance-sheet-pitcher .advance-card-count-usage { grid-column: 1 / -1; grid-row: 1; }
+  .advance-sheet-pitcher .advance-card-arsenal { grid-column: 1; grid-row: 2; align-self: start; }
+  .advance-sheet-pitcher .advance-band-movement { grid-column: 2; grid-row: 2; max-height: 2.05in; }
+  .advance-sheet-pitcher .advance-band-heat-mid { grid-column: 1; grid-row: 3; }
+  .advance-sheet-pitcher .advance-col-release { grid-column: 2; grid-row: 3; max-height: 2.15in; }
+  .advance-sheet-pitcher .usage-matrix { font-size: 8px; }
+  .advance-sheet-pitcher .usage-matrix th,
+  .advance-sheet-pitcher .usage-matrix td { padding: 0 2px; line-height: 1.05; }
+  .advance-sheet-pitcher .usage-section td { font-size: 8px; font-weight: 800; text-align: center; padding: 0; }
+  .advance-sheet-pitcher .advance-col-charts { display: contents !important; }
   .advance-sheet-pitcher .advance-col-release {
     min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-  .advance-sheet-pitcher .advance-col-charts {
-    overflow: visible;
     min-height: 0;
-    align-self: stretch;
-    gap: 0;
+    overflow: hidden;
   }
   .advance-sheet-pitcher .advance-col-release {
     min-height: 0;
@@ -1202,7 +1217,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
     min-width: 0;
   }
   .advance-sheet-hitter .hitter-pitch-side-title { font-size: 11px; margin: 0; letter-spacing: .04em; }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 9px; margin: 0; color: #0a1633; letter-spacing: .04em; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 3px 0 0; color: #111; letter-spacing: .1em; text-align: center; font-weight: 800; border-top: 2px solid #111; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap,
   .advance-sheet-hitter .hitter-pitch-half table { width: 100%; background: #fff; border-color: #ccc; box-shadow: none; }
   .advance-sheet-hitter .hitter-pitch-half table { font-size: 8px; line-height: 1; color: #111; table-layout: fixed; }
@@ -1290,7 +1305,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-hitter .table-wrap table { font-size: 9.5px; line-height: 1.05; width: 100%; }
   .advance-sheet-hitter .table-wrap th,
   .advance-sheet-hitter .table-wrap td { padding: 0 4px; line-height: 1.05; }
-  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 9px; margin: 0; }
+  .advance-sheet-hitter .hitter-pitch-half .section-label { font-size: 11px; margin: 3px 0 0; text-align: center; font-weight: 800; letter-spacing: .1em; }
   .advance-sheet-hitter .hitter-pitch-side-title { font-size: 11px; margin: 0; }
   .advance-sheet-hitter .hitter-pitch-half .table-wrap table { font-size: 8px; line-height: 1; table-layout: fixed; }
   .advance-sheet-hitter .hitter-heat-pair {
@@ -1450,7 +1465,10 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   font-size: 16px;
 }
 .hitter-pitch-half { min-width: 0; }
-.hitter-pitch-half .section-label { font-size: 13px; margin: 0 0 3px; letter-spacing: 0.06em; }
+.hitter-pitch-half .section-label {
+  font-size: 16px; margin: 8px 0 3px; letter-spacing: 0.14em; text-align: center;
+  font-weight: 800; color: #111; border-top: 2px solid #111; padding-top: 6px;
+}
 /* White table chrome — only .rate-cell keeps league-relative heat */
 .hitter-pitch-half .table-wrap {
   margin: 0;
@@ -1598,7 +1616,7 @@ input.tth-input:focus {
 .sc-editors { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .sc-editor {
   background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
-  padding: 10px; max-height: 460px; overflow: auto;
+  padding: 10px; max-height: none; overflow: visible;
 }
 .sc-editor-h { font-weight: 800; color: var(--santurce-gold); margin-bottom: 6px; }
 .sc-editor-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 8px 0 4px; }
@@ -1611,12 +1629,28 @@ input.tth-input:focus {
 .sc-grip { cursor: grab; color: var(--santurce-gold); font-weight: 800; }
 .sc-edit-name { font-size: 13px; }
 .sc-order li .sc-name-select { flex: 1; min-width: 0; }
-.sc-order li .sc-pos-select { max-width: 92px; }
+.sc-order li .sc-pos-select, .sc-spot .sc-pos-select { max-width: 92px; }
+.sc-roster-list {
+  display: flex; flex-direction: column; gap: 2px;
+  max-height: 240px; overflow: auto;
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px;
+  background: var(--panel-2);
+}
+.sc-roster-row { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.sc-roster-row span[draggable="true"], .sc-edit-name { cursor: grab; }
+.sc-spots { list-style: none; display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; }
+.sc-spot {
+  display: flex; gap: 6px; align-items: center; min-height: 34px;
+  border: 1px dashed var(--line-strong); border-radius: 6px; padding: 4px 6px;
+}
+.sc-spot.sc-filled { border-style: solid; background: var(--panel-2); }
+.sc-spot-num { width: 1.3em; font-weight: 800; color: var(--santurce-gold); }
+.sc-edit-name { flex: 1; min-width: 0; font-size: 13px; }
 .sc-pool, .sc-arms { display: flex; flex-wrap: wrap; gap: 4px 10px; }
 .sc-pool-item, .sc-arm { display: flex; gap: 4px; align-items: center; font-size: 12px; }
 .sc-editor-actions { display: flex; gap: 6px; margin: 6px 0; }
-.sc-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
-.sc-side { background: #fff; color: #111; border: 1px solid #c5c9d0; font-family: Arial, Helvetica, sans-serif; }
+.sc-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; max-width: 8.5in; }
+.sc-side { background: #fff; color: #111; border: 1px solid #c5c9d0; font-family: Arial, Helvetica, sans-serif; min-width: 0; overflow: hidden; }
 .sc-head { display: flex; align-items: center; justify-content: space-between; color: #fff; padding: 6px 10px; min-height: 42px; }
 .sc-head-name { font-weight: 800; font-size: 15px; }
 .sc-logo { width: 34px; height: 34px; object-fit: contain; background: #fff; border-radius: 50%; }
@@ -1629,14 +1663,19 @@ input.tth-input:focus {
   background: #d5d8de; color: #222; text-align: center; font-weight: 800; font-size: 11px;
   letter-spacing: .08em; padding: 3px 0; border-top: 1px solid #b7bcc6; border-bottom: 1px solid #b7bcc6;
 }
-.sc-grid { width: 100%; border-collapse: collapse; font-size: 9px; line-height: 1.15; background: #fff; }
+.sc-grid { width: 100%; border-collapse: collapse; font-size: 8px; line-height: 1.15; background: #fff; table-layout: fixed; }
+.sc-col-who { width: 34%; }
+.sc-col-sb { width: 11%; }
+.sc-col-vs { width: 6%; }
+.sc-col-stat { width: 9.8%; }
 .sc-grid th {
-  background: #e6e8ec; color: #222; font-weight: 700; font-size: 8px; letter-spacing: .04em;
-  padding: 2px 3px; border: 1px solid #c5c9d0; text-align: center;
+  background: #e6e8ec; color: #222; font-weight: 700; font-size: 7px; letter-spacing: .02em;
+  padding: 2px 1px; border: 1px solid #c5c9d0; text-align: center; overflow: hidden;
 }
-.sc-grid tbody td, .sc-grid td { border: 1px solid #e1e4ea; padding: 1px 3px; text-align: center; background: #fff; color: #111; white-space: nowrap; }
-.sc-who { text-align: left !important; white-space: nowrap; font-weight: 700; }
-.sc-ord, .sc-pos { display: inline-block; min-width: 1.1em; margin-right: 3px; font-weight: 800; }
+.sc-grid tbody td, .sc-grid td { border: 1px solid #e1e4ea; padding: 1px 2px; text-align: center; background: #fff; color: #111; white-space: nowrap; overflow: hidden; }
+.sc-who { text-align: left !important; white-space: nowrap; font-weight: 700; overflow: hidden; }
+.sc-sb { overflow: hidden; }
+.sc-ord, .sc-pos { display: inline-block; min-width: 1em; margin-right: 2px; font-weight: 800; }
 .sc-last { font-weight: 800; }
 .sc-lhb { color: #c0392b; }
 .sc-shb { color: #1a5276; }

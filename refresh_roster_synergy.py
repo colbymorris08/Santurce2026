@@ -55,6 +55,8 @@ def roster_players() -> tuple[list[dict], list[dict]]:
     hitters, pitchers = [], []
     for team in load("lbprc_2025_rosters.json").values():
         abbr = str(team.get("teamAbbrev") or "")
+        # Santurce is not an opposing advance roster. Its strategy-card whiff
+        # is stored in data/card_whiff.json by fill_card_whiff.py.
         if abbr not in bas.OPP_TEAMS:
             continue
         for player in team.get("players") or []:
