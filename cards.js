@@ -181,32 +181,21 @@
   function sbRatio(sb, cs) {
     return `${sb || 0}/${(sb || 0) + (cs || 0)}`;
   }
-  function sbAttemptText(h) {
-    if (!h) return '';
-    const bits = [];
-    if (h.sb != null) bits.push(`LBPRC: ${sbRatio(h.sb, h.cs)}`);
+  function summerSteal(h) {
+    if (!h) return null;
     const levels = h.summer_levels || [];
     if (levels.length) {
-      levels.forEach((row) => {
-        if (!(row.sb || row.cs)) return;
-        bits.push(`${row.league}: ${sbRatio(row.sb, row.cs)}`);
-      });
-    } else if (h.summer_sb || h.summer_cs) {
-      const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed');
-      bits.push(`${src.length ? src.join('/') : '2026'}: ${sbRatio(h.summer_sb, h.summer_cs)}`);
+      return {
+        sb: levels.reduce((n, row) => n + (Number(row.sb) || 0), 0),
+        cs: levels.reduce((n, row) => n + (Number(row.cs) || 0), 0),
+      };
     }
-    return bits.join(' ');
+    if (h.summer_sb || h.summer_cs) return { sb: Number(h.summer_sb) || 0, cs: Number(h.summer_cs) || 0 };
+    return null;
   }
   function sbText(h) {
-    if (!h) return '';
-    const levels = h.summer_levels || [];
-    if (levels.length) {
-      const sb = levels.reduce((n, row) => n + (Number(row.sb) || 0), 0);
-      const cs = levels.reduce((n, row) => n + (Number(row.cs) || 0), 0);
-      return sbRatio(sb, cs);
-    }
-    if (h.summer_sb || h.summer_cs) return sbRatio(h.summer_sb, h.summer_cs);
-    return '';
+    const line = summerSteal(h);
+    return line ? sbRatio(line.sb, line.cs) : '';
   }
 
   function aggWhiff(rows) {
@@ -639,9 +628,8 @@
     return (h.sac || 0) + (h.summer_sac || 0);
   }
   function stealScore(h) {
-    if (!h) return 0;
-    if (h.sb_split) return Math.max(h.sb2 || 0, h.sb3 || 0);
-    return Math.max(h.sb || 0, h.summer_sb || 0);
+    const line = summerSteal(h);
+    return line ? line.sb : 0;
   }
   function groupScore(h) {
     if (!h) return 0;
@@ -651,47 +639,8 @@
     return a >= 3 && a >= 2 * Math.max(b, 0) && (a - b) >= 2;
   }
 
-  function runNotes(h) {
-    if (!h) return { text: '', major: false };
-    const bits = [];
-    let major = false;
-    if (h.sb_split && skewed(h.sb2 || 0, h.sb3 || 0)) {
-      major = true;
-      bits.push(tr(
-        `Steals second much more than third (${h.sb2} of 2B vs ${h.sb3} of 3B).`,
-        `Roba segunda mucho más que tercera (${h.sb2} de 2B vs ${h.sb3} de 3B).`
-      ));
-    } else if (h.sb_split && skewed(h.sb3 || 0, h.sb2 || 0)) {
-      major = true;
-      bits.push(tr(
-        `Steals third much more than second (${h.sb3} of 3B vs ${h.sb2} of 2B).`,
-        `Roba tercera mucho más que segunda (${h.sb3} de 3B vs ${h.sb2} de 2B).`
-      ));
-    }
-    if (h.sb != null) {
-      const att = (h.sb || 0) + (h.cs || 0);
-      const pct = att ? Math.round(100 * h.sb / att) : null;
-      bits.push(tr(
-        `LBPRC SB ${h.sb}/${att}${pct == null ? '' : ' (' + pct + '%)'}.`,
-        `LBPRC SB ${h.sb}/${att}${pct == null ? '' : ' (' + pct + '%)'}.`
-      ));
-    }
-    const levels = (h.summer_levels || []).filter((row) => row.sb || row.cs);
-    if (levels.length) {
-      const line = levels.map((row) => `${row.league} ${sbRatio(row.sb, row.cs)}`).join(', ');
-      bits.push(`${line}.`);
-    } else if (h.summer_sb || h.summer_cs) {
-      const att = (h.summer_sb || 0) + (h.summer_cs || 0);
-      const src = (h.summer_sources || []).filter((s) => s && s !== 'confirmed').join('/') || '2026';
-      bits.push(`${src} ${h.summer_sb || 0}/${att}.`);
-    }
-    if (!h.sb_split && ((h.sb || 0) + (h.summer_sb || 0) > 0)) {
-      bits.push(tr(
-        '2B vs 3B split is not in the LBPRC or summer totals.',
-        'El split 2B vs 3B no está en los totales de LBPRC ni del verano.'
-      ));
-    }
-    return { text: bits.join(' '), major };
+  function runNotes() {
+    return { text: '', major: false };
   }
 
   function buntNotes(h) {
@@ -748,13 +697,12 @@
   }
 
   function aggLabel(h) {
-    if (!h || h.sb == null && !h.summer_sb) return '';
-    const sb = h.sb || 0;
-    const cs = h.cs || 0;
-    const att = sb + cs;
-    const pct = att ? sb / att : 0;
+    const line = summerSteal(h);
+    if (!line) return '';
+    const att = line.sb + line.cs;
+    const pct = att ? line.sb / att : 0;
     if (att >= 8 && pct >= 0.7) return 'AGG';
-    if (att >= 2 || (h.summer_sb || 0) >= 2) return tr('Will pick his spot', 'Elige el momento');
+    if (att >= 2) return tr('Will pick his spot', 'Elige el momento');
     return tr('Not', 'No');
   }
 
@@ -766,24 +714,12 @@
   }
 
   function sbCells(h) {
-    if (h && h.sb_split) {
-      const t2 = tr('Stolen bases of second (from 1B)', 'Bases robadas de segunda (desde 1B)');
-      const t3 = tr('Stolen bases of third (from 2B)', 'Bases robadas de tercera (desde 2B)');
-      return countCell(h.sb2 || 0, '', t2) + countCell(h.sb3 || 0, '', t3);
-    }
-    if (!h || (h.sb == null && !h.summer_sb && !h.summer_cs)) {
-      return '<td colspan="2">—</td>';
-    }
-    const text = sbAttemptText(h);
+    const text = sbText(h);
+    if (!text) return '<td colspan="2">—</td>';
     const b = band(stealScore(h));
     const cls = b ? `sb-${b}` : '';
-    const title = tr(
-      'Stolen bases over attempts. LBPRC is the winter line. The other label is the league of the other line: MLB, AAA, AA, A+, A, LMB, or Indy.',
-      'Bases robadas sobre intentos. LBPRC es la línea de invierno. La otra etiqueta es la liga de la otra línea: MLB, AAA, AA, A+, A, LMB o Indy.'
-    );
-    const lines = [`<b>${esc(text)}</b>`];
-    if (b) lines.push(`<small>${esc(bandWord(b))}</small>`);
-    return `<td class="${cls}" colspan="2" title="${esc(title)}">${lines.join('')}</td>`;
+    const title = tr('2026 summer stolen bases / attempts', 'Bases robadas / intentos, verano 2026');
+    return `<td class="${cls}" colspan="2" title="${esc(title)}"><b>${esc(text)}</b></td>`;
   }
 
   function sacText(h) {
@@ -866,8 +802,8 @@
     root.innerHTML = `
       <div class="sc-toolbar">
         <p class="sc-legend">${tr(
-          '2B = steals of second, 3B = steals of third. SAC = sacrifice bunts. Frequent >5 green, occasional 2–5 white, rare <2 red. A note turns red when one base, or one bunt situation, is much more common than the other.',
-          '2B = robos de segunda, 3B = robos de tercera. SAC = toques de sacrificio. Frecuente >5 verde, ocasional 2–5 blanco, raro <2 rojo. La nota se pone roja cuando una base, o una situación de toque, es mucho más común que la otra.'
+          'SB/SBA is the 2026 summer line only, stolen bases over attempts. SAC = sacrifice bunts. Frequent >5 green, occasional 2–5 white, rare <2 red. A bunt note turns red when one situation is much more common than the other.',
+          'BR/INT es solo la línea de verano 2026, bases robadas sobre intentos. SAC = toques de sacrificio. Frecuente >5 verde, ocasional 2–5 blanco, raro <2 rojo. La nota de toque se pone roja cuando una situación es mucho más común que la otra.'
         )}</p>
         <div class="sc-toolbar-right">
           <label>${tr('Team', 'Equipo')}
@@ -894,7 +830,7 @@
               <th colspan="3">BUNTING</th>
             </tr>
             <tr class="sb-cols">
-              <th>Player</th><th>SPD</th><th>2B</th><th>3B</th><th>AGG</th><th>NOTES</th><th>SAC</th><th>HIT</th><th>NOTES</th>
+              <th>Player</th><th>SPD</th><th colspan="2">SB/SBA</th><th>AGG</th><th>NOTES</th><th>SAC</th><th>HIT</th><th>NOTES</th>
             </tr>
           </thead>
           <tbody>${body}</tbody>
