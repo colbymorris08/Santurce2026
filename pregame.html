@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san148">
+<link rel="stylesheet" href="shared.css?v=san149">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san148';
+const ASSET_V = 'san149';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1993,7 +1993,7 @@ const USAGE_FASTBALLS = new Set(['FF','FA','SI','FT','FC']);
 function usageMenu(p){
   return (p.arsenal||[]).filter(a=>{
     if(!isChartPitch(a.code)) return false;
-    return (Number(a.usage)||0) >= 4 || (Number(a.pitches)||0) >= 12;
+    return (Number(a.usage)||0) >= 3;
   });
 }
 function usageVeloTag(a){
@@ -2074,86 +2074,89 @@ function usagePitchLabel(code, menu){
   const row = menu.find(a=>normalizePitchCode(a.code)===code);
   return `${displayPitchCode(code)||code}${usageVeloTag(row)}`;
 }
-function usageSectionRows(title, rows, menu){
-  if(!rows || !rows.length) return '';
-  const body = rows.map(r=>{
-    const tone = usageTone(r.usage);
-    const iz = r.iz!=null ? `${Math.round(Number(r.iz))}%` : '—';
-    return `<tr>
-      <td class="usage-pitch">${usagePitchLabel(r.type, menu)}</td>
-      <td class="num ${tone}">${r.usage!=null?Math.round(Number(r.usage))+'%':'—'}</td>
-      <td class="num">${iz}</td>
-    </tr>`;
-  }).join('');
-  return `<tr class="usage-section"><td colspan="3">${title}</td></tr>${body}`;
+function usageColLabel(code){
+  const c = normalizePitchCode(code);
+  if(c==='FF' || c==='FA') return 'FB';
+  if(c==='SI' || c==='FT') return 'SNK';
+  if(c==='ST') return 'SW';
+  if(c==='FC') return 'CT';
+  if(c==='FS' || c==='FO') return 'SPL';
+  return displayPitchCode(c) || c;
+}
+function usagePctCell(pct){
+  if(pct==null || !isFinite(Number(pct))) return '<td class="num">—</td>';
+  const n = Math.round(Number(pct));
+  return `<td class="num ${usageTone(n)}">${n}%</td>`;
 }
 function pitcherHandUsageTable(p, handKey, title){
   const menu = usageMenu(p);
-  if(!menu.length) return `<div class="usage-hand"><div class="usage-hand-title">${title}</div><div class="note">No arsenal sample.</div></div>`;
+  if(!menu.length) return `<div class="usage-hand"><div class="note">No arsenal sample.</div></div>`;
   const arsenalN = menu.reduce((s,a)=>s+(Number(a.pitches)||0), 0);
   const mix = p.count_hand_mix || {};
   const sideKey = handKey==='L' ? 'vs_LHB' : 'vs_RHB';
   const n = handKey==='L' ? p.usage_vs_hand?.vs_LHH?.n : p.usage_vs_hand?.vs_RHH?.n;
   const trusted = handSampleTrusted(n, arsenalN);
-  const overallRaw = trusted ? ((mix.overall||{})[sideKey] || []) : [];
-  let overall = alignRowsToArsenal(overallRaw, menu);
-  let sampleN = trusted ? n : arsenalN;
-  let sampleNote = trusted ? '' : 'full mix';
-  if(!overall.length || (!trusted && menu.length >= 2)){
-    overall = arsenalUsageRows(menu);
-    sampleN = arsenalN || sampleN;
-    sampleNote = trusted ? '' : 'full mix';
-  }
   const handRows = (key)=>{
-    const block = (p.count_hand_mix || {})[key] || {};
+    const block = (mix[key] || {});
     const rows = block[sideKey];
     if(!Array.isArray(rows) || !rows.length) return null;
     return alignRowsToArsenal(rows, menu);
   };
   const handN = (key)=>{
-    const rows = ((p.count_hand_mix || {})[key] || {})[sideKey];
+    const rows = (mix[key] || {})[sideKey];
     if(!Array.isArray(rows)) return 0;
     return rows.reduce((s,r)=>s+(Number(r.pitches)||0), 0);
   };
-  const handOverall = handN('overall') >= 80 ? handRows('overall') : null;
-  if(handOverall && handOverall.length){
-    overall = handOverall;
-    sampleN = Math.round((overall||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0));
-    sampleNote = '';
+  let overall = handN('overall') >= 80 ? handRows('overall') : null;
+  if(!overall || !overall.length){
+    const overallRaw = trusted ? ((mix.overall||{})[sideKey] || []) : [];
+    overall = alignRowsToArsenal(overallRaw, menu);
+    if(!overall.length || (!trusted && menu.length >= 2)) overall = arsenalUsageRows(menu);
   }
-  const sections = [
-    ['OVERALL', overall],
-    ['0-0', handRows('0-0') || (trusted ? alignRowsToArsenal((mix['0-0']||{})[sideKey], menu) : [])],
-    ['HITTER AHEAD', handRows('hitter_ahead') || []],
-    ['2K', handRows('2_strikes') || (trusted ? alignRowsToArsenal((mix['2_strikes']||{})[sideKey], menu) : [])],
-    ['3-2', handRows('3-2') || []],
-    ['RISP', handRows('risp') || []],
-  ];
-  const countOk = (rows)=>{
-    const nP = (rows||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0);
-    return nP >= 1;
+  const colOrder = ['FF','SI','ST','CH','FC','SL','CU','FS','FO','SV'];
+  const cols = (overall||[]).filter(r=>Number(r.usage) >= 3).map(r=>normalizePitchCode(r.type)).filter(Boolean);
+  cols.sort((a,b)=>{
+    const ia = colOrder.indexOf(a); const ib = colOrder.indexOf(b);
+    return (ia<0?99:ia) - (ib<0?99:ib);
+  });
+  const unique = [...new Set(cols)];
+  if(!unique.length) return `<div class="usage-hand"><div class="note">No pitch at 3% or more.</div></div>`;
+  const byType = (rows)=>{
+    const map = {};
+    (rows||[]).forEach(r=>{ map[normalizePitchCode(r.type)] = Number(r.usage); });
+    return map;
   };
-  const body = sections.map(([label, rows], i)=>{
-    if(i>0 && !countOk(rows)) return '';
-    const nP = Math.round((rows||[]).reduce((s,r)=>s+(Number(r.pitches)||0), 0));
-    const title = nP ? `${label} · ${nP}` : label;
-    return usageSectionRows(title, rows, menu);
+  const izSide = ((mix.iz || {})[sideKey]) || {};
+  const sections = [
+    ['Overall', 'overall', overall],
+    ['0-0', '0-0', handRows('0-0') || (trusted ? alignRowsToArsenal((mix['0-0']||{})[sideKey], menu) : [])],
+    ['H-Ahead', 'hitter_ahead', handRows('hitter_ahead') || []],
+    ['1K', '1k', handRows('1k') || []],
+    ['2K', '2_strikes', handRows('2_strikes') || (trusted ? alignRowsToArsenal((mix['2_strikes']||{})[sideKey], menu) : [])],
+    ['3-2', '3-2', handRows('3-2') || []],
+    ['RISP', 'risp', handRows('risp') || []],
+  ];
+  const head = `<th class="usage-rowlab">${title}</th><th>IZ%</th>${unique.map(c=>`<th>${usageColLabel(c)}</th>`).join('')}`;
+  const body = sections.map(([label, key, rows])=>{
+    const has = (rows||[]).some(r=>Number(r.pitches)>0 || Number(r.usage)>0);
+    const pct = byType(rows);
+    const cells = unique.map(c=>{
+      if(!has) return usagePctCell(null);
+      return usagePctCell(pct[c] != null ? pct[c] : 0);
+    }).join('');
+    const iz = izSide[key];
+    return `<tr><th class="usage-rowlab">${label}</th>${usagePctCell(iz)}${cells}</tr>`;
   }).join('');
-  const nBit = sampleN ? ` · ${sampleN}${sampleNote?` ${sampleNote}`:''}` : '';
-  return `<div class="usage-hand">
-    <div class="usage-hand-title">${title}${nBit}</div>
-    <table class="usage-matrix">
-      <thead><tr><th></th><th>USAGE</th><th>IN ZONE</th></tr></thead>
-      <tbody>${body}</tbody>
-    </table>
-  </div>`;
+  return `<table class="usage-matrix">
+    <thead><tr>${head}</tr></thead>
+    <tbody>${body}</tbody>
+  </table>`;
 }
 function pitcherCountUsageChartsHtml(p){
   return `<div class="usage-hands">
     ${pitcherHandUsageTable(p, 'L', 'v. LHH')}
     ${pitcherHandUsageTable(p, 'R', 'v. RHH')}
-  </div>
-  <div class="note usage-zone-note">In-zone % stays blank until that pitch has a zone sample. Hitter ahead is 2-0, 3-1, and 3-0 only. A hand under 80 pitches uses the larger arsenal mix for Overall so a short tagged sample does not replace it.</div>`;
+  </div>`;
 }
 function advancePitcherIndex(){
   const byId = new Map();
@@ -3341,7 +3344,7 @@ function playerFileStem(name){
 }
 function sheetHtmlFile(title, body){
   const base = location.href.replace(/[^/]*$/, '');
-  const css = new URL('shared.css?v=san148', base).href;
+  const css = new URL('shared.css?v=san149', base).href;
   const page = body.includes('advance-sheet-pitcher') || body.includes('advance-sheet-hitter')
     ? '<style>@page{size:letter portrait;margin:0.32in}</style>'
     : '';

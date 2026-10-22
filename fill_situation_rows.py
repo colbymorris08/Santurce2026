@@ -34,7 +34,7 @@ def main() -> None:
     for i, p in enumerate(sorted(targets, key=lambda r: (r.get("team") or "", r.get("name") or "")), 1):
         sid = str(p["synergy_id"])
         name = p.get("name") or sid
-        if sid in done and done[sid].get("mix"):
+        if sid in done and "1k" in (done[sid].get("mix") or {}) and "iz" in (done[sid].get("mix") or {}):
             print(f"[{i}/{len(targets)}] {name} cached", flush=True)
             continue
         print(f"[{i}/{len(targets)}] {p.get('team')} {name}", flush=True)

@@ -379,7 +379,8 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .usage-hand-title { text-align: center; font-weight: 800; font-size: 15px; letter-spacing: .04em; color: #111; margin: 0 0 4px; }
 .usage-matrix { width: 100%; border-collapse: collapse; background: #fff; color: #111; font-size: 12px; }
 .usage-matrix th, .usage-matrix td { border: 1px solid #e6e8ee; padding: 3px 6px; text-align: center; background: #fff; color: #111; }
-.usage-matrix thead th { font-size: 10px; letter-spacing: .06em; font-weight: 800; }
+.usage-matrix thead th { font-size: 11px; letter-spacing: .04em; font-weight: 800; color: #111; }
+.usage-matrix .usage-rowlab { text-align: left; font-weight: 800; white-space: nowrap; }
 .usage-pitch { text-align: left !important; font-weight: 700; white-space: nowrap; }
 .velo-band { white-space: nowrap; font-weight: 700; }
 .usage-section td {

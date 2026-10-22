@@ -2504,17 +2504,33 @@ def discover_pr_roster_pitchers(
 
 
 HITTER_AHEAD_COUNTS = {(2, 0), (3, 1), (3, 0)}
-SITUATION_KEYS = ("overall", "0-0", "hitter_ahead", "2_strikes", "3-2", "risp")
+SITUATION_KEYS = ("overall", "0-0", "hitter_ahead", "1k", "2_strikes", "3-2", "risp")
+
+
+def _pitch_in_zone(pitch: dict) -> bool | None:
+    """True/False when px/pz is present. None when the pitch has no location."""
+    try:
+        px = float(pitch["px"])
+        pz = float(pitch["pz"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    bot, top = _pitch_zone_feet(pitch)
+    return abs(px) <= _PLATE_HALF_FT and bot <= pz <= top
 
 
 def hand_situation_mix(events: list[dict]) -> dict[str, dict]:
     """Pitch mix by batter hand for the advance rows.
 
-    Hitter ahead is only 2-0, 3-1, and 3-0. RISP means a runner on 2nd or 3rd
-    when the pitch is thrown. 3-2 is that count by itself. 2K is any two-strike count.
+    Hitter ahead is only 2-0, 3-1, and 3-0. 1K is any one-strike count.
+    RISP means a runner on 2nd or 3rd. 3-2 is that count by itself.
+    2K is any two-strike count. IZ% is located pitches over the plate.
     """
     sides = {
         hand: {key: defaultdict(int) for key in SITUATION_KEYS}
+        for hand in ("L", "R")
+    }
+    zone = {
+        hand: {key: [0, 0] for key in SITUATION_KEYS}
         for hand in ("L", "R")
     }
     for ev in events:
@@ -2531,17 +2547,26 @@ def hand_situation_mix(events: list[dict]) -> dict[str, dict]:
         except (TypeError, ValueError):
             balls, strikes = 0, 0
         bag = sides[side]
-        bag["overall"][code] += 1
+        keys = ["overall"]
         if balls == 0 and strikes == 0:
-            bag["0-0"][code] += 1
+            keys.append("0-0")
         if (balls, strikes) in HITTER_AHEAD_COUNTS:
-            bag["hitter_ahead"][code] += 1
+            keys.append("hitter_ahead")
+        if strikes == 1:
+            keys.append("1k")
         if strikes >= 2:
-            bag["2_strikes"][code] += 1
+            keys.append("2_strikes")
         if balls == 3 and strikes == 2:
-            bag["3-2"][code] += 1
+            keys.append("3-2")
         if _runners_risp(ev):
-            bag["risp"][code] += 1
+            keys.append("risp")
+        in_zone = _pitch_in_zone(pitch)
+        for key in keys:
+            bag[key][code] += 1
+            if in_zone is not None:
+                zone[side][key][0] += 1
+                if in_zone:
+                    zone[side][key][1] += 1
 
     def pack(counter: dict) -> list[dict]:
         total = sum(counter.values())
@@ -2558,6 +2583,13 @@ def hand_situation_mix(events: list[dict]) -> dict[str, dict]:
             "vs_LHB": pack(sides["L"][key]),
             "vs_RHB": pack(sides["R"][key]),
         }
+    iz: dict[str, dict] = {}
+    for side, hand_key in (("L", "vs_LHB"), ("R", "vs_RHB")):
+        iz[hand_key] = {}
+        for key in SITUATION_KEYS:
+            located, inside = zone[side][key]
+            iz[hand_key][key] = round(100.0 * inside / located, 1) if located >= 8 else None
+    out["iz"] = iz
     return out
 
 
