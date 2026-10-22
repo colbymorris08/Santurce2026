@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san151">
+<link rel="stylesheet" href="shared.css?v=san152">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san151';
+const ASSET_V = 'san152';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2078,11 +2078,15 @@ function usageColLabel(code){
   const c = normalizePitchCode(code);
   if(c==='FF' || c==='FA') return 'FB';
   if(c==='SI' || c==='FT') return 'SNK';
+  if(c==='CH') return 'CH';
+  if(c==='FS' || c==='FO') return 'SP';
+  if(c==='CU' || c==='CS') return 'CB';
+  if(c==='SL') return 'SL';
   if(c==='ST') return 'SW';
   if(c==='FC') return 'CT';
-  if(c==='FS' || c==='FO') return 'SPL';
   return displayPitchCode(c) || c;
 }
+const USAGE_COL_ORDER = ['FF','SI','CH','FS','FO','CU','CS','SL','ST','FC','SV'];
 function usagePctCell(pct){
   if(pct==null || !isFinite(Number(pct))) return '<td class="num">—</td>';
   const n = Math.round(Number(pct));
@@ -2113,14 +2117,19 @@ function pitcherHandUsageTable(p, handKey, title){
     overall = alignRowsToArsenal(overallRaw, menu);
     if(!overall.length || (!trusted && menu.length >= 2)) overall = arsenalUsageRows(menu);
   }
-  const colOrder = ['FF','SI','ST','CH','FC','SL','CU','FS','FO','SV'];
   const cols = (overall||[]).filter(r=>Number(r.usage) >= 3).map(r=>normalizePitchCode(r.type)).filter(Boolean);
   cols.sort((a,b)=>{
-    const ia = colOrder.indexOf(a); const ib = colOrder.indexOf(b);
+    const ia = USAGE_COL_ORDER.indexOf(a); const ib = USAGE_COL_ORDER.indexOf(b);
     return (ia<0?99:ia) - (ib<0?99:ib);
   });
-  const unique = [...new Set(cols)];
-  if(!unique.length) return `<div class="usage-hand"><div class="note">No pitch at 3% or more.</div></div>`;
+  const groups = [];
+  [...new Set(cols)].forEach(c=>{
+    const lab = usageColLabel(c);
+    const hit = groups.find(g=>g.lab===lab);
+    if(hit) hit.codes.push(c);
+    else groups.push({lab, codes:[c]});
+  });
+  if(!groups.length) return `<div class="usage-hand"><div class="note">No pitch at 3% or more.</div></div>`;
   const byType = (rows)=>{
     const map = {};
     (rows||[]).forEach(r=>{ map[normalizePitchCode(r.type)] = Number(r.usage); });
@@ -2136,13 +2145,15 @@ function pitcherHandUsageTable(p, handKey, title){
     ['3-2', '3-2', handRows('3-2') || []],
     ['RISP', 'risp', handRows('risp') || []],
   ];
-  const head = `<th class="usage-rowlab">${title}</th><th>IZ%</th>${unique.map(c=>`<th>${usageColLabel(c)}</th>`).join('')}`;
+  const head = `<th class="usage-rowlab">${title}</th><th>IZ%</th>${groups.map(g=>`<th>${g.lab}</th>`).join('')}`;
   const body = sections.map(([label, key, rows])=>{
     const has = (rows||[]).some(r=>Number(r.pitches)>0 || Number(r.usage)>0);
     const pct = byType(rows);
-    const cells = unique.map(c=>{
+    const cells = groups.map(g=>{
       if(!has) return usagePctCell(null);
-      return usagePctCell(pct[c] != null ? pct[c] : 0);
+      const vals = g.codes.map(c=>pct[c]).filter(v=>v!=null && isFinite(v));
+      if(!vals.length) return usagePctCell(0);
+      return usagePctCell(vals.reduce((s,v)=>s+v, 0));
     }).join('');
     const iz = izSide[key];
     return `<tr><th class="usage-rowlab">${label}</th>${usagePctCell(iz)}${cells}</tr>`;
