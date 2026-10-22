@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san149">
+<link rel="stylesheet" href="shared.css?v=san150">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san149';
+const ASSET_V = 'san150';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3344,7 +3344,7 @@ function playerFileStem(name){
 }
 function sheetHtmlFile(title, body){
   const base = location.href.replace(/[^/]*$/, '');
-  const css = new URL('shared.css?v=san149', base).href;
+  const css = new URL('shared.css?v=san150', base).href;
   const page = body.includes('advance-sheet-pitcher') || body.includes('advance-sheet-hitter')
     ? '<style>@page{size:letter portrait;margin:0.32in}</style>'
     : '';
