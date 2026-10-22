@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san147">
+<link rel="stylesheet" href="shared.css?v=san148">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san147';
+const ASSET_V = 'san148';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2263,6 +2263,12 @@ const PITCHER_MEDIA_PREFIX = 'santurce_pm_v1:';
 const PITCHER_MEDIA_DB = 'santurce_pm_db';
 const PITCHER_MEDIA_STORE = 'media';
 const PITCHER_MEDIA_CACHE = new Map();
+function repoAssetSrc(path){
+  if(!path) return '';
+  const s = String(path);
+  if(s.startsWith('data:') || s.startsWith('blob:') || s.includes('?')) return s;
+  return s + '?v=' + ASSET_V;
+}
 function pitcherMediaKey(id, slot){ return PITCHER_MEDIA_PREFIX + String(id||'') + ':' + slot; }
 function pitcherMediaCacheKey(id, slot){ return String(id||'') + ':' + slot; }
 function openPitcherMediaDb(){
@@ -2533,7 +2539,7 @@ async function onPitcherMediaUpload(input, id, slot){
   }
 }
 function pitcherUploadSlotHtml(id, slot, src, label, {tall=false, plot=false, repoFallback=null, name=''}={}){
-  const shown = src || repoFallback || '';
+  const shown = repoFallback || src || '';
   const has = !!shown;
   const tallCls = tall ? ' advance-placeholder-tall' : '';
   const plotCls = plot ? ' advance-upload-plot' : '';
@@ -2919,8 +2925,8 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   const blankHead=`<div class="advance-headshot advance-headshot-placeholder" aria-hidden="true"></div>`;
   const headHtml = headshotImgHtml(mlbId, p.name, 'advance-headshot', headLocal) || blankHead;
   const repoRow = resolvePitcherMediaRow(playerId);
-  const repoDelivery = p.arm_slot_image || (repoRow && repoRow.arm_slot_image) || null;
-  const deliverySrc = getPitcherMedia(playerId, 'delivery') || repoDelivery || '';
+  const repoDelivery = repoAssetSrc(p.arm_slot_image || (repoRow && repoRow.arm_slot_image) || '');
+  const deliverySrc = repoDelivery || getPitcherMedia(playerId, 'delivery') || '';
   const heatRec = pitcherHeatRecord(p);
   const heatMapsHtml = `<div class="advance-heat-pair">
     <div class="advance-heat-cell">${zoneHeatSvg(heatRec && heatRec.vs_r, 'slg', 'SLG vs R')}</div>
@@ -3335,7 +3341,7 @@ function playerFileStem(name){
 }
 function sheetHtmlFile(title, body){
   const base = location.href.replace(/[^/]*$/, '');
-  const css = new URL('shared.css?v=san147', base).href;
+  const css = new URL('shared.css?v=san148', base).href;
   const page = body.includes('advance-sheet-pitcher') || body.includes('advance-sheet-hitter')
     ? '<style>@page{size:letter portrait;margin:0.32in}</style>'
     : '';
@@ -3359,7 +3365,7 @@ async function exportArmSlotZip(){
   const files = [];
   for(const p of sortByLastName(rows, r=>r.name)){
     try{
-      const res = await fetch(p.arm_slot_image);
+      const res = await fetch(repoAssetSrc(p.arm_slot_image));
       if(!res.ok) continue;
       files.push({
         name: `${p.team}/${playerFileStem(p.name)}.jpg`,
