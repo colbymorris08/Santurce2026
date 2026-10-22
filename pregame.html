@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san150">
+<link rel="stylesheet" href="shared.css?v=san151">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san150';
+const ASSET_V = 'san151';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3059,17 +3059,8 @@ function renderPitcherAdvance(){
   }
   el.innerHTML = seasonCoverageHtml('pitcher') + buildPitcherAdvanceSheetHtml(p);
 }
-function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape', autoPrint=true, pageMargin=null}={}){
-  const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
-  const w = window.open('', '_blank');
-  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
-  const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
-  // Hitter: extra ~1" top margin so name strip isn't cut off; still one portrait page.
-  // Pitcher landscape: +0.5in top (0.28 → 0.78) so the header isn't cut off.
-  const margin = pageMargin || (orientation === 'portrait'
-    ? '1.15in 0.28in 0.28in 0.28in'
-    : '0.78in 0.28in 0.28in 0.28in');
-  const pitcherH = orientation === 'portrait' ? `
+function portraitExportCss(kind){
+  if(kind==='pitcher') return `
       html,body{min-height:0!important;height:auto!important}
       .advance-sheet-pitcher.advance-print-page{
         width:7.86in;max-width:7.86in;height:auto;max-height:10.15in;overflow:hidden;
@@ -3110,73 +3101,18 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
       .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.55in;height:auto;max-height:1.8in}
       .advance-sheet-pitcher .advance-photo-wrap{max-height:2.0in;display:flex;align-items:center;justify-content:center}
       .advance-sheet-pitcher .advance-media-img{max-height:2.0in;width:100%;object-fit:contain}
-      ` : `
-      html,body{min-height:0!important;height:auto!important}
-      .advance-sheet-pitcher.advance-print-page{
-        width:10.44in;height:6.0in;max-width:10.44in;max-height:6.0in;overflow:hidden;
-        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.961;
-      }
-      .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
-      .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
-      .advance-sheet-pitcher .advance-usage-side h4{color:#000!important}
-      .advance-sheet-pitcher .advance-arsenal-table thead th,
-      .advance-sheet-pitcher .advance-card table thead th{color:#fff!important}
-      .advance-sheet-pitcher .usage-hands{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-      .advance-sheet-pitcher .usage-hand-title{font-size:9px;margin:0}
-      .advance-sheet-pitcher .usage-matrix{font-size:7px}
-      .advance-sheet-pitcher .usage-matrix th,.advance-sheet-pitcher .usage-matrix td{padding:0 2px}
-      .advance-sheet-pitcher .usage-section td{font-size:9px;letter-spacing:.08em;padding:2px 0;border-top:1.5px solid #111}
-      .advance-sheet-pitcher .usage-hi,.advance-sheet-pitcher .usage-lo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .advance-sheet-pitcher .usage-zone-note{display:none}
-      .advance-sheet-pitcher .advance-count-usage-grid{display:flex;flex-direction:column;gap:2px;min-height:0}
-      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-count-usage-title{font-size:7px;font-weight:700;color:#0a1633;margin:0 0 1px;letter-spacing:.04em;text-transform:uppercase}
-      .advance-sheet-pitcher .advance-count-usage-pair{gap:4px}
-      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-usage-side h4{font-size:7px;margin:0 0 0}
-      .advance-sheet-pitcher .advance-usage-row-compact{font-size:7px;line-height:1;margin-bottom:0;grid-template-columns:28px 1fr 22px}
-      .advance-sheet-pitcher .advance-usage-row-compact .advance-usage-bar{height:4px}
-      .advance-sheet-pitcher .advance-card-count-usage{padding:2px 4px}
-      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:4px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
-      .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
-      .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.7in;height:auto;max-height:2.02in;overflow:visible;background:#F7F9FB}
-      .advance-sheet-pitcher .zone-heat,.advance-sheet-pitcher .zone-heat-vox,.advance-sheet-pitcher .zone-heat-7{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .zone-heat text{paint-order:stroke fill}
-      .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
-      .advance-sheet-pitcher .advance-col-middle{display:contents}
-      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:0;overflow:visible}
-      .advance-sheet-pitcher .advance-card-arsenal{flex:0 0 auto;overflow:visible}
-      .advance-sheet-pitcher .advance-card-arsenal .table-wrap{overflow:visible}
-      .advance-sheet-pitcher .advance-card-count-usage{flex:0 0 auto;min-height:0;overflow:visible}
-      .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
-      .advance-sheet-pitcher .advance-col-release{grid-column:3;grid-row:1 / span 2}
-      .advance-sheet-pitcher .advance-layout-pitcher-print,
-      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
-        grid-template-columns:1fr 1fr 1fr!important;grid-template-rows:minmax(0,1fr) auto;gap:5px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
-      }
-      .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:0 1px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
-      .advance-pdf-hand,.advance-pdf-name{font-size:26px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
-      .advance-pdf-team{font-size:24px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      .advance-pdf-headshot{width:32px;height:40px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
-      .advance-sheet-pitcher .pitcher-summer-bar{flex:0 0 auto;margin:0 0 2px;overflow:hidden;border:none;border-radius:0;background:#fff}
-      .advance-sheet-pitcher .pitcher-summer-bar table{width:100%;border-collapse:collapse;background:#fff;font-size:7px;line-height:1;table-layout:auto}
-      .advance-sheet-pitcher .pitcher-summer-bar th,
-      .advance-sheet-pitcher .pitcher-summer-bar td{padding:1px 1px;text-align:center;white-space:nowrap;letter-spacing:0;text-transform:none;font-weight:700;line-height:1;background:#fff!important;color:#000!important;border-bottom:1px solid #ccc;position:static;cursor:default}
-      .advance-sheet-pitcher .pitcher-summer-bar th{font-size:6.5px;color:#333!important}
-      .advance-sheet-pitcher .advance-photo-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
-      .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
-      .advance-sheet-pitcher .advance-movement-frame{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-      .advance-sheet-pitcher .advance-movement-frame .advance-movement-shot{width:100%;height:100%;object-fit:contain;object-position:center;background:#0e1a2b}
-      .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
-  const hitterH = orientation === 'portrait' ? `
+  `;
+  if(kind==='hitter') return `
       html,body{color-scheme:only light;background:#fff!important}
       body:has(.advance-sheet-hitter){min-height:0!important;height:auto!important}
       .advance-sheet-hitter.advance-print-page{
         width:7.94in;height:auto;max-width:7.94in;max-height:9.52in;overflow:hidden;
         display:flex;flex-direction:column;box-sizing:border-box;margin:0;padding-bottom:0;zoom:0.96;
       }
-      .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:1px 2px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
-      .advance-pdf-hand,.advance-pdf-name{font-size:30px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
-      .advance-pdf-team{font-size:26px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
+      .advance-sheet-hitter .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:1px 2px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
+      .advance-sheet-hitter .advance-pdf-hand,.advance-sheet-hitter .advance-pdf-name{font-size:30px!important;font-weight:700;color:#000!important;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
+      .advance-sheet-hitter .advance-pdf-team{font-size:26px!important;font-weight:600;color:#000!important;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .advance-sheet-hitter .advance-pdf-headshot{width:38px;height:54px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
       .advance-sheet-hitter .advance-hero{display:none!important}
       .advance-sheet-hitter .hitter-summer-bar{flex:0 0 auto;margin:1px 0 2px;overflow:hidden;border:none;border-radius:0;background:#fff}
       .advance-sheet-hitter .hitter-summer-bar table{width:100%;border-collapse:collapse;background:#fff;font-size:8px;line-height:1;table-layout:auto}
@@ -3233,7 +3169,77 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
         filter:none!important;mix-blend-mode:normal!important;
       }
       .advance-sheet-hitter,
-      .advance-sheet-hitter *:not(.rate-cell){color:#000!important}` : '';
+      .advance-sheet-hitter *:not(.rate-cell){color:#000!important}
+  `;
+  return '';
+}
+function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape', autoPrint=true, pageMargin=null}={}){
+  const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
+  const w = window.open('', '_blank');
+  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
+  const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
+  // Hitter: extra ~1" top margin so name strip isn't cut off; still one portrait page.
+  // Pitcher landscape: +0.5in top (0.28 → 0.78) so the header isn't cut off.
+  const margin = pageMargin || (orientation === 'portrait'
+    ? '1.15in 0.28in 0.28in 0.28in'
+    : '0.78in 0.28in 0.28in 0.28in');
+  const pitcherH = orientation === 'portrait' ? portraitExportCss('pitcher') : `
+      html,body{min-height:0!important;height:auto!important}
+      .advance-sheet-pitcher.advance-print-page{
+        width:10.44in;height:6.0in;max-width:10.44in;max-height:6.0in;overflow:hidden;
+        display:flex;flex-direction:column;box-sizing:border-box;margin:0;zoom:0.961;
+      }
+      .advance-sheet-pitcher .advance-desc,.advance-sheet-pitcher .advance-desc *{color:#000!important}
+      .advance-sheet-pitcher .advance-usage-row,.advance-sheet-pitcher .advance-usage-row strong,.advance-sheet-pitcher .advance-usage-row .num{color:#000!important}
+      .advance-sheet-pitcher .advance-usage-side h4{color:#000!important}
+      .advance-sheet-pitcher .advance-arsenal-table thead th,
+      .advance-sheet-pitcher .advance-card table thead th{color:#fff!important}
+      .advance-sheet-pitcher .usage-hands{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+      .advance-sheet-pitcher .usage-hand-title{font-size:9px;margin:0}
+      .advance-sheet-pitcher .usage-matrix{font-size:7px}
+      .advance-sheet-pitcher .usage-matrix th,.advance-sheet-pitcher .usage-matrix td{padding:0 2px}
+      .advance-sheet-pitcher .usage-section td{font-size:9px;letter-spacing:.08em;padding:2px 0;border-top:1.5px solid #111}
+      .advance-sheet-pitcher .usage-hi,.advance-sheet-pitcher .usage-lo{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-sheet-pitcher .usage-zone-note{display:none}
+      .advance-sheet-pitcher .advance-count-usage-grid{display:flex;flex-direction:column;gap:2px;min-height:0}
+      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-count-usage-title{font-size:7px;font-weight:700;color:#0a1633;margin:0 0 1px;letter-spacing:.04em;text-transform:uppercase}
+      .advance-sheet-pitcher .advance-count-usage-pair{gap:4px}
+      .advance-sheet-pitcher .advance-count-usage-block-compact .advance-usage-side h4{font-size:7px;margin:0 0 0}
+      .advance-sheet-pitcher .advance-usage-row-compact{font-size:7px;line-height:1;margin-bottom:0;grid-template-columns:28px 1fr 22px}
+      .advance-sheet-pitcher .advance-usage-row-compact .advance-usage-bar{height:4px}
+      .advance-sheet-pitcher .advance-card-count-usage{padding:2px 4px}
+      .advance-sheet-pitcher .advance-heat-pair{display:grid;grid-template-columns:max-content max-content;gap:4px;flex:0 0 auto;width:max-content;height:auto;min-height:0;max-height:none}
+      .advance-sheet-pitcher .advance-heat-cell{min-height:0;min-width:0;width:max-content;display:flex;flex-direction:column;gap:1px;overflow:visible}
+      .advance-sheet-pitcher .advance-heat-cell .zone-heat,.advance-sheet-pitcher .advance-heat-cell .zone-heat-vox,.advance-sheet-pitcher .advance-heat-cell .zone-heat-7{width:1.7in;height:auto;max-height:2.02in;overflow:visible;background:#F7F9FB}
+      .advance-sheet-pitcher .zone-heat,.advance-sheet-pitcher .zone-heat-vox,.advance-sheet-pitcher .zone-heat-7{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .zone-heat text{paint-order:stroke fill}
+      .advance-sheet-pitcher .advance-band-heat-mid{grid-column:2;grid-row:2;align-self:end;justify-self:end;width:max-content;max-width:100%;height:auto;max-height:none;flex:0 0 auto;overflow:visible;margin:0;padding:1px 2px}
+      .advance-sheet-pitcher .advance-col-middle{display:contents}
+      .advance-sheet-pitcher .advance-col-charts{grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:0;overflow:visible}
+      .advance-sheet-pitcher .advance-card-arsenal{flex:0 0 auto;overflow:visible}
+      .advance-sheet-pitcher .advance-card-arsenal .table-wrap{overflow:visible}
+      .advance-sheet-pitcher .advance-card-count-usage{flex:0 0 auto;min-height:0;overflow:visible}
+      .advance-sheet-pitcher .advance-band-movement{grid-column:2;grid-row:1}
+      .advance-sheet-pitcher .advance-col-release{grid-column:3;grid-row:1 / span 2}
+      .advance-sheet-pitcher .advance-layout-pitcher-print,
+      .advance-layout.advance-layout-pitcher.advance-layout-pitcher-print{
+        grid-template-columns:1fr 1fr 1fr!important;grid-template-rows:minmax(0,1fr) auto;gap:5px!important;flex:1 1 auto;min-height:0;align-items:stretch;width:100%;
+      }
+      .advance-pdf-strip{display:flex;flex-wrap:nowrap;align-items:center;gap:4px 8px;flex:0 0 auto;padding:0 1px 2px;border-bottom:1px solid #ccc;margin-bottom:2px;min-width:0}
+      .advance-pdf-hand,.advance-pdf-name{font-size:26px;font-weight:700;color:#000;line-height:1.05;flex:0 0 auto;letter-spacing:0.01em}
+      .advance-pdf-team{font-size:24px;font-weight:600;color:#000;line-height:1.05;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .advance-pdf-headshot{width:32px;height:40px;object-fit:cover;object-position:center 12%;border-radius:4px;border:1px solid #bbb;background:#eef2f7;flex:0 0 auto}
+      .advance-sheet-pitcher .pitcher-summer-bar{flex:0 0 auto;margin:0 0 2px;overflow:hidden;border:none;border-radius:0;background:#fff}
+      .advance-sheet-pitcher .pitcher-summer-bar table{width:100%;border-collapse:collapse;background:#fff;font-size:7px;line-height:1;table-layout:auto}
+      .advance-sheet-pitcher .pitcher-summer-bar th,
+      .advance-sheet-pitcher .pitcher-summer-bar td{padding:1px 1px;text-align:center;white-space:nowrap;letter-spacing:0;text-transform:none;font-weight:700;line-height:1;background:#fff!important;color:#000!important;border-bottom:1px solid #ccc;position:static;cursor:default}
+      .advance-sheet-pitcher .pitcher-summer-bar th{font-size:6.5px;color:#333!important}
+      .advance-sheet-pitcher .advance-photo-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+      .advance-sheet-pitcher .advance-media-img{width:100%;height:100%;object-fit:contain;object-position:center top}
+      .advance-sheet-pitcher .advance-movement-frame{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+      .advance-sheet-pitcher .advance-movement-frame .advance-movement-shot{width:100%;height:100%;object-fit:contain;object-position:center;background:#0e1a2b}
+      .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
+  const hitterH = orientation === 'portrait' ? portraitExportCss('hitter') : '';
   const autoPrintScript = autoPrint
     ? `<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>`
     : '';
@@ -3344,11 +3350,16 @@ function playerFileStem(name){
 }
 function sheetHtmlFile(title, body){
   const base = location.href.replace(/[^/]*$/, '');
-  const css = new URL('shared.css?v=san150', base).href;
-  const page = body.includes('advance-sheet-pitcher') || body.includes('advance-sheet-hitter')
-    ? '<style>@page{size:letter portrait;margin:0.32in}</style>'
-    : '';
-  const html = `<!doctype html><html><head><meta charset="utf-8"><base href="${base}"><title>${title}</title><link rel="stylesheet" href="${css}">${page}</head><body>${body}</body></html>`;
+  const css = new URL('shared.css?v=' + ASSET_V, base).href;
+  const kind = body.includes('advance-sheet-pitcher') ? 'pitcher' : (body.includes('advance-sheet-hitter') ? 'hitter' : '');
+  const margin = kind === 'hitter' ? '1.15in 0.28in 0.28in 0.28in' : '0.32in';
+  const page = kind ? `<style>
+      @page { size: letter portrait; margin: ${margin}; }
+      html,body{background:#fff;margin:0;padding:0;color:#111;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .advance-print-page{margin:0 auto}
+      ${portraitExportCss(kind)}
+    </style>` : '';
+  const html = `<!doctype html><html style="color-scheme:only light"><head><meta charset="utf-8"><meta name="color-scheme" content="only light"><base href="${base}"><title>${title}</title><link rel="stylesheet" href="${css}">${page}</head><body>${body}</body></html>`;
   return new TextEncoder().encode(html);
 }
 function exportAdvanceZip(){
