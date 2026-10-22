@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san152">
+<link rel="stylesheet" href="shared.css?v=san155">
 </head>
 <body>
 <div class="topbar">
@@ -384,7 +384,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san152';
+const ASSET_V = 'san155';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1857,10 +1857,10 @@ function advanceMovementSvg(arsenal, throws='R', hbView='pitcher'){
       code:a.code,
       hb,
       ivb:Number(a.ivb),
-      usage:Number(a.usage)||10,
+      usage:Number(a.usage)||0,
       color:advancePitchColor(a.code)
     };
-  }).filter(Boolean);
+  }).filter(p=>p && p.usage >= 3);
   const W=340, H=280, P=32, lim=20;
   const plot=W-P*2;
   const sx=v=>P+((v+lim)/(lim*2))*plot;
@@ -1892,7 +1892,7 @@ function advanceMovementSvg(arsenal, throws='R', hbView='pitcher'){
     const r=Math.max(6, Math.min(12, 5 + p.usage*0.11));
     const x=sx(p.hb), y=sy(p.ivb);
     s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${p.color}" stroke="#fff" stroke-width="1.4"/>`;
-    s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${displayPitchCode(p.code)||p.code}</text>`;
+    s+=`<text x="${x+r+3}" y="${y+3}" font-size="9" font-weight="700" fill="#0B1F33" font-family="system-ui,sans-serif">${usageColLabel(p.code)||p.code}</text>`;
   });
   s+=`<text x="${W/2}" y="${H-5}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif">Horizontal Break (in)  ·  ${viewLab} · + = 1B</text>`;
   s+=`<text x="10" y="${H/2}" text-anchor="middle" font-size="8" fill="#334155" font-family="system-ui,sans-serif" transform="rotate(-90 10 ${H/2})">Induced Vertical Break (in)</text>`;
@@ -2706,6 +2706,35 @@ function scaffoldPitcherPacket(row){
     _hbView: 'pitcher',
   };
 }
+function rodriguezSummerLine(full){
+  const s = full && full.seasons && full.seasons.lmb_2026;
+  if(!s || !s.ip) return null;
+  const bits = String(s.ip).split('.');
+  const outs = (Number(bits[0]) || 0) * 3 + (Number(bits[1]) || 0);
+  const per9 = (n) => outs ? (Number(n) * 27 / outs).toFixed(1) : null;
+  return {
+    team: 'CHI',
+    team_name: 'Dorados de Chihuahua',
+    season: 'Summer 2026',
+    league: 'LMB',
+    circuit: 'LMB',
+    league_name: 'Mexican League',
+    level: 'IND',
+    ip: s.ip,
+    g: s.g,
+    gs: s.gs,
+    k: s.so,
+    bb: s.bb,
+    k9: per9(s.so),
+    bb9: per9(s.bb),
+    era: s.era,
+    fip: '3.63',
+    whip: s.whip,
+    h: s.h,
+    hr: s.hr,
+    source: '2026 Chihuahua (LMB) line on the advance packet. FIP is the Stats API LMB pitching FIP.',
+  };
+}
 function resolvePitcherPacket(playerId){
   const id = Number(playerId||0);
   const full = CACHE.advanceRodriguez;
@@ -2713,7 +2742,8 @@ function resolvePitcherPacket(playerId){
   if(full && Number(full.mlb_id||RODRIGUEZ_MLB_ID)===id){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
-      team: full.team || (row && row.team) || '',
+      team: (row && row.team) || full.team || 'CAG',
+      summer_line: pitcherSummerLineFor(full) || rodriguezSummerLine(full),
       count_hand_mix: (row && row.count_hand_mix) || buildCountHandMixFromFullPacket(full) || buildCountHandMixFromRow(row),
       // Curated Trackman HB matches catcher/hitter-facing (+ = 1B).
       _hbView: 'hitter',
@@ -2948,12 +2978,13 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
   </div>`;
   const hasHand = p._has_hand_split || arsenal.some(a=>a.usage_l!=null||a.usage_r!=null);
   const hbView = p._hbView || 'pitcher';
-  const arRows=arsenal.map(a=>{
+  const arsenalShown = arsenal.filter(a=>Number(a.usage) >= 3);
+  const arRows=arsenalShown.map(a=>{
     const c=advancePitchColor(a.code);
     const hbPitcher = toPitcherArmHb(a.hb, p.throws||'R', a._hbView || hbView);
     const hbShow = hitterGeoHb(hbPitcher, p.throws||'R');
     return `<tr>
-      <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${displayPitchCode(a.code)||a.code}</td>
+      <td class="player-name"><span class="advance-dot" style="background:${c}"></span> ${usageColLabel(a.code)||a.code}</td>
       <td class="num">${a.usage!=null?a.usage+'%':'—'}</td>
       <td class="num">${a.usage_l!=null?a.usage_l+'%':'—'}</td>
       <td class="num">${a.usage_r!=null?a.usage_r+'%':'—'}</td>

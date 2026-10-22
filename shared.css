@@ -379,7 +379,11 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
 .usage-hand-title { text-align: center; font-weight: 800; font-size: 15px; letter-spacing: .04em; color: #111; margin: 0 0 4px; }
 .usage-matrix { width: 100%; border-collapse: collapse; background: #fff; color: #111; font-size: 12px; }
 .usage-matrix th, .usage-matrix td { border: 1px solid #e6e8ee; padding: 3px 6px; text-align: center; background: #fff; color: #111; }
-.usage-matrix thead th { font-size: 11px; letter-spacing: .04em; font-weight: 800; color: #111; }
+.usage-matrix thead th { font-size: 11px; letter-spacing: .04em; font-weight: 800; color: #111; background: #fff; }
+.advance-sheet .advance-card .usage-matrix thead th {
+  color: #111 !important;
+  background: #fff !important;
+}
 .usage-matrix .usage-rowlab { text-align: left; font-weight: 800; white-space: nowrap; }
 .usage-pitch { text-align: left !important; font-weight: 700; white-space: nowrap; }
 .velo-band { white-space: nowrap; font-weight: 700; }
@@ -1024,6 +1028,7 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-arsenal-table td { padding: 0 2px; }
   .advance-sheet-pitcher .advance-arsenal-table thead th,
   .advance-sheet-pitcher .advance-card table thead th { color: #fff !important; }
+  .advance-sheet-pitcher .usage-matrix thead th { color: #111 !important; background: #fff !important; }
   .advance-sheet-pitcher .advance-count-usage-grid {
     display: flex;
     flex-direction: column;
