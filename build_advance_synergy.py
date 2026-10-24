@@ -1372,6 +1372,7 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                 "game_date_sort": gsort,
                 "inning": ev.get("inning"),
                 "pa_number": ev.get("inningPlateAppearanceNumber"),
+                "pitcher_hand": throws if throws in ("L", "R") else None,
             }
             h["spray"].setdefault("all", []).append(pt)
             if empty:
@@ -2067,7 +2068,7 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
             "twok_vs_r_by_pitch_type": twok_vs_r,
             "twok_vs_l_by_pitch_type": twok_vs_l,
             "spray_splits": spray_splits,
-            "spray_points": recent_spray_points(all_pts),
+            "spray_points": recent_spray_points(all_pts, 800),
         }
         if mid:
             row["mlb_id"] = mid
