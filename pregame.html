@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san164">
+<link rel="stylesheet" href="shared.css?v=san166">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -476,7 +476,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san165';
+const ASSET_V = 'san166';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1396,11 +1396,36 @@ function sprayHitLegendHtml({compact=false}={}){
     <div class="legend-row spray-hit-key">${keys}<span class="fence-note">Fence = 400' CF · poles ~330' · recent 100 BIP</span></div>
   </div>`;
 }
+function hydrateSpraySynergyFromAdvance(){
+  // Rebuild CACHE.spray.synergy from advance hitters when the spray JSON lost that key.
+  if(!CACHE.spray) CACHE.spray = {};
+  if(Array.isArray(CACHE.spray.synergy) && CACHE.spray.synergy.length) return;
+  const hitters = (CACHE.advanceHitters && CACHE.advanceHitters.hitters) || [];
+  const synergy = [];
+  hitters.forEach(h=>{
+    const points = collectSprayPoints(h);
+    const splits = h.spray_splits || [];
+    const n = points.length || splits.reduce((s,sp)=>s+(sp.n||0),0);
+    if(n<=0) return;
+    synergy.push({
+      name: h.name,
+      synergy_id: h.synergy_id,
+      team: h.team,
+      mlb_id: h.mlb_id,
+      source: 'Synergy (from advance_opposing_hitters)',
+      splits,
+      points,
+      spray_points: points,
+    });
+  });
+  CACHE.spray.synergy = synergy;
+}
 function filteredSprayPlayers(){
   const team=document.getElementById('spray-team').value;
   const src=document.getElementById('spray-source')?.value || 'synergy';
   const spray=CACHE.spray||{};
-  const list = src === 'mlb' ? (spray.mlb||[]) : (spray.synergy||[]);
+  if(src!=='mlb') hydrateSpraySynergyFromAdvance();
+  const list = src === 'mlb' ? (spray.mlb||[]) : (CACHE.spray.synergy||[]);
   return list.filter(p=>team==='all' || p.team===team);
 }
 function onSprayTeamChange(){
@@ -5313,6 +5338,7 @@ Promise.all([
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
 ]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert])=>{
   CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert};
+  hydrateSpraySynergyFromAdvance();
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
