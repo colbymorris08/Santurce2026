@@ -4760,15 +4760,15 @@ function sheetPrintCss(kind){
   // Shared one-landscape-page fit for bullpen + pitcher one-page exports
   const common = `
     @page { size: letter landscape; margin: 0.28in; }
-    html,body{margin:0;padding:0;background:#fff!important;color:#111}
+    html,body{margin:0;padding:0;background:#fff!important;color:#000}
     .bullpen-print-page,.onepage-print-page{
       width:10.44in;height:7.94in;max-width:10.44in;max-height:7.94in;
       overflow:hidden;box-sizing:border-box;margin:0;padding:0;
-      display:flex;flex-direction:column;background:#fff;color:#111;
+      display:flex;flex-direction:column;background:#fff;color:#000;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
     }
     .bullpen-print-title,.onepage-title{
-      text-align:center;font-weight:800;color:#111;flex:0 0 auto;margin:0 0 4px;line-height:1.1;
+      text-align:center;font-weight:800;color:#000;flex:0 0 auto;margin:0 0 4px;line-height:1.1;
     }
     .filters,.note,.topbar,.hero,.tab-bar,.lang-toggle,.advance-export-bar{display:none!important}
   `;
@@ -4776,17 +4776,17 @@ function sheetPrintCss(kind){
     return common + `
       .bullpen-print-title{font-size:13px}
       .bullpen-scroll{overflow:hidden!important;border:none;flex:1 1 auto;min-height:0}
-      .bullpen-grid{width:100%!important;min-width:0!important;font-size:7.5px;border-collapse:collapse;table-layout:fixed}
+      .bullpen-grid{width:100%!important;min-width:0!important;font-size:7.5px;border-collapse:collapse;table-layout:fixed;color:#000}
       .bullpen-grid th,.bullpen-grid td{border:1px solid #999;padding:1px 2px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .bullpen-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700}
       .bullpen-grid .bp-corner{background:#1f2430!important;color:#fff!important;text-align:left;position:static!important;left:auto!important}
       .bullpen-grid tbody th.bp-name,.bullpen-grid tbody th.bp-last{
-        background:#f3f4f6!important;color:#111;text-align:left;position:static!important;left:auto!important;font-size:7px
+        background:#f3f4f6!important;color:#000!important;text-align:left;position:static!important;left:auto!important;font-size:7px
       }
       .bullpen-grid tbody th.bp-name{min-width:0;width:1.15in}
       .bullpen-grid tbody th.bp-last{min-width:0;width:0.72in}
       .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:6.5px}
-      .bullpen-grid .bp-cell{font-variant-numeric:tabular-nums;font-size:7px}
+      .bullpen-grid .bp-cell,.bullpen-grid tbody td{color:#000!important;font-variant-numeric:tabular-nums;font-size:7px}
       .bullpen-grid tr.bp-section th{
         background:#4a5568!important;color:#fff!important;text-align:left;font-size:8px;
         letter-spacing:.04em;text-transform:uppercase;padding:2px 4px

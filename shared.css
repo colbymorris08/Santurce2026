@@ -1769,7 +1769,7 @@ input.tth-input:focus {
 .bullpen-scroll { overflow-x: auto; background: #fff; border: 1px solid #ccc; }
 .bullpen-grid {
   border-collapse: collapse; width: max-content; min-width: 100%;
-  font-size: 11px; color: #111; background: #fff;
+  font-size: 11px; color: #000; background: #fff;
 }
 .bullpen-grid th, .bullpen-grid td {
   border: 1px solid #bbb; padding: 4px 6px; text-align: center; white-space: nowrap;
@@ -1778,7 +1778,7 @@ input.tth-input:focus {
 .bullpen-grid .bp-corner { background: #1f2430; color: #fff; text-align: left; position: sticky; left: 0; z-index: 2; }
 .bullpen-grid tbody th.bp-name,
 .bullpen-grid tbody th.bp-last {
-  background: #f3f4f6; color: #111; text-align: left; position: sticky; z-index: 1;
+  background: #f3f4f6; color: #000; text-align: left; position: sticky; z-index: 1;
 }
 .bullpen-grid tbody th.bp-name { left: 0; min-width: 120px; }
 .bullpen-grid tbody th.bp-last { left: 120px; min-width: 88px; border-left: 0; }
@@ -1786,7 +1786,11 @@ input.tth-input:focus {
 .bullpen-grid .bp-ip { font-weight: 600; opacity: .9; }
 .bullpen-grid .bp-result { font-size: 10px; }
 .bullpen-grid .bp-date { font-size: 10px; background: #3b4453 !important; }
-.bullpen-grid .bp-cell { font-variant-numeric: tabular-nums; }
+.bullpen-grid .bp-cell,
+.bullpen-grid tbody td {
+  color: #000 !important;
+  font-variant-numeric: tabular-nums;
+}
 .bullpen-grid tbody tr:nth-child(even) td { background: #f7f7f7; }
 .bullpen-grid tr.bp-section th {
   background: #4a5568 !important;
