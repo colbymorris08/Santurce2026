@@ -1138,8 +1138,13 @@ def _pa_bucket() -> dict[str, Any]:
         "h": 0,
         "tb": 0,
         "bb": 0,
+        "ibb": 0,
         "hbp": 0,
         "sf": 0,
+        "singles": 0,
+        "doubles": 0,
+        "triples": 0,
+        "hr": 0,
         "first_pitches": 0,
         "first_pitch_swings": 0,
         "swings": 0,
@@ -1176,6 +1181,86 @@ def _ops(bucket: dict) -> float | None:
     slg = tb / ab
     return round(obp + slg, 3)
 
+
+# Baseball-Reference documented linear weights (war_explained_wraa example scale).
+# BRef's live rOBA refits per league-season; these MLB-scale weights are the
+# published BRef form. Pitch-type rows omit SB/CS (moved to baserunning in BRef).
+BREF_WOBA_W = {
+    "bb": 0.70,
+    "hbp": 0.73,
+    "single": 0.89,
+    "double": 1.27,
+    "triple": 1.61,
+    "hr": 2.07,
+    "sb": 0.25,
+    "cs": -0.50,
+}
+
+
+def _bref_woba(
+    *,
+    ab: int,
+    bb: int,
+    ibb: int = 0,
+    hbp: int = 0,
+    sf: int = 0,
+    singles: int = 0,
+    doubles: int = 0,
+    triples: int = 0,
+    hr: int = 0,
+    sb: int = 0,
+    cs: int = 0,
+    include_sb: bool = False,
+) -> float | None:
+    ab = int(ab or 0)
+    bb = int(bb or 0)
+    ibb = int(ibb or 0)
+    hbp = int(hbp or 0)
+    sf = int(sf or 0)
+    if ab < 0 or bb < 0 or ibb < 0 or ibb > bb:
+        return None
+    denom = ab + bb - ibb + hbp + sf
+    if denom <= 0:
+        return None
+    ubb = bb - ibb
+    w = BREF_WOBA_W
+    num = (
+        w["bb"] * ubb
+        + w["hbp"] * hbp
+        + w["single"] * int(singles or 0)
+        + w["double"] * int(doubles or 0)
+        + w["triple"] * int(triples or 0)
+        + w["hr"] * int(hr or 0)
+    )
+    if include_sb:
+        num += w["sb"] * int(sb or 0) + w["cs"] * int(cs or 0)
+    return round(num / denom, 3)
+
+
+def _bref_woba_from_bucket(bucket: dict, *, include_sb: bool = False) -> float | None:
+    """Need hit-type counts — cannot recover 1B/2B/3B/HR from H+TB alone."""
+    singles = int(bucket.get("singles") or 0)
+    doubles = int(bucket.get("doubles") or 0)
+    triples = int(bucket.get("triples") or 0)
+    hr = int(bucket.get("hr") or 0)
+    h = int(bucket.get("h") or 0)
+    # Incomplete legacy rows have H but no hit-type breakdown.
+    if h != singles + doubles + triples + hr:
+        return None
+    return _bref_woba(
+        ab=int(bucket.get("ab") or 0),
+        bb=int(bucket.get("bb") or 0),
+        ibb=int(bucket.get("ibb") or 0),
+        hbp=int(bucket.get("hbp") or 0),
+        sf=int(bucket.get("sf") or 0),
+        singles=singles,
+        doubles=doubles,
+        triples=triples,
+        hr=hr,
+        sb=int(bucket.get("sb") or bucket.get("stolen_bases") or 0),
+        cs=int(bucket.get("cs") or bucket.get("caught_stealing") or 0),
+        include_sb=include_sb,
+    )
 
 
 def _spray_game_date(game: dict | None) -> tuple[str | None, str | None]:
@@ -1331,9 +1416,20 @@ def aggregate_events(events: list[dict], team_abbr: str) -> dict[str, Any]:
                     b["h"] += 1
                     b["tb"] += PA_TB.get(pa, 1)
                     b["ab"] += 1
+                    if pa == "Single":
+                        b["singles"] += 1
+                    elif pa == "Double":
+                        b["doubles"] += 1
+                    elif pa == "Triple":
+                        b["triples"] += 1
+                    elif pa in ("HomeRun", "Homerun"):
+                        b["hr"] += 1
                 elif pa in PA_WALK:
                     if pa == "HitByPitch":
                         b["hbp"] += 1
+                    elif pa == "IntentionalWalk":
+                        b["bb"] += 1
+                        b["ibb"] += 1
                     else:
                         b["bb"] += 1
                 elif pa in ("SacrificeFly", "SacFly"):
@@ -1421,6 +1517,7 @@ def _freeze_bucket(b: dict) -> dict:
         "ab": int(b.get("ab") or 0),
         "h": int(b.get("h") or 0),
         "ops": _ops(b),
+        "woba": _bref_woba_from_bucket(b, include_sb=False),
         "first_pitch_swing_pct": _rate(int(b.get("first_pitch_swings") or 0), int(b.get("first_pitches") or 0)),
         "whiff_pct": _rate(int(b.get("whiffs") or 0), int(b.get("swings") or 0)),
         "swing_pct": _rate(int(b.get("swings") or 0), int(b.get("pitches") or 0)),
@@ -1429,8 +1526,13 @@ def _freeze_bucket(b: dict) -> dict:
         "gb_pct": _rate(int(b.get("gb") or 0), int(b.get("bip") or 0)),
         "tb": int(b.get("tb") or 0),
         "bb": int(b.get("bb") or 0),
+        "ibb": int(b.get("ibb") or 0),
         "hbp": int(b.get("hbp") or 0),
         "sf": int(b.get("sf") or 0),
+        "singles": int(b.get("singles") or 0),
+        "doubles": int(b.get("doubles") or 0),
+        "triples": int(b.get("triples") or 0),
+        "hr": int(b.get("hr") or 0),
         "swings": int(b.get("swings") or 0),
         "whiffs": int(b.get("whiffs") or 0),
         "first_pitches": int(b.get("first_pitches") or 0),
@@ -1737,6 +1839,9 @@ def fetch_2026_summer_lines(mlb_ids: list[int], season: int = 2026) -> dict[int,
             "sb": _int_stat(st, "stolenBases"),
             "cs": _int_stat(st, "caughtStealing"),
             "bb": _int_stat(st, "baseOnBalls"),
+            "ibb": _int_stat(st, "intentionalWalks"),
+            "hbp": _int_stat(st, "hitByPitch"),
+            "sf": _int_stat(st, "sacFlies"),
             "so": _int_stat(st, "strikeOuts"),
             "ba": _fmt_slash_rate(st.get("avg")),
             "obp": _fmt_slash_rate(st.get("obp")),
@@ -1746,6 +1851,26 @@ def fetch_2026_summer_lines(mlb_ids: list[int], season: int = 2026) -> dict[int,
             "sport_id": best["sport_id"],
             "assignments": len(rows),
         }
+        h = int(line["h"] or 0)
+        doubles = int(line["doubles"] or 0)
+        triples = int(line["triples"] or 0)
+        hr = int(line["hr"] or 0)
+        singles = max(0, h - doubles - triples - hr)
+        line["singles"] = singles
+        line["woba"] = _bref_woba(
+            ab=int(line["ab"] or 0),
+            bb=int(line["bb"] or 0),
+            ibb=int(line["ibb"] or 0),
+            hbp=int(line["hbp"] or 0),
+            sf=int(line["sf"] or 0),
+            singles=singles,
+            doubles=doubles,
+            triples=triples,
+            hr=hr,
+            sb=int(line["sb"] or 0),
+            cs=int(line["cs"] or 0),
+            include_sb=True,
+        )
         out[pid] = line
     return out
 
@@ -2013,7 +2138,7 @@ def serialize_hitters(raw: dict[str, dict], season_games: dict[str, int], mlb_id
         for ptype, bucket in h["by_pitch"].items():
             if ptype.startswith("__"):
                 continue
-            for k in ("pitches", "pa", "ab", "h", "tb", "bb", "hbp", "sf", "gb", "bip", "first_pitches", "first_pitch_swings", "swings", "whiffs", "bunts", "sb_1b", "sb_2b", "sb_3b"):
+            for k in ("pitches", "pa", "ab", "h", "tb", "bb", "ibb", "hbp", "sf", "singles", "doubles", "triples", "hr", "gb", "bip", "first_pitches", "first_pitch_swings", "swings", "whiffs", "bunts", "sb_1b", "sb_2b", "sb_3b"):
                 overall_acc[k] = int(overall_acc.get(k) or 0) + int(bucket.get(k) or 0)
             overall_acc["games"] |= set(bucket.get("games") or [])
 
@@ -2112,8 +2237,13 @@ def select_all_aggregate(hitters: list[dict]) -> dict:
         dest["gb"] += int(row.get("gb") or 0)
         dest["bip"] += int(row.get("bip") or 0)
         dest["bb"] += int(row.get("bb") or 0)
+        dest["ibb"] += int(row.get("ibb") or 0)
         dest["hbp"] += int(row.get("hbp") or 0)
         dest["sf"] += int(row.get("sf") or 0)
+        dest["singles"] += int(row.get("singles") or 0)
+        dest["doubles"] += int(row.get("doubles") or 0)
+        dest["triples"] += int(row.get("triples") or 0)
+        dest["hr"] += int(row.get("hr") or 0)
         if "tb" in row:
             dest["tb"] += int(row.get("tb") or 0)
         else:

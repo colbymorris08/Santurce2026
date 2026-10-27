@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san158">
+<link rel="stylesheet" href="shared.css?v=san159">
 </head>
 <body>
 <div class="topbar">
@@ -380,12 +380,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san158"></script>
+<script src="i18n.js?v=san159"></script>
 <script src="cards.js?v=san156"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san158';
+const ASSET_V = 'san159';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -521,15 +521,17 @@ function mergeHitterPitchTypeRows(rows){
   chartPitchRows(rows||[], 'pitch_type').forEach(r=>{
     const lab = normalizeHitterPitchLabel(r.pitch_type);
     const cur = bag.get(lab) || {
-      pitch_type:lab, pitches:0, pa:0, ab:0, h:0, tb:0, bb:0, hbp:0, sf:0,
+      pitch_type:lab, pitches:0, pa:0, ab:0, h:0, tb:0, bb:0, ibb:0, hbp:0, sf:0,
+      singles:0, doubles:0, triples:0, hr:0,
       swings:0, whiffs:0, gb:0, bip:0,
-      first_pitches:0, first_pitch_swings:0, _opsN:0, _opsD:0, _hasTb:false
+      first_pitches:0, first_pitch_swings:0, _opsN:0, _opsD:0, _wobaN:0, _wobaD:0, _hasTb:false
     };
-    ['pitches','pa','ab','h','tb','bb','hbp','sf','swings','whiffs','gb','bip','first_pitches','first_pitch_swings'].forEach(k=>{
+    ['pitches','pa','ab','h','tb','bb','ibb','hbp','sf','singles','doubles','triples','hr','swings','whiffs','gb','bip','first_pitches','first_pitch_swings'].forEach(k=>{
       cur[k] += Number(r[k])||0;
     });
     if(r.tb!=null) cur._hasTb = true;
     if(r.ops!=null && r.pa){ cur._opsN += Number(r.ops)*Number(r.pa); cur._opsD += Number(r.pa); }
+    if(r.woba!=null && r.pa){ cur._wobaN += Number(r.woba)*Number(r.pa); cur._wobaD += Number(r.pa); }
     bag.set(lab, cur);
   });
   return [...bag.values()].map(r=>{
@@ -543,7 +545,9 @@ function mergeHitterPitchTypeRows(rows){
     } else {
       r.ops = r._opsD ? Math.round(1000*r._opsN/r._opsD)/1000 : null;
     }
-    delete r._opsN; delete r._opsD; delete r._hasTb;
+    const fromParts = brefWobaFromBucket(r);
+    r.woba = fromParts!=null ? fromParts : (r._wobaD ? Math.round(1000*r._wobaN/r._wobaD)/1000 : null);
+    delete r._opsN; delete r._opsD; delete r._wobaN; delete r._wobaD; delete r._hasTb;
     return r;
   }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
 }
@@ -1595,6 +1599,41 @@ function renderSpray(){
 
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
+function fmtWoba(v){ return v==null?'—':Number(v).toFixed(3); }
+/** Baseball-Reference documented linear weights (MLB-scale). Pitch rows omit SB/CS. */
+const BREF_WOBA_W = {bb:0.70,hbp:0.73,single:0.89,double:1.27,triple:1.61,hr:2.07,sb:0.25,cs:-0.50};
+function brefWobaFromParts({ab,bb,ibb=0,hbp=0,sf=0,singles=0,doubles=0,triples=0,hr=0,sb=0,cs=0,includeSb=false}={}){
+  ab=Number(ab)||0; bb=Number(bb)||0; ibb=Number(ibb)||0; hbp=Number(hbp)||0; sf=Number(sf)||0;
+  if(ab<0 || bb<0 || ibb<0 || ibb>bb) return null;
+  const denom = ab + bb - ibb + hbp + sf;
+  if(denom<=0) return null;
+  const w=BREF_WOBA_W;
+  let num = w.bb*(bb-ibb) + w.hbp*hbp + w.single*(Number(singles)||0) + w.double*(Number(doubles)||0)
+    + w.triple*(Number(triples)||0) + w.hr*(Number(hr)||0);
+  if(includeSb) num += w.sb*(Number(sb)||0) + w.cs*(Number(cs)||0);
+  return Math.round(num/denom*1000)/1000;
+}
+function brefWobaFromBucket(b, {includeSb=false}={}){
+  if(!b) return null;
+  const singles=Number(b.singles)||0, doubles=Number(b.doubles)||0, triples=Number(b.triples)||0, hr=Number(b.hr)||0;
+  const h=Number(b.h)||0;
+  if(h !== singles+doubles+triples+hr) return null;
+  return brefWobaFromParts({
+    ab:b.ab, bb:b.bb, ibb:b.ibb, hbp:b.hbp, sf:b.sf,
+    singles, doubles, triples, hr, sb:b.sb||b.stolen_bases, cs:b.cs||b.caught_stealing,
+    includeSb
+  });
+}
+function summerLineWoba(line){
+  if(!line) return null;
+  if(line.woba!=null && line.woba!=='') return Number(line.woba);
+  const h=Number(line.h)||0, doubles=Number(line.doubles)||0, triples=Number(line.triples)||0, hr=Number(line.hr)||0;
+  const singles = line.singles!=null ? Number(line.singles) : Math.max(0, h-doubles-triples-hr);
+  return brefWobaFromParts({
+    ab:line.ab, bb:line.bb, ibb:line.ibb||0, hbp:line.hbp||0, sf:line.sf||0,
+    singles, doubles, triples, hr, sb:line.sb, cs:line.cs, includeSb:true
+  });
+}
 function advanceLeaguePitchBag(){
   const data = CACHE.advanceHitters;
   if(!data) return {};
@@ -1739,8 +1778,8 @@ function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   const heat = (pitch, metric, val)=>rateHeatStyle(val, leaguePitchMetric(pitch, metric, {split}));
   const situ = mode!=='count';
   const head = situ
-    ? `<th>Pitch</th><th class="num">Pitches</th><th class="num">0-0 swing %</th><th class="num">OPS</th><th class="num">Whiff%</th><th class="num">Roleta %</th>`
-    : `<th>Pitch</th><th class="num">Pitches</th><th class="num">Swing rate</th><th class="num">Roleta %</th><th class="num">OPS</th><th class="num">Whiff%</th>`;
+    ? `<th>Pitch</th><th class="num">Pitches</th><th class="num">0-0 swing %</th><th class="num">OPS</th><th class="num">wOBA</th><th class="num">Whiff%</th><th class="num">Roleta %</th>`
+    : `<th>Pitch</th><th class="num">Pitches</th><th class="num">Swing rate</th><th class="num">Roleta %</th><th class="num">OPS</th><th class="num">wOBA</th><th class="num">Whiff%</th>`;
   if(!cleaned.length){
     return `<div class="hitter-pitch-half"><div class="section-label">${title}</div><div class="note">No sample yet.</div></div>`;
   }
@@ -1749,19 +1788,23 @@ function pitchTypeTableHtml(rows, title, {split=null, mode='situ'}={}){
   <div class="table-wrap"><table><thead><tr>${head}</tr></thead><tbody>
   ${cleaned.map(r=>{
     const ops=r.ops, wh=r.whiff_pct, gb=r.gb_pct;
+    const woba = r.woba!=null ? Number(r.woba) : brefWobaFromBucket(r);
     const sOps=heat(r.pitch_type,'ops',ops);
+    const sWoba=heat(r.pitch_type,'woba',woba);
     const sWh=heat(r.pitch_type,'whiff_pct',wh);
     const sGb=heat(r.pitch_type,'gb_pct',gb);
     const cells = situ
       ? (()=>{ const fps=r.first_pitch_swing_pct; const sFps=heat(r.pitch_type,'first_pitch_swing_pct',fps);
           return `<td class="num rate-cell" style="${sFps}">${fmtPct1(fps)}</td>
     <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
+    <td class="num rate-cell" style="${sWoba}">${fmtWoba(woba)}</td>
     <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>
     <td class="num rate-cell" style="${sGb}">${fmtPct1(gb)}</td>`; })()
       : (()=>{ const sw=r.swing_pct; const sSw=heat(r.pitch_type,'swing_pct',sw);
           return `<td class="num rate-cell" style="${sSw}">${fmtPct1(sw)}</td>
     <td class="num rate-cell" style="${sGb}">${fmtPct1(gb)}</td>
     <td class="num rate-cell" style="${sOps}">${fmtOps(ops)}</td>
+    <td class="num rate-cell" style="${sWoba}">${fmtWoba(woba)}</td>
     <td class="num rate-cell" style="${sWh}">${fmtPct1(wh)}</td>`; })();
     return `<tr>
     <td class="player-name">${pitchAbbrevHtml(r.pitch_type)}</td>
@@ -2981,6 +3024,7 @@ function hitterSummerBarHtml(h){
     ['OBP', line ? fmtSlashRate(line.obp) : dash, ''],
     ['SLG', line ? fmtSlashRate(line.slg) : dash, ''],
     ['OPS', line ? fmtSlashRate(line.ops) : dash, ''],
+    ['wOBA', line ? fmtWoba(summerLineWoba(line)) : dash, 'Baseball-Reference linear weights (MLB-scale; includes SB/CS)'],
   ];
   const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
   const vals = cols.map(([,val,tip])=>{
@@ -3635,13 +3679,16 @@ function aggregateHitters(hitters, label){
     sb_from_1b:0, sb_from_2b:0, sb_from_3b:0, games:0,
     bunt_sample:0, bunt_sample_games:0,
   };
-  let opsNum=0, opsDen=0;
+  let opsNum=0, opsDen=0, wobaNum=0, wobaDen=0;
   hitters.forEach(h=>{
     const o=h.overall||{};
     Object.keys(overall).forEach(k=>{ overall[k]+=Number(o[k])||0; });
     if(o.ops!=null && o.pa){ opsNum += Number(o.ops)*Number(o.pa); opsDen += Number(o.pa); }
+    const ow = o.woba!=null ? Number(o.woba) : brefWobaFromBucket(o);
+    if(ow!=null && o.pa){ wobaNum += ow*Number(o.pa); wobaDen += Number(o.pa); }
   });
   overall.ops = opsDen ? Math.round((opsNum/opsDen)*1000)/1000 : null;
+  overall.woba = wobaDen ? Math.round((wobaNum/wobaDen)*1000)/1000 : null;
   overall.first_pitch_swing_pct = rateOrNull(overall.first_pitch_swings, overall.first_pitches);
   overall.whiff_pct = rateOrNull(overall.whiffs, overall.swings);
   const g = overall.games || hitters.length || 1;
@@ -3661,17 +3708,20 @@ function aggregateHitters(hitters, label){
   hitters.forEach(h=>{
     (h.by_pitch_type||[]).forEach(r=>{
       const key=r.pitch_type||'UNK';
-      const cur=byPitch.get(key)||{pitch_type:key,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0};
+      const cur=byPitch.get(key)||{pitch_type:key,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0,_wobaNum:0,_wobaDen:0};
       ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(k=>{cur[k]+=Number(r[k])||0;});
       if(r.ops!=null && r.pa){ cur._opsNum += Number(r.ops)*Number(r.pa); cur._opsDen += Number(r.pa); }
+      const rw = r.woba!=null ? Number(r.woba) : brefWobaFromBucket(r);
+      if(rw!=null && r.pa){ cur._wobaNum += rw*Number(r.pa); cur._wobaDen += Number(r.pa); }
       byPitch.set(key, cur);
     });
   });
   const by_pitch_type=[...byPitch.values()].map(r=>{
     r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
+    r.woba = r._wobaDen ? Math.round((r._wobaNum/r._wobaDen)*1000)/1000 : null;
     r.first_pitch_swing_pct = rateOrNull(r.first_pitch_swings, r.first_pitches);
     r.whiff_pct = rateOrNull(r.whiffs, r.swings);
-    delete r._opsNum; delete r._opsDen;
+    delete r._opsNum; delete r._opsDen; delete r._wobaNum; delete r._wobaDen;
     return r;
   }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
 
@@ -3679,17 +3729,20 @@ function aggregateHitters(hitters, label){
   hitters.forEach(h=>{
     (h.risp_by_pitch_type||[]).forEach(r=>{
       const key=r.pitch_type||'UNK';
-      const cur=byRisp.get(key)||{pitch_type:key,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0};
+      const cur=byRisp.get(key)||{pitch_type:key,pitches:0,pa:0,ab:0,h:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0,_wobaNum:0,_wobaDen:0};
       ['pitches','pa','ab','h','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(k=>{cur[k]+=Number(r[k])||0;});
       if(r.ops!=null && r.pa){ cur._opsNum += Number(r.ops)*Number(r.pa); cur._opsDen += Number(r.pa); }
+      const rw = r.woba!=null ? Number(r.woba) : brefWobaFromBucket(r);
+      if(rw!=null && r.pa){ cur._wobaNum += rw*Number(r.pa); cur._wobaDen += Number(r.pa); }
       byRisp.set(key, cur);
     });
   });
   const risp_by_pitch_type=[...byRisp.values()].map(r=>{
     r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
+    r.woba = r._wobaDen ? Math.round((r._wobaNum/r._wobaDen)*1000)/1000 : null;
     r.first_pitch_swing_pct = rateOrNull(r.first_pitch_swings, r.first_pitches);
     r.whiff_pct = rateOrNull(r.whiffs, r.swings);
-    delete r._opsNum; delete r._opsDen;
+    delete r._opsNum; delete r._opsDen; delete r._wobaNum; delete r._wobaDen;
     return r;
   }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
 
@@ -3698,10 +3751,12 @@ function aggregateHitters(hitters, label){
     hitters.forEach(h=>{
       (h[key]||[]).forEach(r=>{
         const k=r.pitch_type||'UNK';
-        const cur=m.get(k)||{pitch_type:k,pitches:0,pa:0,ab:0,h:0,tb:0,bb:0,hbp:0,sf:0,gb:0,bip:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0,_hasTb:false};
-        ['pitches','pa','ab','h','tb','bb','hbp','sf','gb','bip','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(f=>{cur[f]+=Number(r[f])||0;});
+        const cur=m.get(k)||{pitch_type:k,pitches:0,pa:0,ab:0,h:0,tb:0,bb:0,ibb:0,hbp:0,sf:0,singles:0,doubles:0,triples:0,hr:0,gb:0,bip:0,swings:0,whiffs:0,first_pitches:0,first_pitch_swings:0,bunts:0,sb_from_1b:0,sb_from_2b:0,sb_from_3b:0,games:0,_opsNum:0,_opsDen:0,_wobaNum:0,_wobaDen:0,_hasTb:false};
+        ['pitches','pa','ab','h','tb','bb','ibb','hbp','sf','singles','doubles','triples','hr','gb','bip','swings','whiffs','first_pitches','first_pitch_swings','bunts','sb_from_1b','sb_from_2b','sb_from_3b','games'].forEach(f=>{cur[f]+=Number(r[f])||0;});
         if(r.tb!=null) cur._hasTb = true;
         if(r.ops!=null && r.pa){ cur._opsNum += Number(r.ops)*Number(r.pa); cur._opsDen += Number(r.pa); }
+        const rw = r.woba!=null ? Number(r.woba) : brefWobaFromBucket(r);
+        if(rw!=null && r.pa){ cur._wobaNum += rw*Number(r.pa); cur._wobaDen += Number(r.pa); }
         m.set(k, cur);
       });
     });
@@ -3709,11 +3764,13 @@ function aggregateHitters(hitters, label){
       const paOb=(r.ab||0)+(r.bb||0)+(r.hbp||0)+(r.sf||0);
       if(r._hasTb && r.ab>0 && paOb>0) r.ops = Math.round((((r.h+r.bb+r.hbp)/paOb)+(r.tb/r.ab))*1000)/1000;
       else r.ops = r._opsDen ? Math.round((r._opsNum/r._opsDen)*1000)/1000 : null;
+      const fromParts = brefWobaFromBucket(r);
+      r.woba = fromParts!=null ? fromParts : (r._wobaDen ? Math.round((r._wobaNum/r._wobaDen)*1000)/1000 : null);
       r.first_pitch_swing_pct = rateOrNull(r.first_pitch_swings, r.first_pitches);
       r.whiff_pct = rateOrNull(r.whiffs, r.swings);
       r.swing_pct = rateOrNull(r.swings, r.pitches);
       r.gb_pct = rateOrNull(r.gb, r.bip);
-      delete r._opsNum; delete r._opsDen; delete r._hasTb;
+      delete r._opsNum; delete r._opsDen; delete r._wobaNum; delete r._wobaDen; delete r._hasTb;
       return r;
     }).sort((a,b)=>(b.pitches||0)-(a.pitches||0));
   }
@@ -4104,7 +4161,8 @@ function buildHitterAdvanceSheetHtml(h, spraySourceHitters, {printPage=false, pr
   const headHtml = (h.name?.startsWith('Select All'))
     ? blankHead
     : (headshotImgHtml(headId, h.name, 'advance-headshot', headLocal) || blankHead);
-  const statsLine = `${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'} · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)}`;
+  const oWoba = o.woba!=null ? Number(o.woba) : brefWobaFromBucket(o);
+  const statsLine = `${h.team?h.team+' · ':''}pitches ${o.pitches??'—'} · PA ${o.pa??'—'} · games ${o.games??'—'} · FP swing ${fmtPct1(o.first_pitch_swing_pct)} · Whiff ${fmtPct1(o.whiff_pct)} · OPS ${fmtOps(o.ops)} · wOBA ${fmtWoba(oWoba)}`;
   if(printPage){
     const headPdf = headshotImgHtml(headId, h.name, 'advance-pdf-headshot', headLocal);
     const handLabel = advancePdfHitterHand(h.bats);
