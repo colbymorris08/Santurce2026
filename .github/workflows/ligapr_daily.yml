@@ -1,0 +1,130 @@
+# Daily 5:00 AM America/New_York: refresh bullpen usage, one-pagers, winter lines, rosters from ligapr.com.
+# GitHub Actions cron is UTC (not DST-aware).
+# 10:00 UTC = 5:00 AM EST (UTC-5) / 6:00 AM EDT (UTC-4)
+# 09:00 UTC backup covers 5:00 AM EDT.
+name: Ligapr daily
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: ligapr-daily
+  cancel-in-progress: true
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: America/New_York
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build ligapr daily JSON
+        id: build
+        run: python3 build_ligapr_daily.py
+
+      - name: Detect roster changes
+        id: roster
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          alert = json.loads(Path("data/roster_change_alert.json").read_text())
+          changed = bool(alert.get("changed"))
+          print(f"changed={str(changed).lower()}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"changed={str(changed).lower()}\n")
+              fh.write(f"added={len(alert.get('added') or [])}\n")
+              fh.write(f"removed={len(alert.get('removed') or [])}\n")
+          summary = Path("data/ligapr_daily_summary.json")
+          if summary.exists():
+              print(summary.read_text()[:2000])
+          PY
+
+      - name: Commit and push data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/bullpen_usage.json \
+            data/pitcher_one_page.json \
+            data/lbprc_2026_27_hitting.json \
+            data/lbprc_2026_27_pitching.json \
+            data/roster_change_alert.json \
+            data/ligapr_daily_summary.json \
+            data/lbprc_2025_rosters.json \
+            data/advance_opposing_hitters.json \
+            data/advance_opposing_pitchers.json \
+            || true
+          if git diff --cached --quiet; then
+            echo "No JSON changes to commit."
+          else
+            git commit -m "Auto-refresh LBPRC ligapr daily (bullpen, one-pagers, winter lines, rosters)"
+          fi
+          git pull --rebase --autostash origin main || true
+          git push || echo "::warning::git push failed"
+
+      - name: Open / update roster-change issue
+        if: steps.roster.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, textwrap
+          from pathlib import Path
+          alert = json.loads(Path("data/roster_change_alert.json").read_text())
+          lines = [
+              "## LBPRC roster change detected",
+              "",
+              alert.get("message") or "",
+              "",
+              f"- Added: **{len(alert.get('added') or [])}**",
+              f"- Removed: **{len(alert.get('removed') or [])}**",
+              f"- Updated: `{alert.get('updated')}`",
+              "",
+              "### Action needed",
+          ]
+          for item in alert.get("action_needed") or []:
+              lines.append(f"- [ ] {item}")
+          if alert.get("added"):
+              lines += ["", "### Added"]
+              for row in alert["added"]:
+                  lines.append(f"- `{row.get('team')}` {row.get('name')} ({row.get('role')})")
+          if alert.get("removed"):
+              lines += ["", "### Removed"]
+              for row in alert["removed"]:
+                  lines.append(f"- `{row.get('team')}` {row.get('name')} ({row.get('role')})")
+          body = "\n".join(lines)
+          Path("/tmp/roster_issue_body.md").write_text(body)
+
+          title = "LBPRC roster changes — populate data / release pics / movement"
+          # Reuse open issue with same title if present
+          existing = subprocess.check_output(
+              ["gh", "issue", "list", "--state", "open", "--search", f"in:title {title}", "--json", "number,title"],
+              text=True,
+          )
+          import json as _json
+          issues = _json.loads(existing)
+          match = next((i for i in issues if i.get("title") == title), None)
+          if match:
+              subprocess.check_call(["gh", "issue", "comment", str(match["number"]), "--body-file", "/tmp/roster_issue_body.md"])
+              print(f"commented on issue #{match['number']}")
+          else:
+              subprocess.check_call(["gh", "issue", "create", "--title", title, "--body-file", "/tmp/roster_issue_body.md"])
+              print("created roster-change issue")
+          PY

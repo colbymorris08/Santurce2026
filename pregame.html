@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san159">
+<link rel="stylesheet" href="shared.css?v=san161">
 </head>
 <body>
 <div class="topbar">
@@ -47,6 +47,8 @@
     <button class="tab" data-tab="matchup" onclick="switchTab('matchup')" data-i18n="matchupTab">Santurce Pitchers vs Opposing Batters</button>
     <button class="tab" data-tab="hvp" onclick="switchTab('hvp')" data-i18n="hvpTab">Santurce Batters vs Opposing Pitchers</button>
     <button class="tab" data-tab="usage" onclick="switchTab('usage')" data-i18n="usageTab">Pitch Usage</button>
+    <button class="tab" data-tab="bullpen" onclick="switchTab('bullpen')" data-i18n="bullpenTab">Recent Bullpen Usage</button>
+    <button class="tab" data-tab="pitcher-one-page" onclick="switchTab('pitcher-one-page')" data-i18n="pitcherOnePageTab">Pitcher One Page Sheet</button>
     <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
     <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
     <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home and Catcher Pop Times</button>
@@ -331,6 +333,48 @@
     </div>
     <div id="usage-view"></div>
   </div>
+
+  <div id="panel-bullpen" class="panel">
+    <div class="section-label" data-i18n="bullpenLabel">Recent Bullpen Usage</div>
+    <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starter IP sits in the header row.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="bullpen-team" onchange="renderBullpen()">
+          <option value="PON">Leones de Ponce</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="SJU">Senadores de San Juan</option>
+        </select>
+      </div>
+    </div>
+    <div id="bullpen-meta" class="note" style="margin-top:4px"></div>
+    <div id="bullpen-view" class="bullpen-sheet"></div>
+  </div>
+
+  <div id="panel-pitcher-one-page" class="panel">
+    <div class="section-label" data-i18n="pitcherOnePageLabel">Pitcher One Page Sheet</div>
+    <div class="note" data-i18n-html="pitcherOnePageNote">One landscape page per team — jersey, velo bands (FB/CB/SL/CH/CT/SPL), RHH/LHH pitch frequency from Synergy, and scout notes. Notes save in this browser; seed defaults in <code>data/pitcher_one_page_notes.json</code>.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="onepage-team" onchange="renderPitcherOnePage()">
+          <option value="PON">Leones de Ponce</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="SJU">Senadores de San Juan</option>
+        </select>
+      </div>
+      <div class="filter-field" style="align-self:end">
+        <button type="button" class="btn" onclick="window.print()">Print / PDF</button>
+      </div>
+    </div>
+    <div id="onepage-meta" class="note" style="margin-top:4px"></div>
+    <div id="onepage-view" class="onepage-sheet"></div>
+  </div>
+
   <div id="panel-ofdef" class="panel">
     <div class="needs-video">
       <h3 data-i18n="ofdefTitle">Outfield jump / arm grades</h3>
@@ -385,7 +429,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san159';
+const ASSET_V = 'san161';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -438,6 +482,8 @@ function switchTab(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===`panel-${name}`));
   if(name==='spray') renderSpray();
   if(name==='usage') renderUsage();
+  if(name==='bullpen') renderBullpen();
+  if(name==='pitcher-one-page') renderPitcherOnePage();
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
   if(name==='tth') renderTth();
@@ -2985,6 +3031,7 @@ function statLineSeasonLabel(line){
   if(!raw) return '—';
   if(/^summer 2026$/i.test(raw)) return '2026 summer';
   if(/^summer 2025$/i.test(raw)) return '2025 summer';
+  if(/2026-27|2026–27|lbprc/i.test(raw)) return '2026-27 LBPRC';
   return raw;
 }
 /** MiLB lines show the level (AAA, AA, A+, A, ROK), not the league abbrev (INT, PCL, EAS). */
@@ -2995,16 +3042,12 @@ function statBarLeague(line){
   if(milb[level]) return milb[level];
   return line.league ? String(line.league) : '—';
 }
-/** Two-row season line: labels, then the selected team assignment. */
-function hitterSummerBarHtml(h){
-  if(!h || String(h.name||'').startsWith('Select All')) return '';
-  const line = h.summer_line || null;
-  const dash = '—';
+function hitterSeasonRowCells(line, dash){
   const num = (v) => (v==null || v==='') ? dash : String(v);
   const tipTeam = line
     ? [line.team_name, line.level, line.league_name].filter(Boolean).join(' · ')
     : '';
-  const cols = [
+  return [
     ['Team', line && line.team ? line.team : dash, tipTeam],
     ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
     ['League', statBarLeague(line), line && line.league_name ? line.league_name : ''],
@@ -3026,15 +3069,27 @@ function hitterSummerBarHtml(h){
     ['OPS', line ? fmtSlashRate(line.ops) : dash, ''],
     ['wOBA', line ? fmtWoba(summerLineWoba(line)) : dash, 'Baseball-Reference linear weights (MLB-scale; includes SB/CS)'],
   ];
+}
+/** Summer row + 2026-27 LBPRC winter row under it. */
+function hitterSummerBarHtml(h){
+  if(!h || String(h.name||'').startsWith('Select All')) return '';
+  const dash = '—';
+  const summer = h.summer_line || null;
+  const winter = h.lbprc_line || h.winter_line || null;
+  const cols = hitterSeasonRowCells(summer, dash);
+  const winterCols = hitterSeasonRowCells(winter, dash);
   const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
-  const vals = cols.map(([,val,tip])=>{
+  const rowHtml = (rowCols) => rowCols.map(([,val,tip])=>{
     const t = tip ? ` title="${escHtml(tip)}"` : '';
     return `<td${t}>${escHtml(val)}</td>`;
   }).join('');
   return `<div class="hitter-summer-bar">
     <table>
       <thead><tr>${heads}</tr></thead>
-      <tbody><tr>${vals}</tr></tbody>
+      <tbody>
+        <tr>${rowHtml(cols)}</tr>
+        <tr class="winter-line-row">${rowHtml(winterCols)}</tr>
+      </tbody>
     </table>
   </div>`;
 }
@@ -3061,11 +3116,7 @@ function pitcherSummerLineFor(pOrId, synergyId, name, team){
   }
   return row?.summer_line || null;
 }
-/** Two-row pitching season line: labels, then the selected team assignment. */
-function pitcherSummerBarHtml(p){
-  if(!p) return '';
-  const line = p.summer_line || pitcherSummerLineFor(p);
-  const dash = '—';
+function pitcherSeasonRowCells(line, dash){
   const num = (v) => (v==null || v==='') ? dash : String(v);
   const rate = (v, places) => {
     if(v==null || v==='') return dash;
@@ -3075,7 +3126,7 @@ function pitcherSummerBarHtml(p){
   const tipTeam = line
     ? [line.team_name, line.level, line.league_name].filter(Boolean).join(' · ')
     : '';
-  const cols = [
+  return [
     ['Team', line && line.team ? line.team : dash, tipTeam],
     ['Season', statLineSeasonLabel(line), line && line.source ? line.source : ''],
     ['League', statBarLeague(line), line && line.league_name ? line.league_name : ''],
@@ -3094,15 +3145,27 @@ function pitcherSummerBarHtml(p){
     ['SB allowed', num(line && line.sb_allowed), ''],
     ['CS allowed', num(line && line.cs_allowed), ''],
   ];
+}
+/** Summer row + 2026-27 LBPRC winter row under it. */
+function pitcherSummerBarHtml(p){
+  if(!p) return '';
+  const dash = '—';
+  const summer = p.summer_line || pitcherSummerLineFor(p);
+  const winter = p.lbprc_line || p.winter_line || null;
+  const cols = pitcherSeasonRowCells(summer, dash);
+  const winterCols = pitcherSeasonRowCells(winter, dash);
   const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
-  const vals = cols.map(([,val,tip])=>{
+  const rowHtml = (rowCols) => rowCols.map(([,val,tip])=>{
     const t = tip ? ` title="${escHtml(tip)}"` : '';
     return `<td${t}>${escHtml(val)}</td>`;
   }).join('');
   return `<div class="pitcher-summer-bar">
     <table>
       <thead><tr>${heads}</tr></thead>
-      <tbody><tr>${vals}</tr></tbody>
+      <tbody>
+        <tr>${rowHtml(cols)}</tr>
+        <tr class="winter-line-row">${rowHtml(winterCols)}</tr>
+      </tbody>
     </table>
   </div>`;
 }
@@ -4398,6 +4461,114 @@ function renderTth(){
   updateTthPersistNote();
 }
 
+const ONEPAGE_NOTES_KEY = 'santurce_pitcher_one_page_notes_v1';
+function loadOnePageNoteOverrides(){
+  try { return JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {}; }
+  catch(e){ return {}; }
+}
+function saveOnePageNote(key, text){
+  const all = loadOnePageNoteOverrides();
+  if(!text) delete all[key];
+  else all[key] = text;
+  try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
+}
+function renderBullpen(){
+  const root = document.getElementById('bullpen-view');
+  const meta = document.getElementById('bullpen-meta');
+  if(!root) return;
+  const data = CACHE.bullpenUsage;
+  const team = document.getElementById('bullpen-team')?.value || 'PON';
+  if(!data || !data.teams){
+    root.innerHTML = '<div class="note">Bullpen usage cache not built yet.</div>';
+    if(meta) meta.textContent = '';
+    return;
+  }
+  const pack = data.teams[team];
+  if(!pack){
+    root.innerHTML = '<div class="note">No bullpen rows for this team.</div>';
+    return;
+  }
+  const games = pack.games || [];
+  const updated = data.updated ? `Updated ${data.updated}` : '';
+  const season = data.season_display || data.season || '';
+  if(meta){
+    meta.textContent = [season, updated, data.demo ? 'placeholder prior-season boxscores until 2026-27 games post' : '']
+      .filter(Boolean).join(' · ');
+  }
+  if(!games.length){
+    root.innerHTML = '<div class="note">No finished ligapr boxscores in window yet.</div>';
+    return;
+  }
+  const starterCells = games.map(g => {
+    const tip = escHtml(g.title || '');
+    return `<th class="bp-game" title="${tip}"><div class="bp-starter">${escHtml(g.starter||'—')}${g.starter_ip?` <span class="bp-ip">${escHtml(String(g.starter_ip))} IP</span>`:''}</div></th>`;
+  }).join('');
+  const resultCells = games.map(g => `<th class="bp-result">${escHtml(g.result||'')}</th>`).join('');
+  const dateCells = games.map(g => `<th class="bp-date">${escHtml(g.label||'')}</th>`).join('');
+  const body = (pack.relievers||[]).map(r => {
+    const cells = (r.cells||[]).map(c => `<td class="bp-cell">${c?escHtml(c):''}</td>`).join('');
+    return `<tr>
+      <th class="bp-name">${escHtml(r.name||'')}</th>
+      <th class="bp-last">${escHtml(r.last_app||'')}</th>
+      ${cells}
+    </tr>`;
+  }).join('');
+  root.innerHTML = `<div class="bullpen-scroll"><table class="bullpen-grid">
+    <thead>
+      <tr><th class="bp-corner">Starter</th><th class="bp-corner"></th>${starterCells}</tr>
+      <tr><th class="bp-corner">Result</th><th class="bp-corner"></th>${resultCells}</tr>
+      <tr><th class="bp-corner">Pitcher</th><th class="bp-corner">Last App</th>${dateCells}</tr>
+    </thead>
+    <tbody>${body || '<tr><td colspan="'+(games.length+2)+'" class="note">No reliever appearances in window.</td></tr>'}</tbody>
+  </table></div>`;
+}
+function renderPitcherOnePage(){
+  const root = document.getElementById('onepage-view');
+  const meta = document.getElementById('onepage-meta');
+  if(!root) return;
+  const data = CACHE.pitcherOnePage;
+  const team = document.getElementById('onepage-team')?.value || 'PON';
+  if(!data || !data.teams){
+    root.innerHTML = '<div class="note">Pitcher one-page cache not built yet.</div>';
+    if(meta) meta.textContent = '';
+    return;
+  }
+  const pack = data.teams[team];
+  if(!meta){/* */}
+  else meta.textContent = [pack?.team_name || team, data.updated ? `Updated ${data.updated}` : ''].filter(Boolean).join(' · ');
+  if(!pack){
+    root.innerHTML = '<div class="note">No pitchers for this team.</div>';
+    return;
+  }
+  const overrides = loadOnePageNoteOverrides();
+  const cols = data.columns || ['FB','CB','SL','CH','CT','SPL'];
+  const head = cols.map(c => `<th class="op-velo">${c}</th>`).join('');
+  const rows = (pack.pitchers||[]).map((p, idx) => {
+    const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const note = overrides[key] != null ? overrides[key] : (p.notes || '');
+    const velo = cols.map(c => {
+      const raw = (p.velo && p.velo[c]) || '';
+      return `<td class="op-velo">${escHtml(String(raw)).replace(/\n/g,'<br>')}</td>`;
+    }).join('');
+    const lClass = String(p.throws||'').toUpperCase().startsWith('L') ? ' op-lhp' : '';
+    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}">
+      <td class="op-num">${escHtml(String(p.jersey||''))}</td>
+      <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
+      ${velo}
+      <td class="op-freq">${p.freq_html || ''}</td>
+      <td class="op-notes"><textarea data-op-key="${escHtml(key)}" rows="3" onchange="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
+    </tr>`;
+  }).join('');
+  root.innerHTML = `<div class="onepage-print">
+    <div class="onepage-title">${escHtml(pack.team_name||team)} Pitchers</div>
+    <table class="onepage-grid">
+      <thead><tr>
+        <th>#</th><th>Name</th>${head}<th>Pitch Frequency</th><th>Notes</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
 function bootFromHash(){
   const raw=(location.hash||'').replace(/^#/,'').trim();
   const map={
@@ -4407,6 +4578,9 @@ function bootFromHash(){
     strategy:'strategy', br:'br', lineup:'lineup',
     matchup:'matchup', hvp:'hvp', usage:'usage', spray:'spray',
     ofdef:'ofdef', tth:'tth',
+    bullpen:'bullpen',
+    'pitcher-one-page':'pitcher-one-page',
+    onepage:'pitcher-one-page',
   };
   if(map[raw]) switchTab(map[raw]);
 }
@@ -4431,13 +4605,24 @@ Promise.all([
   fetch('data/advance_heatmaps.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({hitters:{},pitchers:{}})),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats};
+  fetch('data/bullpen_usage.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats, bullpenUsage, pitcherOnePage, rosterAlert])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats, bullpenUsage, pitcherOnePage, rosterAlert};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();
   document.getElementById('loading').style.display='none';
+  if(rosterAlert && rosterAlert.changed){
+    const nAdd = (rosterAlert.added||[]).length;
+    const nRem = (rosterAlert.removed||[]).length;
+    const bar = document.createElement('div');
+    bar.className = 'roster-change-banner';
+    bar.innerHTML = `<strong>LBPRC roster change</strong> — +${nAdd} / −${nRem}. Populate Synergy packets, delivery pics, and movement charts for new arms. <span class="muted">${escHtml(rosterAlert.message||'')}</span>`;
+    document.querySelector('main.page')?.prepend(bar);
+  }
   fillLineupSeasons();
   fillArsenalTeamSelects();
   fillArsenalSelects();
@@ -4448,6 +4633,8 @@ Promise.all([
   syncHeatGeomSelects();
   renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderSpray();
   renderUsage();
+  renderBullpen();
+  renderPitcherOnePage();
   renderTth();
   fillAdvancePitchers();
   fillAdvanceHitters();
@@ -4459,6 +4646,8 @@ document.addEventListener('santurce:lang', () => {
   applyI18n();
   syncPovSelects();
   renderUsage();
+  renderBullpen();
+  renderPitcherOnePage();
   renderTth();
   renderPitcherAdvance(); renderAdvanceHitters();
   if(window.CardApp) CardApp.refresh();

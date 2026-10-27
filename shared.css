@@ -1743,3 +1743,72 @@ input.tth-input:focus {
 @media (max-width: 900px) {
   .sc-editors, .sc-pair, .sb-top { grid-template-columns: 1fr; }
 }
+
+/* Recent Bullpen Usage — Ponce-style grid */
+.bullpen-sheet { margin-top: 10px; }
+.bullpen-scroll { overflow-x: auto; background: #fff; border: 1px solid #ccc; }
+.bullpen-grid {
+  border-collapse: collapse; width: max-content; min-width: 100%;
+  font-size: 11px; color: #111; background: #fff;
+}
+.bullpen-grid th, .bullpen-grid td {
+  border: 1px solid #bbb; padding: 4px 6px; text-align: center; white-space: nowrap;
+}
+.bullpen-grid thead th { background: #2f3540; color: #fff; font-weight: 700; }
+.bullpen-grid .bp-corner { background: #1f2430; color: #fff; text-align: left; position: sticky; left: 0; z-index: 2; }
+.bullpen-grid tbody th.bp-name,
+.bullpen-grid tbody th.bp-last {
+  background: #f3f4f6; color: #111; text-align: left; position: sticky; z-index: 1;
+}
+.bullpen-grid tbody th.bp-name { left: 0; min-width: 120px; }
+.bullpen-grid tbody th.bp-last { left: 120px; min-width: 88px; border-left: 0; }
+.bullpen-grid .bp-starter { font-size: 10px; line-height: 1.2; }
+.bullpen-grid .bp-ip { font-weight: 600; opacity: .9; }
+.bullpen-grid .bp-result { font-size: 10px; }
+.bullpen-grid .bp-date { font-size: 10px; background: #3b4453 !important; }
+.bullpen-grid .bp-cell { font-variant-numeric: tabular-nums; }
+.bullpen-grid tbody tr:nth-child(even) td { background: #f7f7f7; }
+
+/* Pitcher One Page Sheet */
+.onepage-sheet { margin-top: 10px; }
+.onepage-print { background: #fff; color: #111; border: 1px solid #ccc; padding: 8px; }
+.onepage-title { text-align: center; font-weight: 800; font-size: 16px; margin: 2px 0 8px; color: #111; }
+.onepage-grid { width: 100%; border-collapse: collapse; font-size: 10px; table-layout: fixed; }
+.onepage-grid th, .onepage-grid td {
+  border: 1px solid #999; padding: 3px 4px; vertical-align: top; color: #111; background: #fff;
+}
+.onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; }
+.onepage-grid .op-num { width: 28px; text-align: center; font-weight: 700; }
+.onepage-grid .op-name { width: 118px; font-weight: 700; white-space: nowrap; }
+.onepage-grid .op-name.op-lhp { color: #b00020; }
+.onepage-grid .op-velo { width: 52px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; }
+.onepage-grid .op-freq { width: 22%; font-size: 9px; line-height: 1.25; }
+.onepage-grid .op-freq .freq-r { color: #111; display: block; }
+.onepage-grid .op-freq .freq-l { color: #b00020; display: block; }
+.onepage-grid .op-notes { width: 34%; }
+.onepage-grid .op-notes textarea {
+  width: 100%; min-height: 42px; border: none; resize: vertical;
+  font: inherit; font-size: 9px; line-height: 1.25; color: #111; background: transparent;
+}
+.onepage-grid tr.op-alt td { background: #f2f2f2; }
+.onepage-grid tr.op-needs td { outline: 1px solid #e6a800; }
+.winter-line-row td { color: #334; font-weight: 600; background: #f7fafc !important; }
+
+@media print {
+  .topbar, .hero, .tab-bar, .filters, .lang-toggle, #loading, .note, .advance-export-bar { display: none !important; }
+  .panel { display: none !important; }
+  .panel.active { display: block !important; }
+  body { background: #fff; }
+  .onepage-print, .bullpen-scroll { border: none; }
+}
+
+.roster-change-banner {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid #e6a800;
+  background: rgba(230, 168, 0, 0.12);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.roster-change-banner .muted { color: var(--muted); font-weight: 400; }
