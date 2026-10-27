@@ -4774,40 +4774,42 @@ function sheetPrintCss(kind){
   `;
   if(kind === 'bullpen'){
     return common + `
-      .bullpen-print-title{font-size:13px}
+      .bullpen-print-title{font-size:15px;margin:0 0 5px}
       .bullpen-scroll{overflow:hidden!important;border:none;flex:1 1 auto;min-height:0}
-      .bullpen-grid{width:100%!important;min-width:0!important;font-size:7.5px;border-collapse:collapse;table-layout:fixed;color:#000}
-      .bullpen-grid th,.bullpen-grid td{border:1px solid #999;padding:1px 2px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .bullpen-grid{width:100%!important;min-width:0!important;font-size:10.5px;border-collapse:collapse;table-layout:fixed;color:#000}
+      .bullpen-grid th,.bullpen-grid td{border:1px solid #999;padding:2px 2px;text-align:center;overflow:hidden;text-overflow:ellipsis}
       .bullpen-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700}
       .bullpen-grid .bp-corner{background:#1f2430!important;color:#fff!important;text-align:left;position:static!important;left:auto!important}
       .bullpen-grid tbody th.bp-name,.bullpen-grid tbody th.bp-last{
-        background:#f3f4f6!important;color:#000!important;text-align:left;position:static!important;left:auto!important;font-size:7px
+        background:#f3f4f6!important;color:#000!important;text-align:left;position:static!important;left:auto!important;font-size:10px;white-space:nowrap
       }
-      .bullpen-grid tbody th.bp-name{min-width:0;width:1.15in}
-      .bullpen-grid tbody th.bp-last{min-width:0;width:0.72in}
-      .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:6.5px}
-      .bullpen-grid .bp-cell,.bullpen-grid tbody td{color:#000!important;font-variant-numeric:tabular-nums;font-size:7px}
+      .bullpen-grid tbody th.bp-name{min-width:0;width:0.95in}
+      .bullpen-grid tbody th.bp-last{min-width:0;width:0.88in;font-size:9.5px}
+      .bullpen-grid thead .bp-corner:first-child{width:0.95in}
+      .bullpen-grid thead .bp-corner:nth-child(2){width:0.88in}
+      .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:9px;line-height:1.15;white-space:normal;padding:2px 1px}
+      .bullpen-grid .bp-cell,.bullpen-grid tbody td{color:#000!important;font-variant-numeric:tabular-nums;font-size:10.5px;padding:2px 1px;white-space:nowrap}
       .bullpen-grid tr.bp-section th{
-        background:#4a5568!important;color:#fff!important;text-align:left;font-size:8px;
-        letter-spacing:.04em;text-transform:uppercase;padding:2px 4px
+        background:#4a5568!important;color:#fff!important;text-align:left;font-size:10.5px;
+        letter-spacing:.04em;text-transform:uppercase;padding:3px 5px
       }
       .bullpen-grid tbody tr:nth-child(even) td{background:#f7f7f7!important}
     `;
   }
   return common + `
-    .onepage-title{font-size:12px}
+    .onepage-title{font-size:15px;margin:0 0 4px}
     .onepage-print{border:none;padding:0;flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column}
-    .onepage-grid{width:100%;border-collapse:collapse;font-size:6.8px;table-layout:fixed;flex:1 1 auto}
-    .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:1px 2px;vertical-align:top;color:#111;background:#fff}
-    .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:6.5px}
-    .onepage-grid .op-num{width:0.28in;text-align:center;font-weight:700}
-    .onepage-grid .op-name{width:1.05in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .onepage-grid{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;flex:1 1 auto}
+    .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:2px 2px;vertical-align:top;color:#000;background:#fff}
+    .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px}
+    .onepage-grid .op-num{width:0.22in;text-align:center;font-weight:700}
+    .onepage-grid .op-name{width:0.95in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .onepage-grid .op-name.op-lhp{color:#b00020}
-    .onepage-grid .op-velo{width:0.48in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:6.2px;line-height:1.1}
-    .onepage-grid .op-freq{width:18%;font-size:5.8px;line-height:1.15}
-    .onepage-grid .op-freq .freq-r{color:#111;display:block}
+    .onepage-grid .op-velo{width:0.40in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:9px;line-height:1.15}
+    .onepage-grid .op-freq{width:19%;font-size:8.5px;line-height:1.2}
+    .onepage-grid .op-freq .freq-r{color:#000;display:block}
     .onepage-grid .op-freq .freq-l{color:#b00020;display:block}
-    .onepage-grid .op-notes{width:32%;font-size:5.8px;line-height:1.15;white-space:pre-wrap}
+    .onepage-grid .op-notes{width:34%;font-size:8.5px;line-height:1.2;white-space:pre-wrap}
     .onepage-grid tr.op-alt td{background:#f2f2f2!important}
     .onepage-grid textarea{display:none!important}
   `;
@@ -4859,8 +4861,8 @@ function exportPitcherOnePagePdf(){
     }
   });
   const n = clone.querySelectorAll('tbody tr').length;
-  // Scale font slightly for large rosters so one landscape page still fits
-  const scale = n > 24 ? 0.88 : n > 20 ? 0.94 : 1;
+  // Only nudge down for very large rosters so type stays readable
+  const scale = n > 26 ? 0.92 : n > 22 ? 0.96 : 1;
   openSheetPrintWindow(
     `${label} Pitcher One Page`,
     `<div class="onepage-print-page" style="zoom:${scale}">${clone.outerHTML}</div>`,

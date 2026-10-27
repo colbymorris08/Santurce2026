@@ -1769,10 +1769,10 @@ input.tth-input:focus {
 .bullpen-scroll { overflow-x: auto; background: #fff; border: 1px solid #ccc; }
 .bullpen-grid {
   border-collapse: collapse; width: max-content; min-width: 100%;
-  font-size: 11px; color: #000; background: #fff;
+  font-size: 13px; color: #000; background: #fff;
 }
 .bullpen-grid th, .bullpen-grid td {
-  border: 1px solid #bbb; padding: 4px 6px; text-align: center; white-space: nowrap;
+  border: 1px solid #bbb; padding: 5px 4px; text-align: center; white-space: nowrap;
 }
 .bullpen-grid thead th { background: #2f3540; color: #fff; font-weight: 700; }
 .bullpen-grid .bp-corner { background: #1f2430; color: #fff; text-align: left; position: sticky; left: 0; z-index: 2; }
@@ -1780,26 +1780,34 @@ input.tth-input:focus {
 .bullpen-grid tbody th.bp-last {
   background: #f3f4f6; color: #000; text-align: left; position: sticky; z-index: 1;
 }
-.bullpen-grid tbody th.bp-name { left: 0; min-width: 120px; }
-.bullpen-grid tbody th.bp-last { left: 120px; min-width: 88px; border-left: 0; }
-.bullpen-grid .bp-starter { font-size: 10px; line-height: 1.2; }
+.bullpen-grid tbody th.bp-name { left: 0; min-width: 108px; max-width: 118px; padding-left: 6px; padding-right: 4px; }
+.bullpen-grid tbody th.bp-last { left: 108px; min-width: 92px; max-width: 100px; border-left: 0; font-size: 12px; padding-left: 4px; padding-right: 4px; }
+.bullpen-grid thead .bp-corner:first-child { min-width: 108px; }
+.bullpen-grid thead .bp-corner:nth-child(2) { min-width: 92px; }
+.bullpen-grid .bp-starter { font-size: 12px; line-height: 1.2; }
 .bullpen-grid .bp-ip { font-weight: 600; opacity: .9; }
-.bullpen-grid .bp-result { font-size: 10px; }
-.bullpen-grid .bp-date { font-size: 10px; background: #3b4453 !important; }
+.bullpen-grid .bp-result { font-size: 12px; }
+.bullpen-grid .bp-date {
+  font-size: 11px; background: #3b4453 !important;
+  padding: 5px 3px; line-height: 1.15; white-space: normal; max-width: 72px;
+}
 .bullpen-grid .bp-cell,
 .bullpen-grid tbody td {
   color: #000 !important;
   font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  padding: 5px 3px;
+  max-width: 72px;
 }
 .bullpen-grid tbody tr:nth-child(even) td { background: #f7f7f7; }
 .bullpen-grid tr.bp-section th {
   background: #4a5568 !important;
   color: #fff !important;
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: .04em;
   text-transform: uppercase;
-  padding: 5px 8px;
+  padding: 6px 8px;
   position: sticky;
   left: 0;
   z-index: 2;
@@ -1808,23 +1816,23 @@ input.tth-input:focus {
 /* Pitcher One Page Sheet */
 .onepage-sheet { margin-top: 10px; }
 .onepage-print { background: #fff; color: #111; border: 1px solid #ccc; padding: 8px; }
-.onepage-title { text-align: center; font-weight: 800; font-size: 16px; margin: 2px 0 8px; color: #111; }
-.onepage-grid { width: 100%; border-collapse: collapse; font-size: 10px; table-layout: fixed; }
+.onepage-title { text-align: center; font-weight: 800; font-size: 18px; margin: 2px 0 8px; color: #111; }
+.onepage-grid { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
 .onepage-grid th, .onepage-grid td {
-  border: 1px solid #999; padding: 3px 4px; vertical-align: top; color: #111; background: #fff;
+  border: 1px solid #999; padding: 4px 3px; vertical-align: top; color: #111; background: #fff;
 }
-.onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; }
-.onepage-grid .op-num { width: 28px; text-align: center; font-weight: 700; }
-.onepage-grid .op-name { width: 118px; font-weight: 700; white-space: nowrap; }
+.onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; }
+.onepage-grid .op-num { width: 24px; text-align: center; font-weight: 700; }
+.onepage-grid .op-name { width: 102px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .onepage-grid .op-name.op-lhp { color: #b00020; }
-.onepage-grid .op-velo { width: 52px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; }
-.onepage-grid .op-freq { width: 22%; font-size: 9px; line-height: 1.25; }
+.onepage-grid .op-velo { width: 44px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; font-size: 11px; line-height: 1.2; }
+.onepage-grid .op-freq { width: 20%; font-size: 11px; line-height: 1.3; }
 .onepage-grid .op-freq .freq-r { color: #111; display: block; }
 .onepage-grid .op-freq .freq-l { color: #b00020; display: block; }
-.onepage-grid .op-notes { width: 34%; }
+.onepage-grid .op-notes { width: 36%; }
 .onepage-grid .op-notes textarea {
-  width: 100%; min-height: 42px; border: none; resize: vertical;
-  font: inherit; font-size: 9px; line-height: 1.25; color: #111; background: transparent;
+  width: 100%; min-height: 44px; border: none; resize: vertical;
+  font: inherit; font-size: 11px; line-height: 1.3; color: #111; background: transparent;
 }
 .onepage-grid tr.op-alt td { background: #f2f2f2; }
 .onepage-grid tr.op-needs td { outline: 1px solid #e6a800; }
@@ -1837,14 +1845,14 @@ input.tth-input:focus {
   body { background: #fff; }
   .onepage-print, .bullpen-scroll { border: none; overflow: visible !important; }
   /* Prefer the dedicated Print / PDF buttons (popup) for true one-page fit */
-  #panel-bullpen.active .bullpen-grid { font-size: 7.5px; }
+  #panel-bullpen.active .bullpen-grid { font-size: 10px; }
   #panel-bullpen.active .bullpen-grid th,
-  #panel-bullpen.active .bullpen-grid td { padding: 1px 2px; }
-  #panel-pitcher-one-page.active .onepage-grid { font-size: 6.8px; }
+  #panel-bullpen.active .bullpen-grid td { padding: 2px 2px; }
+  #panel-pitcher-one-page.active .onepage-grid { font-size: 9.5px; }
   #panel-pitcher-one-page.active .onepage-grid th,
-  #panel-pitcher-one-page.active .onepage-grid td { padding: 1px 2px; }
+  #panel-pitcher-one-page.active .onepage-grid td { padding: 2px 2px; }
   #panel-pitcher-one-page.active .onepage-grid .op-notes textarea {
-    min-height: 0; height: auto; resize: none; overflow: hidden;
+    min-height: 0; height: auto; resize: none; overflow: hidden; font-size: 9px;
   }
 }
 
