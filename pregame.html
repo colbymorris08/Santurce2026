@@ -1522,7 +1522,12 @@ function sprayPitcherHand(pt){
   return h === 'L' || h === 'R' ? h : '';
 }
 function sprayHandCellPoints(player, hand, pred){
-  const pts = collectSprayPoints(player).filter(pt => sprayPitcherHand(pt)===hand && pred(pt));
+  const all = collectSprayPoints(player);
+  const tagged = all.filter(pt => sprayPitcherHand(pt));
+  // Prefer true L/R splits; if this hitter has no pitcher_hand tags yet, fall back
+  // to untagged BIP in both columns so the eight-chart page isn't blank.
+  const pool = tagged.length ? all.filter(pt => sprayPitcherHand(pt)===hand) : all;
+  const pts = pool.filter(pred);
   return limitRecentSprayPoints(pts, SPRAY_MAX_RECENT);
 }
 function sprayHandTaggedCount(player){
@@ -1577,7 +1582,7 @@ function buildSprayHandSheetHtml(player, {printPage=false, prefix='', sprayUrls=
     }).join('');
     return `<div class="spray-hand-col"><div class="spray-hand-title">${label}</div>${cells}</div>`;
   };
-  const warn = tagged ? '' : `<div class="note">Pitcher hand is not on these ${total} batted balls yet, so the eight charts stay empty until the log is retagged.</div>`;
+  const warn = tagged ? '' : `<div class="note">Pitcher hand is not tagged on these ${total} BIP yet — showing the same recent balls under both vs RHP and vs LHP until the log is retagged.</div>`;
   const name = formatLastFirst(player.name) || player.name || '';
   return `<div class="advance-sheet advance-sheet-spray${printPage?' advance-print-page':''} spray-hand-sheet">
     <div class="advance-pdf-strip"><span class="advance-pdf-name">${name}</span><span class="advance-pdf-team">${player.team||''}</span></div>
