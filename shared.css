@@ -150,6 +150,26 @@ body {
   margin-bottom: 16px;
   padding: 4px 0 12px;
 }
+.subtab-bar {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin: 0 0 12px;
+}
+.subtab {
+  appearance: none;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  font: inherit; font-size: 12px; font-weight: 700;
+  color: #c5d0e0;
+  padding: 6px 11px;
+  cursor: pointer;
+}
+.subtab:hover { background: var(--panel-hover); color: #fff; }
+.subtab.active {
+  background: linear-gradient(180deg, #1e3d72 0%, #152f5a 100%);
+  color: #fff;
+  border-color: var(--santurce-gold);
+}
 .tab {
   appearance: none;
   background: var(--panel);
@@ -1768,6 +1788,18 @@ input.tth-input:focus {
 .bullpen-grid .bp-date { font-size: 10px; background: #3b4453 !important; }
 .bullpen-grid .bp-cell { font-variant-numeric: tabular-nums; }
 .bullpen-grid tbody tr:nth-child(even) td { background: #f7f7f7; }
+.bullpen-grid tr.bp-section th {
+  background: #4a5568 !important;
+  color: #fff !important;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
 
 /* Pitcher One Page Sheet */
 .onepage-sheet { margin-top: 10px; }
@@ -1795,11 +1827,21 @@ input.tth-input:focus {
 .winter-line-row td { color: #334; font-weight: 600; background: #f7fafc !important; }
 
 @media print {
-  .topbar, .hero, .tab-bar, .filters, .lang-toggle, #loading, .note, .advance-export-bar { display: none !important; }
+  .topbar, .hero, .tab-bar, .subtab-bar, .filters, .lang-toggle, #loading, .note, .advance-export-bar { display: none !important; }
   .panel { display: none !important; }
   .panel.active { display: block !important; }
   body { background: #fff; }
-  .onepage-print, .bullpen-scroll { border: none; }
+  .onepage-print, .bullpen-scroll { border: none; overflow: visible !important; }
+  /* Prefer the dedicated Print / PDF buttons (popup) for true one-page fit */
+  #panel-bullpen.active .bullpen-grid { font-size: 7.5px; }
+  #panel-bullpen.active .bullpen-grid th,
+  #panel-bullpen.active .bullpen-grid td { padding: 1px 2px; }
+  #panel-pitcher-one-page.active .onepage-grid { font-size: 6.8px; }
+  #panel-pitcher-one-page.active .onepage-grid th,
+  #panel-pitcher-one-page.active .onepage-grid td { padding: 1px 2px; }
+  #panel-pitcher-one-page.active .onepage-grid .op-notes textarea {
+    min-height: 0; height: auto; resize: none; overflow: hidden;
+  }
 }
 
 .roster-change-banner {

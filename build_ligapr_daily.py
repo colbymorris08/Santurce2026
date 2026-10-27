@@ -2,7 +2,8 @@
 """Daily LBPRC refresh from ligapr.com (boxscores + equipo season lines + roster sync).
 
 Writes:
-  data/bullpen_usage.json
+  data/bullpen_usage.json          (2026-27 live)
+  data/bullpen_usage_test.json     (Dec 2025 test week)
   data/pitcher_one_page.json
   data/lbprc_2026_27_hitting.json
   data/lbprc_2026_27_pitching.json
@@ -61,6 +62,31 @@ CURRENT_LEAGUE_ID = 18  # LBPRC 2026-2027
 FALLBACK_LEAGUE_ID = 12  # LBPRC 2025-2026
 SEASON_LABEL = "2026-27 LBPRC"
 BULLPEN_GAME_LIMIT = 13
+# ligapr finished cards omit dates; window anchored to confirmed Dec 26 2025
+# results (GIG-LEO 568, CAN-CRI 567) → last week of December 2025.
+BULLPEN_TEST_GAME_ID_MIN = 564
+BULLPEN_TEST_GAME_ID_MAX = 574
+BULLPEN_TEST_LABEL = "Test · Dec 25–29, 2025"
+BULLPEN_TEST_SEASON = "2025-26 LBPRC"
+# Verified final-week dates (ligapr omits dates on finished cards; rematches
+# can steal late schedule slots during greedy matching).
+LBPRC_2025_26_GAME_DATE_OVERRIDES = {
+    560: "2025-12-22",
+    561: "2025-12-22",
+    562: "2025-12-22",
+    563: "2025-12-23",
+    564: "2025-12-23",
+    565: "2025-12-29",
+    566: "2025-12-26",
+    567: "2025-12-26",
+    568: "2025-12-26",
+    569: "2025-12-27",
+    570: "2025-12-27",
+    571: "2025-12-27",
+    572: "2025-12-28",
+    573: "2025-12-28",
+    574: "2025-12-28",
+}
 
 PITCH_COL_MAP = {
     "FB": ("FF", "FA", "SI", "FT", "4S"),
@@ -320,6 +346,142 @@ def format_ip(ip: Any) -> str:
     return f"{whole}.{rem}"
 
 
+_ES_MONTHS = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
+
+
+def parse_ligapr_date(text: str | None) -> str | None:
+    """Parse '04 noviembre 2026 / 07:00 p. m.' → ISO date YYYY-MM-DD."""
+    if not text:
+        return None
+    m = re.search(
+        r"(\d{1,2})\s+([A-Za-zÁÉÍÓÚáéíóú]+)\s+(20\d{2})",
+        text,
+        re.I,
+    )
+    if not m:
+        return None
+    day = int(m.group(1))
+    month_key = "".join(
+        c
+        for c in unicodedata.normalize("NFKD", m.group(2).lower())
+        if not unicodedata.combining(c) and c.isalpha()
+    )
+    month = _ES_MONTHS.get(month_key)
+    if not month:
+        return None
+    return f"{int(m.group(3)):04d}-{month:02d}-{day:02d}"
+
+
+def format_md(iso_date: str | None) -> str:
+    if not iso_date:
+        return ""
+    try:
+        y, m, d = iso_date.split("-")
+        return f"{int(m)}/{int(d)}"
+    except Exception:
+        return ""
+
+
+def load_schedule_dates(path_name: str = "lbprc_2025_26_schedule.json") -> list[dict[str, str]]:
+    doc = load_json(path_name, {}) or {}
+    return list(doc.get("games") or [])
+
+
+def attach_schedule_dates(
+    games: list[dict[str, Any]],
+    schedule: list[dict[str, str]],
+) -> list[dict[str, Any]]:
+    """Fill missing game dates by matching away/home to the published schedule in order.
+
+    ligapr card layout: left = away, right = home.
+    """
+    if not schedule:
+        return games
+    # Consume schedule slots oldest→newest while walking finished games oldest→newest
+    unused = list(schedule)
+    ordered = sorted(
+        [g for g in games if g.get("game_id") is not None],
+        key=lambda g: int(g["game_id"]),
+    )
+    undated = [g for g in games if g.get("game_id") is None]
+    for g in ordered:
+        if g.get("date"):
+            continue
+        away, home = g.get("left_abbr"), g.get("right_abbr")
+        if not away or not home:
+            continue
+        for i, slot in enumerate(unused):
+            if slot.get("away") == away and slot.get("home") == home:
+                g["date"] = slot.get("date")
+                unused.pop(i)
+                break
+    return sorted(ordered, key=lambda g: -int(g.get("game_id") or 0)) + undated
+
+
+def build_league_game_dates(
+    sub_id: int,
+    schedule: list[dict[str, str]],
+    *,
+    max_pages: int = 8,
+) -> dict[int, str]:
+    """Map ligapr game_id → ISO date using league-wide boxscores + schedule."""
+    by_id: dict[int, dict[str, Any]] = {}
+    for page in range(1, max_pages + 1):
+        suffix = "" if page == 1 else f"?page={page}"
+        data = http_json_safe(f"https://ligapr.com/subleagues/{sub_id}/getBoxScores{suffix}")
+        html = (data or {}).get("html") or ""
+        if "Boxscore" not in html:
+            break
+        # parse for every team abbr by using a dummy focus that keeps all via title codes —
+        # easier: inline parse without focus filter
+        for m in re.finditer(r"<h6>Boxscore (.*?)</h6>(.*?)(?=<h6>Boxscore |\Z)", html, re.S):
+            title = m.group(1).strip()
+            body = m.group(2)
+            if "Finalizado" not in body:
+                continue
+            score_m = re.search(
+                r"Finalizado</div>\s*<span>(\d+)</span>\s*-\s*<span>(\d+)</span>", body
+            )
+            if not score_m:
+                continue
+            names = re.findall(r'class="name">([^<]+)', body)
+            if len(names) < 2:
+                continue
+            gid_m = re.search(r"(\d+)\s*$", title)
+            if not gid_m:
+                continue
+            gid = int(gid_m.group(1))
+            date_m = re.search(r'class="date">([^<]+)', body)
+            game_date = parse_ligapr_date(date_m.group(1).strip() if date_m else None)
+            by_id[gid] = {
+                "game_id": gid,
+                "date": game_date,
+                "left_abbr": team_abbr_from_name(names[0].strip()),
+                "right_abbr": team_abbr_from_name(names[1].strip()),
+            }
+    games = attach_schedule_dates(list(by_id.values()), schedule)
+    out = {
+        int(g["game_id"]): g["date"]
+        for g in games
+        if g.get("game_id") is not None and g.get("date")
+    }
+    out.update(LBPRC_2025_26_GAME_DATE_OVERRIDES)
+    return out
+
+
 def parse_boxscore_games(html: str, focus_abbr: str) -> list[dict[str, Any]]:
     """Parse expandable boxscores; keep games involving focus_abbr, newest first."""
     games: list[dict[str, Any]] = []
@@ -346,6 +508,8 @@ def parse_boxscore_games(html: str, focus_abbr: str) -> list[dict[str, Any]]:
             abbrs = {CODE_TO_ABBR.get(c) for c in codes}
             if focus_abbr not in abbrs:
                 continue
+        date_m = re.search(r'class="date">([^<]+)', body)
+        game_date = parse_ligapr_date(date_m.group(1).strip() if date_m else None)
         bs_id_m = re.search(r'data-id="(bs-\d+)"', body)
         detail = ""
         if bs_id_m:
@@ -383,6 +547,7 @@ def parse_boxscore_games(html: str, focus_abbr: str) -> list[dict[str, Any]]:
             {
                 "title": title,
                 "game_id": int(game_no_m.group(1)) if game_no_m else None,
+                "date": game_date,
                 "left": left,
                 "right": right,
                 "left_abbr": left_abbr,
@@ -473,7 +638,9 @@ def build_bullpen_for_team(abbr: str, games: list[dict[str, Any]]) -> dict[str, 
             {
                 "game_id": g.get("game_id"),
                 "title": g.get("title"),
-                "label": _short_game_label(g, abbr),
+                "date": g.get("date"),
+                "home": focus_home,
+                "label": _matchup_label(g, abbr),
                 "result": f"{abbr} {focus_score}-{opp_score}" if won else f"{opp or '?'} {opp_score}-{focus_score}",
                 "opp": opp,
                 "score_for": focus_score,
@@ -484,69 +651,153 @@ def build_bullpen_for_team(abbr: str, games: list[dict[str, Any]]) -> dict[str, 
             }
         )
 
-    # Reliever rows: anyone who pitched for focus team in window, excluding primary starters-only? PDF includes all bullpen arms; starters also appear if they relieved. Include all non-starter appearances + arms who only relieved.
-    usage: dict[str, dict[str, Any]] = {}
-    for gi, g in enumerate(recent):
-        for p in g.get("pitchers", {}).get(abbr, []):
-            if p.get("starter"):
-                continue
-            key = norm_name(p["name"])
-            slot = usage.setdefault(
-                key,
-                {"name": p["name"], "last_app": None, "last_app_game_id": None, "cells": [None] * len(recent)},
-            )
-            cell = f"{p['ip']} IP" if p.get("ip") else ""
-            if p.get("pitches") is not None:
-                cell = f"{p['ip']} IP / {p['pitches']}"
-            slot["cells"][gi] = cell or None
-            if slot["last_app"] is None:
-                slot["last_app"] = columns[gi]["label"] if gi < len(columns) else None
-                slot["last_app_game_id"] = g.get("game_id")
+    def _ip_cell(p: dict[str, Any]) -> str | None:
+        cell = f"{p['ip']} IP" if p.get("ip") else ""
+        if p.get("pitches") is not None:
+            cell = f"{p['ip']} IP / {p['pitches']}"
+        return cell or None
 
-    # Sort by most recent appearance then name
-    relievers = sorted(
-        usage.values(),
-        key=lambda r: (
-            -int(r["last_app_game_id"] or 0),
-            r["name"].split()[-1].lower(),
-            r["name"].lower(),
-        ),
-    )
+    def _fill_usage(only_starters: bool) -> list[dict[str, Any]]:
+        usage: dict[str, dict[str, Any]] = {}
+        for gi, g in enumerate(recent):
+            for p in g.get("pitchers", {}).get(abbr, []):
+                is_starter = bool(p.get("starter"))
+                if only_starters and not is_starter:
+                    continue
+                if not only_starters and is_starter:
+                    continue
+                key = norm_name(p["name"])
+                slot = usage.setdefault(
+                    key,
+                    {
+                        "name": p["name"],
+                        "last_app": None,
+                        "last_app_game_id": None,
+                        "cells": [None] * len(recent),
+                    },
+                )
+                # Prefer the longer / more complete display name when variants appear
+                if len(p["name"] or "") > len(slot["name"] or ""):
+                    slot["name"] = p["name"]
+                slot["cells"][gi] = _ip_cell(p)
+                if slot["last_app"] is None:
+                    slot["last_app"] = columns[gi]["label"] if gi < len(columns) else None
+                    slot["last_app_game_id"] = g.get("game_id")
+        return sorted(
+            usage.values(),
+            key=lambda r: (
+                -int(r["last_app_game_id"] or 0),
+                r["name"].split()[-1].lower(),
+                r["name"].lower(),
+            ),
+        )
+
+    starters = _fill_usage(only_starters=True)
+    relievers = _fill_usage(only_starters=False)
     return {
         "team": abbr,
         "team_name": next(v["name"] for v in LIGAPR_TEAMS.values() if v["abbr"] == abbr),
         "games": columns,
+        "starters": starters,
         "relievers": relievers,
         "notes": [],
     }
 
 
-def _short_game_label(g: dict[str, Any], focus: str) -> str:
+def _matchup_label(g: dict[str, Any], focus: str) -> str:
+    """vs MAY 12/20 (home) or @ CAR 12/19 (away)."""
+    home = g.get("right_abbr") == focus
+    opp = g.get("left_abbr") if home else g.get("right_abbr")
+    md = format_md(g.get("date"))
+    if opp and md:
+        return f"{'vs' if home else '@'} {opp} {md}"
+    if opp:
+        return f"{'vs' if home else '@'} {opp}"
     gid = g.get("game_id")
-    opp = g["left_abbr"] if g.get("right_abbr") == focus else g.get("right_abbr")
-    if gid and opp:
-        return f"{opp} #{gid}"
     if gid:
         return f"G{gid}"
     return g.get("title") or "?"
 
 
-def build_bullpen_usage(league_id: int, sub_id: int) -> dict[str, Any]:
+def fetch_team_boxscore_games(
+    sub_id: int,
+    team_id: int,
+    abbr: str,
+    *,
+    max_pages: int = 6,
+    game_dates: dict[int, str] | None = None,
+) -> list[dict[str, Any]]:
+    """Paginate team getBoxScores (newest page first) and merge finished games."""
+    by_id: dict[int, dict[str, Any]] = {}
+    undated: list[dict[str, Any]] = []
+    for page in range(1, max_pages + 1):
+        suffix = "" if page == 1 else f"?page={page}"
+        data = http_json_safe(f"https://ligapr.com/subleagues/{sub_id}/{team_id}/getBoxScores{suffix}")
+        html = (data or {}).get("html") or ""
+        if "Boxscore" not in html:
+            break
+        games = parse_boxscore_games(html, abbr)
+        if not games:
+            break
+        for g in games:
+            gid = g.get("game_id")
+            if gid is not None and game_dates and gid in game_dates and not g.get("date"):
+                g["date"] = game_dates[gid]
+            if gid is None:
+                undated.append(g)
+            elif gid not in by_id:
+                by_id[gid] = g
+    merged = sorted(by_id.values(), key=lambda g: -int(g.get("game_id") or 0))
+    merged.extend(undated)
+    return merged
+
+
+def build_bullpen_usage(
+    league_id: int,
+    sub_id: int,
+    *,
+    season: str | None = None,
+    game_limit: int | None = None,
+    game_id_min: int | None = None,
+    game_id_max: int | None = None,
+    max_pages: int = 1,
+    schedule_file: str | None = None,
+) -> dict[str, Any]:
+    limit = BULLPEN_GAME_LIMIT if game_limit is None else game_limit
+    schedule = load_schedule_dates(schedule_file) if schedule_file else []
+    game_dates: dict[int, str] = {}
+    if schedule:
+        print("  dating league boxscores via schedule…")
+        game_dates = build_league_game_dates(sub_id, schedule)
+        print(f"  dated {len(game_dates)} games")
     teams_out = {}
     for tid, meta in LIGAPR_TEAMS.items():
         abbr = meta["abbr"]
-        data = http_json_safe(f"https://ligapr.com/subleagues/{sub_id}/{tid}/getBoxScores")
-        html = (data or {}).get("html") or ""
-        games = parse_boxscore_games(html, abbr)
-        print(f"  boxscores {abbr}: {len(games)} finished")
-        teams_out[abbr] = build_bullpen_for_team(abbr, games)
+        games = fetch_team_boxscore_games(
+            sub_id, tid, abbr, max_pages=max_pages, game_dates=game_dates or None
+        )
+        if game_id_min is not None or game_id_max is not None:
+            lo = game_id_min if game_id_min is not None else 0
+            hi = game_id_max if game_id_max is not None else 10**9
+            games = [
+                g
+                for g in games
+                if g.get("game_id") is not None and lo <= int(g["game_id"]) <= hi
+            ]
+            # Chronological within the test window (oldest → newest left-to-right feels wrong
+            # for the sheet which is newest-first — keep newest first).
+            games = sorted(games, key=lambda g: -int(g.get("game_id") or 0))
+        print(f"  boxscores {abbr}: {len(games)} finished (limit {limit})")
+        teams_out[abbr] = build_bullpen_for_team(abbr, games[:limit] if limit else games)
     return {
         "updated": now_iso(),
         "source": "https://ligapr.com/estadisticas/boxscores",
         "league_id": league_id,
         "subleague_id": sub_id,
-        "season": SEASON_LABEL,
-        "game_window": BULLPEN_GAME_LIMIT,
+        "season": season or SEASON_LABEL,
+        "game_window": limit,
+        "game_id_min": game_id_min,
+        "game_id_max": game_id_max,
         "note": (
             "Cells are IP from ligapr boxscore pitching lines. "
             "Pitch counts are not published on ligapr; shown as IP only."
@@ -944,32 +1195,44 @@ def main() -> int:
     # Always try CURRENT season for winter lines / roster
     equipo_current = fetch_equipo_stats(CURRENT_LEAGUE_ID)
 
-    # Bullpen: prefer current winter; if no finished games yet, auto-fill from prior season
-    bullpen_league = info["league_id"]
-    bullpen_sub = info["subleague_id"]
-    bullpen_demo = False
-    if args.demo_prior_season or (
-        info["league_id"] == CURRENT_LEAGUE_ID and int(info.get("finished_games") or 0) == 0
-    ):
-        prior = resolve_league(FALLBACK_LEAGUE_ID)
-        if int(prior.get("finished_games") or 0) > 0:
-            bullpen_league = prior["league_id"]
-            bullpen_sub = prior["subleague_id"]
-            bullpen_demo = True
-            print("bullpen fallback → prior season", prior)
-
-    print("building bullpen usage…")
-    bullpen = build_bullpen_usage(bullpen_league, bullpen_sub)
-    if bullpen_demo:
-        bullpen["demo"] = True
-        bullpen["season_display"] = "2025-26 LBPRC (placeholder until 2026-27 games)"
-        bullpen["note"] = (
-            (bullpen.get("note") or "")
-            + " Placeholder: 2025-26 finished boxscores until 2026-27 games post on ligapr."
-        )
-    else:
-        bullpen["season_display"] = bullpen.get("season")
+    # Live bullpen = current 2026-27 only (empty until finished games post).
+    # Test bullpen = last week of Dec 2025 from prior season (separate tab).
+    print("building live bullpen usage (2026-27)…")
+    bullpen = build_bullpen_usage(
+        CURRENT_LEAGUE_ID,
+        resolve_league(CURRENT_LEAGUE_ID)["subleague_id"],
+        season=SEASON_LABEL,
+        max_pages=2,
+    )
+    bullpen["tab"] = "live"
+    bullpen["season_display"] = "2026-27 LBPRC (live)"
     write_json("bullpen_usage.json", bullpen)
+
+    print("building test bullpen usage (Dec 2025 week)…")
+    prior = resolve_league(FALLBACK_LEAGUE_ID)
+    bullpen_test = build_bullpen_usage(
+        prior["league_id"],
+        prior["subleague_id"],
+        season=BULLPEN_TEST_SEASON,
+        game_limit=BULLPEN_GAME_LIMIT,
+        game_id_min=BULLPEN_TEST_GAME_ID_MIN,
+        game_id_max=BULLPEN_TEST_GAME_ID_MAX,
+        max_pages=6,
+        schedule_file="lbprc_2025_26_schedule.json",
+    )
+    bullpen_test["tab"] = "test"
+    bullpen_test["demo"] = True
+    bullpen_test["season_display"] = BULLPEN_TEST_LABEL
+    bullpen_test["note"] = (
+        (bullpen_test.get("note") or "")
+        + f" Test snapshot: ligapr game #s {BULLPEN_TEST_GAME_ID_MIN}–{BULLPEN_TEST_GAME_ID_MAX} "
+        "(last week of December 2025; finished cards have no dates, window anchored to "
+        "confirmed Dec 26 results #567–#568)."
+    )
+    write_json("bullpen_usage_test.json", bullpen_test)
+
+    if args.demo_prior_season:
+        print("note: --demo-prior-season is obsolete; use bullpen_usage_test.json / Test tab")
 
     print("building pitcher one-pagers…")
     one_page = build_pitcher_one_page()
@@ -985,6 +1248,9 @@ def main() -> int:
         "updated": now_iso(),
         "league": info,
         "bullpen_teams": {k: len(v.get("games") or []) for k, v in bullpen.get("teams", {}).items()},
+        "bullpen_test_teams": {
+            k: len(v.get("games") or []) for k, v in bullpen_test.get("teams", {}).items()
+        },
         "roster_alert": {
             "changed": alert.get("changed"),
             "added": len(alert.get("added") or []),

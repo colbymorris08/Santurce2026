@@ -312,7 +312,11 @@
 
   <div id="panel-bullpen" class="panel">
     <div class="section-label" data-i18n="bullpenLabel">Recent Bullpen Usage</div>
-    <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starter IP sits in the header row.</div>
+    <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starters and relievers each have their own section. Default tab is live 2026-27; Test is last week of Dec 2025.</div>
+    <div class="subtab-bar" id="bullpen-subtabs" role="tablist">
+      <button type="button" class="subtab active" data-bp-tab="live" onclick="setBullpenTab('live')" data-i18n="bullpenTabLive">2026-27 Live</button>
+      <button type="button" class="subtab" data-bp-tab="test" onclick="setBullpenTab('test')" data-i18n="bullpenTabTest">Test · Dec 2025</button>
+    </div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="bullpen-team" onchange="renderBullpen()">
@@ -323,6 +327,9 @@
           <option value="MAY">Indios de Mayagüez</option>
           <option value="SJU">Senadores de San Juan</option>
         </select>
+      </div>
+      <div class="filter-field" style="align-self:end">
+        <button type="button" class="btn" onclick="exportBullpenPdf()">Print / PDF</button>
       </div>
     </div>
     <div id="bullpen-meta" class="note" style="margin-top:4px"></div>
@@ -344,7 +351,7 @@
         </select>
       </div>
       <div class="filter-field" style="align-self:end">
-        <button type="button" class="btn" onclick="window.print()">Print / PDF</button>
+        <button type="button" class="btn" onclick="exportPitcherOnePagePdf()">Print / PDF</button>
       </div>
     </div>
     <div id="onepage-meta" class="note" style="margin-top:4px"></div>
@@ -4648,14 +4655,81 @@ function saveOnePageNote(key, text){
   else all[key] = text;
   try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
 }
+function bullpenArmRows(arms, gamesLen, emptyMsg){
+  if(!(arms||[]).length){
+    return `<tr><td colspan="${gamesLen+2}" class="note">${escHtml(emptyMsg)}</td></tr>`;
+  }
+  return arms.map(r => {
+    const cells = (r.cells||[]).map(c => `<td class="bp-cell">${c?escHtml(c):''}</td>`).join('');
+    return `<tr>
+      <th class="bp-name">${escHtml(r.name||'')}</th>
+      <th class="bp-last">${escHtml(r.last_app||'')}</th>
+      ${cells}
+    </tr>`;
+  }).join('');
+}
+function buildBullpenSheetHtml(pack, {teamLabel='', forPrint=false}={}){
+  const games = pack.games || [];
+  const colSpan = games.length + 2;
+  const matchupCells = games.map(g => {
+    const tip = escHtml(g.result || g.title || '');
+    return `<th class="bp-date" title="${tip}">${escHtml(g.label||'')}</th>`;
+  }).join('');
+  const starters = pack.starters || [];
+  // Fallback: older caches without starters[] — derive from game header
+  const starterRows = starters.length ? starters : (() => {
+    const byKey = {};
+    games.forEach((g, gi) => {
+      if(!g.starter) return;
+      const key = String(g.starter).toLowerCase().replace(/[^a-z0-9]/g,'');
+      const slot = byKey[key] || {name:g.starter, last_app:null, last_app_game_id:null, cells:Array(games.length).fill(null)};
+      slot.cells[gi] = g.starter_ip ? `${g.starter_ip} IP` : '';
+      if(slot.last_app == null){
+        slot.last_app = g.label || null;
+        slot.last_app_game_id = g.game_id || null;
+      }
+      byKey[key] = slot;
+    });
+    return Object.values(byKey);
+  })();
+  const title = forPrint
+    ? `<div class="bullpen-print-title">${escHtml(teamLabel || pack.team_name || pack.team || '')} — Recent Usage</div>`
+    : '';
+  return `${title}<div class="bullpen-scroll"><table class="bullpen-grid">
+    <thead>
+      <tr><th class="bp-corner">Pitcher</th><th class="bp-corner">Last App</th>${matchupCells}</tr>
+    </thead>
+    <tbody class="bp-starters">
+      <tr class="bp-section"><th colspan="${colSpan}">Starters</th></tr>
+      ${bullpenArmRows(starterRows, games.length, 'No starter appearances in window.')}
+    </tbody>
+    <tbody class="bp-relievers">
+      <tr class="bp-section"><th colspan="${colSpan}">Relievers</th></tr>
+      ${bullpenArmRows(pack.relievers||[], games.length, 'No reliever appearances in window.')}
+    </tbody>
+  </table></div>`;
+}
+let BULLPEN_TAB = 'live';
+function activeBullpenData(){
+  return BULLPEN_TAB === 'test' ? (CACHE.bullpenUsageTest || null) : (CACHE.bullpenUsage || null);
+}
+function setBullpenTab(tab){
+  BULLPEN_TAB = tab === 'test' ? 'test' : 'live';
+  document.querySelectorAll('#bullpen-subtabs .subtab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.bpTab === BULLPEN_TAB);
+  });
+  renderBullpen();
+}
 function renderBullpen(){
   const root = document.getElementById('bullpen-view');
   const meta = document.getElementById('bullpen-meta');
   if(!root) return;
-  const data = CACHE.bullpenUsage;
+  const data = activeBullpenData();
   const team = document.getElementById('bullpen-team')?.value || 'PON';
   if(!data || !data.teams){
-    root.innerHTML = '<div class="note">Bullpen usage cache not built yet.</div>';
+    root.innerHTML = BULLPEN_TAB === 'test'
+      ? '<div class="note">Test bullpen cache not built yet (<code>data/bullpen_usage_test.json</code>).</div>'
+      : '<div class="note">Live 2026-27 bullpen cache not built yet.</div>';
     if(meta) meta.textContent = '';
     return;
   }
@@ -4668,35 +4742,130 @@ function renderBullpen(){
   const updated = data.updated ? `Updated ${data.updated}` : '';
   const season = data.season_display || data.season || '';
   if(meta){
-    meta.textContent = [season, updated, data.demo ? 'placeholder prior-season boxscores until 2026-27 games post' : '']
-      .filter(Boolean).join(' · ');
+    meta.textContent = [
+      season,
+      updated,
+      BULLPEN_TAB === 'test' ? 'static Dec 2025 test week' : 'live updating',
+    ].filter(Boolean).join(' · ');
   }
   if(!games.length){
-    root.innerHTML = '<div class="note">No finished ligapr boxscores in window yet.</div>';
+    root.innerHTML = BULLPEN_TAB === 'test'
+      ? '<div class="note">No Dec 2025 test-week games for this team in the snapshot.</div>'
+      : '<div class="note">No finished 2026-27 ligapr boxscores yet — check the Test tab for a Dec 2025 sample.</div>';
     return;
   }
-  const starterCells = games.map(g => {
-    const tip = escHtml(g.title || '');
-    return `<th class="bp-game" title="${tip}"><div class="bp-starter">${escHtml(g.starter||'—')}${g.starter_ip?` <span class="bp-ip">${escHtml(String(g.starter_ip))} IP</span>`:''}</div></th>`;
-  }).join('');
-  const resultCells = games.map(g => `<th class="bp-result">${escHtml(g.result||'')}</th>`).join('');
-  const dateCells = games.map(g => `<th class="bp-date">${escHtml(g.label||'')}</th>`).join('');
-  const body = (pack.relievers||[]).map(r => {
-    const cells = (r.cells||[]).map(c => `<td class="bp-cell">${c?escHtml(c):''}</td>`).join('');
-    return `<tr>
-      <th class="bp-name">${escHtml(r.name||'')}</th>
-      <th class="bp-last">${escHtml(r.last_app||'')}</th>
-      ${cells}
-    </tr>`;
-  }).join('');
-  root.innerHTML = `<div class="bullpen-scroll"><table class="bullpen-grid">
-    <thead>
-      <tr><th class="bp-corner">Starter</th><th class="bp-corner"></th>${starterCells}</tr>
-      <tr><th class="bp-corner">Result</th><th class="bp-corner"></th>${resultCells}</tr>
-      <tr><th class="bp-corner">Pitcher</th><th class="bp-corner">Last App</th>${dateCells}</tr>
-    </thead>
-    <tbody>${body || '<tr><td colspan="'+(games.length+2)+'" class="note">No reliever appearances in window.</td></tr>'}</tbody>
-  </table></div>`;
+  root.innerHTML = buildBullpenSheetHtml(pack, {teamLabel: pack.team_name || team});
+}
+function sheetPrintCss(kind){
+  // Shared one-landscape-page fit for bullpen + pitcher one-page exports
+  const common = `
+    @page { size: letter landscape; margin: 0.28in; }
+    html,body{margin:0;padding:0;background:#fff!important;color:#111}
+    .bullpen-print-page,.onepage-print-page{
+      width:10.44in;height:7.94in;max-width:10.44in;max-height:7.94in;
+      overflow:hidden;box-sizing:border-box;margin:0;padding:0;
+      display:flex;flex-direction:column;background:#fff;color:#111;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    }
+    .bullpen-print-title,.onepage-title{
+      text-align:center;font-weight:800;color:#111;flex:0 0 auto;margin:0 0 4px;line-height:1.1;
+    }
+    .filters,.note,.topbar,.hero,.tab-bar,.lang-toggle,.advance-export-bar{display:none!important}
+  `;
+  if(kind === 'bullpen'){
+    return common + `
+      .bullpen-print-title{font-size:13px}
+      .bullpen-scroll{overflow:hidden!important;border:none;flex:1 1 auto;min-height:0}
+      .bullpen-grid{width:100%!important;min-width:0!important;font-size:7.5px;border-collapse:collapse;table-layout:fixed}
+      .bullpen-grid th,.bullpen-grid td{border:1px solid #999;padding:1px 2px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .bullpen-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700}
+      .bullpen-grid .bp-corner{background:#1f2430!important;color:#fff!important;text-align:left;position:static!important;left:auto!important}
+      .bullpen-grid tbody th.bp-name,.bullpen-grid tbody th.bp-last{
+        background:#f3f4f6!important;color:#111;text-align:left;position:static!important;left:auto!important;font-size:7px
+      }
+      .bullpen-grid tbody th.bp-name{min-width:0;width:1.15in}
+      .bullpen-grid tbody th.bp-last{min-width:0;width:0.72in}
+      .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:6.5px}
+      .bullpen-grid .bp-cell{font-variant-numeric:tabular-nums;font-size:7px}
+      .bullpen-grid tr.bp-section th{
+        background:#4a5568!important;color:#fff!important;text-align:left;font-size:8px;
+        letter-spacing:.04em;text-transform:uppercase;padding:2px 4px
+      }
+      .bullpen-grid tbody tr:nth-child(even) td{background:#f7f7f7!important}
+    `;
+  }
+  return common + `
+    .onepage-title{font-size:12px}
+    .onepage-print{border:none;padding:0;flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+    .onepage-grid{width:100%;border-collapse:collapse;font-size:6.8px;table-layout:fixed;flex:1 1 auto}
+    .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:1px 2px;vertical-align:top;color:#111;background:#fff}
+    .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:6.5px}
+    .onepage-grid .op-num{width:0.28in;text-align:center;font-weight:700}
+    .onepage-grid .op-name{width:1.05in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .onepage-grid .op-name.op-lhp{color:#b00020}
+    .onepage-grid .op-velo{width:0.48in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:6.2px;line-height:1.1}
+    .onepage-grid .op-freq{width:18%;font-size:5.8px;line-height:1.15}
+    .onepage-grid .op-freq .freq-r{color:#111;display:block}
+    .onepage-grid .op-freq .freq-l{color:#b00020;display:block}
+    .onepage-grid .op-notes{width:32%;font-size:5.8px;line-height:1.15;white-space:pre-wrap}
+    .onepage-grid tr.op-alt td{background:#f2f2f2!important}
+    .onepage-grid textarea{display:none!important}
+  `;
+}
+function openSheetPrintWindow(title, bodyHtml, kind){
+  const w = window.open('', '_blank');
+  if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
+  const css = sheetPrintCss(kind);
+  w.document.write(`<!doctype html><html style="color-scheme:only light"><head>
+    <meta name="color-scheme" content="only light">
+    <title>${escHtml(title)}</title>
+    <style>${css}
+      @media print {
+        @page { size: letter landscape; margin: 0.28in; }
+        html,body{margin:0;padding:0}
+        .bullpen-print-page,.onepage-print-page{page-break-after:auto;page-break-inside:avoid}
+      }
+    </style>
+  </head><body>${bodyHtml}
+  <script>window.onload=()=>setTimeout(()=>window.print(),400);<\/script>
+  </body></html>`);
+  w.document.close();
+  return w;
+}
+function exportBullpenPdf(){
+  const data = activeBullpenData();
+  const team = document.getElementById('bullpen-team')?.value || 'PON';
+  const pack = data?.teams?.[team];
+  if(!pack || !(pack.games||[]).length){ alert('No bullpen sheet to export for this team.'); return; }
+  const label = pack.team_name || team;
+  const tag = BULLPEN_TAB === 'test' ? 'Test Dec 2025' : '2026-27';
+  const inner = buildBullpenSheetHtml(pack, {teamLabel: `${label} (${tag})`, forPrint:true});
+  openSheetPrintWindow(`${label} Bullpen Usage`, `<div class="bullpen-print-page">${inner}</div>`, 'bullpen');
+}
+function exportPitcherOnePagePdf(){
+  const root = document.getElementById('onepage-view');
+  const packRoot = root?.querySelector('.onepage-print');
+  if(!packRoot){ alert('No pitcher one-page sheet to export.'); return; }
+  const team = document.getElementById('onepage-team')?.value || 'PON';
+  const label = CACHE.pitcherOnePage?.teams?.[team]?.team_name || team;
+  // Freeze textarea notes into static cells for print
+  const clone = packRoot.cloneNode(true);
+  clone.querySelectorAll('textarea').forEach(ta => {
+    const td = ta.closest('td') || ta.parentElement;
+    const text = ta.value || '';
+    if(td){
+      td.textContent = text;
+      td.classList.add('op-notes');
+    }
+  });
+  const n = clone.querySelectorAll('tbody tr').length;
+  // Scale font slightly for large rosters so one landscape page still fits
+  const scale = n > 24 ? 0.88 : n > 20 ? 0.94 : 1;
+  openSheetPrintWindow(
+    `${label} Pitcher One Page`,
+    `<div class="onepage-print-page" style="zoom:${scale}">${clone.outerHTML}</div>`,
+    'onepage'
+  );
 }
 function renderPitcherOnePage(){
   const root = document.getElementById('onepage-view');
@@ -4783,10 +4952,11 @@ Promise.all([
   fetch('data/pregame_of_arms.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/bullpen_usage.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/bullpen_usage_test.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, pitcherOnePage, rosterAlert])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, pitcherOnePage, rosterAlert};
+]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
