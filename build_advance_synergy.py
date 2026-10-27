@@ -1182,22 +1182,19 @@ def _ops(bucket: dict) -> float | None:
     return round(obp + slg, 3)
 
 
-# Baseball-Reference documented linear weights (war_explained_wraa example scale).
-# BRef's live rOBA refits per league-season; these MLB-scale weights are the
-# published BRef form. Pitch-type rows omit SB/CS (moved to baserunning in BRef).
-BREF_WOBA_W = {
-    "bb": 0.70,
-    "hbp": 0.73,
-    "single": 0.89,
-    "double": 1.27,
-    "triple": 1.61,
-    "hr": 2.07,
-    "sb": 0.25,
-    "cs": -0.50,
+# FanGraphs Guts! 2026 MLB wOBA linear weights (fangraphs.com/tools/guts).
+# Standard FG wOBA omits SB/CS (those are separate run values for baserunning).
+FG_WOBA_W = {
+    "bb": 0.698,
+    "hbp": 0.729,
+    "single": 0.890,
+    "double": 1.261,
+    "triple": 1.596,
+    "hr": 2.049,
 }
 
 
-def _bref_woba(
+def _fg_woba(
     *,
     ab: int,
     bb: int,
@@ -1208,9 +1205,6 @@ def _bref_woba(
     doubles: int = 0,
     triples: int = 0,
     hr: int = 0,
-    sb: int = 0,
-    cs: int = 0,
-    include_sb: bool = False,
 ) -> float | None:
     ab = int(ab or 0)
     bb = int(bb or 0)
@@ -1223,7 +1217,7 @@ def _bref_woba(
     if denom <= 0:
         return None
     ubb = bb - ibb
-    w = BREF_WOBA_W
+    w = FG_WOBA_W
     num = (
         w["bb"] * ubb
         + w["hbp"] * hbp
@@ -1232,12 +1226,10 @@ def _bref_woba(
         + w["triple"] * int(triples or 0)
         + w["hr"] * int(hr or 0)
     )
-    if include_sb:
-        num += w["sb"] * int(sb or 0) + w["cs"] * int(cs or 0)
     return round(num / denom, 3)
 
 
-def _bref_woba_from_bucket(bucket: dict, *, include_sb: bool = False) -> float | None:
+def _fg_woba_from_bucket(bucket: dict) -> float | None:
     """Need hit-type counts — cannot recover 1B/2B/3B/HR from H+TB alone."""
     singles = int(bucket.get("singles") or 0)
     doubles = int(bucket.get("doubles") or 0)
@@ -1247,7 +1239,7 @@ def _bref_woba_from_bucket(bucket: dict, *, include_sb: bool = False) -> float |
     # Incomplete legacy rows have H but no hit-type breakdown.
     if h != singles + doubles + triples + hr:
         return None
-    return _bref_woba(
+    return _fg_woba(
         ab=int(bucket.get("ab") or 0),
         bb=int(bucket.get("bb") or 0),
         ibb=int(bucket.get("ibb") or 0),
@@ -1257,10 +1249,19 @@ def _bref_woba_from_bucket(bucket: dict, *, include_sb: bool = False) -> float |
         doubles=doubles,
         triples=triples,
         hr=hr,
-        sb=int(bucket.get("sb") or bucket.get("stolen_bases") or 0),
-        cs=int(bucket.get("cs") or bucket.get("caught_stealing") or 0),
-        include_sb=include_sb,
     )
+
+
+# Back-compat aliases (older scripts/imports). include_sb is ignored — FG wOBA omits SB/CS.
+BREF_WOBA_W = FG_WOBA_W
+
+
+def _bref_woba(*, include_sb: bool = False, **kwargs) -> float | None:
+    return _fg_woba(**kwargs)
+
+
+def _bref_woba_from_bucket(bucket: dict, *, include_sb: bool = False) -> float | None:
+    return _fg_woba_from_bucket(bucket)
 
 
 def _spray_game_date(game: dict | None) -> tuple[str | None, str | None]:
@@ -1517,7 +1518,7 @@ def _freeze_bucket(b: dict) -> dict:
         "ab": int(b.get("ab") or 0),
         "h": int(b.get("h") or 0),
         "ops": _ops(b),
-        "woba": _bref_woba_from_bucket(b, include_sb=False),
+        "woba": _fg_woba_from_bucket(b),
         "first_pitch_swing_pct": _rate(int(b.get("first_pitch_swings") or 0), int(b.get("first_pitches") or 0)),
         "whiff_pct": _rate(int(b.get("whiffs") or 0), int(b.get("swings") or 0)),
         "swing_pct": _rate(int(b.get("swings") or 0), int(b.get("pitches") or 0)),
@@ -1857,7 +1858,7 @@ def fetch_2026_summer_lines(mlb_ids: list[int], season: int = 2026) -> dict[int,
         hr = int(line["hr"] or 0)
         singles = max(0, h - doubles - triples - hr)
         line["singles"] = singles
-        line["woba"] = _bref_woba(
+        line["woba"] = _fg_woba(
             ab=int(line["ab"] or 0),
             bb=int(line["bb"] or 0),
             ibb=int(line["ibb"] or 0),
@@ -1867,9 +1868,6 @@ def fetch_2026_summer_lines(mlb_ids: list[int], season: int = 2026) -> dict[int,
             doubles=doubles,
             triples=triples,
             hr=hr,
-            sb=int(line["sb"] or 0),
-            cs=int(line["cs"] or 0),
-            include_sb=True,
         )
         out[pid] = line
     return out

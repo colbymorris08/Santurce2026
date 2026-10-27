@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san162">
+<link rel="stylesheet" href="shared.css?v=san163">
 </head>
 <body>
 <div class="topbar">
@@ -433,12 +433,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san162"></script>
-<script src="cards.js?v=san162"></script>
+<script src="i18n.js?v=san163"></script>
+<script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san162';
+const ASSET_V = 'san163';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1633,38 +1633,38 @@ function renderSpray(){
 function fmtPct1(v){ return v==null?'—':Number(v).toFixed(1)+'%'; }
 function fmtOps(v){ return v==null?'—':Number(v).toFixed(3); }
 function fmtWoba(v){ return v==null?'—':Number(v).toFixed(3); }
-/** Baseball-Reference documented linear weights (MLB-scale). Pitch rows omit SB/CS. */
-const BREF_WOBA_W = {bb:0.70,hbp:0.73,single:0.89,double:1.27,triple:1.61,hr:2.07,sb:0.25,cs:-0.50};
-function brefWobaFromParts({ab,bb,ibb=0,hbp=0,sf=0,singles=0,doubles=0,triples=0,hr=0,sb=0,cs=0,includeSb=false}={}){
+/** FanGraphs Guts! 2026 MLB wOBA weights. Standard FG wOBA omits SB/CS. */
+const FG_WOBA_W = {bb:0.698,hbp:0.729,single:0.890,double:1.261,triple:1.596,hr:2.049};
+function fgWobaFromParts({ab,bb,ibb=0,hbp=0,sf=0,singles=0,doubles=0,triples=0,hr=0}={}){
   ab=Number(ab)||0; bb=Number(bb)||0; ibb=Number(ibb)||0; hbp=Number(hbp)||0; sf=Number(sf)||0;
   if(ab<0 || bb<0 || ibb<0 || ibb>bb) return null;
   const denom = ab + bb - ibb + hbp + sf;
   if(denom<=0) return null;
-  const w=BREF_WOBA_W;
-  let num = w.bb*(bb-ibb) + w.hbp*hbp + w.single*(Number(singles)||0) + w.double*(Number(doubles)||0)
+  const w=FG_WOBA_W;
+  const num = w.bb*(bb-ibb) + w.hbp*hbp + w.single*(Number(singles)||0) + w.double*(Number(doubles)||0)
     + w.triple*(Number(triples)||0) + w.hr*(Number(hr)||0);
-  if(includeSb) num += w.sb*(Number(sb)||0) + w.cs*(Number(cs)||0);
   return Math.round(num/denom*1000)/1000;
 }
-function brefWobaFromBucket(b, {includeSb=false}={}){
+function fgWobaFromBucket(b){
   if(!b) return null;
   const singles=Number(b.singles)||0, doubles=Number(b.doubles)||0, triples=Number(b.triples)||0, hr=Number(b.hr)||0;
   const h=Number(b.h)||0;
   if(h !== singles+doubles+triples+hr) return null;
-  return brefWobaFromParts({
+  return fgWobaFromParts({
     ab:b.ab, bb:b.bb, ibb:b.ibb, hbp:b.hbp, sf:b.sf,
-    singles, doubles, triples, hr, sb:b.sb||b.stolen_bases, cs:b.cs||b.caught_stealing,
-    includeSb
+    singles, doubles, triples, hr
   });
 }
+const brefWobaFromParts = fgWobaFromParts;
+const brefWobaFromBucket = fgWobaFromBucket;
 function summerLineWoba(line){
   if(!line) return null;
   if(line.woba!=null && line.woba!=='') return Number(line.woba);
   const h=Number(line.h)||0, doubles=Number(line.doubles)||0, triples=Number(line.triples)||0, hr=Number(line.hr)||0;
   const singles = line.singles!=null ? Number(line.singles) : Math.max(0, h-doubles-triples-hr);
-  return brefWobaFromParts({
+  return fgWobaFromParts({
     ab:line.ab, bb:line.bb, ibb:line.ibb||0, hbp:line.hbp||0, sf:line.sf||0,
-    singles, doubles, triples, hr, sb:line.sb, cs:line.cs, includeSb:true
+    singles, doubles, triples, hr
   });
 }
 function advanceLeaguePitchBag(){
@@ -3054,7 +3054,7 @@ function hitterSeasonRowCells(line, dash){
     ['OBP', line ? fmtSlashRate(line.obp) : dash, ''],
     ['SLG', line ? fmtSlashRate(line.slg) : dash, ''],
     ['OPS', line ? fmtSlashRate(line.ops) : dash, ''],
-    ['wOBA', line ? fmtWoba(summerLineWoba(line)) : dash, 'Baseball-Reference linear weights (MLB-scale; includes SB/CS)'],
+    ['wOBA', line ? fmtWoba(summerLineWoba(line)) : dash, 'FanGraphs 2026 wOBA weights (MLB-scale)'],
   ];
 }
 /** Summer row + 2026-27 LBPRC winter row under it. */

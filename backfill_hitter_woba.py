@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Patch BRef wOBA + hit-type counts onto advance_opposing_hitters.json.
+"""Patch FanGraphs wOBA + hit-type counts onto advance_opposing_hitters.json.
 
 Re-pulls Synergy events per hitter (same winter+summer window as the advance
 builder), re-aggregates with singles/doubles/triples/hr, and merges those fields
@@ -136,7 +136,7 @@ def main() -> int:
         merge_bucket(h.setdefault("overall", {}), fresh.get("overall") or {})
         for key in PITCH_LIST_KEYS:
             merge_pitch_lists(h.get(key), fresh.get(key))
-        # Keep summer_line woba (already attached via BRef/Stats API)
+        # Keep summer_line woba (already attached via Stats API / FG weights)
         done.add(sid)
         ckpt["done"] = sorted(done)
         save_ckpt(ckpt)
