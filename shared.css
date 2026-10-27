@@ -1867,6 +1867,31 @@ input.tth-input:focus {
 }
 .roster-change-banner .muted { color: var(--muted); font-weight: 400; }
 
+/* OF Positioning card */
+.ofpos-lineup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 10px;
+  margin: 8px 0 4px;
+}
+.ofpos-lineup-row {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  padding: 4px 8px; font-size: 12px;
+}
+.ofpos-lineup-row .slot { font-weight: 700; color: var(--muted); min-width: 1.4em; }
+.ofpos-lineup-row select { flex: 1; min-width: 0; font: inherit; font-size: 12px; }
+.ofpos-wrap { max-height: 70vh; overflow: auto; }
+.ofpos-sheet { font-size: 12px; }
+.ofpos-sheet th.ofpos-hitter { text-align: left; min-width: 110px; }
+.ofpos-sheet .ofpos-code { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 64px; }
+.ofpos-sheet .ofpos-suggest { color: #555; font-size: 11px; }
+.ofpos-sheet select.ofpos-shade,
+.ofpos-sheet select.ofpos-steps {
+  font: inherit; font-size: 12px; max-width: 78px; color: #000;
+}
+.ofpos-sheet .ofpos-weak { opacity: .55; }
+
 /* Scout entry spreadsheets (OF arms + TTH / catcher) */
 .scout-sheet-wrap { background: #fff; border: 1px solid var(--line); }
 .scout-sheet { width: 100%; border-collapse: collapse; font-size: 13px; color: #111; background: #fff; }

@@ -8,7 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san163">
+<link rel="stylesheet" href="shared.css?v=san164">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -50,6 +51,7 @@
     <button class="tab" data-tab="pitcher-one-page" onclick="switchTab('pitcher-one-page')" data-i18n="pitcherOnePageTab">Pitcher One Page Sheet</button>
     <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
     <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
+    <button class="tab" data-tab="ofpos" onclick="switchTab('ofpos')" data-i18n="ofposTab">OF Positioning</button>
     <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home and Catcher Pop Times</button>
   </div>
 
@@ -395,6 +397,35 @@
       </tr></thead><tbody></tbody></table>
     </div>
   </div>
+  <div id="panel-ofpos" class="panel">
+    <div class="section-label" data-i18n="ofposLabel">OF Positioning Card</div>
+    <div class="note" data-i18n-html="ofposNote">Builds the team’s 3-tab Excel (LINEUP · Manual Data · LHP/RHP). Shade letters (L/G/O/P/STRAIGHT) are suggested from Synergy spray with pitcher hand + PRE/2K when available; coaches enter <strong>steps</strong> (10/20/30). Saves in this browser.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="ofpos-team" onchange="onOfPosTeamChange()">
+          <option value="PON">Leones de Ponce</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="SJU">Senadores de San Juan</option>
+        </select>
+      </div>
+      <div class="filter-field" style="align-self:end;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn" onclick="exportOfPosExcel()">Export → Excel</button>
+        <button type="button" class="btn btn-sm" onclick="clearOfPosOverrides()">Clear saved steps</button>
+      </div>
+    </div>
+    <div id="ofpos-meta" class="note" style="margin-top:4px"></div>
+    <div class="section-label" style="margin-top:14px;font-size:14px">Lineup (1–15)</div>
+    <div id="ofpos-lineup" class="ofpos-lineup"></div>
+    <div class="section-label" style="margin-top:18px;font-size:14px">Positioning (coach steps)</div>
+    <div class="note" style="margin-bottom:6px">Suggested shade from spray BIP with pitcher hand. Empty steps → code stays blank until you enter 10/20/30 (STRAIGHT needs no steps).</div>
+    <div class="table-wrap scout-sheet-wrap ofpos-wrap">
+      <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
+    </div>
+  </div>
+
   <div id="panel-tth" class="panel">
     <div class="section-label" data-i18n="tthLabel">Time to Home and Catcher Arms</div>
     <div class="note" data-i18n-html="tthNote">Pitcher <strong>time to home</strong> (s), catcher <strong>pop time</strong> (s), and catcher <strong>arm</strong> grade (20–80). Saves in-browser immediately and auto-publishes to the live site when a GitHub PAT is set on the OF tab (shared).</div>
@@ -445,7 +476,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san163';
+const ASSET_V = 'san165';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -502,6 +533,7 @@ function switchTab(name){
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
   if(name==='ofdef') renderOfDef();
+  if(name==='ofpos') renderOfPos();
   if(name==='tth') renderTth();
   if(name==='strategy' && window.CardApp) CardApp.renderStrategy();
   if(name==='br' && window.CardApp) CardApp.renderSmallBall();
@@ -3910,6 +3942,7 @@ function advanceHitterList(){
     const card=cardByName.get(`${h.team||''}|${normPersonName(h.name)}`);
     if(card && !positivePersonId(h.mlb_id) && positivePersonId(card.id)) h.mlb_id=Number(card.id);
     if(card) h._roster_id=card.id;
+    if(card && !h.bats && card.bats) h.bats=card.bats;
     h.headshot_url=cleanHeadshotSrc(h.headshot_url);
   });
   const seen=new Set(dedupeHitterRows(hitters).map(h=>`${h.team||''}|${normPersonName(h.name)}`));
@@ -4581,6 +4614,326 @@ function clearOfOverrides(){
   renderOfDef();
 }
 
+/* ── OF Positioning card (Excel-style LF/CF/RF · PRE/2K · LHP/RHP) ── */
+const OFPOS_STORAGE_KEY = 'santurce_of_positioning_v1';
+const OFPOS_POS = ['LF','CF','RF'];
+const OFPOS_COUNTS = ['PRE','2K'];
+const OFPOS_SHADES = ['STRAIGHT','L','G','O','P'];
+const OFPOS_STEPS = ['','10','20','30'];
+function loadOfPosStore(){
+  try { return JSON.parse(localStorage.getItem(OFPOS_STORAGE_KEY) || '{}') || {}; }
+  catch(e){ return {}; }
+}
+function saveOfPosStore(store){
+  try { localStorage.setItem(OFPOS_STORAGE_KEY, JSON.stringify(store)); } catch(e){}
+}
+function ofPosLastNameUpper(name){
+  const last = namePieces(name).last || String(name||'').trim();
+  return last.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
+}
+function ofPosTeamHitters(team){
+  return sortByLastName(
+    advanceHitterList().filter(h => !team || h.team === team),
+    h => h.name
+  );
+}
+function ofPosLineupNames(team){
+  const store = loadOfPosStore();
+  const saved = store.lineups && store.lineups[team];
+  if(Array.isArray(saved) && saved.length){
+    return Array.from({length:15}, (_,i)=> saved[i] || '');
+  }
+  const pool = ofPosTeamHitters(team).slice(0, 9).map(h=>h.name);
+  return Array.from({length:15}, (_,i)=> pool[i] || '');
+}
+function setOfPosLineupSlot(team, idx, name){
+  const store = loadOfPosStore();
+  if(!store.lineups) store.lineups = {};
+  const row = ofPosLineupNames(team).slice();
+  row[idx] = name || '';
+  store.lineups[team] = row;
+  saveOfPosStore(store);
+  renderOfPos();
+}
+function ofPosCellKey(team, hitter, ofPos, count, pHand){
+  return [team, normPersonName(hitter), ofPos, count, pHand].join('|');
+}
+function ofPosGetCell(team, hitter, ofPos, count, pHand){
+  const store = loadOfPosStore();
+  const key = ofPosCellKey(team, hitter, ofPos, count, pHand);
+  return (store.cells && store.cells[key]) || null;
+}
+function ofPosSetCell(team, hitter, ofPos, count, pHand, patch){
+  const store = loadOfPosStore();
+  if(!store.cells) store.cells = {};
+  const key = ofPosCellKey(team, hitter, ofPos, count, pHand);
+  store.cells[key] = Object.assign({}, store.cells[key] || {}, patch);
+  saveOfPosStore(store);
+}
+function ofPosComposeCode(shade, steps){
+  const s = String(shade || 'STRAIGHT').toUpperCase();
+  if(!s || s === 'STRAIGHT') return steps ? `STRAIGHT` : 'STRAIGHT';
+  const st = String(steps || '').trim();
+  if(!st) return '';
+  return `${s}-${st}`;
+}
+function ofPosSprayPoints(hitter, pHand, twoK, { requireHand=true } = {}){
+  return collectSprayPoints(hitter).filter(p=>{
+    const ph = String(p.pitcher_hand || '').toUpperCase();
+    if(requireHand){
+      if(ph !== pHand) return false;
+    }
+    if(twoK !== null && twoK !== undefined){
+      if(Boolean(p.two_strikes) !== Boolean(twoK)) return false;
+    }
+    const y = Number(p.y_ft);
+    if(!Number.isFinite(y) || y < 140) return false; // OF depth only
+    return true;
+  });
+}
+function ofPosSuggestFromPoints(hitter, ofPos, pts, weak){
+  const n = pts.length;
+  if(n < 4) return { shade:'STRAIGHT', n, weak:true };
+  const angles = pts.map(p => Math.atan2(Number(p.x_ft)||0, Number(p.y_ft)||0) * 180 / Math.PI);
+  const mean = angles.reduce((a,b)=>a+b,0) / angles.length;
+  const centers = { LF:-30, CF:0, RF:30 };
+  const delta = mean - (centers[ofPos] || 0);
+  const bats = String(hitter.bats || 'R').toUpperCase();
+  let shade = 'STRAIGHT';
+  if(Math.abs(delta) >= 5){
+    if(ofPos === 'CF'){
+      const pullPositive = bats.startsWith('L'); // LHH pull = +RF
+      const towardPull = pullPositive ? delta > 0 : delta < 0;
+      shade = towardPull ? 'P' : 'O';
+    } else if(ofPos === 'LF'){
+      shade = delta > 0 ? 'G' : 'L';
+    } else {
+      shade = delta < 0 ? 'G' : 'L';
+    }
+  }
+  return { shade, n, weak: !!weak };
+}
+function ofPosSuggestShade(hitter, ofPos, pHand, twoK){
+  // Prefer hand×count OF BIP; then same hand any count; then untagged OF BIP (weak).
+  let pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:true });
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, false);
+  pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:true });
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+  pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:false });
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+  pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:false });
+  return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+}
+function ofPosResolved(hitter, team, ofPos, count, pHand){
+  const twoK = count === '2K';
+  const sug = ofPosSuggestShade(hitter, ofPos, pHand, twoK);
+  const saved = ofPosGetCell(team, hitter.name, ofPos, count, pHand) || {};
+  const shade = saved.shade || sug.shade || 'STRAIGHT';
+  const steps = saved.steps != null ? String(saved.steps) : '';
+  return {
+    shade, steps,
+    suggest: sug.shade,
+    n: sug.n,
+    weak: !!sug.weak,
+    code: ofPosComposeCode(shade, steps),
+  };
+}
+function onOfPosTeamChange(){ renderOfPos(); }
+function onOfPosShadeChange(team, hitter, ofPos, count, pHand, shade){
+  ofPosSetCell(team, hitter, ofPos, count, pHand, { shade });
+  renderOfPosTableOnly();
+}
+function onOfPosStepsChange(team, hitter, ofPos, count, pHand, steps){
+  ofPosSetCell(team, hitter, ofPos, count, pHand, { steps });
+  renderOfPosTableOnly();
+}
+function onOfPosHandChange(team, hitterName, bats){
+  const store = loadOfPosStore();
+  if(!store.hands) store.hands = {};
+  store.hands[`${team}|${normPersonName(hitterName)}`] = bats;
+  saveOfPosStore(store);
+  renderOfPos();
+}
+function ofPosHitterHand(hitter, team){
+  const store = loadOfPosStore();
+  const key = `${team}|${normPersonName(hitter.name)}`;
+  if(store.hands && store.hands[key]) return store.hands[key];
+  const b = String(hitter.bats || '').toUpperCase();
+  if(b.startsWith('L')) return 'L';
+  if(b.startsWith('S')) return 'S';
+  if(b.startsWith('R')) return 'R';
+  return '';
+}
+function clearOfPosOverrides(){
+  if(!confirm('Clear saved OF positioning steps/shades and lineup for all teams on this device?')) return;
+  try { localStorage.removeItem(OFPOS_STORAGE_KEY); } catch(e){}
+  renderOfPos();
+}
+function renderOfPos(){
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const meta = document.getElementById('ofpos-meta');
+  const hitters = ofPosTeamHitters(team);
+  const withHand = hitters.filter(h =>
+    ofPosSprayPoints(h,'R',null,{requireHand:true}).length + ofPosSprayPoints(h,'L',null,{requireHand:true}).length > 0
+  ).length;
+  if(meta){
+    meta.textContent = `${hitters.length} hitters · ${withHand} with L/R-tagged OF spray · * = thin/fallback sample · lineup + steps save in this browser`;
+  }
+  const lineupRoot = document.getElementById('ofpos-lineup');
+  if(lineupRoot){
+    const names = ofPosLineupNames(team);
+    const opts = ['<option value="">—</option>']
+      .concat(hitters.map(h=>`<option value="${escHtml(h.name)}">${escHtml(ofPosLastNameUpper(h.name))} (${escHtml(h.name)})</option>`))
+      .join('');
+    lineupRoot.innerHTML = names.map((nm, i)=>`
+      <div class="ofpos-lineup-row">
+        <span class="slot">${i+1}</span>
+        <select data-slot="${i}" onchange="setOfPosLineupSlot('${team}', ${i}, this.value)">${opts}</select>
+      </div>`).join('');
+    lineupRoot.querySelectorAll('select').forEach((sel,i)=>{
+      sel.value = names[i] || '';
+    });
+  }
+  renderOfPosTableOnly();
+}
+function renderOfPosTableOnly(){
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const thead = document.querySelector('#tbl-ofpos thead');
+  const tbody = document.querySelector('#tbl-ofpos tbody');
+  if(!thead || !tbody) return;
+  const byName = new Map(ofPosTeamHitters(team).map(h=>[h.name, h]));
+  const lineup = ofPosLineupNames(team).map(n=>byName.get(n)).filter(Boolean);
+  const rowsHitters = lineup.length ? lineup : ofPosTeamHitters(team).slice(0, 15);
+  thead.innerHTML = `<tr>
+    <th class="ofpos-hitter">Hitter</th><th>Hand</th><th>Pos</th><th>Count</th>
+    <th>Sug LHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">LHP</th>
+    <th>Sug RHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">RHP</th>
+  </tr>`;
+  const shadeOpts = (cur)=> OFPOS_SHADES.map(s=>`<option value="${s}" ${s===cur?'selected':''}>${s}</option>`).join('');
+  const stepOpts = (cur)=> OFPOS_STEPS.map(s=>`<option value="${s}" ${s===String(cur||'')?'selected':''}>${s||'—'}</option>`).join('');
+  const blocks = [];
+  rowsHitters.forEach(h=>{
+    const hand = ofPosHitterHand(h, team) || 'R';
+    const hn = escHtml(h.name).replace(/'/g, "\\'");
+    let first = true;
+    // Same order as Manual Data / Excel template: PRE×LF/CF/RF then 2K×LF/CF/RF
+    OFPOS_COUNTS.forEach(count=>{
+      OFPOS_POS.forEach(ofPos=>{
+        const L = ofPosResolved(h, team, ofPos, count, 'L');
+        const R = ofPosResolved(h, team, ofPos, count, 'R');
+        const showHitter = first; first = false;
+        blocks.push(`<tr class="${L.weak && R.weak ? 'ofpos-weak':''}">
+          <td class="ofpos-hitter">${showHitter ? escHtml(ofPosLastNameUpper(h.name)) : ''}</td>
+          <td>${showHitter ? `<select onchange="onOfPosHandChange('${team}','${hn}', this.value)">
+            ${['','R','L','S'].map(x=>`<option value="${x}" ${x===hand?'selected':''}>${x||'?'}</option>`).join('')}
+          </select>` : ''}</td>
+          <td>${ofPos}</td><td>${count}</td>
+          <td class="ofpos-suggest">${escHtml(L.suggest)}${L.weak?'*':''} <span class="muted">n=${L.n}</span></td>
+          <td><select class="ofpos-shade" onchange="onOfPosShadeChange('${team}','${hn}','${ofPos}','${count}','L', this.value)">${shadeOpts(L.shade)}</select></td>
+          <td><select class="ofpos-steps" onchange="onOfPosStepsChange('${team}','${hn}','${ofPos}','${count}','L', this.value)">${stepOpts(L.steps)}</select></td>
+          <td class="ofpos-code">${escHtml(L.code || '—')}</td>
+          <td class="ofpos-suggest">${escHtml(R.suggest)}${R.weak?'*':''} <span class="muted">n=${R.n}</span></td>
+          <td><select class="ofpos-shade" onchange="onOfPosShadeChange('${team}','${hn}','${ofPos}','${count}','R', this.value)">${shadeOpts(R.shade)}</select></td>
+          <td><select class="ofpos-steps" onchange="onOfPosStepsChange('${team}','${hn}','${ofPos}','${count}','R', this.value)">${stepOpts(R.steps)}</select></td>
+          <td class="ofpos-code">${escHtml(R.code || '—')}</td>
+        </tr>`);
+      });
+    });
+  });
+  tbody.innerHTML = blocks.join('') || `<tr><td colspan="12" class="note">No hitters for this team.</td></tr>`;
+}
+function exportOfPosExcel(){
+  if(typeof XLSX === 'undefined'){
+    alert('Excel library failed to load — check network / CDN (SheetJS).');
+    return;
+  }
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const byName = new Map(ofPosTeamHitters(team).map(h=>[h.name, h]));
+  const lineupNames = ofPosLineupNames(team);
+  const manualHitters = ofPosTeamHitters(team);
+  // Template position order: LF PRE, CF PRE, RF PRE, LF 2K, CF 2K, RF 2K
+  const manualSlots = [];
+  OFPOS_COUNTS.forEach(count => OFPOS_POS.forEach(ofPos => manualSlots.push({ ofPos, count, label: `${ofPos} ${count}` })));
+
+  const lineupAoa = [['#','Hitters','Hand']];
+  for(let i=0;i<15;i++){
+    const h = byName.get(lineupNames[i]);
+    const last = h ? ofPosLastNameUpper(h.name)
+      : (lineupNames[i] ? ofPosLastNameUpper(lineupNames[i]) : '');
+    lineupAoa.push([i+1, last, h ? (ofPosHitterHand(h, team) || '') : '']);
+  }
+
+  const manualAoa = [['Hand','','Hitter','Position','HELPER COL','','LHP','','RHP']];
+  manualHitters.forEach(h=>{
+    const hand = ofPosHitterHand(h, team) || '';
+    const last = ofPosLastNameUpper(h.name);
+    manualSlots.forEach(({ ofPos, count, label })=>{
+      const L = ofPosResolved(h, team, ofPos, count, 'L');
+      const R = ofPosResolved(h, team, ofPos, count, 'R');
+      manualAoa.push([hand, '', last, label, '', '', L.code || '', '', R.code || '']);
+    });
+  });
+  const manualLast = Math.max(manualAoa.length, 2);
+
+  // LHP - RHP card layout matching team template (formulas filled after aoa_to_sheet)
+  const cardAoa = [[]]; // row 1 blank
+  const cardFormulas = []; // {r,c,f} 0-based into cardAoa
+  function pushHandBlock(label, vlookupRange, vlookupCol){
+    const head = Array(17).fill('');
+    head[0] = label; head[6] = label; head[12] = label;
+    cardAoa.push(head);
+    const sub = Array(17).fill('');
+    sub[0]='LF'; sub[3]='PRE'; sub[4]='2K';
+    sub[6]='CF'; sub[9]='PRE'; sub[10]='2K';
+    sub[12]='RF'; sub[15]='PRE'; sub[16]='2K';
+    cardAoa.push(sub);
+    const headerRow = cardAoa.length; // 1-based Excel row of LF/CF/RF labels
+    for(let i=0;i<15;i++){
+      const excelRow = cardAoa.length + 1;
+      const lineupRef = `LINEUP!B${i+2}`;
+      const row = Array(17).fill('');
+      cardAoa.push(row);
+      const specs = [
+        [0, lineupRef],
+        [3, `IFERROR(VLOOKUP($A${excelRow}&"|"&A$${headerRow}&" PRE",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+        [4, `IFERROR(VLOOKUP($A${excelRow}&"|"&A$${headerRow}&" 2K",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+        [6, lineupRef],
+        [9, `IFERROR(VLOOKUP($G${excelRow}&"|"&G$${headerRow}&" PRE",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+        [10, `IFERROR(VLOOKUP($G${excelRow}&"|"&G$${headerRow}&" 2K",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+        [12, lineupRef],
+        [15, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" PRE",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+        [16, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" 2K",'Manual Data'!${vlookupRange},${vlookupCol},0)," ")`],
+      ];
+      specs.forEach(([c, f]) => cardFormulas.push({ r: excelRow, c: c + 1, f }));
+    }
+  }
+  pushHandBlock('LHP', `$E$2:$G$${manualLast}`, 3);
+  cardAoa.push([]);
+  cardAoa.push([]);
+  cardAoa.push([]);
+  pushHandBlock('RHP', `$E$2:$I$${manualLast}`, 5);
+
+  const wb = XLSX.utils.book_new();
+  const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
+  const wsManual = XLSX.utils.aoa_to_sheet(manualAoa);
+  for(let r=2; r<=manualLast; r++){
+    wsManual[`E${r}`] = { f:`C${r}&"|"&D${r}` };
+  }
+  const wsCard = XLSX.utils.aoa_to_sheet(cardAoa);
+  cardFormulas.forEach(({r,c,f})=>{
+    const addr = XLSX.utils.encode_cell({ r: r - 1, c: c - 1 });
+    wsCard[addr] = { f };
+  });
+  wsLineup['!cols'] = [{wch:4},{wch:14},{wch:6}];
+  wsManual['!cols'] = [{wch:6},{wch:2},{wch:14},{wch:10},{wch:18},{wch:2},{wch:12},{wch:2},{wch:12}];
+  wsCard['!cols'] = Array(17).fill({wch:8});
+  XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
+  XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
+  XLSX.utils.book_append_sheet(wb, wsCard, 'LHP - RHP ');
+  const teamName = ({PON:'Leones de Ponce',SAN:'Cangrejeros de Santurce',CAG:'Criollos de Caguas',CAR:'Gigantes de Carolina',MAY:'Indios de Mayagüez',SJU:'Senadores de San Juan'})[team] || team;
+  XLSX.writeFile(wb, `${teamName} OF Defensive Positioning.xlsx`);
+}
+
 function scoutInput(id, field, value, handler){
   const v = String(value || '').replace(/"/g, '&quot;');
   return `<input class="scout-input" type="text" inputmode="decimal" placeholder="—" value="${v}" data-pid="${id}" data-field="${field}" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)">`;
@@ -4924,10 +5277,11 @@ function bootFromHash(){
     'hitter-advance':'hitter-advance',
     strategy:'strategy', br:'br', lineup:'lineup',
     matchup:'matchup', hvp:'hvp', spray:'spray',
-    ofdef:'ofdef', tth:'tth',
+    ofdef:'ofdef', ofpos:'ofpos', tth:'tth',
     bullpen:'bullpen',
     'pitcher-one-page':'pitcher-one-page',
     onepage:'pitcher-one-page',
+    'of-positioning':'ofpos',
   };
   if(map[raw]) switchTab(map[raw]);
 }
