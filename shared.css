@@ -1822,7 +1822,7 @@ input.tth-input:focus {
   border: 1px solid #999; padding: 4px 3px; vertical-align: top; color: #111; background: #fff;
 }
 .onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; }
-.onepage-grid .op-num { width: 24px; text-align: center; font-weight: 700; }
+.onepage-grid .op-num { width: 18px; max-width: 22px; text-align: center; font-weight: 700; padding-left: 2px; padding-right: 2px; }
 .onepage-grid .op-name { width: 102px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .onepage-grid .op-name.op-lhp { color: #b00020; }
 .onepage-grid .op-velo { width: 44px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; font-size: 11px; line-height: 1.2; }
