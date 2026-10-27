@@ -1,26 +1,943 @@
 [
   {
+    "name": "Chris Kachmar",
+    "player_id": 690148,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 99.8,
+    "pitches": 757,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 106.4,
+        "velo": 91.6,
+        "usage": 35.7,
+        "whiff": 18.8,
+        "pitches": 270
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 110.9,
+        "velo": 87.7,
+        "usage": 23.0,
+        "whiff": 31.4,
+        "pitches": 174
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 93.2,
+        "velo": 82.0,
+        "usage": 17.0,
+        "whiff": 35.5,
+        "pitches": 129
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 77.9,
+        "velo": 79.9,
+        "usage": 15.2,
+        "whiff": 28.9,
+        "pitches": 115
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 95.1,
+        "velo": 83.6,
+        "usage": 9.1,
+        "whiff": 23.3,
+        "pitches": 69
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Cody Bolton",
+    "player_id": 675989,
+    "team": "CAR",
+    "mlb_debut": "2023-04-29",
+    "birth_country": "USA",
+    "stuff_plus": 99.5,
+    "pitches": 368,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 90.5,
+        "velo": 93.9,
+        "usage": 28.0,
+        "whiff": 23.5,
+        "pitches": 103
+      },
+      {
+        "pitch_type": "ST",
+        "pitch_name": "Sweeper",
+        "ps_stuff": 97.9,
+        "velo": 82.4,
+        "usage": 22.0,
+        "whiff": 38.9,
+        "pitches": 81
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 106.7,
+        "velo": 93.7,
+        "usage": 17.7,
+        "whiff": 7.1,
+        "pitches": 65
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 113.1,
+        "velo": 88.8,
+        "usage": 14.9,
+        "whiff": 18.2,
+        "pitches": 55
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 98.4,
+        "velo": 89.7,
+        "usage": 14.4,
+        "whiff": 34.6,
+        "pitches": 53
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 89.0,
+        "velo": 78.6,
+        "usage": 3.0,
+        "whiff": 25.0,
+        "pitches": 11
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Zach Penrod",
+    "player_id": 683068,
+    "team": "CAG",
+    "mlb_debut": "2024-09-14",
+    "birth_country": "USA",
+    "stuff_plus": 97.3,
+    "pitches": 716,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 113.8,
+        "velo": 95.1,
+        "usage": 38.4,
+        "whiff": 22.4,
+        "pitches": 275
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 81.3,
+        "velo": 87.7,
+        "usage": 21.6,
+        "whiff": 46.8,
+        "pitches": 155
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 91.8,
+        "velo": 94.9,
+        "usage": 15.2,
+        "whiff": 23.7,
+        "pitches": 109
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 95.5,
+        "velo": 88.6,
+        "usage": 13.1,
+        "whiff": 20.5,
+        "pitches": 94
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 81.6,
+        "velo": 92.2,
+        "usage": 11.2,
+        "whiff": 13.3,
+        "pitches": 80
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 98.4,
+        "velo": 85.2,
+        "usage": 0.4,
+        "whiff": 100.0,
+        "pitches": 3
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Yacksel Rios",
+    "player_id": 605441,
+    "team": "CAG",
+    "mlb_debut": "2017-08-22",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 96.4,
+    "pitches": 55,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 100.3,
+        "velo": 96.4,
+        "usage": 61.8,
+        "whiff": 15.0,
+        "pitches": 34
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 102.5,
+        "velo": 85.9,
+        "usage": 21.8,
+        "whiff": 42.9,
+        "pitches": 12
+      },
+      {
+        "pitch_type": "FS",
+        "pitch_name": "Splitter",
+        "ps_stuff": 73.3,
+        "velo": 89.6,
+        "usage": 16.4,
+        "whiff": 0.0,
+        "pitches": 9
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Jorge Lopez",
+    "player_id": 605347,
+    "team": "MAY",
+    "mlb_debut": "2015-09-29",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 95.2,
+    "pitches": 75,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 108.9,
+        "velo": 95.0,
+        "usage": 30.7,
+        "whiff": 9.1,
+        "pitches": 23
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 81.2,
+        "velo": 95.0,
+        "usage": 22.7,
+        "whiff": 10.0,
+        "pitches": 17
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 100.4,
+        "velo": 85.9,
+        "usage": 20.0,
+        "whiff": 25.0,
+        "pitches": 15
+      },
+      {
+        "pitch_type": "KC",
+        "pitch_name": "K-Curve",
+        "ps_stuff": 84.7,
+        "velo": 81.9,
+        "usage": 17.3,
+        "whiff": 25.0,
+        "pitches": 13
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 92.6,
+        "velo": 86.8,
+        "usage": 9.3,
+        "whiff": 20.0,
+        "pitches": 7
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Matt Givin",
+    "player_id": 676769,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 94.2,
+    "pitches": 302,
+    "arsenal": [
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 101.2,
+        "velo": 81.5,
+        "usage": 39.4,
+        "whiff": 32.8,
+        "pitches": 119
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 95.8,
+        "velo": 90.5,
+        "usage": 29.5,
+        "whiff": 20.5,
+        "pitches": 89
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 76.2,
+        "velo": 87.4,
+        "usage": 15.9,
+        "whiff": 17.9,
+        "pitches": 48
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 103.9,
+        "velo": 89.9,
+        "usage": 7.9,
+        "whiff": 15.4,
+        "pitches": 24
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 79.2,
+        "velo": 78.0,
+        "usage": 7.3,
+        "whiff": 46.2,
+        "pitches": 22
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Luis Quinonez",
+    "player_id": 687879,
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 93.2,
+    "pitches": 1345,
+    "arsenal": [
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 97.4,
+        "velo": 89.7,
+        "usage": 44.8,
+        "whiff": 20.7,
+        "pitches": 602
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 91.2,
+        "velo": 92.1,
+        "usage": 24.4,
+        "whiff": 27.4,
+        "pitches": 328
+      },
+      {
+        "pitch_type": "FS",
+        "pitch_name": "Splitter",
+        "ps_stuff": 86.2,
+        "velo": 80.8,
+        "usage": 24.1,
+        "whiff": 47.7,
+        "pitches": 324
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 98.1,
+        "velo": 81.0,
+        "usage": 4.8,
+        "whiff": 32.0,
+        "pitches": 65
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 94.5,
+        "velo": 75.5,
+        "usage": 1.9,
+        "whiff": 60.0,
+        "pitches": 26
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Nicholas Padilla",
+    "player_id": 656820,
+    "team": "CAG",
+    "mlb_debut": "2022-08-23",
+    "birth_country": "USA",
+    "stuff_plus": 92.9,
+    "pitches": 756,
+    "arsenal": [
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 97.7,
+        "velo": 90.4,
+        "usage": 37.6,
+        "whiff": 16.6,
+        "pitches": 284
+      },
+      {
+        "pitch_type": "ST",
+        "pitch_name": "Sweeper",
+        "ps_stuff": 95.9,
+        "velo": 80.4,
+        "usage": 30.2,
+        "whiff": 38.2,
+        "pitches": 228
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 90.9,
+        "velo": 91.7,
+        "usage": 19.3,
+        "whiff": 19.1,
+        "pitches": 146
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 75.1,
+        "velo": 77.8,
+        "usage": 13.0,
+        "whiff": 51.2,
+        "pitches": 98
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
     "name": "Jorge Benitez",
     "player_id": 676221,
     "team": "CAG",
     "mlb_debut": null,
     "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
+    "stuff_plus": 92.8,
+    "pitches": 753,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 105.4,
+        "velo": 93.5,
+        "usage": 31.6,
+        "whiff": 24.4,
+        "pitches": 238
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 78.2,
+        "velo": 83.4,
+        "usage": 30.7,
+        "whiff": 32.4,
+        "pitches": 231
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 98.5,
+        "velo": 80.0,
+        "usage": 20.2,
+        "whiff": 34.6,
+        "pitches": 152
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 88.7,
+        "velo": 89.5,
+        "usage": 17.5,
+        "whiff": 26.0,
+        "pitches": 132
+      }
+    ],
+    "source": "Prospect Savant",
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Magdiel Cotto",
-    "player_id": 694365,
+    "name": "Anthony Maldonado",
+    "player_id": 687424,
+    "team": "CAG",
+    "mlb_debut": "2024-04-26",
+    "birth_country": "USA",
+    "stuff_plus": 92.8,
+    "pitches": 816,
+    "arsenal": [
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 96.1,
+        "velo": 84.8,
+        "usage": 56.3,
+        "whiff": 50.9,
+        "pitches": 459
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 90.0,
+        "velo": 93.0,
+        "usage": 36.0,
+        "whiff": 12.5,
+        "pitches": 294
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 81.5,
+        "velo": 87.5,
+        "usage": 7.6,
+        "whiff": 44.8,
+        "pitches": 62
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 45.4,
+        "velo": 91.9,
+        "usage": 0.1,
+        "whiff": null,
+        "pitches": 1
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Duane Underwood Jr.",
+    "player_id": 621249,
+    "team": "CAG",
+    "mlb_debut": "2018-06-25",
+    "birth_country": "USA",
+    "stuff_plus": 92.8,
+    "pitches": 639,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 91.9,
+        "velo": 93.0,
+        "usage": 35.7,
+        "whiff": 10.0,
+        "pitches": 228
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 96.4,
+        "velo": 90.4,
+        "usage": 30.4,
+        "whiff": 26.9,
+        "pitches": 194
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 103.4,
+        "velo": 82.6,
+        "usage": 14.4,
+        "whiff": 44.2,
+        "pitches": 92
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 77.2,
+        "velo": 88.6,
+        "usage": 13.0,
+        "whiff": 22.9,
+        "pitches": 83
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 88.9,
+        "velo": 93.6,
+        "usage": 6.6,
+        "whiff": 13.6,
+        "pitches": 42
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Ricky Castro",
+    "player_id": 690462,
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 92.6,
+    "pitches": 446,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 100.6,
+        "velo": 92.2,
+        "usage": 39.5,
+        "whiff": 22.7,
+        "pitches": 176
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 88.1,
+        "velo": 83.9,
+        "usage": 19.5,
+        "whiff": 48.8,
+        "pitches": 87
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 90.3,
+        "velo": 86.6,
+        "usage": 15.0,
+        "whiff": 50.0,
+        "pitches": 67
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 99.1,
+        "velo": 81.5,
+        "usage": 13.5,
+        "whiff": 60.0,
+        "pitches": 60
+      },
+      {
+        "pitch_type": "ST",
+        "pitch_name": "Sweeper",
+        "ps_stuff": 72.5,
+        "velo": 80.0,
+        "usage": 7.0,
+        "whiff": 20.0,
+        "pitches": 31
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 66.6,
+        "velo": 77.0,
+        "usage": 5.6,
+        "whiff": 23.1,
+        "pitches": 25
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Angel Reyes",
+    "player_id": 681938,
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 92.0,
+    "pitches": 361,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 96.6,
+        "velo": 92.3,
+        "usage": 46.3,
+        "whiff": 11.4,
+        "pitches": 167
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 86.7,
+        "velo": 84.8,
+        "usage": 33.5,
+        "whiff": 32.7,
+        "pitches": 121
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 93.0,
+        "velo": 87.8,
+        "usage": 11.4,
+        "whiff": 21.1,
+        "pitches": 41
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 87.8,
+        "velo": 86.3,
+        "usage": 8.0,
+        "whiff": 25.0,
+        "pitches": 29
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 74.4,
+        "velo": 91.6,
+        "usage": 0.8,
+        "whiff": null,
+        "pitches": 3
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Jose Espada",
+    "player_id": 664744,
+    "team": "CAG",
+    "mlb_debut": "2023-09-24",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 91.0,
+    "pitches": 553,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 82.4,
+        "velo": 94.3,
+        "usage": 44.5,
+        "whiff": 30.9,
+        "pitches": 246
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 105.2,
+        "velo": 84.0,
+        "usage": 38.0,
+        "whiff": 58.1,
+        "pitches": 210
+      },
+      {
+        "pitch_type": "FS",
+        "pitch_name": "Splitter",
+        "ps_stuff": 82.0,
+        "velo": 89.5,
+        "usage": 17.5,
+        "whiff": 46.5,
+        "pitches": 97
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Jarret Whorf",
+    "player_id": 806337,
     "team": "CAG",
     "mlb_debut": null,
     "birth_country": "USA",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "Prospect Savant 2025_A",
+    "stuff_plus": 90.3,
+    "pitches": 815,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 86.5,
+        "velo": 95.1,
+        "usage": 40.5,
+        "whiff": 15.0,
+        "pitches": 330
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 103.5,
+        "velo": 88.3,
+        "usage": 33.5,
+        "whiff": 27.7,
+        "pitches": 273
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 74.8,
+        "velo": 84.5,
+        "usage": 22.9,
+        "whiff": 47.6,
+        "pitches": 187
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 110.5,
+        "velo": 83.8,
+        "usage": 3.1,
+        "whiff": 77.8,
+        "pitches": 25
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Osvaldo Berrios",
+    "player_id": 676047,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 90.2,
+    "pitches": 304,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 83.3,
+        "velo": 92.9,
+        "usage": 38.2,
+        "whiff": 14.5,
+        "pitches": 116
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 91.1,
+        "velo": 78.4,
+        "usage": 35.9,
+        "whiff": 32.7,
+        "pitches": 109
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 93.7,
+        "velo": 83.4,
+        "usage": 17.1,
+        "whiff": 21.7,
+        "pitches": 52
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 113.1,
+        "velo": 83.2,
+        "usage": 7.6,
+        "whiff": 80.0,
+        "pitches": 23
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 97.2,
+        "velo": 86.2,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 3
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 66.5,
+        "velo": 94.2,
+        "usage": 0.3,
+        "whiff": null,
+        "pitches": 1
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Lenny Torres",
+    "player_id": 678013,
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 89.5,
+    "pitches": 837,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 88.7,
+        "velo": 96.3,
+        "usage": 56.6,
+        "whiff": 26.9,
+        "pitches": 474
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 95.9,
+        "velo": 85.7,
+        "usage": 17.1,
+        "whiff": 33.3,
+        "pitches": 143
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 86.6,
+        "velo": 95.7,
+        "usage": 16.8,
+        "whiff": 25.0,
+        "pitches": 141
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 88.0,
+        "velo": 87.5,
+        "usage": 9.4,
+        "whiff": 35.5,
+        "pitches": 79
+      }
+    ],
+    "source": "Prospect Savant",
     "level_hint": "MiLB/AAA"
   },
   {
@@ -29,35 +946,408 @@
     "team": "CAG",
     "mlb_debut": "2016-09-04",
     "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
+    "stuff_plus": 88.9,
+    "pitches": 1464,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 80.6,
+        "velo": 90.5,
+        "usage": 38.5,
+        "whiff": 21.1,
+        "pitches": 563
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 92.7,
+        "velo": 83.5,
+        "usage": 26.3,
+        "whiff": 21.8,
+        "pitches": 385
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 99.7,
+        "velo": 83.3,
+        "usage": 20.1,
+        "whiff": 31.1,
+        "pitches": 294
+      },
+      {
+        "pitch_type": "SV",
+        "pitch_name": "Slurve",
+        "ps_stuff": 89.1,
+        "velo": 75.6,
+        "usage": 15.2,
+        "whiff": 41.8,
+        "pitches": 222
+      }
+    ],
+    "source": "Prospect Savant",
     "level_hint": "MLB"
   },
   {
-    "name": "Jose Espada",
-    "player_id": 664744,
+    "name": "Raymond Burgos",
+    "player_id": 670103,
+    "team": "CAR",
+    "mlb_debut": "2024-06-24",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 85.1,
+    "pitches": 396,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 92.1,
+        "velo": 91.5,
+        "usage": 48.7,
+        "whiff": 9.8,
+        "pitches": 193
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 75.3,
+        "velo": 90.5,
+        "usage": 25.8,
+        "whiff": 18.5,
+        "pitches": 102
+      },
+      {
+        "pitch_type": "ST",
+        "pitch_name": "Sweeper",
+        "ps_stuff": 83.8,
+        "velo": 78.0,
+        "usage": 13.9,
+        "whiff": 33.3,
+        "pitches": 55
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 81.9,
+        "velo": 84.0,
+        "usage": 10.1,
+        "whiff": 15.4,
+        "pitches": 40
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 58.3,
+        "velo": 84.5,
+        "usage": 1.5,
+        "whiff": null,
+        "pitches": 6
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Josh James",
+    "player_id": 657624,
+    "team": "PON",
+    "mlb_debut": "2018-09-01",
+    "birth_country": "USA",
+    "stuff_plus": 79.6,
+    "pitches": 228,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 77.7,
+        "velo": 92.1,
+        "usage": 52.6,
+        "whiff": 12.5,
+        "pitches": 120
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 88.2,
+        "velo": 81.6,
+        "usage": 22.8,
+        "whiff": 22.2,
+        "pitches": 52
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 86.3,
+        "velo": 85.7,
+        "usage": 12.3,
+        "whiff": 40.0,
+        "pitches": 28
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 63.8,
+        "velo": 84.5,
+        "usage": 9.6,
+        "whiff": 11.1,
+        "pitches": 22
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 70.2,
+        "velo": 77.4,
+        "usage": 2.6,
+        "whiff": 0.0,
+        "pitches": 6
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Jonathan Bermudez",
+    "player_id": 642834,
+    "team": "PON",
+    "mlb_debut": "2024-08-27",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": 76.5,
+    "pitches": 495,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 66.0,
+        "velo": 89.4,
+        "usage": 53.3,
+        "whiff": 19.8,
+        "pitches": 264
+      },
+      {
+        "pitch_type": "ST",
+        "pitch_name": "Sweeper",
+        "ps_stuff": 96.7,
+        "velo": 75.2,
+        "usage": 20.8,
+        "whiff": 42.2,
+        "pitches": 103
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 80.2,
+        "velo": 83.0,
+        "usage": 12.9,
+        "whiff": 30.8,
+        "pitches": 64
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 83.6,
+        "velo": 82.3,
+        "usage": 9.1,
+        "whiff": 41.2,
+        "pitches": 45
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 81.4,
+        "velo": 88.9,
+        "usage": 2.2,
+        "whiff": 0.0,
+        "pitches": 11
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 85.1,
+        "velo": 73.3,
+        "usage": 1.6,
+        "whiff": 50.0,
+        "pitches": 8
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MLB"
+  },
+  {
+    "name": "Eric Torres",
+    "player_id": 701539,
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 76.4,
+    "pitches": 179,
+    "arsenal": [
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 67.5,
+        "velo": 89.2,
+        "usage": 62.6,
+        "whiff": 26.3,
+        "pitches": 112
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 101.4,
+        "velo": 76.1,
+        "usage": 22.9,
+        "whiff": 43.8,
+        "pitches": 41
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 70.2,
+        "velo": 91.2,
+        "usage": 11.7,
+        "whiff": 50.0,
+        "pitches": 21
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 97.9,
+        "velo": 74.8,
+        "usage": 2.8,
+        "whiff": 50.0,
+        "pitches": 5
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Magdiel Cotto",
+    "player_id": 694365,
     "team": "CAG",
-    "mlb_debut": "2023-09-24",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 75.2,
+    "pitches": 257,
+    "arsenal": [
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 64.9,
+        "velo": 90.9,
+        "usage": 40.1,
+        "whiff": 20.6,
+        "pitches": 103
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 85.5,
+        "velo": 83.5,
+        "usage": 23.7,
+        "whiff": 23.1,
+        "pitches": 61
+      },
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 72.1,
+        "velo": 90.5,
+        "usage": 22.2,
+        "whiff": 27.6,
+        "pitches": 57
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 92.5,
+        "velo": 81.3,
+        "usage": 14.0,
+        "whiff": 25.0,
+        "pitches": 36
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Tyler Myrick",
+    "player_id": 686924,
+    "team": "CAG",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": 62.1,
+    "pitches": 220,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": 48.9,
+        "velo": 91.7,
+        "usage": 50.9,
+        "whiff": 15.2,
+        "pitches": 112
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": 78.3,
+        "velo": 82.4,
+        "usage": 19.5,
+        "whiff": 33.3,
+        "pitches": 43
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": 79.8,
+        "velo": 88.3,
+        "usage": 19.1,
+        "whiff": 25.0,
+        "pitches": 42
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": 58.8,
+        "velo": 92.1,
+        "usage": 5.5,
+        "whiff": 0.0,
+        "pitches": 12
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": 70.3,
+        "velo": 80.2,
+        "usage": 4.5,
+        "whiff": 0.0,
+        "pitches": 10
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": 50.8,
+        "velo": 85.8,
+        "usage": 0.5,
+        "whiff": null,
+        "pitches": 1
+      }
+    ],
+    "source": "Prospect Savant",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Adalberto Flores",
+    "player_id": 488880,
+    "team": "CAG",
+    "mlb_debut": null,
     "birth_country": "Puerto Rico",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MLB"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Adalberto Flores",
-    "player_id": 488880,
-    "team": "CAG"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Marvin Gorgas",
@@ -72,100 +1362,40 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Anthony Maldonado",
-    "player_id": 687424,
+    "name": "Sebastian Rodriguez",
+    "player_id": -831444931,
     "team": "CAG",
-    "mlb_debut": "2024-04-26",
-    "birth_country": "USA",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MLB"
-  },
-  {
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Tyler Myrick",
-    "player_id": 686924,
-    "team": "CAG"
+    "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Nicholas Padilla",
-    "player_id": 656820,
+    "name": "Edwin Sanchez",
+    "player_id": 688014,
     "team": "CAG",
-    "mlb_debut": "2022-08-23",
-    "birth_country": "USA",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MLB"
-  },
-  {
     "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Zach Penrod",
-    "player_id": 683068,
-    "team": "CAG"
-  },
-  {
-    "name": "Yacksel Rios",
-    "player_id": 605441,
-    "team": "CAG",
-    "mlb_debut": "2017-08-22",
     "birth_country": "Puerto Rico",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MLB"
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Sebastian Rodriguez",
-    "player_id": -831444931,
-    "team": "CAG"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Edwin Sanchez",
-    "player_id": 688014,
-    "team": "CAG"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Carlos Torres",
     "player_id": 688876,
-    "team": "CAG"
+    "team": "CAG",
+    "mlb_debut": null,
+    "birth_country": "Puerto Rico",
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Christian Torres",
@@ -180,76 +1410,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Duane Underwood Jr.",
-    "player_id": 621249,
+    "name": "Dereck Rodriguez",
+    "player_id": 605446,
     "team": "CAG",
-    "mlb_debut": "2018-06-25",
+    "mlb_debut": "2018-05-29",
     "birth_country": "USA",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "unavailable",
+    "source": "MLB Statcast (KNCT index) \u2014 pending",
     "level_hint": "MLB"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Jarret Whorf",
-    "player_id": 806337,
-    "team": "CAG"
-  },
-  {
-    "name": "Osvaldo Berrios",
-    "player_id": 676047,
-    "team": "CAR",
-    "mlb_debut": null,
-    "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MiLB/AAA"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Cody Bolton",
-    "player_id": 675989,
-    "team": "CAR"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Jarrette Bonet",
     "player_id": -359955779,
-    "team": "CAR"
-  },
-  {
-    "name": "Raymond Burgos",
-    "player_id": 670103,
     "team": "CAR",
-    "mlb_debut": "2024-06-24",
-    "birth_country": "Puerto Rico",
+    "mlb_debut": null,
+    "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
-    "level_hint": "MLB"
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Alexander Castro",
@@ -264,8 +1446,20 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Matt Givin",
-    "player_id": 676769,
+    "name": "Saul Gonzalez",
+    "player_id": -779812433,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Riley Gowens",
+    "player_id": 803035,
     "team": "CAR",
     "mlb_debut": null,
     "birth_country": "USA",
@@ -276,88 +1470,52 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Saul Gonzalez",
-    "player_id": -779812433,
-    "team": "CAR"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Riley Gowens",
-    "player_id": 803035,
-    "team": "CAR"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Joe Jimenez",
     "player_id": -433762629,
-    "team": "CAR"
-  },
-  {
+    "team": "CAR",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Chris Kachmar",
-    "player_id": 690148,
-    "team": "CAR"
+    "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Adiel Melendez",
     "player_id": -158179355,
-    "team": "CAR"
-  },
-  {
+    "team": "CAR",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Johzan Oquendo",
     "player_id": -268179393,
-    "team": "CAR"
-  },
-  {
+    "team": "CAR",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "JeanPierre Ortiz",
     "player_id": -863509874,
-    "team": "CAR"
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Eddy Reynoso",
@@ -372,40 +1530,40 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Joe Riley",
     "player_id": 805678,
-    "team": "CAR"
-  },
-  {
+    "team": "CAR",
     "mlb_debut": null,
-    "birth_country": null,
+    "birth_country": "USA",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Elmer Rodriguez",
     "player_id": 695684,
-    "team": "CAR"
+    "team": "CAR",
+    "mlb_debut": "2026-04-29",
+    "birth_country": "Puerto Rico",
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "MLB Statcast (KNCT index) \u2014 pending",
+    "level_hint": "MLB"
   },
   {
+    "name": "Ramon Rodriguez",
+    "player_id": 670232,
+    "team": "CAR",
     "mlb_debut": null,
-    "birth_country": null,
+    "birth_country": "Puerto Rico",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Ramon Rodriguez",
-    "player_id": 670232,
-    "team": "CAR"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Ramesis Rosa",
@@ -432,28 +1590,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Luis Cruz",
     "player_id": -163227368,
-    "team": "MAY"
-  },
-  {
+    "team": "MAY",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Eddy Demurias",
     "player_id": -887923890,
-    "team": "MAY"
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Carlos Francisco",
@@ -468,28 +1626,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Nelvin Fuentes",
     "player_id": -346943911,
-    "team": "MAY"
-  },
-  {
+    "team": "MAY",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Davian Garcia",
     "player_id": 807485,
-    "team": "MAY"
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": "USA",
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Ashton Goudeau",
@@ -500,20 +1658,20 @@
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "unavailable",
+    "source": "MLB Statcast (KNCT index) \u2014 pending",
     "level_hint": "MLB"
   },
   {
+    "name": "Jonathan Haab",
+    "player_id": 805248,
+    "team": "MAY",
     "mlb_debut": null,
-    "birth_country": null,
+    "birth_country": "USA",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Jonathan Haab",
-    "player_id": 805248,
-    "team": "MAY"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Hector Hernandez",
@@ -528,32 +1686,8 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Jorge Lopez",
-    "player_id": 605347,
-    "team": "MAY",
-    "mlb_debut": "2015-09-29",
-    "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": "MLB"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Miguel Martinez",
     "player_id": 446651,
-    "team": "MAY"
-  },
-  {
-    "name": "Luis Quinonez",
-    "player_id": 687879,
     "team": "MAY",
     "mlb_debut": null,
     "birth_country": "Puerto Rico",
@@ -564,28 +1698,16 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Angel Reyes",
-    "player_id": 681938,
+    "name": "Devin Rivera",
+    "player_id": -465760315,
     "team": "MAY",
-    "mlb_debut": null,
-    "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": "MiLB/AAA"
-  },
-  {
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Devin Rivera",
-    "player_id": -465760315,
-    "team": "MAY"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Bryant Salgado",
@@ -624,16 +1746,16 @@
     "level_hint": "MiLB/AAA"
   },
   {
+    "name": "Antonio Velez",
+    "player_id": -165648089,
+    "team": "MAY",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Antonio Velez",
-    "player_id": -165648089,
-    "team": "MAY"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Derek West",
@@ -648,30 +1770,6 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Jonathan Bermudez",
-    "player_id": 642834,
-    "team": "PON",
-    "mlb_debut": "2024-08-27",
-    "birth_country": "Puerto Rico",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": "MLB"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Ricky Castro",
-    "player_id": 690462,
-    "team": "PON"
-  },
-  {
     "name": "Alex Claudio",
     "player_id": 592222,
     "team": "PON",
@@ -680,7 +1778,7 @@
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "unavailable",
+    "source": "MLB Statcast (KNCT index) \u2014 pending",
     "level_hint": "MLB"
   },
   {
@@ -708,40 +1806,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Tyler Gough",
     "player_id": -368999174,
-    "team": "PON"
-  },
-  {
-    "name": "Josh James",
-    "player_id": 657624,
     "team": "PON",
-    "mlb_debut": "2018-09-01",
-    "birth_country": "USA",
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": "MLB"
-  },
-  {
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Jorhan Laboy",
     "player_id": -259860308,
-    "team": "PON"
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Andrew Marrero",
@@ -768,16 +1854,16 @@
     "level_hint": "MiLB/AAA"
   },
   {
+    "name": "Michael Morales",
+    "player_id": 691786,
+    "team": "PON",
     "mlb_debut": null,
-    "birth_country": null,
+    "birth_country": "USA",
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Michael Morales",
-    "player_id": 691786,
-    "team": "PON"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Orlando Ortiz-Mayr",
@@ -804,28 +1890,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Hector Quinones",
     "player_id": -346674215,
-    "team": "PON"
-  },
-  {
+    "team": "PON",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Erik Rivera",
     "player_id": 682992,
-    "team": "PON"
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": "Puerto Rico",
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Gabriel Rodriguez",
@@ -840,35 +1926,23 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Alex Santos",
     "player_id": 691012,
-    "team": "PON"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Charlee Soto",
-    "player_id": -458228708,
-    "team": "PON"
-  },
-  {
-    "name": "Eric Torres",
-    "player_id": 701539,
     "team": "PON",
     "mlb_debut": null,
     "birth_country": "USA",
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
+  },
+  {
+    "name": "Charlee Soto",
+    "player_id": -458228708,
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
@@ -888,52 +1962,40 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "name": "Lenny Torres",
-    "player_id": 678013,
+    "name": "Mario Zabala",
+    "player_id": -174792236,
     "team": "PON",
     "mlb_debut": null,
-    "birth_country": "USA",
+    "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
-    "source": "Prospect Savant 2025_AAA",
+    "source": "unavailable",
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
-    "name": "Mario Zabala",
-    "player_id": -174792236,
-    "team": "PON"
-  },
-  {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Anthony Borrero",
     "player_id": -579003596,
-    "team": "SJU"
-  },
-  {
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Miguel Cirino",
     "player_id": -693644039,
-    "team": "SJU"
+    "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Jose Cruz",
@@ -996,28 +2058,28 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Julio Ortiz",
     "player_id": -324713460,
-    "team": "SJU"
-  },
-  {
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Randy Ramnarace",
     "player_id": -842689811,
-    "team": "SJU"
+    "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Jerryell Rivera",
@@ -1044,16 +2106,16 @@
     "level_hint": "MiLB/AAA"
   },
   {
+    "name": "Leonardo Rodriguez",
+    "player_id": -426239217,
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Leonardo Rodriguez",
-    "player_id": -426239217,
-    "team": "SJU"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Brady Tedesco",
@@ -1068,16 +2130,16 @@
     "level_hint": "MiLB/AAA"
   },
   {
+    "name": "Alexuan Vega",
+    "player_id": -846506108,
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
-    "name": "Alexuan Vega",
-    "player_id": -846506108,
-    "team": "SJU"
+    "level_hint": "MiLB/AAA"
   },
   {
     "name": "Ryan Velazquez",
@@ -1092,39 +2154,39 @@
     "level_hint": "MiLB/AAA"
   },
   {
-    "mlb_debut": null,
-    "birth_country": null,
-    "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null,
     "name": "Keishin Saito",
     "player_id": -322791781,
-    "team": "SJU"
-  },
-  {
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Haruse Narita",
     "player_id": -670692245,
-    "team": "SJU"
-  },
-  {
+    "team": "SJU",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null,
+    "level_hint": "MiLB/AAA"
+  },
+  {
     "name": "Freddy Cabrera",
     "player_id": -280803405,
-    "team": "SJU"
+    "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": "MiLB/AAA"
   }
 ]

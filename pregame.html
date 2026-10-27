@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san161">
+<link rel="stylesheet" href="shared.css?v=san162">
 </head>
 <body>
 <div class="topbar">
@@ -46,7 +46,6 @@
     <button class="tab" data-tab="lineup" onclick="switchTab('lineup')" data-i18n="lineupTab">Lineup Spot Success</button>
     <button class="tab" data-tab="matchup" onclick="switchTab('matchup')" data-i18n="matchupTab">Santurce Pitchers vs Opposing Batters</button>
     <button class="tab" data-tab="hvp" onclick="switchTab('hvp')" data-i18n="hvpTab">Santurce Batters vs Opposing Pitchers</button>
-    <button class="tab" data-tab="usage" onclick="switchTab('usage')" data-i18n="usageTab">Pitch Usage</button>
     <button class="tab" data-tab="bullpen" onclick="switchTab('bullpen')" data-i18n="bullpenTab">Recent Bullpen Usage</button>
     <button class="tab" data-tab="pitcher-one-page" onclick="switchTab('pitcher-one-page')" data-i18n="pitcherOnePageTab">Pitcher One Page Sheet</button>
     <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
@@ -311,29 +310,6 @@
     </div>
   </div>
 
-  <div id="panel-usage" class="panel">
-    <div class="section-label" data-i18n="usageLabel">Opposing pitchers — pitch usage</div>
-    <div class="note" data-i18n="usageNote">KNCT-style arsenal movement — hitter view only (+HB = 1B / catcher-right). RHP arm-side mirrored; LHP unchanged. Overall mix from Prospect Savant; count buckets from Statcast/Synergy when tracked.</div>
-    <div class="pov-bar" data-pov-bar>
-      <strong data-i18n="povLabel">Perspective</strong>
-      <div class="pov-toggle" role="group" aria-label="Movement perspective">
-        <button type="button" data-pov="pitcher" onclick="setMovementPov('pitcher')">Pitcher perspective</button>
-        <button type="button" data-pov="hitter" onclick="setMovementPov('hitter')">Hitter perspective (invert HB)</button>
-      </div>
-      <div class="pov-hint" id="usage-pov-hint"></div>
-    </div>
-    <div class="filters">
-      <div class="filter-field"><label data-i18n="search">Search</label><input id="usage-search" placeholder="Pitcher / team" oninput="fillArsenalSelects('usage')"></div>
-      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
-        <select id="usage-team" onchange="fillArsenalSelects('usage')">
-          <option value="all">All Teams</option>
-        </select>
-      </div>
-      <div class="filter-field"><label data-i18n="player">Pitcher</label><select id="usage-player" onchange="renderUsage()"></select></div>
-    </div>
-    <div id="usage-view"></div>
-  </div>
-
   <div id="panel-bullpen" class="panel">
     <div class="section-label" data-i18n="bullpenLabel">Recent Bullpen Usage</div>
     <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starter IP sits in the header row.</div>
@@ -376,15 +352,45 @@
   </div>
 
   <div id="panel-ofdef" class="panel">
-    <div class="needs-video">
-      <h3 data-i18n="ofdefTitle">Outfield jump / arm grades</h3>
-      <p data-i18n="ofdefBody">Advance OF defense: jump, route, arm strength for extra-base decisions.</p>
-      <div class="tagline-note" data-i18n="needsVideo">Needs to be built with video from BATS / Synergy.</div>
+    <div class="section-label" data-i18n="ofdefLabel">OF Jump / Arm</div>
+    <div class="note" data-i18n-html="ofdefNote">Spreadsheet for outfield jump, route, and arm grades (20–80). Edits save in this browser immediately and <strong>auto-publish to the live site JSON</strong> when a GitHub PAT is set below.</div>
+    <div class="filters">
+      <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
+        <select id="ofdef-team" onchange="renderOfDef()">
+          <option value="all">All Teams</option>
+          <option value="SAN">Cangrejeros de Santurce</option>
+          <option value="CAG">Criollos de Caguas</option>
+          <option value="CAR">Gigantes de Carolina</option>
+          <option value="MAY">Indios de Mayagüez</option>
+          <option value="PON">Leones de Ponce</option>
+          <option value="SJU">Senadores de San Juan</option>
+        </select>
+      </div>
+      <div class="filter-field"><label data-i18n="search">Search</label>
+        <input id="ofdef-search" placeholder="Player / team" oninput="renderOfDef()">
+      </div>
+      <div class="filter-field" style="min-width:220px"><label>GitHub PAT (repo write)</label>
+        <input id="scout-gh-pat" type="password" autocomplete="off" placeholder="ghp_…" onchange="saveScoutGhPat(this.value)" onblur="saveScoutGhPat(this.value)">
+      </div>
+      <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('of')">Publish OF now</button>
+        <button type="button" class="btn btn-sm" onclick="exportOfOverrides()">Download overrides</button>
+        <button type="button" class="btn btn-sm" onclick="clearOfOverrides()">Clear overrides</button>
+      </div>
+    </div>
+    <div class="note" id="ofdef-persist-note" style="margin-top:4px"></div>
+    <div class="table-wrap scout-sheet-wrap">
+      <table id="tbl-ofdef" class="scout-sheet"><thead><tr>
+        <th>Player</th><th>Team</th><th>Pos</th>
+        <th class="num">Jump</th><th class="num">Route</th>
+        <th class="num">Arm str</th><th class="num">Arm acc</th>
+        <th>Notes</th>
+      </tr></thead><tbody></tbody></table>
     </div>
   </div>
   <div id="panel-tth" class="panel">
-    <div class="section-label" data-i18n="tthLabel">Time to home and catcher pop times</div>
-    <div class="note" data-i18n-html="tthNote">Manual scout entry for pitcher <strong>time to home</strong> and catcher <strong>pop time</strong> (seconds). Values save in this browser (localStorage) and stay editable. Seed roster is in <code>data/pregame_tth_pop.json</code> — Puerto Rican players stay on their current LBPRC teams for 2026; update that file when 2026–7 rosters land.</div>
+    <div class="section-label" data-i18n="tthLabel">Time to Home and Catcher Arms</div>
+    <div class="note" data-i18n-html="tthNote">Pitcher <strong>time to home</strong> (s), catcher <strong>pop time</strong> (s), and catcher <strong>arm</strong> grade (20–80). Saves in-browser immediately and auto-publishes to the live site when a GitHub PAT is set on the OF tab (shared).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="tth-team" onchange="renderTth()">
@@ -408,28 +414,31 @@
         <input id="tth-search" placeholder="Player / team" oninput="renderTth()">
       </div>
       <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="btn btn-sm" onclick="exportTthOverrides()" data-i18n="tthExport">Download browser overrides</button>
-        <button type="button" class="btn btn-sm" onclick="clearTthOverrides()" data-i18n="tthClear">Clear browser overrides</button>
+        <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('tth')">Publish TTH now</button>
+        <button type="button" class="btn btn-sm" onclick="exportTthOverrides()" data-i18n="tthExport">Download overrides</button>
+        <button type="button" class="btn btn-sm" onclick="clearTthOverrides()" data-i18n="tthClear">Clear overrides</button>
       </div>
     </div>
     <div class="note" id="tth-persist-note" style="margin-top:4px"></div>
-    <div class="table-wrap">
-      <table id="tbl-tth"><thead><tr>
-        <th onclick="sortTbl('tbl-tth',0)">Player</th>
-        <th onclick="sortTbl('tbl-tth',1)">Team</th>
-        <th onclick="sortTbl('tbl-tth',2)">Pos</th>
-        <th class="num" onclick="sortTbl('tbl-tth',3)">Time to home (s)</th>
-        <th class="num" onclick="sortTbl('tbl-tth',4)">Catcher pop (s)</th>
+    <div class="table-wrap scout-sheet-wrap">
+      <table id="tbl-tth" class="scout-sheet"><thead><tr>
+        <th>Player</th>
+        <th>Team</th>
+        <th>Pos</th>
+        <th class="num">Time to home (s)</th>
+        <th class="num">Catcher pop (s)</th>
+        <th class="num">Catcher arm</th>
+        <th>Notes</th>
       </tr></thead><tbody></tbody></table>
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san159"></script>
-<script src="cards.js?v=san156"></script>
+<script src="i18n.js?v=san162"></script>
+<script src="cards.js?v=san162"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san161';
+const ASSET_V = 'san162';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -481,11 +490,11 @@ function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===`panel-${name}`));
   if(name==='spray') renderSpray();
-  if(name==='usage') renderUsage();
   if(name==='bullpen') renderBullpen();
   if(name==='pitcher-one-page') renderPitcherOnePage();
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
+  if(name==='ofdef') renderOfDef();
   if(name==='tth') renderTth();
   if(name==='strategy' && window.CardApp) CardApp.renderStrategy();
   if(name==='br' && window.CardApp) CardApp.renderSmallBall();
@@ -674,37 +683,16 @@ function filterArsenalList(q, team) {
   });
 }
 function fillArsenalTeamSelects() {
+  /* Pitch Usage tab removed — keep helper for any remaining arsenal team selects. */
   const teams=[...new Set(arsenalPitchers().map(r=>r.team).filter(Boolean))].sort();
-  ['usage-team'].forEach(id=>{
-    const sel=document.getElementById(id);
-    if(!sel) return;
+  document.querySelectorAll('select[data-arsenal-team]').forEach(sel=>{
     const cur=sel.value||'all';
     sel.innerHTML = '<option value="all">All Teams</option>' + teams.map(t=>`<option value="${t}">${t}</option>`).join('');
     sel.value = teams.includes(cur) || cur==='all' ? cur : 'all';
   });
 }
-function fillArsenalSelects(kind) {
-  const configs={
-    usage:['usage-search','usage-team','usage-player', renderUsage],
-  };
-  const keys = kind ? [kind] : Object.keys(configs);
-  keys.forEach(k=>{
-    const [searchId, teamId, playerId, renderFn]=configs[k];
-    const q=document.getElementById(searchId)?.value||'';
-    const team=document.getElementById(teamId)?.value||'all';
-    const sel=document.getElementById(playerId);
-    if(!sel) return;
-    const prev=sel.value;
-    const rows=filterArsenalList(q, team);
-    sel.innerHTML = rows.map(r=>{
-      const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'LHP'
-        : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'RHP' : '');
-      return `<option value="${r.player_id}">${r.name}${hand?' ('+hand+')':''} · ${r.team||''}</option>`;
-    }).join('')
-      || '<option value="">—</option>';
-    if([...sel.options].some(o=>o.value===prev)) sel.value=prev;
-    renderFn();
-  });
+function fillArsenalSelects(_kind) {
+  /* Pitch Usage tab removed — no arsenal player selects left to fill. */
 }
 function getArsenalPitcher(selId) {
   const id=Number(document.getElementById(selId)?.value||0);
@@ -742,7 +730,6 @@ function syncPovSelects() {
 function setMovementPov(_v) {
   // Perspective locked to hitter view for all arsenal XY plots.
   syncPovSelects();
-  renderUsage();
 }
 function pitcherHb(p) {
   if (p.hb_pitcher != null && Number.isFinite(Number(p.hb_pitcher))) return Number(p.hb_pitcher);
@@ -4372,54 +4359,190 @@ function exportHitterAdvanceZip(){
 }
 
 
+const SCOUT_GH_PAT_KEY = 'santurce_gh_pat_v1';
+const SCOUT_GH_REPO = 'colbymorris08/Santurce2026';
+const SCOUT_GH_BRANCH = 'main';
 const TTH_STORAGE_KEY = 'santurce_tth_pop_overrides_v1';
+const OF_STORAGE_KEY = 'santurce_of_arms_overrides_v1';
 let TTH_OVERRIDES = {};
+let OF_OVERRIDES = {};
+const SCOUT_PUBLISH_TIMERS = {};
+
+function scoutGhPat(){
+  try { return localStorage.getItem(SCOUT_GH_PAT_KEY) || ''; } catch(e){ return ''; }
+}
+function saveScoutGhPat(value){
+  const v = String(value || '').trim();
+  try {
+    if(v) localStorage.setItem(SCOUT_GH_PAT_KEY, v);
+    else localStorage.removeItem(SCOUT_GH_PAT_KEY);
+  } catch(e){}
+  updateTthPersistNote();
+  updateOfPersistNote();
+}
+function loadScoutPatInput(){
+  const el = document.getElementById('scout-gh-pat');
+  if(el) el.value = scoutGhPat();
+}
 
 function loadTthOverrides(){
-  try {
-    TTH_OVERRIDES = JSON.parse(localStorage.getItem(TTH_STORAGE_KEY) || '{}') || {};
-  } catch(e){
-    TTH_OVERRIDES = {};
-  }
+  try { TTH_OVERRIDES = JSON.parse(localStorage.getItem(TTH_STORAGE_KEY) || '{}') || {}; }
+  catch(e){ TTH_OVERRIDES = {}; }
+}
+function loadOfOverrides(){
+  try { OF_OVERRIDES = JSON.parse(localStorage.getItem(OF_STORAGE_KEY) || '{}') || {}; }
+  catch(e){ OF_OVERRIDES = {}; }
 }
 function saveTthOverrides(){
   try { localStorage.setItem(TTH_STORAGE_KEY, JSON.stringify(TTH_OVERRIDES)); } catch(e){}
   updateTthPersistNote();
+  queueScoutPublish('tth');
 }
-function tthMergedValue(player, field){
+function saveOfOverrides(){
+  try { localStorage.setItem(OF_STORAGE_KEY, JSON.stringify(OF_OVERRIDES)); } catch(e){}
+  updateOfPersistNote();
+  queueScoutPublish('of');
+}
+function sheetMergedValue(overrides, player, field){
   const id = String(player.player_id);
-  const ov = TTH_OVERRIDES[id];
+  const ov = overrides[id];
   if(ov && ov[field] != null && String(ov[field]).trim() !== '') return String(ov[field]);
   const base = player[field];
   return base == null || base === '' ? '' : String(base);
 }
+function tthMergedValue(player, field){ return sheetMergedValue(TTH_OVERRIDES, player, field); }
+function ofMergedValue(player, field){ return sheetMergedValue(OF_OVERRIDES, player, field); }
+
+function scoutStatusText(kind, n){
+  const hasPat = !!scoutGhPat();
+  if(hasPat){
+    return n
+      ? `${n} override(s) in browser · auto-publish armed (debounced) → ${kind === 'of' ? 'data/pregame_of_arms.json' : 'data/pregame_tth_pop.json'}`
+      : `No browser overrides · PAT set · edits will publish to the live site JSON`;
+  }
+  return n
+    ? `${n} override(s) saved in this browser only. Paste a GitHub PAT (repo Contents:write) above to auto-publish to the site.`
+    : `No browser overrides yet. Paste a GitHub PAT to auto-publish edits to the live site.`;
+}
 function updateTthPersistNote(){
   const el = document.getElementById('tth-persist-note');
-  if(!el) return;
-  const n = Object.keys(TTH_OVERRIDES).length;
-  const lang = (typeof getLang === 'function') ? getLang() : 'en';
-  if(lang === 'es'){
-    el.textContent = n
-      ? `${n} valor(es) guardado(s) en este navegador (localStorage · ${TTH_STORAGE_KEY}). Edita data/pregame_tth_pop.json para compartirlo en el sitio.`
-      : `Sin overrides en el navegador. Valores base: data/pregame_tth_pop.json · clave localStorage: ${TTH_STORAGE_KEY}.`;
+  if(el) el.textContent = scoutStatusText('tth', Object.keys(TTH_OVERRIDES).length);
+}
+function updateOfPersistNote(){
+  const el = document.getElementById('ofdef-persist-note');
+  if(el) el.textContent = scoutStatusText('of', Object.keys(OF_OVERRIDES).length);
+}
+
+function setOverrideMap(map, playerId, field, value){
+  const id = String(playerId);
+  const cleaned = String(value ?? '').trim();
+  if(!map[id]) map[id] = {};
+  if(cleaned === ''){
+    delete map[id][field];
+    if(!Object.keys(map[id]).length) delete map[id];
   } else {
-    el.textContent = n
-      ? `${n} value(s) saved in this browser (localStorage · ${TTH_STORAGE_KEY}). Edit data/pregame_tth_pop.json to share defaults on the site.`
-      : `No browser overrides yet. Seed values: data/pregame_tth_pop.json · localStorage key: ${TTH_STORAGE_KEY}.`;
+    map[id][field] = cleaned;
   }
 }
 function onTthInput(playerId, field, value){
-  const id = String(playerId);
-  const cleaned = String(value ?? '').trim();
-  if(!TTH_OVERRIDES[id]) TTH_OVERRIDES[id] = {};
-  if(cleaned === ''){
-    delete TTH_OVERRIDES[id][field];
-    if(!Object.keys(TTH_OVERRIDES[id]).length) delete TTH_OVERRIDES[id];
-  } else {
-    TTH_OVERRIDES[id][field] = cleaned;
-  }
+  setOverrideMap(TTH_OVERRIDES, playerId, field, value);
   saveTthOverrides();
 }
+function onOfInput(playerId, field, value){
+  setOverrideMap(OF_OVERRIDES, playerId, field, value);
+  saveOfOverrides();
+}
+
+function applyOverridesToPlayers(players, overrides, fields){
+  return (players || []).map(p => {
+    const row = {...p};
+    const ov = overrides[String(p.player_id)] || {};
+    fields.forEach(f => {
+      if(ov[f] != null && String(ov[f]).trim() !== '') row[f] = ov[f];
+    });
+    return row;
+  });
+}
+
+async function githubPutJson(path, obj, message){
+  const token = scoutGhPat();
+  if(!token) throw new Error('No GitHub PAT set');
+  const api = `https://api.github.com/repos/${SCOUT_GH_REPO}/contents/${path}`;
+  const headers = {
+    'Accept': 'application/vnd.github+json',
+    'Authorization': `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+  let sha = null;
+  const getRes = await fetch(`${api}?ref=${encodeURIComponent(SCOUT_GH_BRANCH)}`, { headers });
+  if(getRes.ok){
+    const cur = await getRes.json();
+    sha = cur.sha;
+  } else if(getRes.status !== 404){
+    throw new Error(`GET ${path} failed (${getRes.status})`);
+  }
+  const body = {
+    message,
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(obj, null, 2) + '\n'))),
+    branch: SCOUT_GH_BRANCH,
+  };
+  if(sha) body.sha = sha;
+  const putRes = await fetch(api, { method:'PUT', headers:{...headers,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  if(!putRes.ok){
+    const err = await putRes.text();
+    throw new Error(`PUT ${path} failed (${putRes.status}): ${err.slice(0,200)}`);
+  }
+  return putRes.json();
+}
+
+function buildTthPublishDoc(){
+  const pack = CACHE.tth || { players: [], teams: [], meta: {} };
+  return {
+    ...pack,
+    players: applyOverridesToPlayers(pack.players, TTH_OVERRIDES, ['time_to_home','catcher_pop_time','catcher_arm','notes']),
+    updated: new Date().toISOString(),
+    published_from: 'pregame scout sheet',
+  };
+}
+function buildOfPublishDoc(){
+  const pack = CACHE.ofArms || { players: [], teams: [], meta: {} };
+  return {
+    ...pack,
+    players: applyOverridesToPlayers(pack.players, OF_OVERRIDES, ['jump','route','arm_strength','arm_accuracy','notes']),
+    updated: new Date().toISOString(),
+    published_from: 'pregame scout sheet',
+  };
+}
+
+async function publishScoutSheet(kind){
+  const noteId = kind === 'of' ? 'ofdef-persist-note' : 'tth-persist-note';
+  const el = document.getElementById(noteId);
+  if(!scoutGhPat()){
+    if(el) el.textContent = scoutStatusText(kind, Object.keys(kind==='of'?OF_OVERRIDES:TTH_OVERRIDES).length);
+    return;
+  }
+  if(el) el.textContent = 'Publishing to GitHub…';
+  try {
+    if(kind === 'of'){
+      const doc = buildOfPublishDoc();
+      await githubPutJson('data/pregame_of_arms.json', doc, 'Scout update: OF jump / arm grades');
+      CACHE.ofArms = doc;
+    } else {
+      const doc = buildTthPublishDoc();
+      await githubPutJson('data/pregame_tth_pop.json', doc, 'Scout update: time to home / catcher arms');
+      CACHE.tth = doc;
+    }
+    if(el) el.textContent = `Published to live site · ${new Date().toLocaleTimeString()}`;
+  } catch(err){
+    if(el) el.textContent = `Publish failed: ${err.message || err}`;
+  }
+}
+function queueScoutPublish(kind){
+  clearTimeout(SCOUT_PUBLISH_TIMERS[kind]);
+  SCOUT_PUBLISH_TIMERS[kind] = setTimeout(()=>publishScoutSheet(kind), 1600);
+}
+function publishScoutSheetNow(kind){ publishScoutSheet(kind); }
+
 function exportTthOverrides(){
   const blob = new Blob([JSON.stringify({ meta:{ key:TTH_STORAGE_KEY, exported_at:new Date().toISOString() }, overrides:TTH_OVERRIDES }, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -4428,13 +4551,38 @@ function exportTthOverrides(){
   a.click();
   URL.revokeObjectURL(a.href);
 }
+function exportOfOverrides(){
+  const blob = new Blob([JSON.stringify({ meta:{ key:OF_STORAGE_KEY, exported_at:new Date().toISOString() }, overrides:OF_OVERRIDES }, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'santurce_of_arms_overrides.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
 function clearTthOverrides(){
-  if(!confirm(typeof t==='function' ? t('tthClearConfirm') : 'Clear all browser-saved time-to-home / pop times on this device?')) return;
+  if(!confirm(typeof t==='function' ? t('tthClearConfirm') : 'Clear all browser-saved time-to-home / catcher values on this device?')) return;
   TTH_OVERRIDES = {};
   try { localStorage.removeItem(TTH_STORAGE_KEY); } catch(e){}
   updateTthPersistNote();
   renderTth();
 }
+function clearOfOverrides(){
+  if(!confirm('Clear all browser-saved OF jump/arm grades on this device?')) return;
+  OF_OVERRIDES = {};
+  try { localStorage.removeItem(OF_STORAGE_KEY); } catch(e){}
+  updateOfPersistNote();
+  renderOfDef();
+}
+
+function scoutInput(id, field, value, handler){
+  const v = String(value || '').replace(/"/g, '&quot;');
+  return `<input class="scout-input" type="text" inputmode="decimal" placeholder="—" value="${v}" data-pid="${id}" data-field="${field}" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)">`;
+}
+function scoutNotes(id, value, handler){
+  const v = escHtml(value || '');
+  return `<input class="scout-input scout-notes" type="text" placeholder="—" value="${v.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="notes" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)">`;
+}
+
 function renderTth(){
   const pack = CACHE.tth || { players: [] };
   const team = document.getElementById('tth-team')?.value || 'all';
@@ -4444,21 +4592,49 @@ function renderTth(){
   if(team !== 'all') rows = rows.filter(r => r.team === team);
   if(role !== 'all') rows = rows.filter(r => r.position === role);
   if(q) rows = rows.filter(r => `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
+  rows = sortByLastName(rows, r => r.name);
   const tbody = document.querySelector('#tbl-tth tbody');
   if(!tbody) return;
   tbody.innerHTML = rows.map(r => {
-    const tth = tthMergedValue(r, 'time_to_home');
-    const pop = tthMergedValue(r, 'catcher_pop_time');
+    const id = r.player_id;
+    const isP = r.position === 'P';
+    return `<tr>
+      <td class="player-name">${escHtml(r.name||'')}</td>
+      <td class="team-cell">${escHtml(r.team||'—')}</td>
+      <td>${escHtml(r.position||'—')}</td>
+      <td class="num">${isP ? scoutInput(id,'time_to_home', tthMergedValue(r,'time_to_home'), 'onTthInput') : '—'}</td>
+      <td class="num">${!isP ? scoutInput(id,'catcher_pop_time', tthMergedValue(r,'catcher_pop_time'), 'onTthInput') : '—'}</td>
+      <td class="num">${!isP ? scoutInput(id,'catcher_arm', tthMergedValue(r,'catcher_arm'), 'onTthInput') : '—'}</td>
+      <td>${scoutNotes(id, tthMergedValue(r,'notes'), 'onTthInput')}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="7" class="note">${typeof t==='function' ? t('tthEmpty') : 'No players for this filter.'}</td></tr>`;
+  updateTthPersistNote();
+}
+
+function renderOfDef(){
+  const pack = CACHE.ofArms || { players: [] };
+  const team = document.getElementById('ofdef-team')?.value || 'all';
+  const q = (document.getElementById('ofdef-search')?.value || '').trim().toLowerCase();
+  let rows = (pack.players || []).slice();
+  if(team !== 'all') rows = rows.filter(r => r.team === team);
+  if(q) rows = rows.filter(r => `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
+  rows = sortByLastName(rows, r => r.name);
+  const tbody = document.querySelector('#tbl-ofdef tbody');
+  if(!tbody) return;
+  tbody.innerHTML = rows.map(r => {
     const id = r.player_id;
     return `<tr>
-      <td class="player-name">${r.name}</td>
-      <td class="team-cell">${r.team||'—'}</td>
-      <td>${r.position||'—'}</td>
-      <td class="num"><input class="tth-input" type="text" inputmode="decimal" placeholder="—" value="${tth.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="time_to_home" onchange="onTthInput(this.dataset.pid, this.dataset.field, this.value)" onblur="onTthInput(this.dataset.pid, this.dataset.field, this.value)"></td>
-      <td class="num"><input class="tth-input" type="text" inputmode="decimal" placeholder="—" value="${pop.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="catcher_pop_time" onchange="onTthInput(this.dataset.pid, this.dataset.field, this.value)" onblur="onTthInput(this.dataset.pid, this.dataset.field, this.value)"></td>
+      <td class="player-name">${escHtml(r.name||'')}</td>
+      <td class="team-cell">${escHtml(r.team||'—')}</td>
+      <td>${escHtml(r.position||'—')}</td>
+      <td class="num">${scoutInput(id,'jump', ofMergedValue(r,'jump'), 'onOfInput')}</td>
+      <td class="num">${scoutInput(id,'route', ofMergedValue(r,'route'), 'onOfInput')}</td>
+      <td class="num">${scoutInput(id,'arm_strength', ofMergedValue(r,'arm_strength'), 'onOfInput')}</td>
+      <td class="num">${scoutInput(id,'arm_accuracy', ofMergedValue(r,'arm_accuracy'), 'onOfInput')}</td>
+      <td>${scoutNotes(id, ofMergedValue(r,'notes'), 'onOfInput')}</td>
     </tr>`;
-  }).join('') || `<tr><td colspan="5" class="note">${typeof t==='function' ? t('tthEmpty') : 'No players for this filter.'}</td></tr>`;
-  updateTthPersistNote();
+  }).join('') || `<tr><td colspan="8" class="note">No outfielders for this filter.</td></tr>`;
+  updateOfPersistNote();
 }
 
 const ONEPAGE_NOTES_KEY = 'santurce_pitcher_one_page_notes_v1';
@@ -4576,7 +4752,7 @@ function bootFromHash(){
     'pitcher-advance':'pitcher-advance',
     'hitter-advance':'hitter-advance',
     strategy:'strategy', br:'br', lineup:'lineup',
-    matchup:'matchup', hvp:'hvp', usage:'usage', spray:'spray',
+    matchup:'matchup', hvp:'hvp', spray:'spray',
     ofdef:'ofdef', tth:'tth',
     bullpen:'bullpen',
     'pitcher-one-page':'pitcher-one-page',
@@ -4604,16 +4780,19 @@ Promise.all([
   fetch('data/advance_opposing_hitters.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/advance_heatmaps.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({hitters:{},pitchers:{}})),
   fetch('data/pregame_tth_pop.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
+  fetch('data/pregame_of_arms.json?v='+ASSET_V).then(r=>r.json()).catch(()=>({players:[],teams:[]})),
   fetch('data/pregame_card_stats.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/bullpen_usage.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats, bullpenUsage, pitcherOnePage, rosterAlert])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, cardStats, bullpenUsage, pitcherOnePage, rosterAlert};
+]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, pitcherOnePage, rosterAlert])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, pitcherOnePage, rosterAlert};
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();
+  loadOfOverrides();
+  loadScoutPatInput();
   document.getElementById('loading').style.display='none';
   if(rosterAlert && rosterAlert.changed){
     const nAdd = (rosterAlert.added||[]).length;
@@ -4632,9 +4811,9 @@ Promise.all([
   syncPovSelects();
   syncHeatGeomSelects();
   renderLineup(); renderMatchup(); renderHvp(); renderBR(); renderSpray();
-  renderUsage();
   renderBullpen();
   renderPitcherOnePage();
+  renderOfDef();
   renderTth();
   fillAdvancePitchers();
   fillAdvanceHitters();
@@ -4645,9 +4824,9 @@ Promise.all([
 document.addEventListener('santurce:lang', () => {
   applyI18n();
   syncPovSelects();
-  renderUsage();
   renderBullpen();
   renderPitcherOnePage();
+  renderOfDef();
   renderTth();
   renderPitcherAdvance(); renderAdvanceHitters();
   if(window.CardApp) CardApp.refresh();

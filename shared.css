@@ -1812,3 +1812,19 @@ input.tth-input:focus {
   line-height: 1.35;
 }
 .roster-change-banner .muted { color: var(--muted); font-weight: 400; }
+
+/* Scout entry spreadsheets (OF arms + TTH / catcher) */
+.scout-sheet-wrap { background: #fff; border: 1px solid var(--line); }
+.scout-sheet { width: 100%; border-collapse: collapse; font-size: 13px; color: #111; background: #fff; }
+.scout-sheet th, .scout-sheet td {
+  border: 1px solid #c5cdd8; padding: 4px 6px; vertical-align: middle;
+}
+.scout-sheet thead th { background: #1f2a3c; color: #fff; font-weight: 700; position: sticky; top: 0; z-index: 1; }
+.scout-sheet tbody tr:nth-child(even) td { background: #f4f7fb; }
+.scout-sheet .player-name { font-weight: 700; white-space: nowrap; }
+.scout-input {
+  width: 100%; min-width: 52px; border: 1px solid #9aa8bc; border-radius: 2px;
+  background: #fff; color: #111; font: inherit; font-size: 12px; padding: 3px 5px;
+}
+.scout-input:focus { outline: 2px solid rgba(230,195,92,.7); border-color: #e6c35c; }
+.scout-notes { min-width: 140px; }
