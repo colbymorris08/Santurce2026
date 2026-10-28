@@ -539,7 +539,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san174';
+const ASSET_V = 'san175';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1578,7 +1578,7 @@ function collectSprayPoints(player){
   const seen = new Set(); const out=[];
   splits.forEach(sp=>{
     (sp.points||[]).forEach(pt=>{
-      const k = [pt.x_ft,pt.y_ft,pt.hit,pt.event,pt.risp,pt.two_strikes].join('|');
+      const k = [pt.x_ft,pt.y_ft,pt.hit,pt.event,pt.risp,pt.two_strikes,sprayPitcherHand(pt)].join('|');
       if(seen.has(k)) return; seen.add(k); out.push(pt);
     });
   });
@@ -1614,8 +1614,31 @@ function sprayPitcherHand(pt){
   const h = String(pt?.pitcher_hand || '').toUpperCase();
   return h === 'L' || h === 'R' ? h : '';
 }
+function synergyHandedPoints(player){
+  const rows = (CACHE.spray && CACHE.spray.synergy) || [];
+  if(!player || !rows.length) return [];
+  const sid = player.synergy_id != null && player.synergy_id !== '' ? String(player.synergy_id) : '';
+  const name = normPersonName(player.name);
+  const team = player.team || '';
+  let row = sid ? rows.find(r => String(r.synergy_id||'')===sid) : null;
+  if(!row && name) row = rows.find(r => normPersonName(r.name)===name && (!team || r.team===team));
+  if(!row || row === player) return [];
+  const pts = Array.isArray(row.points) && row.points.length
+    ? row.points
+    : (Array.isArray(row.spray_points) ? row.spray_points : []);
+  return pts.some(pt => sprayPitcherHand(pt)) ? pts : [];
+}
+/** Advance spray_points when they already carry pitcher_hand; otherwise the synergy list. */
+function sprayPointsForCharts(player){
+  const own = collectSprayPoints(player);
+  if(own.some(pt => sprayPitcherHand(pt))) return own;
+  const alt = synergyHandedPoints(player);
+  return alt.length ? alt : own;
+}
 function sprayHandCellPoints(player, hand, pred){
-  const pool = collectSprayPoints(player).filter(pt => sprayPitcherHand(pt)===hand);
+  const want = hand === 'L' || hand === 'R' ? hand : '';
+  // This hitter's own balls only. A side with no L or R tag stays empty.
+  const pool = collectSprayPoints(player).filter(pt => sprayPitcherHand(pt)===want);
   const pts = pool.filter(pred);
   return limitRecentSprayPoints(pts, SPRAY_MAX_RECENT);
 }
@@ -4797,12 +4820,10 @@ function ofPosComposeCode(shade, steps){
   if(!st) return s;
   return `${s}-${st}`;
 }
-function ofPosSprayPoints(hitter, pHand, twoK, { requireHand=true } = {}){
-  return collectSprayPoints(hitter).filter(p=>{
-    const ph = String(p.pitcher_hand || '').toUpperCase();
-    if(requireHand){
-      if(ph !== pHand) return false;
-    }
+function ofPosSprayPoints(hitter, pHand, twoK){
+  const want = pHand === 'L' || pHand === 'R' ? pHand : '';
+  return sprayPointsForCharts(hitter).filter(p=>{
+    if(sprayPitcherHand(p) !== want) return false;
     if(twoK !== null && twoK !== undefined){
       if(Boolean(p.two_strikes) !== Boolean(twoK)) return false;
     }
@@ -4834,15 +4855,14 @@ function ofPosSuggestFromPoints(hitter, ofPos, pts, weak, batsOverride){
   return { shade, n, weak: !!weak };
 }
 function ofPosSuggestShade(hitter, ofPos, pHand, twoK, bats){
-  // Prefer hand×count OF BIP; then same hand any count; then untagged OF BIP (weak).
-  let pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:true });
+  // This count and this pitcher hand. If that side is thin, same hand any count.
+  // Never borrow the other hand or dump every ball into both columns.
+  let pts = ofPosSprayPoints(hitter, pHand, twoK);
   if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, false, bats);
-  pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:true });
+  const counted = pts;
+  pts = ofPosSprayPoints(hitter, pHand, null);
   if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
-  pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:false });
-  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
-  pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:false });
-  return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
+  return ofPosSuggestFromPoints(hitter, ofPos, counted, true, bats);
 }
 function ofPosResolved(hitter, team, ofPos, count, pHand){
   const twoK = count === '2K';
@@ -5047,8 +5067,8 @@ function ofPosKnctRgb(t){
 function ofPosOfBallFt(hitter, pHand, count){
   const twoK = count === '2K';
   const out = [];
-  collectSprayPoints(hitter).forEach(p => {
-    if(String(p.pitcher_hand || '').toUpperCase() !== pHand) return;
+  sprayPointsForCharts(hitter).forEach(p => {
+    if(sprayPitcherHand(p) !== pHand) return;
     if(Boolean(p.two_strikes) !== Boolean(twoK)) return;
     const x = Number(p.x_ft), y = Number(p.y_ft);
     if(!Number.isFinite(x) || !Number.isFinite(y) || y < 140) return;
@@ -5323,8 +5343,8 @@ function ofPosMatchCode(pos, x, y){
 }
 function ofPosAlignSprayPoints(hitter, pHand, count){
   const twoK = count === '2K';
-  const pts = collectSprayPoints(hitter).filter(p => {
-    if(String(p.pitcher_hand || '').toUpperCase() !== pHand) return false;
+  const pts = sprayPointsForCharts(hitter).filter(p => {
+    if(sprayPitcherHand(p) !== pHand) return false;
     if(Boolean(p.two_strikes) !== Boolean(twoK)) return false;
     if(p.x_ft != null && p.y_ft != null){
       return Number.isFinite(Number(p.x_ft)) && Number.isFinite(Number(p.y_ft));
@@ -5681,9 +5701,9 @@ function renderOfPos(){
   const meta = document.getElementById('ofpos-meta');
   const hitters = ofPosTeamHitters(team);
   const withHand = hitters.filter(h =>
-    ofPosSprayPoints(h,'R',null,{requireHand:true}).length + ofPosSprayPoints(h,'L',null,{requireHand:true}).length > 0
+    ofPosSprayPoints(h,'R',null).length + ofPosSprayPoints(h,'L',null).length > 0
   ).length;
-  const noSpray = hitters.filter(h => !collectSprayPoints(h).some(p => Number(p.y_ft) >= 140)).length;
+  const noSpray = hitters.filter(h => !sprayPointsForCharts(h).some(p => Number(p.y_ft) >= 140 && sprayPitcherHand(p))).length;
   if(meta){
     meta.textContent = `${hitters.length} hitters · ${withHand} with L/R outfield spray · ${noSpray} no sample · type steps in the yellow cells (saved in this browser)`;
   }
