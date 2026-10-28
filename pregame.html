@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san166">
+<link rel="stylesheet" href="shared.css?v=san168">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -399,7 +399,7 @@
   </div>
   <div id="panel-ofpos" class="panel">
     <div class="section-label" data-i18n="ofposLabel">OF Positioning Card</div>
-    <div class="note" data-i18n-html="ofposNote">Builds the team’s 3-tab Excel (LINEUP · Manual Data · LHP/RHP). Shade letters (L/G/O/P/STRAIGHT) are suggested from Synergy spray with pitcher hand + PRE/2K when available; coaches enter <strong>steps</strong> (10/20/30). Saves in this browser.</div>
+    <div class="note" data-i18n-html="ofposNote">Every opposing hitter. LHP/RHP columns show the suggested shade (L/G/O/P/STRAIGHT) from Synergy spray. Type <strong>steps</strong> in the cell (10/20/30 or any distance) and the code becomes L-10, G-20, and so on. Saves in this browser.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="ofpos-team" onchange="onOfPosTeamChange()">
@@ -417,13 +417,13 @@
       </div>
     </div>
     <div id="ofpos-meta" class="note" style="margin-top:4px"></div>
-    <div class="section-label" style="margin-top:14px;font-size:14px">Lineup (1–15)</div>
-    <div id="ofpos-lineup" class="ofpos-lineup"></div>
-    <div class="section-label" style="margin-top:18px;font-size:14px">Positioning (coach steps)</div>
-    <div class="note" style="margin-bottom:6px">Suggested shade from spray BIP with pitcher hand. Empty steps → code stays blank until you enter 10/20/30 (STRAIGHT needs no steps).</div>
+    <div class="section-label" style="margin-top:14px;font-size:14px">Positioning</div>
+    <div class="note" style="margin-bottom:6px">LHP and RHP columns show the suggested shade (L / G / O / P / STRAIGHT) as soon as the sheet loads. Type the step distance in the <strong>Steps</strong> cell beside it — 10, 20, 30, or any number — and the code becomes L-10, G-20, and so on. STRAIGHT stays STRAIGHT. A hitter with no outfield spray shows <strong>no sample</strong>. Steps stay in this browser.</div>
     <div class="table-wrap scout-sheet-wrap ofpos-wrap">
       <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
     </div>
+    <div class="section-label" style="margin-top:18px;font-size:14px">Lineup (1–15) · Excel export order</div>
+    <div id="ofpos-lineup" class="ofpos-lineup"></div>
   </div>
 
   <div id="panel-tth" class="panel">
@@ -471,7 +471,7 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san163"></script>
+<script src="i18n.js?v=san168"></script>
 <script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
@@ -533,7 +533,14 @@ function switchTab(name){
   if(name==='pitcher-advance'){ fillAdvancePitchers(); renderPitcherAdvance(); }
   if(name==='hitter-advance'){ fillAdvanceHitters(); renderAdvanceHitters(); }
   if(name==='ofdef') renderOfDef();
-  if(name==='ofpos') renderOfPos();
+  if(name==='ofpos'){
+    try { renderOfPos(); }
+    catch(e){
+      console.error(e);
+      const meta = document.getElementById('ofpos-meta');
+      if(meta) meta.textContent = 'OF positioning failed: ' + (e && e.message || e);
+    }
+  }
   if(name==='tth') renderTth();
   if(name==='strategy' && window.CardApp) CardApp.renderStrategy();
   if(name==='br' && window.CardApp) CardApp.renderSmallBall();
@@ -1474,11 +1481,27 @@ function sprayFilterLabel(st){
   const k = (st.k2 && st.non2k) ? 'all counts' : (st.k2 ? '2K' : (st.non2k ? 'non-2K' : '—'));
   return `${r} · ${k}`;
 }
+function spraySplitArray(player){
+  if(!player) return [];
+  let raw = player.splits;
+  if(raw == null || raw === '') raw = player.spray_splits;
+  if(Array.isArray(raw)) return raw;
+  // Hitters with no BIP are stored as {} — that is truthy, and .find would throw and blank the sheet.
+  if(raw && typeof raw === 'object'){
+    return Object.keys(raw).map(split=>{
+      const val = raw[split];
+      if(Array.isArray(val)) return { split, points: val };
+      if(val && typeof val === 'object') return Object.assign({ split }, val);
+      return null;
+    }).filter(Boolean);
+  }
+  return [];
+}
 function collectSprayPoints(player){
   if(!player) return [];
   if(Array.isArray(player.points) && player.points.length) return player.points;
   if(Array.isArray(player.spray_points) && player.spray_points.length) return player.spray_points;
-  const splits = player.splits || player.spray_splits || [];
+  const splits = spraySplitArray(player);
   const all = splits.find(s=>s.split==='all');
   if(all?.points?.length) return all.points;
   // fallback: merge unique from legacy splits
@@ -4248,7 +4271,7 @@ function metricBarChartHtml(rows, metricKey, title, {pct=true, ops=false}={}){
 
 function spraySplitPoints(player, splitName){
   if(!player) return [];
-  const splits = player.splits || player.spray_splits || [];
+  const splits = spraySplitArray(player);
   const sp = splits.find(s=>s.split===splitName);
   if(sp?.points?.length) return sp.points;
   const all = collectSprayPoints(player);
@@ -4702,9 +4725,10 @@ function ofPosSetCell(team, hitter, ofPos, count, pHand, patch){
 }
 function ofPosComposeCode(shade, steps){
   const s = String(shade || 'STRAIGHT').toUpperCase();
-  if(!s || s === 'STRAIGHT') return steps ? `STRAIGHT` : 'STRAIGHT';
+  if(!s || s === 'STRAIGHT') return 'STRAIGHT';
   const st = String(steps || '').trim();
-  if(!st) return '';
+  // Letter shows immediately. Typed steps turn it into L-10, G-20, etc.
+  if(!st) return s;
   return `${s}-${st}`;
 }
 function ofPosSprayPoints(hitter, pHand, twoK, { requireHand=true } = {}){
@@ -4721,14 +4745,14 @@ function ofPosSprayPoints(hitter, pHand, twoK, { requireHand=true } = {}){
     return true;
   });
 }
-function ofPosSuggestFromPoints(hitter, ofPos, pts, weak){
+function ofPosSuggestFromPoints(hitter, ofPos, pts, weak, batsOverride){
   const n = pts.length;
   if(n < 4) return { shade:'STRAIGHT', n, weak:true };
   const angles = pts.map(p => Math.atan2(Number(p.x_ft)||0, Number(p.y_ft)||0) * 180 / Math.PI);
   const mean = angles.reduce((a,b)=>a+b,0) / angles.length;
   const centers = { LF:-30, CF:0, RF:30 };
   const delta = mean - (centers[ofPos] || 0);
-  const bats = String(hitter.bats || 'R').toUpperCase();
+  const bats = String(batsOverride || hitter.bats || 'R').toUpperCase();
   let shade = 'STRAIGHT';
   if(Math.abs(delta) >= 5){
     if(ofPos === 'CF'){
@@ -4743,39 +4767,72 @@ function ofPosSuggestFromPoints(hitter, ofPos, pts, weak){
   }
   return { shade, n, weak: !!weak };
 }
-function ofPosSuggestShade(hitter, ofPos, pHand, twoK){
+function ofPosSuggestShade(hitter, ofPos, pHand, twoK, bats){
   // Prefer hand×count OF BIP; then same hand any count; then untagged OF BIP (weak).
   let pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:true });
-  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, false);
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, false, bats);
   pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:true });
-  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
   pts = ofPosSprayPoints(hitter, pHand, twoK, { requireHand:false });
-  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+  if(pts.length >= 4) return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
   pts = ofPosSprayPoints(hitter, pHand, null, { requireHand:false });
-  return ofPosSuggestFromPoints(hitter, ofPos, pts, true);
+  return ofPosSuggestFromPoints(hitter, ofPos, pts, true, bats);
 }
 function ofPosResolved(hitter, team, ofPos, count, pHand){
   const twoK = count === '2K';
-  const sug = ofPosSuggestShade(hitter, ofPos, pHand, twoK);
+  const bats = ofPosHitterHand(hitter, team) || hitter.bats || 'R';
+  const sug = ofPosSuggestShade(hitter, ofPos, pHand, twoK, bats);
   const saved = ofPosGetCell(team, hitter.name, ofPos, count, pHand) || {};
+  const noSample = !sug.n;
   const shade = saved.shade || sug.shade || 'STRAIGHT';
   const steps = saved.steps != null ? String(saved.steps) : '';
+  const touched = !!(saved.shade || String(steps).trim());
+  const code = (noSample && !touched) ? 'no sample' : ofPosComposeCode(shade, steps);
   return {
     shade, steps,
-    suggest: sug.shade,
+    suggest: noSample ? 'no sample' : sug.shade,
     n: sug.n,
-    weak: !!sug.weak,
-    code: ofPosComposeCode(shade, steps),
+    weak: !!sug.weak && !noSample,
+    noSample,
+    code,
   };
 }
 function onOfPosTeamChange(){ renderOfPos(); }
-function onOfPosShadeChange(team, hitter, ofPos, count, pHand, shade){
-  ofPosSetCell(team, hitter, ofPos, count, pHand, { shade });
-  renderOfPosTableOnly();
+function ofPosDataAttrs(team, name, ofPos, count, pHand){
+  return `data-team="${escHtml(team)}" data-hitter="${escHtml(name)}" data-pos="${ofPos}" data-count="${count}" data-phand="${pHand}"`;
 }
-function onOfPosStepsChange(team, hitter, ofPos, count, pHand, steps){
-  ofPosSetCell(team, hitter, ofPos, count, pHand, { steps });
-  renderOfPosTableOnly();
+function ofPosSyncCodeCell(el){
+  const team = el.dataset.team;
+  const hitterName = el.dataset.hitter;
+  const h = ofPosTeamHitters(team).find(x => x.name === hitterName);
+  const tr = el.closest('tr');
+  if(!h || !tr) return;
+  const res = ofPosResolved(h, team, el.dataset.pos, el.dataset.count, el.dataset.phand);
+  const code = tr.querySelector(`.ofpos-code[data-hand="${el.dataset.phand}"]`);
+  if(!code) return;
+  code.textContent = res.code;
+  code.classList.toggle('is-nosample', res.code === 'no sample');
+}
+function bindOfPosGrid(){
+  const table = document.getElementById('tbl-ofpos');
+  if(!table || table.dataset.bound) return;
+  table.dataset.bound = '1';
+  table.addEventListener('input', (ev)=>{
+    const el = ev.target;
+    if(!el.classList || !el.classList.contains('ofpos-steps')) return;
+    ofPosSetCell(el.dataset.team, el.dataset.hitter, el.dataset.pos, el.dataset.count, el.dataset.phand, { steps: el.value });
+    ofPosSyncCodeCell(el);
+  });
+  table.addEventListener('change', (ev)=>{
+    const el = ev.target;
+    if(!el.classList) return;
+    if(el.classList.contains('ofpos-shade')){
+      ofPosSetCell(el.dataset.team, el.dataset.hitter, el.dataset.pos, el.dataset.count, el.dataset.phand, { shade: el.value });
+      ofPosSyncCodeCell(el);
+    } else if(el.classList.contains('ofpos-hand')){
+      onOfPosHandChange(el.dataset.team, el.dataset.hitter, el.value);
+    }
+  });
 }
 function onOfPosHandChange(team, hitterName, bats){
   const store = loadOfPosStore();
@@ -4806,8 +4863,9 @@ function renderOfPos(){
   const withHand = hitters.filter(h =>
     ofPosSprayPoints(h,'R',null,{requireHand:true}).length + ofPosSprayPoints(h,'L',null,{requireHand:true}).length > 0
   ).length;
+  const noSpray = hitters.filter(h => !collectSprayPoints(h).some(p => Number(p.y_ft) >= 140)).length;
   if(meta){
-    meta.textContent = `${hitters.length} hitters · ${withHand} with L/R-tagged OF spray · * = thin/fallback sample · lineup + steps save in this browser`;
+    meta.textContent = `${hitters.length} hitters · ${withHand} with L/R outfield spray · ${noSpray} no sample · type steps in the yellow cells (saved in this browser)`;
   }
   const lineupRoot = document.getElementById('ofpos-lineup');
   if(lineupRoot){
@@ -4831,41 +4889,42 @@ function renderOfPosTableOnly(){
   const thead = document.querySelector('#tbl-ofpos thead');
   const tbody = document.querySelector('#tbl-ofpos tbody');
   if(!thead || !tbody) return;
-  const byName = new Map(ofPosTeamHitters(team).map(h=>[h.name, h]));
-  const lineup = ofPosLineupNames(team).map(n=>byName.get(n)).filter(Boolean);
-  const rowsHitters = lineup.length ? lineup : ofPosTeamHitters(team).slice(0, 15);
+  bindOfPosGrid();
+  const rowsHitters = ofPosTeamHitters(team);
   thead.innerHTML = `<tr>
     <th class="ofpos-hitter">Hitter</th><th>Hand</th><th>Pos</th><th>Count</th>
     <th>Sug LHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">LHP</th>
     <th>Sug RHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">RHP</th>
   </tr>`;
   const shadeOpts = (cur)=> OFPOS_SHADES.map(s=>`<option value="${s}" ${s===cur?'selected':''}>${s}</option>`).join('');
-  const stepOpts = (cur)=> OFPOS_STEPS.map(s=>`<option value="${s}" ${s===String(cur||'')?'selected':''}>${s||'—'}</option>`).join('');
+  const sugCell = (res)=> res.noSample
+    ? `<span class="ofpos-code is-nosample">no sample</span>`
+    : `${escHtml(res.suggest)}${res.weak?'*':''} <span class="muted">n=${res.n}</span>`;
+  const stepInput = (h, ofPos, count, pHand, steps)=> `<input class="ofpos-steps scout-input" type="text" inputmode="numeric" maxlength="8" autocomplete="off" spellcheck="false" placeholder="type" aria-label="${pHand==='L'?'LHP':'RHP'} ${ofPos} ${count} steps" ${ofPosDataAttrs(team, h.name, ofPos, count, pHand)} value="${escHtml(steps)}">`;
   const blocks = [];
   rowsHitters.forEach(h=>{
-    const hand = ofPosHitterHand(h, team) || 'R';
-    const hn = escHtml(h.name).replace(/'/g, "\\'");
+    const hand = ofPosHitterHand(h, team) || '';
     let first = true;
-    // Same order as Manual Data / Excel template: PRE×LF/CF/RF then 2K×LF/CF/RF
     OFPOS_COUNTS.forEach(count=>{
       OFPOS_POS.forEach(ofPos=>{
         const L = ofPosResolved(h, team, ofPos, count, 'L');
         const R = ofPosResolved(h, team, ofPos, count, 'R');
         const showHitter = first; first = false;
-        blocks.push(`<tr class="${L.weak && R.weak ? 'ofpos-weak':''}">
+        const nos = L.noSample && R.noSample ? ' ofpos-nosample' : '';
+        blocks.push(`<tr class="${showHitter ? 'ofpos-hitter-start' : ''}${nos}">
           <td class="ofpos-hitter">${showHitter ? escHtml(ofPosLastNameUpper(h.name)) : ''}</td>
-          <td>${showHitter ? `<select onchange="onOfPosHandChange('${team}','${hn}', this.value)">
+          <td>${showHitter ? `<select class="ofpos-hand" ${ofPosDataAttrs(team, h.name, ofPos, count, '')}>
             ${['','R','L','S'].map(x=>`<option value="${x}" ${x===hand?'selected':''}>${x||'?'}</option>`).join('')}
           </select>` : ''}</td>
           <td>${ofPos}</td><td>${count}</td>
-          <td class="ofpos-suggest">${escHtml(L.suggest)}${L.weak?'*':''} <span class="muted">n=${L.n}</span></td>
-          <td><select class="ofpos-shade" onchange="onOfPosShadeChange('${team}','${hn}','${ofPos}','${count}','L', this.value)">${shadeOpts(L.shade)}</select></td>
-          <td><select class="ofpos-steps" onchange="onOfPosStepsChange('${team}','${hn}','${ofPos}','${count}','L', this.value)">${stepOpts(L.steps)}</select></td>
-          <td class="ofpos-code">${escHtml(L.code || '—')}</td>
-          <td class="ofpos-suggest">${escHtml(R.suggest)}${R.weak?'*':''} <span class="muted">n=${R.n}</span></td>
-          <td><select class="ofpos-shade" onchange="onOfPosShadeChange('${team}','${hn}','${ofPos}','${count}','R', this.value)">${shadeOpts(R.shade)}</select></td>
-          <td><select class="ofpos-steps" onchange="onOfPosStepsChange('${team}','${hn}','${ofPos}','${count}','R', this.value)">${stepOpts(R.steps)}</select></td>
-          <td class="ofpos-code">${escHtml(R.code || '—')}</td>
+          <td class="ofpos-suggest">${sugCell(L)}</td>
+          <td><select class="ofpos-shade" ${ofPosDataAttrs(team, h.name, ofPos, count, 'L')}>${shadeOpts(L.shade)}</select></td>
+          <td class="ofpos-stepcell">${stepInput(h, ofPos, count, 'L', L.steps)}</td>
+          <td class="ofpos-code${L.code==='no sample'?' is-nosample':''}" data-hand="L">${escHtml(L.code)}</td>
+          <td class="ofpos-suggest">${sugCell(R)}</td>
+          <td><select class="ofpos-shade" ${ofPosDataAttrs(team, h.name, ofPos, count, 'R')}>${shadeOpts(R.shade)}</select></td>
+          <td class="ofpos-stepcell">${stepInput(h, ofPos, count, 'R', R.steps)}</td>
+          <td class="ofpos-code${R.code==='no sample'?' is-nosample':''}" data-hand="R">${escHtml(R.code)}</td>
         </tr>`);
       });
     });
