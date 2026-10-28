@@ -1870,7 +1870,7 @@ input.tth-input:focus {
 /* OF Positioning card */
 .ofpos-lineup {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 6px 10px;
   margin: 8px 0 4px;
 }
@@ -1883,7 +1883,8 @@ input.tth-input:focus {
 .ofpos-lineup-row select { flex: 1; min-width: 0; font: inherit; font-size: 12px; }
 .ofpos-wrap { max-height: 70vh; overflow: auto; }
 .ofpos-sheet { font-size: 12px; color: #111; color-scheme: light; }
-.ofpos-sheet th.ofpos-hitter { text-align: left; min-width: 110px; }
+.ofpos-sheet th.ofpos-hitter,
+.ofpos-sheet td.ofpos-hitter { text-align: left; min-width: 168px; white-space: nowrap; }
 .ofpos-sheet tbody td,
 .ofpos-sheet tbody td .ofpos-suggest,
 .ofpos-sheet tbody td .ofpos-code,
@@ -1974,7 +1975,7 @@ input.tth-input:focus {
   letter-spacing: 0;
   text-transform: none;
   padding: 6px 8px;
-  min-width: 160px;
+  min-width: 220px;
 }
 .ofpos-spray-pills, .ofpos-spray-align {
   display: flex;

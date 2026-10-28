@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san173">
+<link rel="stylesheet" href="shared.css?v=san174">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -534,12 +534,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san173"></script>
+<script src="i18n.js?v=san174"></script>
 <script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san173';
+const ASSET_V = 'san174';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4903,19 +4903,30 @@ function bindOfPosGrid(){
 function onOfPosHandChange(team, hitterName, bats){
   const store = loadOfPosStore();
   if(!store.hands) store.hands = {};
-  store.hands[`${team}|${normPersonName(hitterName)}`] = bats;
+  store.hands[`${team}|${normPersonName(hitterName)}`] = ofPosHandCode(bats);
   saveOfPosStore(store);
   renderOfPos();
 }
-function ofPosHitterHand(hitter, team){
-  const store = loadOfPosStore();
-  const key = `${team}|${normPersonName(hitter.name)}`;
-  if(store.hands && store.hands[key]) return store.hands[key];
-  const b = String(hitter.bats || '').toUpperCase();
+/** L, R, S, or blank. Never guess a side when bats is missing. */
+function ofPosHandCode(bats){
+  const b = String(bats||'').trim().toUpperCase();
   if(b.startsWith('L')) return 'L';
-  if(b.startsWith('S')) return 'S';
+  if(b.startsWith('S') || b === 'B' || b.startsWith('SWITCH')) return 'S';
   if(b.startsWith('R')) return 'R';
   return '';
+}
+function ofPosHitterHand(hitter, team){
+  const store = loadOfPosStore();
+  const key = `${team}|${normPersonName(hitter && hitter.name)}`;
+  if(store.hands && Object.prototype.hasOwnProperty.call(store.hands, key)){
+    return ofPosHandCode(store.hands[key]);
+  }
+  return ofPosHandCode(hitter && hitter.bats);
+}
+function ofPosHitterMenuLabel(hitter, team){
+  const name = formatLastFirst(hitter && hitter.name) || (hitter && hitter.name) || '';
+  const hand = ofPosHitterHand(hitter, team);
+  return `${name} · ${hand || '—'}`;
 }
 function clearOfPosOverrides(){
   if(!confirm('Clear saved OF positioning steps/shades and lineup for all teams on this device?')) return;
@@ -5340,13 +5351,12 @@ function fillOfPosSprayHitters(){
   if(!sel) return null;
   const team = document.getElementById('ofpos-team')?.value || 'PON';
   const list = ofPosSprayLineupHitters(team);
-  const sig = list.map(h => h.name).join('\n');
+  const sig = list.map(h => h.name + '|' + ofPosHitterHand(h, team)).join('\n');
   const prev = sel.value;
   if(sel.dataset.sig !== sig){
     sel.dataset.sig = sig;
     sel.innerHTML = list.map(h => {
-      const hand = ofPosHitterHand(h, team) || '?';
-      return `<option value="${escHtml(h.name)}">${escHtml(ofPosLastNameUpper(h.name))} · ${escHtml(hand)}</option>`;
+      return `<option value="${escHtml(h.name)}">${escHtml(ofPosHitterMenuLabel(h, team))}</option>`;
     }).join('');
     const keep = list.some(h => h.name === prev);
     if(keep) sel.value = prev;
@@ -5541,9 +5551,10 @@ function ofPosPaintReadout(){
     const code = ofPosMatchCode(pos, ft.x, ft.y);
     return `${pos} ${code || '—'}`;
   }).join(' · ');
+  const shownHand = ofPosSprayRawHand || '—';
   const handNote = String(ofPosSprayRawHand).toUpperCase().startsWith('S')
     ? `Hand S · bats ${ofPosSprayBats}`
-    : `Hand ${ofPosSprayBats}`;
+    : `Hand ${shownHand}`;
   let extra = '';
   if(ofPosSubtab === 'of'){
     const spots = ofPosLineupHotSpots();
@@ -5628,7 +5639,7 @@ function renderOfPosSpray(){
   const team = document.getElementById('ofpos-team')?.value || 'PON';
   const hitter = fillOfPosSprayHitters();
   ofPosSprayHitter = hitter;
-  ofPosSprayRawHand = hitter ? (ofPosHitterHand(hitter, team) || hitter.bats || 'R') : 'R';
+  ofPosSprayRawHand = hitter ? ofPosHitterHand(hitter, team) : '';
   ofPosSprayBats = ofPosEffectiveBats(ofPosSprayRawHand, ofPosSprayHand);
   const avail = stage.clientWidth || 0;
   if(avail < 40) return;
@@ -5680,7 +5691,7 @@ function renderOfPos(){
   if(lineupRoot){
     const names = ofPosLineupNames(team);
     const opts = ['<option value="">—</option>']
-      .concat(hitters.map(h=>`<option value="${escHtml(h.name)}">${escHtml(ofPosLastNameUpper(h.name))} (${escHtml(h.name)})</option>`))
+      .concat(hitters.map(h=>`<option value="${escHtml(h.name)}">${escHtml(ofPosHitterMenuLabel(h, team))}</option>`))
       .join('');
     lineupRoot.innerHTML = names.map((nm, i)=>`
       <div class="ofpos-lineup-row">
@@ -5725,9 +5736,9 @@ function renderOfPosTableOnly(){
         const showHitter = first; first = false;
         const nos = L.noSample && R.noSample ? ' ofpos-nosample' : '';
         blocks.push(`<tr class="${showHitter ? 'ofpos-hitter-start' : ''}${nos}">
-          <td class="ofpos-hitter">${showHitter ? escHtml(ofPosLastNameUpper(h.name)) : ''}</td>
+          <td class="ofpos-hitter">${showHitter ? escHtml(ofPosHitterMenuLabel(h, team)) : ''}</td>
           <td>${showHitter ? `<select class="ofpos-hand" ${ofPosDataAttrs(team, h.name, ofPos, count, '')}>
-            ${['','R','L','S'].map(x=>`<option value="${x}" ${x===hand?'selected':''}>${x||'?'}</option>`).join('')}
+            ${['','R','L','S'].map(x=>`<option value="${x}" ${x===hand?'selected':''}>${x||'—'}</option>`).join('')}
           </select>` : ''}</td>
           <td>${ofPos}</td><td>${count}</td>
           <td class="ofpos-suggest">${sugCell(L)}</td>
