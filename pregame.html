@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san172">
+<link rel="stylesheet" href="shared.css?v=san173">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -534,12 +534,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san172"></script>
+<script src="i18n.js?v=san173"></script>
 <script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san172';
+const ASSET_V = 'san173';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -5033,10 +5033,6 @@ function ofPosKnctRgb(t){
   }
   return [Math.round(r), Math.round(g), Math.round(b)];
 }
-function ofPosKnctRgba(t, a){
-  const [r, g, b] = ofPosKnctRgb(t);
-  return `rgba(${r},${g},${b},${a})`;
-}
 function ofPosOfBallFt(hitter, pHand, count){
   const twoK = count === '2K';
   const out = [];
@@ -5098,6 +5094,86 @@ function ofPosHotSpot(pts){
   if(rival > best.d * 0.9 || best.d < atMean * 1.1) return mean;
   return { x: best.x, y: best.y, n: pts.length, how: 'peak' };
 }
+/** Balls that belong to the one chosen hot spot — not the whole spray. */
+function ofPosClusterPts(pts, spot){
+  const near = [];
+  for(let i = 0; i < pts.length; i++){
+    const p = pts[i];
+    if(Math.hypot(p.x - spot.x, p.y - spot.y) <= 92) near.push(p);
+  }
+  if(near.length >= 4) return near;
+  return [{ x: spot.x, y: spot.y }];
+}
+function ofPosBlobSigmaFt(pts, selected){
+  if(!pts || pts.length < 2) return selected ? 28 : 22;
+  let sx = 0, sy = 0;
+  pts.forEach(p => { sx += p.x; sy += p.y; });
+  sx /= pts.length; sy /= pts.length;
+  let v = 0;
+  pts.forEach(p => {
+    const dx = p.x - sx, dy = p.y - sy;
+    v += dx * dx + dy * dy;
+  });
+  const rms = Math.sqrt(v / pts.length);
+  // Narrower than the cloud so the contour follows the balls, wide enough that balls are not dots.
+  const base = Math.max(14, Math.min(26, rms * 0.42));
+  return selected ? base * 1.12 : base * 0.88;
+}
+function ofPosTextBox(text, x, y, fontPx){
+  const w = Math.max(fontPx * 2.4, text.length * fontPx * 0.64);
+  const h = fontPx + 6;
+  return { l: x - w / 2, t: y - h / 2, r: x + w / 2, b: y + h / 2, x, y };
+}
+function ofPosBoxesHit(a, b){
+  return !(a.r + 3 < b.l || a.l - 3 > b.r || a.b + 3 < b.t || a.t - 3 > b.b);
+}
+function ofPosIconBoxes(g){
+  const scale = g.dispW ? g.w / g.dispW : 2;
+  const w = 52 * scale, h = 36 * scale;
+  const boxes = [];
+  ofPosActiveFielders().forEach(pos => {
+    const ft = ofPosIconFeet(pos);
+    const p = g.toCanvas(ft.x, ft.y);
+    boxes.push({ l: p.x - w / 2, t: p.y - h / 2, r: p.x + w / 2, b: p.y + h / 2 });
+  });
+  return boxes;
+}
+function ofPosPlaceLabel(text, x, y, fontPx, bounds, occupied, prefer){
+  const step = fontPx * 0.95;
+  const ux = prefer && Number.isFinite(prefer.dx) ? prefer.dx : 0;
+  const uy = prefer && Number.isFinite(prefer.dy) ? prefer.dy : -1;
+  const tries = [
+    [ux, uy],
+    [ux * 2, uy * 2],
+    [ux * 3, uy * 3],
+    [-uy, ux],
+    [uy, -ux],
+    [ux * 2 - uy, uy * 2 + ux],
+    [ux * 2 + uy, uy * 2 - ux],
+    [0, -1],
+    [0, -2],
+    [1.5, -1],
+    [-1.5, -1],
+    [2.2, 0],
+    [-2.2, 0],
+    [0, 1.4],
+    [ux * 4, uy * 4],
+  ];
+  let fallback = null;
+  for(let i = 0; i < tries.length; i++){
+    const cx = x + tries[i][0] * step;
+    const cy = y + tries[i][1] * step;
+    const box = ofPosTextBox(text, cx, cy, fontPx);
+    if(box.l < bounds.l || box.r > bounds.r || box.t < bounds.t || box.b > bounds.b) continue;
+    if(!fallback) fallback = box;
+    if(occupied.some(o => ofPosBoxesHit(box, o))) continue;
+    occupied.push(box);
+    return box;
+  }
+  const box = fallback || ofPosTextBox(text, x, y - step, fontPx);
+  occupied.push(box);
+  return box;
+}
 function ofPosLineupHotSpots(){
   const team = document.getElementById('ofpos-team')?.value || 'PON';
   const selected = ofPosSprayHitter && ofPosSprayHitter.name;
@@ -5113,47 +5189,114 @@ function ofPosLineupHotSpots(){
       n: spot.n,
       how: spot.how,
       selected: h.name === selected,
+      pts: ofPosClusterPts(pts, spot),
     };
   }).filter(Boolean);
 }
+let ofPosHeatScratch = null;
+let ofPosPendingHeatLabels = [];
+/** One KNCT-style density blob per hitter (kde_deposit_2d + heatRgb), not a flat disc. */
 function ofPosDrawHotBlobs(ctx, g, blobs){
+  ofPosPendingHeatLabels = [];
+  if(!blobs.length) return;
   const ordered = blobs.slice().sort((a, b) => Number(a.selected) - Number(b.selected));
-  ctx.save();
-  ctx.filter = `blur(${Math.max(5, 7 * g.ink)}px)`;
+  const xmin = -230, xmax = 230, ymin = 130, ymax = 410;
+  const nx = 150, ny = 96;
+  const cellX = (xmax - xmin) / nx;
+  const cellY = (ymax - ymin) / ny;
+  if(!ofPosHeatScratch || ofPosHeatScratch.width !== nx || ofPosHeatScratch.height !== ny){
+    ofPosHeatScratch = document.createElement('canvas');
+    ofPosHeatScratch.width = nx;
+    ofPosHeatScratch.height = ny;
+  }
+  const octx = ofPosHeatScratch.getContext('2d', { willReadFrequently: true });
+  const labels = [];
   ordered.forEach(b => {
-    const p = g.toCanvas(b.x, b.y);
-    const rPx = (b.selected ? 56 : 30) * g.pxPerFt;
-    const a = b.selected ? 0.92 : 0.58;
-    const grad = ctx.createRadialGradient(p.x, p.y, rPx * 0.04, p.x, p.y, rPx);
-    grad.addColorStop(0, ofPosKnctRgba(1, a));
-    grad.addColorStop(0.22, ofPosKnctRgba(0.82, a * 0.95));
-    grad.addColorStop(0.48, ofPosKnctRgba(0.5, a * 0.62));
-    grad.addColorStop(0.78, ofPosKnctRgba(0.16, a * 0.28));
-    grad.addColorStop(1, ofPosKnctRgba(0, 0));
-    ctx.beginPath();
-    ctx.fillStyle = grad;
-    ctx.arc(p.x, p.y, rPx, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  ctx.restore();
-  ctx.save();
-  ctx.font = `700 ${Math.max(12, Math.round(12 * g.ink))}px "IBM Plex Mono", monospace`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'bottom';
-  ctx.lineJoin = 'round';
-  ordered.forEach((b, i) => {
-    if(!b.name) return;
-    const p = g.toCanvas(b.x, b.y);
-    let stack = 0;
-    for(let j = 0; j < i; j++){
-      if(Math.hypot(ordered[j].x - b.x, ordered[j].y - b.y) < 40) stack++;
+    const src = (b.pts && b.pts.length) ? b.pts : [{ x: b.x, y: b.y }];
+    const sigmaFt = ofPosBlobSigmaFt(src, b.selected);
+    const sigmaCells = sigmaFt / cellX;
+    const grid = new Float64Array(nx * ny);
+    const radius = Math.max(1, Math.ceil(3 * sigmaCells));
+    const inv = 1 / (sigmaCells * sigmaCells);
+    src.forEach(p => {
+      const x = Number(p.x), y = Number(p.y);
+      if(!(x >= xmin && x <= xmax && y >= ymin && y <= ymax)) return;
+      const cx = (x - xmin) / (xmax - xmin) * nx - 0.5;
+      const cy = (y - ymin) / (ymax - ymin) * ny - 0.5;
+      const i0 = Math.max(0, Math.floor(cy) - radius);
+      const i1 = Math.min(ny, Math.ceil(cy) + radius + 1);
+      const j0 = Math.max(0, Math.floor(cx) - radius);
+      const j1 = Math.min(nx, Math.ceil(cx) + radius + 1);
+      for(let iy = i0; iy < i1; iy++){
+        const dy = iy + 0.5 - cy;
+        const row = iy * nx;
+        for(let ix = j0; ix < j1; ix++){
+          const dx = ix + 0.5 - cx;
+          grid[row + ix] += Math.exp(-0.5 * (dx * dx + dy * dy) * inv);
+        }
+      }
+    });
+    let maxv = 0, peakIx = 0, peakIy = 0;
+    for(let i = 0; i < grid.length; i++){
+      if(grid[i] > maxv){ maxv = grid[i]; peakIx = i % nx; peakIy = (i / nx) | 0; }
     }
-    const ly = p.y - ((b.selected ? 16 : 10) + stack * 13) * g.ink;
+    if(maxv <= 0) return;
+    const img = octx.createImageData(nx, ny);
+    const data = img.data;
+    const peakA = b.selected ? 0.94 : 0.58;
+    for(let iy = 0; iy < ny; iy++){
+      const row = iy * nx;
+      const imgRow = (ny - 1 - iy) * nx;
+      for(let ix = 0; ix < nx; ix++){
+        const raw = grid[row + ix] / maxv;
+        if(raw < 0.07) continue;
+        const t = Math.pow(raw, 0.72);
+        const [r, gg, bb] = ofPosKnctRgb(t);
+        const u = Math.max(0, Math.min(1, (raw - 0.07) / 0.28));
+        const a = Math.round(peakA * (0.62 + 0.38 * u) * 255);
+        const k = (imgRow + ix) * 4;
+        data[k] = r; data[k + 1] = gg; data[k + 2] = bb; data[k + 3] = a;
+      }
+    }
+    octx.putImageData(img, 0, 0);
+    const origin = g.toCanvas(xmin, ymax);
+    const far = g.toCanvas(xmax, ymin);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(g.cx, g.homeY);
+    ctx.arc(g.cx, g.homeY, 400 * g.pxPerFt, -Math.PI / 2 - Math.PI / 4, -Math.PI / 2 + Math.PI / 4);
+    ctx.closePath();
+    ctx.clip();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(ofPosHeatScratch, origin.x, origin.y, far.x - origin.x, far.y - origin.y);
+    ctx.restore();
+    const px = xmin + (peakIx + 0.5) * cellX;
+    const py = ymin + (peakIy + 0.5) * cellY;
+    labels.push({ name: b.name, x: px, y: py, selected: !!b.selected });
+  });
+  ofPosPendingHeatLabels = labels;
+}
+function ofPosDrawHeatLabels(ctx, g, occupied){
+  const labels = ofPosPendingHeatLabels || [];
+  if(!labels.length) return;
+  const occ = occupied || ofPosIconBoxes(g);
+  const bounds = { l: 24, t: 12, r: g.w - 24, b: g.h - 10 };
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.lineJoin = 'round';
+  labels.slice().sort((a, b) => Number(b.selected) - Number(a.selected)).forEach(b => {
+    if(!b.name) return;
+    const fontPx = Math.max(12, Math.round((b.selected ? 13 : 11) * g.ink));
+    ctx.font = `700 ${fontPx}px "IBM Plex Mono", monospace`;
+    const anchor = g.toCanvas(b.x, b.y);
+    const box = ofPosPlaceLabel(b.name, anchor.x, anchor.y - fontPx * 0.9, fontPx, bounds, occ, { dx: 0, dy: -1 });
     ctx.lineWidth = Math.max(3, 3.2 * g.ink);
     ctx.strokeStyle = 'rgba(255,255,255,0.96)';
-    ctx.strokeText(b.name, p.x, ly);
+    ctx.strokeText(b.name, box.x, box.y);
     ctx.fillStyle = '#111';
-    ctx.fillText(b.name, p.x, ly);
+    ctx.fillText(b.name, box.x, box.y);
   });
   ctx.restore();
 }
@@ -5217,8 +5360,10 @@ function ofPosDrawPresetMarks(ctx, g, opt){
   const showAll = opt.showAll;
   const align = opt.align;
   const codes = showAll ? OFPOS_ALIGN_CODES : [align];
+  const fontPx = Math.max(12, Math.round(12 * g.ink));
+  const pending = [];
   ctx.save();
-  ctx.font = `700 ${Math.max(12, Math.round(12 * g.ink))}px "IBM Plex Mono", monospace`;
+  ctx.font = `700 ${fontPx}px "IBM Plex Mono", monospace`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ofPosActiveFielders().forEach(pos => {
@@ -5243,19 +5388,31 @@ function ofPosDrawPresetMarks(ctx, g, opt){
       ctx.restore();
       if(Math.hypot(ft.x - icon.x, ft.y - icon.y) < 6) return;
       const parts = ofPosCodeParts(code);
-      const radial = (18 + (parts.feet / 10) * 13) * g.ink;
+      const radial = (26 + (parts.feet / 10) * 14) * g.ink;
       const r = Math.hypot(ft.x, ft.y) || 1;
-      const lx = Math.max(36, Math.min(g.w - 36, p.x + (ft.x / r) * radial));
-      const ly = Math.max(16, Math.min(g.h - 12, p.y - (ft.y / r) * radial));
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = Math.max(3, 3.2 * g.ink);
-      ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-      ctx.strokeText(code, lx, ly);
-      ctx.fillStyle = '#111';
-      ctx.fillText(code, lx, ly);
+      const dx = ft.x / r, dy = -(ft.y / r);
+      pending.push({
+        text: code,
+        x: p.x + dx * radial,
+        y: p.y + dy * radial,
+        dx, dy,
+      });
     });
   });
+  const occupied = ofPosIconBoxes(g);
+  const bounds = { l: 28, t: 14, r: g.w - 28, b: g.h - 10 };
+  // Shade codes claim space first; hitter names dodge both icons and codes.
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(3, 3.2 * g.ink);
+  pending.forEach(item => {
+    const box = ofPosPlaceLabel(item.text, item.x, item.y, fontPx, bounds, occupied, { dx: item.dx, dy: item.dy });
+    ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+    ctx.strokeText(item.text, box.x, box.y);
+    ctx.fillStyle = '#111';
+    ctx.fillText(item.text, box.x, box.y);
+  });
   ctx.restore();
+  if(ofPosSubtab === 'of') ofPosDrawHeatLabels(ctx, g, occupied);
 }
 let ofPosDrag = null;
 function ofPosClientToFeet(clientX, clientY){
@@ -5288,13 +5445,18 @@ function ofPosDragMove(ev){
 function ofPosDragEnd(ev){
   if(!ofPosDrag) return;
   if(ev && ofPosDrag.pointerId != null && ev.pointerId != null && ev.pointerId !== ofPosDrag.pointerId) return;
+  if(ev && ev.type !== 'pointercancel' && Number.isFinite(ev.clientX) && Number.isFinite(ev.clientY)){
+    const dx = ev.clientX - (ofPosDrag.x || ev.clientX);
+    const dy = ev.clientY - (ofPosDrag.y || ev.clientY);
+    if(Math.hypot(dx, dy) > 3) ofPosApplyDrag(ev.clientX, ev.clientY, ofPosDrag.pos);
+  }
   document.querySelectorAll('.ofpos-fielder.is-dragging').forEach(el => el.classList.remove('is-dragging'));
   ofPosDrag = null;
 }
 function ofPosIconDown(ev){
   if(ev.button != null && ev.button !== 0) return;
   const el = ev.currentTarget;
-  ofPosDrag = { pos: el.dataset.pos, pointerId: ev.pointerId ?? null };
+  ofPosDrag = { pos: el.dataset.pos, pointerId: ev.pointerId ?? null, x: ev.clientX, y: ev.clientY };
   el.classList.add('is-dragging');
   if(ev.pointerId != null){
     try { el.setPointerCapture(ev.pointerId); } catch(e){}
@@ -5310,9 +5472,9 @@ if(!window.__ofPosDragBound){
     if(!ofPosDrag) return;
     ofPosApplyDrag(ev.clientX, ev.clientY, ofPosDrag.pos);
   });
-  document.addEventListener('mouseup', () => {
+  document.addEventListener('mouseup', (ev) => {
     if(!ofPosDrag) return;
-    ofPosDragEnd();
+    ofPosDragEnd(ev);
   });
 }
 function ofPosEnsureIcons(){
@@ -5327,7 +5489,7 @@ function ofPosEnsureIcons(){
     el.addEventListener('pointerdown', ofPosIconDown);
     el.addEventListener('mousedown', (ev) => {
       if(ofPosDrag || ev.button !== 0) return;
-      ofPosDrag = { pos: el.dataset.pos, pointerId: null };
+      ofPosDrag = { pos: el.dataset.pos, pointerId: null, x: ev.clientX, y: ev.clientY };
       el.classList.add('is-dragging');
       ev.preventDefault();
     });
