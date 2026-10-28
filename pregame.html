@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san170">
+<link rel="stylesheet" href="shared.css?v=san172">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -417,12 +417,76 @@
       </div>
     </div>
     <div id="ofpos-meta" class="note" style="margin-top:4px"></div>
-    <div class="section-label" style="margin-top:14px;font-size:14px">Positioning</div>
-    <div class="table-wrap scout-sheet-wrap ofpos-wrap">
-      <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
+    <div class="subtab-bar" id="ofpos-subtabs" role="tablist">
+      <button type="button" class="subtab active" data-ofpos-tab="grid" role="tab" aria-selected="true" onclick="setOfPosSubtab('grid')" data-i18n="ofposSubGrid">Grid</button>
+      <button type="button" class="subtab" id="ofpos-sub-inf" data-ofpos-tab="inf" role="tab" aria-selected="false" onclick="setOfPosSubtab('inf')" data-i18n="ofposSubInf">INF</button>
+      <button type="button" class="subtab" id="ofpos-sub-of" data-ofpos-tab="of" role="tab" aria-selected="false" onclick="setOfPosSubtab('of')" data-i18n="ofposSubOf">OF</button>
     </div>
-    <div class="section-label" style="margin-top:18px;font-size:14px">Lineup (1–15) · Excel export order</div>
-    <div id="ofpos-lineup" class="ofpos-lineup"></div>
+    <div id="ofpos-view-grid">
+      <div class="section-label" style="margin-top:14px;font-size:14px">Positioning</div>
+      <div class="table-wrap scout-sheet-wrap ofpos-wrap">
+        <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
+      </div>
+      <div class="section-label" style="margin-top:18px;font-size:14px">Lineup (1–15) · Excel export order</div>
+      <div id="ofpos-lineup" class="ofpos-lineup"></div>
+    </div>
+    <div id="ofpos-view-spray" class="ofpos-spray" hidden>
+      <p class="ofpos-spray-hint" id="ofpos-align-hint"></p>
+      <div class="ofpos-spray-controls">
+        <label class="ofpos-spray-field"><span data-i18n="ofposSprayHitter">Hitter</span>
+          <select id="ofpos-spray-hitter" onchange="onOfPosSprayHitterChange()"></select>
+        </label>
+        <div class="ofpos-spray-field">
+          <span data-i18n="ofposSprayHand">Pitcher</span>
+          <div class="ofpos-spray-pills" role="group">
+            <button type="button" class="ofpos-pill" data-hand="L" onclick="setOfPosSprayHand('L')" data-i18n="ofposSprayVsLhp">vs LHP</button>
+            <button type="button" class="ofpos-pill active" data-hand="R" aria-pressed="true" onclick="setOfPosSprayHand('R')" data-i18n="ofposSprayVsRhp">vs RHP</button>
+          </div>
+        </div>
+        <div class="ofpos-spray-field">
+          <span data-i18n="ofposSprayCount">Count</span>
+          <div class="ofpos-spray-pills" role="group">
+            <button type="button" class="ofpos-pill active" data-count="PRE" aria-pressed="true" onclick="setOfPosSprayCount('PRE')">PRE</button>
+            <button type="button" class="ofpos-pill" data-count="2K" onclick="setOfPosSprayCount('2K')">2K</button>
+          </div>
+        </div>
+        <label class="ofpos-spray-check">
+          <input type="checkbox" id="ofpos-spray-all" checked onchange="onOfPosSprayAllChange()">
+          <span data-i18n="ofposSprayAll">All presets</span>
+        </label>
+      </div>
+      <div class="ofpos-spray-field ofpos-spray-align-label"><span data-i18n="ofposSprayAlign">Alignment</span></div>
+      <div class="ofpos-spray-align" id="ofpos-spray-align" role="group" aria-label="Alignment">
+        <button type="button" class="ofpos-align-btn active" data-code="STRAIGHT" aria-pressed="true" onclick="setOfPosSprayAlign('STRAIGHT')">STRAIGHT</button>
+        <button type="button" class="ofpos-align-btn" data-code="L-10" onclick="setOfPosSprayAlign('L-10')">L-10</button>
+        <button type="button" class="ofpos-align-btn" data-code="L-20" onclick="setOfPosSprayAlign('L-20')">L-20</button>
+        <button type="button" class="ofpos-align-btn" data-code="L-30" onclick="setOfPosSprayAlign('L-30')">L-30</button>
+        <button type="button" class="ofpos-align-btn" data-code="G-10" onclick="setOfPosSprayAlign('G-10')">G-10</button>
+        <button type="button" class="ofpos-align-btn" data-code="O-10" onclick="setOfPosSprayAlign('O-10')">O-10</button>
+        <button type="button" class="ofpos-align-btn" data-code="O-20" onclick="setOfPosSprayAlign('O-20')">O-20</button>
+        <button type="button" class="ofpos-align-btn" data-code="O-30" onclick="setOfPosSprayAlign('O-30')">O-30</button>
+        <button type="button" class="ofpos-align-btn" data-code="P-10" onclick="setOfPosSprayAlign('P-10')">P-10</button>
+        <button type="button" class="ofpos-align-btn" data-code="P-20" onclick="setOfPosSprayAlign('P-20')">P-20</button>
+      </div>
+      <div id="ofpos-spray-readout" class="ofpos-spray-readout"></div>
+      <div class="ofpos-spray-stage" id="ofpos-stage-inf">
+        <div class="ofpos-spray-frame" id="ofpos-inf-frame">
+          <canvas id="ofpos-inf-canvas" width="848" height="600"></canvas>
+          <div id="ofpos-inf-icons" class="ofpos-spray-icons"></div>
+        </div>
+      </div>
+      <div class="ofpos-spray-stage" id="ofpos-stage-of" hidden>
+        <div class="ofpos-heat-legend" aria-hidden="true">
+          <span>Low</span>
+          <span class="ofpos-heat-bar"></span>
+          <span>High</span>
+        </div>
+        <div class="ofpos-spray-frame" id="ofpos-of-frame">
+          <canvas id="ofpos-of-canvas" width="848" height="600"></canvas>
+          <div id="ofpos-of-icons" class="ofpos-spray-icons"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="panel-tth" class="panel">
@@ -470,12 +534,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san170"></script>
+<script src="i18n.js?v=san172"></script>
 <script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san170';
+const ASSET_V = 'san172';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1380,6 +1444,13 @@ function drawSpray(canvas, points, opts={}){
     ctx.lineWidth = (isHR ? 1.8 : 1.2) * ink;
     ctx.stroke();
   }
+
+  const geom = { dispW, dispH, w, h, cx, homeY, pxPerFt, ink, toCanvas };
+  if(typeof opts.afterDraw === 'function'){
+    try { opts.afterDraw(ctx, geom); }
+    catch(err){ console.error(err); }
+  }
+  return geom;
 }
 
 function sprayHitLegendHtml({compact=false}={}){
@@ -4851,6 +4922,587 @@ function clearOfPosOverrides(){
   try { localStorage.removeItem(OFPOS_STORAGE_KEY); } catch(e){}
   renderOfPos();
 }
+
+/* Spray sub-tab: same foot plane as drawSpray (home bottom, +y CF, +x RF). */
+const OFPOS_ALIGN_CODES = ['STRAIGHT','L-10','L-20','L-30','G-10','O-10','O-20','O-30','P-10','P-20'];
+const OFPOS_FIELDERS = ['3B','SS','2B','1B','LF','CF','RF'];
+const OFPOS_INF = ['3B','SS','2B','1B'];
+const OFPOS_OF = ['LF','CF','RF'];
+const OFPOS_CORNER = { '3B':1, '1B':1, 'LF':1, 'RF':1 };
+const OFPOS_ANCHOR = {
+  '3B': { x: -78, y: 108 },
+  'SS': { x: -46, y: 150 },
+  '2B': { x: 46, y: 150 },
+  '1B': { x: 78, y: 108 },
+  'LF': { x: -148, y: 268 },
+  'CF': { x: 0, y: 320 },
+  'RF': { x: 148, y: 268 },
+};
+let ofPosSubtab = 'grid';
+let ofPosSprayHand = 'R';
+let ofPosSprayCount = 'PRE';
+let ofPosSprayAlign = 'STRAIGHT';
+let ofPosSprayShowAll = true;
+let ofPosSprayCustom = {};
+let ofPosSprayGeom = null;
+let ofPosSprayBats = 'R';
+let ofPosSprayRawHand = 'R';
+let ofPosSprayHitter = null;
+let ofPosSprayTeam = '';
+let ofPosSprayDrawW = 0;
+
+function ofPosClearCustom(){ ofPosSprayCustom = {}; }
+function ofPosCodeParts(code){
+  const s = String(code || 'STRAIGHT').toUpperCase();
+  if(s === 'STRAIGHT') return { letter:'STRAIGHT', feet:0 };
+  const m = s.match(/^(L|G|O|P)-(\d+)$/);
+  if(!m) return { letter:'STRAIGHT', feet:0 };
+  return { letter:m[1], feet:Number(m[2]) || 0 };
+}
+function ofPosCodeApplies(pos, code){
+  const parts = ofPosCodeParts(code);
+  if(parts.letter === 'STRAIGHT' || !parts.feet) return true;
+  if(OFPOS_CORNER[pos]) return parts.letter === 'L' || parts.letter === 'G';
+  return parts.letter === 'P' || parts.letter === 'O';
+}
+function ofPosEffectiveBats(bats, pHand){
+  const b = String(bats || 'R').toUpperCase();
+  if(b.startsWith('S')) return String(pHand || 'R').toUpperCase() === 'R' ? 'L' : 'R';
+  if(b.startsWith('L')) return 'L';
+  return 'R';
+}
+function ofPosPullIsPositiveX(bats){
+  return String(bats || 'R').toUpperCase().startsWith('L');
+}
+function ofPosShadeUnit(pos, letter, bats){
+  const a = OFPOS_ANCHOR[pos];
+  const theta = Math.atan2(a.x, a.y);
+  const towardRF = { x: Math.cos(theta), y: -Math.sin(theta) };
+  const towardLF = { x: -towardRF.x, y: -towardRF.y };
+  let v;
+  if(letter === 'L' || letter === 'G'){
+    const toLine = (pos === '1B' || pos === 'RF') ? towardRF : towardLF;
+    const toGap = (pos === '1B' || pos === 'RF') ? towardLF : towardRF;
+    v = letter === 'L' ? toLine : toGap;
+  } else {
+    const pull = ofPosPullIsPositiveX(bats) ? towardRF : towardLF;
+    const oppo = ofPosPullIsPositiveX(bats) ? towardLF : towardRF;
+    v = letter === 'P' ? pull : oppo;
+  }
+  const m = Math.hypot(v.x, v.y) || 1;
+  return { x: v.x / m, y: v.y / m };
+}
+function ofPosPresetFeet(pos, code, bats){
+  const a = OFPOS_ANCHOR[pos] || { x:0, y:0 };
+  const parts = ofPosCodeParts(code);
+  if(parts.letter === 'STRAIGHT' || !parts.feet || !ofPosCodeApplies(pos, code)){
+    return { x: a.x, y: a.y };
+  }
+  const u = ofPosShadeUnit(pos, parts.letter, bats);
+  return { x: a.x + u.x * parts.feet, y: a.y + u.y * parts.feet };
+}
+function ofPosPresetsFor(pos){
+  return OFPOS_ALIGN_CODES.filter(code => ofPosCodeApplies(pos, code));
+}
+function ofPosActiveFielders(){
+  return ofPosSubtab === 'of' ? OFPOS_OF : OFPOS_INF;
+}
+function ofPosCustomKey(pos){
+  return (ofPosSubtab === 'of' ? 'of' : 'inf') + '|' + pos;
+}
+function ofPosIconFeet(pos){
+  const c = ofPosSprayCustom[ofPosCustomKey(pos)];
+  if(c && Number.isFinite(c.x) && Number.isFinite(c.y)) return { x:c.x, y:c.y };
+  return ofPosPresetFeet(pos, ofPosSprayAlign, ofPosSprayBats);
+}
+function ofPosStageIds(){
+  return ofPosSubtab === 'of'
+    ? { stage:'ofpos-stage-of', frame:'ofpos-of-frame', canvas:'ofpos-of-canvas', icons:'ofpos-of-icons' }
+    : { stage:'ofpos-stage-inf', frame:'ofpos-inf-frame', canvas:'ofpos-inf-canvas', icons:'ofpos-inf-icons' };
+}
+/** KNCT zone heat ramp: blue → white → red (mlb_analytics heatRgb). */
+function ofPosKnctRgb(t){
+  const clamped = Math.max(0, Math.min(1, Number(t) || 0));
+  let r, g, b;
+  if(clamped <= 0.5){
+    const u = clamped / 0.5;
+    r = 30 + 220 * u; g = 80 + 170 * u; b = 200 + 55 * u;
+  } else {
+    const v = (clamped - 0.5) / 0.5;
+    r = 250 + 5 * v; g = 250 - 210 * v; b = 255 - 220 * v;
+  }
+  return [Math.round(r), Math.round(g), Math.round(b)];
+}
+function ofPosKnctRgba(t, a){
+  const [r, g, b] = ofPosKnctRgb(t);
+  return `rgba(${r},${g},${b},${a})`;
+}
+function ofPosOfBallFt(hitter, pHand, count){
+  const twoK = count === '2K';
+  const out = [];
+  collectSprayPoints(hitter).forEach(p => {
+    if(String(p.pitcher_hand || '').toUpperCase() !== pHand) return;
+    if(Boolean(p.two_strikes) !== Boolean(twoK)) return;
+    const x = Number(p.x_ft), y = Number(p.y_ft);
+    if(!Number.isFinite(x) || !Number.isFinite(y) || y < 140) return;
+    out.push({ x, y });
+  });
+  return out;
+}
+function ofPosKde(pts, x, y, bw){
+  const inv = 1 / (bw * bw);
+  let s = 0;
+  for(let i = 0; i < pts.length; i++){
+    const dx = pts[i].x - x, dy = pts[i].y - y;
+    const r2 = (dx * dx + dy * dy) * inv;
+    if(r2 < 12) s += Math.exp(-0.5 * r2);
+  }
+  return s;
+}
+function ofPosHotSpot(pts){
+  if(!pts.length) return null;
+  let sx = 0, sy = 0;
+  pts.forEach(p => { sx += p.x; sy += p.y; });
+  const mean = { x: sx / pts.length, y: sy / pts.length, n: pts.length, how: 'mean' };
+  if(pts.length < 6) return mean;
+  const bw = 34;
+  let best = null;
+  for(let y = 150; y <= 390; y += 14){
+    for(let x = -210; x <= 210; x += 14){
+      if(Math.abs(Math.atan2(x, y)) > 0.95) continue;
+      const d = ofPosKde(pts, x, y, bw);
+      if(!best || d > best.d) best = { x, y, d };
+    }
+  }
+  if(!best) return mean;
+  const cx = best.x, cy = best.y;
+  best = null;
+  for(let y = cy - 16; y <= cy + 16; y += 4){
+    for(let x = cx - 16; x <= cx + 16; x += 4){
+      const d = ofPosKde(pts, x, y, bw);
+      if(!best || d > best.d) best = { x, y, d };
+    }
+  }
+  let rival = 0;
+  for(let y = 150; y <= 390; y += 14){
+    for(let x = -210; x <= 210; x += 14){
+      if(Math.hypot(x - best.x, y - best.y) < 50) continue;
+      if(Math.abs(Math.atan2(x, y)) > 0.95) continue;
+      const d = ofPosKde(pts, x, y, bw);
+      if(d > rival) rival = d;
+    }
+  }
+  const atMean = ofPosKde(pts, mean.x, mean.y, bw);
+  // A mode glued to the y=140 cut is the infield edge, not the outfield cluster.
+  if(mean.y - best.y > 45) return mean;
+  if(rival > best.d * 0.9 || best.d < atMean * 1.1) return mean;
+  return { x: best.x, y: best.y, n: pts.length, how: 'peak' };
+}
+function ofPosLineupHotSpots(){
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const selected = ofPosSprayHitter && ofPosSprayHitter.name;
+  return ofPosSprayLineupHitters(team).map(h => {
+    const pts = ofPosOfBallFt(h, ofPosSprayHand, ofPosSprayCount);
+    const spot = ofPosHotSpot(pts);
+    if(!spot) return null;
+    return {
+      name: ofPosLastNameUpper(h.name),
+      full: h.name,
+      x: spot.x,
+      y: spot.y,
+      n: spot.n,
+      how: spot.how,
+      selected: h.name === selected,
+    };
+  }).filter(Boolean);
+}
+function ofPosDrawHotBlobs(ctx, g, blobs){
+  const ordered = blobs.slice().sort((a, b) => Number(a.selected) - Number(b.selected));
+  ctx.save();
+  ctx.filter = `blur(${Math.max(5, 7 * g.ink)}px)`;
+  ordered.forEach(b => {
+    const p = g.toCanvas(b.x, b.y);
+    const rPx = (b.selected ? 56 : 30) * g.pxPerFt;
+    const a = b.selected ? 0.92 : 0.58;
+    const grad = ctx.createRadialGradient(p.x, p.y, rPx * 0.04, p.x, p.y, rPx);
+    grad.addColorStop(0, ofPosKnctRgba(1, a));
+    grad.addColorStop(0.22, ofPosKnctRgba(0.82, a * 0.95));
+    grad.addColorStop(0.48, ofPosKnctRgba(0.5, a * 0.62));
+    grad.addColorStop(0.78, ofPosKnctRgba(0.16, a * 0.28));
+    grad.addColorStop(1, ofPosKnctRgba(0, 0));
+    ctx.beginPath();
+    ctx.fillStyle = grad;
+    ctx.arc(p.x, p.y, rPx, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.restore();
+  ctx.save();
+  ctx.font = `700 ${Math.max(12, Math.round(12 * g.ink))}px "IBM Plex Mono", monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.lineJoin = 'round';
+  ordered.forEach((b, i) => {
+    if(!b.name) return;
+    const p = g.toCanvas(b.x, b.y);
+    let stack = 0;
+    for(let j = 0; j < i; j++){
+      if(Math.hypot(ordered[j].x - b.x, ordered[j].y - b.y) < 40) stack++;
+    }
+    const ly = p.y - ((b.selected ? 16 : 10) + stack * 13) * g.ink;
+    ctx.lineWidth = Math.max(3, 3.2 * g.ink);
+    ctx.strokeStyle = 'rgba(255,255,255,0.96)';
+    ctx.strokeText(b.name, p.x, ly);
+    ctx.fillStyle = '#111';
+    ctx.fillText(b.name, p.x, ly);
+  });
+  ctx.restore();
+}
+function ofPosMatchCode(pos, x, y){
+  let best = null;
+  ofPosPresetsFor(pos).forEach(code => {
+    const p = ofPosPresetFeet(pos, code, ofPosSprayBats);
+    const d = Math.hypot(p.x - x, p.y - y);
+    if(!best || d < best.d) best = { code, d };
+  });
+  if(!best || best.d > 4.5) return '';
+  return best.code;
+}
+function ofPosAlignSprayPoints(hitter, pHand, count){
+  const twoK = count === '2K';
+  const pts = collectSprayPoints(hitter).filter(p => {
+    if(String(p.pitcher_hand || '').toUpperCase() !== pHand) return false;
+    if(Boolean(p.two_strikes) !== Boolean(twoK)) return false;
+    if(p.x_ft != null && p.y_ft != null){
+      return Number.isFinite(Number(p.x_ft)) && Number.isFinite(Number(p.y_ft));
+    }
+    return Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.y));
+  });
+  return limitRecentSprayPoints(pts, SPRAY_MAX_RECENT);
+}
+function ofPosSprayLineupHitters(team){
+  const hitters = ofPosTeamHitters(team);
+  const byName = new Map(hitters.map(h => [h.name, h]));
+  const seen = new Set();
+  const list = [];
+  ofPosLineupNames(team).forEach(nm => {
+    const h = byName.get(nm);
+    if(!h || seen.has(h.name)) return;
+    seen.add(h.name);
+    list.push(h);
+  });
+  return list.length ? list : hitters;
+}
+function fillOfPosSprayHitters(){
+  const sel = document.getElementById('ofpos-spray-hitter');
+  if(!sel) return null;
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const list = ofPosSprayLineupHitters(team);
+  const sig = list.map(h => h.name).join('\n');
+  const prev = sel.value;
+  if(sel.dataset.sig !== sig){
+    sel.dataset.sig = sig;
+    sel.innerHTML = list.map(h => {
+      const hand = ofPosHitterHand(h, team) || '?';
+      return `<option value="${escHtml(h.name)}">${escHtml(ofPosLastNameUpper(h.name))} · ${escHtml(hand)}</option>`;
+    }).join('');
+    const keep = list.some(h => h.name === prev);
+    if(keep) sel.value = prev;
+    else if(list[0]) sel.value = list[0].name;
+    if(!keep) ofPosClearCustom();
+  }
+  return list.find(h => h.name === sel.value) || null;
+}
+function ofPosDrawPresetMarks(ctx, g, opt){
+  const bats = opt.bats;
+  const showAll = opt.showAll;
+  const align = opt.align;
+  const codes = showAll ? OFPOS_ALIGN_CODES : [align];
+  ctx.save();
+  ctx.font = `700 ${Math.max(12, Math.round(12 * g.ink))}px "IBM Plex Mono", monospace`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ofPosActiveFielders().forEach(pos => {
+    const icon = ofPosIconFeet(pos);
+    const activeFt = ofPosPresetFeet(pos, align, bats);
+    codes.forEach(code => {
+      if(!ofPosCodeApplies(pos, code)) return;
+      const ft = ofPosPresetFeet(pos, code, bats);
+      const active = Math.hypot(ft.x - activeFt.x, ft.y - activeFt.y) < 0.4;
+      const p = g.toCanvas(ft.x, ft.y);
+      const s = (active ? 4.6 : 3.1) * g.ink;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(Math.PI / 4);
+      ctx.fillStyle = active ? '#fff3bf' : '#111';
+      ctx.strokeStyle = active ? '#111' : '#fff';
+      ctx.lineWidth = (active ? 1.5 : 1.8) * g.ink;
+      ctx.beginPath();
+      ctx.rect(-s, -s, s * 2, s * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+      if(Math.hypot(ft.x - icon.x, ft.y - icon.y) < 6) return;
+      const parts = ofPosCodeParts(code);
+      const radial = (18 + (parts.feet / 10) * 13) * g.ink;
+      const r = Math.hypot(ft.x, ft.y) || 1;
+      const lx = Math.max(36, Math.min(g.w - 36, p.x + (ft.x / r) * radial));
+      const ly = Math.max(16, Math.min(g.h - 12, p.y - (ft.y / r) * radial));
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = Math.max(3, 3.2 * g.ink);
+      ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+      ctx.strokeText(code, lx, ly);
+      ctx.fillStyle = '#111';
+      ctx.fillText(code, lx, ly);
+    });
+  });
+  ctx.restore();
+}
+let ofPosDrag = null;
+function ofPosClientToFeet(clientX, clientY){
+  const canvas = document.getElementById(ofPosStageIds().canvas);
+  const g = ofPosSprayGeom;
+  if(!canvas || !g || !g.pxPerFt) return null;
+  const cr = canvas.getBoundingClientRect();
+  if(cr.width < 2 || cr.height < 2) return null;
+  const x = Math.max(0, Math.min(cr.width, clientX - cr.left));
+  const y = Math.max(0, Math.min(cr.height, clientY - cr.top));
+  const bufX = x * (canvas.width / cr.width);
+  const bufY = y * (canvas.height / cr.height);
+  return {
+    x: (bufX - g.cx) / g.pxPerFt,
+    y: (g.homeY - bufY) / g.pxPerFt,
+  };
+}
+function ofPosApplyDrag(clientX, clientY, pos){
+  const ft = ofPosClientToFeet(clientX, clientY);
+  if(!ft) return;
+  ofPosSprayCustom[ofPosCustomKey(pos)] = ft;
+  ofPosPlaceIcons();
+  ofPosPaintReadout();
+}
+function ofPosDragMove(ev){
+  if(!ofPosDrag) return;
+  if(ofPosDrag.pointerId != null && ev.pointerId != null && ev.pointerId !== ofPosDrag.pointerId) return;
+  ofPosApplyDrag(ev.clientX, ev.clientY, ofPosDrag.pos);
+}
+function ofPosDragEnd(ev){
+  if(!ofPosDrag) return;
+  if(ev && ofPosDrag.pointerId != null && ev.pointerId != null && ev.pointerId !== ofPosDrag.pointerId) return;
+  document.querySelectorAll('.ofpos-fielder.is-dragging').forEach(el => el.classList.remove('is-dragging'));
+  ofPosDrag = null;
+}
+function ofPosIconDown(ev){
+  if(ev.button != null && ev.button !== 0) return;
+  const el = ev.currentTarget;
+  ofPosDrag = { pos: el.dataset.pos, pointerId: ev.pointerId ?? null };
+  el.classList.add('is-dragging');
+  if(ev.pointerId != null){
+    try { el.setPointerCapture(ev.pointerId); } catch(e){}
+  }
+  ev.preventDefault();
+}
+if(!window.__ofPosDragBound){
+  window.__ofPosDragBound = true;
+  document.addEventListener('pointermove', ofPosDragMove);
+  document.addEventListener('pointerup', ofPosDragEnd);
+  document.addEventListener('pointercancel', ofPosDragEnd);
+  document.addEventListener('mousemove', (ev) => {
+    if(!ofPosDrag) return;
+    ofPosApplyDrag(ev.clientX, ev.clientY, ofPosDrag.pos);
+  });
+  document.addEventListener('mouseup', () => {
+    if(!ofPosDrag) return;
+    ofPosDragEnd();
+  });
+}
+function ofPosEnsureIcons(){
+  const root = document.getElementById(ofPosStageIds().icons);
+  const key = ofPosActiveFielders().join(',');
+  if(!root || root.dataset.ready === key) return;
+  root.dataset.ready = key;
+  root.innerHTML = ofPosActiveFielders().map(pos =>
+    `<button type="button" class="ofpos-fielder" data-pos="${pos}" aria-label="${pos}"><span class="pos">${pos}</span><span class="code"></span></button>`
+  ).join('');
+  root.querySelectorAll('.ofpos-fielder').forEach(el => {
+    el.addEventListener('pointerdown', ofPosIconDown);
+    el.addEventListener('mousedown', (ev) => {
+      if(ofPosDrag || ev.button !== 0) return;
+      ofPosDrag = { pos: el.dataset.pos, pointerId: null };
+      el.classList.add('is-dragging');
+      ev.preventDefault();
+    });
+  });
+}
+function ofPosPlaceIcons(){
+  const ids = ofPosStageIds();
+  const canvas = document.getElementById(ids.canvas);
+  const frame = document.getElementById(ids.frame);
+  const g = ofPosSprayGeom;
+  if(!canvas || !frame || !g) return;
+  const fr = frame.getBoundingClientRect();
+  const cr = canvas.getBoundingClientRect();
+  const sx = cr.width / canvas.width;
+  const sy = cr.height / canvas.height;
+  const ox = cr.left - fr.left;
+  const oy = cr.top - fr.top;
+  document.querySelectorAll('#' + ids.icons + ' .ofpos-fielder').forEach(el => {
+    const pos = el.dataset.pos;
+    const ft = ofPosIconFeet(pos);
+    const code = ofPosMatchCode(pos, ft.x, ft.y);
+    const p = g.toCanvas(ft.x, ft.y);
+    el.style.left = (ox + p.x * sx) + 'px';
+    el.style.top = (oy + p.y * sy) + 'px';
+    const codeEl = el.querySelector('.code');
+    if(codeEl) codeEl.textContent = code || '—';
+    el.dataset.code = code || '';
+    el.dataset.xFt = ft.x.toFixed(1);
+    el.dataset.yFt = ft.y.toFixed(1);
+    el.classList.toggle('is-free', !code);
+    el.setAttribute('aria-label', code ? `${pos} ${code}` : pos);
+  });
+}
+function ofPosPaintReadout(){
+  const el = document.getElementById('ofpos-spray-readout');
+  if(!el) return;
+  const h = ofPosSprayHitter;
+  const pHand = ofPosSprayHand;
+  const count = ofPosSprayCount;
+  const handWord = pHand === 'L' ? 'LHP' : 'RHP';
+  const twoK = count === '2K';
+  const rec = !h ? 'no sample' : OFPOS_POS.map(pos => {
+    const sug = ofPosSuggestShade(h, pos, pHand, twoK, ofPosSprayBats);
+    if(!sug.n) return `${pos} no sample`;
+    return `${pos} ${sug.shade}${sug.weak ? '*' : ''} n=${sug.n}`;
+  }).join(' · ');
+  const placed = ofPosActiveFielders().map(pos => {
+    const ft = ofPosIconFeet(pos);
+    const code = ofPosMatchCode(pos, ft.x, ft.y);
+    return `${pos} ${code || '—'}`;
+  }).join(' · ');
+  const handNote = String(ofPosSprayRawHand).toUpperCase().startsWith('S')
+    ? `Hand S · bats ${ofPosSprayBats}`
+    : `Hand ${ofPosSprayBats}`;
+  let extra = '';
+  if(ofPosSubtab === 'of'){
+    const spots = ofPosLineupHotSpots();
+    const mine = spots.find(s => s.selected);
+    extra = mine
+      ? `hot ${mine.name} ${mine.how} n=${mine.n} · ${spots.length} hitters`
+      : `no sample · ${spots.length} hitters`;
+  } else {
+    const n = h ? ofPosAlignSprayPoints(h, pHand, count).length : 0;
+    extra = `n=${n}`;
+  }
+  el.innerHTML = `<div class="ofpos-spray-rec">recomendacion ${handWord} ${escHtml(count)}: ${escHtml(rec)}</div>
+    <div>${escHtml(handNote)} · ${escHtml(placed)}</div>
+    <div class="ofpos-spray-n">${escHtml(extra)}</div>`;
+}
+function setOfPosSubtab(name){
+  ofPosSubtab = name === 'of' ? 'of' : (name === 'inf' ? 'inf' : 'grid');
+  document.querySelectorAll('#ofpos-subtabs .subtab').forEach(btn => {
+    const on = btn.dataset.ofposTab === ofPosSubtab;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  const grid = document.getElementById('ofpos-view-grid');
+  const spray = document.getElementById('ofpos-view-spray');
+  const inf = document.getElementById('ofpos-stage-inf');
+  const outfield = document.getElementById('ofpos-stage-of');
+  if(grid) grid.hidden = ofPosSubtab !== 'grid';
+  if(spray) spray.hidden = ofPosSubtab === 'grid';
+  if(inf) inf.hidden = ofPosSubtab !== 'inf';
+  if(outfield) outfield.hidden = ofPosSubtab !== 'of';
+  if(ofPosSubtab !== 'grid') renderOfPosSpray();
+}
+function setOfPosSprayHand(hand){
+  ofPosSprayHand = hand === 'L' ? 'L' : 'R';
+  document.querySelectorAll('#ofpos-view-spray .ofpos-pill[data-hand]').forEach(btn => {
+    const on = btn.dataset.hand === ofPosSprayHand;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  renderOfPosSpray();
+}
+function setOfPosSprayCount(count){
+  ofPosSprayCount = count === '2K' ? '2K' : 'PRE';
+  document.querySelectorAll('#ofpos-view-spray .ofpos-pill[data-count]').forEach(btn => {
+    const on = btn.dataset.count === ofPosSprayCount;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  renderOfPosSpray();
+}
+function setOfPosSprayAlign(code){
+  ofPosSprayAlign = OFPOS_ALIGN_CODES.indexOf(code) >= 0 ? code : 'STRAIGHT';
+  ofPosClearCustom();
+  document.querySelectorAll('#ofpos-spray-align .ofpos-align-btn').forEach(btn => {
+    const on = btn.dataset.code === ofPosSprayAlign;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  renderOfPosSpray();
+}
+function onOfPosSprayHitterChange(){
+  ofPosClearCustom();
+  renderOfPosSpray();
+}
+function onOfPosSprayAllChange(){
+  const box = document.getElementById('ofpos-spray-all');
+  ofPosSprayShowAll = !box || !!box.checked;
+  renderOfPosSpray();
+}
+function renderOfPosSpray(){
+  const view = document.getElementById('ofpos-view-spray');
+  const ids = ofPosStageIds();
+  const stage = document.getElementById(ids.stage);
+  const canvas = document.getElementById(ids.canvas);
+  if(!view || view.hidden || !stage || stage.hidden || !canvas) return;
+  const hint = document.getElementById('ofpos-align-hint');
+  if(hint && typeof t === 'function'){
+    hint.textContent = t(ofPosSubtab === 'of' ? 'ofposOfHint' : 'ofposInfHint');
+  }
+  const allBox = document.getElementById('ofpos-spray-all');
+  if(allBox) ofPosSprayShowAll = !!allBox.checked;
+  const team = document.getElementById('ofpos-team')?.value || 'PON';
+  const hitter = fillOfPosSprayHitters();
+  ofPosSprayHitter = hitter;
+  ofPosSprayRawHand = hitter ? (ofPosHitterHand(hitter, team) || hitter.bats || 'R') : 'R';
+  ofPosSprayBats = ofPosEffectiveBats(ofPosSprayRawHand, ofPosSprayHand);
+  const avail = stage.clientWidth || 0;
+  if(avail < 40) return;
+  const dispW = Math.max(320, Math.min(896, Math.floor(avail)));
+  const dispH = Math.round(dispW / SPRAY_ASPECT);
+  ofPosSprayDrawW = dispW;
+  const ofView = ofPosSubtab === 'of';
+  const pts = (!ofView && hitter) ? ofPosAlignSprayPoints(hitter, ofPosSprayHand, ofPosSprayCount) : [];
+  const blobs = ofView ? ofPosLineupHotSpots() : [];
+  ofPosSprayGeom = drawSpray(canvas, pts, {
+    dispW, dispH,
+    afterDraw(ctx, g){
+      if(ofView) ofPosDrawHotBlobs(ctx, g, blobs);
+      ofPosDrawPresetMarks(ctx, g, {
+        bats: ofPosSprayBats,
+        showAll: ofPosSprayShowAll,
+        align: ofPosSprayAlign,
+      });
+    },
+  }) || null;
+  canvas.style.width = dispW + 'px';
+  canvas.style.height = dispH + 'px';
+  ofPosEnsureIcons();
+  ofPosPlaceIcons();
+  ofPosPaintReadout();
+}
+function onOfPosSprayResize(){
+  if(ofPosSubtab !== 'inf' && ofPosSubtab !== 'of') return;
+  const stage = document.getElementById(ofPosStageIds().stage);
+  if(!stage) return;
+  const want = Math.max(320, Math.min(896, Math.floor(stage.clientWidth || 0)));
+  if(!want || want === ofPosSprayDrawW) return;
+  renderOfPosSpray();
+}
+window.addEventListener('resize', onOfPosSprayResize);
+
 function renderOfPos(){
   const team = document.getElementById('ofpos-team')?.value || 'PON';
   const meta = document.getElementById('ofpos-meta');
@@ -4878,6 +5530,10 @@ function renderOfPos(){
     });
   }
   renderOfPosTableOnly();
+  if(ofPosSprayTeam && ofPosSprayTeam !== team) ofPosClearCustom();
+  ofPosSprayTeam = team;
+  fillOfPosSprayHitters();
+  if(ofPosSubtab === 'inf' || ofPosSubtab === 'of') renderOfPosSpray();
 }
 function renderOfPosTableOnly(){
   const team = document.getElementById('ofpos-team')?.value || 'PON';
@@ -5441,6 +6097,7 @@ document.addEventListener('santurce:lang', () => {
   renderTth();
   renderPitcherAdvance(); renderAdvanceHitters();
   if(window.CardApp) CardApp.refresh();
+  if(ofPosSubtab === 'inf' || ofPosSubtab === 'of') renderOfPosSpray();
 });
 </script>
 </body>

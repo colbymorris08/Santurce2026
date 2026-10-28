@@ -1920,6 +1920,177 @@ input.tth-input:focus {
 .ofpos-sheet tr.ofpos-hitter-start td { border-top: 2px solid #1f2a3c; }
 .ofpos-sheet tr.ofpos-nosample .ofpos-hitter { color: #111; }
 
+/* OF positioning spray: dark type on the light field and controls */
+#ofpos-subtabs { margin-top: 12px; }
+.ofpos-spray {
+  color: #111;
+  color-scheme: light;
+  margin-top: 4px;
+}
+.ofpos-spray-hint {
+  color: #111;
+  background: #fff;
+  border: 1px solid #c5cdd8;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  margin: 0 0 10px;
+  max-width: 920px;
+}
+.ofpos-spray-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: flex-end;
+  background: #fff;
+  border: 1px solid #c5cdd8;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  max-width: 920px;
+}
+.ofpos-spray-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ofpos-spray-align-label { margin: 2px 0 4px; }
+.ofpos-spray select {
+  appearance: auto;
+  background: #fff;
+  color: #111;
+  -webkit-text-fill-color: #111;
+  border: 1px solid #9aa8bc;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 6px 8px;
+  min-width: 160px;
+}
+.ofpos-spray-pills, .ofpos-spray-align {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.ofpos-spray-align { margin-bottom: 8px; max-width: 920px; }
+.ofpos-pill, .ofpos-align-btn, .ofpos-fielder {
+  appearance: none;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  color: #111;
+  -webkit-text-fill-color: #111;
+  background: #fff;
+  border: 1px solid #9aa8bc;
+  border-radius: 6px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.ofpos-pill, .ofpos-align-btn {
+  font-size: 12px;
+  padding: 6px 8px;
+  letter-spacing: 0.01em;
+}
+.ofpos-pill.active, .ofpos-align-btn.active {
+  background: #fff3bf;
+  border-color: #111;
+  color: #111;
+  -webkit-text-fill-color: #111;
+}
+.ofpos-spray-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #111;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  padding-bottom: 6px;
+}
+.ofpos-spray-check input { accent-color: #111; width: 16px; height: 16px; }
+.ofpos-spray-readout {
+  color: #111;
+  background: #fff;
+  border: 1px solid #c5cdd8;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 0 0 8px;
+  max-width: 920px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.ofpos-spray-readout .ofpos-spray-rec { font-weight: 800; }
+.ofpos-spray-readout .ofpos-spray-n { color: #111; }
+.ofpos-spray-stage { width: 100%; max-width: 920px; }
+.ofpos-spray-frame {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  background: #b7dfb9;
+  border-radius: 8px;
+  border: 1px solid #9aa8bc;
+}
+.ofpos-spray-frame canvas {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  background: #b7dfb9;
+  border-radius: 8px;
+}
+.ofpos-spray-icons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ofpos-fielder {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  touch-action: none;
+  min-width: 42px;
+  padding: 2px 4px 3px;
+  border-width: 1.5px;
+  border-color: #111;
+  border-radius: 8px;
+  line-height: 1.15;
+  text-align: center;
+  cursor: grab;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  z-index: 2;
+  user-select: none;
+}
+.ofpos-fielder.is-dragging { cursor: grabbing; z-index: 3; }
+.ofpos-fielder.is-free { border-style: dashed; }
+.ofpos-fielder .pos { display: block; font-size: 11px; font-weight: 800; color: #111; -webkit-text-fill-color: #111; }
+.ofpos-fielder .code { display: block; font-size: 9px; font-weight: 700; color: #111; -webkit-text-fill-color: #111; }
+.ofpos-heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+.ofpos-heat-bar {
+  display: inline-block;
+  width: 148px;
+  height: 10px;
+  border: 1px solid #111;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgb(30, 80, 200) 0%, rgb(250, 250, 255) 50%, rgb(255, 40, 35) 100%);
+}
+
 /* Scout entry spreadsheets (OF arms + TTH / catcher) */
 .scout-sheet-wrap { background: #fff; border: 1px solid var(--line); }
 .scout-sheet { width: 100%; border-collapse: collapse; font-size: 13px; color: #111; background: #fff; }
