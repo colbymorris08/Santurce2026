@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T15:48:19Z",
+  "updated": "2026-10-28T15:35:17Z",
   "league": {
     "league_id": 18,
     "subleague_id": 18,
@@ -8,12 +8,20 @@
     "label": "2026-27 LBPRC"
   },
   "bullpen_teams": {
-    "CAG": 13,
-    "SAN": 13,
-    "SJU": 13,
-    "CAR": 13,
-    "MAY": 13,
-    "PON": 13
+    "CAG": 0,
+    "SAN": 0,
+    "SJU": 0,
+    "CAR": 0,
+    "MAY": 0,
+    "PON": 0
+  },
+  "bullpen_test_teams": {
+    "CAG": 4,
+    "SAN": 4,
+    "SJU": 3,
+    "CAR": 3,
+    "MAY": 4,
+    "PON": 4
   },
   "roster_alert": {
     "changed": false,
