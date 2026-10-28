@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san168">
+<link rel="stylesheet" href="shared.css?v=san170">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -399,7 +399,7 @@
   </div>
   <div id="panel-ofpos" class="panel">
     <div class="section-label" data-i18n="ofposLabel">OF Positioning Card</div>
-    <div class="note" data-i18n-html="ofposNote">Every opposing hitter. LHP/RHP columns show the suggested shade (L/G/O/P/STRAIGHT) from Synergy spray. Type <strong>steps</strong> in the cell (10/20/30 or any distance) and the code becomes L-10, G-20, and so on. Saves in this browser.</div>
+    <div class="note" data-i18n-html="ofposNote">recomendacion LHP y recomendacion RHP. LHP y RHP: STRAIGHT, L-10, L-20, L-30, G-10, O-10, O-20, O-30, P-10, P-20. Position: LF PRE, CF PRE, RF PRE, LF 2K, CF 2K, RF 2K. Escribe 10, 20 o 30 en la celda amarilla. STRAIGHT se queda STRAIGHT.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="ofpos-team" onchange="onOfPosTeamChange()">
@@ -418,7 +418,6 @@
     </div>
     <div id="ofpos-meta" class="note" style="margin-top:4px"></div>
     <div class="section-label" style="margin-top:14px;font-size:14px">Positioning</div>
-    <div class="note" style="margin-bottom:6px">LHP and RHP columns show the suggested shade (L / G / O / P / STRAIGHT) as soon as the sheet loads. Type the step distance in the <strong>Steps</strong> cell beside it — 10, 20, 30, or any number — and the code becomes L-10, G-20, and so on. STRAIGHT stays STRAIGHT. A hitter with no outfield spray shows <strong>no sample</strong>. Steps stay in this browser.</div>
     <div class="table-wrap scout-sheet-wrap ofpos-wrap">
       <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
     </div>
@@ -471,12 +470,12 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san168"></script>
+<script src="i18n.js?v=san170"></script>
 <script src="cards.js?v=san163"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san167';
+const ASSET_V = 'san170';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1117,7 +1116,7 @@ function renderStuff(){
       <td class="arsenal">${ar||'—'}</td></tr>`;
   }).join('');
 }
-const SPRAY_MAX_RECENT = 100;
+const SPRAY_MAX_RECENT = 50;
 /** Synergy events/filter is newest-first; prefer game_date when present. */
 function sprayPointSortKey(p){
   const raw = p?.game_date || p?.gameDate || p?.date || '';
@@ -1363,7 +1362,7 @@ function drawSpray(canvas, points, opts={}){
     BIP: '#0f172a',
   };
 
-  // Most recent 100 only (site + PDF); outs under hits
+  // Newest 50 on this chart (site + PDF); outs under hits
   const recent = limitRecentSprayPoints(points, SPRAY_MAX_RECENT);
   const order = ['OUT','SF','SAC','E','BIP','1B','2B','3B','HR'];
   const sorted = [...recent].sort((a,b)=>order.indexOf(a.hit||'BIP')-order.indexOf(b.hit||'BIP'));
@@ -1545,11 +1544,7 @@ function sprayPitcherHand(pt){
   return h === 'L' || h === 'R' ? h : '';
 }
 function sprayHandCellPoints(player, hand, pred){
-  const all = collectSprayPoints(player);
-  const tagged = all.filter(pt => sprayPitcherHand(pt));
-  // Prefer true L/R splits; if this hitter has no pitcher_hand tags yet, fall back
-  // to untagged BIP in both columns so the eight-chart page isn't blank.
-  const pool = tagged.length ? all.filter(pt => sprayPitcherHand(pt)===hand) : all;
+  const pool = collectSprayPoints(player).filter(pt => sprayPitcherHand(pt)===hand);
   const pts = pool.filter(pred);
   return limitRecentSprayPoints(pts, SPRAY_MAX_RECENT);
 }
@@ -1605,7 +1600,7 @@ function buildSprayHandSheetHtml(player, {printPage=false, prefix='', sprayUrls=
     }).join('');
     return `<div class="spray-hand-col"><div class="spray-hand-title">${label}</div>${cells}</div>`;
   };
-  const warn = tagged ? '' : `<div class="note">Pitcher hand is not tagged on these ${total} BIP yet — showing the same recent balls under both vs RHP and vs LHP until the log is retagged.</div>`;
+  const warn = tagged ? '' : `<div class="note">No balls in play with a pitcher hand on this hitter. Charts stay empty until the log has L or R.</div>`;
   const name = formatLastFirst(player.name) || player.name || '';
   return `<div class="advance-sheet advance-sheet-spray${printPage?' advance-print-page':''} spray-hand-sheet">
     <div class="advance-pdf-strip"><span class="advance-pdf-name">${name}</span><span class="advance-pdf-team">${player.team||''}</span></div>
@@ -1686,7 +1681,7 @@ function renderSpray(){
   const src=document.getElementById('spray-source')?.value || 'synergy';
   const noteEl=document.getElementById('spray-note');
   if(src==='synergy'){
-    noteEl.textContent = 'Eight charts on one page: vs RHP and vs LHP, each with 2K, non-2K, RISP, and non-RISP. Dots are the newest balls in play that include the pitcher\'s hand (up to 100). If the latest season has no hand, the chart uses the newest handed balls from the prior year, including Puerto Rico.';
+    noteEl.textContent = 'Eight charts on one page: vs RHP and vs LHP, each with 2K, non-2K, RISP, and non-RISP. Each chart is the newest balls in play with that pitcher hand and that split (up to 50). Balls with no pitcher hand are left off. Fewer than 50 is the whole sample, including Puerto Rico.';
   } else {
     noteEl.textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
   }
@@ -4892,9 +4887,9 @@ function renderOfPosTableOnly(){
   bindOfPosGrid();
   const rowsHitters = ofPosTeamHitters(team);
   thead.innerHTML = `<tr>
-    <th class="ofpos-hitter">Hitter</th><th>Hand</th><th>Pos</th><th>Count</th>
-    <th>Sug LHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">LHP</th>
-    <th>Sug RHP</th><th>Shade</th><th>Steps</th><th class="ofpos-code">RHP</th>
+    <th class="ofpos-hitter">Hitters</th><th>Hand</th><th>Position</th><th>PRE/2K</th>
+    <th>recomendacion LHP</th><th>STRAIGHT/L/G/O/P</th><th>10/20/30</th><th class="ofpos-code">LHP</th>
+    <th>recomendacion RHP</th><th>STRAIGHT/L/G/O/P</th><th>10/20/30</th><th class="ofpos-code">RHP</th>
   </tr>`;
   const shadeOpts = (cur)=> OFPOS_SHADES.map(s=>`<option value="${s}" ${s===cur?'selected':''}>${s}</option>`).join('');
   const sugCell = (res)=> res.noSample

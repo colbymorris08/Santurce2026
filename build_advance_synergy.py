@@ -46,8 +46,8 @@ if not PITCH_TIPS.is_dir():
 SPORT_API = "https://sport.synergysportstech.com"
 EVENTS_FILTER_URL = "https://baseball.synergysportstech.com/external/api/events/filter"
 
-# Most recent BIP dots kept per hitter / split for spray charts (site + PDF)
-SPRAY_MAX_POINTS = 100
+# Newest BIP kept on each of the 8 spray charts (vs RHP/LHP × 2K, non-2K, RISP, non-RISP).
+SPRAY_MAX_POINTS = 50
 SPORT_ID_BASEBALL = "570aaedc46c5d11de0f8c0bd"
 LEAGUE_LBPRC = "5dd2cbcc4b8b50a3e8e46172"
 LEAGUE_LMB = "616a0762c122029009e74144"
@@ -1287,6 +1287,9 @@ def _spray_game_date(game: dict | None) -> tuple[str | None, str | None]:
 def recent_spray_points(pts: list, n: int = SPRAY_MAX_POINTS) -> list:
     """Keep the most recent n spray points that have a pitcher hand.
 
+    The site applies this cap per chart (pitcher hand × 2K / non-2K / RISP / non-RISP).
+    The stored list is the union of those charts, so do not run this on the union
+    with n=50 or a full chart will be trimmed by balls that belong on another chart.
     Synergy events/filter pagination is newest-first, so append order is already
     recent→old when dates are missing. When game_date_sort is present, sort by it.
     Balls with no pitcher hand are skipped whenever the list has any L/R tag, so
@@ -2366,10 +2369,10 @@ def merge_spray_into_pregame(hitters: list[dict]) -> None:
     existing["synergy"] = synergy_players
     existing["synergy_note"] = (
         "Synergy spray uses landingLocationX/Y in feet (home→CF = +Y, toward RF = +X). "
-        f"Each chart uses the most recent {SPRAY_MAX_POINTS} balls in play that have a "
-        "pitcher hand (pitcherInfo.pitchingSide). Newer balls with no hand are skipped, "
-        "so a season that omitted hand falls back through the prior year, including "
-        "Puerto Rico. Multi-select: RISP/non-RISP and 2K/non-2K are independent. "
+        f"Each of the eight charts (vs RHP and vs LHP × 2K, non-2K, RISP, non-RISP) "
+        f"uses the newest {SPRAY_MAX_POINTS} balls in play with that pitcher hand and that split. "
+        "Balls with no pitcher hand are omitted. A ball can sit on a count chart and a runner chart. "
+        "Fewer than 50 means that is the whole sample, through the prior year including Puerto Rico. "
         "MLB Statcast sprays retained under .mlb when available."
     )
     existing["spray_recent_cap"] = SPRAY_MAX_POINTS

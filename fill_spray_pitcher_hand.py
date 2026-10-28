@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Keep the newest spray balls that actually have a pitcher hand.
+"""Keep the newest spray balls for each chart, only when pitcher hand is known.
 
-The charts were the newest balls in play. A lot of those pitches have no
-pitcherInfo.pitchingSide, so vs RHP and vs LHP drew the same dots. This
-walks Synergy newest-first and keeps a ball only when the hand is L or R.
-If the latest season has none, it keeps going through the prior year
-(Puerto Rico included) until it has 100 or the log runs out.
+Eight charts: vs RHP and vs LHP, each with 2K, non-2K, RISP, and non-RISP.
+Walk Synergy newest-first and keep a ball when it is one of the newest 50
+for a chart it matches. A 2K ball with a runner on second lands on both the
+2K chart and the RISP chart. Balls with no pitcher hand are skipped. Stop
+when every chart has 50, or the log runs out through 2025 Puerto Rico
+(a page entirely before 2024).
 """
 
 from __future__ import annotations
@@ -21,11 +22,21 @@ import build_advance_synergy as bas
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
 RUNS = ROOT / "runs"
-CKPT = RUNS / "spray_pitcher_hand_checkpoint.json"
+CKPT = RUNS / "spray_per_chart50_checkpoint.json"
 SPRAY_PATH = DATA / "pregame_spray_charts.json"
 HITTERS_PATH = DATA / "advance_opposing_hitters.json"
-WANT = bas.SPRAY_MAX_POINTS
-SCAN_CAP = 8000
+PER_CHART = bas.SPRAY_MAX_POINTS
+SCAN_CAP = 30000
+CHARTS = (
+    "R-2k",
+    "R-non2k",
+    "R-risp",
+    "R-nonrisp",
+    "L-2k",
+    "L-non2k",
+    "L-risp",
+    "L-nonrisp",
+)
 
 
 def log(msg: str) -> None:
@@ -43,16 +54,16 @@ def save_json(path: Path, payload) -> None:
     os.replace(tmp, path)
 
 
-def handed_count(pts: list) -> int:
-    return sum(1 for p in pts or [] if p.get("pitcher_hand") in ("L", "R"))
-
-
-def needs_refill(pts: list) -> bool:
-    pts = pts or []
-    n = handed_count(pts)
-    if n < len(pts):
-        return True
-    return n < WANT
+def chart_keys_for_event(ev: dict) -> list[str]:
+    hand = bas._pitcher_throws(ev)
+    if hand not in ("L", "R"):
+        return []
+    two_k = bas._count_strikes(ev) >= 2
+    risp = bool(bas._runners_risp(ev))
+    return [
+        f"{hand}-{'2k' if two_k else 'non2k'}",
+        f"{hand}-{'risp' if risp else 'nonrisp'}",
+    ]
 
 
 def is_handed_bip(ev: dict) -> bool:
@@ -65,12 +76,17 @@ def is_handed_bip(ev: dict) -> bool:
     return bas._pitcher_throws(ev) in ("L", "R")
 
 
-def fetch_handed_events(token: str, sid: str) -> tuple[list[dict], str]:
-    """Newest balls in play whose pitcher hand is known. Returns (events, token)."""
+def charts_full(counts: dict) -> bool:
+    return all(counts.get(k, 0) >= PER_CHART for k in CHARTS)
+
+
+def fetch_chart_events(token: str, sid: str) -> tuple[list[dict], dict, str]:
+    """Newest BIP that fill each chart up to PER_CHART. Returns (events, counts, token)."""
     kept: list[dict] = []
+    counts = {k: 0 for k in CHARTS}
     skip = 0
     scanned = 0
-    while len(kept) < WANT and scanned < SCAN_CAP:
+    while not charts_full(counts) and scanned < SCAN_CAP:
         body = {
             "loggingPhases": [bas.LOGGING_PHASE_PITCH],
             "skip": skip,
@@ -90,23 +106,32 @@ def fetch_handed_events(token: str, sid: str) -> tuple[list[dict], str]:
             break
         years = [bas.event_season_year(ev) for ev in rows]
         for ev in rows:
-            if is_handed_bip(ev):
-                kept.append(ev)
-                if len(kept) >= WANT:
-                    break
+            if not is_handed_bip(ev):
+                continue
+            keys = [k for k in chart_keys_for_event(ev) if counts.get(k, 0) < PER_CHART]
+            if not keys:
+                continue
+            for k in keys:
+                counts[k] += 1
+            kept.append(ev)
+            if charts_full(counts):
+                break
         scanned += len(rows)
         skip += len(rows)
         max_year = max(years) if years else 0
-        print(f"  fetched {len(kept)} handed BIP / {scanned} scanned (page max {max_year})", flush=True)
-        # Newest-first. A page entirely before 2024 means last year's Puerto
-        # Rico season is already behind us.
+        short = {k: counts[k] for k in CHARTS if counts[k] < PER_CHART}
+        print(
+            f"  kept {len(kept)} events / {scanned} scanned (page max {max_year}) short={short or 'none'}",
+            flush=True,
+        )
+        # Newest-first. A page entirely before 2024 means 2025 Puerto Rico is behind us.
         if max_year < 2024:
             break
         total = int(doc.get("totalRecords") or 0)
         if skip >= total or len(rows) < 200:
             break
         time.sleep(0.05)
-    return kept[:WANT], token
+    return kept, counts, token
 
 
 def points_from_events(events: list[dict], sid: str, team: str) -> list[dict]:
@@ -118,8 +143,29 @@ def points_from_events(events: list[dict], sid: str, team: str) -> list[dict]:
         h = next(iter(raw.values()))
     if not h:
         return []
-    pts = list((h.get("spray") or {}).get("all") or [])
-    return bas.recent_spray_points(pts, WANT)
+    pts = []
+    for p in (h.get("spray") or {}).get("all") or []:
+        if p.get("pitcher_hand") not in ("L", "R"):
+            continue
+        if p.get("x_ft") is None or p.get("y_ft") is None:
+            continue
+        pts.append(p)
+    return pts
+
+
+def point_chart_counts(pts: list[dict]) -> dict:
+    counts = {k: 0 for k in CHARTS}
+    for p in pts:
+        hand = p.get("pitcher_hand")
+        if hand not in ("L", "R"):
+            continue
+        keys = [
+            f"{hand}-{'2k' if p.get('two_strikes') else 'non2k'}",
+            f"{hand}-{'risp' if p.get('risp') else 'nonrisp'}",
+        ]
+        for k in keys:
+            counts[k] = counts.get(k, 0) + 1
+    return {k: min(PER_CHART, counts.get(k, 0)) for k in CHARTS}
 
 
 def splits_from_points(pts: list[dict]) -> list[dict]:
@@ -141,17 +187,15 @@ def targets() -> list[dict]:
     rows = load_json(SPRAY_PATH).get("synergy") or []
     out = []
     for row in rows:
-        pts = row.get("points") or []
-        if not needs_refill(pts):
+        sid = str(row.get("synergy_id") or "")
+        if not sid:
             continue
         out.append({
-            "synergy_id": str(row.get("synergy_id") or ""),
+            "synergy_id": sid,
             "name": row.get("name") or "",
             "team": row.get("team") or "",
-            "n_points": len(pts),
-            "n_handed": handed_count(pts),
         })
-    return [r for r in out if r["synergy_id"]]
+    return out
 
 
 def apply_checkpoint() -> None:
@@ -160,7 +204,7 @@ def apply_checkpoint() -> None:
     ready = {
         sid: info
         for sid, info in done.items()
-        if info.get("status") in ("ok", "strip") and (info.get("status") == "strip" or info.get("points"))
+        if info.get("status") == "ok" and info.get("points")
     }
     if not ready:
         log("nothing to write")
@@ -172,18 +216,10 @@ def apply_checkpoint() -> None:
         info = ready.get(str(row.get("synergy_id") or ""))
         if not info:
             continue
-        if info.get("status") == "strip":
-            pts = [p for p in (row.get("points") or []) if p.get("pitcher_hand") in ("L", "R")]
-            pts = bas.recent_spray_points(pts, WANT)
-        else:
-            pts = info["points"]
-        if not pts:
-            continue
+        pts = info["points"]
         row["points"] = pts
         row["splits"] = splits_from_points(pts)
-        row["source"] = "Synergy BIP with pitcher hand (newest 100)"
-        info = {**info, "points": pts}
-        ready[str(row.get("synergy_id") or "")] = info
+        row["source"] = f"Synergy BIP with pitcher hand (newest {PER_CHART} per chart)"
         written += 1
     by_id = {str(h.get("synergy_id") or ""): h for h in (hitters.get("hitters") or [])}
     for sid, info in ready.items():
@@ -195,11 +231,12 @@ def apply_checkpoint() -> None:
         h["spray_splits"] = splits_from_points(pts)
     spray["synergy_note"] = (
         "Synergy spray uses landingLocationX/Y in feet (home→CF = +Y, toward RF = +X). "
-        f"Each chart uses the most recent {WANT} balls in play that have a pitcher hand "
-        "(pitcherInfo.pitchingSide). Newer balls with no hand are skipped, so a season "
-        "that omitted hand falls back through the prior year, including Puerto Rico."
+        f"Each of the eight charts (vs RHP and vs LHP × 2K, non-2K, RISP, non-RISP) "
+        f"uses the newest {PER_CHART} balls in play with that pitcher hand and that split. "
+        "Balls with no pitcher hand are omitted. A ball can sit on a count chart and a runner chart. "
+        "Fewer than 50 means that is the whole sample, through the prior year including Puerto Rico."
     )
-    spray["spray_recent_cap"] = WANT
+    spray["spray_recent_cap"] = PER_CHART
     spray["updated_synergy"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     save_json(SPRAY_PATH, spray)
     save_json(HITTERS_PATH, hitters)
@@ -214,40 +251,27 @@ def main() -> int:
     rows = targets()
     ckpt = load_json(CKPT) if CKPT.is_file() else {"done": {}}
     done = ckpt.setdefault("done", {})
-    queued = [
-        r for r in rows
-        if (done.get(r["synergy_id"]) or {}).get("status") not in ("ok", "empty", "kept", "strip")
-    ]
-    log(f"queued={len(queued)} checkpointed={len(rows) - len(queued)} need_refill={len(rows)}")
+    queued = [r for r in rows if (done.get(r["synergy_id"]) or {}).get("status") not in ("ok", "empty")]
+    log(f"queued={len(queued)} checkpointed={len(rows) - len(queued)} per_chart={PER_CHART}")
     token = bas.login_token()
     for i, player in enumerate(queued, 1):
         sid = player["synergy_id"]
-        log(f"[{i}/{len(queued)}] {player['team']} {player['name']} saved {player['n_handed']}/{player['n_points']} handed")
+        log(f"[{i}/{len(queued)}] {player['team']} {player['name']}")
         try:
-            events, token = fetch_handed_events(token, sid)
+            events, counts, token = fetch_chart_events(token, sid)
             pts = points_from_events(events, sid, player["team"])
         except Exception as exc:  # noqa: BLE001
             log(f"  fail {exc}")
             if "401" in str(exc):
                 token = bas.login_token()
             continue
+        chart_n = point_chart_counts(pts)
         hands = Counter(p.get("pitcher_hand") for p in pts)
         years = Counter((p.get("game_date_sort") or "")[:4] for p in pts)
         if not pts:
             done[sid] = {"status": "empty", "name": player["name"], "team": player["team"]}
             save_json(CKPT, ckpt)
             log("  no handed balls in play")
-            continue
-        # Don't shrink a chart that already has more handed balls than this pull.
-        if player["n_handed"] > len(pts):
-            done[sid] = {
-                "status": "kept" if player["n_handed"] == player["n_points"] else "strip",
-                "name": player["name"],
-                "team": player["team"],
-                "n": player["n_handed"],
-            }
-            save_json(CKPT, ckpt)
-            log(f"  kept existing {player['n_handed']} handed (refetch {len(pts)})")
             continue
         done[sid] = {
             "status": "ok",
@@ -256,11 +280,13 @@ def main() -> int:
             "n": len(pts),
             "L": hands.get("L", 0),
             "R": hands.get("R", 0),
+            "charts": chart_n,
+            "event_charts": counts,
             "years": dict(years),
             "points": pts,
         }
         save_json(CKPT, ckpt)
-        log(f"  kept {len(pts)} L={hands.get('L', 0)} R={hands.get('R', 0)} years={dict(years)}")
+        log(f"  kept {len(pts)} charts={chart_n} years={dict(years)}")
     apply_checkpoint()
     return 0
 

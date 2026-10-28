@@ -1882,29 +1882,43 @@ input.tth-input:focus {
 .ofpos-lineup-row .slot { font-weight: 700; color: var(--muted); min-width: 1.4em; }
 .ofpos-lineup-row select { flex: 1; min-width: 0; font: inherit; font-size: 12px; }
 .ofpos-wrap { max-height: 70vh; overflow: auto; }
-.ofpos-sheet { font-size: 12px; }
+.ofpos-sheet { font-size: 12px; color: #111; color-scheme: light; }
 .ofpos-sheet th.ofpos-hitter { text-align: left; min-width: 110px; }
+.ofpos-sheet tbody td,
+.ofpos-sheet tbody td .ofpos-suggest,
+.ofpos-sheet tbody td .ofpos-code,
+.ofpos-sheet tbody td .muted {
+  color: #111;
+}
+.ofpos-sheet thead th { color: #fff; background: #1f2a3c; }
 .ofpos-sheet .ofpos-code {
   font-weight: 800; font-variant-numeric: tabular-nums; min-width: 88px;
-  font-size: 13px; letter-spacing: .02em; background: #f8fafc;
+  font-size: 13px; letter-spacing: .02em; background: #f8fafc; color: #111;
 }
-.ofpos-sheet .ofpos-code.is-nosample { color: #9a3412; font-style: italic; font-weight: 700; }
-.ofpos-sheet .ofpos-suggest { color: #555; font-size: 11px; }
+.ofpos-sheet .ofpos-code.is-nosample { color: #111; font-style: italic; font-weight: 700; }
+.ofpos-sheet .ofpos-suggest { color: #111; font-size: 11px; }
 .ofpos-sheet select.ofpos-shade,
 .ofpos-sheet select.ofpos-hand {
-  font: inherit; font-size: 12px; max-width: 92px; color: #111; background: #fff;
+  font: inherit; font-size: 12px; max-width: 110px; color: #111;
+  -webkit-text-fill-color: #111; background: #fff;
 }
-.ofpos-sheet td.ofpos-stepcell { padding: 2px 4px; background: #fffef6; }
+.ofpos-sheet tbody td.ofpos-stepcell,
+.ofpos-sheet tbody tr:nth-child(even) td.ofpos-stepcell {
+  padding: 2px 4px; background: #fff3bf;
+}
 .ofpos-sheet input.ofpos-steps {
   width: 72px; min-width: 72px; text-align: center; font-weight: 700;
-  background: #fff; color: #111; border: 1px solid #c4a35a;
+  background: #fff3bf; color: #111; -webkit-text-fill-color: #111;
+  border: 1px solid #c4a35a;
   box-shadow: inset 0 0 0 1px rgba(196, 163, 90, .35);
 }
+.ofpos-sheet input.ofpos-steps::placeholder { color: #333; opacity: 1; }
 .ofpos-sheet input.ofpos-steps:focus {
-  outline: 2px solid rgba(230, 195, 92, .85); border-color: #a16207; background: #fff;
+  outline: 2px solid rgba(230, 195, 92, .85); border-color: #a16207;
+  background: #fff3bf; color: #111; -webkit-text-fill-color: #111;
 }
 .ofpos-sheet tr.ofpos-hitter-start td { border-top: 2px solid #1f2a3c; }
-.ofpos-sheet tr.ofpos-nosample .ofpos-hitter { color: #9a3412; }
+.ofpos-sheet tr.ofpos-nosample .ofpos-hitter { color: #111; }
 
 /* Scout entry spreadsheets (OF arms + TTH / catcher) */
 .scout-sheet-wrap { background: #fff; border: 1px solid var(--line); }
