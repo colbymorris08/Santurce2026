@@ -1285,23 +1285,27 @@ def _spray_game_date(game: dict | None) -> tuple[str | None, str | None]:
 
 
 def recent_spray_points(pts: list, n: int = SPRAY_MAX_POINTS) -> list:
-    """Keep the most recent n spray points.
+    """Keep the most recent n spray points that have a pitcher hand.
 
     Synergy events/filter pagination is newest-first, so append order is already
     recent→old when dates are missing. When game_date_sort is present, sort by it.
+    Balls with no pitcher hand are skipped whenever the list has any L/R tag, so
+    a newer season that omitted pitchingSide does not hide older balls that have it.
     """
     if not pts:
         return []
-    if len(pts) <= n:
-        return list(pts)
-    if any(p.get("game_date_sort") or p.get("game_date") for p in pts):
+    handed = [p for p in pts if p.get("pitcher_hand") in ("L", "R")]
+    pool = handed or list(pts)
+    if len(pool) <= n:
+        return list(pool)
+    if any(p.get("game_date_sort") or p.get("game_date") for p in pool):
         def key(p: dict):
             return (
                 str(p.get("game_date_sort") or p.get("game_date") or ""),
                 str(p.get("game_id") or ""),
             )
-        return sorted(pts, key=key, reverse=True)[:n]
-    return list(pts[:n])
+        return sorted(pool, key=key, reverse=True)[:n]
+    return list(pool[:n])
 
 def _terminal_pa_indexes(events: list[dict]) -> set[int]:
     """Index of the pitch that finished each plate appearance.
@@ -2362,11 +2366,13 @@ def merge_spray_into_pregame(hitters: list[dict]) -> None:
     existing["synergy"] = synergy_players
     existing["synergy_note"] = (
         "Synergy spray uses landingLocationX/Y in feet (home→CF = +Y, toward RF = +X). "
-        f"Each chart plots the most recent {SPRAY_MAX_POINTS} BIP (by gameDate; "
-        "events/filter is newest-first). Multi-select: RISP/non-RISP and 2K/non-2K "
-        "are independent. Points carry risp + two_strikes flags. "
+        f"Each chart uses the most recent {SPRAY_MAX_POINTS} balls in play that have a "
+        "pitcher hand (pitcherInfo.pitchingSide). Newer balls with no hand are skipped, "
+        "so a season that omitted hand falls back through the prior year, including "
+        "Puerto Rico. Multi-select: RISP/non-RISP and 2K/non-2K are independent. "
         "MLB Statcast sprays retained under .mlb when available."
     )
+    existing["spray_recent_cap"] = SPRAY_MAX_POINTS
     existing["updated_synergy"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     path.write_text(json.dumps(existing, indent=2))
     print(f"spray synergy players={len(synergy_players)} → {path}")

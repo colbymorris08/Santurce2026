@@ -476,7 +476,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san166';
+const ASSET_V = 'san167';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1393,7 +1393,7 @@ function sprayHitLegendHtml({compact=false}={}){
     `<span class="swatch" title="${lab}"><span class="dot" style="background:${col}"></span><span class="spray-hit-lab"><strong>${code}</strong></span></span>`
   ).join('');
   return `<div class="spray-hit-legend${compact?' spray-hit-legend--compact':''}" role="list" aria-label="Spray chart legend">
-    <div class="legend-row spray-hit-key">${keys}<span class="fence-note">Fence = 400' CF · poles ~330' · recent 100 BIP</span></div>
+    <div class="legend-row spray-hit-key">${keys}<span class="fence-note">Fence = 400' CF · poles ~330' · newest 100 BIP with pitcher hand</span></div>
   </div>`;
 }
 function hydrateSpraySynergyFromAdvance(){
@@ -1663,7 +1663,7 @@ function renderSpray(){
   const src=document.getElementById('spray-source')?.value || 'synergy';
   const noteEl=document.getElementById('spray-note');
   if(src==='synergy'){
-    noteEl.textContent = 'Eight charts on one page: vs RHP and vs LHP, each with 2K, non-2K, RISP, and non-RISP. Each chart is the most recent 100 balls in play in that split. Hand is the pitcher who threw the pitch.';
+    noteEl.textContent = 'Eight charts on one page: vs RHP and vs LHP, each with 2K, non-2K, RISP, and non-RISP. Dots are the newest balls in play that include the pitcher\'s hand (up to 100). If the latest season has no hand, the chart uses the newest handed balls from the prior year, including Puerto Rico.';
   } else {
     noteEl.textContent = spray.aaa_note || 'AAA true spray splits unavailable.';
   }
