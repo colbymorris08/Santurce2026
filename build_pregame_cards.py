@@ -994,15 +994,18 @@ def main() -> None:
     confirmed_pit = confirmed_pitching_lines()
     summer = summer_by_id()
     players = []
+    # Key by team + id so a dual-rostered player (same MLBAM id on two clubs)
+    # can appear on both strategy-card team pools.
     seen = set()
 
     for team in rosters.values():
         abbrev = team.get("teamAbbrev")
         for p in team.get("players") or []:
             pid = int(p.get("id") or 0)
-            if not pid or pid in seen:
+            key = (abbrev, pid)
+            if not pid or key in seen:
                 continue
-            seen.add(pid)
+            seen.add(key)
             name = p.get("name") or ""
             roster_pos = (p.get("position") or "").upper()
             hit = hit_by.get(pid)
