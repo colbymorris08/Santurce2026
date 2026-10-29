@@ -1831,9 +1831,16 @@ input.tth-input:focus {
 .onepage-grid .op-freq .freq-l { color: #b00020; display: block; }
 .onepage-grid .op-notes { width: 36%; }
 .onepage-grid .op-notes textarea {
-  width: 100%; min-height: 44px; border: none; resize: vertical;
-  font: inherit; font-size: 11px; line-height: 1.3; color: #111; background: transparent;
+  width: 100%; min-height: 44px; border: 1px solid #ccc; border-radius: 2px;
+  padding: 3px 4px; resize: vertical; cursor: text;
+  font: inherit; font-size: 11px; line-height: 1.3; background: #fff;
+  box-sizing: border-box;
 }
+.onepage-grid .op-notes textarea:focus {
+  outline: 2px solid #2f3540; outline-offset: 0; border-color: #2f3540;
+}
+.onepage-grid .op-notes textarea.op-note-lhp { color: #b00020; }
+.onepage-grid .op-notes textarea.op-note-rhp { color: #111; }
 .onepage-grid tr.op-alt td { background: #f2f2f2; }
 .onepage-grid tr.op-needs td { outline: 1px solid #e6a800; }
 .winter-line-row td { color: #334; font-weight: 600; background: #f7fafc !important; }

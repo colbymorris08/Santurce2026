@@ -539,7 +539,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san175';
+const ASSET_V = 'san176';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6183,13 +6183,15 @@ function renderPitcherOnePage(){
       const raw = (p.velo && p.velo[c]) || '';
       return `<td class="op-velo">${escHtml(String(raw)).replace(/\n/g,'<br>')}</td>`;
     }).join('');
-    const lClass = String(p.throws||'').toUpperCase().startsWith('L') ? ' op-lhp' : '';
+    const isLhp = String(p.throws||'').toUpperCase().startsWith('L');
+    const lClass = isLhp ? ' op-lhp' : '';
+    const noteClass = isLhp ? 'op-note-lhp' : 'op-note-rhp';
     return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}">
       <td class="op-num">${escHtml(String(p.jersey||''))}</td>
       <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
       ${velo}
       <td class="op-freq">${p.freq_html || ''}</td>
-      <td class="op-notes"><textarea data-op-key="${escHtml(key)}" rows="3" onchange="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
+      <td class="op-notes"><textarea class="${noteClass}" data-op-key="${escHtml(key)}" rows="3" placeholder="Notes…" onchange="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
     </tr>`;
   }).join('');
   root.innerHTML = `<div class="onepage-print">
