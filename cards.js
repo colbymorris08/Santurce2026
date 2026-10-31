@@ -134,6 +134,7 @@
   }
 
   function toneHitter(metric, val, sample) {
+    // Colors need 15+ PA (or 15+ swings when whiff uses a swing sample).
     if (val == null || sample == null || sample < 15) return '';
     const v = Number(val);
     if (metric === 'k' || metric === 'wh') {
@@ -143,8 +144,9 @@
       return '';
     }
     if (metric === 'gb') {
-      if (v >= 48) return 'sc-good';
-      if (v <= 33) return 'sc-bad';
+      // High GB = soft contact / roll-over (red). Low GB = more loft (green).
+      if (v >= 48) return 'sc-bad';
+      if (v <= 33) return 'sc-good';
       return '';
     }
     if (metric === 'avg') {
@@ -207,7 +209,7 @@
       pa += Number(r.pa) || 0;
     });
     if (!swings) return null;
-    return { wh: Math.round((1000 * whiffs) / swings) / 10, pa };
+    return { wh: Math.round((1000 * whiffs) / swings) / 10, pa, swings };
   }
 
   function indexAdvance(payload) {
@@ -228,25 +230,34 @@
     const adv = playerId != null ? advById.get(Number(playerId)) : null;
     if (adv) {
       const hand = adv[side];
-      if (hand && hand.wh != null) return { wh: hand.wh, pa: hand.pa, src: 'hand' };
-      if (adv.wh != null) return { wh: adv.wh, pa: null, src: 'overall' };
+      if (hand && hand.wh != null) {
+        return { wh: hand.wh, pa: hand.pa, swings: hand.swings, src: 'hand' };
+      }
+      if (adv.wh != null) return { wh: adv.wh, pa: null, swings: null, src: 'overall' };
     }
     const handWh = side === 'L' ? h.wh_l : h.wh_r;
     const handPa = side === 'L' ? h.wh_l_pa : h.wh_r_pa;
-    if (handWh != null) return { wh: handWh, pa: handPa, src: 'hand' };
+    const handSw = side === 'L' ? h.wh_l_swings : h.wh_r_swings;
+    if (handWh != null) return { wh: handWh, pa: handPa, swings: handSw, src: 'hand' };
     const split = side === 'L' ? h.vs_l : h.vs_r;
-    if (split && split.wh != null) return { wh: split.wh, pa: split.pa, src: 'hand' };
-    if (h.wh != null) return { wh: h.wh, pa: null, src: 'overall' };
-    return { wh: null, pa: null, src: null };
+    if (split && split.wh != null) {
+      return { wh: split.wh, pa: split.pa, swings: split.swings, src: 'hand' };
+    }
+    if (h.wh != null) return { wh: h.wh, pa: null, swings: null, src: 'overall' };
+    return { wh: null, pa: null, swings: null, src: null };
   }
 
   function sideLine(h, side, playerId) {
     const split = side === 'L' ? h.vs_l : h.vs_r;
     const whInfo = sideWh(h, playerId, side);
+    // Prefer swings for whiff color gates (rate is whiffs/swings).
+    const whSample = whInfo.swings != null && whInfo.swings > 0
+      ? whInfo.swings
+      : (whInfo.src === 'hand' ? whInfo.pa : h.pa);
     return {
       k: h.k, gb: h.gb,
       wh: whInfo.wh,
-      whSample: whInfo.src === 'hand' ? whInfo.pa : h.pa,
+      whSample,
       whSrc: whInfo.src,
       whPa: whInfo.pa,
       avg: split && split.avg != null ? split.avg : h.avg,
@@ -595,8 +606,8 @@
           <button type="button" class="${state.santurceHome ? '' : 'on'}" onclick="CardApp.setHome(false)">${tr('Away', 'Visita')}</button>
         </div>
         <p class="sc-legend">${tr(
-          'Green = a strength, red = a soft spot. K/GB repeat the season line on both hands. WH is Synergy whiff vs that hand, or the overall whiff when that side has no swings. AVG/OPS use a platoon split at 15+ PA. TTP is the time-to-home saved on the pop-times tab.',
-          'Verde = fortaleza, rojo = punto débil. K/GB repiten la línea de temporada en ambas manos. WH es el whiff Synergy contra esa mano, o el whiff general si ese lado no tiene swings. AVG/OPS usan el split con 15+ PA. TTP es el tiempo al home guardado en la pestaña de pop times.'
+          'Green = a strength, red = a soft spot. Colors need 15+ PA (or 15+ swings for WH). High GB is red (roll-over); low GB is green. K/GB are the season line on both hands. WH is Synergy whiff vs that hand, or overall when that side has no swings. AVG/OPS use a platoon split at 15+ PA. TTP is time-to-home from the pop-times tab.',
+          'Verde = fortaleza, rojo = punto débil. Los colores piden 15+ PA (o 15+ swings para WH). GB alto es rojo (rodado); GB bajo es verde. K/GB son la línea de temporada en ambas manos. WH es el whiff Synergy contra esa mano, o el general si ese lado no tiene swings. AVG/OPS usan el split con 15+ PA. TTP es el tiempo al home de la pestaña de pop times.'
         )}</p>
         <div class="sc-toolbar-right">
           <label>${tr('Home team', 'Equipo de home')}
