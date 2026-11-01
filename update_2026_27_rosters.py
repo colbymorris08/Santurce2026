@@ -257,6 +257,13 @@ def parse_base_rosters() -> dict[str, list[dict]]:
 
     additions = {
         "SAN": [("Dereck Rodriguez", "P")],
+        "CAG": [
+            ("John McMillon", "P"),
+            ("Zach Veen", "P"),
+            ("Tyler Santana", "P"),
+            ("Steven Echavarria", "P"),
+            ("Jonathan Morales", "C"),
+        ],
         "SJU": [("Yuta Nakami", "OF"), ("Keishin Saito", "P"), ("Haruse Narita", "P"), ("Freddy Cabrera", "P")],
         "PON": [("Mario Zabala", "P")],
     }

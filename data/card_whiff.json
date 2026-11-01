@@ -227,7 +227,7 @@
     {
       "id": 641521,
       "name": "Edwin Diaz",
-      "team": "SAN",
+      "team": "CAR",
       "role": "H",
       "wh": 37.0,
       "wh_l": 34.8,
@@ -3151,20 +3151,34 @@
       "synergy_id": "611734aae911423818fc4084"
     },
     {
-      "id": 641521,
-      "name": "Edwin Diaz",
-      "team": "CAR",
-      "role": "H",
-      "wh": 37.0,
-      "wh_l": 34.8,
-      "wh_r": 38.0,
-      "swings": 154,
-      "swings_l": 46,
-      "swings_r": 108,
+      "id": 806064,
+      "name": "Steven Echavarria",
+      "team": "CAG",
+      "role": "P",
+      "wh": 26.3,
+      "wh_l": 27.1,
+      "wh_r": 25.5,
+      "swings": 911,
+      "swings_l": 472,
+      "swings_r": 439,
       "window": "2026 summer",
-      "synergy_id": "5abcb5332cb661f2936389c1"
+      "synergy_id": "5f48363d5f9a94d568e0b1d7"
+    },
+    {
+      "id": 664966,
+      "name": "Jonathan Morales",
+      "team": "CAG",
+      "role": "H",
+      "wh": 16.8,
+      "wh_l": 18.0,
+      "wh_r": 16.0,
+      "swings": 131,
+      "swings_l": 50,
+      "swings_r": 81,
+      "window": "LBPRC",
+      "synergy_id": "5abcb5322cb661f293636a79"
     }
   ],
-  "updated": "2026-10-18T02:08:49Z",
+  "updated": "2026-11-01T23:41:47Z",
   "rule": "Synergy whiffs/swings. Newest window with swings: 2026 summer, then LBPRC, then 2025 summer. No rate is invented."
 }
