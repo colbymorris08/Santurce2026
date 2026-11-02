@@ -2114,3 +2114,55 @@ input.tth-input:focus {
 }
 .scout-input:focus { outline: 2px solid rgba(230,195,92,.7); border-color: #e6c35c; }
 .scout-notes { min-width: 140px; }
+
+/* INF / OF positioning workbench */
+.pos-toolbar { align-items: end; flex-wrap: wrap; gap: 12px 16px; }
+.pos-mode-bar { margin: 0; }
+.pos-print-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pos-print-label { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--muted, #6a7688); margin-right: 4px; }
+.pos-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.7fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 10px;
+}
+.pos-entry-pane { min-width: 0; }
+.pos-spray-pane {
+  position: sticky;
+  top: 12px;
+  background: #f7faf6;
+  border: 1px solid var(--line, #c5cdd8);
+  padding: 12px;
+  border-radius: 4px;
+}
+.pos-spray-note { margin: 4px 0 8px; font-size: 12px; }
+.pos-spray-label { font-weight: 700; font-size: 13px; margin-bottom: 8px; min-height: 1.2em; }
+.pos-spray-canvas {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin-top: 10px;
+  border: 1px solid #9aa88f;
+  border-radius: 4px;
+  background: #e8f0e4;
+}
+.pos-lineup-details { margin-top: 14px; }
+.pos-lineup-details summary { cursor: pointer; font-weight: 700; font-size: 13px; }
+.pos-entry-sheet .pos-input { white-space: nowrap; }
+.pos-code-pair { display: inline-flex; gap: 3px; align-items: center; }
+.pos-code-pair select {
+  font: inherit; font-size: 12px; padding: 2px 4px;
+  border: 1px solid #9aa8bc; background: #fff8d6; border-radius: 2px;
+}
+.pos-code-out {
+  display: inline-block; min-width: 3.2em; margin-left: 4px;
+  font-weight: 800; font-size: 12px; letter-spacing: .02em;
+}
+.pos-entry-row.is-active td { outline: 2px solid rgba(40, 110, 200, .45); outline-offset: -2px; }
+.pos-hitter-start td { border-top: 2px solid #8a95a5; }
+@media (max-width: 980px) {
+  .pos-workbench { grid-template-columns: 1fr; }
+  .pos-spray-pane { position: static; }
+}

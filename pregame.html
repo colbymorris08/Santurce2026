@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san183">
+<link rel="stylesheet" href="shared.css?v=san188">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -51,7 +51,7 @@
     <button class="tab" data-tab="pitcher-one-page" onclick="switchTab('pitcher-one-page')" data-i18n="pitcherOnePageTab">Pitcher One Page Sheet</button>
     <button class="tab" data-tab="spray" onclick="switchTab('spray')" data-i18n="sprayTab">Spray Charts</button>
     <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
-    <button class="tab" data-tab="ofpos" onclick="switchTab('ofpos')" data-i18n="ofposTab">OF Positioning</button>
+    <button class="tab" data-tab="ofpos" onclick="switchTab('ofpos')" data-i18n="ofposTab">INF / OF Positioning</button>
     <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home and Catcher Pop Times</button>
   </div>
 
@@ -398,9 +398,9 @@
     </div>
   </div>
   <div id="panel-ofpos" class="panel">
-    <div class="section-label" data-i18n="ofposLabel">OF Positioning Card</div>
-    <div class="note" data-i18n-html="ofposNote">recomendacion LHP y recomendacion RHP. LHP y RHP: STRAIGHT, L-10, L-20, L-30, G-10, O-10, O-20, O-30, P-10, P-20. Position: LF PRE, CF PRE, RF PRE, LF 2K, CF 2K, RF 2K. Escribe 10, 20 o 30 en la celda amarilla. STRAIGHT se queda STRAIGHT.</div>
-    <div class="filters">
+    <div class="section-label" data-i18n="ofposLabel">INF / OF Positioning</div>
+    <div class="note" data-i18n-html="ofposNote">Manual entry only — one cell per player × position × situation. <strong>OF:</strong> STRAIGHT or G/L/O/P + 10/20/30 (gap / line / oppo / pull) · PRE &amp; 2K vs LHP/RHP. <strong>INF:</strong> H N L R EL ER (+ optional 3/6/9) · BAG on 1B DP · Empty / RISP / DP vs LHP/RHP. Spray charts on the right are for entry reference only and are not printed.</div>
+    <div class="filters pos-toolbar">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="ofpos-team" onchange="onOfPosTeamChange()">
           <option value="PON">Leones de Ponce</option>
@@ -411,81 +411,57 @@
           <option value="SJU">Senadores de San Juan</option>
         </select>
       </div>
-      <div class="filter-field" style="align-self:end;display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="btn" onclick="exportOfPosExcel()">Export → Excel</button>
-        <button type="button" class="btn btn-sm" onclick="clearOfPosOverrides()">Clear saved steps</button>
+      <div class="subtab-bar pos-mode-bar" role="tablist" aria-label="Field">
+        <button type="button" class="subtab active" data-pos-mode="OF" role="tab" aria-selected="true" onclick="PosApp.setMode('OF')" data-i18n="ofposSubOf">OF</button>
+        <button type="button" class="subtab" data-pos-mode="INF" role="tab" aria-selected="false" onclick="PosApp.setMode('INF')" data-i18n="ofposSubInf">INF</button>
+      </div>
+      <div class="filter-field pos-print-group" id="pos-print-of">
+        <span class="pos-print-label" data-i18n="ofposPrintOf">Print / PDF</span>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printOf('LF')">LF</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printOf('CF')">CF</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printOf('RF')">RF</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printOf('ALL')" data-i18n="ofposPrintEntireOf">Entire OF</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.exportOfExcel()">Excel OF</button>
+      </div>
+      <div class="filter-field pos-print-group" id="pos-print-inf" hidden>
+        <span class="pos-print-label" data-i18n="ofposPrintInf">Print / PDF</span>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printInf('1B')">1B</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printInf('2B')">2B</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printInf('SS')">SS</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printInf('3B')">3B</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.printInf('ALL')" data-i18n="ofposPrintEntireInf">Entire INF</button>
+        <button type="button" class="btn btn-sm" onclick="PosApp.exportInfExcel()">Excel INF</button>
+      </div>
+      <div class="filter-field" style="align-self:end">
+        <button type="button" class="btn btn-sm" onclick="clearOfPosOverrides()" data-i18n="ofposClear">Clear saved</button>
       </div>
     </div>
     <div id="ofpos-meta" class="note" style="margin-top:4px"></div>
-    <div class="subtab-bar" id="ofpos-subtabs" role="tablist">
-      <button type="button" class="subtab active" data-ofpos-tab="grid" role="tab" aria-selected="true" onclick="setOfPosSubtab('grid')" data-i18n="ofposSubGrid">Grid</button>
-      <button type="button" class="subtab" id="ofpos-sub-inf" data-ofpos-tab="inf" role="tab" aria-selected="false" onclick="setOfPosSubtab('inf')" data-i18n="ofposSubInf">INF</button>
-      <button type="button" class="subtab" id="ofpos-sub-of" data-ofpos-tab="of" role="tab" aria-selected="false" onclick="setOfPosSubtab('of')" data-i18n="ofposSubOf">OF</button>
-    </div>
-    <div id="ofpos-view-grid">
-      <div class="section-label" style="margin-top:14px;font-size:14px">Positioning</div>
-      <div class="table-wrap scout-sheet-wrap ofpos-wrap">
-        <table id="tbl-ofpos" class="scout-sheet ofpos-sheet"><thead></thead><tbody></tbody></table>
-      </div>
-      <div class="section-label" style="margin-top:18px;font-size:14px">Lineup (1–15) · Excel export order</div>
-      <div id="ofpos-lineup" class="ofpos-lineup"></div>
-    </div>
-    <div id="ofpos-view-spray" class="ofpos-spray" hidden>
-      <p class="ofpos-spray-hint" id="ofpos-align-hint"></p>
-      <div class="ofpos-spray-controls">
-        <label class="ofpos-spray-field"><span data-i18n="ofposSprayHitter">Hitter</span>
-          <select id="ofpos-spray-hitter" onchange="onOfPosSprayHitterChange()"></select>
-        </label>
-        <div class="ofpos-spray-field">
-          <span data-i18n="ofposSprayHand">Pitcher</span>
-          <div class="ofpos-spray-pills" role="group">
-            <button type="button" class="ofpos-pill" data-hand="L" onclick="setOfPosSprayHand('L')" data-i18n="ofposSprayVsLhp">vs LHP</button>
-            <button type="button" class="ofpos-pill active" data-hand="R" aria-pressed="true" onclick="setOfPosSprayHand('R')" data-i18n="ofposSprayVsRhp">vs RHP</button>
-          </div>
+    <div class="pos-workbench">
+      <div class="pos-entry-pane">
+        <div class="section-label" style="margin-top:8px;font-size:14px" data-i18n="ofposEntryLabel">Manual data entry</div>
+        <div class="table-wrap scout-sheet-wrap ofpos-wrap">
+          <table id="tbl-ofpos" class="scout-sheet ofpos-sheet pos-entry-sheet"><thead></thead><tbody></tbody></table>
         </div>
-        <div class="ofpos-spray-field">
-          <span data-i18n="ofposSprayCount">Count</span>
-          <div class="ofpos-spray-pills" role="group">
-            <button type="button" class="ofpos-pill active" data-count="PRE" aria-pressed="true" onclick="setOfPosSprayCount('PRE')">PRE</button>
-            <button type="button" class="ofpos-pill" data-count="2K" onclick="setOfPosSprayCount('2K')">2K</button>
-          </div>
-        </div>
-        <label class="ofpos-spray-check">
-          <input type="checkbox" id="ofpos-spray-all" checked onchange="onOfPosSprayAllChange()">
-          <span data-i18n="ofposSprayAll">All presets</span>
-        </label>
+        <details class="pos-lineup-details">
+          <summary data-i18n="ofposLineupLabel">Lineup (1–15) · print / Excel order</summary>
+          <div id="ofpos-lineup" class="ofpos-lineup"></div>
+        </details>
       </div>
-      <div class="ofpos-spray-field ofpos-spray-align-label"><span data-i18n="ofposSprayAlign">Alignment</span></div>
-      <div class="ofpos-spray-align" id="ofpos-spray-align" role="group" aria-label="Alignment">
-        <button type="button" class="ofpos-align-btn active" data-code="STRAIGHT" aria-pressed="true" onclick="setOfPosSprayAlign('STRAIGHT')">STRAIGHT</button>
-        <button type="button" class="ofpos-align-btn" data-code="L-10" onclick="setOfPosSprayAlign('L-10')">L-10</button>
-        <button type="button" class="ofpos-align-btn" data-code="L-20" onclick="setOfPosSprayAlign('L-20')">L-20</button>
-        <button type="button" class="ofpos-align-btn" data-code="L-30" onclick="setOfPosSprayAlign('L-30')">L-30</button>
-        <button type="button" class="ofpos-align-btn" data-code="G-10" onclick="setOfPosSprayAlign('G-10')">G-10</button>
-        <button type="button" class="ofpos-align-btn" data-code="O-10" onclick="setOfPosSprayAlign('O-10')">O-10</button>
-        <button type="button" class="ofpos-align-btn" data-code="O-20" onclick="setOfPosSprayAlign('O-20')">O-20</button>
-        <button type="button" class="ofpos-align-btn" data-code="O-30" onclick="setOfPosSprayAlign('O-30')">O-30</button>
-        <button type="button" class="ofpos-align-btn" data-code="P-10" onclick="setOfPosSprayAlign('P-10')">P-10</button>
-        <button type="button" class="ofpos-align-btn" data-code="P-20" onclick="setOfPosSprayAlign('P-20')">P-20</button>
-      </div>
-      <div id="ofpos-spray-readout" class="ofpos-spray-readout"></div>
-      <div class="ofpos-spray-stage" id="ofpos-stage-inf">
-        <div class="ofpos-spray-frame" id="ofpos-inf-frame">
-          <canvas id="ofpos-inf-canvas" width="848" height="600"></canvas>
-          <div id="ofpos-inf-icons" class="ofpos-spray-icons"></div>
+      <aside class="pos-spray-pane" aria-label="Spray reference">
+        <div class="section-label" style="font-size:14px" data-i18n="ofposSprayRef">Spray reference</div>
+        <p class="note pos-spray-note" data-i18n="ofposSprayNote">Not printed. Click a hitter row to load their chart while you fill codes.</p>
+        <div id="pos-spray-label" class="pos-spray-label"></div>
+        <div class="ofpos-spray-pills" id="pos-spray-hand" role="group">
+          <button type="button" class="ofpos-pill" data-hand="L" onclick="PosApp.setSprayHand('L')">vs LHP</button>
+          <button type="button" class="ofpos-pill active" data-hand="R" aria-pressed="true" onclick="PosApp.setSprayHand('R')">vs RHP</button>
         </div>
-      </div>
-      <div class="ofpos-spray-stage" id="ofpos-stage-of" hidden>
-        <div class="ofpos-heat-legend" aria-hidden="true">
-          <span>Low</span>
-          <span class="ofpos-heat-bar"></span>
-          <span>High</span>
+        <div class="ofpos-spray-pills" id="pos-spray-count" role="group" style="margin-top:6px">
+          <button type="button" class="ofpos-pill active" data-count="PRE" aria-pressed="true" onclick="PosApp.setSprayCount('PRE')">PRE</button>
+          <button type="button" class="ofpos-pill" data-count="2K" onclick="PosApp.setSprayCount('2K')">2K</button>
         </div>
-        <div class="ofpos-spray-frame" id="ofpos-of-frame">
-          <canvas id="ofpos-of-canvas" width="848" height="600"></canvas>
-          <div id="ofpos-of-icons" class="ofpos-spray-icons"></div>
-        </div>
-      </div>
+        <canvas id="pos-spray-canvas" class="pos-spray-canvas" width="360" height="320"></canvas>
+      </aside>
     </div>
   </div>
 
@@ -534,12 +510,13 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san187"></script>
+<script src="i18n.js?v=san188"></script>
 <script src="cards.js?v=san187"></script>
+<script src="positioning.js?v=san188"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san187';
+const ASSET_V = 'san188';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4935,7 +4912,7 @@ function ofPosResolved(hitter, team, ofPos, count, pHand){
     code,
   };
 }
-function onOfPosTeamChange(){ renderOfPos(); }
+function onOfPosTeamChange(){ if(window.PosApp){ PosApp.onTeamChange(); return; } renderOfPos(); }
 function ofPosDataAttrs(team, name, ofPos, count, pHand){
   return `data-team="${escHtml(team)}" data-hitter="${escHtml(name)}" data-pos="${ofPos}" data-count="${count}" data-phand="${pHand}"`;
 }
@@ -5001,6 +4978,7 @@ function ofPosHitterMenuLabel(hitter, team){
   return `${name} · ${hand || '—'}`;
 }
 function clearOfPosOverrides(){
+  if(window.PosApp){ PosApp.clearAll(); return; }
   if(!confirm('Clear saved OF positioning steps/shades and lineup for all teams on this device?')) return;
   try { localStorage.removeItem(OFPOS_STORAGE_KEY); } catch(e){}
   renderOfPos();
@@ -5643,6 +5621,11 @@ function ofPosPaintReadout(){
     <div class="ofpos-spray-n">${escHtml(extra)}</div>`;
 }
 function setOfPosSubtab(name){
+  if(window.PosApp){
+    if(name==='inf') PosApp.setMode('INF');
+    else PosApp.setMode('OF');
+    return;
+  }
   ofPosSubtab = name === 'of' ? 'of' : (name === 'inf' ? 'inf' : 'grid');
   document.querySelectorAll('#ofpos-subtabs .subtab').forEach(btn => {
     const on = btn.dataset.ofposTab === ofPosSubtab;
@@ -5749,6 +5732,7 @@ function onOfPosSprayResize(){
 window.addEventListener('resize', onOfPosSprayResize);
 
 function renderOfPos(){
+  if(window.PosApp){ PosApp.render(); return; }
   const team = document.getElementById('ofpos-team')?.value || 'PON';
   const meta = document.getElementById('ofpos-meta');
   const hitters = ofPosTeamHitters(team);
@@ -5828,6 +5812,7 @@ function renderOfPosTableOnly(){
   tbody.innerHTML = blocks.join('') || `<tr><td colspan="12" class="note">No hitters for this team.</td></tr>`;
 }
 function exportOfPosExcel(){
+  if(window.PosApp){ PosApp.exportOfExcel(); return; }
   if(typeof XLSX === 'undefined'){
     alert('Excel library failed to load — check network / CDN (SheetJS).');
     return;
