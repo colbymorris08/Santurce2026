@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san188">
+<link rel="stylesheet" href="shared.css?v=san189">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -510,13 +510,13 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san188"></script>
-<script src="cards.js?v=san188"></script>
-<script src="positioning.js?v=san188"></script>
+<script src="i18n.js?v=san189"></script>
+<script src="cards.js?v=san189"></script>
+<script src="positioning.js?v=san189"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san188';
+const ASSET_V = 'san189';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4597,15 +4597,24 @@ function loadScoutPatInput(){
 }
 
 function loadTthOverrides(){
-  try { TTH_OVERRIDES = JSON.parse(localStorage.getItem(TTH_STORAGE_KEY) || '{}') || {}; }
-  catch(e){ TTH_OVERRIDES = {}; }
+  try {
+    const raw = localStorage.getItem(TTH_STORAGE_KEY);
+    TTH_OVERRIDES = raw ? (JSON.parse(raw) || {}) : {};
+    if(typeof TTH_OVERRIDES !== 'object' || Array.isArray(TTH_OVERRIDES) || !TTH_OVERRIDES) TTH_OVERRIDES = {};
+  } catch(e){ TTH_OVERRIDES = {}; }
 }
 function loadOfOverrides(){
   try { OF_OVERRIDES = JSON.parse(localStorage.getItem(OF_STORAGE_KEY) || '{}') || {}; }
   catch(e){ OF_OVERRIDES = {}; }
 }
 function saveTthOverrides(){
-  try { localStorage.setItem(TTH_STORAGE_KEY, JSON.stringify(TTH_OVERRIDES)); } catch(e){}
+  try {
+    localStorage.setItem(TTH_STORAGE_KEY, JSON.stringify(TTH_OVERRIDES));
+  } catch(e){
+    console.warn('TTH localStorage save failed', e);
+  }
+  // Do not bake overrides into CACHE.tth — cards/strategy already merge TTH_OVERRIDES on read;
+  // mutating CACHE would make cleared fields stick after refresh of the JSON base.
   updateTthPersistNote();
   queueScoutPublish('tth');
 }
@@ -5906,11 +5915,14 @@ function exportOfPosExcel(){
 
 function scoutInput(id, field, value, handler){
   const v = String(value || '').replace(/"/g, '&quot;');
-  return `<input class="scout-input" type="text" inputmode="decimal" placeholder="—" value="${v}" data-pid="${id}" data-field="${field}" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)">`;
+  // oninput: persist every keystroke so a refresh mid-edit does not lose TTH / OF values
+  const bind = `data-pid="${id}" data-field="${field}" oninput="${handler}(this.dataset.pid, this.dataset.field, this.value)" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)"`;
+  return `<input class="scout-input" type="text" inputmode="decimal" placeholder="—" value="${v}" ${bind}>`;
 }
 function scoutNotes(id, value, handler){
   const v = escHtml(value || '');
-  return `<input class="scout-input scout-notes" type="text" placeholder="—" value="${v.replace(/"/g,'&quot;')}" data-pid="${id}" data-field="notes" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)">`;
+  const bind = `data-pid="${id}" data-field="notes" oninput="${handler}(this.dataset.pid, this.dataset.field, this.value)" onchange="${handler}(this.dataset.pid, this.dataset.field, this.value)" onblur="${handler}(this.dataset.pid, this.dataset.field, this.value)"`;
+  return `<input class="scout-input scout-notes" type="text" placeholder="—" value="${v.replace(/"/g,'&quot;')}" ${bind}>`;
 }
 
 function renderTth(){

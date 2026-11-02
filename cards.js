@@ -942,7 +942,8 @@
     .sc-col-vs{width:6%}
     .sc-col-stat{width:9.8%}
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
-    .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;white-space:nowrap;overflow:hidden}
+    .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
+    .sc-ttp{color:#111;font-weight:800}
     .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;overflow:hidden}
     .sc-sb{overflow:hidden}
     .sc-ord,.sc-pos{display:inline-block;min-width:1em;margin-right:2px;font-weight:800}
@@ -985,12 +986,12 @@
     .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:8px}
     .sc-front-notes .sc-bar{flex:0 0 auto}
     .sc-back{display:flex;flex-direction:column;gap:14px;box-sizing:border-box}
-    .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
-    .sc-ttp-table th{background:#e6e8ec;border:1px solid #c5c9d0;padding:6px 8px;font-size:11px;letter-spacing:.04em}
-    .sc-ttp-table td{border:1px solid #e1e4ea;padding:7px 8px;background:#fff}
-    .sc-ttp-role{width:12%;font-weight:800;text-align:center}
-    .sc-ttp-name{width:58%;text-align:left;font-weight:700}
-    .sc-ttp-val{width:30%;text-align:center;font-weight:800;font-size:16px;letter-spacing:.02em}
+    .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;color:#111}
+    .sc-ttp-table th{background:#e6e8ec;border:1px solid #c5c9d0;padding:6px 8px;font-size:11px;letter-spacing:.04em;color:#111}
+    .sc-ttp-table td{border:1px solid #e1e4ea;padding:7px 8px;background:#fff;color:#111}
+    .sc-ttp-role{width:12%;font-weight:800;text-align:center;color:#111}
+    .sc-ttp-name{width:58%;text-align:left;font-weight:700;color:#111}
+    .sc-ttp-val{width:30%;text-align:center;font-weight:800;font-size:16px;letter-spacing:.02em;color:#111}
     .sc-back-lines{flex:1 1 auto;background:repeating-linear-gradient(to bottom,#fff 0,#fff 21px,#e8ebf0 22px);min-height:1.1in}
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
