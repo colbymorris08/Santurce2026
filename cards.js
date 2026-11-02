@@ -173,16 +173,20 @@
 
   function tthRow(id) {
     const key = String(id);
-    try {
-      const ov = (typeof TTH_OVERRIDES !== 'undefined' && TTH_OVERRIDES) || JSON.parse(localStorage.getItem('santurce_tth_pop_overrides_v1') || '{}');
-      if (ov[key] && typeof ov[key] === 'object') return ov[key];
-    } catch (e) {}
+    let base = null;
     try {
       const pack = (typeof CACHE !== 'undefined' && CACHE && CACHE.tth) || null;
       const players = (pack && pack.players) || [];
-      return players.find((p) => String(p.player_id || p.mlb_id || p.id) === key) || null;
+      base = players.find((p) => String(p.player_id || p.mlb_id || p.id) === key) || null;
     } catch (e) {}
-    return null;
+    let ov = null;
+    try {
+      const map = (typeof TTH_OVERRIDES !== 'undefined' && TTH_OVERRIDES)
+        || JSON.parse(localStorage.getItem('santurce_tth_pop_overrides_v1') || '{}');
+      if (map[key] && typeof map[key] === 'object') ov = map[key];
+    } catch (e) {}
+    if (!base && !ov) return null;
+    return Object.assign({}, base || {}, ov || {});
   }
   function ttpFor(id) {
     const row = tthRow(id);
@@ -976,16 +980,17 @@
     .sb-teamnotes th{background:#f6e27a;color:#111;font-weight:800;letter-spacing:.04em}
     .sb-teamnotes td{background:#fff8e8;text-align:left !important}
     .sb-teamnotes textarea{width:100%;border:none;background:transparent;font:inherit;font-size:11px;resize:vertical;color:#111}
-    .sc-back{display:flex;flex-direction:column;gap:10px;min-height:10.0in}
-    .sc-ttp-pair{flex:0 0 auto}
-    .sc-ttp-table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
-    .sc-ttp-table th{background:#e6e8ec;border:1px solid #c5c9d0;padding:4px 6px;font-size:10px;letter-spacing:.04em}
-    .sc-ttp-table td{border:1px solid #e1e4ea;padding:5px 6px;background:#fff}
+    .sc-front-page{display:flex;flex-direction:column;box-sizing:border-box}
+    .sc-front-body{flex:1 1 auto;min-height:0}
+    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:8px}
+    .sc-front-notes .sc-bar{flex:0 0 auto}
+    .sc-back{display:flex;flex-direction:column;gap:14px;box-sizing:border-box}
+    .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
+    .sc-ttp-table th{background:#e6e8ec;border:1px solid #c5c9d0;padding:6px 8px;font-size:11px;letter-spacing:.04em}
+    .sc-ttp-table td{border:1px solid #e1e4ea;padding:7px 8px;background:#fff}
     .sc-ttp-role{width:12%;font-weight:800;text-align:center}
     .sc-ttp-name{width:58%;text-align:left;font-weight:700}
-    .sc-ttp-val{width:30%;text-align:center;font-weight:800;font-size:14px;letter-spacing:.02em}
-    .sc-back-run{flex:1 1 auto;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;min-height:2.4in}
-    .sc-back-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+    .sc-ttp-val{width:30%;text-align:center;font-weight:800;font-size:16px;letter-spacing:.02em}
     .sc-back-lines{flex:1 1 auto;background:repeating-linear-gradient(to bottom,#fff 0,#fff 21px,#e8ebf0 22px);min-height:1.1in}
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
@@ -999,8 +1004,9 @@
     const portrait = orientation === 'portrait';
     const page = portrait ? 'letter portrait' : 'letter landscape';
     const wide = portrait ? '8.0in' : '10.7in';
-    // Portrait front fills ~2" more than the old tight fit (was ~8.1in usable after zoom).
-    const tallIn = portrait ? 10.35 : 7.55;
+    // Letter usable height after ~0.18in margins.
+    const tallIn = portrait ? 10.5 : 7.55;
+    const notesIn = 1.5;
     w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(title)}</title>
       <style>
         @page { size: ${page}; margin: 0.18in; }
@@ -1017,20 +1023,27 @@
       if (pages.length) {
         pages.forEach((p) => {
           p.style.zoom = '';
+          // Front: scale only the lineup body so the 1.5" notes strip stays fixed.
+          const body = p.querySelector('.sc-front-body');
+          if (body && p.classList.contains('sc-print-front')) {
+            const bodyAvail = (tallIn - notesIn - 0.12) * 96;
+            body.style.zoom = '';
+            const bh = body.scrollHeight || body.getBoundingClientRect().height;
+            if (bh > bodyAvail) {
+              body.style.zoom = String(Math.max(0.58, bodyAvail / bh));
+            }
+            return;
+          }
           const h = p.scrollHeight || p.getBoundingClientRect().height;
           if (h > avail) {
-            const z = Math.max(0.55, avail / h);
-            p.style.zoom = String(z);
+            p.style.zoom = String(Math.max(0.55, avail / h));
           }
         });
       } else {
         const el = w.document.getElementById('fit');
         if (!el) return;
         const h = el.scrollHeight || el.getBoundingClientRect().height;
-        if (h > avail) {
-          const z = Math.max(0.42, avail / h);
-          el.style.zoom = String(z);
-        }
+        if (h > avail) el.style.zoom = String(Math.max(0.42, avail / h));
       }
       setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 250);
     };
@@ -1043,12 +1056,24 @@
     if (st.sp) ids.push(Number(st.sp));
     (st.pen || []).forEach((id) => {
       const n = Number(id);
-      if (n && n !== st.sp && !ids.includes(n)) ids.push(n);
+      if (n && n !== Number(st.sp) && !ids.includes(n)) ids.push(n);
     });
     return ids;
   }
 
-  function strategyCatcherIds(abbrev, state) {
+  /** Opposing staff for the back page: SP + pen, then remaining roster pitchers. */
+  function opponentPitcherIds(abbrev, state) {
+    const people = roster(abbrev).filter((p) => p.role === 'P');
+    const st = ensureTeam(state, abbrev);
+    const ordered = strategyPitcherIds(abbrev, state);
+    const seen = new Set(ordered);
+    people.slice().sort((a, b) => a.last.localeCompare(b.last)).forEach((p) => {
+      if (!seen.has(p.id)) { ordered.push(p.id); seen.add(p.id); }
+    });
+    return ordered;
+  }
+
+  function opponentCatcherIds(abbrev, state) {
     const st = ensureTeam(state, abbrev);
     const ids = [];
     const push = (slot) => {
@@ -1061,25 +1086,26 @@
     };
     (st.lineup || []).forEach(push);
     (st.bench || []).forEach(push);
-    // Fall back to roster catchers if none slotted yet.
-    if (!ids.length) {
-      roster(abbrev).filter((p) => p.role === 'H' && String(p.roster_pos || '').toUpperCase() === 'C')
-        .forEach((p) => ids.push(Number(p.id)));
-    }
-    return [...new Set(ids)];
+    roster(abbrev).filter((p) => p.role === 'H' && String(p.roster_pos || '').toUpperCase() === 'C')
+      .forEach((p) => { if (!ids.includes(p.id)) ids.push(p.id); });
+    return ids;
   }
 
-  function ttpBackSide(abbrev, state) {
-    const meta = teamMeta(abbrev);
-    const people = roster(abbrev);
+  /** Back of strategy PDF: opponent time-to-plate + catcher pop from the TTH tab. */
+  function buildStrategyBack(opponent, state) {
+    const meta = teamMeta(opponent);
+    const people = roster(opponent);
     const pitchers = people.filter((p) => p.role === 'P');
     const hitters = people.filter((p) => p.role === 'H');
-    const pitIds = strategyPitcherIds(abbrev, state);
-    const catchIds = strategyCatcherIds(abbrev, state);
-    const spId = ensureTeam(state, abbrev).sp;
+    const pitIds = opponentPitcherIds(opponent, state);
+    const catchIds = opponentCatcherIds(opponent, state);
+    const spId = ensureTeam(state, opponent).sp;
+    const penSet = new Set((ensureTeam(state, opponent).pen || []).map(Number));
     const pitRows = (pitIds.length ? pitIds : [null]).map((id) => {
       const p = id ? byId.get(id) : null;
-      const role = id && spId && Number(id) === Number(spId) ? 'SP' : (id ? 'RP' : '—');
+      let role = 'P';
+      if (id && spId && Number(id) === Number(spId)) role = 'SP';
+      else if (id && penSet.has(Number(id))) role = 'RP';
       const name = p ? cardLast(p, pitchers) : '—';
       const ttp = p ? esc(ttpFor(p.id)) : '';
       return `<tr><td class="sc-ttp-role">${esc(role)}</td><td class="sc-ttp-name">${esc(name)}</td><td class="sc-ttp-val">${ttp}</td></tr>`;
@@ -1093,38 +1119,21 @@
     const logo = meta.logo
       ? `<img class="sc-logo" src="${esc(meta.logo)}" alt="">`
       : `<span class="sc-mono">${esc(meta.abbrev)}</span>`;
-    return `<section class="sc-side sc-ttp-side">
+    return `<div class="sc-back">
       <header class="sc-head" style="background:${esc(meta.color)}">
-        <div class="sc-head-name">${esc(meta.name)}</div>
+        <div class="sc-head-name">${esc(meta.name)} · ${tr('Running game', 'Juego en bases')}</div>
         ${logo}
       </header>
-      <div class="sc-bar">${tr('TIME TO PLATE', 'TIEMPO AL HOME')}</div>
+      <div class="sc-bar">${tr('TIME TO PLATE', 'TIEMPO AL HOME')} · ${esc(meta.abbrev)}</div>
       <table class="sc-ttp-table">
         <thead><tr><th></th><th>${tr('PITCHER', 'PITCHER')}</th><th>TTP</th></tr></thead>
         <tbody>${pitRows}</tbody>
       </table>
-      <div class="sc-bar">${tr('CATCHER POP', 'POP DEL RECEPTOR')}</div>
+      <div class="sc-bar">${tr('CATCHER POP', 'POP DEL RECEPTOR')} · ${esc(meta.abbrev)}</div>
       <table class="sc-ttp-table">
         <thead><tr><th></th><th>${tr('CATCHER', 'RECEPTOR')}</th><th>POP</th></tr></thead>
         <tbody>${catchRows}</tbody>
       </table>
-    </section>`;
-  }
-
-  function buildStrategyBack(left, right, state) {
-    return `<div class="sc-back">
-      <div class="sc-pair sc-ttp-pair">
-        ${ttpBackSide(left, state)}
-        ${ttpBackSide(right, state)}
-      </div>
-      <section class="sc-back-run">
-        <div class="sc-bar">${tr('RUNNING GAME NOTES', 'NOTAS DEL JUEGO EN BASES')}</div>
-        <div class="sc-back-lines" aria-hidden="true"></div>
-      </section>
-      <section class="sc-back-notes">
-        <div class="sc-bar">${tr('NOTES', 'NOTAS')}</div>
-        <div class="sc-back-lines" aria-hidden="true"></div>
-      </section>
     </div>`;
   }
 
@@ -1298,25 +1307,37 @@
       const el = document.getElementById('strategy-sheet');
       if (!el) return;
       const state = loadStrategy();
-      const left = state.santurceHome ? 'SAN' : state.opponent;
-      const right = state.santurceHome ? state.opponent : 'SAN';
-      const front = `<div class="sc-print-page sc-print-front">${el.outerHTML}</div>`;
-      const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(left, right, state)}</div>`;
+      const opponent = state.opponent;
+      const front = `<div class="sc-print-page sc-print-front sc-front-page">
+        <div class="sc-front-body">${el.outerHTML}</div>
+        <section class="sc-front-notes">
+          <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
+          <div class="sc-back-lines" aria-hidden="true"></div>
+        </section>
+      </div>`;
+      const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
-        /* Front: larger type so the card runs ~2" farther down the portrait page. */
-        .sc-print-front .sc-pair{gap:10px}
-        .sc-print-front .sc-grid{font-size:10.5px;line-height:1.28}
-        .sc-print-front .sc-grid th{font-size:9px;padding:3px 2px}
-        .sc-print-front .sc-grid td{padding:3px 3px}
-        .sc-print-front .sc-head{min-height:44px;padding:7px 10px}
-        .sc-print-front .sc-head-name{font-size:16px}
-        .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:38px;height:38px}
-        .sc-print-front .sc-who{font-size:10.5px}
-        .sc-print-front .sc-bar{font-size:12px;padding:4px 0;letter-spacing:.1em}
-        .sc-print-front .sc-date{font-size:12px;padding:4px 0 5px}
-        .sc-print-front .sc-subhead td{font-size:10px;padding:3px 4px}
-        .sc-print-back .sc-back{min-height:10.0in}
-        .sc-print-back .sc-back-notes{flex-basis:1.5in;height:1.5in;min-height:1.5in}
+        /* Front lineup ~2–3" larger; fixed 1.5" notes band at bottom. */
+        .sc-print-front.sc-front-page{min-height:10.5in;height:10.5in}
+        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in}
+        .sc-print-front .sc-pair{gap:12px}
+        .sc-print-front .sc-grid{font-size:12px;line-height:1.32}
+        .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
+        .sc-print-front .sc-grid td{padding:4px 3px}
+        .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
+        .sc-print-front .sc-head-name{font-size:17px}
+        .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
+        .sc-print-front .sc-who{font-size:12px}
+        .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
+        .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
+        .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
+        /* Back: opponent TTP + catcher pop only (from Time to Home tab). */
+        .sc-print-back .sc-back{min-height:10.0in;padding-top:4px}
+        .sc-print-back .sc-head{min-height:52px;padding:10px 12px}
+        .sc-print-back .sc-head-name{font-size:18px}
+        .sc-print-back .sc-bar{font-size:14px;padding:6px 0}
+        .sc-print-back .sc-ttp-table{font-size:15px}
+        .sc-print-back .sc-ttp-val{font-size:18px}
       `);
     },
     exportSmallBall() {
