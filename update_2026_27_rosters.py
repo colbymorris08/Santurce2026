@@ -256,7 +256,7 @@ def parse_base_rosters() -> dict[str, list[dict]]:
             )
 
     additions = {
-        "SAN": [("Dereck Rodriguez", "P")],
+        "SAN": [("Dereck Rodriguez", "P"), ("Keylan Killgore", "P")],
         "CAG": [
             ("John McMillon", "P"),
             ("Zach Veen", "P"),
