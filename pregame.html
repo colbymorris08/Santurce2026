@@ -166,8 +166,8 @@
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportHitterAdvanceZip()">Export selected → ZIP</button>
       </div>
-      <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Portrait PDF — exactly one page per checked hitter: compact headshot · two columns (vs R | vs L), each stacked non-RISP, RISP, non-2K, 2K · SLG and Whiff heat · sprays · bunts.</div>
+      <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (strategy lineup order)"></div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter: headshot · vs R | vs L · heat · sprays · bunts.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -294,8 +294,8 @@
         <button type="button" class="btn" onclick="exportSprayHandPdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportSprayHandZip()">Export selected → ZIP</button>
       </div>
-      <div id="spray-export-list" class="advance-export-list" aria-label="Hitters for spray PDF export"></div>
-      <div class="note" style="margin:6px 0 0">Portrait PDF — one page per checked hitter. Two columns, vs RHP and vs LHP. Each column stacks 2K, non-2K, RISP, non-RISP (eight charts). ZIP is one HTML sheet per player, same layout as the other advance exports.</div>
+      <div id="spray-export-list" class="advance-export-list" aria-label="Hitters for spray PDF export (strategy lineup order)"></div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter, vs RHP | vs LHP × 2K / non-2K / RISP / non-RISP.</div>
     </div>
     <div id="spray-hit-legend"></div>
     <div id="spray-mlb" class="spray-grid"></div>
@@ -535,11 +535,11 @@
   </div>
 </main>
 <script src="i18n.js?v=san183"></script>
-<script src="cards.js?v=san183"></script>
+<script src="cards.js?v=san184"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san183';
+const ASSET_V = 'san184';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1654,7 +1654,8 @@ function fillSprayExportList(list){
   const el = document.getElementById('spray-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  const sorted = sortByLastName(list||[], p=>p.name);
+  const team = document.getElementById('spray-team')?.value || 'all';
+  const sorted = sortByStrategyLineup(list||[], p=>p.name, team);
   el.innerHTML = sorted.map(p=>{
     const id = sprayPlayerKey(p);
     return `<label class="advance-check"><input type="checkbox" value="${id}" ${prev.has(id)?'checked':''}> ${formatLastFirst(p.name)} · ${p.team||''}</label>`;
@@ -1668,7 +1669,14 @@ function toggleSprayExportAll(on){
 function selectedSprayPlayers(){
   const checked = [...document.querySelectorAll('#spray-export-list input[type=checkbox]:checked')].map(i=>i.value);
   const pool = filteredSprayPlayers();
-  if(checked.length) return checked.map(k=>pool.find(p=>sprayPlayerKey(p)===k)).filter(Boolean);
+  const team = document.getElementById('spray-team')?.value || 'all';
+  if(checked.length){
+    return sortByStrategyLineup(
+      checked.map(k=>pool.find(p=>sprayPlayerKey(p)===k)).filter(Boolean),
+      p=>p.name,
+      team
+    );
+  }
   const sel = document.getElementById('spray-player');
   const idx = Number(sel?.value||0);
   return pool[idx] ? [pool[idx]] : [];
@@ -2668,6 +2676,43 @@ function formatLastFirst(name){
 }
 function sortByLastName(arr, nameFn){
   return [...(arr||[])].sort((a,b)=>{
+    const la = lastNameKey(nameFn(a)), lb = lastNameKey(nameFn(b));
+    if(la !== lb) return la.localeCompare(lb, undefined, {sensitivity:'base'});
+    return String(nameFn(a)||'').localeCompare(String(nameFn(b)||''), undefined, {sensitivity:'base'});
+  });
+}
+/** MLBAM id used to match Strategy Card lineup slots. */
+function playerStrategyId(p){
+  if(!p) return 0;
+  return positivePersonId(p.mlb_id) || positivePersonId(p.player_id) || positivePersonId(p.id) || 0;
+}
+/** Lineup ids 1–9 from the Strategy Card for one team, or all teams when filter is "all". */
+function strategyLineupIdOrder(teamAbbrev){
+  if(!window.CardApp || typeof CardApp.getLineupIds !== 'function') return [];
+  if(teamAbbrev && teamAbbrev !== 'all') return CardApp.getLineupIds(teamAbbrev) || [];
+  const teams = (typeof CardApp.teamAbbrevs === 'function' && CardApp.teamAbbrevs())
+    || (CACHE.cardStats?.teams || []).map(t=>t.abbrev).filter(Boolean);
+  const out = [];
+  const seen = new Set();
+  (teams || []).forEach(abbr=>{
+    (CardApp.getLineupIds(abbr) || []).forEach(id=>{
+      if(!seen.has(id)){ seen.add(id); out.push(id); }
+    });
+  });
+  return out;
+}
+/**
+ * Strategy lineup order first (slots 1–9), then remaining hitters A–Z by last name.
+ * teamAbbrev: filter team, or "all" / null to merge every team's lineup.
+ */
+function sortByStrategyLineup(arr, nameFn, teamAbbrev){
+  const order = strategyLineupIdOrder(teamAbbrev);
+  if(!order.length) return sortByLastName(arr, nameFn);
+  const rank = new Map(order.map((id, i)=>[id, i]));
+  return [...(arr||[])].sort((a,b)=>{
+    const ai = rank.has(playerStrategyId(a)) ? rank.get(playerStrategyId(a)) : 10000;
+    const bi = rank.has(playerStrategyId(b)) ? rank.get(playerStrategyId(b)) : 10000;
+    if(ai !== bi) return ai - bi;
     const la = lastNameKey(nameFn(a)), lb = lastNameKey(nameFn(b));
     if(la !== lb) return la.localeCompare(lb, undefined, {sensitivity:'base'});
     return String(nameFn(a)||'').localeCompare(String(nameFn(b)||''), undefined, {sensitivity:'base'});
@@ -4117,11 +4162,11 @@ function fillAdvanceHitters(){
   const team=teamEl.value;
   const q=normPersonName(searchEl?.value||'');
   const hitters=advanceHitterList();
-  const filtered=sortByLastName(hitters.filter(h=>{
+  const filtered=sortByStrategyLineup(hitters.filter(h=>{
     if(team!=='all' && h.team!==team) return false;
     if(q && !normPersonName(`${h.name} ${formatLastFirst(h.name)} ${h.team}`).includes(q)) return false;
     return true;
-  }), h=>h.name);
+  }), h=>h.name, team);
   const prev=sel.value;
   const opts=['<option value="__all__">Select All (aggregate)</option>']
     .concat(filtered.map(h=>{
@@ -4137,7 +4182,8 @@ function fillHitterExportList(list){
   const el = document.getElementById('adv-h-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  const sorted = sortByLastName(list||[], h=>h.name);
+  const team = document.getElementById('adv-team')?.value || 'all';
+  const sorted = sortByStrategyLineup(list||[], h=>h.name, team);
   el.innerHTML = sorted.map(h=>{
     const id=hitterListId(h);
     return `<label class="advance-check"><input type="checkbox" value="${id}" ${prev.has(id)?'checked':''}> ${formatLastFirst(h.name)} · ${h.team||''}</label>`;
@@ -4145,6 +4191,22 @@ function fillHitterExportList(list){
     || '<span class="note">No hitters in filter.</span>';
   const all = document.getElementById('adv-h-select-all');
   if(all) all.checked = false;
+}
+function selectedHitterAdvanceIds(){
+  const checked = [...document.querySelectorAll('#adv-h-export-list input[type=checkbox]:checked')].map(i=>i.value);
+  let ids = checked.slice();
+  if(!ids.length){
+    const cur = document.getElementById('adv-hitter')?.value;
+    if(cur && cur!=='__all__') ids = [cur];
+  }
+  const team = document.getElementById('adv-team')?.value || 'all';
+  const packs = ids.map(id=>{
+    const h = resolveAdvanceHitter(id);
+    return h ? {id, h} : null;
+  }).filter(Boolean);
+  const ordered = sortByStrategyLineup(packs.map(p=>p.h), h=>h.name, team);
+  const byKey = new Map(packs.map(p=>[hitterListId(p.h), p.id]));
+  return ordered.map(h=>byKey.get(hitterListId(h))).filter(Boolean);
 }
 function toggleHitterExportAll(on){
   document.querySelectorAll('#adv-h-export-list input[type=checkbox]').forEach(cb=>{ cb.checked = !!on; });
@@ -4461,12 +4523,7 @@ function renderAdvanceHitters(){
 }
 
 function exportHitterAdvancePdf(){
-  const checked = [...document.querySelectorAll('#adv-h-export-list input[type=checkbox]:checked')].map(i=>i.value);
-  let ids = checked.slice();
-  if(!ids.length){
-    const cur = document.getElementById('adv-hitter')?.value;
-    if(cur && cur!=='__all__') ids = [cur];
-  }
+  const ids = selectedHitterAdvanceIds();
   if(!ids.length){ alert('Select at least one hitter to export.'); return; }
   const packs = ids.map(id=>{
     const h = resolveAdvanceHitter(id);
@@ -4519,12 +4576,7 @@ function exportHitterAdvancePdf(){
 }
 
 function exportHitterAdvanceZip(){
-  const checked = [...document.querySelectorAll('#adv-h-export-list input[type=checkbox]:checked')].map(i=>i.value);
-  let ids = checked.slice();
-  if(!ids.length){
-    const cur = document.getElementById('adv-hitter')?.value;
-    if(cur && cur!=='__all__') ids = [cur];
-  }
+  const ids = selectedHitterAdvanceIds();
   const files = [];
   ids.forEach(id=>{
     const h = resolveAdvanceHitter(id);

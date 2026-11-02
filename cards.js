@@ -881,6 +881,17 @@
     fn(state);
     saveStrategy(state);
     renderStrategy();
+    // Keep hitter / spray PDF export lists in strategy lineup order.
+    try {
+      if (typeof window.fillAdvanceHitters === 'function'
+          && document.getElementById('panel-hitter-advance')?.classList.contains('active')) {
+        window.fillAdvanceHitters();
+      }
+      if (typeof window.renderSpray === 'function'
+          && document.getElementById('panel-spray')?.classList.contains('active')) {
+        window.renderSpray();
+      }
+    } catch (e) {}
     const restore = () => {
       window.scrollTo(x, y);
       document.querySelectorAll('.sc-editor').forEach((el, i) => { el.scrollTop = editors[i] || 0; });
@@ -1172,6 +1183,16 @@
         ta.replaceWith(div);
       });
       openPrint('Small ball', clone.outerHTML, 'landscape');
+    },
+    /** Lineup slot order (1–9) for a team from the strategy card. Empty slots omitted. */
+    getLineupIds(abbrev) {
+      const state = loadStrategy();
+      const st = ensureTeam(state, abbrev);
+      return (st.lineup || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
+    },
+    /** All team abbrevs that have card roster players. */
+    teamAbbrevs() {
+      return (DATA.teams || []).map((t) => t.abbrev).filter(Boolean);
     },
   };
   window.CardApp = CardApp;
