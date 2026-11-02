@@ -80042,21 +80042,41 @@
       "mlb_debut": null,
       "level_hint": null,
       "stuff_plus": null,
-      "pitches": 217,
+      "pitches": 151,
       "arsenal": [
+        {
+          "type": "FF",
+          "name": "4-Seam",
+          "velo": 95.0,
+          "spin": 2218,
+          "ivb": 17.98,
+          "hb_pitcher": 8.74,
+          "hb_hitter": -8.74,
+          "usage": 45.7,
+          "pitches": 69,
+          "ps_stuff": 104.7,
+          "whiff": 32.0,
+          "xwoba": 0.493,
+          "usage_l": 47.3,
+          "miss_l": 15.0,
+          "pitches_l": 62,
+          "usage_r": 32.8,
+          "miss_r": 23.1,
+          "pitches_r": 39
+        },
         {
           "type": "SL",
           "name": "Slider",
-          "velo": 85.2,
-          "spin": 2166,
-          "ivb": -0.37,
-          "hb_pitcher": -1.65,
-          "hb_hitter": 1.65,
-          "usage": 52.5,
-          "pitches": 114,
-          "ps_stuff": 107.3,
-          "whiff": 26.4,
-          "xwoba": 0.241,
+          "velo": 84.2,
+          "spin": 2224,
+          "ivb": 1.63,
+          "hb_pitcher": -1.68,
+          "hb_hitter": 1.68,
+          "usage": 37.7,
+          "pitches": 57,
+          "ps_stuff": 96.2,
+          "whiff": 59.3,
+          "xwoba": 0.277,
           "usage_l": 52.7,
           "miss_l": 35.0,
           "pitches_l": 69,
@@ -80065,24 +80085,32 @@
           "pitches_r": 79
         },
         {
-          "type": "FF",
-          "name": "4-Seam",
-          "velo": 95.6,
-          "spin": 2250,
-          "ivb": 17.28,
-          "hb_pitcher": 10.99,
-          "hb_hitter": -10.99,
-          "usage": 47.5,
-          "pitches": 103,
-          "ps_stuff": 105.9,
-          "whiff": 24.1,
-          "xwoba": 0.486,
-          "usage_l": 47.3,
-          "miss_l": 15.0,
-          "pitches_l": 62,
-          "usage_r": 32.8,
-          "miss_r": 23.1,
-          "pitches_r": 39
+          "type": "CH",
+          "name": "Changeup",
+          "velo": 90.1,
+          "spin": 2040,
+          "ivb": 19.39,
+          "hb_pitcher": 9.65,
+          "hb_hitter": -9.65,
+          "usage": 11.3,
+          "pitches": 17,
+          "ps_stuff": 92.2,
+          "whiff": 60.0,
+          "xwoba": 0.691
+        },
+        {
+          "type": "CU",
+          "name": "Curveball",
+          "velo": 78.4,
+          "spin": 0,
+          "ivb": 1.52,
+          "hb_pitcher": -2.17,
+          "hb_hitter": 2.17,
+          "usage": 5.3,
+          "pitches": 8,
+          "ps_stuff": 0,
+          "whiff": 33.3,
+          "xwoba": 0.0
         }
       ],
       "usage_by_count": {
@@ -80294,7 +80322,7 @@
           }
         ]
       },
-      "ps_season": 2026,
+      "ps_season": 2025,
       "ps_source": "Prospect Savant",
       "statcast_source": "MLB Statcast",
       "statcast_seasons": [
@@ -80304,7 +80332,8 @@
       ],
       "statcast_pitches": 250,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "synergy_id": "58a74e3d35268c61b0b845e1"
     },
     {
       "name": "Zach Veen",
@@ -80382,7 +80411,9 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "synergy_id": "61fadbd0dd46830bafa41b15",
+      "mlb_id": 805731
     },
     {
       "name": "Tyler Santana",
@@ -80480,7 +80511,72 @@
         }
       ],
       "usage_by_count": {},
-      "count_mix": {},
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 336,
+            "usage": 40.7
+          },
+          {
+            "type": "SL",
+            "pitches": 137,
+            "usage": 16.6
+          },
+          {
+            "type": "CU",
+            "pitches": 122,
+            "usage": 14.8
+          },
+          {
+            "type": "FC",
+            "pitches": 117,
+            "usage": 14.2
+          },
+          {
+            "type": "CH",
+            "pitches": 99,
+            "usage": 12.0
+          },
+          {
+            "type": "SI",
+            "pitches": 14,
+            "usage": 1.7
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 364,
+            "usage": 41.7
+          },
+          {
+            "type": "SL",
+            "pitches": 151,
+            "usage": 17.3
+          },
+          {
+            "type": "CH",
+            "pitches": 144,
+            "usage": 16.5
+          },
+          {
+            "type": "CU",
+            "pitches": 117,
+            "usage": 13.4
+          },
+          {
+            "type": "FC",
+            "pitches": 85,
+            "usage": 9.7
+          },
+          {
+            "type": "SI",
+            "pitches": 11,
+            "usage": 1.3
+          }
+        ]
+      },
       "platoon": {},
       "ps_season": 2026,
       "ps_source": "Prospect Savant",
@@ -80488,7 +80584,10 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "synergy_id": "58a74e5735268c61b0b85709",
+      "mlb_id": 687825,
+      "synergy_count_source": "Synergy pitcherId events · new-player fill"
     },
     {
       "name": "Steven Echavarria",
@@ -80509,7 +80608,9 @@
           "hb_pitcher": 5.85,
           "hb_hitter": -5.85,
           "usage": 53.3,
-          "pitches": 8
+          "pitches": 8,
+          "whiff": 19.6,
+          "whiff_source": "Synergy 2024–2026"
         },
         {
           "type": "FC",
@@ -80520,7 +80621,9 @@
           "hb_pitcher": -4.32,
           "hb_hitter": 4.32,
           "usage": 33.3,
-          "pitches": 5
+          "pitches": 5,
+          "whiff": 23.8,
+          "whiff_source": "Synergy 2024–2026"
         },
         {
           "type": "SI",
@@ -80531,11 +80634,88 @@
           "hb_pitcher": 15.96,
           "hb_hitter": -15.96,
           "usage": 13.3,
-          "pitches": 2
+          "pitches": 2,
+          "whiff": 26.3,
+          "whiff_source": "Synergy 2024–2026"
         }
       ],
       "usage_by_count": {},
-      "count_mix": {},
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 652,
+            "usage": 62.9
+          },
+          {
+            "type": "SL",
+            "pitches": 201,
+            "usage": 19.4
+          },
+          {
+            "type": "CU",
+            "pitches": 83,
+            "usage": 8.0
+          },
+          {
+            "type": "CH",
+            "pitches": 72,
+            "usage": 6.9
+          },
+          {
+            "type": "FC",
+            "pitches": 19,
+            "usage": 1.8
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 0.8
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 633,
+            "usage": 55.3
+          },
+          {
+            "type": "SL",
+            "pitches": 267,
+            "usage": 23.3
+          },
+          {
+            "type": "CH",
+            "pitches": 114,
+            "usage": 10.0
+          },
+          {
+            "type": "CU",
+            "pitches": 79,
+            "usage": 6.9
+          },
+          {
+            "type": "FC",
+            "pitches": 33,
+            "usage": 2.9
+          },
+          {
+            "type": "FS",
+            "pitches": 14,
+            "usage": 1.2
+          },
+          {
+            "type": "SI",
+            "pitches": 4,
+            "usage": 0.3
+          }
+        ]
+      },
       "platoon": {},
       "ps_season": null,
       "ps_source": null,
@@ -80546,8 +80726,11 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "synergy_id": "5f48363d5f9a94d568e0b1d7",
+      "mlb_id": 806064,
       "movement_source": "MLB Statcast spring 2026",
-      "movement_season": 2026
+      "movement_season": 2026,
+      "synergy_count_source": "Synergy pitcherId events · new-player fill"
     },
     {
       "name": "Keylan Killgore",
@@ -80558,20 +80741,135 @@
       "level_hint": null,
       "stuff_plus": null,
       "pitches": null,
-      "arsenal": [],
+      "arsenal": [
+        {
+          "type": "SI",
+          "name": "SI",
+          "velo": 92.2,
+          "spin": 2064,
+          "ivb": 15.61,
+          "hb_pitcher": -11.17,
+          "hb_hitter": 11.17,
+          "usage": 41.7,
+          "pitches": 25,
+          "whiff": 11.1,
+          "whiff_source": "Synergy 2024–2026"
+        },
+        {
+          "type": "CH",
+          "name": "CH",
+          "velo": 85.1,
+          "spin": 1961,
+          "ivb": 7.15,
+          "hb_pitcher": -17.47,
+          "hb_hitter": 17.47,
+          "usage": 23.3,
+          "pitches": 14,
+          "whiff": 33.3,
+          "whiff_source": "Synergy 2024–2026"
+        },
+        {
+          "type": "SL",
+          "name": "SL",
+          "velo": 82.2,
+          "spin": 2305,
+          "ivb": 2.15,
+          "hb_pitcher": 2.28,
+          "hb_hitter": -2.28,
+          "usage": 18.3,
+          "pitches": 11,
+          "whiff": 42.7,
+          "whiff_source": "Synergy 2024–2026"
+        },
+        {
+          "type": "FF",
+          "name": "FF",
+          "velo": 91.9,
+          "spin": 2019,
+          "ivb": 15.55,
+          "hb_pitcher": -9.91,
+          "hb_hitter": 9.91,
+          "usage": 16.7,
+          "pitches": 10,
+          "whiff": 27.9,
+          "whiff_source": "Synergy 2024–2026"
+        }
+      ],
       "usage_by_count": {},
-      "count_mix": {},
+      "count_mix": {
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 143,
+            "usage": 50.2
+          },
+          {
+            "type": "SL",
+            "pitches": 78,
+            "usage": 27.4
+          },
+          {
+            "type": "CU",
+            "pitches": 35,
+            "usage": 12.3
+          },
+          {
+            "type": "CH",
+            "pitches": 21,
+            "usage": 7.4
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 2.8
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 216,
+            "usage": 55.8
+          },
+          {
+            "type": "SL",
+            "pitches": 92,
+            "usage": 23.8
+          },
+          {
+            "type": "CU",
+            "pitches": 50,
+            "usage": 12.9
+          },
+          {
+            "type": "CH",
+            "pitches": 21,
+            "usage": 5.4
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 2.1
+          }
+        ]
+      },
       "platoon": {},
       "ps_season": null,
       "ps_source": null,
-      "statcast_source": null,
-      "statcast_seasons": [],
+      "statcast_source": "MLB Statcast spring 2023",
+      "statcast_seasons": [
+        "2023"
+      ],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "synergy_id": "5e6541817455336e872b0114",
+      "mlb_id": 681154,
+      "movement_source": "MLB Statcast spring 2023",
+      "movement_season": 2023,
+      "synergy_count_source": "Synergy pitcherId events · new-player fill"
     }
   ],
-  "updated": "2026-11-02T00:21:40Z",
+  "updated": "2026-11-02T00:28:47Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",
