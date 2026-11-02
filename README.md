@@ -52,6 +52,26 @@ Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Sta
 
 Card rates are built with `python3 build_pregame_cards.py` → `data/pregame_card_stats.json`. Rosters stay on current LBPRC teams.
 
+## Adding a roster player (every tab)
+
+1. Put them on `data/lbprc_2025_rosters.json` (correct team + MLBAM id).
+2. Stub every tab cache for their role:
+   ```bash
+   python3 ensure_roster_player.py --name "First Last" --id 123456 --team CAG --rebuild-one-page
+   ```
+   - **Pitchers** → arsenal / stuff / advance pitchers / one-page / TTH / strategy roster
+   - **Hitters** → advance hitters / spray / baserunning / TTH / strategy roster
+3. Fill real samples (do not invent coords/stats):
+   ```bash
+   python3 fill_missing_count_synergy.py          # count usage
+   python3 fill_missing_platoon_synergy.py --new-only   # RHH/LHH pitch frequency (one-page)
+   python3 fill_movement_plot_batches.py --team CAG
+   # heatmaps / summer lines / spray / card whiff as needed
+   python3 fill_card_whiff.py                     # SAN strategy whiff
+   python3 build_pregame_cards.py
+   ```
+4. Rebuild one-page after platoon fills (`fill_missing_platoon_synergy.py` does this), bump `ASSET_V` if the UI changed, commit + push `main`.
+
 ## Refresh Synergy data
 
 Credentials live in the pitch-tips Synergy env (never commit):

@@ -61,6 +61,8 @@ SAMPLE_LEAGUES = {
     "LMB": LEAGUE_LMB,      # Mexico summer
     "MLB": LEAGUE_MLB,
     "MILB": LEAGUE_MILB,
+    # Independent / other pro — used when arms lack MiLB/MLB/LMB track
+    "AAPB": "6259897fbb1c6e846027a15e",  # American Association
 }
 SUMMER_LEAGUE_IDS = {LEAGUE_LMB, LEAGUE_MLB, LEAGUE_MILB}
 WINTER_LEAGUE_IDS = {LEAGUE_LBPRC}

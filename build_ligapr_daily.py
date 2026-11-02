@@ -891,7 +891,11 @@ def build_pitcher_one_page() -> dict[str, Any]:
                         elif sb:
                             band = f"{sb}\nSNK"
                 velo[col] = band
+            # Prefer advance Synergy platoon; fall back to arsenal hand splits
+            # (SAN arms often live only in arsenals).
             platoon = adv.get("platoon") or {}
+            if not (platoon.get("vs_RHB") or platoon.get("vs_LHB")):
+                platoon = ar.get("platoon") or {}
             vs_r = freq_line(platoon.get("vs_RHB"))
             vs_l = freq_line(platoon.get("vs_LHB"))
             note = notes_map.get(key) or notes_map.get(name) or ""
