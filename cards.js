@@ -171,12 +171,31 @@
     return '';
   }
 
-  function ttpFor(id) {
+  function tthRow(id) {
+    const key = String(id);
     try {
       const ov = (typeof TTH_OVERRIDES !== 'undefined' && TTH_OVERRIDES) || JSON.parse(localStorage.getItem('santurce_tth_pop_overrides_v1') || '{}');
-      const row = ov[String(id)];
-      if (row && row.time_to_home != null && String(row.time_to_home).trim() !== '') return String(row.time_to_home).trim();
+      if (ov[key] && typeof ov[key] === 'object') return ov[key];
     } catch (e) {}
+    try {
+      const pack = (typeof CACHE !== 'undefined' && CACHE && CACHE.tth) || null;
+      const players = (pack && pack.players) || [];
+      return players.find((p) => String(p.player_id || p.mlb_id || p.id) === key) || null;
+    } catch (e) {}
+    return null;
+  }
+  function ttpFor(id) {
+    const row = tthRow(id);
+    if (row && row.time_to_home != null && String(row.time_to_home).trim() !== '') {
+      return String(row.time_to_home).trim();
+    }
+    return '';
+  }
+  function popFor(id) {
+    const row = tthRow(id);
+    if (row && row.catcher_pop_time != null && String(row.catcher_pop_time).trim() !== '') {
+      return String(row.catcher_pop_time).trim();
+    }
     return '';
   }
 
@@ -957,6 +976,17 @@
     .sb-teamnotes th{background:#f6e27a;color:#111;font-weight:800;letter-spacing:.04em}
     .sb-teamnotes td{background:#fff8e8;text-align:left !important}
     .sb-teamnotes textarea{width:100%;border:none;background:transparent;font:inherit;font-size:11px;resize:vertical;color:#111}
+    .sc-back{display:flex;flex-direction:column;gap:10px;min-height:10.0in}
+    .sc-ttp-pair{flex:0 0 auto}
+    .sc-ttp-table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+    .sc-ttp-table th{background:#e6e8ec;border:1px solid #c5c9d0;padding:4px 6px;font-size:10px;letter-spacing:.04em}
+    .sc-ttp-table td{border:1px solid #e1e4ea;padding:5px 6px;background:#fff}
+    .sc-ttp-role{width:12%;font-weight:800;text-align:center}
+    .sc-ttp-name{width:58%;text-align:left;font-weight:700}
+    .sc-ttp-val{width:30%;text-align:center;font-weight:800;font-size:14px;letter-spacing:.02em}
+    .sc-back-run{flex:1 1 auto;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;min-height:2.4in}
+    .sc-back-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+    .sc-back-lines{flex:1 1 auto;background:repeating-linear-gradient(to bottom,#fff 0,#fff 21px,#e8ebf0 22px);min-height:1.1in}
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
 
@@ -969,27 +999,133 @@
     const portrait = orientation === 'portrait';
     const page = portrait ? 'letter portrait' : 'letter landscape';
     const wide = portrait ? '8.0in' : '10.7in';
-    const tallIn = portrait ? 10.15 : 7.55;
+    // Portrait front fills ~2" more than the old tight fit (was ~8.1in usable after zoom).
+    const tallIn = portrait ? 10.35 : 7.55;
     w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(title)}</title>
       <style>
-        @page { size: ${page}; margin: 0.22in; }
+        @page { size: ${page}; margin: 0.18in; }
         ${CARD_CSS}
         ${extraCss || ''}
         #fit{width:${wide};transform-origin:top left}
+        .sc-print-page{width:${wide};box-sizing:border-box;page-break-after:always;break-after:page}
+        .sc-print-page:last-child{page-break-after:auto;break-after:auto}
       </style></head><body><div id="fit">${inner}</div></body></html>`);
     w.document.close();
     const fit = () => {
-      const el = w.document.getElementById('fit');
-      if (!el) return;
+      const pages = [...w.document.querySelectorAll('.sc-print-page')];
       const avail = tallIn * 96;
-      const h = el.scrollHeight || el.getBoundingClientRect().height;
-      if (h > avail) {
-        const z = Math.max(0.42, avail / h);
-        el.style.zoom = String(z);
+      if (pages.length) {
+        pages.forEach((p) => {
+          p.style.zoom = '';
+          const h = p.scrollHeight || p.getBoundingClientRect().height;
+          if (h > avail) {
+            const z = Math.max(0.55, avail / h);
+            p.style.zoom = String(z);
+          }
+        });
+      } else {
+        const el = w.document.getElementById('fit');
+        if (!el) return;
+        const h = el.scrollHeight || el.getBoundingClientRect().height;
+        if (h > avail) {
+          const z = Math.max(0.42, avail / h);
+          el.style.zoom = String(z);
+        }
       }
       setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 250);
     };
     setTimeout(fit, 60);
+  }
+
+  function strategyPitcherIds(abbrev, state) {
+    const st = ensureTeam(state, abbrev);
+    const ids = [];
+    if (st.sp) ids.push(Number(st.sp));
+    (st.pen || []).forEach((id) => {
+      const n = Number(id);
+      if (n && n !== st.sp && !ids.includes(n)) ids.push(n);
+    });
+    return ids;
+  }
+
+  function strategyCatcherIds(abbrev, state) {
+    const st = ensureTeam(state, abbrev);
+    const ids = [];
+    const push = (slot) => {
+      if (!slot || !slot.id) return;
+      const p = byId.get(Number(slot.id));
+      if (!p) return;
+      const pos = String(slot.pos || '');
+      const def = String(p.roster_pos || '').toUpperCase();
+      if (pos === '2' || def === 'C') ids.push(Number(p.id));
+    };
+    (st.lineup || []).forEach(push);
+    (st.bench || []).forEach(push);
+    // Fall back to roster catchers if none slotted yet.
+    if (!ids.length) {
+      roster(abbrev).filter((p) => p.role === 'H' && String(p.roster_pos || '').toUpperCase() === 'C')
+        .forEach((p) => ids.push(Number(p.id)));
+    }
+    return [...new Set(ids)];
+  }
+
+  function ttpBackSide(abbrev, state) {
+    const meta = teamMeta(abbrev);
+    const people = roster(abbrev);
+    const pitchers = people.filter((p) => p.role === 'P');
+    const hitters = people.filter((p) => p.role === 'H');
+    const pitIds = strategyPitcherIds(abbrev, state);
+    const catchIds = strategyCatcherIds(abbrev, state);
+    const spId = ensureTeam(state, abbrev).sp;
+    const pitRows = (pitIds.length ? pitIds : [null]).map((id) => {
+      const p = id ? byId.get(id) : null;
+      const role = id && spId && Number(id) === Number(spId) ? 'SP' : (id ? 'RP' : '—');
+      const name = p ? cardLast(p, pitchers) : '—';
+      const ttp = p ? esc(ttpFor(p.id)) : '';
+      return `<tr><td class="sc-ttp-role">${esc(role)}</td><td class="sc-ttp-name">${esc(name)}</td><td class="sc-ttp-val">${ttp}</td></tr>`;
+    }).join('');
+    const catchRows = (catchIds.length ? catchIds : [null]).map((id) => {
+      const p = id ? byId.get(id) : null;
+      const name = p ? cardLast(p, hitters) : '—';
+      const pop = p ? esc(popFor(p.id)) : '';
+      return `<tr><td class="sc-ttp-role">C</td><td class="sc-ttp-name">${esc(name)}</td><td class="sc-ttp-val">${pop}</td></tr>`;
+    }).join('');
+    const logo = meta.logo
+      ? `<img class="sc-logo" src="${esc(meta.logo)}" alt="">`
+      : `<span class="sc-mono">${esc(meta.abbrev)}</span>`;
+    return `<section class="sc-side sc-ttp-side">
+      <header class="sc-head" style="background:${esc(meta.color)}">
+        <div class="sc-head-name">${esc(meta.name)}</div>
+        ${logo}
+      </header>
+      <div class="sc-bar">${tr('TIME TO PLATE', 'TIEMPO AL HOME')}</div>
+      <table class="sc-ttp-table">
+        <thead><tr><th></th><th>${tr('PITCHER', 'PITCHER')}</th><th>TTP</th></tr></thead>
+        <tbody>${pitRows}</tbody>
+      </table>
+      <div class="sc-bar">${tr('CATCHER POP', 'POP DEL RECEPTOR')}</div>
+      <table class="sc-ttp-table">
+        <thead><tr><th></th><th>${tr('CATCHER', 'RECEPTOR')}</th><th>POP</th></tr></thead>
+        <tbody>${catchRows}</tbody>
+      </table>
+    </section>`;
+  }
+
+  function buildStrategyBack(left, right, state) {
+    return `<div class="sc-back">
+      <div class="sc-pair sc-ttp-pair">
+        ${ttpBackSide(left, state)}
+        ${ttpBackSide(right, state)}
+      </div>
+      <section class="sc-back-run">
+        <div class="sc-bar">${tr('RUNNING GAME NOTES', 'NOTAS DEL JUEGO EN BASES')}</div>
+        <div class="sc-back-lines" aria-hidden="true"></div>
+      </section>
+      <section class="sc-back-notes">
+        <div class="sc-bar">${tr('NOTES', 'NOTAS')}</div>
+        <div class="sc-back-lines" aria-hidden="true"></div>
+      </section>
+    </div>`;
   }
 
   const CardApp = {
@@ -1161,14 +1297,26 @@
     exportStrategy() {
       const el = document.getElementById('strategy-sheet');
       if (!el) return;
-      openPrint('Strategy card', el.outerHTML, 'portrait', `
-        .sc-pair{gap:6px}
-        .sc-grid{font-size:8px}
-        .sc-grid th{font-size:7px}
-        .sc-head{min-height:36px;padding:4px 8px}
-        .sc-head-name{font-size:13px}
-        .sc-who{font-size:8px}
-        .sc-bar{font-size:10px;padding:2px 0}
+      const state = loadStrategy();
+      const left = state.santurceHome ? 'SAN' : state.opponent;
+      const right = state.santurceHome ? state.opponent : 'SAN';
+      const front = `<div class="sc-print-page sc-print-front">${el.outerHTML}</div>`;
+      const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(left, right, state)}</div>`;
+      openPrint('Strategy card', front + back, 'portrait', `
+        /* Front: larger type so the card runs ~2" farther down the portrait page. */
+        .sc-print-front .sc-pair{gap:10px}
+        .sc-print-front .sc-grid{font-size:10.5px;line-height:1.28}
+        .sc-print-front .sc-grid th{font-size:9px;padding:3px 2px}
+        .sc-print-front .sc-grid td{padding:3px 3px}
+        .sc-print-front .sc-head{min-height:44px;padding:7px 10px}
+        .sc-print-front .sc-head-name{font-size:16px}
+        .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:38px;height:38px}
+        .sc-print-front .sc-who{font-size:10.5px}
+        .sc-print-front .sc-bar{font-size:12px;padding:4px 0;letter-spacing:.1em}
+        .sc-print-front .sc-date{font-size:12px;padding:4px 0 5px}
+        .sc-print-front .sc-subhead td{font-size:10px;padding:3px 4px}
+        .sc-print-back .sc-back{min-height:10.0in}
+        .sc-print-back .sc-back-notes{flex-basis:1.5in;height:1.5in;min-height:1.5in}
       `);
     },
     exportSmallBall() {
