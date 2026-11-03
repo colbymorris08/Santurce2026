@@ -37,6 +37,10 @@ NAME_VARIANTS = {
     "bryan gonzalez garcia": ["Bryan Gonzalez"],
     "keishin saito": ["Keishin Saitoh"],
     "haruse narita": ["Haruse Narita"],
+    "keito matsuura": ["Keito Matsuura"],
+    "kyohei yamashiro": ["Kyohei Yamashiro"],
+    "kai yokogawa": ["Kai Yokogawa"],
+    "william simoneit": ["Will Simoneit", "William Simoneit"],
 }
 
 
@@ -341,7 +345,16 @@ def main() -> None:
     )
 
 
-JAPAN_NAMES = {"neftali soto", "keishin saito", "haruse narita", "kazuto taguchi", "yuta nakami"}
+JAPAN_NAMES = {
+    "neftali soto",
+    "keishin saito",
+    "haruse narita",
+    "kazuto taguchi",
+    "yuta nakami",
+    "keito matsuura",
+    "kyohei yamashiro",
+    "kai yokogawa",
+}
 
 
 def npb_window(events: list[dict]) -> tuple[list[dict], str] | None:

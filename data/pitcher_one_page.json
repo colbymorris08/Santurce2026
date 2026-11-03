@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T10:12:03Z",
+  "updated": "2026-11-03T19:09:51Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1980,6 +1980,26 @@
           "needs_data": false
         },
         {
+          "jersey": "",
+          "name": "Keito Matsuura",
+          "name_display": "Matsuura, Keito (l)",
+          "throws": "L",
+          "mlb_id": -799554792,
+          "velo": {
+            "FB": "93-93",
+            "CB": "",
+            "SL": "84-84",
+            "CH": "",
+            "CT": "88-88",
+            "SPL": "86-86"
+          },
+          "freq_r": "FB 69%, SPL 13%, CUT 12%, SL 7%",
+          "freq_l": "FB 85%, CUT 12%, SL 2%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 69%, SPL 13%, CUT 12%, SL 7%</span><br><span class=\"freq-l\">LHH: FB 85%, CUT 12%, SL 2%</span>",
+          "notes": "",
+          "needs_data": false
+        },
+        {
           "jersey": "47",
           "name": "Omar Melendez",
           "name_display": "Melendez, Omar (l)",
@@ -2216,6 +2236,46 @@
           "freq_r": "FB 59%, SL 26%, SNK 12%, UN 4%",
           "freq_l": "FB 70%, SL 15%, SNK 9%, CH 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 59%, SL 26%, SNK 12%, UN 4%</span><br><span class=\"freq-l\">LHH: FB 70%, SL 15%, SNK 9%, CH 2%</span>",
+          "notes": "",
+          "needs_data": false
+        },
+        {
+          "jersey": "",
+          "name": "Kyohei Yamashiro",
+          "name_display": "Yamashiro, Kyohei (l)",
+          "throws": "L",
+          "mlb_id": -172871700,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true
+        },
+        {
+          "jersey": "",
+          "name": "Kai Yokogawa",
+          "name_display": "Yokogawa, Kai (l)",
+          "throws": "L",
+          "mlb_id": -173172553,
+          "velo": {
+            "FB": "88-88",
+            "CB": "74-74",
+            "SL": "81-81",
+            "CH": "",
+            "CT": "84-84",
+            "SPL": "85-85"
+          },
+          "freq_r": "FB 41%, SL 18%, SPL 16%, CB 13%",
+          "freq_l": "FB 44%, CUT 24%, CB 14%, SL 10%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 41%, SL 18%, SPL 16%, CB 13%</span><br><span class=\"freq-l\">LHH: FB 44%, CUT 24%, CB 14%, SL 10%</span>",
           "notes": "",
           "needs_data": false
         },
