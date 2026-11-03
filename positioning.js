@@ -387,70 +387,116 @@
       return true;
     });
   }
+  /* Straight-up feet — same plane as drawSpray / OFPOS_ANCHOR (home bottom, +y CF, +x RF). */
+  const POS_ANCHORS_FALLBACK = {
+    OF: {
+      LF: { x: -148, y: 268 },
+      CF: { x: 0, y: 320 },
+      RF: { x: 148, y: 268 },
+    },
+    INF: {
+      '3B': { x: -78, y: 108 },
+      SS: { x: -46, y: 150 },
+      '2B': { x: 46, y: 150 },
+      '1B': { x: 78, y: 108 },
+    },
+  };
+  function posAnchors() {
+    const src = (typeof OFPOS_ANCHOR === 'object' && OFPOS_ANCHOR) ? OFPOS_ANCHOR : null;
+    const keys = mode === 'OF' ? ['LF', 'CF', 'RF'] : ['3B', 'SS', '2B', '1B'];
+    const out = {};
+    keys.forEach((pos) => {
+      const a = (src && src[pos]) || (POS_ANCHORS_FALLBACK[mode] || {})[pos];
+      if (a && Number.isFinite(a.x) && Number.isFinite(a.y)) out[pos] = { x: a.x, y: a.y };
+    });
+    return out;
+  }
+
   function renderSpray() {
     const canvas = document.getElementById('pos-spray-canvas');
     const label = document.getElementById('pos-spray-label');
     if (!canvas) return;
     const h = activeHitter();
-    const t = team();
     if (label) {
       label.textContent = h
         ? `${(typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name)} · vs ${sprayHand}HP · ${sprayCount}`
         : tr('Select a hitter row', 'Elige una fila de bateador');
     }
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width;
-    const H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#e8f0e4';
-    ctx.fillRect(0, 0, W, H);
-    // Diamond / OF arc sketch
-    const cx = W / 2;
-    const homeY = H - 18;
-    const px = Math.min(W, H) / 420;
-    const toC = (x, y) => ({ x: cx + x * px, y: homeY - y * px });
-    ctx.strokeStyle = '#9aa88f';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    [[0, 0], [-63.6, 63.6], [0, 127.3], [63.6, 63.6], [0, 0]].forEach((pt, i) => {
-      const p = toC(pt[0], pt[1]);
-      if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
-    });
-    ctx.stroke();
-    ctx.beginPath();
-    const R = mode === 'OF' ? 320 : 160;
-    for (let a = -Math.PI * 0.55; a <= Math.PI * 0.55; a += 0.04) {
-      const p = toC(Math.sin(a) * R, Math.cos(a) * R);
-      if (a === -Math.PI * 0.55) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+
+    const pane = canvas.closest('.pos-spray-pane') || canvas.parentElement;
+    const avail = Math.floor((pane && pane.clientWidth) || 360) - 24;
+    const aspect = (typeof SPRAY_ASPECT === 'number' && SPRAY_ASPECT > 0) ? SPRAY_ASPECT : Math.SQRT2;
+    const dispW = Math.max(280, Math.min(360, avail > 40 ? avail : 360));
+    const dispH = Math.round(dispW / aspect);
+    // INF zooms to ~220' so basepaths/fielder anchors fill the pane; OF uses full 400' fence.
+    const viewFt = mode === 'INF' ? 220 : 400;
+
+    let pts = [];
+    if (h) {
+      const twoK = sprayCount === '2K';
+      pts = sprayPoints(h, sprayHand, twoK);
+      if (pts.length < 3) pts = sprayPoints(h, sprayHand, null);
+      const depthMin = mode === 'OF' ? 140 : 40;
+      const depthMax = mode === 'INF' ? 210 : 9999;
+      pts = pts.filter((p) => {
+        const y = Number(p.y_ft != null ? p.y_ft : p.y);
+        return Number.isFinite(y) && y >= depthMin && y <= depthMax;
+      });
+      if (typeof limitRecentSprayPoints === 'function') {
+        pts = limitRecentSprayPoints(pts, 80);
+      } else {
+        pts = pts.slice(-80);
+      }
     }
-    ctx.stroke();
-    if (!h) return;
-    const twoK = sprayCount === '2K';
-    let pts = sprayPoints(h, sprayHand, twoK);
-    if (pts.length < 3) pts = sprayPoints(h, sprayHand, null);
-    const depthMin = mode === 'OF' ? 140 : 40;
-    pts = pts.filter((p) => {
-      const y = Number(p.y_ft != null ? p.y_ft : p.y);
-      return Number.isFinite(y) && y >= depthMin;
-    });
-    if (typeof limitRecentSprayPoints === 'function') {
-      pts = limitRecentSprayPoints(pts, 80);
-    } else {
-      pts = pts.slice(-80);
+
+    if (typeof drawSpray !== 'function') {
+      const ctx = canvas.getContext('2d');
+      canvas.width = dispW;
+      canvas.height = dispH;
+      ctx.fillStyle = '#e8f0e4';
+      ctx.fillRect(0, 0, dispW, dispH);
+      ctx.fillStyle = '#333';
+      ctx.font = '12px sans-serif';
+      ctx.fillText('Spray field unavailable', 12, 24);
+      return;
     }
-    pts.forEach((p) => {
-      const x = Number(p.x_ft != null ? p.x_ft : p.x);
-      const y = Number(p.y_ft != null ? p.y_ft : p.y);
-      if (!Number.isFinite(x) || !Number.isFinite(y)) return;
-      const c = toC(x, y);
-      ctx.fillStyle = 'rgba(30,90,200,0.55)';
-      ctx.beginPath();
-      ctx.arc(c.x, c.y, 3.2, 0, Math.PI * 2);
-      ctx.fill();
+
+    const anchors = posAnchors();
+    const geom = drawSpray(canvas, pts, {
+      dispW,
+      dispH,
+      viewFt,
+      hideAreaLabels: true,
+      afterDraw(ctx, g) {
+        const ink = g.ink || 1;
+        Object.keys(anchors).forEach((pos) => {
+          const a = anchors[pos];
+          const p = g.toCanvas(a.x, a.y);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 7 * ink, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(17,17,17,0.88)';
+          ctx.fill();
+          ctx.strokeStyle = '#fff';
+          ctx.lineWidth = 1.6 * ink;
+          ctx.stroke();
+          ctx.fillStyle = '#111';
+          ctx.font = `bold ${Math.max(10, 11 * ink)}px "IBM Plex Mono", monospace`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(pos, p.x, p.y - 9 * ink);
+        });
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = '#111';
+        ctx.font = `${Math.max(11, 12 * ink)}px "IBM Plex Mono", monospace`;
+        ctx.fillText(`n=${pts.length}`, 8 * ink, 16 * ink);
+      },
     });
-    ctx.fillStyle = '#333';
-    ctx.font = '11px "IBM Plex Mono", monospace';
-    ctx.fillText(`n=${pts.length}`, 8, 16);
+    // CSS box must match drawSpray buffer aspect exactly (no stretch).
+    const cssW = (geom && geom.dispW) || dispW;
+    const cssH = (geom && geom.dispH) || dispH;
+    canvas.style.width = `${cssW}px`;
+    canvas.style.height = `${cssH}px`;
   }
 
   /* ── Print cards (Excel layouts, no sprays) ── */

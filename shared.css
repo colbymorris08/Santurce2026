@@ -2178,10 +2178,11 @@ input.tth-input:focus {
   width: 100%;
   max-width: 360px;
   height: auto;
+  aspect-ratio: 1.414 / 1; /* √2 — same wedge as drawSpray */
   margin-top: 10px;
   border: 1px solid #9aa88f;
   border-radius: 4px;
-  background: #e8f0e4;
+  background: #b7dfb9;
 }
 .pos-lineup-details { margin-top: 14px; }
 .pos-lineup-details summary { cursor: pointer; font-weight: 700; font-size: 13px; }
