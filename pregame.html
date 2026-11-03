@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san191">
+<link rel="stylesheet" href="shared.css?v=san192">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
@@ -510,13 +510,13 @@
     </div>
   </div>
 </main>
-<script src="i18n.js?v=san191"></script>
-<script src="cards.js?v=san191"></script>
-<script src="positioning.js?v=san191"></script>
+<script src="i18n.js?v=san192"></script>
+<script src="cards.js?v=san192"></script>
+<script src="positioning.js?v=san192"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san191';
+const ASSET_V = 'san192';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1297,9 +1297,12 @@ function drawSpray(canvas, points, opts={}){
     ctx.fill();
   }
 
-  // Distance rings that fit in this view (plus chart-edge label when zoomed)
-  const ringSet = [100, 150, 200, 250, 300, 350, 400].filter(ft => ft <= VIEW_FT + 0.5);
-  if(!ringSet.includes(VIEW_FT) && VIEW_FT !== CF_FT) ringSet.push(VIEW_FT);
+  // Full OF charts keep 200/300/400; zoomed INF views get denser rings + edge label
+  const ringSet = (VIEW_FT < CF_FT - 5
+    ? [100, 150, 200, 250, 300, 350, 400]
+    : [200, 300, 400]
+  ).filter(ft => ft <= VIEW_FT + 0.5);
+  if(VIEW_FT < CF_FT - 5 && !ringSet.some(ft => Math.abs(ft - VIEW_FT) < 0.5)) ringSet.push(VIEW_FT);
   ringSet.forEach(ft=>{
     const r = ft * pxPerFt;
     const isEdge = Math.abs(ft - VIEW_FT) < 0.5;
