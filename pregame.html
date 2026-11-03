@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san201">
+<link rel="stylesheet" href="shared.css?v=san203">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -516,7 +516,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san202';
+const ASSET_V = 'san203';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6169,16 +6169,24 @@ function renderBullpen(){
   root.innerHTML = buildBullpenSheetHtml(pack, {teamLabel: pack.team_name || team});
 }
 function sheetPrintCss(kind){
-  // Shared one-landscape-page fit for bullpen + pitcher one-page exports
+  // Shared landscape print for bullpen + pitcher one-page exports
   const common = `
     @page { size: letter landscape; margin: 0.28in; }
     html,body{margin:0;padding:0;background:#fff!important;color:#000}
-    .bullpen-print-page,.onepage-print-page{
+    .bullpen-print-page{
       width:10.44in;height:7.94in;max-width:10.44in;max-height:7.94in;
       overflow:hidden;box-sizing:border-box;margin:0;padding:0;
       display:flex;flex-direction:column;background:#fff;color:#000;
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
     }
+    .onepage-print-page{
+      width:10.44in;max-width:10.44in;height:auto;max-height:none;
+      overflow:visible;box-sizing:border-box;margin:0;padding:0 0 0.08in;
+      display:flex;flex-direction:column;background:#fff;color:#000;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;
+      page-break-after:always;break-after:page;
+    }
+    .onepage-print-page:last-child{page-break-after:auto;break-after:auto}
     .bullpen-print-title,.onepage-title{
       text-align:center;font-weight:800;color:#000;flex:0 0 auto;margin:0 0 4px;line-height:1.1;
     }
@@ -6209,22 +6217,45 @@ function sheetPrintCss(kind){
     `;
   }
   return common + `
-    .onepage-title{font-size:15px;margin:0 0 4px}
-    .onepage-print{border:none;padding:0;flex:1 1 auto;min-height:0;overflow:hidden;display:flex;flex-direction:column}
-    .onepage-grid{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;flex:1 1 auto}
+    .onepage-title{font-size:15px;margin:0 0 3px}
+    .onepage-print{border:none;padding:0;overflow:visible;display:block}
+    .onepage-grid{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed}
     .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:2px 2px;vertical-align:top;color:#000;background:#fff}
+    .onepage-grid thead{display:table-header-group}
+    .onepage-grid tr{page-break-inside:avoid;break-inside:avoid}
     .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px}
     .onepage-grid .op-num{width:0.22in;max-width:0.28in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px;color:#000}
     .onepage-grid .op-num input{display:none!important}
     .onepage-grid .op-name{width:0.95in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .onepage-grid .op-name.op-lhp{color:#b00020}
-    .onepage-grid .op-velo{width:0.40in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:9px;line-height:1.15}
-    .onepage-grid .op-freq{width:19%;font-size:8.5px;line-height:1.2}
+    .onepage-grid .op-velo{width:0.40in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:9px;line-height:1.12}
+    .onepage-grid .op-freq{width:19%;font-size:8.5px;line-height:1.15}
     .onepage-grid .op-freq .freq-r{color:#000;display:block}
     .onepage-grid .op-freq .freq-l{color:#b00020;display:block}
-    .onepage-grid .op-notes{width:34%;font-size:8.5px;line-height:1.2;white-space:pre-wrap;max-height:2.8em;overflow:hidden}
+    .onepage-grid .op-notes{width:34%;font-size:8.5px;line-height:1.15;white-space:pre-wrap;max-height:2.4em;overflow:hidden}
     .onepage-grid tr.op-alt td{background:#f2f2f2!important}
     .onepage-grid textarea{display:none!important}
+    .op-density-compact .onepage-title{font-size:13px;margin:0 0 2px}
+    .op-density-compact .onepage-grid{font-size:8.2px}
+    .op-density-compact .onepage-grid th,.op-density-compact .onepage-grid td{padding:1px 1px}
+    .op-density-compact .onepage-grid thead th{font-size:8px}
+    .op-density-compact .onepage-grid .op-velo{font-size:7.8px;line-height:1.08}
+    .op-density-compact .onepage-grid .op-freq{font-size:7.5px;line-height:1.1}
+    .op-density-compact .onepage-grid .op-notes{font-size:7.5px;max-height:2.2em}
+    .op-density-dense .onepage-title{font-size:12px;margin:0 0 1px}
+    .op-density-dense .onepage-grid{font-size:7.4px}
+    .op-density-dense .onepage-grid th,.op-density-dense .onepage-grid td{padding:0 1px}
+    .op-density-dense .onepage-grid thead th{font-size:7.2px;padding:1px}
+    .op-density-dense .onepage-grid .op-velo{font-size:7px;line-height:1.05}
+    .op-density-dense .onepage-grid .op-freq{font-size:6.8px;line-height:1.05}
+    .op-density-dense .onepage-grid .op-notes{font-size:6.8px;max-height:2em;line-height:1.05}
+    .op-density-ultra .onepage-title{font-size:11px;margin:0 0 1px}
+    .op-density-ultra .onepage-grid{font-size:6.6px}
+    .op-density-ultra .onepage-grid th,.op-density-ultra .onepage-grid td{padding:0 1px}
+    .op-density-ultra .onepage-grid thead th{font-size:6.4px;padding:1px}
+    .op-density-ultra .onepage-grid .op-velo{font-size:6.2px;line-height:1.02}
+    .op-density-ultra .onepage-grid .op-freq{font-size:6px;line-height:1.02}
+    .op-density-ultra .onepage-grid .op-notes{font-size:6px;max-height:1.9em;line-height:1.02}
   `;
 }
 function openSheetPrintWindow(title, bodyHtml, kind, opts){
@@ -6232,27 +6263,41 @@ function openSheetPrintWindow(title, bodyHtml, kind, opts){
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
   const css = sheetPrintCss(kind);
   const fitSel = opts && opts.fitSelector ? String(opts.fitSelector) : '';
+  const minScale = (opts && opts.minScale != null) ? Number(opts.minScale) : 0.55;
+  const neverClip = !!(opts && opts.neverClip);
+  const targetH = (opts && opts.targetHeightPx != null) ? Number(opts.targetHeightPx) : 0;
   const fitJs = fitSel ? `
       try {
-        const page = document.querySelector(${JSON.stringify(fitSel)});
-        if(page){
-          const prev = {h:page.style.height, mh:page.style.maxHeight, ov:page.style.overflow, z:page.style.zoom};
-          // Measure box + content at zoom 1 so scale math is not compounded
+        const pages = Array.from(document.querySelectorAll(${JSON.stringify(fitSel)}));
+        const minScale = ${JSON.stringify(minScale)};
+        const neverClip = ${neverClip ? 'true' : 'false'};
+        const targetH = ${JSON.stringify(targetH)};
+        pages.forEach(page => {
           page.style.zoom = '1';
-          const availH = page.clientHeight || page.offsetHeight;
+          // Landscape printable area ~7.94in at 96dpi when margins are 0.28in
+          const availH = targetH > 0 ? targetH : Math.round(7.94 * 96);
           page.style.height = 'auto';
           page.style.maxHeight = 'none';
           page.style.overflow = 'visible';
           const needH = Math.max(page.scrollHeight, page.offsetHeight);
-          page.style.height = prev.h;
-          page.style.maxHeight = prev.mh;
-          page.style.overflow = prev.ov || 'hidden';
           if(needH > availH && availH > 0){
-            page.style.zoom = String(Math.max(0.55, Math.min(1, availH / needH)));
-          } else {
-            page.style.zoom = prev.z || '1';
+            const raw = availH / needH;
+            if(raw >= minScale){
+              page.style.zoom = String(Math.min(1, raw));
+            } else if(neverClip){
+              // Shrink to floor, then let extra rows flow to the next sheet — never clip
+              page.style.zoom = String(minScale);
+              page.style.height = 'auto';
+              page.style.maxHeight = 'none';
+              page.style.overflow = 'visible';
+            } else {
+              page.style.zoom = String(minScale);
+              page.style.height = availH + 'px';
+              page.style.maxHeight = availH + 'px';
+              page.style.overflow = 'hidden';
+            }
           }
-        }
+        });
       } catch(e){}
   ` : '';
   w.document.write(`<!doctype html><html style="color-scheme:only light"><head>
@@ -6262,7 +6307,9 @@ function openSheetPrintWindow(title, bodyHtml, kind, opts){
       @media print {
         @page { size: letter landscape; margin: 0.28in; }
         html,body{margin:0;padding:0}
-        .bullpen-print-page,.onepage-print-page{page-break-after:auto;page-break-inside:avoid}
+        .bullpen-print-page{page-break-after:auto;page-break-inside:avoid}
+        .onepage-print-page{page-break-inside:avoid}
+        .onepage-print-page:not(:last-child){page-break-after:always;break-after:page}
       }
     </style>
   </head><body>${bodyHtml}
@@ -6304,15 +6351,40 @@ function exportPitcherOnePagePdf(){
       td.classList.add('op-num');
     }
   });
-  const n = clone.querySelectorAll('tbody tr').length;
-  // Baseline scale for large rosters; print window also auto-fits so no rows clip
-  // (~18 rows fit at zoom 1 with current 9.5px type in the 7.94in landscape box)
-  const scale = n <= 18 ? 1 : Math.max(0.58, 18 / n);
+  const titleText = clone.querySelector('.onepage-title')?.textContent || `${label} Pitchers`;
+  const table = clone.querySelector('.onepage-grid');
+  const theadHtml = table?.querySelector('thead')?.outerHTML || '';
+  const rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
+  const n = rowEls.length;
+  // Density + hard page split so large rosters never lose rows to overflow:hidden
+  let density = '';
+  let perPage = 20;
+  if(n > 20){ density = 'op-density-compact'; perPage = 26; }
+  if(n > 26){ density = 'op-density-dense'; perPage = 32; }
+  if(n > 32){ density = 'op-density-ultra'; perPage = 38; }
+  const pageCount = Math.max(1, Math.ceil(n / perPage));
+  const pages = [];
+  for(let i = 0; i < pageCount; i++){
+    const chunk = rowEls.slice(i * perPage, (i + 1) * perPage);
+    const suffix = pageCount > 1 ? ` (${i + 1}/${pageCount})` : '';
+    pages.push(
+      `<div class="onepage-print-page${density ? ' ' + density : ''}">` +
+      `<div class="onepage-print">` +
+      `<div class="onepage-title">${escHtml(titleText)}${suffix}</div>` +
+      `<table class="onepage-grid">${theadHtml}<tbody>${chunk.map(r => r.outerHTML).join('')}</tbody></table>` +
+      `</div></div>`
+    );
+  }
   openSheetPrintWindow(
     `${label} Pitcher One Page`,
-    `<div class="onepage-print-page" style="zoom:${scale}">${clone.outerHTML}</div>`,
+    pages.join(''),
     'onepage',
-    {fitSelector: '.onepage-print-page'}
+    {
+      fitSelector: '.onepage-print-page',
+      minScale: 0.45,
+      neverClip: true,
+      targetHeightPx: Math.round(7.94 * 96),
+    }
   );
 }
 function renderPitcherOnePage(){
