@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san200">
+<link rel="stylesheet" href="shared.css?v=san201">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -516,7 +516,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san200';
+const ASSET_V = 'san201';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1847,9 +1847,16 @@ function fgWobaFromParts({ab,bb,ibb=0,hbp=0,sf=0,singles=0,doubles=0,triples=0,h
 }
 function fgWobaFromBucket(b){
   if(!b) return null;
-  const singles=Number(b.singles)||0, doubles=Number(b.doubles)||0, triples=Number(b.triples)||0, hr=Number(b.hr)||0;
+  let singles=Number(b.singles)||0, doubles=Number(b.doubles)||0, triples=Number(b.triples)||0, hr=Number(b.hr)||0;
   const h=Number(b.h)||0;
-  if(h !== singles+doubles+triples+hr) return null;
+  const partSum = singles+doubles+triples+hr;
+  // League rollups often under-count 1B when some source rows lack hit types.
+  // Trust H + XBH and backfill singles (same idea as summerLineWoba).
+  if(h !== partSum){
+    if(doubles+triples+hr > h) return null;
+    if(h<=0 && partSum<=0) return null;
+    singles = Math.max(0, h - doubles - triples - hr);
+  }
   return fgWobaFromParts({
     ab:b.ab, bb:b.bb, ibb:b.ibb, hbp:b.hbp, sf:b.sf,
     singles, doubles, triples, hr
@@ -1876,6 +1883,13 @@ function advanceLeaguePitchBag(){
   }
   return data._leaguePitchBag;
 }
+function leaguePitchMetricValue(row, metric){
+  if(!row) return null;
+  if(row[metric]!=null && row[metric]!=='') return Number(row[metric]);
+  // select_all rollups often ship woba:null even when hit types exist — derive FG wOBA.
+  if(metric==='woba') return brefWobaFromBucket(row);
+  return null;
+}
 function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null}={}){
   const bag = advanceLeaguePitchBag();
   let rows;
@@ -1897,9 +1911,9 @@ function leaguePitchMetric(pitchType, metric, {split=null, risp=false, hand=null
   const hit = rows.find(r=>normalizeHitterPitchLabel(r.pitch_type)===lab)
     || rows.find(r=>normalizePitchCode(r.pitch_type)===code)
     || rows.find(r=>String(r.pitch_type||'').toLowerCase()===String(pitchType||'').toLowerCase());
-  if(hit && hit[metric]!=null) return Number(hit[metric]);
-  const o = bag.overall || {};
-  return o[metric]!=null ? Number(o[metric]) : null;
+  const fromHit = leaguePitchMetricValue(hit, metric);
+  if(fromHit!=null) return fromHit;
+  return leaguePitchMetricValue(bag.overall || {}, metric);
 }
 const HEAT_MAP_EMPTY = { fill:'#E7EEF5', fg:'#64748B' };
 /** Five discrete tiers for plate-location heat maps (per-map quintiles). */
@@ -1961,7 +1975,10 @@ function heatMapStylesForSampled(sampled){
 }
 /** Hitter pitch-type rate cells: blue (low) → near white (avg) → red (high) vs league same-pitch average. */
 function rateHeatStyle(val, avg){
-  if(val==null || avg==null || Number.isNaN(Number(val)) || Number.isNaN(Number(avg))) return '';
+  // No league baseline → keep black type on white (never inherit near-white theme text).
+  if(val==null || avg==null || Number.isNaN(Number(val)) || Number.isNaN(Number(avg))){
+    return 'background:#fff;color:#111;-webkit-text-fill-color:#111';
+  }
   const v=Number(val), a=Number(avg);
   const denom = Math.max(Math.abs(a), a>1 ? 0.05 : 0.01);
   const z = Math.max(-1, Math.min(1, (v-a)/denom));
@@ -1970,7 +1987,7 @@ function rateHeatStyle(val, avg){
   const g = Math.round(110 - Math.abs(z)*70);
   const b = Math.round(220 - t*180);
   const fg = Math.abs(z)>0.45 ? '#fff' : '#0a1633';
-  return `background:rgb(${r},${g},${b});color:${fg}`;
+  return `background:rgb(${r},${g},${b});color:${fg};-webkit-text-fill-color:${fg}`;
 }
 const HEAT_GEOM_STORAGE_KEY = 'santurce_advance_heat_geom';
 function getHeatGeometryMode(){

@@ -1232,15 +1232,23 @@ def _fg_woba(
 
 
 def _fg_woba_from_bucket(bucket: dict) -> float | None:
-    """Need hit-type counts — cannot recover 1B/2B/3B/HR from H+TB alone."""
+    """Compute FG wOBA from bucket hit types.
+
+    League rollups often under-count 1B when some source rows lack hit-type
+    breakdown. Trust H + XBH and backfill singles (same idea as summer lines).
+    """
     singles = int(bucket.get("singles") or 0)
     doubles = int(bucket.get("doubles") or 0)
     triples = int(bucket.get("triples") or 0)
     hr = int(bucket.get("hr") or 0)
     h = int(bucket.get("h") or 0)
-    # Incomplete legacy rows have H but no hit-type breakdown.
-    if h != singles + doubles + triples + hr:
-        return None
+    part_sum = singles + doubles + triples + hr
+    if h != part_sum:
+        if doubles + triples + hr > h:
+            return None
+        if h <= 0 and part_sum <= 0:
+            return None
+        singles = max(0, h - doubles - triples - hr)
     return _fg_woba(
         ab=int(bucket.get("ab") or 0),
         bb=int(bucket.get("bb") or 0),

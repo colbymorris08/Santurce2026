@@ -1553,12 +1553,18 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   border-bottom-color: #e2e8f0;
 }
 .hitter-pitch-half tbody td.rate-cell {
+  /* Beat global `tbody td { color: var(--text) }` when heat style is absent (esp. wOBA). */
+  color: #111;
+  -webkit-text-fill-color: #111;
+  background: #fff;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
 .hitter-pitch-half tbody tr:hover { background: transparent; }
 .hitter-pitch-half tbody tr:hover td:not(.rate-cell) { background: #fff; }
 .hitter-pitch-half .rate-cell {
+  color: #111;
+  -webkit-text-fill-color: #111;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
@@ -1592,7 +1598,11 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   paint-order: stroke fill;
 }
 .advance-heat-pair .zone-heat { max-width: 220px; }
-.rate-cell { font-variant-numeric: tabular-nums; }
+.rate-cell {
+  font-variant-numeric: tabular-nums;
+  color: #111;
+  -webkit-text-fill-color: #111;
+}
 
 .season-banner {
   border: 1px solid #3b5f96; background: rgba(30, 64, 120, 0.28); color: var(--text);
