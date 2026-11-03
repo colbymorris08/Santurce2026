@@ -8,7 +8,7 @@
   const STORE_KEY = 'santurce_positioning_v2';
   const LEGACY_OF_KEY = 'santurce_of_positioning_v1';
   /** Bump when data/positioning_v2.json is regenerated so devices re-pull seed. */
-  const SEED_VERSION = '2026-11-03b';
+  const SEED_VERSION = '2026-11-03c';
 
   const OF_POS = ['LF', 'CF', 'RF'];
   const OF_COUNTS = ['PRE', '2K'];
@@ -17,7 +17,8 @@
 
   const INF_POS = ['1B', '2B', 'SS', '3B'];
   const INF_SITS = ['EMPTY', 'RISP', 'DP'];
-  const INF_HOLDS = ['', 'N', 'H', 'L', 'R', 'EL', 'ER', 'BAG'];
+  /** INF holds always show a selection; blank is not a valid resting state (use N). */
+  const INF_HOLDS = ['N', 'H', 'L', 'R', 'EL', 'ER', 'BAG'];
   const INF_STEPS = ['', '3', '6', '9'];
 
   let mode = 'OF'; // OF | INF
@@ -217,14 +218,14 @@
     saveStore(store);
   }
   function getInf(t, name, pos, sit, pHand) {
-    return loadStore().inf[infKey(t, name, pos, sit, pHand)] || '';
+    // Missing / blank INF cells default to N (neutral) — never leave the UI empty.
+    return loadStore().inf[infKey(t, name, pos, sit, pHand)] || 'N';
   }
   function setInf(t, name, pos, sit, pHand, code) {
     const store = loadStore();
     const k = infKey(t, name, pos, sit, pHand);
-    const v = String(code || '').trim().toUpperCase();
-    if (!v) delete store.inf[k];
-    else store.inf[k] = v;
+    const v = String(code || '').trim().toUpperCase() || 'N';
+    store.inf[k] = v;
     saveStore(store);
   }
 
@@ -244,16 +245,15 @@
   }
   function parseInfCode(code) {
     const s = String(code || '').trim().toUpperCase();
-    if (!s) return { hold: '', steps: '' };
+    if (!s) return { hold: 'N', steps: '' };
     if (s === 'BAG' || s === 'N') return { hold: s, steps: '' };
     const m = s.match(/^(EL|ER|H|L|R|N|M)-?(\d+)?$/);
     if (m) return { hold: m[1] === 'M' ? 'N' : m[1], steps: m[2] || '' };
     if (INF_HOLDS.includes(s)) return { hold: s, steps: '' };
-    return { hold: s, steps: '' };
+    return { hold: 'N', steps: '' };
   }
   function composeInf(hold, steps) {
-    const h = String(hold || '').toUpperCase();
-    if (!h) return '';
+    const h = String(hold || 'N').toUpperCase() || 'N';
     if (h === 'BAG' || h === 'N') return h;
     const st = String(steps || '').trim();
     return st ? `${h}-${st}` : h;
@@ -315,7 +315,7 @@
     const h = hold || '';
     const st = steps || '';
     return `<span class="pos-code-pair" ${meta}>
-      <select class="pos-inf-hold" aria-label="hold">${INF_HOLDS.map((s) => `<option value="${s}"${s === h ? ' selected' : ''}>${s || '—'}</option>`).join('')}</select>
+      <select class="pos-inf-hold" aria-label="hold">${INF_HOLDS.map((s) => `<option value="${s}"${s === h ? ' selected' : ''}>${s}</option>`).join('')}</select>
       <select class="pos-inf-steps" aria-label="steps">${INF_STEPS.map((s) => `<option value="${s}"${s === st ? ' selected' : ''}>${s || '—'}</option>`).join('')}</select>
     </span>`;
   }
@@ -916,4 +916,62 @@
     if (name === 'inf') PosApp.setMode('INF');
     else if (name === 'of' || name === 'grid') PosApp.setMode('OF');
   };
+
+  /** One-shot dump for agents: ?dump_pos=1 downloads JSON + stamps tab title (no storage writes). */
+  function dumpPosIfRequested() {
+    try {
+      if (!/[?&]dump_pos=1(?:&|$)/.test(location.search || '')) return;
+      let raw = {};
+      try { raw = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) { raw = {}; }
+      const needles = ['nolan arenado', 'chris arroyo'];
+      const pick = (obj) => {
+        const out = {};
+        Object.keys(obj || {}).forEach((k) => {
+          const kl = k.toLowerCase();
+          if (needles.some((n) => kl.includes(n))) out[k] = obj[k];
+        });
+        return out;
+      };
+      const golden = {
+        source: 'safari_or_browser_localStorage',
+        key: STORE_KEY,
+        origin: location.origin + location.pathname,
+        seedVer: raw._posSeedVer || null,
+        of: pick(raw.of),
+        inf: pick(raw.inf),
+        hands: pick(raw.hands),
+        full: {
+          of: raw.of || {},
+          inf: raw.inf || {},
+          hands: raw.hands || {},
+          lineups: raw.lineups || {},
+          _posSeedVer: raw._posSeedVer || null,
+          _migratedOfV1: !!raw._migratedOfV1,
+        },
+      };
+      const text = JSON.stringify(golden, null, 2);
+      const blob = new Blob([text], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'santurce_positioning_golden_dump.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Compact title stamp so AppleScript can read without do JavaScript
+      const compact = {
+        seedVer: golden.seedVer,
+        of: golden.of,
+        inf: golden.inf,
+        hands: golden.hands,
+      };
+      document.title = 'POSDUMP:' + JSON.stringify(compact);
+    } catch (e) {
+      try { document.title = 'POSDUMP_ERR:' + String(e); } catch (e2) {}
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', dumpPosIfRequested);
+  } else {
+    dumpPosIfRequested();
+  }
 })();

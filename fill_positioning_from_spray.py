@@ -2,11 +2,12 @@
 """Fill INF/OF positioning codes from spray charts (coach-reviewable defaults).
 
 Maps spray splits → PosApp slots:
-  non-2K → OF PRE | 2K → OF 2K | RISP → INF RISP | non-RISP → INF EMPTY (blank)
+  non-2K → OF PRE | 2K → OF 2K | RISP → INF RISP | non-RISP → INF EMPTY
   DP spray also informs RISP + DP rows.
 
 Rules (Arenado/Arroyo style):
   - Move only for clear BIP clusters off straight-up (often pull-side).
+  - No discernible directional change → INF N (neutral). Never leave INF blank.
   - OF steps default 10; 20 only for big spray skew. LF/RF: L|G only; CF: O|P only.
   - INF steps default 3; EL/ER + 6/9 when one side of the infield is empty.
   - DP: 3B often H; 1B often BAG.
@@ -181,9 +182,7 @@ def inf_hold_steps(pts, bats: str) -> tuple[str, str]:
 
 
 def compose_inf(hold: str, steps: str) -> str:
-    h = (hold or "").upper()
-    if not h:
-        return ""
+    h = (hold or "").upper() or "N"
     if h in ("BAG", "N", "H"):
         return h
     st = str(steps or "").strip()
@@ -191,26 +190,23 @@ def compose_inf(hold: str, steps: str) -> str:
 
 
 def inf_code_for(pts, pos: str, sit: str, bats: str, dp_pts) -> str:
-    if sit == "EMPTY":
-        return ""
+    """INF code for a situation. Always returns a non-empty code (N when neutral)."""
     if sit == "DP":
         if pos == "3B":
             return "H"
         if pos == "1B":
             return "BAG"
-        # Middle infield on DP: use DP spray if enough, else RISP shade
+        # Middle infield on DP: use DP spray if enough, else RISP/EMPTY shade
         use = dp_pts if len(dp_pts) >= MIN_INF else pts
         hold, steps = inf_hold_steps(use, bats)
-        if hold == "N":
-            return "N"
-        return compose_inf(hold, steps)
-    # RISP — prefer DP spray cluster when it is the clearer signal
+        return compose_inf(hold, steps) or "N"
+    # EMPTY (non-RISP) and RISP — shade from the supplied BIP cluster
     use = pts
-    if len(dp_pts) >= MIN_INF:
-        # Blend: if DP median agrees with RISP direction, keep RISP; else use DP
+    if sit == "RISP" and len(dp_pts) >= MIN_INF:
+        # Prefer RISP sample when thick enough; else fall back to DP spray
         use = pts if len(pts) >= MIN_INF else dp_pts
     hold, steps = inf_hold_steps(use, bats)
-    return compose_inf(hold, steps)
+    return compose_inf(hold, steps) or "N"
 
 
 def of_key(team, name, pos, count, hand) -> str:
@@ -274,20 +270,20 @@ def main():
         pts = (sp or {}).get("points") or h.get("spray_points") or []
         if not pts:
             gaps.append({"name": name, "team": team, "reason": "no_spray_points"})
-            # Still write STRAIGHT / blank so the sheet is complete
+            # Still write STRAIGHT / N so the sheet is complete
             for hand in ("L", "R"):
                 for count in OF_COUNTS:
                     for pos in OF_POS:
                         of_map[of_key(team, name, pos, count, hand)] = "STRAIGHT"
                 for pos in INF_POS:
-                    # EMPTY left blank (non-RISP → no entry)
-                    inf_map[inf_key(team, name, pos, "RISP", hand)] = "N"
-                    if pos == "3B":
-                        inf_map[inf_key(team, name, pos, "DP", hand)] = "H"
-                    elif pos == "1B":
-                        inf_map[inf_key(team, name, pos, "DP", hand)] = "BAG"
-                    else:
-                        inf_map[inf_key(team, name, pos, "DP", hand)] = "N"
+                    for sit in INF_SITS:
+                        if sit == "DP" and pos == "3B":
+                            code = "H"
+                        elif sit == "DP" and pos == "1B":
+                            code = "BAG"
+                        else:
+                            code = "N"
+                        inf_map[inf_key(team, name, pos, sit, hand)] = code
             filled_players.append(name)
             continue
 
@@ -311,19 +307,20 @@ def main():
                 for pos in OF_POS:
                     of_map[of_key(team, name, pos, count, hand)] = codes[pos]
 
+            empty_inf = filter_pts(pts, hand=hand, risp=False, y_min=40, y_max=210)
             risp_inf = filter_pts(pts, hand=hand, risp=True, y_min=40, y_max=210)
             dp_inf = filter_pts(pts, hand=hand, y_min=40, y_max=210, dp_only=True)
-            # DP spray also templates RISP when RISP is thin
+            # Fallbacks when a split is thin
+            all_inf = filter_pts(pts, hand=hand, y_min=40, y_max=210)
+            empty_use = empty_inf if len(empty_inf) >= MIN_INF else all_inf
             risp_use = risp_inf if len(risp_inf) >= MIN_INF else (
-                dp_inf if len(dp_inf) >= MIN_INF else filter_pts(pts, hand=hand, y_min=40, y_max=210)
+                dp_inf if len(dp_inf) >= MIN_INF else all_inf
             )
 
             for pos in INF_POS:
                 for sit in INF_SITS:
-                    code = inf_code_for(risp_use, pos, sit, bats_hand, dp_inf)
-                    # Store empty string only for EMPTY sit; skip writing blank EMPTY keys
-                    if sit == "EMPTY":
-                        continue
+                    use = empty_use if sit == "EMPTY" else risp_use
+                    code = inf_code_for(use, pos, sit, bats_hand, dp_inf) or "N"
                     inf_map[inf_key(team, name, pos, sit, hand)] = code
 
         filled_players.append(name)
@@ -356,7 +353,8 @@ def main():
                 "Defaults from spray clusters for coach review. "
                 "Arenado/Arroyo are golden templates (generator output; browser localStorage overrides win). "
                 "Set meta.golden_locked=true to freeze Arenado/Arroyo on regenerate. "
-                "INF EMPTY left blank (non-RISP). OF: L/G corners, O/P CF."
+                "INF: EMPTY from non-RISP, RISP/DP from RISP (+ DP spray); "
+                "neutral / no clear shade → N (never blank). OF: L/G corners, O/P CF."
             ),
             "golden_locked": False,
             "players_filled": len(set(filled_players)),
