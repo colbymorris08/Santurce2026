@@ -5,22 +5,26 @@ Maps spray splits → PosApp slots:
   non-2K → OF PRE | 2K → OF 2K | RISP → INF RISP | non-RISP → INF EMPTY
   DP spray also informs RISP + DP rows.
 
-Rules (Arenado/Arroyo style):
-  - Move only for clear BIP clusters off straight-up (often pull-side).
-  - No discernible directional change → INF N (neutral). Never leave INF blank.
-  - OF steps default 10; 20 only for big spray skew. LF/RF: L|G only; CF: O|P only.
-  - INF steps default 3; EL/ER + 6/9 when one side of the infield is empty.
-  - DP: 3B often H; 1B often BAG.
+Section rules (v2):
+  INF — 16 lateral sections (8 left of 2B, 8 right). Each position owns a
+  4-section pocket (3B / SS / 2B / 1B). Shade from pocket BIP only:
+    >80% in outer-2 on one side → L-3 / R-3
+    ≥80% in extreme outer-1 with ~no balls in home (middle-2) → EL-6 / ER-6
+    else N. DP: 3B→H, 1B→BAG.
+  OF — 9 lateral angle sections. LF/RF: L / STRAIGHT / G. CF: O / STRAIGHT / P
+  (hand-aware). ≥80% of fielder-pocket balls in center+one lateral → that
+  shade +10. Home empty AND >90% of all OF spray in the other 6 → +20.
+  Else STRAIGHT.
 
 Writes data/positioning_v2.json for PosApp seed load. Does not overwrite
-golden_manual cells marked in the seed (reserved for coach-entered Arenado/Arroyo).
+golden Arenado/Arroyo cells when meta.golden_locked is set.
 """
 from __future__ import annotations
 
 import json
 import math
 import unicodedata
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -32,15 +36,39 @@ OF_POS = ["LF", "CF", "RF"]
 OF_COUNTS = ["PRE", "2K"]
 INF_POS = ["1B", "2B", "SS", "3B"]
 INF_SITS = ["EMPTY", "RISP", "DP"]
-# Conservative thresholds — only "big clusters" move off STRAIGHT / N.
-# Angles: +x/RF is positive, LF negative (home→CF plane).
-OF_MOVE_DEG = 8.0
-OF_BIG_DEG = 16.0
-OF_LINE_DEG = 22.0  # strong pull → L (line) instead of G (gap)
-INF_MOVE_X = 18.0
-INF_BIG_X = 42.0
+
+# --- Geometry ---------------------------------------------------------------
+# INF: equal-width x_ft bins across the dirt, 8 left of 2B + 8 right.
+INF_X_MIN = -96.0
+INF_X_MAX = 96.0
+INF_N_SEC = 16
+INF_POCKET = {
+    "3B": (0, 1, 2, 3),
+    "SS": (4, 5, 6, 7),
+    "2B": (8, 9, 10, 11),
+    "1B": (12, 13, 14, 15),
+}
+# Within a 4-section pocket (local 0..3 left→right): home = middle two.
+INF_HOME_LOCAL = (1, 2)
+INF_OUTER2_L = (0, 1)
+INF_OUTER2_R = (2, 3)
+INF_EXTREME_L = 0
+INF_EXTREME_R = 3
+
+# OF: equal-width spray angles foul→foul (LF negative, RF positive).
+OF_ANG_MIN = -45.0
+OF_ANG_MAX = 45.0
+OF_N_SEC = 9
+# Absolute pocket indices (left→right). Shade labels applied per position.
+OF_POCKET_IDX = {
+    "LF": (0, 1, 2),  # line / normal / gap
+    "CF": (3, 4, 5),  # LF-side / normal / RF-side → O/P by batter hand
+    "RF": (6, 7, 8),  # gap / normal / line
+}
+
 MIN_OF = 5
 MIN_INF = 5
+MIN_POCKET = 3  # min balls inside a fielder's pocket to shade off neutral
 
 
 def norm_name(name: str) -> str:
@@ -89,96 +117,145 @@ def filter_pts(
     return out
 
 
-def of_codes(pts, bats: str) -> dict[str, str]:
-    """Shade from overall OF spray mean — pull corner / CF / oppo corner.
+def _bin(value: float, lo: float, hi: float, n: int) -> int:
+    if hi <= lo or n <= 0:
+        return 0
+    if value <= lo:
+        return 0
+    if value >= hi:
+        return n - 1
+    t = (value - lo) / (hi - lo)
+    return min(n - 1, max(0, int(t * n)))
 
-    Matches Excel-card habits: move for clear pull clusters; oppo corner often
-    stays STRAIGHT; prefer 10 steps; 20 only for big skew. LF/RF = L|G; CF = O|P.
-    """
+
+def inf_section(p: dict) -> int | None:
+    try:
+        x = float(p["x_ft"])
+    except (TypeError, ValueError, KeyError):
+        return None
+    return _bin(x, INF_X_MIN, INF_X_MAX, INF_N_SEC)
+
+
+def of_section(p: dict) -> int | None:
+    try:
+        a = angle_deg(p)
+    except (TypeError, ValueError):
+        return None
+    return _bin(a, OF_ANG_MIN, OF_ANG_MAX, OF_N_SEC)
+
+
+def of_shade_labels(pos: str, bats: str) -> tuple[str, str, str]:
+    """Return (left_lateral, home, right_lateral) shade codes for a pocket."""
+    b = (bats or "R").upper()
+    pull_positive = b.startswith("L")  # LHH pull toward RF (+)
+    if pos == "LF":
+        return "L", "STRAIGHT", "G"
+    if pos == "RF":
+        return "G", "STRAIGHT", "L"
+    # CF: left section = toward LF (−), right = toward RF (+)
+    if pull_positive:
+        return "O", "STRAIGHT", "P"  # LHH: oppo LF-side, pull RF-side
+    return "P", "STRAIGHT", "O"  # RHH: pull LF-side, oppo RF-side
+
+
+def of_codes(pts, bats: str) -> dict[str, str]:
+    """9-section OF pocket shade. Always returns a code per position."""
     out = {pos: "STRAIGHT" for pos in OF_POS}
     if len(pts) < MIN_OF:
         return out
-    mean = sum(angle_deg(p) for p in pts) / len(pts)
-    b = (bats or "R").upper()
-    pull_positive = b.startswith("L")  # LHH pull toward RF (+)
-    pull_amt = mean if pull_positive else -mean  # >0 = toward pull
-    pull_corner = "RF" if pull_positive else "LF"
-    oppo_corner = "LF" if pull_positive else "RF"
 
-    # CF: P toward pull, O toward oppo
-    if abs(mean) >= OF_MOVE_DEG:
-        shade = "P" if pull_amt > 0 else "O"
-        steps = "20" if abs(mean) >= OF_BIG_DEG else "10"
-        out["CF"] = f"{shade}-{steps}"
+    sec_counts = Counter()
+    for p in pts:
+        s = of_section(p)
+        if s is not None:
+            sec_counts[s] += 1
+    total = sum(sec_counts.values())
+    if total < MIN_OF:
+        return out
 
-    # Pull-side corner: G for moderate pull, L for strong line pull
-    if pull_amt >= OF_LINE_DEG:
-        steps = "20" if pull_amt >= (OF_LINE_DEG + 8) else "10"
-        out[pull_corner] = f"L-{steps}"
-    elif pull_amt >= OF_MOVE_DEG:
-        steps = "20" if pull_amt >= OF_BIG_DEG else "10"
-        # Prefer G-10; only G-20 on big moderate-pull band
-        out[pull_corner] = f"G-{steps}"
+    for pos in OF_POS:
+        pocket = OF_POCKET_IDX[pos]
+        left_lab, home_lab, right_lab = of_shade_labels(pos, bats)
+        a, b, c = pocket
+        n_a, n_b, n_c = sec_counts[a], sec_counts[b], sec_counts[c]
+        in_pocket = n_a + n_b + n_c
+        outside = total - in_pocket
 
-    # Oppo corner: usually STRAIGHT; shade only if spray goes opposite or
-    # extreme pull leaves a CF-gap cluster on that side.
-    if pull_amt <= -OF_MOVE_DEG:
-        # True opposite spray
-        if pull_amt <= -OF_LINE_DEG:
-            steps = "20" if abs(pull_amt) >= (OF_LINE_DEG + 8) else "10"
-            out[oppo_corner] = f"L-{steps}"
+        # Extreme: none in home AND >90% of overall spray outside this fielder's 3.
+        if n_b == 0 and total > 0 and (outside / total) > 0.90:
+            # Shade toward the mass of the other 6 (or residual laterals).
+            # Corners: outside mass is toward CF → G-20.
+            # CF: pick O/P by which absolute half holds more outside balls.
+            if pos in ("LF", "RF"):
+                out[pos] = "G-20"
+            else:
+                left_mass = sum(sec_counts[i] for i in range(0, 4))  # LF half + CF-left
+                right_mass = sum(sec_counts[i] for i in range(5, 9))
+                if left_mass == 0 and right_mass == 0:
+                    out[pos] = "STRAIGHT"
+                elif left_mass >= right_mass:
+                    out[pos] = f"{left_lab}-20"
+                else:
+                    out[pos] = f"{right_lab}-20"
+            continue
+
+        if in_pocket < MIN_POCKET:
+            out[pos] = "STRAIGHT"
+            continue
+
+        # ≥80% of pocket balls in {home, one lateral} → shade that lateral 10.
+        left_band = (n_a + n_b) / in_pocket
+        right_band = (n_c + n_b) / in_pocket
+        # Prefer the heavier lateral when both clear 80% (rare; home-heavy).
+        if left_band >= 0.80 and right_band >= 0.80:
+            if n_a == n_c:
+                out[pos] = "STRAIGHT"
+            elif n_a > n_c:
+                out[pos] = f"{left_lab}-10" if left_lab != "STRAIGHT" else "STRAIGHT"
+            else:
+                out[pos] = f"{right_lab}-10" if right_lab != "STRAIGHT" else "STRAIGHT"
+        elif left_band >= 0.80 and n_a > 0:
+            out[pos] = f"{left_lab}-10" if left_lab != "STRAIGHT" else "STRAIGHT"
+        elif right_band >= 0.80 and n_c > 0:
+            out[pos] = f"{right_lab}-10" if right_lab != "STRAIGHT" else "STRAIGHT"
         else:
-            steps = "20" if abs(pull_amt) >= OF_BIG_DEG else "10"
-            out[oppo_corner] = f"G-{steps}"
-    elif pull_amt >= (OF_BIG_DEG + 6):
-        # Strong pull — light gap shade on oppo (toward CF), never 20
-        out[oppo_corner] = "G-10"
+            out[pos] = "STRAIGHT"
 
     return out
 
 
-def inf_hold_steps(pts, bats: str) -> tuple[str, str]:
-    """Return (hold, steps) for RISP-style shade. Empty strings → no code."""
-    if len(pts) < MIN_INF:
-        return "N", ""
-    xs = []
+def inf_code_from_pocket(pts, pos: str) -> str:
+    """Shade one INF position from BIP inside its 4-section pocket."""
+    pocket = INF_POCKET[pos]
+    local_counts = [0, 0, 0, 0]
     for p in pts:
-        try:
-            xs.append(float(p["x_ft"]))
-        except (TypeError, ValueError, KeyError):
+        s = inf_section(p)
+        if s is None or s not in pocket:
             continue
-    if not xs:
-        return "N", ""
-    xs.sort()
-    med = xs[len(xs) // 2]
-    left = sum(1 for x in xs if x < -20)
-    right = sum(1 for x in xs if x > 20)
-    # Balanced around middle → neutral
-    if abs(med) < INF_MOVE_X:
-        if left and right and min(left, right) / max(left, right) > 0.4:
-            return "N", ""
-        if abs(med) < 10:
-            return "N", ""
-    extreme = (left <= 1 and right >= 8) or (right <= 1 and left >= 8)
-    if med <= -INF_MOVE_X:
-        hold = "EL" if extreme or abs(med) >= INF_BIG_X + 10 else "L"
-        if extreme or abs(med) >= INF_BIG_X + 15:
-            steps = "9"
-        elif abs(med) >= INF_BIG_X:
-            steps = "6"
-        else:
-            steps = "3"
-        return hold, steps
-    if med >= INF_MOVE_X:
-        hold = "ER" if extreme or abs(med) >= INF_BIG_X + 10 else "R"
-        if extreme or abs(med) >= INF_BIG_X + 15:
-            steps = "9"
-        elif abs(med) >= INF_BIG_X:
-            steps = "6"
-        else:
-            steps = "3"
-        return hold, steps
-    return "N", ""
+        local_counts[pocket.index(s)] += 1
+    n = sum(local_counts)
+    if n < MIN_POCKET:
+        return "N"
+
+    home = sum(local_counts[i] for i in INF_HOME_LOCAL)
+    outer_l = sum(local_counts[i] for i in INF_OUTER2_L)
+    outer_r = sum(local_counts[i] for i in INF_OUTER2_R)
+    ext_l = local_counts[INF_EXTREME_L]
+    ext_r = local_counts[INF_EXTREME_R]
+
+    # Extreme: ≥80% in extreme outer-1 AND ~no balls in home middle-2.
+    if home == 0:
+        if ext_l / n >= 0.80:
+            return "EL-6"
+        if ext_r / n >= 0.80:
+            return "ER-6"
+
+    # Moderate: >80% of pocket in outer-2 on one side.
+    if outer_l / n > 0.80 and outer_l >= outer_r:
+        return "L-3"
+    if outer_r / n > 0.80:
+        return "R-3"
+    return "N"
 
 
 def compose_inf(hold: str, steps: str) -> str:
@@ -196,17 +273,12 @@ def inf_code_for(pts, pos: str, sit: str, bats: str, dp_pts) -> str:
             return "H"
         if pos == "1B":
             return "BAG"
-        # Middle infield on DP: use DP spray if enough, else RISP/EMPTY shade
         use = dp_pts if len(dp_pts) >= MIN_INF else pts
-        hold, steps = inf_hold_steps(use, bats)
-        return compose_inf(hold, steps) or "N"
-    # EMPTY (non-RISP) and RISP — shade from the supplied BIP cluster
+        return inf_code_from_pocket(use, pos) or "N"
     use = pts
     if sit == "RISP" and len(dp_pts) >= MIN_INF:
-        # Prefer RISP sample when thick enough; else fall back to DP spray
         use = pts if len(pts) >= MIN_INF else dp_pts
-    hold, steps = inf_hold_steps(use, bats)
-    return compose_inf(hold, steps) or "N"
+    return inf_code_from_pocket(use, pos) or "N"
 
 
 def of_key(team, name, pos, count, hand) -> str:
@@ -270,7 +342,6 @@ def main():
         pts = (sp or {}).get("points") or h.get("spray_points") or []
         if not pts:
             gaps.append({"name": name, "team": team, "reason": "no_spray_points"})
-            # Still write STRAIGHT / N so the sheet is complete
             for hand in ("L", "R"):
                 for count in OF_COUNTS:
                     for pos in OF_POS:
@@ -288,20 +359,16 @@ def main():
             continue
 
         bats_eff = bats if bats in ("R", "L", "S") else "R"
-        # Switch: vs RHP bat as L conceptually for pull? Keep as S→R default for pull side
-        # (most PR switch hitters face RHP more; pull vs RHP = LHH). Handled per pitcher hand below.
 
         for hand in ("L", "R"):
             bats_hand = bats_eff
             if bats_eff == "S":
-                # Switch: bat opposite the pitcher
                 bats_hand = "L" if hand == "R" else "R"
 
             for count in OF_COUNTS:
                 two_k = count == "2K"
                 of_pts = filter_pts(pts, hand=hand, two_k=two_k, y_min=140)
                 if len(of_pts) < MIN_OF:
-                    # same hand any count
                     of_pts = filter_pts(pts, hand=hand, y_min=140)
                 codes = of_codes(of_pts, bats_hand)
                 for pos in OF_POS:
@@ -310,7 +377,6 @@ def main():
             empty_inf = filter_pts(pts, hand=hand, risp=False, y_min=40, y_max=210)
             risp_inf = filter_pts(pts, hand=hand, risp=True, y_min=40, y_max=210)
             dp_inf = filter_pts(pts, hand=hand, y_min=40, y_max=210, dp_only=True)
-            # Fallbacks when a split is thin
             all_inf = filter_pts(pts, hand=hand, y_min=40, y_max=210)
             empty_use = empty_inf if len(empty_inf) >= MIN_INF else all_inf
             risp_use = risp_inf if len(risp_inf) >= MIN_INF else (
@@ -325,20 +391,19 @@ def main():
 
         filled_players.append(name)
 
-    # Restore golden cells on top
     of_map.update(preserve_of)
     inf_map.update(preserve_inf)
 
-    # Mark Arenado / Arroyo as golden examples (generated, coach may overwrite in browser)
     golden_names = ["Nolan Arenado", "Chris Arroyo"]
     lineups = {}
     for team, names in per_team.items():
-        # Prefer order from advance list as-is; pad to 15
         row = list(dict.fromkeys(names))[:15]
         while len(row) < 15:
             row.append("")
         lineups[team] = row
 
+    ex_meta = existing.get("meta") or {}
+    keep_locked = locked or bool(ex_meta.get("golden_locked"))
     out = {
         "of": of_map,
         "inf": inf_map,
@@ -348,19 +413,34 @@ def main():
         "_migratedOfV1": True,
         "meta": {
             "source": "fill_positioning_from_spray.py",
+            "rules": "inf16_of9_pocket_v1",
             "golden_names": golden_names,
             "note": (
-                "Defaults from spray clusters for coach review. "
-                "Arenado/Arroyo are golden templates (generator output; browser localStorage overrides win). "
-                "Set meta.golden_locked=true to freeze Arenado/Arroyo on regenerate. "
-                "INF: EMPTY from non-RISP, RISP/DP from RISP (+ DP spray); "
-                "neutral / no clear shade → N (never blank). OF: L/G corners, O/P CF."
+                "Defaults from spray section pockets for coach review. "
+                "Arenado/Arroyo OF/INF cells locked from Safari localStorage when golden_locked=true. "
+                "INF: 16 sections / 4-section pockets; >80% outer-2 → L/R-3; "
+                "≥80% extreme outer-1 + empty home → EL/ER-6; else N. "
+                "OF: 9 sections; ≥80% home+lateral → shade-10; empty home + >90% outside pocket → shade-20. "
+                "Sit map: non-2K→PRE, 2K→2K, RISP→RISP, non-RISP→EMPTY; DP: 3B=H, 1B=BAG. "
+                "Browser localStorage overrides still win on device."
             ),
-            "golden_locked": False,
+            "golden_locked": keep_locked,
+            "golden_source": ex_meta.get("golden_source") or (
+                "safari_localStorage:santurce_positioning_v2" if keep_locked else None
+            ),
+            "golden_extracted_at": ex_meta.get("golden_extracted_at"),
             "players_filled": len(set(filled_players)),
             "of_cells": len(of_map),
             "inf_cells": len(inf_map),
             "gaps": gaps,
+            "geometry": {
+                "inf_x_range": [INF_X_MIN, INF_X_MAX],
+                "inf_sections": INF_N_SEC,
+                "inf_pockets": {k: list(v) for k, v in INF_POCKET.items()},
+                "of_angle_range": [OF_ANG_MIN, OF_ANG_MAX],
+                "of_sections": OF_N_SEC,
+                "of_pockets": {k: list(v) for k, v in OF_POCKET_IDX.items()},
+            },
         },
     }
     OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
@@ -368,10 +448,14 @@ def main():
         f"Wrote {OUT_PATH.relative_to(ROOT)} · players={out['meta']['players_filled']} "
         f"of={len(of_map)} inf={len(inf_map)} gaps={len(gaps)}"
     )
-    # Print Arenado / Arroyo snapshot
+    # Distribution summary
+    of_dist = Counter(of_map.values())
+    inf_dist = Counter(inf_map.values())
+    print("OF dist:", dict(of_dist.most_common(12)))
+    print("INF dist:", dict(inf_dist.most_common(12)))
     for g in golden_names:
         nk = norm_name(g)
-        print(f"\n=== {g} ===")
+        print(f"\n=== {g} (preserved={locked}) ===")
         for k in sorted(x for x in of_map if nk in x):
             print(" OF", k.split("|", 1)[1], "=>", of_map[k])
         for k in sorted(x for x in inf_map if nk in x):
