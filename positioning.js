@@ -2,10 +2,13 @@
    OF codes: STRAIGHT | G/L/O/P + 10/20/30 (gap/line/oppo/pull)
    INF codes: H N L R EL ER (+ optional -3/-6/-9) · BAG for 1B DP
    Storage: localStorage santurce_positioning_v2 (migrates OF v1 cells)
+   Seed: data/positioning_v2.json (spray-derived coach-review defaults)
 */
 (function () {
   const STORE_KEY = 'santurce_positioning_v2';
   const LEGACY_OF_KEY = 'santurce_of_positioning_v1';
+  /** Bump when data/positioning_v2.json is regenerated so devices re-pull seed. */
+  const SEED_VERSION = '2026-11-03a';
 
   const OF_POS = ['LF', 'CF', 'RF'];
   const OF_COUNTS = ['PRE', '2K'];
@@ -21,6 +24,7 @@
   let sprayHitterName = '';
   let sprayHand = 'R';
   let sprayCount = 'PRE'; // PRE/2K for OF preview; EMPTY for INF preview uses PRE spray
+  let POSITION_SEED = null;
 
   function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, (c) => ({
@@ -55,10 +59,75 @@
     if (!raw.hands) raw.hands = {};
     if (!raw.lineups) raw.lineups = {};
     migrateLegacy(raw);
+    applySeed(raw);
     return raw;
   }
   function saveStore(store) {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {}
+  }
+  function goldenNameNeedles(seed) {
+    const names = (seed && seed.meta && seed.meta.golden_names) || ['Nolan Arenado', 'Chris Arroyo'];
+    return names.map((n) => norm(n)).filter(Boolean);
+  }
+  function isGoldenKey(key, needles) {
+    const k = String(key || '').toLowerCase();
+    return needles.some((n) => n && k.includes(n));
+  }
+  /** Merge spray seed under localStorage. Coach/local edits win; golden keys always kept. */
+  function applySeed(store) {
+    const seed = POSITION_SEED;
+    if (!seed || typeof seed !== 'object') return;
+    const ver = `${SEED_VERSION}`;
+    const needles = goldenNameNeedles(seed);
+    const keepOf = {};
+    const keepInf = {};
+    const keepHands = {};
+    Object.keys(store.of || {}).forEach((k) => {
+      if (isGoldenKey(k, needles)) keepOf[k] = store.of[k];
+    });
+    Object.keys(store.inf || {}).forEach((k) => {
+      if (isGoldenKey(k, needles)) keepInf[k] = store.inf[k];
+    });
+    Object.keys(store.hands || {}).forEach((k) => {
+      if (isGoldenKey(k, needles)) keepHands[k] = store.hands[k];
+    });
+
+    if (store._posSeedVer !== ver) {
+      // Fresh seed: install all generated cells, then restore golden local overrides.
+      store.of = Object.assign({}, seed.of || {}, keepOf);
+      store.inf = Object.assign({}, seed.inf || {}, keepInf);
+      store.hands = Object.assign({}, seed.hands || {}, store.hands || {}, keepHands);
+      if (!store.lineups || !Object.keys(store.lineups).length) {
+        store.lineups = Object.assign({}, seed.lineups || {});
+      }
+      store._posSeedVer = ver;
+      store._seed = true;
+      saveStore(store);
+      return;
+    }
+    // Same version: fill any missing keys only (do not clobber coach edits).
+    Object.keys(seed.of || {}).forEach((k) => {
+      if (!Object.prototype.hasOwnProperty.call(store.of, k)) store.of[k] = seed.of[k];
+    });
+    Object.keys(seed.inf || {}).forEach((k) => {
+      if (!Object.prototype.hasOwnProperty.call(store.inf, k)) store.inf[k] = seed.inf[k];
+    });
+    Object.keys(seed.hands || {}).forEach((k) => {
+      if (!Object.prototype.hasOwnProperty.call(store.hands, k)) store.hands[k] = seed.hands[k];
+    });
+  }
+  function setPositionSeed(seed) {
+    POSITION_SEED = seed && typeof seed === 'object' ? seed : null;
+    if (!POSITION_SEED) return;
+    // Force merge now that seed is available (loadStore may have run earlier empty).
+    let raw = {};
+    try { raw = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) { raw = {}; }
+    if (!raw.of) raw.of = {};
+    if (!raw.inf) raw.inf = {};
+    if (!raw.hands) raw.hands = {};
+    if (!raw.lineups) raw.lineups = {};
+    migrateLegacy(raw);
+    applySeed(raw);
   }
   function migrateLegacy(store) {
     if (store._migratedOfV1) return;
@@ -777,6 +846,8 @@
   function clearAll() {
     if (!confirm(tr('Clear all INF/OF positioning inputs and lineups on this device?', '¿Borrar todo el posicionamiento INF/OF y alineaciones en este dispositivo?'))) return;
     try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    // Re-install spray seed defaults after clear.
+    if (POSITION_SEED) setPositionSeed(POSITION_SEED);
     render();
   }
 
@@ -812,6 +883,8 @@
     exportOfExcel,
     exportInfExcel,
     clearAll,
+    setPositionSeed,
+    seedVersion: SEED_VERSION,
     setSprayHand(h) {
       sprayHand = h === 'L' ? 'L' : 'R';
       document.querySelectorAll('#pos-spray-hand .ofpos-pill').forEach((b) => {

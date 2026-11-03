@@ -399,7 +399,7 @@
   </div>
   <div id="panel-ofpos" class="panel">
     <div class="section-label" data-i18n="ofposLabel">INF / OF Positioning</div>
-    <div class="note" data-i18n-html="ofposNote">Manual entry only — one cell per player × position × situation. <strong>OF:</strong> STRAIGHT or G/L/O/P + 10/20/30 (gap / line / oppo / pull) · PRE &amp; 2K vs LHP/RHP. <strong>INF:</strong> H N L R EL ER (+ optional 3/6/9) · BAG on 1B DP · Empty / RISP / DP vs LHP/RHP. Spray charts on the right are for entry reference only and are not printed.</div>
+    <div class="note" data-i18n-html="ofposNote">Spray-seeded defaults for coach review (editable). <strong>OF:</strong> STRAIGHT or L/G (LF/RF) · O/P (CF) + 10/20 · PRE from non-2K · 2K from 2K · vs LHP/RHP. <strong>INF:</strong> Empty left blank (non-RISP) · RISP / DP from RISP (+ DP spray) · H N L R EL ER (+ 3/6/9) · BAG on 1B DP · 3B DP often H. Arenado / Arroyo are golden templates. Spray reference on the right is not printed.</div>
     <div class="filters pos-toolbar">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="ofpos-team" onchange="onOfPosTeamChange()">
@@ -512,11 +512,11 @@
 </main>
 <script src="i18n.js?v=san192"></script>
 <script src="cards.js?v=san192"></script>
-<script src="positioning.js?v=san192"></script>
+<script src="positioning.js?v=san193"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san192';
+const ASSET_V = 'san193';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6329,10 +6329,12 @@ Promise.all([
   fetch('data/bullpen_usage_test.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert};
+  fetch('data/positioning_v2.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed};
   hydrateSpraySynergyFromAdvance();
   if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
+  if(window.PosApp && positioningSeed) PosApp.setPositionSeed(positioningSeed);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();
