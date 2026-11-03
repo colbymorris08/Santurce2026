@@ -334,6 +334,7 @@
       const rows = [];
       hs.forEach((h) => {
         const hand = hitterHand(h, t);
+        const nameCls = handNameClass(hand);
         let first = true;
         ofSlotOrder().forEach(({ pos, count, label }) => {
           const L = parseOfCode(getOf(t, h.name, pos, count, 'L'));
@@ -344,7 +345,7 @@
             <td>${first ? `<select class="pos-hand" data-team="${esc(t)}" data-hitter="${esc(h.name)}">
               ${['', 'R', 'L', 'S'].map((x) => `<option value="${x}"${x === hand ? ' selected' : ''}>${x || '—'}</option>`).join('')}
             </select>` : ''}</td>
-            <td class="ofpos-hitter">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
+            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
             <td>${esc(label)}</td>
             <td class="pos-input">${ofSelect(L.shade, L.steps, metaL)}<span class="pos-code-out">${esc(composeOf(L.shade, L.steps))}</span></td>
             <td class="pos-input">${ofSelect(R.shade, R.steps, metaR)}<span class="pos-code-out">${esc(composeOf(R.shade, R.steps))}</span></td>
@@ -362,6 +363,7 @@
       const rows = [];
       hs.forEach((h) => {
         const hand = hitterHand(h, t);
+        const nameCls = handNameClass(hand);
         let first = true;
         INF_POS.forEach((pos) => {
           const cells = (pHand) => INF_SITS.map((sit) => {
@@ -373,7 +375,7 @@
             <td>${first ? `<select class="pos-hand" data-team="${esc(t)}" data-hitter="${esc(h.name)}">
               ${['', 'R', 'L', 'S'].map((x) => `<option value="${x}"${x === hand ? ' selected' : ''}>${x || '—'}</option>`).join('')}
             </select>` : ''}</td>
-            <td class="ofpos-hitter">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
+            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
             <td>${pos}</td>
             ${cells('L')}${cells('R')}
           </tr>`);
@@ -591,7 +593,9 @@
         th{background:#e8e8e8;font-size:10px;letter-spacing:.04em}
         td.name{text-align:left;font-weight:700;width:38%}
         .pos-title{font-weight:800;background:#d0d4da;text-align:left}
-        @media print { h2{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+        .sc-lhb{color:#C0392B!important}
+        .sc-shb{color:#1A5276!important}
+        @media print { h2,.sc-lhb,.sc-shb{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
       </style></head><body>${bodyHtml}</body></html>`);
     w.document.close();
     setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 200);
@@ -621,14 +625,18 @@
     const t = team();
     const list = lineupHitters(t);
     const positions = scope === 'ALL' ? OF_POS : [scope];
+    function nameCell(h) {
+      const last = lastUpper(h.name);
+      const nc = handNameClass(hitterHand(h, t));
+      return `<td class="name${nc ? ` ${nc}` : ''}">${esc(last)}</td>`;
+    }
     function block(pHand) {
       if (positions.length === 1) {
         const pos = positions[0];
         const rows = list.map((h) => {
-          const last = lastUpper(h.name);
           const pre = getOf(t, h.name, pos, 'PRE', pHand) || '';
           const two = getOf(t, h.name, pos, '2K', pHand) || '';
-          return `<tr><td class="name">${esc(last)}</td><td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
+          return `<tr>${nameCell(h)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
         }).join('');
         return `<div>
           <h2>${pHand}HP · ${pos}</h2>
@@ -637,10 +645,9 @@
       }
       const cols = positions.map((pos) => {
         const rows = list.map((h) => {
-          const last = lastUpper(h.name);
           const pre = getOf(t, h.name, pos, 'PRE', pHand) || '';
           const two = getOf(t, h.name, pos, '2K', pHand) || '';
-          return `<tr><td class="name">${esc(last)}</td><td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
+          return `<tr>${nameCell(h)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
         }).join('');
         return `<div>
           <table><thead><tr><th class="pos-title" colspan="3">${pos}</th></tr>
@@ -666,9 +673,9 @@
     const positions = scope === 'ALL' ? INF_POS : [scope];
     function tableFor(pos, pHand) {
       const rows = list.map((h) => {
-        const last = lastUpper(h.name);
+        const nc = handNameClass(hitterHand(h, t));
         const cells = INF_SITS.map((sit) => `<td>${esc(getInf(t, h.name, pos, sit, pHand) || '')}</td>`).join('');
-        return `<tr><td class="name">${esc(last)}</td>${cells}</tr>`;
+        return `<tr><td class="name${nc ? ` ${nc}` : ''}">${esc(lastUpper(h.name))}</td>${cells}</tr>`;
       }).join('');
       return `<div>
         <table><thead><tr><th class="pos-title" colspan="4">${pos}</th></tr>
@@ -696,6 +703,12 @@
 
   /* ── Excel export matching templates ── */
   /** Batter-name font by hand: L = red, S = blue, R/blank = black. */
+  function handNameClass(hand) {
+    const h = String(hand || '').trim().toUpperCase();
+    if (h === 'L') return 'sc-lhb';
+    if (h === 'S') return 'sc-shb';
+    return '';
+  }
   function handNameFont(hand) {
     const h = String(hand || '').trim().toUpperCase();
     if (h === 'L') return { color: { rgb: 'C0392B' }, bold: true };
