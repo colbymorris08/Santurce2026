@@ -66,9 +66,18 @@ OF_POCKET_IDX = {
     "RF": (6, 7, 8),  # gap / normal / line
 }
 
-MIN_OF = 5
-MIN_INF = 5
-MIN_POCKET = 3  # min balls inside a fielder's pocket to shade off neutral
+# --- Tweakable thresholds (coach dials) -------------------------------------
+MIN_OF = 5          # min OF BIP (split) before shading off STRAIGHT
+MIN_INF = 5         # min INF BIP (split) before preferring that split
+MIN_POCKET = 3      # min BIP inside a fielder's pocket to leave N/STRAIGHT
+INF_OUTER2_PCT = 0.80   # > this share in outer-2 → L-3 / R-3  (strict >)
+INF_EXTREME_PCT = 0.80  # ≥ this share in outer-1 → EL-6 / ER-6
+OF_LATERAL_PCT = 0.80   # ≥ this share of pocket in home+one lateral → shade-10
+OF_OUTSIDE_PCT = 0.90   # > this share of ALL OF BIP outside pocket (+ empty home) → shade-20
+INF_STEPS_MOD = "3"
+INF_STEPS_EXT = "6"
+OF_STEPS_MOD = "10"
+OF_STEPS_EXT = "20"
 
 
 def norm_name(name: str) -> str:
@@ -181,43 +190,50 @@ def of_codes(pts, bats: str) -> dict[str, str]:
         in_pocket = n_a + n_b + n_c
         outside = total - in_pocket
 
-        # Extreme: none in home AND >90% of overall spray outside this fielder's 3.
-        if n_b == 0 and total > 0 and (outside / total) > 0.90:
-            # Shade toward the mass of the other 6 (or residual laterals).
+        # Extreme: none in home AND >OF_OUTSIDE_PCT of overall spray in other 6.
+        if n_b == 0 and total > 0 and (outside / total) > OF_OUTSIDE_PCT:
             # Corners: outside mass is toward CF → G-20.
             # CF: pick O/P by which absolute half holds more outside balls.
             if pos in ("LF", "RF"):
-                out[pos] = "G-20"
+                out[pos] = f"G-{OF_STEPS_EXT}"
             else:
                 left_mass = sum(sec_counts[i] for i in range(0, 4))  # LF half + CF-left
                 right_mass = sum(sec_counts[i] for i in range(5, 9))
                 if left_mass == 0 and right_mass == 0:
                     out[pos] = "STRAIGHT"
                 elif left_mass >= right_mass:
-                    out[pos] = f"{left_lab}-20"
+                    out[pos] = f"{left_lab}-{OF_STEPS_EXT}"
                 else:
-                    out[pos] = f"{right_lab}-20"
+                    out[pos] = f"{right_lab}-{OF_STEPS_EXT}"
             continue
 
         if in_pocket < MIN_POCKET:
             out[pos] = "STRAIGHT"
             continue
 
-        # ≥80% of pocket balls in {home, one lateral} → shade that lateral 10.
+        # ≥OF_LATERAL_PCT of pocket balls in {home, one lateral} → that shade +10.
         left_band = (n_a + n_b) / in_pocket
         right_band = (n_c + n_b) / in_pocket
-        # Prefer the heavier lateral when both clear 80% (rare; home-heavy).
-        if left_band >= 0.80 and right_band >= 0.80:
+        # Prefer the heavier lateral when both clear the bar (rare; home-heavy).
+        if left_band >= OF_LATERAL_PCT and right_band >= OF_LATERAL_PCT:
             if n_a == n_c:
                 out[pos] = "STRAIGHT"
             elif n_a > n_c:
-                out[pos] = f"{left_lab}-10" if left_lab != "STRAIGHT" else "STRAIGHT"
+                out[pos] = (
+                    f"{left_lab}-{OF_STEPS_MOD}" if left_lab != "STRAIGHT" else "STRAIGHT"
+                )
             else:
-                out[pos] = f"{right_lab}-10" if right_lab != "STRAIGHT" else "STRAIGHT"
-        elif left_band >= 0.80 and n_a > 0:
-            out[pos] = f"{left_lab}-10" if left_lab != "STRAIGHT" else "STRAIGHT"
-        elif right_band >= 0.80 and n_c > 0:
-            out[pos] = f"{right_lab}-10" if right_lab != "STRAIGHT" else "STRAIGHT"
+                out[pos] = (
+                    f"{right_lab}-{OF_STEPS_MOD}" if right_lab != "STRAIGHT" else "STRAIGHT"
+                )
+        elif left_band >= OF_LATERAL_PCT and n_a > 0:
+            out[pos] = (
+                f"{left_lab}-{OF_STEPS_MOD}" if left_lab != "STRAIGHT" else "STRAIGHT"
+            )
+        elif right_band >= OF_LATERAL_PCT and n_c > 0:
+            out[pos] = (
+                f"{right_lab}-{OF_STEPS_MOD}" if right_lab != "STRAIGHT" else "STRAIGHT"
+            )
         else:
             out[pos] = "STRAIGHT"
 
@@ -243,18 +259,22 @@ def inf_code_from_pocket(pts, pos: str) -> str:
     ext_l = local_counts[INF_EXTREME_L]
     ext_r = local_counts[INF_EXTREME_R]
 
-    # Extreme: ≥80% in extreme outer-1 AND ~no balls in home middle-2.
+    # Extreme: ≥INF_EXTREME_PCT in outer-1, OR home empty with mass piled on one edge.
+    if ext_l / n >= INF_EXTREME_PCT:
+        return f"EL-{INF_STEPS_EXT}"
+    if ext_r / n >= INF_EXTREME_PCT:
+        return f"ER-{INF_STEPS_EXT}"
     if home == 0:
-        if ext_l / n >= 0.80:
-            return "EL-6"
-        if ext_r / n >= 0.80:
-            return "ER-6"
+        if outer_l / n > INF_OUTER2_PCT and outer_l >= outer_r:
+            return f"EL-{INF_STEPS_EXT}"
+        if outer_r / n > INF_OUTER2_PCT:
+            return f"ER-{INF_STEPS_EXT}"
 
-    # Moderate: >80% of pocket in outer-2 on one side.
-    if outer_l / n > 0.80 and outer_l >= outer_r:
-        return "L-3"
-    if outer_r / n > 0.80:
-        return "R-3"
+    # Moderate: >INF_OUTER2_PCT of pocket in outer-2 on one side.
+    if outer_l / n > INF_OUTER2_PCT and outer_l >= outer_r:
+        return f"L-{INF_STEPS_MOD}"
+    if outer_r / n > INF_OUTER2_PCT:
+        return f"R-{INF_STEPS_MOD}"
     return "N"
 
 
@@ -418,10 +438,11 @@ def main():
             "note": (
                 "Defaults from spray section pockets for coach review. "
                 "Arenado/Arroyo OF/INF cells locked from Safari localStorage when golden_locked=true. "
-                "INF: 16 sections / 4-section pockets; >80% outer-2 → L/R-3; "
-                "≥80% extreme outer-1 + empty home → EL/ER-6; else N. "
-                "OF: 9 sections; ≥80% home+lateral → shade-10; empty home + >90% outside pocket → shade-20. "
+                "INF: 16 sections / 4-section pockets; >INF_OUTER2_PCT outer-2 → L/R-3; "
+                "≥INF_EXTREME_PCT outer-1 (or empty home + outer pile) → EL/ER-6; else N. "
+                "OF: 9 sections; ≥OF_LATERAL_PCT home+lateral → shade-10; empty home + >OF_OUTSIDE_PCT outside → shade-20. "
                 "Sit map: non-2K→PRE, 2K→2K, RISP→RISP, non-RISP→EMPTY; DP: 3B=H, 1B=BAG. "
+                "Tweak thresholds at top of fill_positioning_from_spray.py. "
                 "Browser localStorage overrides still win on device."
             ),
             "golden_locked": keep_locked,
