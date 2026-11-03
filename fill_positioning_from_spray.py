@@ -31,11 +31,11 @@ OF_POS = ["LF", "CF", "RF"]
 OF_COUNTS = ["PRE", "2K"]
 INF_POS = ["1B", "2B", "SS", "3B"]
 INF_SITS = ["EMPTY", "RISP", "DP"]
-OF_CENTERS = {"LF": -30.0, "CF": 0.0, "RF": 30.0}
-
 # Conservative thresholds — only "big clusters" move off STRAIGHT / N.
+# Angles: +x/RF is positive, LF negative (home→CF plane).
 OF_MOVE_DEG = 8.0
 OF_BIG_DEG = 16.0
+OF_LINE_DEG = 22.0  # strong pull → L (line) instead of G (gap)
 INF_MOVE_X = 18.0
 INF_BIG_X = 42.0
 MIN_OF = 5
@@ -88,25 +88,52 @@ def filter_pts(
     return out
 
 
-def of_code(pts, pos: str, bats: str) -> str:
+def of_codes(pts, bats: str) -> dict[str, str]:
+    """Shade from overall OF spray mean — pull corner / CF / oppo corner.
+
+    Matches Excel-card habits: move for clear pull clusters; oppo corner often
+    stays STRAIGHT; prefer 10 steps; 20 only for big skew. LF/RF = L|G; CF = O|P.
+    """
+    out = {pos: "STRAIGHT" for pos in OF_POS}
     if len(pts) < MIN_OF:
-        return "STRAIGHT"
+        return out
     mean = sum(angle_deg(p) for p in pts) / len(pts)
-    delta = mean - OF_CENTERS[pos]
-    ad = abs(delta)
-    if ad < OF_MOVE_DEG:
-        return "STRAIGHT"
-    steps = "20" if ad >= OF_BIG_DEG else "10"
     b = (bats or "R").upper()
-    if pos == "CF":
-        pull_positive = b.startswith("L")
-        toward_pull = (delta > 0) if pull_positive else (delta < 0)
-        shade = "P" if toward_pull else "O"
-    elif pos == "LF":
-        shade = "G" if delta > 0 else "L"
-    else:  # RF
-        shade = "G" if delta < 0 else "L"
-    return f"{shade}-{steps}"
+    pull_positive = b.startswith("L")  # LHH pull toward RF (+)
+    pull_amt = mean if pull_positive else -mean  # >0 = toward pull
+    pull_corner = "RF" if pull_positive else "LF"
+    oppo_corner = "LF" if pull_positive else "RF"
+
+    # CF: P toward pull, O toward oppo
+    if abs(mean) >= OF_MOVE_DEG:
+        shade = "P" if pull_amt > 0 else "O"
+        steps = "20" if abs(mean) >= OF_BIG_DEG else "10"
+        out["CF"] = f"{shade}-{steps}"
+
+    # Pull-side corner: G for moderate pull, L for strong line pull
+    if pull_amt >= OF_LINE_DEG:
+        steps = "20" if pull_amt >= (OF_LINE_DEG + 8) else "10"
+        out[pull_corner] = f"L-{steps}"
+    elif pull_amt >= OF_MOVE_DEG:
+        steps = "20" if pull_amt >= OF_BIG_DEG else "10"
+        # Prefer G-10; only G-20 on big moderate-pull band
+        out[pull_corner] = f"G-{steps}"
+
+    # Oppo corner: usually STRAIGHT; shade only if spray goes opposite or
+    # extreme pull leaves a CF-gap cluster on that side.
+    if pull_amt <= -OF_MOVE_DEG:
+        # True opposite spray
+        if pull_amt <= -OF_LINE_DEG:
+            steps = "20" if abs(pull_amt) >= (OF_LINE_DEG + 8) else "10"
+            out[oppo_corner] = f"L-{steps}"
+        else:
+            steps = "20" if abs(pull_amt) >= OF_BIG_DEG else "10"
+            out[oppo_corner] = f"G-{steps}"
+    elif pull_amt >= (OF_BIG_DEG + 6):
+        # Strong pull — light gap shade on oppo (toward CF), never 20
+        out[oppo_corner] = "G-10"
+
+    return out
 
 
 def inf_hold_steps(pts, bats: str) -> tuple[str, str]:
@@ -209,18 +236,22 @@ def main():
     hitters = json.loads(HITTERS_PATH.read_text())["hitters"]
 
     existing = load_existing()
+    # Only preserve coach-locked golden cells (meta.golden_locked), not prior generator output.
+    locked = bool((existing.get("meta") or {}).get("golden_locked"))
     golden = set(existing.get("meta", {}).get("golden_names") or [])
-    # Preserve any previously marked golden of/inf cells
-    preserve_of = {
-        k: v
-        for k, v in (existing.get("of") or {}).items()
-        if any(norm_name(g) in k for g in golden)
-    }
-    preserve_inf = {
-        k: v
-        for k, v in (existing.get("inf") or {}).items()
-        if any(norm_name(g) in k for g in golden)
-    }
+    preserve_of = {}
+    preserve_inf = {}
+    if locked and golden:
+        preserve_of = {
+            k: v
+            for k, v in (existing.get("of") or {}).items()
+            if any(norm_name(g) in k for g in golden)
+        }
+        preserve_inf = {
+            k: v
+            for k, v in (existing.get("inf") or {}).items()
+            if any(norm_name(g) in k for g in golden)
+        }
 
     of_map: dict[str, str] = {}
     inf_map: dict[str, str] = {}
@@ -276,10 +307,9 @@ def main():
                 if len(of_pts) < MIN_OF:
                     # same hand any count
                     of_pts = filter_pts(pts, hand=hand, y_min=140)
+                codes = of_codes(of_pts, bats_hand)
                 for pos in OF_POS:
-                    of_map[of_key(team, name, pos, count, hand)] = of_code(
-                        of_pts, pos, bats_hand
-                    )
+                    of_map[of_key(team, name, pos, count, hand)] = codes[pos]
 
             risp_inf = filter_pts(pts, hand=hand, risp=True, y_min=40, y_max=210)
             dp_inf = filter_pts(pts, hand=hand, y_min=40, y_max=210, dp_only=True)
@@ -324,9 +354,11 @@ def main():
             "golden_names": golden_names,
             "note": (
                 "Defaults from spray clusters for coach review. "
-                "Arenado/Arroyo are golden templates (same generator; preserve manual browser overrides if present). "
+                "Arenado/Arroyo are golden templates (generator output; browser localStorage overrides win). "
+                "Set meta.golden_locked=true to freeze Arenado/Arroyo on regenerate. "
                 "INF EMPTY left blank (non-RISP). OF: L/G corners, O/P CF."
             ),
+            "golden_locked": False,
             "players_filled": len(set(filled_players)),
             "of_cells": len(of_map),
             "inf_cells": len(inf_map),

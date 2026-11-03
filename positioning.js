@@ -8,7 +8,7 @@
   const STORE_KEY = 'santurce_positioning_v2';
   const LEGACY_OF_KEY = 'santurce_of_positioning_v1';
   /** Bump when data/positioning_v2.json is regenerated so devices re-pull seed. */
-  const SEED_VERSION = '2026-11-03a';
+  const SEED_VERSION = '2026-11-03b';
 
   const OF_POS = ['LF', 'CF', 'RF'];
   const OF_COUNTS = ['PRE', '2K'];
@@ -128,6 +128,8 @@
     if (!raw.lineups) raw.lineups = {};
     migrateLegacy(raw);
     applySeed(raw);
+    // Entry grid may already be on screen when CACHE finishes loading.
+    if (document.getElementById('tbl-ofpos')) render();
   }
   function migrateLegacy(store) {
     if (store._migratedOfV1) return;
