@@ -1,12 +1,14 @@
 /* Strategy card + small-ball card.
    Lineup / pen state: localStorage santurce_strategy_lineup_v1
    Team notes: localStorage santurce_smallball_notes_v1
+   Jersey overrides: localStorage santurce_jersey_overrides_v1  { [playerId]: "36" }
    Shape: { opponent, santurceHome, teams: { ABBR: { sp, pen: [id], lineup: [{id, pos}], bench: [{id, pos}] } } }
    Notes: { team, notes: { ABBR: "..." } }
 */
 (function () {
   const STRATEGY_KEY = 'santurce_strategy_lineup_v1';
   const NOTES_KEY = 'santurce_smallball_notes_v1';
+  const JERSEY_KEY = 'santurce_jersey_overrides_v1';
   const POS = [
     ['1', 'P'], ['2', 'C'], ['3', '1B'], ['4', '2B'], ['5', '3B'],
     ['6', 'SS'], ['7', 'LF'], ['8', 'CF'], ['9', 'RF'], ['DH', 'DH'],
@@ -45,6 +47,32 @@
   }
   function saveNotesState(state) {
     try { localStorage.setItem(NOTES_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function loadJerseyOverrides() {
+    try { return JSON.parse(localStorage.getItem(JERSEY_KEY) || '{}') || {}; }
+    catch (e) { return {}; }
+  }
+  function saveJerseyOverride(playerId, value) {
+    if (playerId == null || playerId === '') return;
+    const key = String(playerId);
+    const all = loadJerseyOverrides();
+    const text = String(value ?? '').trim();
+    if (!text) delete all[key];
+    else all[key] = text;
+    try { localStorage.setItem(JERSEY_KEY, JSON.stringify(all)); } catch (e) {}
+  }
+  function jerseyFor(player) {
+    if (!player) return '';
+    const key = String(player.id);
+    const ov = loadJerseyOverrides();
+    if (Object.prototype.hasOwnProperty.call(ov, key)) return String(ov[key] ?? '');
+    if (player.jersey != null && String(player.jersey).trim() !== '') return String(player.jersey).trim();
+    return '';
+  }
+  function jerseyInput(player) {
+    if (!player || player.id == null) return '';
+    const val = jerseyFor(player);
+    return `<input class="sc-jersey" type="text" inputmode="numeric" maxlength="3" value="${esc(val)}" data-pid="${esc(player.id)}" title="${tr('Jersey #', 'Dorsal')}" aria-label="${tr('Jersey number', 'Número de jersey')}" onmousedown="event.stopPropagation()" onchange="CardApp.saveJersey(this.dataset.pid, this.value)" oninput="CardApp.saveJersey(this.dataset.pid, this.value)">`;
   }
 
   function teamMeta(abbrev) {
@@ -376,16 +404,18 @@
     return `<tr>${whoHtml}${ttpCell}<td class="sc-vs">L</td>${rowFor('L')}</tr><tr><td class="sc-vs">R</td>${rowFor('R')}</tr>`;
   }
 
-  function whoCell(order, pos, last, bats, rowspan) {
+  function whoCell(order, pos, last, bats, rowspan, player) {
     const bits = [];
     if (order) bits.push(`<span class="sc-ord">${esc(order)}</span>`);
     if (pos) bits.push(`<span class="sc-pos">${esc(pos)}</span>`);
+    const jersey = jerseyInput(player);
+    if (jersey) bits.push(jersey);
     bits.push(`<span class="sc-last ${bats || ''}">${esc(last || '')}</span>`);
     return `<td class="sc-who" rowspan="${rowspan || 2}">${bits.join(' ')}</td>`;
   }
 
   function emptyHitterPair(order) {
-    const who = whoCell(order, '', '', '');
+    const who = whoCell(order, '', '', '', 2, null);
     return `<tr>${who}<td rowspan="2"></td><td class="sc-vs">L</td><td></td><td></td><td></td><td></td><td></td></tr>
       <tr><td class="sc-vs">R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
   }
@@ -427,13 +457,13 @@
       if (!slot) return emptyHitterPair(String(i + 1));
       const player = byId.get(slot.id);
       if (!player) return emptyHitterPair(String(i + 1));
-      const who = whoCell(String(i + 1), posName(slot.pos), cardLast(player, hitters), batsClass(player));
+      const who = whoCell(String(i + 1), posName(slot.pos), cardLast(player, hitters), batsClass(player), 2, player);
       return hitterStatRows(player, who, esc(sbText(player.hitter)));
     });
     const sp = st.sp ? byId.get(st.sp) : null;
     const pitcherWho = sp
-      ? whoCell('', 'P', cardLast(sp, pitchers), batsClass(sp))
-      : whoCell('', 'P', '—', '');
+      ? whoCell('', 'P', cardLast(sp, pitchers), batsClass(sp), 2, sp)
+      : whoCell('', 'P', '—', '', 2, null);
     const pitcherRow = starterStatRows(sp, pitcherWho);
     const dhAt = slots.findIndex((slot) => slot && slot.pos === 'DH');
     const hitterRows = dhAt >= 0
@@ -444,7 +474,7 @@
       if (!slot) return emptyHitterPair('PH');
       const player = byId.get(slot.id);
       if (!player) return emptyHitterPair('PH');
-      const who = whoCell('PH', posName(slot.pos), cardLast(player, hitters), batsClass(player));
+      const who = whoCell('PH', posName(slot.pos), cardLast(player, hitters), batsClass(player), 2, player);
       return hitterStatRows(player, who, esc(sbText(player.hitter)));
     }).join('');
 
@@ -452,17 +482,17 @@
     const pen = penIds.map((id) => byId.get(id)).filter(Boolean).sort((a, b) => a.last.localeCompare(b.last));
     let pitRows = '';
     if (sp) {
-      const who = whoCell('SP', '', cardLast(sp, pitchers), batsClass(sp));
+      const who = whoCell('SP', '', cardLast(sp, pitchers), batsClass(sp), 2, sp);
       pitRows += pitcherStatRows(sp, who);
     } else {
-      pitRows += `<tr>${whoCell('SP', '', '—', '')}<td rowspan="2"></td><td class="sc-vs">L</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="sc-vs">R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      pitRows += `<tr>${whoCell('SP', '', '—', '', 2, null)}<td rowspan="2"></td><td class="sc-vs">L</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="sc-vs">R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     }
     pitRows += `<tr class="sc-subhead"><td colspan="8">BULLPEN</td></tr>`;
     if (!pen.length) {
-      pitRows += `<tr>${whoCell('RP', '', '', '')}<td rowspan="2"></td><td class="sc-vs">L</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="sc-vs">R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
+      pitRows += `<tr>${whoCell('RP', '', '', '', 2, null)}<td rowspan="2"></td><td class="sc-vs">L</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="sc-vs">R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     } else {
       pen.forEach((p) => {
-        const who = whoCell('RP', '', cardLast(p, pitchers), batsClass(p));
+        const who = whoCell('RP', '', cardLast(p, pitchers), batsClass(p), 2, p);
         pitRows += pitcherStatRows(p, who);
       });
     }
@@ -943,16 +973,20 @@
     .sc-col-stat{width:9.8%}
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
-    .sc-ttp{color:#111;font-weight:800}
-    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;overflow:hidden}
+    .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
+    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden}
+    .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
+    .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
+    .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
+    .sc-lhb{color:#c0392b!important;-webkit-text-fill-color:#c0392b!important}
+    .sc-shb{color:#1a5276!important;-webkit-text-fill-color:#1a5276!important}
+    .sc-jersey-print{display:inline-block;min-width:1.2em;margin-right:2px;font-weight:800}
     .sc-sb{overflow:hidden}
     .sc-ord,.sc-pos{display:inline-block;min-width:1em;margin-right:2px;font-weight:800}
     .sc-last{font-weight:800}
-    .sc-lhb{color:#c0392b}
-    .sc-shb{color:#1a5276}
-    .sc-vs{font-weight:700;color:#333}
-    .sc-good{background:#2e9e4f !important;color:#fff !important;font-weight:800}
-    .sc-bad{background:#e04b4b !important;color:#fff !important;font-weight:800}
+    .sc-vs{font-weight:700;color:#333;-webkit-text-fill-color:#333}
+    .sc-good{background:#2e9e4f !important;color:#fff !important;-webkit-text-fill-color:#fff!important;font-weight:800}
+    .sc-bad{background:#e04b4b !important;color:#fff !important;-webkit-text-fill-color:#fff!important;font-weight:800}
     .sc-subhead td{background:#eceff3 !important;text-align:left !important;font-weight:800;letter-spacing:.06em;font-size:9px}
     .sb-sheet{background:#fff;color:#111;border:1px solid #c5c9d0}
     .sb-top{display:grid;grid-template-columns:1.1fr 1fr}
@@ -1304,13 +1338,23 @@
       state.notes[team] = text;
       saveNotesState(state);
     },
+    saveJersey(playerId, value) {
+      saveJerseyOverride(playerId, value);
+    },
     exportStrategy() {
       const el = document.getElementById('strategy-sheet');
       if (!el) return;
       const state = loadStrategy();
       const opponent = state.opponent;
+      const sheet = el.cloneNode(true);
+      sheet.querySelectorAll('input.sc-jersey').forEach((inp) => {
+        const span = document.createElement('span');
+        span.className = 'sc-jersey-print';
+        span.textContent = inp.value || '';
+        inp.replaceWith(span);
+      });
       const front = `<div class="sc-print-page sc-print-front sc-front-page">
-        <div class="sc-front-body">${el.outerHTML}</div>
+        <div class="sc-front-body">${sheet.outerHTML}</div>
         <section class="sc-front-notes">
           <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
           <div class="sc-back-lines" aria-hidden="true"></div>

@@ -695,6 +695,19 @@
   }
 
   /* ── Excel export matching templates ── */
+  /** Batter-name font by hand: L = red, S = blue, R/blank = black. */
+  function handNameFont(hand) {
+    const h = String(hand || '').trim().toUpperCase();
+    if (h === 'L') return { color: { rgb: 'C0392B' }, bold: true };
+    if (h === 'S') return { color: { rgb: '1A5276' }, bold: true };
+    return { color: { rgb: '000000' }, bold: true };
+  }
+  function paintNameCell(ws, addr, hand) {
+    if (!ws || !addr) return;
+    const cell = ws[addr] || (ws[addr] = { t: 's', v: '' });
+    cell.s = Object.assign({}, cell.s || {}, { font: handNameFont(hand) });
+  }
+
   function exportOfExcel() {
     if (typeof XLSX === 'undefined') {
       alert('Excel library failed to load.');
@@ -704,22 +717,28 @@
     const byName = new Map(hitters(t).map((h) => [h.name, h]));
     const lineup = lineupNames(t);
     const manualHitters = hitters(t);
+    const lineupHands = [];
     const lineupAoa = [['#', 'Hitters', 'Hand']];
     for (let i = 0; i < 15; i++) {
       const h = byName.get(lineup[i]);
-      lineupAoa.push([i + 1, h ? lastUpper(h.name) : (lineup[i] ? lastUpper(lineup[i]) : ''), h ? (hitterHand(h, t) || '') : '']);
+      const hand = h ? (hitterHand(h, t) || '') : '';
+      lineupHands.push(hand);
+      lineupAoa.push([i + 1, h ? lastUpper(h.name) : (lineup[i] ? lastUpper(lineup[i]) : ''), hand]);
     }
     const manualAoa = [['Hand', '', 'Hitter', 'Position', 'HELPER COL', '', 'LHP', '', 'RHP']];
+    const manualNameHands = []; // row index in sheet (1-based data rows start at 2)
     manualHitters.forEach((h) => {
       const hand = hitterHand(h, t) || '';
       const last = lastUpper(h.name);
       ofSlotOrder().forEach(({ pos, count, label }) => {
         manualAoa.push([hand, '', last, label, '', '', getOf(t, h.name, pos, count, 'L') || '', '', getOf(t, h.name, pos, count, 'R') || '']);
+        manualNameHands.push(hand);
       });
     });
     const manualLast = Math.max(manualAoa.length, 2);
     const cardAoa = [[]];
     const cardFormulas = [];
+    const cardNameStyles = []; // {r,c,hand} 1-based excel
     function pushHandBlock(label, range, col) {
       const head = Array(17).fill('');
       head[0] = label; head[6] = label; head[12] = label;
@@ -733,6 +752,7 @@
       for (let i = 0; i < 15; i++) {
         const excelRow = cardAoa.length + 1;
         const lineupRef = `LINEUP!B${i + 2}`;
+        const hand = lineupHands[i] || '';
         cardAoa.push(Array(17).fill(''));
         [
           [0, lineupRef],
@@ -745,6 +765,7 @@
           [15, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" PRE",'Manual Data'!${range},${col},0)," ")`],
           [16, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" 2K",'Manual Data'!${range},${col},0)," ")`],
         ].forEach(([c, f]) => cardFormulas.push({ r: excelRow, c: c + 1, f }));
+        [0, 6, 12].forEach((c) => cardNameStyles.push({ r: excelRow, c: c + 1, hand }));
       }
     }
     pushHandBlock('LHP', `$E$2:$G$${manualLast}`, 3);
@@ -753,11 +774,16 @@
 
     const wb = XLSX.utils.book_new();
     const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
+    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand));
     const wsManual = XLSX.utils.aoa_to_sheet(manualAoa);
     for (let r = 2; r <= manualLast; r++) wsManual[`E${r}`] = { f: `C${r}&"|"&D${r}` };
+    manualNameHands.forEach((hand, i) => paintNameCell(wsManual, `C${i + 2}`, hand));
     const wsCard = XLSX.utils.aoa_to_sheet(cardAoa);
     cardFormulas.forEach(({ r, c, f }) => {
       wsCard[XLSX.utils.encode_cell({ r: r - 1, c: c - 1 })] = { f };
+    });
+    cardNameStyles.forEach(({ r, c, hand }) => {
+      paintNameCell(wsCard, XLSX.utils.encode_cell({ r: r - 1, c: c - 1 }), hand);
     });
     XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
@@ -773,15 +799,19 @@
     const t = team();
     const byName = new Map(hitters(t).map((h) => [h.name, h]));
     const lineup = lineupNames(t);
+    const lineupHands = [];
     const lineupAoa = [['#', 'Hitters', 'Hand']];
     for (let i = 0; i < 18; i++) {
       const h = byName.get(lineup[i]);
-      lineupAoa.push([i + 1, h ? lastUpper(h.name) : (lineup[i] ? lastUpper(lineup[i]) : ''), h ? (hitterHand(h, t) || '') : '']);
+      const hand = h ? (hitterHand(h, t) || '') : '';
+      lineupHands.push(hand);
+      lineupAoa.push([i + 1, h ? lastUpper(h.name) : (lineup[i] ? lastUpper(lineup[i]) : ''), hand]);
     }
     const manualAoa = [
       ['', '', '', '', '', '', 'LHP', '', '', 'RHP', '', ''],
       ['Hand', '', 'Hitters', 'Position', 'HELPER COL', '', 'EMPTY', 'RISP', 'DP', 'EMPTY', 'RISP', 'DP'],
     ];
+    const manualNameHands = [];
     hitters(t).forEach((h) => {
       const hand = hitterHand(h, t) || '';
       const last = lastUpper(h.name);
@@ -796,6 +826,7 @@
           getInf(t, h.name, pos, 'RISP', 'R') || '',
           getInf(t, h.name, pos, 'DP', 'R') || '',
         ]);
+        manualNameHands.push(hand);
       });
     });
     const manualLast = Math.max(manualAoa.length, 3);
@@ -803,6 +834,7 @@
     function buildHandSheet(pHand) {
       // Values filled directly (no formulas) so print/export is self-contained
       const aoa = [[]];
+      const nameStyles = []; // {r,c,hand} 0-based
       function pair(posA, posB) {
         const head = Array(15).fill('');
         head[0] = pHand + 'HP'; head[9] = pHand + 'HP';
@@ -816,6 +848,7 @@
           const h = byName.get(nm);
           const last = h ? lastUpper(h.name) : (nm ? lastUpper(nm) : '');
           const nameKey = h ? h.name : nm;
+          const hand = h ? (hitterHand(h, t) || '') : (lineupHands[i] || '');
           const row = Array(15).fill('');
           row[0] = last;
           row[3] = nameKey ? (getInf(t, nameKey, posA, 'EMPTY', pHand) || '') : '';
@@ -825,19 +858,30 @@
           row[12] = nameKey ? (getInf(t, nameKey, posB, 'EMPTY', pHand) || '') : '';
           row[13] = nameKey ? (getInf(t, nameKey, posB, 'RISP', pHand) || '') : '';
           row[14] = nameKey ? (getInf(t, nameKey, posB, 'DP', pHand) || '') : '';
+          const r = aoa.length;
           aoa.push(row);
+          if (last) {
+            nameStyles.push({ r, c: 0, hand });
+            nameStyles.push({ r, c: 9, hand });
+          }
         }
       }
       pair('1B', '2B');
       aoa.push([]); aoa.push([]); aoa.push([]);
       pair('SS', '3B');
-      return XLSX.utils.aoa_to_sheet(aoa);
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+      nameStyles.forEach(({ r, c, hand }) => {
+        paintNameCell(ws, XLSX.utils.encode_cell({ r, c }), hand);
+      });
+      return ws;
     }
 
     const wb = XLSX.utils.book_new();
     const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
+    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand));
     const wsManual = XLSX.utils.aoa_to_sheet(manualAoa);
     for (let r = 3; r <= manualLast; r++) wsManual[`E${r}`] = { f: `C${r}&"|"&D${r}` };
+    manualNameHands.forEach((hand, i) => paintNameCell(wsManual, `C${i + 3}`, hand));
     XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
     XLSX.utils.book_append_sheet(wb, buildHandSheet('L'), 'LHP');

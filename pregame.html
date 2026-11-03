@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san192">
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="shared.css?v=san200">
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
 <div class="topbar">
@@ -511,12 +511,12 @@
   </div>
 </main>
 <script src="i18n.js?v=san196"></script>
-<script src="cards.js?v=san192"></script>
-<script src="positioning.js?v=san199"></script>
+<script src="cards.js?v=san200"></script>
+<script src="positioning.js?v=san200"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san199';
+const ASSET_V = 'san200';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6014,6 +6014,7 @@ function renderOfDef(){
 }
 
 const ONEPAGE_NOTES_KEY = 'santurce_pitcher_one_page_notes_v1';
+const JERSEY_OVERRIDES_KEY = 'santurce_jersey_overrides_v1';
 function loadOnePageNoteOverrides(){
   try { return JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {}; }
   catch(e){ return {}; }
@@ -6023,6 +6024,31 @@ function saveOnePageNote(key, text){
   if(!text) delete all[key];
   else all[key] = text;
   try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
+}
+function loadJerseyOverrides(){
+  try { return JSON.parse(localStorage.getItem(JERSEY_OVERRIDES_KEY) || '{}') || {}; }
+  catch(e){ return {}; }
+}
+function saveJerseyOverride(key, text){
+  if(key == null || key === '') return;
+  const all = loadJerseyOverrides();
+  const val = String(text ?? '').trim();
+  if(!val) delete all[String(key)];
+  else all[String(key)] = val;
+  try { localStorage.setItem(JERSEY_OVERRIDES_KEY, JSON.stringify(all)); } catch(e){}
+}
+function jerseyDisplayValue(idKey, nameKey, rosterJersey){
+  const all = loadJerseyOverrides();
+  if(idKey != null && Object.prototype.hasOwnProperty.call(all, String(idKey))) return String(all[String(idKey)] ?? '');
+  if(nameKey && Object.prototype.hasOwnProperty.call(all, nameKey)) return String(all[nameKey] ?? '');
+  if(rosterJersey != null && String(rosterJersey).trim() !== '') return String(rosterJersey).trim();
+  return '';
+}
+function saveOnePageJersey(el){
+  const idKey = el.dataset.opId || '';
+  const nameKey = el.dataset.opKey || '';
+  // Prefer stable mlb/player id when present so strategy card shares the same override.
+  saveJerseyOverride(idKey || nameKey, el.value);
 }
 function bullpenArmRows(arms, gamesLen, emptyMsg){
   if(!(arms||[]).length){
@@ -6171,7 +6197,8 @@ function sheetPrintCss(kind){
     .onepage-grid{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;flex:1 1 auto}
     .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:2px 2px;vertical-align:top;color:#000;background:#fff}
     .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px}
-    .onepage-grid .op-num{width:0.18in;max-width:0.20in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px}
+    .onepage-grid .op-num{width:0.22in;max-width:0.28in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px;color:#000}
+    .onepage-grid .op-num input{display:none!important}
     .onepage-grid .op-name{width:0.95in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .onepage-grid .op-name.op-lhp{color:#b00020}
     .onepage-grid .op-velo{width:0.40in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:9px;line-height:1.15}
@@ -6219,7 +6246,7 @@ function exportPitcherOnePagePdf(){
   if(!packRoot){ alert('No pitcher one-page sheet to export.'); return; }
   const team = document.getElementById('onepage-team')?.value || 'PON';
   const label = CACHE.pitcherOnePage?.teams?.[team]?.team_name || team;
-  // Freeze textarea notes into static cells for print
+  // Freeze textarea notes + jersey inputs into static cells for print
   const clone = packRoot.cloneNode(true);
   clone.querySelectorAll('textarea').forEach(ta => {
     const td = ta.closest('td') || ta.parentElement;
@@ -6227,6 +6254,13 @@ function exportPitcherOnePagePdf(){
     if(td){
       td.textContent = text;
       td.classList.add('op-notes');
+    }
+  });
+  clone.querySelectorAll('input.op-jersey').forEach(inp => {
+    const td = inp.closest('td') || inp.parentElement;
+    if(td){
+      td.textContent = inp.value || '';
+      td.classList.add('op-num');
     }
   });
   const n = clone.querySelectorAll('tbody tr').length;
@@ -6261,6 +6295,8 @@ function renderPitcherOnePage(){
   const head = cols.map(c => `<th class="op-velo">${c}</th>`).join('');
   const rows = (pack.pitchers||[]).map((p, idx) => {
     const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+    const idKey = p.mlb_id != null ? String(p.mlb_id) : '';
+    const jersey = jerseyDisplayValue(idKey, key, p.jersey);
     const note = overrides[key] != null ? overrides[key] : (p.notes || '');
     const velo = cols.map(c => {
       const raw = (p.velo && p.velo[c]) || '';
@@ -6270,7 +6306,7 @@ function renderPitcherOnePage(){
     const lClass = isLhp ? ' op-lhp' : '';
     const noteClass = isLhp ? 'op-note-lhp' : 'op-note-rhp';
     return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}">
-      <td class="op-num">${escHtml(String(p.jersey||''))}</td>
+      <td class="op-num"><input class="op-jersey" type="text" inputmode="numeric" maxlength="3" value="${escHtml(jersey)}" data-op-key="${escHtml(key)}" data-op-id="${escHtml(idKey)}" placeholder="#" aria-label="Jersey number" onchange="saveOnePageJersey(this)" oninput="saveOnePageJersey(this)"></td>
       <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
       ${velo}
       <td class="op-freq">${p.freq_html || ''}</td>

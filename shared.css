@@ -1731,17 +1731,50 @@ input.tth-input:focus {
   padding: 6px 3px; border: 1px solid #c5c9d0; text-align: center; overflow: hidden;
 }
 .sc-grid tbody td, .sc-grid td { border: 1px solid #e1e4ea; padding: 5px 4px; text-align: center; background: #fff; color: #111; white-space: nowrap; overflow: hidden; }
+/* Beat global `tbody td { color: var(--text) }` (near-white) on the white strategy sheet */
+.sc-side,
+.sc-side .sc-grid,
+.sc-side .sc-grid th,
+.sc-side .sc-grid tbody td,
+.sc-side .sc-grid td,
+.sc-side .sc-who,
+.sc-side .sc-ord,
+.sc-side .sc-pos,
+.sc-side .sc-last,
+.sc-side .sc-sb,
+.sc-side .sc-vs,
+.sc-side .sc-ttp,
+.sc-side .sc-date,
+.sc-side .sc-bar {
+  color: #111;
+  -webkit-text-fill-color: #111;
+}
+.sc-side .sc-head,
+.sc-side .sc-head-name,
+.sc-side .sc-mono {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
 .sc-ttp { color: #111; font-weight: 800; }
 .sc-who { text-align: left !important; white-space: nowrap; font-weight: 700; overflow: hidden; }
 .sc-sb { overflow: hidden; }
 .sc-ord, .sc-pos { display: inline-block; min-width: 1em; margin-right: 2px; font-weight: 800; }
+.sc-jersey {
+  width: 1.7em; max-width: 2.2em; min-width: 1.4em;
+  border: 1px solid #c5c9d0; border-radius: 2px;
+  background: #fff; color: #111; -webkit-text-fill-color: #111;
+  font: inherit; font-size: 12px; font-weight: 800; text-align: center;
+  padding: 0 1px; margin-right: 2px; color-scheme: light;
+}
+.sc-jersey:focus { outline: 1px solid #e6c35c; border-color: #e6c35c; }
 .sc-last { font-weight: 800; }
-.sc-lhb { color: #c0392b; }
-.sc-shb { color: #1a5276; }
+.sc-lhb { color: #c0392b !important; -webkit-text-fill-color: #c0392b !important; }
+.sc-shb { color: #1a5276 !important; -webkit-text-fill-color: #1a5276 !important; }
 .sc-vs { font-weight: 700; color: #333; }
-.sc-good { background: #2e9e4f !important; color: #fff !important; font-weight: 800; }
-.sc-bad { background: #e04b4b !important; color: #fff !important; font-weight: 800; }
-.sc-subhead td { background: #eceff3 !important; text-align: left !important; font-weight: 800; letter-spacing: .06em; font-size: 13px; }
+/* Keep intentional High/Low color cells (do not force black) */
+.sc-good { background: #2e9e4f !important; color: #fff !important; -webkit-text-fill-color: #fff !important; font-weight: 800; }
+.sc-bad { background: #e04b4b !important; color: #fff !important; -webkit-text-fill-color: #fff !important; font-weight: 800; }
+.sc-subhead td { background: #eceff3 !important; text-align: left !important; font-weight: 800; letter-spacing: .06em; font-size: 13px; color: #111; -webkit-text-fill-color: #111; }
 .sb-sheet { background: #fff; color: #111; border: 1px solid #c5c9d0; font-family: Arial, Helvetica, sans-serif; }
 .sb-top { display: grid; grid-template-columns: 1.1fr 1fr; }
 .sb-teamhead { display: flex; gap: 8px; align-items: center; color: #fff; padding: 8px 10px; }
@@ -1837,7 +1870,15 @@ input.tth-input:focus {
   border: 1px solid #999; padding: 4px 3px; vertical-align: top; color: #111; background: #fff;
 }
 .onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; }
-.onepage-grid .op-num { width: 18px; max-width: 22px; text-align: center; font-weight: 700; padding-left: 2px; padding-right: 2px; }
+.onepage-grid .op-num { width: 28px; max-width: 34px; text-align: center; font-weight: 700; padding-left: 2px; padding-right: 2px; }
+.onepage-grid .op-num input.op-jersey {
+  width: 100%; max-width: 28px; box-sizing: border-box;
+  border: 1px solid #bbb; border-radius: 2px;
+  background: #fff; color: #111; -webkit-text-fill-color: #111;
+  font: inherit; font-size: 11px; font-weight: 700; text-align: center;
+  padding: 1px 0; color-scheme: light;
+}
+.onepage-grid .op-num input.op-jersey:focus { outline: 1px solid #e6c35c; border-color: #e6c35c; }
 .onepage-grid .op-name { width: 102px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .onepage-grid .op-name.op-lhp { color: #b00020; }
 .onepage-grid .op-velo { width: 44px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; font-size: 11px; line-height: 1.2; }

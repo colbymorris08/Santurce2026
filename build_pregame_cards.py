@@ -863,7 +863,10 @@ def fill_missing_ground_balls(players: list[dict]) -> int:
         kind = "hitting" if player.get("role") == "H" else "pitching"
         block_name = "hitter" if kind == "hitting" else "pitcher"
         block = player.get(block_name) or {}
-        if not block or block.get("gb") is not None:
+        # Treat missing and suspicious 0.0 (no real GO/AO sample) as fillable.
+        if not block:
+            continue
+        if block.get("gb") is not None and block.get("gb") != 0:
             continue
         src = block.get("src") or ""
         if src == "arsenal whiff only":
@@ -1083,6 +1086,24 @@ def main() -> None:
                             "sb": int(chosen.get("sb") or 0),
                             "cs": int(chosen.get("cs") or 0),
                         }]
+                # Prefer researched summer_line SB/CS when the StatsAPI summer
+                # aggregate missed the player (common for brand-new roster adds).
+                summer_line = packet.get("summer_line") or {}
+                if not summer_levels and (summer_line.get("sb") or summer_line.get("cs") or summer_line.get("sac")):
+                    league = (
+                        league_from_text(str(summer_line.get("league") or summer_line.get("level") or ""))
+                        or league_from_text(str(summer_line.get("team") or ""))
+                        or "MiLB"
+                    )
+                    summer_levels = [{
+                        "league": league,
+                        "sb": int(summer_line.get("sb") or 0),
+                        "cs": int(summer_line.get("cs") or 0),
+                        "sac": int(summer_line.get("sac") or 0),
+                    }]
+                # Synergy overall GB% when the chosen counting line has no GO/AO.
+                if hitter_gb is None and overall.get("gb_pct") is not None:
+                    hitter_gb = round(float(overall["gb_pct"]), 1)
                 hitter = {
                     "pa": pa,
                     "k": hitter_k,
@@ -1190,6 +1211,7 @@ def main() -> None:
                     "last": last_name(name),
                     "team": abbrev,
                     "roster_pos": roster_pos,
+                    "jersey": str(p.get("jersey") or "").strip(),
                     "role": "P" if role == "P" else "H",
                     "bats": bats,
                     "throws": throws,
@@ -1200,6 +1222,24 @@ def main() -> None:
 
     filled_gb = fill_missing_ground_balls(players)
     print(f"  ground balls filled: {filled_gb}")
+
+    # Replace bogus 0.0 GB from tiny GO/AO samples with Synergy overall GB%.
+    adv_gb_fixed = 0
+    for player in players:
+        if player.get("role") != "H":
+            continue
+        block = player.get("hitter") or {}
+        if not block or block.get("gb") not in (0, 0.0):
+            continue
+        packet = advance_packet(player["id"], player.get("team"), player.get("name"), adv_by, adv_by_name) or {}
+        overall = packet.get("overall") or {}
+        if overall.get("gb_pct") is None:
+            continue
+        syn_gb = round(float(overall["gb_pct"]), 1)
+        if syn_gb and syn_gb != block.get("gb"):
+            block["gb"] = syn_gb
+            adv_gb_fixed += 1
+    print(f"  synergy GB fixes for 0.0 rows: {adv_gb_fixed}")
 
     # Gaps for the UI footnote / ship report
     hitters = [p for p in players if p["role"] == "H"]
