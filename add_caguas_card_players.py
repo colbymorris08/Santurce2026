@@ -191,20 +191,27 @@ def ensure_advance_hitter(hitter: dict) -> None:
 
 
 def seed_tth(players: list[dict]) -> None:
+    """Pitchers + catchers only on the TTH / pop sheet."""
+    pitcher_pos = {"P", "RHP", "LHP", "RHR", "LHR", "RHS", "LHS"}
     doc = load("pregame_tth_pop.json")
     rows = doc.get("players") or []
     by_id = {int(r["player_id"]): r for r in rows if r.get("player_id")}
     for player in players:
+        pos = str(player.get("position") or "").upper()
+        if pos not in pitcher_pos and pos != "C":
+            continue
+        sheet_pos = "P" if pos in pitcher_pos else "C"
         if player["id"] in by_id:
             by_id[player["id"]]["team"] = "CAG"
             by_id[player["id"]]["name"] = player["name"]
+            by_id[player["id"]]["position"] = sheet_pos
             continue
         rows.append(
             {
                 "player_id": player["id"],
                 "name": player["name"],
                 "team": "CAG",
-                "position": player["position"],
+                "position": sheet_pos,
                 "jersey": player.get("jersey") or "",
                 "status": "Active",
                 "time_to_home": None,

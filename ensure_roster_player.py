@@ -3,8 +3,9 @@
 
 Pitchers → Pitcher Advance, One Page, Stuff, Bullpen gate, Matchup/HVP gate,
           TTH, Strategy (roster), card_whiff when SAN.
+Catchers → TTH (pop/arm), plus hitter tabs below.
 Hitters  → Hitter Advance, Spray, BR card, Lineup spots (SAN), OF tabs gate,
-          TTH, Strategy (roster), card_whiff when SAN.
+          Strategy (roster), card_whiff when SAN. (TTH only if C.)
 Both     → lbprc_2025_rosters.json (must already list them).
 
 This only stubs / wires roster identity into the site caches. Run the Synergy
@@ -32,6 +33,7 @@ ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "data"
 
 PITCHER_POS = {"P", "RHP", "LHP", "RHR", "LHR", "RHS", "LHS"}
+CATCHER_POS = {"C"}
 
 
 def load(name: str) -> Any:
@@ -64,6 +66,10 @@ def find_roster(name: str | None, mlb_id: int | None, team: str | None) -> dict 
 
 def is_pitcher(player: dict) -> bool:
     return str(player.get("position") or "").upper() in PITCHER_POS
+
+
+def is_catcher(player: dict) -> bool:
+    return str(player.get("position") or "").upper() in CATCHER_POS
 
 
 def ensure_list_row(rows: list, player: dict, id_keys: tuple[str, ...], stub: dict) -> str:
@@ -283,27 +289,31 @@ def ensure_shared(player: dict) -> dict[str, str]:
     mid = int(player.get("id") or 0)
     actions = {}
 
-    tth = load("pregame_tth_pop.json")
-    rows = tth.get("players") or []
-    actions["tth"] = ensure_list_row(
-        rows,
-        player,
-        ("player_id",),
-        {
-            "player_id": mid if mid > 0 else None,
-            "name": player["name"],
-            "team": player["team"],
-            "position": player.get("position"),
-            "jersey": player.get("jersey") or "",
-            "status": "Active",
-            "time_to_home": None,
-            "catcher_pop_time": None,
-            "catcher_arm": None,
-            "notes": "",
-        },
-    )
-    tth["players"] = rows
-    dump("pregame_tth_pop.json", tth)
+    # TTH / catcher-pop sheet is pitchers + catchers only (no INF/OF).
+    if is_pitcher(player) or is_catcher(player):
+        tth = load("pregame_tth_pop.json")
+        rows = tth.get("players") or []
+        actions["tth"] = ensure_list_row(
+            rows,
+            player,
+            ("player_id",),
+            {
+                "player_id": mid if mid > 0 else None,
+                "name": player["name"],
+                "team": player["team"],
+                "position": "P" if is_pitcher(player) else "C",
+                "jersey": player.get("jersey") or "",
+                "status": "Active",
+                "time_to_home": None,
+                "catcher_pop_time": None,
+                "catcher_arm": None,
+                "notes": "",
+            },
+        )
+        tth["players"] = rows
+        dump("pregame_tth_pop.json", tth)
+    else:
+        actions["tth"] = "skipped"
 
     # Strategy card reads live roster — no stub file. card_whiff for SAN.
     if player.get("team") == "SAN" and mid > 0:

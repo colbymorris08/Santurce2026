@@ -516,7 +516,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san203';
+const ASSET_V = 'san204';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4766,11 +4766,19 @@ async function githubPutJson(path, obj, message){
   return putRes.json();
 }
 
+const TTH_PITCHER_POS = new Set(['P','RHP','LHP','RHR','LHR','RHS','LHS']);
+const TTH_CATCHER_POS = new Set(['C']);
+function tthPos(r){ return String(r?.position || '').toUpperCase(); }
+function isTthPitcher(r){ return TTH_PITCHER_POS.has(tthPos(r)); }
+function isTthCatcher(r){ return TTH_CATCHER_POS.has(tthPos(r)); }
+function isTthSheetPlayer(r){ return isTthPitcher(r) || isTthCatcher(r); }
+
 function buildTthPublishDoc(){
   const pack = CACHE.tth || { players: [], teams: [], meta: {} };
+  const players = (pack.players || []).filter(isTthSheetPlayer);
   return {
     ...pack,
-    players: applyOverridesToPlayers(pack.players, TTH_OVERRIDES, ['time_to_home','catcher_pop_time','catcher_arm','notes']),
+    players: applyOverridesToPlayers(players, TTH_OVERRIDES, ['time_to_home','catcher_pop_time','catcher_arm','notes']),
     updated: new Date().toISOString(),
     published_from: 'pregame scout sheet',
   };
@@ -5981,20 +5989,22 @@ function renderTth(){
   const team = document.getElementById('tth-team')?.value || 'all';
   const role = document.getElementById('tth-role')?.value || 'all';
   const q = (document.getElementById('tth-search')?.value || '').trim().toLowerCase();
-  let rows = (pack.players || []).slice();
+  // Sheet is pitchers + catchers only — never INF/OF/DH/etc.
+  let rows = (pack.players || []).filter(isTthSheetPlayer);
   if(team !== 'all') rows = rows.filter(r => r.team === team);
-  if(role !== 'all') rows = rows.filter(r => r.position === role);
+  if(role === 'P') rows = rows.filter(isTthPitcher);
+  else if(role === 'C') rows = rows.filter(isTthCatcher);
   if(q) rows = rows.filter(r => `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
   rows = sortByLastName(rows, r => r.name);
   const tbody = document.querySelector('#tbl-tth tbody');
   if(!tbody) return;
   tbody.innerHTML = rows.map(r => {
     const id = r.player_id;
-    const isP = r.position === 'P';
+    const isP = isTthPitcher(r);
     return `<tr>
       <td class="player-name">${escHtml(r.name||'')}</td>
       <td class="team-cell">${escHtml(r.team||'—')}</td>
-      <td>${escHtml(r.position||'—')}</td>
+      <td>${escHtml(isP ? (tthPos(r) || 'P') : 'C')}</td>
       <td class="num">${isP ? scoutInput(id,'time_to_home', tthMergedValue(r,'time_to_home'), 'onTthInput') : '—'}</td>
       <td class="num">${!isP ? scoutInput(id,'catcher_pop_time', tthMergedValue(r,'catcher_pop_time'), 'onTthInput') : '—'}</td>
       <td class="num">${!isP ? scoutInput(id,'catcher_arm', tthMergedValue(r,'catcher_arm'), 'onTthInput') : '—'}</td>

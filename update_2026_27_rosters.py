@@ -449,13 +449,17 @@ def rebuild_simple_caches(rosters: dict, all_players: list[dict], hitters: list[
     old_tth = tth.get("players") or []
     tth_rows = []
     for p in all_players:
+        pos = str(p.get("position") or "").upper()
+        # Pitcher time-to-home + catcher pop only — never INF/OF/DH.
+        if pos not in PITCHER_POS and pos != "C":
+            continue
         row = match_existing(p, old_tth, ("player_id",)) or {}
         row.update(
             {
                 "player_id": p["id"],
                 "name": p["name"],
                 "team": p["team"],
-                "position": p["position"],
+                "position": "P" if pos in PITCHER_POS else "C",
                 "jersey": p["jersey"],
                 "status": "Active",
                 "time_to_home": row.get("time_to_home"),
