@@ -1,5 +1,276 @@
 {
-  "added": [],
-  "wired": 12,
-  "updated": "2026-11-04T16:36:08Z"
+  "source": "Official Nov 4 2026 active rosters (Mail Downloads)",
+  "note": "Existing strategy-card / game_day_state / filled TTH values were not wiped. New players got stubs only.",
+  "counts": {
+    "CAG": 4,
+    "CAR": 13,
+    "MAY": 5,
+    "SJU": 9
+  },
+  "added_by_team": {
+    "CAG": [
+      {
+        "name": "Blayne Enlow",
+        "position": "P",
+        "id": 669416,
+        "jersey": "46",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Juan Javier Echavarria",
+        "position": "P",
+        "id": -213786945,
+        "jersey": "66",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Tanner Burns",
+        "position": "P",
+        "id": 669142,
+        "jersey": "63",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Aaron Mishoulam",
+        "position": "P",
+        "id": -840626507,
+        "jersey": "62",
+        "throws": "R",
+        "bats": "R"
+      }
+    ],
+    "CAR": [
+      {
+        "name": "Diego Rosa",
+        "position": "C",
+        "id": 828227,
+        "jersey": "45",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Will Bush",
+        "position": "C",
+        "id": 813844,
+        "jersey": "26",
+        "throws": "R",
+        "bats": "L"
+      },
+      {
+        "name": "Steven Ondina",
+        "position": "INF",
+        "id": 691724,
+        "jersey": "1",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Giullianno Allende",
+        "position": "OF",
+        "id": 805125,
+        "jersey": "61",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Miguel Ausua",
+        "position": "P",
+        "id": 682118,
+        "jersey": "18",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Jose Acosta",
+        "position": "P",
+        "id": -574529855,
+        "jersey": "39",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Gabriel Cotto",
+        "position": "P",
+        "id": 681813,
+        "jersey": "44",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Luis Rodriguez",
+        "position": "P",
+        "id": 693543,
+        "jersey": "28",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Albert Oliva",
+        "position": "P",
+        "id": 806309,
+        "jersey": "5",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Jake Gozzo",
+        "position": "P",
+        "id": 689214,
+        "jersey": "38",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Keishin Nagamizu",
+        "position": "P",
+        "id": -742329386,
+        "jersey": "62",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Kaito Uchino",
+        "position": "P",
+        "id": -522170762,
+        "jersey": "67",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Yusei Tobita",
+        "position": "P",
+        "id": -758984765,
+        "jersey": "59",
+        "throws": "R",
+        "bats": "R"
+      }
+    ],
+    "MAY": [
+      {
+        "name": "Luis Ramos",
+        "position": "P",
+        "id": -762265162,
+        "jersey": "39",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Shadai Colon",
+        "position": "P",
+        "id": -198603702,
+        "jersey": "69",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Sebastian Bentz",
+        "position": "P",
+        "id": -458750066,
+        "jersey": "46",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Sean Barnett",
+        "position": "P",
+        "id": 826141,
+        "jersey": "72",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Yariel Rodriguez",
+        "position": "P",
+        "id": 684320,
+        "jersey": "45",
+        "throws": "R",
+        "bats": "R"
+      }
+    ],
+    "SJU": [
+      {
+        "name": "Victor Torres",
+        "position": "C",
+        "id": 687436,
+        "jersey": "59",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Yariel Gonzalez",
+        "position": "3B",
+        "id": 670582,
+        "jersey": "5",
+        "throws": "R",
+        "bats": "S"
+      },
+      {
+        "name": "Antonio Jimenez",
+        "position": "SS",
+        "id": 806128,
+        "jersey": "61",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Santino Rosso",
+        "position": "INF",
+        "id": -376631912,
+        "jersey": "4",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Oscar Colas",
+        "position": "INF",
+        "id": 693049,
+        "jersey": "55",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Reymond Fuentes",
+        "position": "OF",
+        "id": 571681,
+        "jersey": "17",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Giovanni Soto",
+        "position": "P",
+        "id": 543803,
+        "jersey": "67",
+        "throws": "L",
+        "bats": "L"
+      },
+      {
+        "name": "Matthew Rivera",
+        "position": "P",
+        "id": -306600339,
+        "jersey": "95",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "name": "Ryder Ryan",
+        "position": "P",
+        "id": 656924,
+        "jersey": "54",
+        "throws": "R",
+        "bats": "R"
+      }
+    ]
+  },
+  "fill_checklist": [
+    "Pitcher release pics (new Ps)",
+    "TTH / catcher pop for new P+C stubs",
+    "Advance / strategy cards",
+    "BR cards for new hitters",
+    "OF/INF positioning review (seeded STRAIGHT/N defaults)",
+    "Spray charts (empty stubs until Synergy fill)"
+  ]
 }
