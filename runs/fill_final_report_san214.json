@@ -1,0 +1,49 @@
+{
+  "updated": "2026-11-04T18:27:08Z",
+  "asset_v": "san214",
+  "crash_fix": "33754bf san213 \u2014 DATA.players null; CardApp boots before GameDayPersist",
+  "bare_aponte_live": "none",
+  "murphy": {
+    "status": "populated",
+    "mlb_id": 694885,
+    "synergy_id": "5e31bc4696adda46f4f954da",
+    "pitches": 1097,
+    "window": "2026+2025 pool",
+    "arsenal": [
+      "SI",
+      "CU",
+      "FF",
+      "FC",
+      "SL",
+      "CH"
+    ],
+    "summer": "MEM AAA 50.1 IP ERA 6.97",
+    "one_page_freq_r": "SNK 43%, CB 27%, CUT 13%, FB 12%"
+  },
+  "aponte": {
+    "status": "populated",
+    "mlb_id": null,
+    "synergy_id": "616f22089b4397faf0dc0052",
+    "pitches": 36,
+    "window": "2025-2026 any league (Pioneer)",
+    "arsenal": [
+      "FF",
+      "FS",
+      "SL",
+      "CU",
+      "CH"
+    ],
+    "note": "No MLBAM; indy/Pioneer Synergy sample",
+    "one_page_freq_r": "SL 35%, SPL 30%, FB 20%, CB 15%"
+  },
+  "nov4_empty_sweep": {
+    "attempted": 22,
+    "populated_after_followup": 22,
+    "truly_unfindable": [],
+    "notes": {
+      "Juan Javier Echavarria": "Resolved via spelling Juan Echevarria / MLB 663499",
+      "Luis Ramos": "MLB 624401 LHP",
+      "Jose Rivera": "MLB 689748; 290 pitches / 41 spray"
+    }
+  }
+}

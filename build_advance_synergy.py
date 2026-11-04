@@ -46,6 +46,13 @@ if not PITCH_TIPS.is_dir():
 SPORT_API = "https://sport.synergysportstech.com"
 EVENTS_FILTER_URL = "https://baseball.synergysportstech.com/external/api/events/filter"
 
+# Local DNS sometimes fails for baseball.synergysportstech.com; patch via DoH.
+try:
+    import synergy_dns_fix  # noqa: F401
+except Exception:
+    pass
+
+
 # Newest BIP kept on each of the 8 spray charts (vs RHP/LHP × 2K, non-2K, RISP, non-RISP).
 SPRAY_MAX_POINTS = 50
 SPORT_ID_BASEBALL = "570aaedc46c5d11de0f8c0bd"
@@ -2353,29 +2360,56 @@ def load_season_games() -> dict[str, int]:
 
 
 def merge_spray_into_pregame(hitters: list[dict]) -> None:
+    """Upsert Synergy spray rows for the given hitters — never wipe the full cache."""
     path = OUT / "pregame_spray_charts.json"
     existing = json.loads(path.read_text()) if path.is_file() else {}
-    synergy_players = []
+    synergy_players = list(existing.get("synergy") or [])
+    by_key: dict[tuple, int] = {}
+    for i, row in enumerate(synergy_players):
+        by_key[(str(row.get("team") or ""), _norm_person(row.get("name") or ""))] = i
+        mid = int(row.get("mlb_id") or row.get("player_id") or 0)
+        if mid > 0:
+            by_key[("mlb", mid)] = i
+
+    upserted = 0
     for h in hitters:
         splits = h.get("spray_splits") or []
-        n = sum(s.get("n") or 0 for s in splits)
-        if n <= 0:
-            continue
-        synergy_players.append(
-            {
-                "name": h["name"],
-                "synergy_id": h["synergy_id"],
-                "team": h["team"],
-                "mlb_id": h.get("mlb_id"),
-                "source": "Synergy LBPRC events (landingLocationX/Y)",
-                "splits": splits,
-                "points": h.get("spray_points") or next(
-                    (s.get("points") for s in splits if s.get("split") == "all"),
-                    [],
-                ),
-            }
+        if isinstance(splits, list):
+            n = sum(s.get("n") or 0 for s in splits)
+        else:
+            n = len(h.get("spray_points") or [])
+        points = h.get("spray_points") or next(
+            (s.get("points") for s in splits if isinstance(s, dict) and s.get("split") == "all"),
+            [],
         )
-    synergy_players.sort(key=lambda r: -sum(s.get("n") or 0 for s in r["splits"]))
+        if n <= 0 and not points:
+            continue
+        payload = {
+            "name": h["name"],
+            "synergy_id": h.get("synergy_id"),
+            "team": h.get("team"),
+            "mlb_id": h.get("mlb_id"),
+            "source": "Synergy LBPRC events (landingLocationX/Y)",
+            "splits": splits,
+            "points": points,
+        }
+        key = (str(h.get("team") or ""), _norm_person(h.get("name") or ""))
+        mid = int(h.get("mlb_id") or 0)
+        idx = by_key.get(key)
+        if idx is None and mid > 0:
+            idx = by_key.get(("mlb", mid))
+        if idx is not None:
+            synergy_players[idx] = {**synergy_players[idx], **payload}
+        else:
+            by_key[key] = len(synergy_players)
+            if mid > 0:
+                by_key[("mlb", mid)] = len(synergy_players)
+            synergy_players.append(payload)
+        upserted += 1
+
+    synergy_players.sort(
+        key=lambda r: -sum(s.get("n") or 0 for s in (r.get("splits") or []) if isinstance(s, dict))
+    )
     existing["synergy"] = synergy_players
     existing["synergy_note"] = (
         "Synergy spray uses landingLocationX/Y in feet (home→CF = +Y, toward RF = +X). "
@@ -2387,8 +2421,8 @@ def merge_spray_into_pregame(hitters: list[dict]) -> None:
     )
     existing["spray_recent_cap"] = SPRAY_MAX_POINTS
     existing["updated_synergy"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    path.write_text(json.dumps(existing, indent=2))
-    print(f"spray synergy players={len(synergy_players)} → {path}")
+    path.write_text(json.dumps(existing, indent=2, ensure_ascii=False) + "\n")
+    print(f"spray synergy upserted={upserted} total={len(synergy_players)} → {path}")
 
 
 def enrich_rodriguez_from_synergy(token: str, season_lmb: str | list[str] | None) -> dict:

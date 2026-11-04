@@ -27,6 +27,9 @@ MAX_EVENTS = 1500
 NAME_VARIANTS = {
     "keishin saito": ["Keishin Saitoh"],
     "freddy cabrera": ["Freddie Cabrera", "Fred Cabrera", "Frederick Cabrera"],
+    "juan javier echavarria": ["Juan Echevarria", "Juan Echavarria", "Javier Echevarria"],
+    "john aponte": ["John Aponte"],  # never resolve last-name-only "Aponte"
+    "ryan murphy": ["Ryan Murphy"],
 }
 
 
@@ -147,6 +150,18 @@ class Synergy:
         exact = [row for row in rows if norm(row.get("name") or "") in exact_names]
         if len(exact) == 1:
             return str(exact[0]["id"]), exact[0], rows
+        # Multiple exact-name hits: prefer the unique mlbProfileId-bearing row when
+        # caller supplied mlb_id (already checked), else unique row that has any MLB id.
+        with_mlb = []
+        for row in exact:
+            raw = row.get("mlbProfileId") or row.get("ids")
+            try:
+                if int(raw or 0) > 0:
+                    with_mlb.append(row)
+            except (TypeError, ValueError):
+                pass
+        if len(with_mlb) == 1:
+            return str(with_mlb[0]["id"]), with_mlb[0], rows
         return None, None, rows
 
     def events(self, *, sid: str, pitcher: bool) -> list[dict]:

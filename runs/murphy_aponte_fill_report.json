@@ -1,0 +1,74 @@
+{
+  "id_fix": {
+    "old_id": 694885,
+    "new_id": 694885
+  },
+  "players": [
+    {
+      "name": "Ryan Murphy",
+      "team": "PON",
+      "status": "populated",
+      "mlb_id": 694885,
+      "player_id": 694885,
+      "synergy_id": "5e31bc4696adda46f4f954da",
+      "synergy_name": "Ryan Murphy",
+      "raw_events": 1500,
+      "stats_events": 1132,
+      "window_used": "2026+2025 pool",
+      "pitches": 1097,
+      "arsenal_types": [
+        "SI",
+        "CU",
+        "FF",
+        "FC",
+        "SL",
+        "CH"
+      ],
+      "platoon": true,
+      "count_buckets": [
+        "overall",
+        "0-0",
+        "2_strikes"
+      ],
+      "heat_located": 1119,
+      "summer_line": true,
+      "summer_summary": {
+        "team": "MEM",
+        "level": "AAA",
+        "ip": "50.1",
+        "era": "6.97",
+        "k9": "9.5",
+        "bb9": "6.3"
+      }
+    },
+    {
+      "name": "John Aponte",
+      "team": "PON",
+      "status": "populated",
+      "mlb_id": null,
+      "player_id": -539643335,
+      "synergy_id": "616f22089b4397faf0dc0052",
+      "synergy_name": "John Aponte",
+      "raw_events": 164,
+      "stats_events": 70,
+      "window_used": "2025-2026 any league",
+      "pitches": 36,
+      "arsenal_types": [
+        "FF",
+        "FS",
+        "SL",
+        "CU",
+        "CH"
+      ],
+      "platoon": true,
+      "count_buckets": [
+        "overall",
+        "0-0",
+        "2_strikes"
+      ],
+      "heat_located": 5,
+      "summer_line": false
+    }
+  ],
+  "updated": "2026-11-04T18:21:52Z"
+}

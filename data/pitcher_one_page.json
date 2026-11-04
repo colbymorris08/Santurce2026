@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T18:02:01Z",
+  "updated": "2026-11-04T18:26:34Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -686,20 +686,20 @@
           "name": "Juan Javier Echavarria",
           "name_display": "Echavarria, Juan Javier",
           "throws": "R",
-          "mlb_id": -213786945,
+          "mlb_id": 663499,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "87-87",
+            "CB": "72-72",
+            "SL": "74-74",
+            "CH": "78-78",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 44%, SL 38%, CH 16%, SNK 2%",
+          "freq_l": "FB 55%, CH 39%, SL 5%, CB 2%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 44%, SL 38%, CH 16%, SNK 2%</span><br><span class=\"freq-l\">LHH: FB 55%, CH 39%, SL 5%, CB 2%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
@@ -1132,20 +1132,20 @@
           "name": "Jose Acosta",
           "name_display": "Acosta, Jose (l)",
           "throws": "L",
-          "mlb_id": -574529855,
+          "mlb_id": 805753,
           "velo": {
-            "FB": "",
+            "FB": "92-92",
             "CB": "",
-            "SL": "",
+            "SL": "82-82",
             "CH": "",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
+          "freq_r": "FB 79%, SL 21%",
           "freq_l": "",
-          "freq_html": "",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 79%, SL 21%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "18",
@@ -1161,11 +1161,11 @@
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 72%, CH 22%, SL 6%",
+          "freq_l": "FB 77%, SL 18%, CH 5%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 72%, CH 22%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 77%, SL 18%, CH 5%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "15",
@@ -1354,18 +1354,18 @@
           "throws": "R",
           "mlb_id": 689214,
           "velo": {
-            "FB": "",
+            "FB": "95-95",
             "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "SL": "86-86",
+            "CH": "83-83",
+            "CT": "92-92",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 60%, SL 34%, CH 4%, CUT 1%",
+          "freq_l": "FB 55%, CH 37%, SL 7%, CUT 0%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, SL 34%, CH 4%, CUT 1%</span><br><span class=\"freq-l\">LHH: FB 55%, CH 37%, SL 7%, CUT 0%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
@@ -1434,18 +1434,18 @@
           "throws": "L",
           "mlb_id": -742329386,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "89-89",
+            "CB": "72-72",
+            "SL": "78-78",
+            "CH": "78-78",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 45%, CH 32%, SL 13%, CB 10%",
+          "freq_l": "FB 39%, SL 32%, CH 18%, CB 11%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 45%, CH 32%, SL 13%, CB 10%</span><br><span class=\"freq-l\">LHH: FB 39%, SL 32%, CH 18%, CB 11%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "5",
@@ -1454,18 +1454,18 @@
           "throws": "R",
           "mlb_id": 806309,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
+            "FB": "91-91",
+            "CB": "75-75",
+            "SL": "75-75",
+            "CH": "80-80",
+            "CT": "81-81",
+            "SPL": "79-79"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 57%, CB 20%, SL 18%, CH 4%",
+          "freq_l": "FB 65%, CB 16%, CH 14%, SL 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 57%, CB 20%, SL 18%, CH 4%</span><br><span class=\"freq-l\">LHH: FB 65%, CB 16%, CH 14%, SL 3%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
@@ -1574,18 +1574,18 @@
           "throws": "R",
           "mlb_id": 693543,
           "velo": {
-            "FB": "",
+            "FB": "95-95",
             "CB": "",
-            "SL": "",
+            "SL": "84-84",
             "CH": "",
-            "CT": "",
+            "CT": "88-88",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 78%, SL 14%, CUT 5%, CB 3%",
+          "freq_l": "FB 89%, CUT 9%, SL 2%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 78%, SL 14%, CUT 5%, CB 3%</span><br><span class=\"freq-l\">LHH: FB 89%, CUT 9%, SL 2%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
@@ -1634,18 +1634,18 @@
           "throws": "R",
           "mlb_id": -758984765,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "90-90",
+            "CB": "75-75",
+            "SL": "81-81",
+            "CH": "82-82",
+            "CT": "89-89",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 52%, CH 28%, CB 12%, SL 4%",
+          "freq_l": "FB 79%, CH 21%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 52%, CH 28%, CB 12%, SL 4%</span><br><span class=\"freq-l\">LHH: FB 79%, CH 21%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "67",
@@ -1654,18 +1654,18 @@
           "throws": "R",
           "mlb_id": -522170762,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
+            "FB": "91-91",
+            "CB": "77-77",
+            "SL": "84-84",
+            "CH": "84-84",
+            "CT": "85-85",
+            "SPL": "83-83"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 53%, CB 23%, SPL 10%, CUT 8%",
+          "freq_l": "FB 49%, CB 23%, SPL 21%, SL 4%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 53%, CB 23%, SPL 10%, CUT 8%</span><br><span class=\"freq-l\">LHH: FB 49%, CB 23%, SPL 21%, SL 4%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "43",
@@ -1700,38 +1700,38 @@
           "throws": "R",
           "mlb_id": 826141,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
+            "FB": "97-97",
+            "CB": "81-81",
+            "SL": "85-85",
             "CH": "",
-            "CT": "",
+            "CT": "92-92",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 62%, SL 21%, CUT 15%, CB 2%",
+          "freq_l": "FB 73%, SL 13%, CUT 12%, CB 1%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 62%, SL 21%, CUT 15%, CB 2%</span><br><span class=\"freq-l\">LHH: FB 73%, SL 13%, CUT 12%, CB 1%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "46",
           "name": "Sebastian Bentz",
           "name_display": "Bentz, Sebastian (l)",
           "throws": "L",
-          "mlb_id": -458750066,
+          "mlb_id": 694547,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "83-83",
+            "CB": "71-71",
+            "SL": "73-73",
+            "CH": "76-76",
+            "CT": "79-79",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 73%, CH 17%, CB 6%, SL 2%",
+          "freq_l": "FB 69%, CB 13%, CUT 12%, CH 4%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 73%, CH 17%, CB 6%, SL 2%</span><br><span class=\"freq-l\">LHH: FB 69%, CB 13%, CUT 12%, CH 4%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "69",
@@ -1740,18 +1740,18 @@
           "throws": "L",
           "mlb_id": -198603702,
           "velo": {
-            "FB": "",
+            "FB": "81-81",
             "CB": "",
-            "SL": "",
-            "CH": "",
+            "SL": "74-74",
+            "CH": "70-70",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 60%, CH 34%, SL 7%",
+          "freq_l": "FB 84%, CH 13%, SL 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, CH 34%, SL 7%</span><br><span class=\"freq-l\">LHH: FB 84%, CH 13%, SL 3%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "41",
@@ -1978,7 +1978,7 @@
           "name": "Luis Ramos",
           "name_display": "Ramos, Luis (l)",
           "throws": "L",
-          "mlb_id": -762265162,
+          "mlb_id": 624401,
           "velo": {
             "FB": "",
             "CB": "",
@@ -1987,11 +1987,11 @@
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 84%, SL 13%, CH 3%",
+          "freq_l": "FB 83%, SL 17%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 84%, SL 13%, CH 3%</span><br><span class=\"freq-l\">LHH: FB 83%, SL 17%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "34",
@@ -2040,18 +2040,18 @@
           "throws": "R",
           "mlb_id": 684320,
           "velo": {
-            "FB": "",
+            "FB": "95-95",
             "CB": "",
-            "SL": "",
+            "SL": "85-85",
             "CH": "",
             "CT": "",
-            "SPL": ""
+            "SPL": "88-88"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "SL 51%, FB 21%, SPL 14%, SNK 14%",
+          "freq_l": "SPL 38%, SL 31%, FB 25%, SNK 6%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 51%, FB 21%, SPL 14%, SNK 14%</span><br><span class=\"freq-l\">LHH: SPL 38%, SL 31%, FB 25%, SNK 6%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "31",
@@ -2173,11 +2173,11 @@
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "SL 35%, SPL 30%, FB 20%, CB 15%",
+          "freq_l": "FB 50%, SPL 31%, CH 12%, SL 6%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 35%, SPL 30%, FB 20%, CB 15%</span><br><span class=\"freq-l\">LHH: FB 50%, SPL 31%, CH 12%, SL 6%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "41",
@@ -2444,20 +2444,20 @@
           "name": "Ryan Murphy",
           "name_display": "Murphy, Ryan",
           "throws": "R",
-          "mlb_id": -415129273,
+          "mlb_id": 694885,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "94-94\nSNK 93-93",
+            "CB": "83-83",
+            "SL": "84-84",
+            "CH": "88-88",
+            "CT": "87-87",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "SNK 43%, CB 27%, CUT 13%, FB 12%",
+          "freq_l": "SNK 36%, CB 25%, FB 14%, CUT 13%",
+          "freq_html": "<span class=\"freq-r\">RHH: SNK 43%, CB 27%, CUT 13%, FB 12%</span><br><span class=\"freq-l\">LHH: SNK 36%, CB 25%, FB 14%, CUT 13%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "27",
@@ -3010,20 +3010,20 @@
           "name": "Matthew Rivera",
           "name_display": "Rivera, Matthew",
           "throws": "R",
-          "mlb_id": -306600339,
+          "mlb_id": 681344,
           "velo": {
-            "FB": "",
-            "CB": "",
+            "FB": "86-86",
+            "CB": "68-68",
             "SL": "",
             "CH": "",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "CB 78%, FB 22%",
+          "freq_l": "FB 54%, CB 46%",
+          "freq_html": "<span class=\"freq-r\">RHH: CB 78%, FB 22%</span><br><span class=\"freq-l\">LHH: FB 54%, CB 46%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "45",
@@ -3072,18 +3072,18 @@
           "throws": "R",
           "mlb_id": 656924,
           "velo": {
-            "FB": "",
+            "FB": "93-93\nSNK",
             "CB": "",
-            "SL": "",
-            "CH": "",
+            "SL": "82-82",
+            "CH": "88-88",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "SL 36%, SNK 34%, FB 15%, CH 9%",
+          "freq_l": "FB 30%, SL 28%, CH 23%, SNK 17%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 36%, SNK 34%, FB 15%, CH 9%</span><br><span class=\"freq-l\">LHH: FB 30%, SL 28%, CH 23%, SNK 17%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "96",
@@ -3112,18 +3112,18 @@
           "throws": "L",
           "mlb_id": 543803,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "87-87",
+            "CB": "72-72",
+            "SL": "78-78",
+            "CH": "75-75",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 53%, CH 28%, SL 12%, CB 7%",
+          "freq_l": "FB 53%, SL 37%, CB 6%, CH 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 53%, CH 28%, SL 12%, CB 7%</span><br><span class=\"freq-l\">LHH: FB 53%, SL 37%, CB 6%, CH 3%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "3",

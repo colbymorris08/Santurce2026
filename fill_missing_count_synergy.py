@@ -32,6 +32,7 @@ KNOWN_IDS = {
     666130: "5f178ff5e0962f87adc0caaf",
     805727: "5fff2a990c527cd9924a8a9d",  # Regalado prior empty
     676600: "60aa6cc14a1096c53ec54249",  # Lindow prior empty
+    694885: "5e31bc4696adda46f4f954da",  # Ryan Murphy (PON / MEM AAA)
 }
 
 

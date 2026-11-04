@@ -30,6 +30,7 @@ KNOWN_IDS = {
     678013: ("5f84b8c41cb0540001a544d9", "Lenny Torres Jr.", "PON"),
     701240: ("58a74edd35268c61b0b88a71", "Ethan Routzahn", "SJU"),
     666130: ("5f178ff5e0962f87adc0caaf", "Jay Groome", "SJU"),
+    694885: ("5e31bc4696adda46f4f954da", "Ryan Murphy", "PON"),
 }
 
 

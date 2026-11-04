@@ -8,15 +8,14 @@ Hitters  → Hitter Advance, Spray, BR card, Lineup spots (SAN), OF tabs gate,
           Strategy (roster), card_whiff when SAN. (TTH only if C.)
 Both     → lbprc_2025_rosters.json (must already list them).
 
-This only stubs / wires roster identity into the site caches. Run the Synergy
-fillers afterward for real samples:
+By default this stubs / wires roster identity into the site caches. Prefer
+passing a real MLBAM id (`--id`). If the roster still has a synthetic negative
+id, `--resolve-mlb` looks up free_agent_pool + Synergy mlbProfileId and rewrites
+the roster + caches. Pass `--fill-synergy` to pull Synergy samples immediately
+so MiLB pitchers/hitters are not left as empty stubs.
 
-  python3 fill_missing_count_synergy.py
-  python3 fill_missing_platoon_synergy.py --new-only
-  python3 fill_movement_plot_batches.py --team CAG
-  python3 build_ligapr_daily.py   # or ligapr.build_pitcher_one_page()
-  python3 fill_card_whiff.py      # SAN strategy whiff
-  python3 build_pregame_cards.py
+  python3 ensure_roster_player.py --name "Ryan Murphy" --team PON --id 694885 --fill-synergy
+  python3 ensure_roster_player.py --name "John Aponte" --team PON --resolve-mlb --fill-synergy
 """
 
 from __future__ import annotations
@@ -62,6 +61,274 @@ def find_roster(name: str | None, mlb_id: int | None, team: str | None) -> dict 
             if want and ligapr.norm_name(p.get("name") or "") == want:
                 return {**p, "team": abbr, "team_name": pack.get("teamName")}
     return None
+
+
+def lookup_mlb_id_from_fa(name: str, *, pitcher: bool | None = None) -> int | None:
+    """Resolve MLBAM id from free_agent_pool.json by exact normalized name."""
+    fa = load("free_agent_pool.json")
+    want = ligapr.norm_name(name)
+    pools: list[dict] = []
+    if pitcher is True:
+        pools = list(fa.get("pitchers") or [])
+    elif pitcher is False:
+        pools = list(fa.get("hitters") or [])
+    else:
+        pools = list(fa.get("pitchers") or []) + list(fa.get("hitters") or [])
+    hits = [r for r in pools if ligapr.norm_name(r.get("name") or "") == want]
+    ids = []
+    for row in hits:
+        try:
+            mid = int(row.get("mlbam_id") or row.get("mlb_id") or 0)
+        except (TypeError, ValueError):
+            mid = 0
+        if mid > 0:
+            ids.append(mid)
+    uniq = sorted(set(ids))
+    if len(uniq) == 1:
+        return uniq[0]
+    return None
+
+
+def lookup_mlb_id_from_synergy(name: str) -> tuple[int | None, str | None]:
+    """Return (mlb_id, synergy_id) when Synergy search yields a unique MLB profile."""
+    try:
+        import refresh_roster_synergy as rrs
+    except Exception:  # noqa: BLE001
+        return None, None
+    try:
+        client = rrs.Synergy()
+        sid, matched, rows = client.search({"name": name, "mlb_id": None})
+    except Exception as exc:  # noqa: BLE001
+        print(f"  synergy resolve skip: {exc}")
+        return None, None
+    want = ligapr.norm_name(name)
+    exact = [r for r in rows if ligapr.norm_name(r.get("name") or "") == want]
+    with_mlb = []
+    for row in exact:
+        raw = row.get("mlbProfileId") or row.get("ids")
+        try:
+            mid = int(raw or 0)
+        except (TypeError, ValueError):
+            mid = 0
+        if mid > 0:
+            with_mlb.append((mid, str(row.get("id") or "")))
+    uniq = {(m, s) for m, s in with_mlb if s}
+    if len(uniq) == 1:
+        mid, sid_found = next(iter(uniq))
+        return mid, sid_found
+    if matched and sid:
+        raw = matched.get("mlbProfileId") or matched.get("ids")
+        try:
+            mid = int(raw or 0)
+        except (TypeError, ValueError):
+            mid = 0
+        if mid > 0:
+            return mid, str(sid)
+    return None, (str(sid) if sid else None)
+
+
+def rewrite_roster_id(player: dict, new_id: int) -> None:
+    """Persist a corrected MLBAM id onto lbprc_2025_rosters.json."""
+    rost = load("lbprc_2025_rosters.json")
+    want = ligapr.norm_name(player.get("name") or "")
+    team = (player.get("team") or "").upper()
+    for pack in rost.values():
+        if team and pack.get("teamAbbrev") != team:
+            continue
+        for row in pack.get("players") or []:
+            if ligapr.norm_name(row.get("name") or "") == want:
+                row["id"] = int(new_id)
+                dump("lbprc_2025_rosters.json", rost)
+                player["id"] = int(new_id)
+                return
+    raise SystemExit(f"rewrite_roster_id miss {player.get('name')} {team}")
+
+
+def fill_synergy_now(player: dict) -> dict[str, Any]:
+    """Pull Synergy into advance/arsenal/heat/one-page for one roster player."""
+    import synergy_dns_fix  # noqa: F401
+    import build_advance_synergy as bas
+    import refresh_roster_synergy as rrs
+
+    kind = "pitcher" if is_pitcher(player) else "hitter"
+    mid = int(player.get("id") or 0)
+    mlb_id = mid if mid > 0 else None
+    search_player = {
+        "name": player["name"],
+        "team": player["team"],
+        "mlb_id": mlb_id,
+        "player_id": mid,
+        "position": player.get("position"),
+    }
+    client = rrs.Synergy()
+    sid, matched, rows = client.search(search_player)
+    if not sid:
+        # Prefer unique mlb-bearing exact match (also covers forced KNOWN paths)
+        want = ligapr.norm_name(player["name"])
+        exact = [r for r in rows if ligapr.norm_name(r.get("name") or "") == want]
+        if mlb_id:
+            for r in exact or rows:
+                raw = r.get("mlbProfileId") or r.get("ids")
+                try:
+                    if int(raw or 0) == int(mlb_id):
+                        sid = str(r["id"])
+                        matched = r
+                        break
+                except (TypeError, ValueError):
+                    pass
+        if not sid and len(exact) == 1:
+            sid = str(exact[0]["id"])
+            matched = exact[0]
+    if not sid:
+        return {
+            "status": "unresolved",
+            "candidates": [r.get("name") for r in rows[:12]],
+        }
+
+    raw = client.events(sid=str(sid), pitcher=kind == "pitcher")
+    stats, window = rrs.select_stats_window(raw)
+    if not stats and raw:
+        stats = [e for e in raw if bas.event_season_year(e) in (2025, 2026)] or raw
+        window = "2025-2026 any league" if stats is not raw else "unfiltered"
+
+    if kind == "pitcher":
+        pitcher_doc = load("advance_opposing_pitchers.json")
+        arsenal_doc = load("pregame_pitcher_arsenals.json")
+        heat_doc = load("advance_heatmaps.json")
+        pitcher_by = {rrs.row_key(r): r for r in pitcher_doc.get("pitchers") or []}
+        arsenal_by = {rrs.row_key(r): r for r in arsenal_doc.get("pitchers") or []}
+        p_heat = dict(heat_doc.get("pitchers") or {})
+        key = rrs.row_key(search_player)
+        old = pitcher_by.get(key) or {}
+        packed = bas.aggregate_pitcher_count_mixes(stats or raw)
+        mix = packed.get(str(sid)) or (next(iter(packed.values())) if packed else {})
+        mix = dict(mix or {})
+        mix.update(
+            {
+                "name": player["name"],
+                "team": player["team"],
+                "mlb_id": mlb_id,
+                "player_id": mid or None,
+                "synergy_id": str(sid),
+                "throws": player.get("throws") or old.get("throws"),
+                "window_used": window,
+                "source": window,
+            }
+        )
+        if mlb_id and not mix.get("summer_line"):
+            lines = bas.fetch_2026_pitcher_summer_lines([mlb_id])
+            if mlb_id in lines:
+                mix["summer_line"] = lines[mlb_id]
+        pitcher_by[key] = {**old, **mix}
+        ar = arsenal_by.get(key) or {
+            "name": player["name"],
+            "player_id": mid or None,
+            "team": player["team"],
+            "throws": player.get("throws"),
+            "arsenal": [],
+            "view": "hitter",
+        }
+        ar = rrs.merge_arsenal(ar, mix, stats or raw)
+        ar.update(
+            {
+                "name": player["name"],
+                "team": player["team"],
+                "player_id": mid or None,
+                "mlb_id": mlb_id,
+                "synergy_id": str(sid),
+            }
+        )
+        if mix.get("platoon"):
+            ar["platoon"] = mix["platoon"]
+        if mix.get("count_mix"):
+            ar["count_mix"] = mix["count_mix"]
+        ar.pop("note", None)
+        arsenal_by[key] = ar
+        heat_key = str(mlb_id or sid)
+        p_heat[heat_key] = (
+            rrs.make_heat(search_player, str(sid), raw, True)
+            if raw
+            else rrs.empty_heat(player["name"], player["team"], str(sid), mlb_id, True)
+        )
+        p_heat[str(sid)] = p_heat[heat_key]
+        stamp = now()
+        pitcher_doc["pitchers"] = sorted(
+            pitcher_by.values(), key=lambda r: (r.get("team") or "", r.get("name") or "")
+        )
+        pitcher_doc["updated"] = stamp
+        arsenal_doc["pitchers"] = sorted(
+            arsenal_by.values(), key=lambda r: (r.get("team") or "", r.get("name") or "")
+        )
+        arsenal_doc["updated"] = stamp
+        heat_doc["pitchers"] = p_heat
+        heat_doc["updated"] = stamp
+        dump("advance_opposing_pitchers.json", pitcher_doc)
+        dump("pregame_pitcher_arsenals.json", arsenal_doc)
+        dump("advance_heatmaps.json", heat_doc)
+        try:
+            bas.merge_synergy_count_into_arsenals(
+                {str(sid): mix} if mix.get("pitches") else {}
+            )
+        except Exception as exc:  # noqa: BLE001
+            print(f"  arsenal merge warn: {exc}")
+        return {
+            "status": "populated" if mix.get("pitches") else "empty",
+            "synergy_id": str(sid),
+            "synergy_name": (matched or {}).get("name"),
+            "raw_events": len(raw),
+            "stats_events": len(stats or []),
+            "window_used": window,
+            "pitches": mix.get("pitches") or 0,
+        }
+
+    # hitter path
+    hitter_doc = load("advance_opposing_hitters.json")
+    heat_doc = load("advance_heatmaps.json")
+    hitter_by = {rrs.row_key(r): r for r in hitter_doc.get("hitters") or []}
+    h_heat = dict(heat_doc.get("hitters") or {})
+    key = rrs.row_key(search_player)
+    old = hitter_by.get(key) or {}
+    if stats:
+        hitter_by[key] = rrs.merge_hitter(old, search_player, str(sid), stats, window)
+    else:
+        old.update(
+            {
+                "name": player["name"],
+                "team": player["team"],
+                "synergy_id": str(sid),
+                "mlb_id": mlb_id,
+            }
+        )
+        hitter_by[key] = old
+    h_heat[str(sid)] = (
+        rrs.make_heat(search_player, str(sid), raw, False)
+        if raw
+        else rrs.empty_heat(player["name"], player["team"], str(sid), mlb_id, False)
+    )
+    stamp = now()
+    hitter_doc["hitters"] = sorted(
+        hitter_by.values(), key=lambda r: (r.get("team") or "", r.get("name") or "")
+    )
+    hitter_doc["updated"] = stamp
+    heat_doc["hitters"] = h_heat
+    heat_doc["updated"] = stamp
+    dump("advance_opposing_hitters.json", hitter_doc)
+    dump("advance_heatmaps.json", heat_doc)
+    try:
+        bas.merge_spray_into_pregame([hitter_by[key]])
+    except Exception as exc:  # noqa: BLE001
+        print(f"  spray merge warn: {exc}")
+    new = hitter_by[key]
+    return {
+        "status": "populated" if (new.get("overall") or {}).get("pitches") else "empty",
+        "synergy_id": str(sid),
+        "synergy_name": (matched or {}).get("name"),
+        "raw_events": len(raw),
+        "stats_events": len(stats or []),
+        "window_used": window,
+        "pitches": (new.get("overall") or {}).get("pitches"),
+        "spray": len(new.get("spray_points") or []),
+    }
 
 
 def is_pitcher(player: dict) -> bool:
@@ -346,6 +613,16 @@ def main() -> None:
     ap.add_argument("--id", type=int, default=None, help="MLBAM id")
     ap.add_argument("--team", default=None, help="Team abbrev filter")
     ap.add_argument("--rebuild-one-page", action="store_true")
+    ap.add_argument(
+        "--resolve-mlb",
+        action="store_true",
+        help="If roster id is synthetic/missing, resolve MLBAM via FA pool + Synergy",
+    )
+    ap.add_argument(
+        "--fill-synergy",
+        action="store_true",
+        help="Immediately pull Synergy into advance/arsenal/heat (not stub-only)",
+    )
     args = ap.parse_args()
 
     player = find_roster(args.name, args.id, args.team)
@@ -354,6 +631,24 @@ def main() -> None:
             f"Not on roster yet: {args.name!r} id={args.id} team={args.team}. "
             "Add them to data/lbprc_2025_rosters.json first."
         )
+
+    resolve_info: dict[str, Any] = {}
+    cur_id = int(player.get("id") or 0)
+    if args.id and int(args.id) > 0 and cur_id != int(args.id):
+        print(f"rewriting roster id {cur_id} → {args.id}")
+        rewrite_roster_id(player, int(args.id))
+        resolve_info["roster_id"] = int(args.id)
+    elif args.resolve_mlb and cur_id <= 0:
+        fa_id = lookup_mlb_id_from_fa(player["name"], pitcher=is_pitcher(player))
+        syn_id, syn_sid = lookup_mlb_id_from_synergy(player["name"])
+        chosen = args.id or fa_id or syn_id
+        if chosen and int(chosen) > 0:
+            print(f"resolved MLBAM {player['name']} → {chosen} (fa={fa_id} synergy={syn_id})")
+            rewrite_roster_id(player, int(chosen))
+            resolve_info = {"mlb_id": int(chosen), "fa": fa_id, "synergy_mlb": syn_id, "synergy_id": syn_sid}
+        else:
+            resolve_info = {"mlb_id": None, "fa": fa_id, "synergy_mlb": syn_id, "synergy_id": syn_sid}
+            print(f"no unique MLBAM for {player['name']} (fa={fa_id} synergy={syn_id}/{syn_sid})")
 
     print(f"{player['team']} {player['name']} ({player.get('position')}) id={player.get('id')}")
     actions = ensure_shared(player)
@@ -364,16 +659,23 @@ def main() -> None:
         actions.update(ensure_hitter(player))
         role = "hitter"
 
-    if args.rebuild_one_page or role == "pitcher":
+    synergy_result = None
+    if args.fill_synergy:
+        print("filling Synergy…")
+        synergy_result = fill_synergy_now(player)
+        print(json.dumps({"synergy": synergy_result}, indent=2))
+
+    if args.rebuild_one_page or role == "pitcher" or args.fill_synergy:
         one = ligapr.build_pitcher_one_page()
         ligapr.write_json("pitcher_one_page.json", one)
         actions["one_page"] = "rebuilt"
 
-    print(json.dumps({"role": role, "actions": actions}, indent=2))
-    print(
-        "Next: Synergy/PS fills for real samples "
-        "(count, platoon/freq, movement, heatmaps, whiff, summer lines), then push."
-    )
+    print(json.dumps({"role": role, "actions": actions, "resolve": resolve_info}, indent=2))
+    if not args.fill_synergy:
+        print(
+            "Next: re-run with --fill-synergy (and --id / --resolve-mlb) so MiLB "
+            "players are not left as empty stubs."
+        )
 
 
 if __name__ == "__main__":
