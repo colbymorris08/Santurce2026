@@ -26,7 +26,11 @@
           "usage_l": 69.3,
           "pitches_l": 381,
           "usage_r": 51.3,
-          "pitches_r": 414
+          "pitches_r": 414,
+          "velo_p25": 92.0,
+          "velo_p75": 93.0,
+          "velo_p90": 93.0,
+          "velo_n": 80
         },
         {
           "type": "SL",
@@ -44,7 +48,11 @@
           "usage_l": 23.3,
           "pitches_l": 128,
           "usage_r": 47.0,
-          "pitches_r": 379
+          "pitches_r": 379,
+          "velo_p25": 80.8,
+          "velo_p75": 82.0,
+          "velo_p90": 83.0,
+          "velo_n": 16
         },
         {
           "type": "CH",
@@ -62,7 +70,11 @@
           "usage_l": 7.5,
           "pitches_l": 41,
           "usage_r": 1.5,
-          "pitches_r": 12
+          "pitches_r": 12,
+          "velo_p25": 84.0,
+          "velo_p75": 86.0,
+          "velo_p90": 86.6,
+          "velo_n": 25
         },
         {
           "type": "CU",
@@ -264,7 +276,291 @@
         "vs_LHH": 550,
         "vs_RHH": 807
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 278,
+              "usage": 74.3
+            },
+            {
+              "type": "CH",
+              "pitches": 73,
+              "usage": 19.5
+            },
+            {
+              "type": "SL",
+              "pitches": 20,
+              "usage": 5.3
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 0.5
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 0.3
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 233,
+              "usage": 68.3
+            },
+            {
+              "type": "SL",
+              "pitches": 106,
+              "usage": 31.1
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 0.6
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 70,
+              "usage": 84.3
+            },
+            {
+              "type": "CH",
+              "pitches": 10,
+              "usage": 12.0
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 1.2
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 1.2
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 1.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 86,
+              "usage": 86.9
+            },
+            {
+              "type": "SL",
+              "pitches": 13,
+              "usage": 13.1
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 37,
+              "usage": 94.9
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 2.6
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 2.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 18,
+              "usage": 85.7
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 14.3
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 73,
+              "usage": 69.5
+            },
+            {
+              "type": "CH",
+              "pitches": 25,
+              "usage": 23.8
+            },
+            {
+              "type": "SL",
+              "pitches": 7,
+              "usage": 6.7
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 67,
+              "usage": 66.3
+            },
+            {
+              "type": "SL",
+              "pitches": 33,
+              "usage": 32.7
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.0
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 69,
+              "usage": 63.9
+            },
+            {
+              "type": "CH",
+              "pitches": 28,
+              "usage": 25.9
+            },
+            {
+              "type": "SL",
+              "pitches": 10,
+              "usage": 9.3
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 0.9
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SL",
+              "pitches": 48,
+              "usage": 53.9
+            },
+            {
+              "type": "FF",
+              "pitches": 40,
+              "usage": 44.9
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.1
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 19,
+              "usage": 90.5
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 9.5
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 5,
+              "usage": 55.6
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 44.4
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 87,
+              "usage": 77.0
+            },
+            {
+              "type": "CH",
+              "pitches": 16,
+              "usage": 14.2
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 8.0
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 0.9
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 82,
+              "usage": 66.7
+            },
+            {
+              "type": "SL",
+              "pitches": 40,
+              "usage": 32.5
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 0.8
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 38.8,
+            "0-0": 34.9,
+            "hitter_ahead": 33.3,
+            "1k": 43.8,
+            "2_strikes": 38.0,
+            "3-2": 38.1,
+            "risp": 37.2
+          },
+          "vs_RHB": {
+            "overall": 46.3,
+            "0-0": 47.5,
+            "hitter_ahead": 52.4,
+            "1k": 46.5,
+            "2_strikes": 40.4,
+            "3-2": 44.4,
+            "risp": 43.9
+          }
+        }
+      }
     },
     {
       "name": "Adalberto Flores",
@@ -1070,6 +1366,32 @@
             "risp": 47.7
           }
         }
+      },
+      "summer_line": {
+        "team": "SAN",
+        "team_name": "Cangrejeros de Santurce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "30.1",
+        "outs": 91,
+        "g": 8,
+        "gs": 8,
+        "k": 15,
+        "bb": 10,
+        "k9": "4.5",
+        "bb9": "3.0",
+        "era": "2.37",
+        "fip": "4.78",
+        "whip": "1.19",
+        "h": 26,
+        "hr": 3,
+        "sb_allowed": 4,
+        "cs_allowed": 3,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -1891,6 +2213,39 @@
             "risp": 30.2
           }
         }
+      },
+      "summer_line": {
+        "team": "SUG",
+        "team_name": "Sugar Land Space Cowboys",
+        "season": "Summer 2026",
+        "league": "PCL",
+        "circuit": "MiLB",
+        "league_name": "Pacific Coast League",
+        "level": "AAA",
+        "ip": "22.0",
+        "outs": 66,
+        "g": 20,
+        "gs": 0,
+        "k": 20,
+        "bb": 16,
+        "k9": "8.2",
+        "bb9": "6.5",
+        "era": "2.86",
+        "fip": "4.05",
+        "whip": "1.27",
+        "h": 12,
+        "hr": 1,
+        "sb_allowed": 3,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -1919,7 +2274,11 @@
           "usage_l": 38.0,
           "pitches_l": 119,
           "usage_r": 32.4,
-          "pitches_r": 89
+          "pitches_r": 89,
+          "velo_p25": 91.5,
+          "velo_p75": 93.0,
+          "velo_p90": 93.1,
+          "velo_n": 28
         },
         {
           "type": "FF",
@@ -1937,7 +2296,11 @@
           "usage_l": 24.3,
           "pitches_l": 76,
           "usage_r": 30.9,
-          "pitches_r": 85
+          "pitches_r": 85,
+          "velo_p25": 94.0,
+          "velo_p75": 95.7,
+          "velo_p90": 96.0,
+          "velo_n": 26
         },
         {
           "type": "CU",
@@ -1955,7 +2318,11 @@
           "usage_l": 26.8,
           "pitches_l": 84,
           "usage_r": 25.1,
-          "pitches_r": 69
+          "pitches_r": 69,
+          "velo_p25": 82.2,
+          "velo_p75": 84.0,
+          "velo_p90": 84.0,
+          "velo_n": 20
         },
         {
           "type": "SL",
@@ -1991,7 +2358,11 @@
           "usage_l": 3.8,
           "pitches_l": 12,
           "usage_r": 4.4,
-          "pitches_r": 12
+          "pitches_r": 12,
+          "velo_p25": 82.2,
+          "velo_p75": 84.0,
+          "velo_p90": 84.0,
+          "velo_n": 20
         },
         {
           "type": "CH",
@@ -2335,7 +2706,524 @@
       "movement_source": "Prospect Savant 2026",
       "movement_season": 2026,
       "ps_season": 2026,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 140,
+              "usage": 36.7
+            },
+            {
+              "type": "CU",
+              "pitches": 109,
+              "usage": 28.6
+            },
+            {
+              "type": "FF",
+              "pitches": 88,
+              "usage": 23.1
+            },
+            {
+              "type": "CH",
+              "pitches": 21,
+              "usage": 5.5
+            },
+            {
+              "type": "ST",
+              "pitches": 14,
+              "usage": 3.7
+            },
+            {
+              "type": "SL",
+              "pitches": 5,
+              "usage": 1.3
+            },
+            {
+              "type": "SI",
+              "pitches": 3,
+              "usage": 0.8
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 0.3
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 124,
+              "usage": 31.9
+            },
+            {
+              "type": "FF",
+              "pitches": 99,
+              "usage": 25.4
+            },
+            {
+              "type": "CU",
+              "pitches": 82,
+              "usage": 21.1
+            },
+            {
+              "type": "ST",
+              "pitches": 48,
+              "usage": 12.3
+            },
+            {
+              "type": "SL",
+              "pitches": 19,
+              "usage": 4.9
+            },
+            {
+              "type": "SI",
+              "pitches": 11,
+              "usage": 2.8
+            },
+            {
+              "type": "CH",
+              "pitches": 6,
+              "usage": 1.5
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 40,
+              "usage": 38.8
+            },
+            {
+              "type": "FF",
+              "pitches": 28,
+              "usage": 27.2
+            },
+            {
+              "type": "CU",
+              "pitches": 25,
+              "usage": 24.3
+            },
+            {
+              "type": "CH",
+              "pitches": 5,
+              "usage": 4.9
+            },
+            {
+              "type": "ST",
+              "pitches": 3,
+              "usage": 2.9
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 1.0
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 1.0
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 31,
+              "usage": 31.3
+            },
+            {
+              "type": "FF",
+              "pitches": 27,
+              "usage": 27.3
+            },
+            {
+              "type": "CU",
+              "pitches": 16,
+              "usage": 16.2
+            },
+            {
+              "type": "ST",
+              "pitches": 16,
+              "usage": 16.2
+            },
+            {
+              "type": "SI",
+              "pitches": 5,
+              "usage": 5.1
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 2.0
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 2.0
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 15,
+              "usage": 62.5
+            },
+            {
+              "type": "FF",
+              "pitches": 5,
+              "usage": 20.8
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 8.3
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 4.2
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 4.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 19,
+              "usage": 47.5
+            },
+            {
+              "type": "FF",
+              "pitches": 13,
+              "usage": 32.5
+            },
+            {
+              "type": "CU",
+              "pitches": 4,
+              "usage": 10.0
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 5.0
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 2.5
+            },
+            {
+              "type": "ST",
+              "pitches": 1,
+              "usage": 2.5
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 49,
+              "usage": 41.2
+            },
+            {
+              "type": "CU",
+              "pitches": 24,
+              "usage": 20.2
+            },
+            {
+              "type": "FF",
+              "pitches": 21,
+              "usage": 17.6
+            },
+            {
+              "type": "CH",
+              "pitches": 14,
+              "usage": 11.8
+            },
+            {
+              "type": "ST",
+              "pitches": 6,
+              "usage": 5.0
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 2.5
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 1.7
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 37,
+              "usage": 35.2
+            },
+            {
+              "type": "FF",
+              "pitches": 23,
+              "usage": 21.9
+            },
+            {
+              "type": "CU",
+              "pitches": 20,
+              "usage": 19.0
+            },
+            {
+              "type": "ST",
+              "pitches": 12,
+              "usage": 11.4
+            },
+            {
+              "type": "SL",
+              "pitches": 6,
+              "usage": 5.7
+            },
+            {
+              "type": "SI",
+              "pitches": 5,
+              "usage": 4.8
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 1.9
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "CU",
+              "pitches": 53,
+              "usage": 54.1
+            },
+            {
+              "type": "FF",
+              "pitches": 19,
+              "usage": 19.4
+            },
+            {
+              "type": "FC",
+              "pitches": 18,
+              "usage": 18.4
+            },
+            {
+              "type": "ST",
+              "pitches": 5,
+              "usage": 5.1
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 2.0
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 1.0
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "CU",
+              "pitches": 37,
+              "usage": 33.9
+            },
+            {
+              "type": "FC",
+              "pitches": 26,
+              "usage": 23.9
+            },
+            {
+              "type": "FF",
+              "pitches": 22,
+              "usage": 20.2
+            },
+            {
+              "type": "ST",
+              "pitches": 15,
+              "usage": 13.8
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 8.3
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 6,
+              "usage": 42.9
+            },
+            {
+              "type": "FF",
+              "pitches": 5,
+              "usage": 35.7
+            },
+            {
+              "type": "CU",
+              "pitches": 3,
+              "usage": 21.4
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 8,
+              "usage": 36.4
+            },
+            {
+              "type": "CU",
+              "pitches": 7,
+              "usage": 31.8
+            },
+            {
+              "type": "FF",
+              "pitches": 4,
+              "usage": 18.2
+            },
+            {
+              "type": "ST",
+              "pitches": 2,
+              "usage": 9.1
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 4.5
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FC",
+              "pitches": 39,
+              "usage": 45.3
+            },
+            {
+              "type": "CU",
+              "pitches": 25,
+              "usage": 29.1
+            },
+            {
+              "type": "FF",
+              "pitches": 18,
+              "usage": 20.9
+            },
+            {
+              "type": "CH",
+              "pitches": 3,
+              "usage": 3.5
+            },
+            {
+              "type": "ST",
+              "pitches": 1,
+              "usage": 1.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FC",
+              "pitches": 36,
+              "usage": 33.6
+            },
+            {
+              "type": "FF",
+              "pitches": 26,
+              "usage": 24.3
+            },
+            {
+              "type": "CU",
+              "pitches": 20,
+              "usage": 18.7
+            },
+            {
+              "type": "ST",
+              "pitches": 16,
+              "usage": 15.0
+            },
+            {
+              "type": "SL",
+              "pitches": 7,
+              "usage": 6.5
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 1.9
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 39.6,
+            "0-0": 41.7,
+            "hitter_ahead": 33.3,
+            "1k": 39.5,
+            "2_strikes": 33.7,
+            "3-2": 50.0,
+            "risp": 47.7
+          },
+          "vs_RHB": {
+            "overall": 42.2,
+            "0-0": 41.4,
+            "hitter_ahead": 55.0,
+            "1k": 50.5,
+            "2_strikes": 36.7,
+            "3-2": 54.5,
+            "risp": 42.1
+          }
+        }
+      },
+      "summer_line": {
+        "team": "COL",
+        "team_name": "Columbus Clingstones",
+        "season": "Summer 2026",
+        "league": "SOU",
+        "circuit": "MiLB",
+        "league_name": "Southern League",
+        "level": "AA",
+        "ip": "17.0",
+        "outs": 51,
+        "g": 14,
+        "gs": 0,
+        "k": 18,
+        "bb": 10,
+        "k9": "9.5",
+        "bb9": "5.3",
+        "era": "5.29",
+        "fip": null,
+        "whip": "1.29",
+        "h": 12,
+        "hr": 2,
+        "sb_allowed": 2,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Carlos Torres",
@@ -3328,6 +4216,39 @@
             "risp": 47.9
           }
         }
+      },
+      "summer_line": {
+        "team": "HFD",
+        "team_name": "Hartford Yard Goats",
+        "season": "Summer 2026",
+        "league": "EAS",
+        "circuit": "MiLB",
+        "league_name": "Eastern League",
+        "level": "AA",
+        "ip": "62.2",
+        "outs": 188,
+        "g": 40,
+        "gs": 0,
+        "k": 54,
+        "bb": 14,
+        "k9": "7.8",
+        "bb9": "2.0",
+        "era": "3.59",
+        "fip": "3.96",
+        "whip": "1.26",
+        "h": 65,
+        "hr": 9,
+        "sb_allowed": 5,
+        "cs_allowed": 2,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -4147,6 +5068,39 @@
             "3-2": 50.0,
             "risp": 40.3
           }
+        }
+      },
+      "summer_line": {
+        "team": "CHI",
+        "team_name": "Dorados de Chihuahua",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "7.0",
+        "outs": 21,
+        "g": 11,
+        "gs": 0,
+        "k": 7,
+        "bb": 5,
+        "k9": "9.0",
+        "bb9": "6.4",
+        "era": "7.71",
+        "fip": "7.39",
+        "whip": "2.14",
+        "h": 10,
+        "hr": 2,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -4995,6 +5949,39 @@
             "risp": 37.1
           }
         }
+      },
+      "summer_line": {
+        "team": "YUC",
+        "team_name": "Leones de Yucatan",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "6.2",
+        "outs": 20,
+        "g": 3,
+        "gs": 2,
+        "k": 2,
+        "bb": 5,
+        "k9": "2.7",
+        "bb9": "6.8",
+        "era": "6.75",
+        "fip": "4.75",
+        "whip": "2.25",
+        "h": 10,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 1,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -5671,6 +6658,39 @@
             "3-2": 54.5,
             "risp": 42.4
           }
+        }
+      },
+      "summer_line": {
+        "team": "LE",
+        "team_name": "Lake Erie Crushers (Avon, OH)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "78.2",
+        "outs": 236,
+        "g": 20,
+        "gs": 13,
+        "k": 62,
+        "bb": 57,
+        "k9": "7.1",
+        "bb9": "6.5",
+        "era": "6.29",
+        "fip": "5.08",
+        "whip": "1.67",
+        "h": 74,
+        "hr": 7,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -6458,7 +7478,40 @@
           }
         }
       },
-      "mlb_id": 806337
+      "mlb_id": 806337,
+      "summer_line": {
+        "team": "WCH",
+        "team_name": "Wichita Wind Surge",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "26.1",
+        "outs": 79,
+        "g": 19,
+        "gs": 0,
+        "k": 22,
+        "bb": 9,
+        "k9": "7.5",
+        "bb9": "3.1",
+        "era": "11.28",
+        "fip": "6.52",
+        "whip": "1.90",
+        "h": 41,
+        "hr": 8,
+        "sb_allowed": 11,
+        "cs_allowed": 0,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "name": "John McMillon",
@@ -6759,7 +7812,39 @@
       "statcast_pitches": 250,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
-      "synergy_id": "58a74e3d35268c61b0b845e1"
+      "synergy_id": "58a74e3d35268c61b0b845e1",
+      "summer_line": {
+        "team": "LHV/CLE",
+        "team_name": "Lehigh Valley IronPigs / Cleburne Railroaders",
+        "season": "Summer 2026",
+        "league": "INT/AA",
+        "circuit": "MiLB+Indy",
+        "league_name": "International League / American Association",
+        "level": "AAA+Indy",
+        "ip": "12.1",
+        "outs": 37,
+        "g": 13,
+        "gs": 0,
+        "k": 13,
+        "bb": 12,
+        "k9": "9.5",
+        "bb9": "8.8",
+        "era": "6.57",
+        "fip": null,
+        "whip": "1.62",
+        "h": 8,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 1,
+        "sport_id": null,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 AAA + Baseball-Reference 2026 Cleburne Indy combined",
+        "field_sources": {
+          "lhv": "MLB Stats API season pitching",
+          "cleburne": "Baseball-Reference register mcmill005joh",
+          "gb": "LHV ground/air outs only (Cleburne GO/AO unavailable)"
+        }
+      }
     },
     {
       "name": "Jorge Benitez",
@@ -7476,6 +8561,39 @@
             "3-2": 62.5,
             "risp": 44.2
           }
+        }
+      },
+      "summer_line": {
+        "team": "NJ",
+        "team_name": "New Jersey Jackals (Little Falls, NJ)",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "48.1",
+        "outs": 145,
+        "g": 41,
+        "gs": 2,
+        "k": 75,
+        "bb": 28,
+        "k9": "14.0",
+        "bb9": "5.2",
+        "era": "5.59",
+        "fip": "4.01",
+        "whip": "1.57",
+        "h": 48,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=benite001jor",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -8395,6 +9513,33 @@
             "risp": 46.0
           }
         }
+      },
+      "summer_line": {
+        "team": "WOR",
+        "team_name": "Worcester Red Sox",
+        "season": "2025 summer",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "75.1",
+        "outs": 226,
+        "g": 22,
+        "gs": 13,
+        "k": 89,
+        "bb": 52,
+        "k9": "10.6",
+        "bb9": "6.2",
+        "era": "6.93",
+        "fip": "5.97",
+        "whip": "1.73",
+        "h": 78,
+        "hr": 16,
+        "sb_allowed": 10,
+        "cs_allowed": 2,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2025 regular-season pitching team split"
       }
     },
     {
@@ -9266,6 +10411,39 @@
             "risp": 39.1
           }
         }
+      },
+      "summer_line": {
+        "team": "NOR",
+        "team_name": "Norfolk Tides",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "48.2",
+        "outs": 146,
+        "g": 41,
+        "gs": 0,
+        "k": 49,
+        "bb": 27,
+        "k9": "9.1",
+        "bb9": "5.0",
+        "era": "2.77",
+        "fip": "4.48",
+        "whip": "1.38",
+        "h": 40,
+        "hr": 6,
+        "sb_allowed": 6,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -9291,7 +10469,11 @@
           "usage_l": 54.8,
           "pitches_l": 34,
           "usage_r": 43.5,
-          "pitches_r": 47
+          "pitches_r": 47,
+          "velo_p25": 87.0,
+          "velo_p75": 89.0,
+          "velo_p90": 90.0,
+          "velo_n": 109
         },
         {
           "type": "SL",
@@ -9309,7 +10491,11 @@
           "usage_l": 4.8,
           "pitches_l": 3,
           "usage_r": 38.0,
-          "pitches_r": 41
+          "pitches_r": 41,
+          "velo_p25": 74.0,
+          "velo_p75": 76.0,
+          "velo_p90": 77.0,
+          "velo_n": 58
         },
         {
           "type": "CH",
@@ -9327,7 +10513,11 @@
           "usage_l": 38.7,
           "pitches_l": 24,
           "usage_r": 15.7,
-          "pitches_r": 17
+          "pitches_r": 17,
+          "velo_p25": 78.0,
+          "velo_p75": 80.0,
+          "velo_p90": 81.0,
+          "velo_n": 44
         },
         {
           "type": "CU",
@@ -9578,7 +10768,361 @@
         "vs_RHH": 108
       },
       "synergy_hand_source": "2026+2025 pool",
-      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked."
+      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 139,
+              "usage": 50.5
+            },
+            {
+              "type": "CH",
+              "pitches": 115,
+              "usage": 41.8
+            },
+            {
+              "type": "SL",
+              "pitches": 20,
+              "usage": 7.3
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 0.4
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 217,
+              "usage": 48.0
+            },
+            {
+              "type": "SL",
+              "pitches": 182,
+              "usage": 40.3
+            },
+            {
+              "type": "CH",
+              "pitches": 40,
+              "usage": 8.8
+            },
+            {
+              "type": "FC",
+              "pitches": 6,
+              "usage": 1.3
+            },
+            {
+              "type": "SI",
+              "pitches": 5,
+              "usage": 1.1
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 0.4
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 44,
+              "usage": 63.8
+            },
+            {
+              "type": "CH",
+              "pitches": 20,
+              "usage": 29.0
+            },
+            {
+              "type": "SL",
+              "pitches": 5,
+              "usage": 7.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 59,
+              "usage": 48.0
+            },
+            {
+              "type": "SL",
+              "pitches": 57,
+              "usage": 46.3
+            },
+            {
+              "type": "CH",
+              "pitches": 6,
+              "usage": 4.9
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 0.8
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 16,
+              "usage": 84.2
+            },
+            {
+              "type": "CH",
+              "pitches": 3,
+              "usage": 15.8
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 24,
+              "usage": 68.6
+            },
+            {
+              "type": "CH",
+              "pitches": 4,
+              "usage": 11.4
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 11.4
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 5.7
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 2.9
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 52,
+              "usage": 55.9
+            },
+            {
+              "type": "CH",
+              "pitches": 36,
+              "usage": 38.7
+            },
+            {
+              "type": "SL",
+              "pitches": 5,
+              "usage": 5.4
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 67,
+              "usage": 49.6
+            },
+            {
+              "type": "SL",
+              "pitches": 52,
+              "usage": 38.5
+            },
+            {
+              "type": "CH",
+              "pitches": 10,
+              "usage": 7.4
+            },
+            {
+              "type": "FC",
+              "pitches": 3,
+              "usage": 2.2
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 1.5
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 0.7
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "CH",
+              "pitches": 42,
+              "usage": 53.2
+            },
+            {
+              "type": "FF",
+              "pitches": 27,
+              "usage": 34.2
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 11.4
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 1.3
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SL",
+              "pitches": 54,
+              "usage": 46.6
+            },
+            {
+              "type": "FF",
+              "pitches": 38,
+              "usage": 32.8
+            },
+            {
+              "type": "CH",
+              "pitches": 21,
+              "usage": 18.1
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 0.9
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 0.9
+            },
+            {
+              "type": "SI",
+              "pitches": 1,
+              "usage": 0.9
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "CH",
+              "pitches": 9,
+              "usage": 50.0
+            },
+            {
+              "type": "FF",
+              "pitches": 8,
+              "usage": 44.4
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 5.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 14,
+              "usage": 66.7
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 19.0
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 9.5
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 4.8
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 46,
+              "usage": 52.9
+            },
+            {
+              "type": "CH",
+              "pitches": 37,
+              "usage": 42.5
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 4.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SL",
+              "pitches": 73,
+              "usage": 45.6
+            },
+            {
+              "type": "FF",
+              "pitches": 66,
+              "usage": 41.2
+            },
+            {
+              "type": "CH",
+              "pitches": 18,
+              "usage": 11.2
+            },
+            {
+              "type": "SI",
+              "pitches": 2,
+              "usage": 1.2
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 0.6
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 45.1,
+            "0-0": 43.5,
+            "hitter_ahead": 68.4,
+            "1k": 46.2,
+            "2_strikes": 38.0,
+            "3-2": 61.1,
+            "risp": 50.6
+          },
+          "vs_RHB": {
+            "overall": 46.2,
+            "0-0": 39.0,
+            "hitter_ahead": 62.9,
+            "1k": 51.9,
+            "2_strikes": 42.2,
+            "3-2": 47.6,
+            "risp": 42.5
+          }
+        }
+      }
     },
     {
       "name": "Magdiel Cotto",
@@ -10210,6 +11754,33 @@
             "risp": 35.9
           }
         }
+      },
+      "summer_line": {
+        "team": "BRD",
+        "team_name": "Bradenton Marauders",
+        "season": "2025 summer",
+        "league": "FSL",
+        "circuit": "MiLB",
+        "league_name": "Florida State League",
+        "level": "A",
+        "ip": "12.1",
+        "outs": 37,
+        "g": 11,
+        "gs": 0,
+        "k": 11,
+        "bb": 12,
+        "k9": "8.0",
+        "bb9": "8.8",
+        "era": "3.65",
+        "fip": "4.72",
+        "whip": "1.95",
+        "h": 12,
+        "hr": 0,
+        "sb_allowed": 6,
+        "cs_allowed": 0,
+        "sport_id": 14,
+        "assignments": 2,
+        "source": "MLB Stats API 2025 regular-season pitching team split"
       }
     },
     {
@@ -10788,6 +12359,32 @@
             "risp": 48.5
           }
         }
+      },
+      "summer_line": {
+        "team": "CAG",
+        "team_name": "Criollos de Caguas",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "11.2",
+        "outs": 35,
+        "g": 12,
+        "gs": 0,
+        "k": 10,
+        "bb": 7,
+        "k9": "7.7",
+        "bb9": "5.4",
+        "era": "6.94",
+        "fip": "3.44",
+        "whip": "1.46",
+        "h": 10,
+        "hr": 0,
+        "sb_allowed": 1,
+        "cs_allowed": 1,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -11697,6 +13294,33 @@
             "risp": 34.5
           }
         }
+      },
+      "summer_line": {
+        "team": "LHV",
+        "team_name": "Lehigh Valley IronPigs",
+        "season": "2025 summer",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "42.1",
+        "outs": 127,
+        "g": 34,
+        "gs": 2,
+        "k": 41,
+        "bb": 29,
+        "k9": "8.7",
+        "bb9": "6.2",
+        "era": "5.10",
+        "fip": "4.45",
+        "whip": "1.54",
+        "h": 36,
+        "hr": 4,
+        "sb_allowed": 8,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2025 regular-season pitching team split"
       }
     },
     {
@@ -12215,7 +13839,34 @@
         "vs_RHH": 313
       },
       "synergy_hand_source": "2025 fallback",
-      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked."
+      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
+      "summer_line": {
+        "team": "CHH",
+        "team_name": "Chihuahua",
+        "season": "Summer 2025",
+        "league": "MEX",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "LMB",
+        "ip": "23.0",
+        "outs": 69,
+        "g": 16,
+        "gs": 1,
+        "k": 21,
+        "bb": 16,
+        "k9": "8.2",
+        "bb9": "6.3",
+        "era": "7.04",
+        "fip": null,
+        "whip": "2.17",
+        "h": 34,
+        "hr": 3,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 Chihuahua Mexican League pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig001seb"
+      }
     },
     {
       "name": "Steven Echavarria",
@@ -12783,7 +14434,40 @@
         ]
       },
       "synergy_usage_source": "2026+2025 pool",
-      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked."
+      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
+      "summer_line": {
+        "team": "LAN",
+        "team_name": "Lansing Lugnuts",
+        "season": "Summer 2026",
+        "league": "MID",
+        "circuit": "MiLB",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "93.2",
+        "outs": 281,
+        "g": 20,
+        "gs": 20,
+        "k": 93,
+        "bb": 45,
+        "k9": "8.9",
+        "bb9": "4.3",
+        "era": "5.28",
+        "fip": null,
+        "whip": "1.47",
+        "h": 93,
+        "hr": 13,
+        "sb_allowed": 18,
+        "cs_allowed": 5,
+        "sport_id": 13,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Tanner Burns",
@@ -12811,7 +14495,11 @@
           "usage_l": 52.0,
           "pitches_l": 132,
           "usage_r": 49.5,
-          "pitches_r": 159
+          "pitches_r": 159,
+          "velo_p25": 92.9,
+          "velo_p75": 94.7,
+          "velo_p90": 95.3,
+          "velo_n": 183
         },
         {
           "type": "SL",
@@ -12829,7 +14517,11 @@
           "usage_l": 25.6,
           "pitches_l": 65,
           "usage_r": 38.0,
-          "pitches_r": 122
+          "pitches_r": 122,
+          "velo_p25": 84.0,
+          "velo_p75": 86.1,
+          "velo_p90": 87.1,
+          "velo_n": 137
         },
         {
           "type": "FS",
@@ -12847,7 +14539,11 @@
           "usage_l": 13.4,
           "pitches_l": 34,
           "usage_r": 5.6,
-          "pitches_r": 18
+          "pitches_r": 18,
+          "velo_p25": 87.7,
+          "velo_p75": 89.0,
+          "velo_p90": 89.4,
+          "velo_n": 43
         },
         {
           "type": "CU",
@@ -12865,7 +14561,11 @@
           "usage_l": 7.1,
           "pitches_l": 18,
           "usage_r": 6.9,
-          "pitches_r": 22
+          "pitches_r": 22,
+          "velo_p25": 77.8,
+          "velo_p75": 79.6,
+          "velo_p90": 80.4,
+          "velo_n": 29
         },
         {
           "type": "CH",
@@ -13111,7 +14811,419 @@
       "movement_source": "Prospect Savant 2026",
       "movement_season": 2026,
       "ps_season": 2026,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 175,
+              "usage": 50.9
+            },
+            {
+              "type": "SL",
+              "pitches": 85,
+              "usage": 24.7
+            },
+            {
+              "type": "FS",
+              "pitches": 34,
+              "usage": 9.9
+            },
+            {
+              "type": "CU",
+              "pitches": 33,
+              "usage": 9.6
+            },
+            {
+              "type": "CH",
+              "pitches": 17,
+              "usage": 4.9
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 221,
+              "usage": 49.9
+            },
+            {
+              "type": "SL",
+              "pitches": 150,
+              "usage": 33.9
+            },
+            {
+              "type": "CU",
+              "pitches": 44,
+              "usage": 9.9
+            },
+            {
+              "type": "FS",
+              "pitches": 18,
+              "usage": 4.1
+            },
+            {
+              "type": "CH",
+              "pitches": 10,
+              "usage": 2.3
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "SL",
+              "pitches": 31,
+              "usage": 36.9
+            },
+            {
+              "type": "FF",
+              "pitches": 30,
+              "usage": 35.7
+            },
+            {
+              "type": "CU",
+              "pitches": 19,
+              "usage": 22.6
+            },
+            {
+              "type": "FS",
+              "pitches": 3,
+              "usage": 3.6
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 47,
+              "usage": 43.1
+            },
+            {
+              "type": "SL",
+              "pitches": 41,
+              "usage": 37.6
+            },
+            {
+              "type": "CU",
+              "pitches": 18,
+              "usage": 16.5
+            },
+            {
+              "type": "FS",
+              "pitches": 2,
+              "usage": 1.8
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 0.9
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 23,
+              "usage": 67.6
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 26.5
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 2.9
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 2.9
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 25,
+              "usage": 73.5
+            },
+            {
+              "type": "SL",
+              "pitches": 8,
+              "usage": 23.5
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 2.9
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 57,
+              "usage": 53.3
+            },
+            {
+              "type": "SL",
+              "pitches": 24,
+              "usage": 22.4
+            },
+            {
+              "type": "FS",
+              "pitches": 12,
+              "usage": 11.2
+            },
+            {
+              "type": "CH",
+              "pitches": 8,
+              "usage": 7.5
+            },
+            {
+              "type": "CU",
+              "pitches": 6,
+              "usage": 5.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 62,
+              "usage": 48.8
+            },
+            {
+              "type": "SL",
+              "pitches": 48,
+              "usage": 37.8
+            },
+            {
+              "type": "CU",
+              "pitches": 9,
+              "usage": 7.1
+            },
+            {
+              "type": "FS",
+              "pitches": 6,
+              "usage": 4.7
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 1.6
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 54,
+              "usage": 58.1
+            },
+            {
+              "type": "FS",
+              "pitches": 15,
+              "usage": 16.1
+            },
+            {
+              "type": "SL",
+              "pitches": 13,
+              "usage": 14.0
+            },
+            {
+              "type": "CU",
+              "pitches": 6,
+              "usage": 6.5
+            },
+            {
+              "type": "CH",
+              "pitches": 5,
+              "usage": 5.4
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 75,
+              "usage": 54.7
+            },
+            {
+              "type": "SL",
+              "pitches": 33,
+              "usage": 24.1
+            },
+            {
+              "type": "CU",
+              "pitches": 13,
+              "usage": 9.5
+            },
+            {
+              "type": "FS",
+              "pitches": 9,
+              "usage": 6.6
+            },
+            {
+              "type": "CH",
+              "pitches": 7,
+              "usage": 5.1
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 16,
+              "usage": 61.5
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 34.6
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 3.8
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 20,
+              "usage": 74.1
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 11.1
+            },
+            {
+              "type": "FS",
+              "pitches": 2,
+              "usage": 7.4
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 7.4
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 53,
+              "usage": 44.2
+            },
+            {
+              "type": "SL",
+              "pitches": 35,
+              "usage": 29.2
+            },
+            {
+              "type": "FS",
+              "pitches": 18,
+              "usage": 15.0
+            },
+            {
+              "type": "CU",
+              "pitches": 9,
+              "usage": 7.5
+            },
+            {
+              "type": "CH",
+              "pitches": 5,
+              "usage": 4.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 70,
+              "usage": 51.1
+            },
+            {
+              "type": "SL",
+              "pitches": 48,
+              "usage": 35.0
+            },
+            {
+              "type": "FS",
+              "pitches": 13,
+              "usage": 9.5
+            },
+            {
+              "type": "CU",
+              "pitches": 6,
+              "usage": 4.4
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 40.1,
+            "0-0": 41.7,
+            "hitter_ahead": 35.3,
+            "1k": 36.4,
+            "2_strikes": 44.1,
+            "3-2": 61.5,
+            "risp": 36.7
+          },
+          "vs_RHB": {
+            "overall": 38.4,
+            "0-0": 45.9,
+            "hitter_ahead": 47.1,
+            "1k": 40.2,
+            "2_strikes": 27.0,
+            "3-2": 51.9,
+            "risp": 34.3
+          }
+        }
+      },
+      "summer_line": {
+        "team": "COL",
+        "team_name": "Columbus Clippers",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "26.2",
+        "outs": 80,
+        "g": 24,
+        "gs": 0,
+        "k": 29,
+        "bb": 22,
+        "k9": "9.8",
+        "bb9": "7.4",
+        "era": "7.09",
+        "fip": null,
+        "whip": "1.73",
+        "h": 24,
+        "hr": 3,
+        "sb_allowed": 4,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Tyler Myrick",
@@ -13816,6 +15928,39 @@
             "risp": 53.0
           }
         }
+      },
+      "summer_line": {
+        "team": "TAB",
+        "team_name": "Olmecas de Tabasco",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "0.1",
+        "outs": 1,
+        "g": 2,
+        "gs": 0,
+        "k": 0,
+        "bb": 1,
+        "k9": "0.0",
+        "bb9": "27.0",
+        "era": "81.00",
+        "fip": "90.10",
+        "whip": "15.00",
+        "h": 4,
+        "hr": 2,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -14221,7 +16366,40 @@
         "vs_LHH": 1067,
         "vs_RHH": 858
       },
-      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+      "synergy_hand_source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "summer_line": {
+        "team": "KNX",
+        "team_name": "Knoxville Smokies",
+        "season": "Summer 2026",
+        "league": "SOU",
+        "circuit": "MiLB",
+        "league_name": "Southern League",
+        "level": "AA",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 18,
+        "gs": 0,
+        "k": 37,
+        "bb": 12,
+        "k9": "10.1",
+        "bb9": "3.3",
+        "era": "3.82",
+        "fip": null,
+        "whip": "1.42",
+        "h": 35,
+        "hr": 1,
+        "sb_allowed": 4,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Yacksel Rios",
@@ -14953,6 +17131,39 @@
             "risp": 42.0
           }
         }
+      },
+      "summer_line": {
+        "team": "IOW",
+        "team_name": "Iowa Cubs",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "17.0",
+        "outs": 51,
+        "g": 11,
+        "gs": 0,
+        "k": 15,
+        "bb": 10,
+        "k9": "7.9",
+        "bb9": "5.3",
+        "era": "4.24",
+        "fip": "7.10",
+        "whip": "1.47",
+        "h": 15,
+        "hr": 5,
+        "sb_allowed": 1,
+        "cs_allowed": 1,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -15625,6 +17836,39 @@
             "risp": 31.7
           }
         }
+      },
+      "summer_line": {
+        "team": "ROC",
+        "team_name": "Rochester Red Wings",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "46.1",
+        "outs": 139,
+        "g": 36,
+        "gs": 9,
+        "k": 41,
+        "bb": 34,
+        "k9": "8.0",
+        "bb9": "6.6",
+        "era": "4.27",
+        "fip": "5.41",
+        "whip": "1.73",
+        "h": 46,
+        "hr": 6,
+        "sb_allowed": 5,
+        "cs_allowed": 1,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -15976,7 +18220,25 @@
         "vs_LHH": 613,
         "vs_RHH": 1138
       },
-      "synergy_hand_source": "synergy_unfiltered"
+      "synergy_hand_source": "synergy_unfiltered",
+      "summer_line": {
+        "team": "Fort Myers Mighty Mussels",
+        "team_name": "Fort Myers Mighty Mussels",
+        "season": "Summer 2023",
+        "league": null,
+        "circuit": "MiLB",
+        "level": "A",
+        "ip": "58.1",
+        "g": 41,
+        "gs": 0,
+        "k": 48,
+        "bb": 26,
+        "era": "4.32",
+        "whip": "1.30",
+        "h": 50,
+        "hr": 6,
+        "source": "MLB Stats API 2023 A pitching"
+      }
     },
     {
       "name": "Adiel Melendez",
@@ -16631,6 +18893,39 @@
             "risp": 45.9
           }
         }
+      },
+      "summer_line": {
+        "team": "AUG",
+        "team_name": "Augusta GreenJackets (Augusta, GA)",
+        "season": "Summer 2026",
+        "league": "CARL",
+        "circuit": "Baseball Reference",
+        "league_name": "Carolina League",
+        "level": "A",
+        "ip": "52.0",
+        "outs": 156,
+        "g": 26,
+        "gs": 0,
+        "k": 61,
+        "bb": 21,
+        "k9": "10.6",
+        "bb9": "3.6",
+        "era": "2.42",
+        "fip": "3.25",
+        "whip": "1.06",
+        "h": 34,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=melend000adi",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -16659,7 +18954,11 @@
           "usage_l": 65.2,
           "pitches_l": 103,
           "usage_r": 57.2,
-          "pitches_r": 219
+          "pitches_r": 219,
+          "velo_p25": 91.0,
+          "velo_p75": 92.0,
+          "velo_p90": 93.0,
+          "velo_n": 240
         },
         {
           "type": "CU",
@@ -16677,7 +18976,11 @@
           "usage_l": 16.5,
           "pitches_l": 26,
           "usage_r": 19.8,
-          "pitches_r": 76
+          "pitches_r": 76,
+          "velo_p25": 74.0,
+          "velo_p75": 76.0,
+          "velo_p90": 77.0,
+          "velo_n": 70
         },
         {
           "type": "SL",
@@ -16695,7 +18998,11 @@
           "usage_l": 3.2,
           "pitches_l": 5,
           "usage_r": 17.5,
-          "pitches_r": 67
+          "pitches_r": 67,
+          "velo_p25": 74.0,
+          "velo_p75": 76.0,
+          "velo_p90": 78.9,
+          "velo_n": 52
         },
         {
           "type": "CH",
@@ -16713,7 +19020,11 @@
           "usage_l": 13.9,
           "pitches_l": 22,
           "usage_r": 4.4,
-          "pitches_r": 17
+          "pitches_r": 17,
+          "velo_p25": 79.0,
+          "velo_p75": 81.5,
+          "velo_p90": 83.0,
+          "velo_n": 27
         },
         {
           "type": "FS",
@@ -17015,7 +19326,290 @@
         "vs_RHH": 383
       },
       "synergy_hand_source": "years [2021, 2022]",
-      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked."
+      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 39,
+              "usage": 69.6
+            },
+            {
+              "type": "CU",
+              "pitches": 7,
+              "usage": 12.5
+            },
+            {
+              "type": "CH",
+              "pitches": 5,
+              "usage": 8.9
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 5.4
+            },
+            {
+              "type": "FS",
+              "pitches": 2,
+              "usage": 3.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 64,
+              "usage": 74.4
+            },
+            {
+              "type": "CU",
+              "pitches": 9,
+              "usage": 10.5
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 10.5
+            },
+            {
+              "type": "FS",
+              "pitches": 3,
+              "usage": 3.5
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.2
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 8,
+              "usage": 57.1
+            },
+            {
+              "type": "CU",
+              "pitches": 4,
+              "usage": 28.6
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 7.1
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 7.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 14,
+              "usage": 77.8
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 16.7
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 5.6
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 11,
+              "usage": 100.0
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 100.0
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 10,
+              "usage": 58.8
+            },
+            {
+              "type": "CU",
+              "pitches": 3,
+              "usage": 17.6
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 11.8
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 11.8
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 16,
+              "usage": 69.6
+            },
+            {
+              "type": "CU",
+              "pitches": 4,
+              "usage": 17.4
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 13.0
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 66.7
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 22.2
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 11.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 22,
+              "usage": 68.8
+            },
+            {
+              "type": "CU",
+              "pitches": 4,
+              "usage": 12.5
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 9.4
+            },
+            {
+              "type": "FS",
+              "pitches": 2,
+              "usage": 6.2
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 3.1
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 8,
+              "usage": 80.0
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 10.0
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 10.0
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 8,
+              "usage": 72.7
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 18.2
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 9.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 19,
+              "usage": 63.3
+            },
+            {
+              "type": "SL",
+              "pitches": 7,
+              "usage": 23.3
+            },
+            {
+              "type": "CU",
+              "pitches": 3,
+              "usage": 10.0
+            },
+            {
+              "type": "FS",
+              "pitches": 1,
+              "usage": 3.3
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 35.7,
+            "0-0": 35.7,
+            "hitter_ahead": 18.2,
+            "1k": 29.4,
+            "2_strikes": 55.6,
+            "3-2": null,
+            "risp": 18.2
+          },
+          "vs_RHB": {
+            "overall": 47.7,
+            "0-0": 33.3,
+            "hitter_ahead": null,
+            "1k": 60.9,
+            "2_strikes": 43.8,
+            "3-2": 70.0,
+            "risp": 60.0
+          }
+        }
+      }
     },
     {
       "name": "Alexander Castro",
@@ -17669,6 +20263,32 @@
             "risp": 40.1
           }
         }
+      },
+      "summer_line": {
+        "team": "SJU",
+        "team_name": "Senadores de San Juan",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "9.2",
+        "outs": 29,
+        "g": 12,
+        "gs": 0,
+        "k": 10,
+        "bb": 9,
+        "k9": "9.3",
+        "bb9": "8.4",
+        "era": "11.17",
+        "fip": "5.17",
+        "whip": "1.76",
+        "h": 8,
+        "hr": 1,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -18476,6 +21096,39 @@
             "3-2": 50.0,
             "risp": 40.5
           }
+        }
+      },
+      "summer_line": {
+        "team": "NOR",
+        "team_name": "Norfolk Tides",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "31.1",
+        "outs": 94,
+        "g": 10,
+        "gs": 7,
+        "k": 26,
+        "bb": 20,
+        "k9": "7.5",
+        "bb9": "5.7",
+        "era": "5.74",
+        "fip": "4.60",
+        "whip": "1.72",
+        "h": 34,
+        "hr": 3,
+        "sb_allowed": 8,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -19413,6 +22066,39 @@
             "risp": 31.1
           }
         }
+      },
+      "summer_line": {
+        "team": "HOU",
+        "team_name": "Houston Astros",
+        "season": "Summer 2026",
+        "league": "AL",
+        "circuit": "MLB",
+        "league_name": "American League",
+        "level": "MLB",
+        "ip": "20.0",
+        "outs": 60,
+        "g": 8,
+        "gs": 3,
+        "k": 22,
+        "bb": 14,
+        "k9": "9.9",
+        "bb9": "6.3",
+        "era": "5.40",
+        "fip": "5.10",
+        "whip": "1.75",
+        "h": 21,
+        "hr": 3,
+        "sb_allowed": 2,
+        "cs_allowed": 0,
+        "sport_id": 1,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -20055,6 +22741,32 @@
             "risp": 43.4
           }
         }
+      },
+      "summer_line": {
+        "team": "CAR",
+        "team_name": "Gigantes de Carolina",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "12.2",
+        "outs": 38,
+        "g": 19,
+        "gs": 0,
+        "k": 7,
+        "bb": 4,
+        "k9": "5.0",
+        "bb9": "2.8",
+        "era": "3.55",
+        "fip": "3.42",
+        "whip": "1.18",
+        "h": 11,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -20967,6 +23679,39 @@
             "risp": 36.2
           }
         }
+      },
+      "summer_line": {
+        "team": "SWB",
+        "team_name": "Scranton/Wilkes-Barre RailRiders",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "106.1",
+        "outs": 319,
+        "g": 21,
+        "gs": 21,
+        "k": 105,
+        "bb": 54,
+        "k9": "8.9",
+        "bb9": "4.6",
+        "era": "2.45",
+        "fip": "3.40",
+        "whip": "1.31",
+        "h": 85,
+        "hr": 5,
+        "sb_allowed": 7,
+        "cs_allowed": 8,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -20995,7 +23740,11 @@
           "usage_l": 87.5,
           "pitches_l": 21,
           "usage_r": 81.6,
-          "pitches_r": 31
+          "pitches_r": 31,
+          "velo_p25": 89.0,
+          "velo_p75": 91.0,
+          "velo_p90": 92.0,
+          "velo_n": 235
         },
         {
           "type": "CH",
@@ -21011,7 +23760,11 @@
           "whiff": 100.0,
           "xwoba": null,
           "usage_r": 15.8,
-          "pitches_r": 6
+          "pitches_r": 6,
+          "velo_p25": 82.0,
+          "velo_p75": 86.5,
+          "velo_p90": 87.0,
+          "velo_n": 15
         },
         {
           "type": "SL",
@@ -21029,7 +23782,11 @@
           "usage_l": 12.5,
           "pitches_l": 3,
           "usage_r": 2.6,
-          "pitches_r": 1
+          "pitches_r": 1,
+          "velo_p25": 80.8,
+          "velo_p75": 85.0,
+          "velo_p90": 86.1,
+          "velo_n": 20
         },
         {
           "type": "FC",
@@ -21040,7 +23797,11 @@
           "hb_pitcher": 1.2,
           "hb_hitter": -1.2,
           "usage": 14.2,
-          "pitches": 73
+          "pitches": 73,
+          "velo_p25": 85.0,
+          "velo_p75": 86.0,
+          "velo_p90": 86.0,
+          "velo_n": 13
         }
       ],
       "usage_by_count": {
@@ -21199,7 +23960,331 @@
       "movement_source": "Prospect Savant 2023",
       "movement_season": 2023,
       "ps_season": 2023,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 106,
+              "usage": 58.2
+            },
+            {
+              "type": "SL",
+              "pitches": 39,
+              "usage": 21.4
+            },
+            {
+              "type": "FC",
+              "pitches": 35,
+              "usage": 19.2
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 1.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 305,
+              "usage": 52.4
+            },
+            {
+              "type": "CH",
+              "pitches": 108,
+              "usage": 18.6
+            },
+            {
+              "type": "FC",
+              "pitches": 105,
+              "usage": 18.0
+            },
+            {
+              "type": "SL",
+              "pitches": 64,
+              "usage": 11.0
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 27,
+              "usage": 55.1
+            },
+            {
+              "type": "FC",
+              "pitches": 12,
+              "usage": 24.5
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 18.4
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 2.0
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 91,
+              "usage": 56.9
+            },
+            {
+              "type": "FC",
+              "pitches": 33,
+              "usage": 20.6
+            },
+            {
+              "type": "CH",
+              "pitches": 27,
+              "usage": 16.9
+            },
+            {
+              "type": "SL",
+              "pitches": 9,
+              "usage": 5.6
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 22,
+              "usage": 91.7
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 4.2
+            },
+            {
+              "type": "SL",
+              "pitches": 1,
+              "usage": 4.2
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 61,
+              "usage": 74.4
+            },
+            {
+              "type": "FC",
+              "pitches": 13,
+              "usage": 15.9
+            },
+            {
+              "type": "CH",
+              "pitches": 5,
+              "usage": 6.1
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 3.7
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 28,
+              "usage": 51.9
+            },
+            {
+              "type": "SL",
+              "pitches": 14,
+              "usage": 25.9
+            },
+            {
+              "type": "FC",
+              "pitches": 11,
+              "usage": 20.4
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.9
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 74,
+              "usage": 43.8
+            },
+            {
+              "type": "CH",
+              "pitches": 37,
+              "usage": 21.9
+            },
+            {
+              "type": "FC",
+              "pitches": 36,
+              "usage": 21.3
+            },
+            {
+              "type": "SL",
+              "pitches": 22,
+              "usage": 13.0
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 15,
+              "usage": 44.1
+            },
+            {
+              "type": "SL",
+              "pitches": 13,
+              "usage": 38.2
+            },
+            {
+              "type": "FC",
+              "pitches": 6,
+              "usage": 17.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 45,
+              "usage": 39.1
+            },
+            {
+              "type": "CH",
+              "pitches": 28,
+              "usage": 24.3
+            },
+            {
+              "type": "SL",
+              "pitches": 28,
+              "usage": 24.3
+            },
+            {
+              "type": "FC",
+              "pitches": 14,
+              "usage": 12.2
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 4,
+              "usage": 80.0
+            },
+            {
+              "type": "FC",
+              "pitches": 1,
+              "usage": 20.0
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 10,
+              "usage": 50.0
+            },
+            {
+              "type": "SL",
+              "pitches": 5,
+              "usage": 25.0
+            },
+            {
+              "type": "FC",
+              "pitches": 3,
+              "usage": 15.0
+            },
+            {
+              "type": "CH",
+              "pitches": 2,
+              "usage": 10.0
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 36,
+              "usage": 62.1
+            },
+            {
+              "type": "SL",
+              "pitches": 13,
+              "usage": 22.4
+            },
+            {
+              "type": "FC",
+              "pitches": 8,
+              "usage": 13.8
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 1.7
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 110,
+              "usage": 50.5
+            },
+            {
+              "type": "CH",
+              "pitches": 44,
+              "usage": 20.2
+            },
+            {
+              "type": "FC",
+              "pitches": 41,
+              "usage": 18.8
+            },
+            {
+              "type": "SL",
+              "pitches": 23,
+              "usage": 10.6
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 35.7,
+            "0-0": 16.3,
+            "hitter_ahead": 41.7,
+            "1k": 42.6,
+            "2_strikes": 41.2,
+            "3-2": null,
+            "risp": 31.0
+          },
+          "vs_RHB": {
+            "overall": 36.6,
+            "0-0": 35.0,
+            "hitter_ahead": 35.4,
+            "1k": 40.2,
+            "2_strikes": 37.4,
+            "3-2": 50.0,
+            "risp": 31.2
+          }
+        }
+      }
     },
     {
       "name": "Jake Gozzo",
@@ -22396,6 +25481,39 @@
             "risp": 38.8
           }
         }
+      },
+      "summer_line": {
+        "team": "WIL",
+        "team_name": "Wilson Warbirds (Wilson, NC)",
+        "season": "Summer 2026",
+        "league": "CARL",
+        "circuit": "Baseball Reference",
+        "league_name": "Carolina League",
+        "level": "A",
+        "ip": "109.1",
+        "outs": 328,
+        "g": 24,
+        "gs": 17,
+        "k": 100,
+        "bb": 55,
+        "k9": "8.2",
+        "bb9": "4.5",
+        "era": "4.86",
+        "fip": "4.37",
+        "whip": "1.43",
+        "h": 101,
+        "hr": 12,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=bonet-000jar",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -23099,6 +26217,39 @@
             "risp": 48.5
           }
         }
+      },
+      "summer_line": {
+        "team": "DAY",
+        "team_name": "Dayton Dragons (Dayton, OH)",
+        "season": "Summer 2026",
+        "league": "MIDW",
+        "circuit": "Baseball Reference",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "67.0",
+        "outs": 201,
+        "g": 17,
+        "gs": 17,
+        "k": 62,
+        "bb": 32,
+        "k9": "8.3",
+        "bb9": "4.3",
+        "era": "5.91",
+        "fip": "4.46",
+        "whip": "1.55",
+        "h": 72,
+        "hr": 8,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=ortiz-001jea",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -23164,7 +26315,34 @@
       "statcast_pitches": null,
       "view": "hitter",
       "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
-      "arm_slot_image": "assets/advance/jimenez_joe_delivery.jpg"
+      "arm_slot_image": "assets/advance/jimenez_joe_delivery.jpg",
+      "summer_line": {
+        "team": "ATL",
+        "team_name": "Atlanta Braves",
+        "season": "Summer 2024",
+        "league": "NL",
+        "circuit": "MLB",
+        "league_name": "National League",
+        "level": "MLB",
+        "ip": "68.2",
+        "outs": 206,
+        "g": 69,
+        "gs": 0,
+        "k": 82,
+        "bb": 23,
+        "k9": "10.8",
+        "bb9": "3.0",
+        "era": "2.62",
+        "fip": null,
+        "whip": "0.99",
+        "h": 45,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "MLB Stats API 2024 Atlanta Braves pitching",
+        "source_url": "https://statsapi.mlb.com/api/v1/people/641729"
+      }
     },
     {
       "name": "Joe Riley",
@@ -23906,6 +27084,39 @@
             "risp": 52.0
           }
         }
+      },
+      "summer_line": {
+        "team": "MTY",
+        "team_name": "Sultanes de Monterrey",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "10.2",
+        "outs": 32,
+        "g": 9,
+        "gs": 0,
+        "k": 12,
+        "bb": 2,
+        "k9": "10.1",
+        "bb9": "1.7",
+        "era": "7.59",
+        "fip": "5.07",
+        "whip": "1.78",
+        "h": 17,
+        "hr": 3,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -24597,6 +27808,36 @@
             "3-2": 35.3,
             "risp": 41.9
           }
+        }
+      },
+      "summer_line": {
+        "team": "SB",
+        "team_name": "South Bend Cubs (South Bend, IN)",
+        "season": "2025 summer",
+        "league": "MIDW",
+        "circuit": "Baseball Reference",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "33.0",
+        "outs": 99,
+        "g": 24,
+        "gs": 0,
+        "k": 43,
+        "bb": 16,
+        "k9": "11.7",
+        "bb9": "4.4",
+        "era": "1.64",
+        "fip": "3.10",
+        "whip": "0.94",
+        "h": 15,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=oquend000joh",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
         }
       }
     },
@@ -26425,6 +29666,39 @@
             "risp": 38.1
           }
         }
+      },
+      "summer_line": {
+        "team": "OAX",
+        "team_name": "Guerreros de Oaxaca",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "33.1",
+        "outs": 100,
+        "g": 9,
+        "gs": 6,
+        "k": 26,
+        "bb": 8,
+        "k9": "7.0",
+        "bb9": "2.2",
+        "era": "4.86",
+        "fip": "4.00",
+        "whip": "1.23",
+        "h": 33,
+        "hr": 4,
+        "sb_allowed": 2,
+        "cs_allowed": 1,
+        "sport_id": 23,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -27474,6 +30748,39 @@
             "risp": 33.8
           }
         }
+      },
+      "summer_line": {
+        "team": "WOR",
+        "team_name": "Worcester Red Sox",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "45.1",
+        "outs": 136,
+        "g": 28,
+        "gs": 5,
+        "k": 46,
+        "bb": 29,
+        "k9": "9.1",
+        "bb9": "5.8",
+        "era": "4.76",
+        "fip": "6.06",
+        "whip": "1.43",
+        "h": 36,
+        "hr": 10,
+        "sb_allowed": 17,
+        "cs_allowed": 2,
+        "sport_id": 11,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -28075,6 +31382,32 @@
             "risp": 37.0
           }
         }
+      },
+      "summer_line": {
+        "team": "CAR",
+        "team_name": "Gigantes de Carolina",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "11.0",
+        "outs": 33,
+        "g": 13,
+        "gs": 0,
+        "k": 4,
+        "bb": 3,
+        "k9": "3.3",
+        "bb9": "2.5",
+        "era": "5.73",
+        "fip": "4.65",
+        "whip": "1.73",
+        "h": 16,
+        "hr": 1,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -28148,7 +31481,37 @@
         }
       },
       "synergy_usage_source": "none",
-      "mlb_id": 670232
+      "mlb_id": 670232,
+      "summer_line": {
+        "team": "PP",
+        "team_name": "Point Park Pioneers ()",
+        "season": "Summer 2026",
+        "league": "MEC",
+        "circuit": "Baseball Reference",
+        "league_name": "Mountain East Conference",
+        "level": "NCAA",
+        "ip": "63.2",
+        "outs": 191,
+        "g": 14,
+        "gs": 11,
+        "k": 65,
+        "bb": 11,
+        "k9": "9.2",
+        "bb9": "1.6",
+        "era": "3.68",
+        "fip": "2.83",
+        "whip": "1.19",
+        "h": 65,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig024ram",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2026 standard pitching"
+        }
+      }
     },
     {
       "name": "Raymond Burgos",
@@ -28914,6 +32277,39 @@
             "risp": 54.3
           }
         }
+      },
+      "summer_line": {
+        "team": "WOR",
+        "team_name": "Worcester Red Sox",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "70.0",
+        "outs": 210,
+        "g": 17,
+        "gs": 15,
+        "k": 58,
+        "bb": 29,
+        "k9": "7.5",
+        "bb9": "3.7",
+        "era": "5.14",
+        "fip": "4.07",
+        "whip": "1.60",
+        "h": 83,
+        "hr": 7,
+        "sb_allowed": 10,
+        "cs_allowed": 1,
+        "sport_id": 11,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -29593,6 +32989,39 @@
             "3-2": null,
             "risp": 41.3
           }
+        }
+      },
+      "summer_line": {
+        "team": "FRI",
+        "team_name": "Frisco RoughRiders",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "24.1",
+        "outs": 73,
+        "g": 17,
+        "gs": 0,
+        "k": 18,
+        "bb": 11,
+        "k9": "6.7",
+        "bb9": "4.1",
+        "era": "5.18",
+        "fip": "5.07",
+        "whip": "1.60",
+        "h": 28,
+        "hr": 3,
+        "sb_allowed": 2,
+        "cs_allowed": 2,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -30323,6 +33752,39 @@
             "risp": 46.1
           }
         }
+      },
+      "summer_line": {
+        "team": "CLT",
+        "team_name": "Charlotte Knights",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "27.2",
+        "outs": 83,
+        "g": 15,
+        "gs": 0,
+        "k": 23,
+        "bb": 10,
+        "k9": "7.5",
+        "bb9": "3.2",
+        "era": "5.20",
+        "fip": "5.09",
+        "whip": "1.27",
+        "h": 25,
+        "hr": 5,
+        "sb_allowed": 5,
+        "cs_allowed": 2,
+        "sport_id": 11,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -30344,7 +33806,34 @@
       "statcast_seasons": [],
       "statcast_pitches": null,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked."
+      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "summer_line": {
+        "team": "LIN",
+        "team_name": "Lincoln Saltdogs",
+        "season": "Summer 2025",
+        "league": "AA",
+        "circuit": "Baseball Reference",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "1.0",
+        "outs": 3,
+        "g": null,
+        "gs": 0,
+        "k": 1,
+        "bb": 1,
+        "k9": "9.0",
+        "bb9": "9.0",
+        "era": null,
+        "fip": null,
+        "whip": null,
+        "h": null,
+        "hr": null,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 Lincoln Saltdogs pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gonzal003sau"
+      }
     },
     {
       "name": "Yusei Tobita",
@@ -31318,6 +34807,39 @@
             "risp": 41.9
           }
         }
+      },
+      "summer_line": {
+        "team": "LI",
+        "team_name": "Long Island Ducks (Central Islip, NY)",
+        "season": "Summer 2026",
+        "league": "ATLL",
+        "circuit": "Independent",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "15.0",
+        "outs": 45,
+        "g": 15,
+        "gs": 0,
+        "k": 23,
+        "bb": 6,
+        "k9": "13.8",
+        "bb9": "3.6",
+        "era": "4.80",
+        "fip": "2.30",
+        "whip": "1.27",
+        "h": 13,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=reyes-009ang",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -32044,6 +35566,36 @@
             "risp": 46.6
           }
         }
+      },
+      "summer_line": {
+        "team": "CLE",
+        "team_name": "Cleburne Railroaders (Cleburne, TX)",
+        "season": "Summer 2024",
+        "league": "AA",
+        "circuit": "Baseball Reference",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "74.2",
+        "outs": 224,
+        "g": 15,
+        "gs": 13,
+        "k": 44,
+        "bb": 17,
+        "k9": "5.3",
+        "bb9": "2.0",
+        "era": "4.58",
+        "fip": "4.77",
+        "whip": "1.45",
+        "h": 91,
+        "hr": 12,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2024 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=velez-001ant",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2024 standard pitching"
+        }
       }
     },
     {
@@ -32731,6 +36283,32 @@
             "risp": 47.3
           }
         }
+      },
+      "summer_line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "41.2",
+        "outs": 125,
+        "g": 10,
+        "gs": 9,
+        "k": 26,
+        "bb": 17,
+        "k9": "5.6",
+        "bb9": "3.7",
+        "era": "1.30",
+        "fip": "3.77",
+        "whip": "0.98",
+        "h": 24,
+        "hr": 2,
+        "sb_allowed": 5,
+        "cs_allowed": 2,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -33625,6 +37203,39 @@
             "risp": 38.7
           }
         }
+      },
+      "summer_line": {
+        "team": "SLW",
+        "team_name": "Saraperos de Saltillo",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "13.0",
+        "outs": 39,
+        "g": 5,
+        "gs": 5,
+        "k": 9,
+        "bb": 6,
+        "k9": "6.2",
+        "bb9": "4.2",
+        "era": "6.23",
+        "fip": "3.33",
+        "whip": "1.54",
+        "h": 14,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -34402,6 +38013,33 @@
             "risp": 48.7
           }
         }
+      },
+      "summer_line": {
+        "team": "TAB",
+        "team_name": "Olmecas de Tabasco",
+        "season": "2025 summer",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "23.2",
+        "outs": 71,
+        "g": 29,
+        "gs": 0,
+        "k": 19,
+        "bb": 15,
+        "k9": "7.2",
+        "bb9": "5.7",
+        "era": "9.89",
+        "fip": "5.55",
+        "whip": "1.94",
+        "h": 31,
+        "hr": 3,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 2,
+        "source": "MLB Stats API 2025 regular-season pitching team split"
       }
     },
     {
@@ -35241,6 +38879,39 @@
             "usage": 0.4
           }
         ]
+      },
+      "summer_line": {
+        "team": "HBG",
+        "team_name": "Harrisburg Senators",
+        "season": "Summer 2026",
+        "league": "EAS",
+        "circuit": "MiLB",
+        "league_name": "Eastern League",
+        "level": "AA",
+        "ip": "27.2",
+        "outs": 83,
+        "g": 8,
+        "gs": 8,
+        "k": 24,
+        "bb": 23,
+        "k9": "7.8",
+        "bb9": "7.5",
+        "era": "3.90",
+        "fip": "5.02",
+        "whip": "1.66",
+        "h": 23,
+        "hr": 2,
+        "sb_allowed": 7,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -36215,6 +39886,39 @@
             "risp": 40.6
           }
         }
+      },
+      "summer_line": {
+        "team": "DUR",
+        "team_name": "Caliente de Durango",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "23.1",
+        "outs": 70,
+        "g": 25,
+        "gs": 0,
+        "k": 33,
+        "bb": 5,
+        "k9": "12.7",
+        "bb9": "1.9",
+        "era": "3.09",
+        "fip": "1.60",
+        "whip": "1.11",
+        "h": 21,
+        "hr": 1,
+        "sb_allowed": 2,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -37091,6 +40795,36 @@
             "risp": 50.0
           }
         }
+      },
+      "summer_line": {
+        "team": "VIL",
+        "team_name": "Villanova Wildcats ()",
+        "season": "College 2024",
+        "league": "BigE",
+        "circuit": "Baseball Reference",
+        "league_name": "Big East Conference",
+        "level": "NCAA",
+        "ip": "61.1",
+        "outs": 184,
+        "g": 14,
+        "gs": 13,
+        "k": 31,
+        "bb": 26,
+        "k9": "4.5",
+        "bb9": "3.8",
+        "era": "6.60",
+        "fip": "5.12",
+        "whip": "1.60",
+        "h": 72,
+        "hr": 6,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2024 NCAA pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rivera002dev",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2024 NCAA pitching"
+        }
       }
     },
     {
@@ -37830,7 +41564,40 @@
           }
         }
       },
-      "mlb_id": 681493
+      "mlb_id": 681493,
+      "summer_line": {
+        "team": "LAG",
+        "team_name": "Algodoneros Union Laguna",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "6.0",
+        "outs": 18,
+        "g": 1,
+        "gs": 1,
+        "k": 3,
+        "bb": 1,
+        "k9": "4.5",
+        "bb9": "1.5",
+        "era": "0.00",
+        "fip": "2.60",
+        "whip": "0.83",
+        "h": 4,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "name": "Hector Hernandez",
@@ -38724,6 +42491,32 @@
             "risp": 45.9
           }
         }
+      },
+      "summer_line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "23.2",
+        "outs": 71,
+        "g": 8,
+        "gs": 5,
+        "k": 21,
+        "bb": 6,
+        "k9": "8.0",
+        "bb9": "2.3",
+        "era": "0.38",
+        "fip": "2.21",
+        "whip": "0.97",
+        "h": 17,
+        "hr": 0,
+        "sb_allowed": 1,
+        "cs_allowed": 2,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -39553,7 +43346,40 @@
           }
         }
       },
-      "mlb_id": 805248
+      "mlb_id": 805248,
+      "summer_line": {
+        "team": "LAR",
+        "team_name": "Tecos de los Dos Laredos",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "54.1",
+        "outs": 163,
+        "g": 47,
+        "gs": 1,
+        "k": 59,
+        "bb": 37,
+        "k9": "9.8",
+        "bb9": "6.1",
+        "era": "5.30",
+        "fip": "4.15",
+        "whip": "1.80",
+        "h": 61,
+        "hr": 4,
+        "sb_allowed": 3,
+        "cs_allowed": 1,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "name": "Jorge Lopez",
@@ -40613,6 +44439,39 @@
             "risp": 38.2
           }
         }
+      },
+      "summer_line": {
+        "team": "SLW",
+        "team_name": "Saraperos de Saltillo",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "11.0",
+        "outs": 33,
+        "g": 12,
+        "gs": 0,
+        "k": 13,
+        "bb": 5,
+        "k9": "10.6",
+        "bb9": "4.1",
+        "era": "4.09",
+        "fip": "2.37",
+        "whip": "1.45",
+        "h": 11,
+        "hr": 0,
+        "sb_allowed": 5,
+        "cs_allowed": 1,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -41290,6 +45149,39 @@
             "risp": 52.8
           }
         }
+      },
+      "summer_line": {
+        "team": "YAK",
+        "team_name": "Yakult",
+        "season": "Summer 2026",
+        "league": "JPFL",
+        "circuit": "Foreign",
+        "league_name": "Japan Farm League",
+        "level": "Fg",
+        "ip": "19.1",
+        "outs": 58,
+        "g": 20,
+        "gs": null,
+        "k": 24,
+        "bb": 4,
+        "k9": "11.2",
+        "bb9": "1.9",
+        "era": "2.79",
+        "fip": "2.74",
+        "whip": "1.50",
+        "h": 25,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=taguch000kaz",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -41813,6 +45705,39 @@
             "3-2": null,
             "risp": 42.9
           }
+        }
+      },
+      "summer_line": {
+        "team": "TR",
+        "team_name": "Trois-Rivieres",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "34.2",
+        "outs": 104,
+        "g": 17,
+        "gs": 4,
+        "k": 30,
+        "bb": 15,
+        "k9": "7.8",
+        "bb9": "3.9",
+        "era": "8.05",
+        "fip": "5.44",
+        "whip": "1.85",
+        "h": 49,
+        "hr": 6,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=vega--001luc",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -43405,6 +47330,39 @@
             "risp": 43.2
           }
         }
+      },
+      "summer_line": {
+        "team": "WCH",
+        "team_name": "Wichita Wind Surge",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "20.0",
+        "outs": 60,
+        "g": 17,
+        "gs": 0,
+        "k": 33,
+        "bb": 19,
+        "k9": "14.8",
+        "bb9": "8.6",
+        "era": "3.60",
+        "fip": "3.95",
+        "whip": "1.50",
+        "h": 11,
+        "hr": 2,
+        "sb_allowed": 3,
+        "cs_allowed": 0,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -44316,6 +48274,39 @@
             "risp": 45.9
           }
         }
+      },
+      "summer_line": {
+        "team": "TWI",
+        "team_name": "DSL Twins ()",
+        "season": "Summer 2026",
+        "league": "DOSL",
+        "circuit": "Baseball Reference",
+        "league_name": "Dominican Summer League",
+        "level": "FRk",
+        "ip": "26.0",
+        "outs": 78,
+        "g": 11,
+        "gs": 3,
+        "k": 30,
+        "bb": 23,
+        "k9": "10.4",
+        "bb9": "8.0",
+        "era": "6.92",
+        "fip": "5.68",
+        "whip": "1.89",
+        "h": 26,
+        "hr": 4,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=martin014mig",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -44904,6 +48895,33 @@
             "risp": 41.2
           }
         }
+      },
+      "summer_line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "Winter 2024-25",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Beisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "18.1",
+        "outs": 55,
+        "g": null,
+        "gs": 0,
+        "k": 16,
+        "bb": 12,
+        "k9": "7.9",
+        "bb9": "5.9",
+        "era": null,
+        "fip": null,
+        "whip": null,
+        "h": null,
+        "hr": null,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2024-25 Mayaguez winter pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=fuente002nel"
       }
     },
     {
@@ -45277,7 +49295,40 @@
         "vs_RHH": 549
       },
       "synergy_hand_source": "2026+2025 pool",
-      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked."
+      "note": "Count (overall/0-0/2K) + vs LHH/RHH from Synergy pitcherId events (Count + Left/Right filters). Movement stays Prospect Savant when tracked.",
+      "summer_line": {
+        "team": "LE",
+        "team_name": "Lake Elsinore Storm",
+        "season": "Summer 2026",
+        "league": "CAL",
+        "circuit": "MiLB",
+        "league_name": "California League",
+        "level": "A",
+        "ip": "36.1",
+        "outs": 109,
+        "g": 32,
+        "gs": 0,
+        "k": 47,
+        "bb": 40,
+        "k9": "11.6",
+        "bb9": "9.9",
+        "era": "5.94",
+        "fip": null,
+        "whip": "1.95",
+        "h": 31,
+        "hr": 0,
+        "sb_allowed": 7,
+        "cs_allowed": 0,
+        "sport_id": 14,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Sebastian Bentz",
@@ -46130,7 +50181,40 @@
       "movement_source": "Prospect Savant 2026",
       "movement_season": 2026,
       "ps_season": 2026,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "summer_line": {
+        "team": "BUF",
+        "team_name": "Buffalo Bisons",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "15.2",
+        "outs": 47,
+        "g": 13,
+        "gs": 1,
+        "k": 26,
+        "bb": 12,
+        "k9": "14.9",
+        "bb9": "6.9",
+        "era": "2.87",
+        "fip": null,
+        "whip": "1.28",
+        "h": 8,
+        "hr": 0,
+        "sb_allowed": 7,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Alex Claudio",
@@ -46898,6 +50982,39 @@
             "3-2": null,
             "risp": 36.4
           }
+        }
+      },
+      "summer_line": {
+        "team": "SLW",
+        "team_name": "Saraperos de Saltillo",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "27.0",
+        "outs": 81,
+        "g": 39,
+        "gs": 0,
+        "k": 24,
+        "bb": 6,
+        "k9": "8.0",
+        "bb9": "2.0",
+        "era": "3.67",
+        "fip": "3.43",
+        "whip": "1.52",
+        "h": 35,
+        "hr": 3,
+        "sb_allowed": 2,
+        "cs_allowed": 1,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -47843,6 +51960,39 @@
             "risp": 41.4
           }
         }
+      },
+      "summer_line": {
+        "team": "CC",
+        "team_name": "Corpus Christi Hooks",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "53.1",
+        "outs": 160,
+        "g": 39,
+        "gs": 0,
+        "k": 82,
+        "bb": 33,
+        "k9": "13.8",
+        "bb9": "5.6",
+        "era": "3.38",
+        "fip": "2.67",
+        "whip": "1.46",
+        "h": 45,
+        "hr": 3,
+        "sb_allowed": 15,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -48683,6 +52833,39 @@
             "risp": 41.0
           }
         }
+      },
+      "summer_line": {
+        "team": "F-AST",
+        "team_name": "FCL Astros",
+        "season": "Summer 2026",
+        "league": "FCL",
+        "circuit": "MiLB",
+        "league_name": "Florida Complex League",
+        "level": "ROK",
+        "ip": "13.1",
+        "outs": 40,
+        "g": 10,
+        "gs": 1,
+        "k": 23,
+        "bb": 6,
+        "k9": "15.5",
+        "bb9": "4.0",
+        "era": "2.70",
+        "fip": "2.20",
+        "whip": "0.90",
+        "h": 6,
+        "hr": 1,
+        "sb_allowed": 3,
+        "cs_allowed": 0,
+        "sport_id": 16,
+        "assignments": 4,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -49468,6 +53651,39 @@
             "risp": 44.6
           }
         }
+      },
+      "summer_line": {
+        "team": "FM",
+        "team_name": "Fort Myers Mighty Mussels (Fort Myers, FL)",
+        "season": "Summer 2026",
+        "league": "FLOR",
+        "circuit": "Baseball Reference",
+        "league_name": "Florida State League",
+        "level": "A",
+        "ip": "2.2",
+        "outs": 8,
+        "g": 2,
+        "gs": 2,
+        "k": 3,
+        "bb": 1,
+        "k9": "10.1",
+        "bb9": "3.4",
+        "era": "16.88",
+        "fip": "6.85",
+        "whip": "2.25",
+        "h": 5,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=soto--000cha",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -50182,6 +54398,32 @@
             "risp": 35.3
           }
         }
+      },
+      "summer_line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "10.0",
+        "outs": 30,
+        "g": 11,
+        "gs": 0,
+        "k": 10,
+        "bb": 6,
+        "k9": "9.0",
+        "bb9": "5.4",
+        "era": "3.60",
+        "fip": "4.10",
+        "whip": "1.20",
+        "h": 6,
+        "hr": 0,
+        "sb_allowed": 2,
+        "cs_allowed": 1,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -50778,6 +55020,39 @@
             "3-2": 54.8,
             "risp": 41.7
           }
+        }
+      },
+      "summer_line": {
+        "team": "CHE",
+        "team_name": "Chesapeake Baysox",
+        "season": "Summer 2026",
+        "league": "EAS",
+        "circuit": "MiLB",
+        "league_name": "Eastern League",
+        "level": "AA",
+        "ip": "21.1",
+        "outs": 64,
+        "g": 17,
+        "gs": 0,
+        "k": 28,
+        "bb": 19,
+        "k9": "11.8",
+        "bb9": "8.0",
+        "era": "7.17",
+        "fip": "6.10",
+        "whip": "1.88",
+        "h": 21,
+        "hr": 3,
+        "sb_allowed": 7,
+        "cs_allowed": 3,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -51473,6 +55748,39 @@
             "risp": 45.0
           }
         }
+      },
+      "summer_line": {
+        "team": "POR",
+        "team_name": "Portland Sea Dogs",
+        "season": "Summer 2026",
+        "league": "EAS",
+        "circuit": "MiLB",
+        "league_name": "Eastern League",
+        "level": "AA",
+        "ip": "59.0",
+        "outs": 177,
+        "g": 35,
+        "gs": 0,
+        "k": 88,
+        "bb": 41,
+        "k9": "13.4",
+        "bb9": "6.2",
+        "era": "5.34",
+        "fip": "3.93",
+        "whip": "1.56",
+        "h": 51,
+        "hr": 6,
+        "sb_allowed": 11,
+        "cs_allowed": 2,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -52097,6 +56405,39 @@
             "3-2": 33.3,
             "risp": 36.9
           }
+        }
+      },
+      "summer_line": {
+        "team": "BNG",
+        "team_name": "Binghamton Rumble Ponies",
+        "season": "Summer 2026",
+        "league": "EAS",
+        "circuit": "MiLB",
+        "league_name": "Eastern League",
+        "level": "AA",
+        "ip": "46.1",
+        "outs": 139,
+        "g": 40,
+        "gs": 2,
+        "k": 68,
+        "bb": 46,
+        "k9": "13.2",
+        "bb9": "8.9",
+        "era": "5.24",
+        "fip": "5.24",
+        "whip": "1.68",
+        "h": 32,
+        "hr": 7,
+        "sb_allowed": 13,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -52824,6 +57165,39 @@
             "risp": 41.1
           }
         }
+      },
+      "summer_line": {
+        "team": "LIN",
+        "team_name": "Lincoln",
+        "season": "Summer 2026",
+        "league": "AA",
+        "circuit": "Independent",
+        "league_name": "American Association",
+        "level": "Ind",
+        "ip": "45.2",
+        "outs": 137,
+        "g": 27,
+        "gs": 3,
+        "k": 48,
+        "bb": 24,
+        "k9": "9.5",
+        "bb9": "4.7",
+        "era": "7.69",
+        "fip": "5.53",
+        "whip": "1.82",
+        "h": 59,
+        "hr": 9,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cortij000har",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -53391,7 +57765,37 @@
           }
         }
       },
-      "mlb_id": -346674215
+      "mlb_id": -346674215,
+      "summer_line": {
+        "team": "MID",
+        "team_name": "Midway Eagles ()",
+        "season": "Summer 2017",
+        "league": "RSC",
+        "circuit": "Baseball Reference",
+        "league_name": "River States Conference",
+        "level": "NAIA",
+        "ip": "67.1",
+        "outs": 202,
+        "g": 14,
+        "gs": 12,
+        "k": 48,
+        "bb": 29,
+        "k9": "6.4",
+        "bb9": "3.9",
+        "era": "3.34",
+        "fip": "4.02",
+        "whip": "1.37",
+        "h": 63,
+        "hr": 2,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2017 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=quinon002hec",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2017 standard pitching"
+        }
+      }
     },
     {
       "name": "John Aponte",
@@ -54556,7 +58960,40 @@
           }
         }
       },
-      "mlb_id": 642834
+      "mlb_id": 642834,
+      "summer_line": {
+        "team": "VER",
+        "team_name": "El Aguila de Veracruz",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "91.1",
+        "outs": 274,
+        "g": 19,
+        "gs": 19,
+        "k": 74,
+        "bb": 34,
+        "k9": "7.3",
+        "bb9": "3.4",
+        "era": "5.52",
+        "fip": "4.53",
+        "whip": "1.52",
+        "h": 105,
+        "hr": 12,
+        "sb_allowed": 11,
+        "cs_allowed": 8,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
+      }
     },
     {
       "name": "Jorhan Laboy",
@@ -54958,6 +59395,39 @@
             "3-2": null,
             "risp": null
           }
+        }
+      },
+      "summer_line": {
+        "team": "AS",
+        "team_name": "Alabama State Hornets ()",
+        "season": "Summer 2026",
+        "league": "SWAC",
+        "circuit": "Baseball Reference",
+        "league_name": "Southwestern Athletic Conference",
+        "level": "NCAA",
+        "ip": "89.1",
+        "outs": 268,
+        "g": 18,
+        "gs": 17,
+        "k": 67,
+        "bb": 25,
+        "k9": "6.8",
+        "bb9": "2.5",
+        "era": "4.84",
+        "fip": "4.44",
+        "whip": "1.48",
+        "h": 107,
+        "hr": 11,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 2,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=laboy-001jor",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -55599,6 +60069,32 @@
             "risp": 39.5
           }
         }
+      },
+      "summer_line": {
+        "team": "MAY",
+        "team_name": "Indios de Mayaguez",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "0.1",
+        "outs": 1,
+        "g": 1,
+        "gs": 0,
+        "k": 0,
+        "bb": 1,
+        "k9": "0.0",
+        "bb9": "27.0",
+        "era": "0.00",
+        "fip": "21.10",
+        "whip": "3.00",
+        "h": 0,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -56503,6 +60999,32 @@
             "risp": 48.4
           }
         }
+      },
+      "summer_line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "14.1",
+        "outs": 43,
+        "g": 15,
+        "gs": 0,
+        "k": 4,
+        "bb": 3,
+        "k9": "2.5",
+        "bb9": "1.9",
+        "era": "0.63",
+        "fip": "3.59",
+        "whip": "1.19",
+        "h": 14,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 1,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -57819,6 +62341,39 @@
             "risp": 40.1
           }
         }
+      },
+      "summer_line": {
+        "team": "LHV",
+        "team_name": "Lehigh Valley IronPigs",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "6.2",
+        "outs": 20,
+        "g": 5,
+        "gs": 0,
+        "k": 7,
+        "bb": 7,
+        "k9": "9.4",
+        "bb9": "9.4",
+        "era": "12.15",
+        "fip": "8.05",
+        "whip": "2.40",
+        "h": 9,
+        "hr": 2,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -58245,6 +62800,36 @@
             "3-2": null,
             "risp": 38.8
           }
+        }
+      },
+      "summer_line": {
+        "team": "LE",
+        "team_name": "Lake Elsinore Storm (Lake Elsinore, CA)",
+        "season": "2025 summer",
+        "league": "CALL",
+        "circuit": "Baseball Reference",
+        "league_name": "California League",
+        "level": "A",
+        "ip": "9.2",
+        "outs": 29,
+        "g": 6,
+        "gs": 0,
+        "k": 10,
+        "bb": 5,
+        "k9": "9.3",
+        "bb9": "4.7",
+        "era": "6.52",
+        "fip": "2.58",
+        "whip": "2.17",
+        "h": 16,
+        "hr": 0,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2025 standard pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=zabala000mar",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register 2025 standard pitching"
         }
       }
     },
@@ -59287,6 +63872,39 @@
             "usage": 0.2
           }
         ]
+      },
+      "summer_line": {
+        "team": "ARK",
+        "team_name": "Arkansas Travelers",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "66.1",
+        "outs": 199,
+        "g": 17,
+        "gs": 17,
+        "k": 59,
+        "bb": 42,
+        "k9": "8.0",
+        "bb9": "5.7",
+        "era": "6.11",
+        "fip": "5.60",
+        "whip": "1.51",
+        "h": 58,
+        "hr": 11,
+        "sb_allowed": 11,
+        "cs_allowed": 5,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -59935,6 +64553,32 @@
             "risp": 27.1
           }
         }
+      },
+      "summer_line": {
+        "team": "PON",
+        "team_name": "Leones de Ponce",
+        "season": "2025 LBPRC winter",
+        "league": "LBPRC",
+        "circuit": "LBPRC",
+        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+        "level": "Winter",
+        "ip": "15.1",
+        "outs": 46,
+        "g": 14,
+        "gs": 0,
+        "k": 10,
+        "bb": 6,
+        "k9": "5.9",
+        "bb9": "3.5",
+        "era": "2.35",
+        "fip": "2.97",
+        "whip": "1.43",
+        "h": 16,
+        "hr": 0,
+        "sb_allowed": 1,
+        "cs_allowed": 1,
+        "assignments": 1,
+        "source": "Local LBPRC 2025 season pitching file"
       }
     },
     {
@@ -60596,6 +65240,39 @@
             "3-2": 50.0,
             "risp": 29.4
           }
+        }
+      },
+      "summer_line": {
+        "team": "BRO",
+        "team_name": "Brockton",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "Independent",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "37.0",
+        "outs": 111,
+        "g": 8,
+        "gs": 7,
+        "k": 26,
+        "bb": 25,
+        "k9": "6.3",
+        "bb9": "6.1",
+        "era": "6.81",
+        "fip": "5.72",
+        "whip": "1.68",
+        "h": 37,
+        "hr": 5,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 1,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=melend001oma",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -61441,6 +66118,39 @@
             "3-2": 66.7,
             "risp": 40.2
           }
+        }
+      },
+      "summer_line": {
+        "team": "PNS",
+        "team_name": "Pensacola Blue Wahoos",
+        "season": "Summer 2026",
+        "league": "SOU",
+        "circuit": "MiLB",
+        "league_name": "Southern League",
+        "level": "AA",
+        "ip": "87.2",
+        "outs": 263,
+        "g": 22,
+        "gs": 20,
+        "k": 88,
+        "bb": 40,
+        "k9": "9.0",
+        "bb9": "4.1",
+        "era": "6.06",
+        "fip": "3.40",
+        "whip": "1.56",
+        "h": 97,
+        "hr": 4,
+        "sb_allowed": 22,
+        "cs_allowed": 3,
+        "sport_id": 12,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -62307,6 +67017,39 @@
             "risp": 44.2
           }
         }
+      },
+      "summer_line": {
+        "team": "STP",
+        "team_name": "St. Paul Saints",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "60.1",
+        "outs": 181,
+        "g": 22,
+        "gs": 12,
+        "k": 67,
+        "bb": 28,
+        "k9": "10.0",
+        "bb9": "4.2",
+        "era": "5.52",
+        "fip": "5.55",
+        "whip": "1.59",
+        "h": 68,
+        "hr": 15,
+        "sb_allowed": 10,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
+        }
       }
     },
     {
@@ -62335,7 +67078,11 @@
           "usage_l": 35.9,
           "pitches_l": 209,
           "usage_r": 42.9,
-          "pitches_r": 221
+          "pitches_r": 221,
+          "velo_p25": 92.3,
+          "velo_p75": 93.9,
+          "velo_p90": 94.3,
+          "velo_n": 166
         },
         {
           "type": "CU",
@@ -62353,7 +67100,11 @@
           "usage_l": 24.6,
           "pitches_l": 143,
           "usage_r": 27.0,
-          "pitches_r": 139
+          "pitches_r": 139,
+          "velo_p25": 81.2,
+          "velo_p75": 85.8,
+          "velo_p90": 86.6,
+          "velo_n": 138
         },
         {
           "type": "FF",
@@ -62371,7 +67122,11 @@
           "usage_l": 13.6,
           "pitches_l": 79,
           "usage_r": 12.2,
-          "pitches_r": 63
+          "pitches_r": 63,
+          "velo_p25": 93.1,
+          "velo_p75": 94.0,
+          "velo_p90": 94.5,
+          "velo_n": 19
         },
         {
           "type": "FC",
@@ -62389,7 +67144,11 @@
           "usage_l": 12.9,
           "pitches_l": 75,
           "usage_r": 12.8,
-          "pitches_r": 66
+          "pitches_r": 66,
+          "velo_p25": 86.6,
+          "velo_p75": 87.7,
+          "velo_p90": 87.8,
+          "velo_n": 64
         },
         {
           "type": "SL",
@@ -62737,7 +67496,431 @@
       "movement_source": "Prospect Savant 2026",
       "movement_season": 2026,
       "ps_season": 2026,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "count_hand_mix": {
+        "overall": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 175,
+              "usage": 39.4
+            },
+            {
+              "type": "CU",
+              "pitches": 118,
+              "usage": 26.6
+            },
+            {
+              "type": "FC",
+              "pitches": 63,
+              "usage": 14.2
+            },
+            {
+              "type": "FF",
+              "pitches": 49,
+              "usage": 11.0
+            },
+            {
+              "type": "SL",
+              "pitches": 23,
+              "usage": 5.2
+            },
+            {
+              "type": "CH",
+              "pitches": 16,
+              "usage": 3.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 163,
+              "usage": 47.2
+            },
+            {
+              "type": "CU",
+              "pitches": 102,
+              "usage": 29.6
+            },
+            {
+              "type": "FC",
+              "pitches": 43,
+              "usage": 12.5
+            },
+            {
+              "type": "FF",
+              "pitches": 29,
+              "usage": 8.4
+            },
+            {
+              "type": "SL",
+              "pitches": 8,
+              "usage": 2.3
+            }
+          ]
+        },
+        "0-0": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 43,
+              "usage": 37.7
+            },
+            {
+              "type": "CU",
+              "pitches": 38,
+              "usage": 33.3
+            },
+            {
+              "type": "FC",
+              "pitches": 14,
+              "usage": 12.3
+            },
+            {
+              "type": "FF",
+              "pitches": 12,
+              "usage": 10.5
+            },
+            {
+              "type": "SL",
+              "pitches": 7,
+              "usage": 6.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 50,
+              "usage": 52.6
+            },
+            {
+              "type": "CU",
+              "pitches": 27,
+              "usage": 28.4
+            },
+            {
+              "type": "FC",
+              "pitches": 10,
+              "usage": 10.5
+            },
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 6.3
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 2.1
+            }
+          ]
+        },
+        "hitter_ahead": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 20,
+              "usage": 51.3
+            },
+            {
+              "type": "FF",
+              "pitches": 12,
+              "usage": 30.8
+            },
+            {
+              "type": "CU",
+              "pitches": 3,
+              "usage": 7.7
+            },
+            {
+              "type": "FC",
+              "pitches": 2,
+              "usage": 5.1
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 5.1
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 17,
+              "usage": 51.5
+            },
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 18.2
+            },
+            {
+              "type": "FC",
+              "pitches": 5,
+              "usage": 15.2
+            },
+            {
+              "type": "CU",
+              "pitches": 5,
+              "usage": 15.2
+            }
+          ]
+        },
+        "1k": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 47,
+              "usage": 40.5
+            },
+            {
+              "type": "CU",
+              "pitches": 26,
+              "usage": 22.4
+            },
+            {
+              "type": "FC",
+              "pitches": 23,
+              "usage": 19.8
+            },
+            {
+              "type": "FF",
+              "pitches": 13,
+              "usage": 11.2
+            },
+            {
+              "type": "CH",
+              "pitches": 4,
+              "usage": 3.4
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 2.6
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 45,
+              "usage": 42.1
+            },
+            {
+              "type": "CU",
+              "pitches": 34,
+              "usage": 31.8
+            },
+            {
+              "type": "FC",
+              "pitches": 15,
+              "usage": 14.0
+            },
+            {
+              "type": "FF",
+              "pitches": 9,
+              "usage": 8.4
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 3.7
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 50,
+              "usage": 36.2
+            },
+            {
+              "type": "CU",
+              "pitches": 37,
+              "usage": 26.8
+            },
+            {
+              "type": "FC",
+              "pitches": 20,
+              "usage": 14.5
+            },
+            {
+              "type": "FF",
+              "pitches": 12,
+              "usage": 8.7
+            },
+            {
+              "type": "SL",
+              "pitches": 10,
+              "usage": 7.2
+            },
+            {
+              "type": "CH",
+              "pitches": 9,
+              "usage": 6.5
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 39,
+              "usage": 45.3
+            },
+            {
+              "type": "CU",
+              "pitches": 29,
+              "usage": 33.7
+            },
+            {
+              "type": "FC",
+              "pitches": 10,
+              "usage": 11.6
+            },
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 7.0
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 2.3
+            }
+          ]
+        },
+        "3-2": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 7,
+              "usage": 33.3
+            },
+            {
+              "type": "CU",
+              "pitches": 7,
+              "usage": 33.3
+            },
+            {
+              "type": "FC",
+              "pitches": 5,
+              "usage": 23.8
+            },
+            {
+              "type": "CH",
+              "pitches": 1,
+              "usage": 4.8
+            },
+            {
+              "type": "FF",
+              "pitches": 1,
+              "usage": 4.8
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 8,
+              "usage": 44.4
+            },
+            {
+              "type": "FC",
+              "pitches": 5,
+              "usage": 27.8
+            },
+            {
+              "type": "CU",
+              "pitches": 4,
+              "usage": 22.2
+            },
+            {
+              "type": "FF",
+              "pitches": 1,
+              "usage": 5.6
+            }
+          ]
+        },
+        "risp": {
+          "vs_LHB": [
+            {
+              "type": "SI",
+              "pitches": 73,
+              "usage": 39.2
+            },
+            {
+              "type": "CU",
+              "pitches": 50,
+              "usage": 26.9
+            },
+            {
+              "type": "FC",
+              "pitches": 32,
+              "usage": 17.2
+            },
+            {
+              "type": "SL",
+              "pitches": 12,
+              "usage": 6.5
+            },
+            {
+              "type": "CH",
+              "pitches": 10,
+              "usage": 5.4
+            },
+            {
+              "type": "FF",
+              "pitches": 9,
+              "usage": 4.8
+            }
+          ],
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 50,
+              "usage": 48.1
+            },
+            {
+              "type": "CU",
+              "pitches": 29,
+              "usage": 27.9
+            },
+            {
+              "type": "FC",
+              "pitches": 14,
+              "usage": 13.5
+            },
+            {
+              "type": "FF",
+              "pitches": 7,
+              "usage": 6.7
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 3.8
+            }
+          ]
+        },
+        "iz": {
+          "vs_LHB": {
+            "overall": 38.3,
+            "0-0": 40.4,
+            "hitter_ahead": 30.8,
+            "1k": 49.1,
+            "2_strikes": 29.0,
+            "3-2": 47.6,
+            "risp": 36.6
+          },
+          "vs_RHB": {
+            "overall": 42.0,
+            "0-0": 52.6,
+            "hitter_ahead": 36.4,
+            "1k": 44.9,
+            "2_strikes": 33.7,
+            "3-2": 33.3,
+            "risp": 47.1
+          }
+        }
+      }
     },
     {
       "name": "Tyler Gough",
@@ -63509,6 +68692,39 @@
             "3-2": 53.8,
             "risp": 44.3
           }
+        }
+      },
+      "summer_line": {
+        "team": "GL",
+        "team_name": "Great Lakes Loons (Midland, MI)",
+        "season": "Summer 2026",
+        "league": "MIDW",
+        "circuit": "Baseball Reference",
+        "league_name": "Midwest League",
+        "level": "A+",
+        "ip": "42.0",
+        "outs": 126,
+        "g": 10,
+        "gs": 9,
+        "k": 55,
+        "bb": 25,
+        "k9": "11.8",
+        "bb9": "5.4",
+        "era": "1.71",
+        "fip": "2.72",
+        "whip": "0.98",
+        "h": 16,
+        "hr": 1,
+        "sb_allowed": null,
+        "cs_allowed": null,
+        "assignments": 3,
+        "source": "Baseball Reference Register 2026 regular-season pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gough-000tyl",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference Register standard pitching",
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
         }
       }
     },
@@ -77659,6 +82875,25 @@
             "usage": 9.3
           }
         ]
+      },
+      "summer_line": {
+        "team": "NWARK",
+        "team_name": "Northwest Arkansas Naturals",
+        "season": "Summer 2024",
+        "league": "TL",
+        "circuit": "MiLB",
+        "level": "AA",
+        "ip": "53.0",
+        "outs": 159,
+        "g": 39,
+        "gs": 0,
+        "k": 71,
+        "bb": 30,
+        "era": "5.60",
+        "whip": "1.43",
+        "h": 46,
+        "hr": 3,
+        "source": "MLB Stats API 2024 AA pitching"
       }
     },
     {
@@ -90075,7 +95310,40 @@
       "movement_source": "Prospect Savant 2026",
       "movement_season": 2026,
       "ps_season": 2026,
-      "ps_source": "Prospect Savant"
+      "ps_source": "Prospect Savant",
+      "summer_line": {
+        "team": "OKC",
+        "team_name": "Oklahoma City Comets",
+        "season": "Summer 2026",
+        "league": "PCL",
+        "circuit": "MiLB",
+        "league_name": "Pacific Coast League",
+        "level": "AAA",
+        "ip": "76.1",
+        "outs": 229,
+        "g": 26,
+        "gs": 11,
+        "k": 58,
+        "bb": 33,
+        "k9": "6.8",
+        "bb9": "3.9",
+        "era": "5.19",
+        "fip": null,
+        "whip": "1.51",
+        "h": 82,
+        "hr": 10,
+        "sb_allowed": 10,
+        "cs_allowed": 5,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "name": "Sidney Duprey",
@@ -90693,7 +95961,7 @@
       }
     }
   ],
-  "updated": "2026-11-04T19:03:01Z",
+  "updated": "2026-11-04T19:24:32Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",
