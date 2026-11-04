@@ -813,7 +813,7 @@ def local_pitching_index() -> tuple[dict[int, dict], dict[str, list[dict]]]:
 
 
 def pack_ps(pid: int) -> tuple[list[dict], int | None]:
-    for season in (2026, 2025, 2024, 2023, 2022):
+    for season in (2026, 2025, 2024, 2023):
         try:
             rows = bpa.http_json(f"{bpa.PS_BASE}/stuff/{pid}/{season}", timeout=20)
         except Exception as exc:  # noqa: BLE001
@@ -928,7 +928,11 @@ def merge_movement(row: dict, pitches: list[dict], *, source: str, season, throw
             continue
         matched.add(code)
         for key in ("ivb", "hb_pitcher", "hb_hitter", "spin"):
-            if not finite(pitch.get(key)) and finite(source_pitch.get(key)):
+            cur = pitch.get(key)
+            src = source_pitch.get(key)
+            cur_missing = (not finite(cur)) or (key == "spin" and float(cur or 0) <= 0)
+            src_ok = finite(src) and not (key == "spin" and float(src or 0) <= 0)
+            if cur_missing and src_ok:
                 pitch[key] = source_pitch[key]
         if pitch.get("velo") in (None, "", 0, 0.0) and source_pitch.get("velo"):
             pitch["velo"] = source_pitch["velo"]

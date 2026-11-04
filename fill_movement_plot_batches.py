@@ -139,7 +139,11 @@ def merge_plot_only(row: dict, pitches: list[dict], *, source: str, season, thro
             continue
         matched.add(code)
         for key in ("ivb", "hb_pitcher", "hb_hitter", "spin"):
-            if not holes.finite(pitch.get(key)) and holes.finite(source_pitch.get(key)):
+            cur = pitch.get(key)
+            src = source_pitch.get(key)
+            cur_missing = (not holes.finite(cur)) or (key == "spin" and float(cur or 0) <= 0)
+            src_ok = holes.finite(src) and not (key == "spin" and float(src or 0) <= 0)
+            if cur_missing and src_ok:
                 pitch[key] = source_pitch[key]
         if pitch.get("velo") in (None, "", 0, 0.0) and source_pitch.get("velo"):
             pitch["velo"] = source_pitch["velo"]
@@ -316,42 +320,11 @@ def lookup_pitcher(player: dict, row: dict, checkpoint_ids: dict, token_box: dic
                 "throws": throws,
                 "attempts": [{"source": "Prospect Savant", "season": season, "n": len(pitches)}],
             }
-        attempts.append({"source": "Prospect Savant", "result": "no IVB/HB in 2026-2024"})
-
-        for year in YEARS:
-            regular, packed = pack_statcast_year(mlb_id, year, "regular")
-            if regular:
-                return {
-                    "pitches": regular,
-                    "source": f"MLB Statcast regular {year}",
-                    "season": year,
-                    "throws": throws,
-                    "attempts": attempts + [{"source": "MLB Statcast regular", "season": year, "n": len(regular)}],
-                }
-            attempts.append({
-                "source": "MLB Statcast regular",
-                "season": year,
-                "result": "pitches but no break" if (packed or {}).get("statcast_pitches") else "empty",
-                "statcast_pitches": (packed or {}).get("statcast_pitches"),
-            })
-        for year in YEARS:
-            spring, packed = pack_statcast_year(mlb_id, year, "spring")
-            if spring:
-                return {
-                    "pitches": spring,
-                    "source": f"MLB Statcast spring {year}",
-                    "season": year,
-                    "throws": throws,
-                    "attempts": attempts + [{"source": "MLB Statcast spring", "season": year, "n": len(spring)}],
-                }
-            attempts.append({
-                "source": "MLB Statcast spring",
-                "season": year,
-                "result": "pitches but no break" if (packed or {}).get("statcast_pitches") else "empty",
-            })
+        attempts.append({"source": "Prospect Savant", "result": "no IVB/HB in 2026-2023"})
     else:
         attempts.append({"source": "Prospect Savant/Statcast", "result": "no MLB id"})
 
+    # Synergy before Statcast — winter/LBPRC arms resolve faster without pybaseball.
     if sid:
         if not token_box.get("token") and not token_box.get("error"):
             try:
@@ -380,6 +353,30 @@ def lookup_pitcher(player: dict, row: dict, checkpoint_ids: dict, token_box: dic
             attempts.append({"source": "Synergy", "result": token_box.get("error") or "no token"})
     else:
         attempts.append({"source": "Synergy", "result": "no synergy_id"})
+
+    if mlb_id:
+        for label, year_list, kind in (
+            ("recent regular", ["2026", "2025", "2024"], "regular"),
+            ("recent spring", ["2025", "2024"], "spring"),
+        ):
+            pitches, packed = holes.pack_statcast(mlb_id, year_list, kind)
+            season = (packed or {}).get("seasons") or year_list
+            season_label = ",".join(str(s) for s in season) if isinstance(season, list) else season
+            if pitches:
+                return {
+                    "pitches": pitches,
+                    "source": f"MLB Statcast {kind} {season_label}",
+                    "season": season[0] if isinstance(season, list) and season else season_label,
+                    "throws": throws,
+                    "attempts": attempts
+                    + [{"source": f"MLB Statcast {kind}", "season": season_label, "n": len(pitches)}],
+                }
+            attempts.append({
+                "source": f"MLB Statcast {kind}",
+                "season": label,
+                "result": "pitches but no break" if (packed or {}).get("statcast_pitches") else "empty",
+                "statcast_pitches": (packed or {}).get("statcast_pitches"),
+            })
 
     return {"pitches": [], "source": "", "season": None, "throws": throws, "attempts": attempts}
 

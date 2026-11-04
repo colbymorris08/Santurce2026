@@ -7542,7 +7542,11 @@
           "pitches_l": 62,
           "usage_r": 32.8,
           "miss_r": 23.1,
-          "pitches_r": 39
+          "pitches_r": 39,
+          "velo_p25": 95.0,
+          "velo_p75": 96.5,
+          "velo_p90": 97.1,
+          "velo_n": 117
         },
         {
           "type": "SL",
@@ -7562,7 +7566,11 @@
           "pitches_l": 69,
           "usage_r": 66.4,
           "miss_r": 64.1,
-          "pitches_r": 79
+          "pitches_r": 79,
+          "velo_p25": 84.3,
+          "velo_p75": 86.1,
+          "velo_p90": 87.0,
+          "velo_n": 122
         },
         {
           "type": "CH",
@@ -7582,7 +7590,7 @@
           "type": "CU",
           "name": "Curveball",
           "velo": 78.4,
-          "spin": 0,
+          "spin": null,
           "ivb": 1.52,
           "hb_pitcher": -2.17,
           "hb_hitter": 2.17,
@@ -7590,7 +7598,8 @@
           "pitches": 8,
           "ps_stuff": 0,
           "whiff": 33.3,
-          "xwoba": 0.0
+          "xwoba": 0.0,
+          "spin_source": "unavailable (no tracked sample in PS/Statcast/Synergy)"
         }
       ],
       "usage_by_count": {
@@ -8110,7 +8119,9 @@
           "gb": "LHV ground/air outs only (Cleburne GO/AO unavailable)"
         }
       },
-      "arm_slot_image": "assets/advance/mcmillon_john_delivery.jpg"
+      "arm_slot_image": "assets/advance/mcmillon_john_delivery.jpg",
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+      "velo_band_season": 2026
     },
     {
       "name": "Jorge Benitez",
@@ -13615,7 +13626,11 @@
           "usage_l": 41.7,
           "pitches_l": 45,
           "usage_r": 44.7,
-          "pitches_r": 140
+          "pitches_r": 140,
+          "velo_p25": 90.0,
+          "velo_p75": 91.0,
+          "velo_p90": 92.0,
+          "velo_n": 76
         },
         {
           "type": "SL",
@@ -13633,7 +13648,11 @@
           "usage_l": 17.6,
           "pitches_l": 19,
           "usage_r": 36.1,
-          "pitches_r": 113
+          "pitches_r": 113,
+          "velo_p25": 81.0,
+          "velo_p75": 82.0,
+          "velo_p90": 83.9,
+          "velo_n": 42
         },
         {
           "type": "FC",
@@ -13651,7 +13670,11 @@
           "usage_l": 13.0,
           "pitches_l": 14,
           "usage_r": 13.7,
-          "pitches_r": 43
+          "pitches_r": 43,
+          "velo_p25": 85.8,
+          "velo_p75": 87.0,
+          "velo_p90": 88.0,
+          "velo_n": 28
         },
         {
           "type": "FS",
@@ -13687,7 +13710,11 @@
           "usage_l": 11.1,
           "pitches_l": 12,
           "usage_r": 0.6,
-          "pitches_r": 2
+          "pitches_r": 2,
+          "velo_p25": 84.0,
+          "velo_p75": 85.0,
+          "velo_p90": 85.0,
+          "velo_n": 34
         },
         {
           "type": "SI",
@@ -14481,7 +14508,9 @@
         "assignments": 1,
         "source": "Baseball Reference Register 2025 Chihuahua Mexican League pitching",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig001seb"
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2025",
+      "velo_band_season": 2025
     },
     {
       "name": "Steven Echavarria",
@@ -14510,7 +14539,11 @@
           "usage_r": 57.3,
           "pitches_r": 359,
           "ps_stuff": null,
-          "xwoba": null
+          "xwoba": null,
+          "velo_p25": 94.0,
+          "velo_p75": 96.0,
+          "velo_p90": 97.0,
+          "velo_n": 219
         },
         {
           "type": "SL",
@@ -14528,7 +14561,11 @@
           "usage_l": 9.4,
           "pitches_l": 67,
           "usage_r": 28.3,
-          "pitches_r": 177
+          "pitches_r": 177,
+          "velo_p25": 86.0,
+          "velo_p75": 88.0,
+          "velo_p90": 89.0,
+          "velo_n": 85
         },
         {
           "type": "CH",
@@ -14546,7 +14583,11 @@
           "usage_l": 20.6,
           "pitches_l": 147,
           "usage_r": 1.4,
-          "pitches_r": 9
+          "pitches_r": 9,
+          "velo_p25": 85.0,
+          "velo_p75": 87.0,
+          "velo_p90": 88.0,
+          "velo_n": 69
         },
         {
           "type": "CU",
@@ -14564,7 +14605,11 @@
           "usage_l": 10.1,
           "pitches_l": 72,
           "usage_r": 8.5,
-          "pitches_r": 53
+          "pitches_r": 53,
+          "velo_p25": 79.0,
+          "velo_p75": 81.0,
+          "velo_p90": 82.0,
+          "velo_n": 43
         },
         {
           "type": "FC",
@@ -14583,7 +14628,11 @@
           "usage_r": 4.2,
           "pitches_r": 26,
           "ps_stuff": null,
-          "xwoba": null
+          "xwoba": null,
+          "velo_p25": 88.5,
+          "velo_p75": 90.5,
+          "velo_p90": 92.0,
+          "velo_n": 19
         },
         {
           "type": "FS",
@@ -15481,7 +15530,9 @@
           "cs_allowed": "MLB Stats API pitching caughtStealing",
           "fip": null
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026",
+      "velo_band_season": 2026
     },
     {
       "name": "Tanner Burns",
@@ -17004,7 +17055,11 @@
           "usage_l": 41.6,
           "pitches_l": 444,
           "usage_r": 40.0,
-          "pitches_r": 343
+          "pitches_r": 343,
+          "velo_p25": 92.6,
+          "velo_p75": 93.9,
+          "velo_p90": 94.3,
+          "velo_n": 179
         },
         {
           "type": "CH",
@@ -17022,7 +17077,11 @@
           "usage_l": 23.6,
           "pitches_l": 252,
           "usage_r": 11.7,
-          "pitches_r": 100
+          "pitches_r": 100,
+          "velo_p25": 85.5,
+          "velo_p75": 87.3,
+          "velo_p90": 87.9,
+          "velo_n": 142
         },
         {
           "type": "FC",
@@ -17040,7 +17099,11 @@
           "usage_l": 11.4,
           "pitches_l": 122,
           "usage_r": 14.5,
-          "pitches_r": 124
+          "pitches_r": 124,
+          "velo_p25": 87.5,
+          "velo_p75": 89.0,
+          "velo_p90": 89.9,
+          "velo_n": 55
         },
         {
           "type": "SL",
@@ -17058,7 +17121,11 @@
           "usage_l": 9.1,
           "pitches_l": 97,
           "usage_r": 24.1,
-          "pitches_r": 207
+          "pitches_r": 207,
+          "velo_p25": 81.8,
+          "velo_p75": 83.9,
+          "velo_p90": 85.0,
+          "velo_n": 47
         },
         {
           "type": "CU",
@@ -17076,7 +17143,11 @@
           "usage_l": 13.3,
           "pitches_l": 142,
           "usage_r": 7.3,
-          "pitches_r": 63
+          "pitches_r": 63,
+          "velo_p25": 78.6,
+          "velo_p75": 80.0,
+          "velo_p90": 81.5,
+          "velo_n": 44
         },
         {
           "type": "SI",
@@ -17094,7 +17165,11 @@
           "usage_l": 0.9,
           "pitches_l": 10,
           "usage_r": 2.4,
-          "pitches_r": 21
+          "pitches_r": 21,
+          "velo_p25": 92.3,
+          "velo_p75": 93.4,
+          "velo_p90": 93.9,
+          "velo_n": 26
         }
       ],
       "usage_by_count": {
@@ -17828,7 +17903,9 @@
           "cs_allowed": "MLB Stats API pitching caughtStealing",
           "fip": null
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026",
+      "velo_band_season": 2026
     },
     {
       "name": "Yacksel Rios",
@@ -19326,7 +19403,11 @@
           "usage_l": 0.2,
           "pitches_l": 1,
           "usage_r": 0.4,
-          "pitches_r": 4
+          "pitches_r": 4,
+          "velo_p25": 89.0,
+          "velo_p75": 91.0,
+          "velo_p90": 92.0,
+          "velo_n": 212
         },
         {
           "type": "ST",
@@ -19344,7 +19425,11 @@
           "usage_l": 0.3,
           "pitches_l": 2,
           "usage_r": 0.7,
-          "pitches_r": 8
+          "pitches_r": 8,
+          "velo_p25": 77.0,
+          "velo_p75": 80.0,
+          "velo_p90": 81.0,
+          "velo_n": 71
         },
         {
           "type": "SL",
@@ -19362,7 +19447,11 @@
           "usage_l": 37.4,
           "pitches_l": 229,
           "usage_r": 19.8,
-          "pitches_r": 225
+          "pitches_r": 225,
+          "velo_p25": 77.0,
+          "velo_p75": 80.0,
+          "velo_p90": 81.0,
+          "velo_n": 71
         },
         {
           "type": "FS",
@@ -19936,7 +20025,9 @@
         "h": 50,
         "hr": 6,
         "source": "MLB Stats API 2023 A pitching"
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025",
+      "velo_band_season": 2026
     },
     {
       "name": "Adiel Melendez",
@@ -35491,7 +35582,11 @@
           "usage_r": 50.9,
           "pitches_r": 224,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 85.1,
+          "velo_p75": 86.7,
+          "velo_p90": 87.2,
+          "velo_n": 22
         },
         {
           "type": "CH",
@@ -35511,7 +35606,11 @@
           "usage_r": 11.1,
           "pitches_r": 49,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 85.0,
+          "velo_p75": 87.0,
+          "velo_p90": 88.0,
+          "velo_n": 21
         },
         {
           "type": "FF",
@@ -35531,7 +35630,11 @@
           "usage_r": 27.5,
           "pitches_r": 121,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 92.0,
+          "velo_p75": 93.0,
+          "velo_p90": 94.0,
+          "velo_n": 48
         },
         {
           "type": "SI",
@@ -36174,7 +36277,9 @@
           "cs_allowed": "MLB Stats API pitching caughtStealing",
           "fip": "Computed from MiLB.com HR/BB/HBP/K/IP with constant 3.10"
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025",
+      "velo_band_season": 2026
     },
     {
       "name": "Riley Gowens",
@@ -39122,7 +39227,11 @@
           "usage_r": 60.2,
           "pitches_r": 106,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 88.0,
+          "velo_p75": 91.0,
+          "velo_p90": 91.0,
+          "velo_n": 83
         },
         {
           "type": "CU",
@@ -39142,7 +39251,11 @@
           "usage_r": 18.2,
           "pitches_r": 32,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 73.0,
+          "velo_p75": 76.0,
+          "velo_p90": 77.0,
+          "velo_n": 31
         },
         {
           "type": "SL",
@@ -39162,7 +39275,11 @@
           "usage_r": 19.9,
           "pitches_r": 35,
           "miss_l": null,
-          "miss_r": null
+          "miss_r": null,
+          "velo_p25": 81.0,
+          "velo_p75": 82.5,
+          "velo_p90": 83.0,
+          "velo_n": 27
         },
         {
           "type": "CH",
@@ -39805,7 +39922,9 @@
         "cs_allowed": 2,
         "assignments": 1,
         "source": "Local LBPRC 2025 season pitching file"
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2025",
+      "velo_band_season": 2025
     },
     {
       "name": "Bryant Salgado",
@@ -64562,7 +64681,11 @@
           "usage_l": 51.2,
           "pitches_l": 21,
           "usage_r": 54.7,
-          "pitches_r": 52
+          "pitches_r": 52,
+          "velo_p25": 88.2,
+          "velo_p75": 90.0,
+          "velo_p90": 90.5,
+          "velo_n": 26
         },
         {
           "type": "SL",
@@ -64580,7 +64703,11 @@
           "usage_l": 19.5,
           "pitches_l": 8,
           "usage_r": 43.2,
-          "pitches_r": 41
+          "pitches_r": 41,
+          "velo_p25": 78.0,
+          "velo_p75": 79.0,
+          "velo_p90": 79.8,
+          "velo_n": 23
         },
         {
           "type": "CH",
@@ -64598,7 +64725,11 @@
           "usage_l": 29.3,
           "pitches_l": 12,
           "usage_r": 1.1,
-          "pitches_r": 1
+          "pitches_r": 1,
+          "velo_p25": 83.0,
+          "velo_p75": 85.0,
+          "velo_p90": 85.6,
+          "velo_n": 25
         },
         {
           "type": "SI",
@@ -65135,7 +65266,9 @@
             "risp": 44.3
           }
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2024+2023,2022",
+      "velo_band_season": 2024
     },
     {
       "name": "Julio Torres",
@@ -65826,7 +65959,11 @@
           "usage_l": 43.6,
           "pitches_l": 102,
           "usage_r": 41.0,
-          "pitches_r": 86
+          "pitches_r": 86,
+          "velo_p25": 86.5,
+          "velo_p75": 87.6,
+          "velo_p90": 88.2,
+          "velo_n": 22
         },
         {
           "type": "FC",
@@ -65844,7 +65981,11 @@
           "usage_l": 23.5,
           "pitches_l": 55,
           "usage_r": 12.9,
-          "pitches_r": 27
+          "pitches_r": 27,
+          "velo_p25": 83.3,
+          "velo_p75": 85.1,
+          "velo_p90": 85.7,
+          "velo_n": 21
         },
         {
           "type": "CU",
@@ -65862,7 +66003,11 @@
           "usage_l": 14.1,
           "pitches_l": 33,
           "usage_r": 12.9,
-          "pitches_r": 27
+          "pitches_r": 27,
+          "velo_p25": 71.5,
+          "velo_p75": 73.9,
+          "velo_p90": 75.7,
+          "velo_n": 17
         },
         {
           "type": "SL",
@@ -65880,7 +66025,11 @@
           "usage_l": 9.8,
           "pitches_l": 23,
           "usage_r": 17.6,
-          "pitches_r": 37
+          "pitches_r": 37,
+          "velo_p25": 78.9,
+          "velo_p75": 81.4,
+          "velo_p90": 82.6,
+          "velo_n": 109
         },
         {
           "type": "FS",
@@ -65898,7 +66047,11 @@
           "usage_l": 9.0,
           "pitches_l": 21,
           "usage_r": 15.7,
-          "pitches_r": 33
+          "pitches_r": 33,
+          "velo_p25": 83.3,
+          "velo_p75": 84.5,
+          "velo_p90": 85.4,
+          "velo_n": 17
         }
       ],
       "usage_by_count": {
@@ -66189,7 +66342,9 @@
           }
         }
       },
-      "arm_slot_image": "assets/advance/yokogawa_kai_delivery.jpg"
+      "arm_slot_image": "assets/advance/yokogawa_kai_delivery.jpg",
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025",
+      "velo_band_season": 2026
     },
     {
       "name": "Keito Matsuura",
@@ -66217,7 +66372,11 @@
           "usage_l": 85.4,
           "pitches_l": 35,
           "usage_r": 68.9,
-          "pitches_r": 42
+          "pitches_r": 42,
+          "velo_p25": 89.5,
+          "velo_p75": 91.3,
+          "velo_p90": 92.0,
+          "velo_n": 532
         },
         {
           "type": "FC",
@@ -66235,7 +66394,11 @@
           "usage_l": 12.2,
           "pitches_l": 5,
           "usage_r": 11.5,
-          "pitches_r": 7
+          "pitches_r": 7,
+          "velo_p25": 83.9,
+          "velo_p75": 87.0,
+          "velo_p90": 88.0,
+          "velo_n": 95
         },
         {
           "type": "FS",
@@ -66251,7 +66414,11 @@
           "whiff": 40.0,
           "xwoba": null,
           "usage_r": 13.1,
-          "pitches_r": 8
+          "pitches_r": 8,
+          "velo_p25": 82.6,
+          "velo_p75": 85.4,
+          "velo_p90": 87.0,
+          "velo_n": 83
         },
         {
           "type": "SL",
@@ -66269,7 +66436,11 @@
           "usage_l": 2.4,
           "pitches_l": 1,
           "usage_r": 6.6,
-          "pitches_r": 4
+          "pitches_r": 4,
+          "velo_p25": 80.8,
+          "velo_p75": 83.3,
+          "velo_p90": 84.5,
+          "velo_n": 42
         }
       ],
       "usage_by_count": {
@@ -66494,7 +66665,9 @@
             "risp": null
           }
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026",
+      "velo_band_season": 2026
     },
     {
       "name": "Kyohei Yamashiro",
@@ -94809,7 +94982,11 @@
           "usage_l": 56.3,
           "pitches_l": 76,
           "usage_r": 42.2,
-          "pitches_r": 76
+          "pitches_r": 76,
+          "velo_p25": 83.0,
+          "velo_p75": 85.0,
+          "velo_p90": 86.0,
+          "velo_n": 37
         },
         {
           "type": "SL",
@@ -94827,7 +95004,11 @@
           "usage_l": 28.1,
           "pitches_l": 38,
           "usage_r": 46.1,
-          "pitches_r": 83
+          "pitches_r": 83,
+          "velo_p25": 79.0,
+          "velo_p75": 81.0,
+          "velo_p90": 82.2,
+          "velo_n": 29
         },
         {
           "type": "CU",
@@ -94845,7 +95026,11 @@
           "usage_l": 7.4,
           "pitches_l": 10,
           "usage_r": 7.2,
-          "pitches_r": 13
+          "pitches_r": 13,
+          "velo_p25": 71.0,
+          "velo_p75": 73.0,
+          "velo_p90": 74.0,
+          "velo_n": 49
         },
         {
           "type": "CH",
@@ -94863,7 +95048,11 @@
           "usage_l": 5.2,
           "pitches_l": 7,
           "usage_r": 2.2,
-          "pitches_r": 4
+          "pitches_r": 4,
+          "velo_p25": 76.0,
+          "velo_p75": 78.2,
+          "velo_p90": 80.0,
+          "velo_n": 20
         },
         {
           "type": "FC",
@@ -94881,7 +95070,11 @@
           "usage_l": 2.2,
           "pitches_l": 3,
           "usage_r": 2.2,
-          "pitches_r": 4
+          "pitches_r": 4,
+          "velo_p25": 80.0,
+          "velo_p75": 82.0,
+          "velo_p90": 82.0,
+          "velo_n": 20
         },
         {
           "type": "PO",
@@ -95553,7 +95746,9 @@
             "risp": 41.7
           }
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2025+2024,2023,2022",
+      "velo_band_season": 2025
     },
     {
       "name": "Jean Ortega",
@@ -96825,17 +97020,18 @@
           "usage": 70.4,
           "pitches": 1050,
           "velo": 95.6,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "spin": 2365,
+          "ivb": 18.11,
+          "hb_pitcher": 7.95,
+          "hb_hitter": -7.95,
           "ps_stuff": null,
           "whiff": 32.6,
           "xwoba": null,
           "velo_p25": 95.0,
           "velo_p75": 97.0,
           "velo_p90": 98.0,
-          "velo_n": 320
+          "velo_n": 320,
+          "spin_source": "Prospect Savant 2024"
         },
         {
           "type": "SL",
@@ -96843,17 +97039,18 @@
           "usage": 27.6,
           "pitches": 411,
           "velo": 85.6,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "spin": 2009,
+          "ivb": 3.45,
+          "hb_pitcher": 1.67,
+          "hb_hitter": -1.67,
           "ps_stuff": null,
           "whiff": 52.8,
           "xwoba": null,
           "velo_p25": 84.0,
           "velo_p75": 87.0,
           "velo_p90": 88.0,
-          "velo_n": 66
+          "velo_n": 66,
+          "spin_source": "Prospect Savant 2024"
         },
         {
           "type": "FC",
@@ -96861,13 +97058,14 @@
           "usage": 1.0,
           "pitches": 15,
           "velo": 87.0,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "spin": 2105,
+          "ivb": 5.05,
+          "hb_pitcher": 0.67,
+          "hb_hitter": -0.67,
           "ps_stuff": null,
           "whiff": 37.5,
-          "xwoba": null
+          "xwoba": null,
+          "spin_source": "Prospect Savant 2024"
         },
         {
           "type": "CH",
@@ -96875,13 +97073,14 @@
           "usage": 0.6,
           "pitches": 9,
           "velo": 86.5,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "spin": 2038,
+          "ivb": 5.58,
+          "hb_pitcher": 8.1,
+          "hb_hitter": -8.1,
           "ps_stuff": null,
           "whiff": 100.0,
-          "xwoba": null
+          "xwoba": null,
+          "spin_source": "Prospect Savant 2024"
         },
         {
           "type": "CU",
@@ -96916,14 +97115,15 @@
           "name": "SI",
           "usage": 0.1,
           "pitches": 1,
-          "velo": null,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "velo": 95.4,
+          "spin": 2360,
+          "ivb": 16.23,
+          "hb_pitcher": 12.82,
+          "hb_hitter": -12.82,
           "ps_stuff": null,
           "whiff": null,
-          "xwoba": null
+          "xwoba": null,
+          "spin_source": "Prospect Savant 2024"
         }
       ],
       "view": "hitter",
@@ -97517,6 +97717,37 @@
             "risp": 31.7
           }
         }
+      },
+      "movement_source": "Prospect Savant 2024",
+      "movement_season": 2024,
+      "ps_season": 2024,
+      "ps_source": "Prospect Savant",
+      "summer_line": {
+        "team": "VAN",
+        "team_name": "Vancouver Canadians",
+        "season": "2025 summer",
+        "league": "NWL",
+        "circuit": "MiLB",
+        "league_name": "Northwest League",
+        "level": "A+",
+        "ip": "39.2",
+        "outs": 119,
+        "g": 28,
+        "gs": 0,
+        "k": 69,
+        "bb": 47,
+        "k9": "15.7",
+        "bb9": "10.7",
+        "era": "7.71",
+        "fip": "4.39",
+        "whip": "2.04",
+        "h": 34,
+        "hr": 3,
+        "sb_allowed": 12,
+        "cs_allowed": 1,
+        "sport_id": 13,
+        "assignments": 1,
+        "source": "MLB Stats API 2025 regular-season pitching team split"
       }
     },
     {
@@ -97696,7 +97927,11 @@
           "usage_l": 74.5,
           "pitches_l": 216,
           "usage_r": 68.8,
-          "pitches_r": 238
+          "pitches_r": 238,
+          "velo_p25": 91.0,
+          "velo_p75": 93.0,
+          "velo_p90": 94.0,
+          "velo_n": 287
         },
         {
           "type": "SL",
@@ -97714,7 +97949,11 @@
           "usage_l": 19.7,
           "pitches_l": 57,
           "usage_r": 30.3,
-          "pitches_r": 105
+          "pitches_r": 105,
+          "velo_p25": 83.0,
+          "velo_p75": 85.0,
+          "velo_p90": 86.0,
+          "velo_n": 106
         },
         {
           "type": "CH",
@@ -98015,7 +98254,9 @@
             "risp": null
           }
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025",
+      "velo_band_season": 2026
     },
     {
       "name": "Matthew Rivera",
@@ -100491,7 +100732,11 @@
           "usage_l": 58.6,
           "pitches_l": 170,
           "usage_r": 54.7,
-          "pitches_r": 169
+          "pitches_r": 169,
+          "velo_p25": 87.0,
+          "velo_p75": 88.0,
+          "velo_p90": 89.0,
+          "velo_n": 277
         },
         {
           "type": "SL",
@@ -100509,7 +100754,11 @@
           "usage_l": 17.9,
           "pitches_l": 52,
           "usage_r": 40.5,
-          "pitches_r": 125
+          "pitches_r": 125,
+          "velo_p25": 77.0,
+          "velo_p75": 78.0,
+          "velo_p90": 79.0,
+          "velo_n": 53
         },
         {
           "type": "CH",
@@ -100527,7 +100776,11 @@
           "usage_l": 23.4,
           "pitches_l": 68,
           "usage_r": 4.5,
-          "pitches_r": 14
+          "pitches_r": 14,
+          "velo_p25": 77.0,
+          "velo_p75": 82.0,
+          "velo_p90": 83.0,
+          "velo_n": 58
         },
         {
           "type": "CU",
@@ -101004,7 +101257,9 @@
             "risp": 42.2
           }
         }
-      }
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+      "velo_band_season": 2026
     },
     {
       "name": "Ryan Munoz",
@@ -103638,7 +103893,7 @@
       }
     }
   ],
-  "updated": "2026-11-04T19:57:16Z",
+  "updated": "2026-11-04T20:46:21Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",

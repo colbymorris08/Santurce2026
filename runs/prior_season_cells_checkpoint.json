@@ -1,0 +1,3431 @@
+{
+  "pitchers": {
+    "CAG|johnmcmillon": {
+      "team": "CAG",
+      "name": "John McMillon",
+      "before_missing": [
+        "velo_bands",
+        "spin"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "SL 84-86 (2026), FF 95-96 (2026), FC 85-86 (2025)",
+        "years": [
+          2026,
+          2025,
+          2024
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": [
+          "2025s",
+          "2024r",
+          "2023r"
+        ]
+      },
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CU"
+        ]
+      }
+    },
+    "CAG|aaronmishoulam": {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "CAG|juanjavierechavarria": {
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|albertoliva": {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "FS",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=0 kept=0 complete=True",
+            "events": 0
+          },
+          {
+            "source": "Synergy",
+            "result": "scanned=0 kept=0 complete=True"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|jakegozzo": {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|joseacosta": {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 18 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 82 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|kaitouchino": {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "CAR|keishinnagamizu": {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=86 kept=86 complete=True",
+            "events": 86
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 86 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 86 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "CAR|luisrodriguez": {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|miguelausua": {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 44 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 56 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAR|yuseitobita": {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "MAY|luisramos": {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 41 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 59 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "MAY|seanbarnett": {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|sebastianbentz": {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "MAY|shadaicolon": {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 71 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 29 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 71 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "PON|johnaponte": {
+      "team": "PON",
+      "name": "John Aponte",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 70 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 5 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 25 Synergy pitches but no IVB/HB"
+          }
+        ],
+        "why": "2026 had 70 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "SJU|giovannisoto": {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "SJU|matthewrivera": {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "CAR|gabrielcotto": {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAG|sebastianrodriguez": {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "before_missing": [
+        "movement"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FC 86-87 (2025), SL 81-82 (2025), CH 84-85 (2025), FF 90-91 (2025)",
+        "years": [
+          2025
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_mlb_id"
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "CAR|saulgonzalez": {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "before_missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "velo_synergy": {
+        "status": "no_bands",
+        "events": 36,
+        "years_with_speed": []
+      },
+      "velo_statcast": {
+        "status": "no_mlb_id"
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=36 kept=36 complete=True",
+            "events": 36
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 36 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2025 had 36 Synergy pitches but no IVB/HB"
+      }
+    },
+    "PON|juanmarcano": {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "before_missing": [
+        "velo_bands",
+        "movement",
+        "summer"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 762,
+        "bands": "SL 78-79 (2024), FF 88-90 (2024), CH 83-85 (2022), CU 74-76 (2022)",
+        "years": [
+          2024,
+          2023,
+          2022
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      },
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2024"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2026,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2025,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2024,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2023,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2026,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2025,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2024,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2023,
+            "result": "empty"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "no IVB/HB in 2026-2024"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "PON|kaiyokogawa": {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "before_missing": [
+        "velo_bands",
+        "movement",
+        "summer"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "CU 72-74 (2026), FC 83-85 (2026), FS 83-84 (2026), FF 86-88 (2026), SL 79-81 (2025)",
+        "years": [
+          2026,
+          2025
+        ]
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "PON|keitomatsuura": {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "before_missing": [
+        "velo_bands",
+        "movement",
+        "summer"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FC 84-87 (2026), FF 90-91 (2026), CU 68-72 (2026), FS 83-85 (2026), SL 81-83 (2026), SI 86-87 (2026)",
+        "years": [
+          2026
+        ]
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    },
+    "SJU|anthonyborrero": {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "before_missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "velo_synergy": {
+        "status": "no_bands",
+        "events": 739,
+        "years_with_speed": []
+      },
+      "velo_statcast": {
+        "status": "no_mlb_id"
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "SJU|ivanhouellemont": {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "before_missing": [
+        "velo_bands",
+        "movement",
+        "summer"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "SL 79-81 (2025), FF 83-85 (2025), CH 76-78 (2024), FC 80-82 (2023), CU 71-73 (2022)",
+        "years": [
+          2025,
+          2024,
+          2023,
+          2022
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      },
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "PO",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2024"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2026,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2025,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2024,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2023,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2026,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2025,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2024,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2023,
+            "result": "empty"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "no IVB/HB in 2026-2024"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "SJU|leonardorodriguez": {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "before_missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FF 91-93 (2026), SL 83-85 (2026), SI 91-93 (2025), FC 87-88 (2025)",
+        "years": [
+          2026,
+          2025
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_mlb_id"
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "SJU|rubenramirez": {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "before_missing": [
+        "velo_bands",
+        "movement",
+        "summer"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FF 87-88 (2026), SL 77-78 (2026), CH 77-82 (2026)",
+        "years": [
+          2026,
+          2025,
+          2024
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      },
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2024"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2026,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2025,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2024,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": 2023,
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2026,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2025,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2024,
+            "result": "empty"
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": 2023,
+            "result": "empty"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "no IVB/HB in 2026-2024"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "CAG|stevenechavarria": {
+      "team": "CAG",
+      "name": "Steven Echavarria",
+      "before_missing": [
+        "velo_bands"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FF 94-96 (2026), CH 85-87 (2026), CU 79-81 (2026), SL 86-88 (2026), FC 88-90 (2026)",
+        "years": [
+          2026
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      }
+    },
+    "CAG|tylersantana": {
+      "team": "CAG",
+      "name": "Tyler Santana",
+      "before_missing": [
+        "velo_bands"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "CU 79-80 (2026), FF 93-94 (2026), CH 86-87 (2026), SL 82-84 (2026), FC 88-89 (2026), SI 92-93 (2026)",
+        "years": [
+          2026
+        ]
+      }
+    },
+    "CAG|zachveen": {
+      "team": "CAG",
+      "name": "Zach Veen",
+      "before_missing": [
+        "velo_bands"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FF 89-91 (2026), SL 77-80 (2026)",
+        "years": [
+          2026,
+          2025
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      }
+    },
+    "CAR|ricardovelez": {
+      "team": "CAR",
+      "name": "Ricardo Velez",
+      "before_missing": [
+        "velo_bands"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "SL 85-87 (2026), FC 86-87 (2025), FF 92-93 (2025), CH 85-87 (2025)",
+        "years": [
+          2026,
+          2025
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      }
+    },
+    "MAY|ashtongoudeau": {
+      "team": "MAY",
+      "name": "Ashton Goudeau",
+      "before_missing": [
+        "velo_bands"
+      ],
+      "velo_synergy": {
+        "status": "filled",
+        "events": 1200,
+        "bands": "FF 88-91 (2025), CU 73-76 (2025), SL 81-82 (2025)",
+        "years": [
+          2025
+        ]
+      },
+      "velo_statcast": {
+        "status": "no_bands",
+        "tried": []
+      }
+    },
+    "CAG|adalbertoflores": {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "FS",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAG|christiantorres": {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAG|edwinsanchez": {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 69 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 31 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAG|marvingorgas": {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAR|alexandercastro": {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAR|eddyreynoso": {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "FS",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "CAR|ramesisrosa": {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|antoniovelez": {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2024 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "MAY|devinrivera": {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2024 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "MAY|hectorhernandez": {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "FS",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 53 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 47 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|kazutotaguchi": {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|lucasvega": {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|luisleroycruz": {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      },
+      "summer": {
+        "status": "unavailable"
+      }
+    },
+    "MAY|miguelmartinez": {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "MAY|nelvinfuentes": {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2024 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "PON|hectorquinones": {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "2023 had 100 Synergy pitches but no IVB/HB"
+          }
+        ],
+        "why": "2023 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "PON|jorhanlaboy": {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "PON|juliotorres": {
+      "team": "PON",
+      "name": "Julio Torres",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "PON|noelpinto": {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 64 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 36 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "PON|omarmelendez": {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "SJU|agnelmiranda": {
+      "team": "SJU",
+      "name": "Agnel Miranda",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "SJU|freddycabrera": {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2025 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "SJU|harusenarita": {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "before_missing": [
+        "movement"
+      ],
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant/Statcast",
+            "result": "no MLB id"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          }
+        ],
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    "SJU|josecruz": {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "SJU|juliocesarortiz": {
+      "team": "SJU",
+      "name": "Julio Cesar Ortiz",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "spin": {
+        "status": "partial",
+        "filled": [
+          "FF:2365@2024",
+          "SL:2009@2024",
+          "FC:2105@2024",
+          "CH:2038@2024",
+          "SI:2360@2024"
+        ],
+        "still": [
+          "CU",
+          "FS"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "filled",
+        "source": "Prospect Savant 2024",
+        "season": 2024,
+        "n": 5
+      },
+      "summer": {
+        "status": "filled_2025",
+        "summary": "VAN 39.2 IP"
+      }
+    },
+    "SJU|miguelcirino": {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "2026 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "SJU|raulrivera": {
+      "team": "SJU",
+      "name": "Raul Rivera",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "CH",
+          "CU",
+          "FC",
+          "FF",
+          "SI",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 100 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "SJU|ryanmunoz": {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "before_missing": [
+        "movement"
+      ],
+      "spin": {
+        "status": "unavailable",
+        "still": [
+          "FC",
+          "FF",
+          "SL"
+        ],
+        "cleared_zero": []
+      },
+      "movement": {
+        "status": "unavailable",
+        "attempts": [
+          {
+            "source": "Prospect Savant",
+            "result": "no IVB/HB in 2026-2023"
+          },
+          {
+            "source": "Synergy events",
+            "note": "scanned=100 kept=100 complete=True",
+            "events": 100
+          },
+          {
+            "source": "Synergy",
+            "season": 2026,
+            "result": "no events that year"
+          },
+          {
+            "source": "Synergy",
+            "season": 2025,
+            "result": "2025 had 10 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2024,
+            "result": "2024 had 90 Synergy pitches but no IVB/HB"
+          },
+          {
+            "source": "Synergy",
+            "season": 2023,
+            "result": "no events that year"
+          },
+          {
+            "source": "MLB Statcast regular",
+            "season": "recent regular",
+            "result": "empty",
+            "statcast_pitches": null
+          },
+          {
+            "source": "MLB Statcast spring",
+            "season": "recent spring",
+            "result": "empty",
+            "statcast_pitches": null
+          }
+        ],
+        "why": "no IVB/HB in 2026-2023"
+      }
+    },
+    "PON|kyoheiyamashiro": {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "before_missing": [
+        "no_pitches",
+        "no_arsenal",
+        "summer"
+      ],
+      "summer": {
+        "status": "no_mlb_id"
+      }
+    }
+  },
+  "updated": "2026-11-04T20:46:21Z"
+}

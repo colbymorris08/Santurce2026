@@ -95,7 +95,8 @@ def status_for(op: dict, team: str, ars: list[dict], heat: dict) -> dict:
     chm = (row or {}).get("count_hand_mix") or {}
     arsenal = (row or {}).get("arsenal") or []
     pitches = int((row or {}).get("pitches") or 0)
-    velo_any = any(str(v or "").strip() for v in (op.get("velo") or {}).values()) or any(
+    # Real p25–p75 only — one-page average-as-band (e.g. "95-95") does not count.
+    velo_any = any(
         a.get("velo_p25") is not None and a.get("velo_p75") is not None for a in arsenal
     )
     movement = holes.has_movement(row)

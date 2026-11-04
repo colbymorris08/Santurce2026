@@ -1,0 +1,625 @@
+{
+  "updated": "2026-11-04T20:46:48Z",
+  "hole_counts_before": {
+    "movement": 53,
+    "summer": 24,
+    "velo_bands": 2,
+    "no_pitches": 4,
+    "no_arsenal": 4,
+    "count_hand": 1
+  },
+  "hole_counts_after": {
+    "movement": 53,
+    "summer": 24,
+    "velo_bands": 2,
+    "no_pitches": 4,
+    "no_arsenal": 4,
+    "count_hand": 1
+  },
+  "processed": 0,
+  "mcmillon_before": {
+    "team": "CAG",
+    "name": "John McMillon",
+    "mlb_id": 669111,
+    "player_id": 669111,
+    "synergy_id": "58a74e3d35268c61b0b845e1",
+    "pitches": 151,
+    "heat_located": 217,
+    "has_iz": true,
+    "count_hand": true,
+    "velo_bands": true,
+    "velo_band_preview": {
+      "FF": "95.0-96.5",
+      "SL": "84.3-86.1",
+      "CH": null,
+      "CU": null
+    },
+    "movement": true,
+    "spin_missing": [],
+    "summer": true,
+    "missing": [],
+    "movement_source": "Prospect Savant",
+    "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+    "velo_band_season": 2026
+  },
+  "mcmillon_after": {
+    "team": "CAG",
+    "name": "John McMillon",
+    "mlb_id": 669111,
+    "player_id": 669111,
+    "synergy_id": "58a74e3d35268c61b0b845e1",
+    "pitches": 151,
+    "heat_located": 217,
+    "has_iz": true,
+    "count_hand": true,
+    "velo_bands": true,
+    "velo_band_preview": {
+      "FF": "95.0-96.5",
+      "SL": "84.3-86.1",
+      "CH": null,
+      "CU": null
+    },
+    "movement": true,
+    "spin_missing": [],
+    "summer": true,
+    "missing": [],
+    "movement_source": "Prospect Savant",
+    "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+    "velo_band_season": 2026
+  },
+  "still_incomplete": [
+    {
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 663499,
+      "pitches": 170
+    },
+    {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 488880,
+      "pitches": 497
+    },
+    {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 656479,
+      "pitches": 179
+    },
+    {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -840626507,
+      "pitches": 1357
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -831444931,
+      "pitches": 421
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 688014,
+      "pitches": 67
+    },
+    {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 670369,
+      "pitches": 399
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 805753,
+      "pitches": 18
+    },
+    {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 682118,
+      "pitches": 130
+    },
+    {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 669418,
+      "pitches": 179
+    },
+    {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "missing": [
+        "summer"
+      ],
+      "mlb_id": 681813,
+      "pitches": 62
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "mlb_id": -779812433,
+      "pitches": 33
+    },
+    {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 689214,
+      "pitches": 792
+    },
+    {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -742329386,
+      "pitches": 82
+    },
+    {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 806309,
+      "pitches": 541
+    },
+    {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 664371,
+      "pitches": 196
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 693543,
+      "pitches": 120
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "missing": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "mlb_id": 670232,
+      "pitches": 0
+    },
+    {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 545814,
+      "pitches": 158
+    },
+    {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -758984765,
+      "pitches": 39
+    },
+    {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -522170762,
+      "pitches": 287
+    },
+    {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 826141,
+      "pitches": 986
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 694547,
+      "pitches": 205
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -198603702,
+      "pitches": 105
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 543071,
+      "pitches": 572
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -346943911,
+      "pitches": 379
+    },
+    {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 571772,
+      "pitches": 336
+    },
+    {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 446651,
+      "pitches": 263
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 624401,
+      "pitches": 150
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -465760315,
+      "pitches": 1416
+    },
+    {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 683803,
+      "pitches": 331
+    },
+    {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 837223,
+      "pitches": 162
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -165648089,
+      "pitches": 206
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -539643335,
+      "pitches": 36
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -259860308,
+      "pitches": 1350
+    },
+    {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 807620,
+      "pitches": 136
+    },
+    {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -799554792,
+      "pitches": 102
+    },
+    {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 801018,
+      "pitches": 213
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 676984,
+      "pitches": 294
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -346674215,
+      "pitches": 247
+    },
+    {
+      "team": "PON",
+      "name": "Julio Torres",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 692937,
+      "pitches": 197
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "missing": [
+        "no_pitches",
+        "no_arsenal",
+        "summer"
+      ],
+      "mlb_id": -172871700,
+      "pitches": 0
+    },
+    {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -173172553,
+      "pitches": 444
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "mlb_id": -579003596,
+      "pitches": 709
+    },
+    {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -280803405,
+      "pitches": 580
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 690616,
+      "pitches": 495
+    },
+    {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 692808,
+      "pitches": 174
+    },
+    {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 671045,
+      "pitches": 315
+    },
+    {
+      "team": "SJU",
+      "name": "Agnel Miranda",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 695064,
+      "pitches": 296
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 684841,
+      "pitches": 10
+    },
+    {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -670692245,
+      "pitches": 629
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "missing": [
+        "no_pitches",
+        "no_arsenal",
+        "count_hand"
+      ],
+      "mlb_id": 458960,
+      "pitches": 0
+    },
+    {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 703211,
+      "pitches": 599
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 681344,
+      "pitches": 35
+    },
+    {
+      "team": "SJU",
+      "name": "Raul Rivera",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": 572077,
+      "pitches": 204
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "missing": [
+        "movement"
+      ],
+      "mlb_id": -426239217,
+      "pitches": 636
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "missing": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "mlb_id": -322791781,
+      "pitches": 0
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 543803,
+      "pitches": 435
+    }
+  ],
+  "rows": []
+}

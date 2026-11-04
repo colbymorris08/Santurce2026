@@ -1,75 +1,658 @@
 {
-  "updated": "2026-11-04T20:00:00Z",
-  "note": "Cells left blank only when real Synergy/Savant/Statcast/Stats API sources have no sample. Numbers were not invented.",
-  "murphy_zone_rates": {
-    "name": "Ryan Murphy",
-    "team": "PON",
-    "status": "complete",
-    "count_hand_mix_iz": true,
-    "iz_overall_vs_LHB": 38.3,
-    "iz_overall_vs_RHB": 42.0,
-    "heat_located": 1119,
-    "velo_bands": true,
-    "movement_source": "Prospect Savant 2026",
-    "summer_line": "MEM AAA 50.1 IP ERA 6.97"
-  },
-  "hole_counts_before": {
-    "summer": 104,
-    "movement": 51,
-    "count_hand": 17,
-    "iz": 11,
-    "heat": 4,
-    "no_pitches": 8,
-    "no_arsenal": 7,
-    "velo_bands": 1,
-    "no_arsenal_row": 1
+  "updated": "2026-11-04T20:46:40Z",
+  "note": "Prior-season backfill (Synergy/Savant/Statcast/Stats API). Numbers not invented. Prefer most recent season with metric.",
+  "mcmillon": {
+    "before": {
+      "velo_bands": "average-as-band only (95-95 etc)",
+      "movement": "PS 2025 IVB/HB present",
+      "cu_spin": 0,
+      "missing_real": [
+        "velo_p25_p75",
+        "cu_spin"
+      ]
+    },
+    "after": {
+      "velo_bands": {
+        "FF": "95.0-96.5",
+        "SL": "84.3-86.1",
+        "CH": null,
+        "CU": null
+      },
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+      "movement": true,
+      "movement_source": "Prospect Savant",
+      "cu_spin": "unavailable (cleared fake 0; no PS/Statcast/Synergy spin sample)",
+      "one_page_velo": {
+        "FB": "95-96",
+        "CB": "78-78",
+        "SL": "84-86",
+        "CH": "90-90",
+        "CT": "",
+        "SPL": ""
+      },
+      "missing": [],
+      "ch_cu_bands": "no pitch-level speed n>=12 in any season (means only)"
+    }
   },
   "hole_counts_after": {
-    "movement": 54,
-    "summer": 25,
+    "movement": 53,
+    "summer": 24,
     "velo_bands": 2,
     "no_pitches": 4,
     "no_arsenal": 4,
     "count_hand": 1
   },
+  "incomplete_count": 58,
   "unavailable": [
     {
-      "team": "SJU",
-      "name": "Anthony Borrero",
-      "fields": ["velo_bands", "movement"],
-      "reason": "Synergy has 709 pitch events with usages/platoon/count_hand/IZ/heat, but pitchSpeedMph and IVB/HB are not tracked on those Atlantic League events."
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 663499,
+      "pitches": 170,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 488880,
+      "pitches": 497,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 656479,
+      "pitches": 179,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -840626507,
+      "pitches": 1357,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -831444931,
+      "pitches": 421,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 688014,
+      "pitches": 67,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 670369,
+      "pitches": 399,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 805753,
+      "pitches": 18,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 682118,
+      "pitches": 130,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 669418,
+      "pitches": 179,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "fields": [
+        "summer"
+      ],
+      "mlb_id": 681813,
+      "pitches": 62,
+      "reason": "No Stats API summer line (2026/2025) and/or no positive MLB id"
     },
     {
       "team": "CAR",
       "name": "Saul Gonzalez",
-      "fields": ["velo_bands", "movement", "summer"],
-      "reason": "Thin Synergy sample (33 pitches) with locations/usages/IZ but no pitchSpeedMph, no IVB/HB, and no positive MLB id for Stats API summer."
+      "fields": [
+        "velo_bands",
+        "movement"
+      ],
+      "mlb_id": -779812433,
+      "pitches": 33,
+      "reason": "No Synergy pitchSpeedMph sample with n>=12 and no MLB Statcast speeds; No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 689214,
+      "pitches": 792,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -742329386,
+      "pitches": 82,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 806309,
+      "pitches": 541,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 664371,
+      "pitches": 196,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 693543,
+      "pitches": 120,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
     },
     {
       "team": "CAR",
       "name": "Ramon Rodriguez",
-      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement"],
-      "reason": "Synergy id 5c8ca0e1f52909811e2ff72f resolves but returns no retained 2022–2026 pitcher events (empty boot)."
+      "fields": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "mlb_id": 670232,
+      "pitches": 0,
+      "reason": "No usable Synergy/Statcast pitch sample for arsenal"
+    },
+    {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 545814,
+      "pitches": 158,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -758984765,
+      "pitches": 39,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -522170762,
+      "pitches": 287,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 826141,
+      "pitches": 986,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 694547,
+      "pitches": 205,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -198603702,
+      "pitches": 105,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 543071,
+      "pitches": 572,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -346943911,
+      "pitches": 379,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 571772,
+      "pitches": 336,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 446651,
+      "pitches": 263,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 624401,
+      "pitches": 150,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -465760315,
+      "pitches": 1416,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 683803,
+      "pitches": 331,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 837223,
+      "pitches": 162,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -165648089,
+      "pitches": 206,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -539643335,
+      "pitches": 36,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -259860308,
+      "pitches": 1350,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 807620,
+      "pitches": 136,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -799554792,
+      "pitches": 102,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 801018,
+      "pitches": 213,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 676984,
+      "pitches": 294,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -346674215,
+      "pitches": 247,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "PON",
+      "name": "Julio Torres",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 692937,
+      "pitches": 197,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
     },
     {
       "team": "PON",
       "name": "Kyohei Yamashiro",
-      "fields": ["arsenal", "pitches", "heat", "velo_bands", "movement", "summer"],
-      "reason": "Synergy id present; event pull yields no usable pitcher pitch sample for arsenal/heat. No positive MLB id for summer."
+      "fields": [
+        "no_pitches",
+        "no_arsenal",
+        "summer"
+      ],
+      "mlb_id": -172871700,
+      "pitches": 0,
+      "reason": "No Stats API summer line (2026/2025) and/or no positive MLB id; No usable Synergy/Statcast pitch sample for arsenal"
+    },
+    {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": -173172553,
+      "pitches": 444,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "fields": [
+        "velo_bands",
+        "movement"
+      ],
+      "mlb_id": -579003596,
+      "pitches": 709,
+      "reason": "No Synergy pitchSpeedMph sample with n>=12 and no MLB Statcast speeds; No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -280803405,
+      "pitches": 580,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 690616,
+      "pitches": 495,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 692808,
+      "pitches": 174,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 671045,
+      "pitches": 315,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "SJU",
+      "name": "Agnel Miranda",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 695064,
+      "pitches": 296,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 684841,
+      "pitches": 10,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -670692245,
+      "pitches": 629,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
     },
     {
       "team": "SJU",
       "name": "Jean Ortega",
-      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement"],
-      "reason": "Best Synergy candidate (Jean Carlos Ortega / 6a03ee1a8d5f953964d5e4cc) returns 0 events in 2022–2026 scan."
+      "fields": [
+        "no_pitches",
+        "no_arsenal",
+        "count_hand"
+      ],
+      "mlb_id": 458960,
+      "pitches": 0,
+      "reason": "No usable Synergy/Statcast pitch sample for arsenal; No Synergy count/hand mix retained"
+    },
+    {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 703211,
+      "pitches": 599,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 681344,
+      "pitches": 35,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+    },
+    {
+      "team": "SJU",
+      "name": "Raul Rivera",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": 572077,
+      "pitches": 204,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "fields": [
+        "movement"
+      ],
+      "mlb_id": -426239217,
+      "pitches": 636,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
     },
     {
       "team": "SJU",
       "name": "Keishin Saito",
-      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement", "summer"],
-      "reason": "Synergy match Keishin Saitoh has only a handful of non-pitch / empty events after boot; no located arsenal sample."
+      "fields": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "mlb_id": -322791781,
+      "pitches": 0,
+      "reason": "No usable Synergy/Statcast pitch sample for arsenal"
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "fields": [
+        "movement",
+        "summer"
+      ],
+      "mlb_id": 543803,
+      "pitches": 435,
+      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
     }
-  ],
-  "movement_blank_policy": "IVB/HB left blank when Prospect Savant, Statcast, and Synergy movement samples are all absent. Not invented.",
-  "summer_blank_policy": "Summer lines filled from Stats API when a positive MLB id has a 2026 MiLB/MLB pitching line, or copied from advance when already present. Remaining blanks = no line on Stats API and/or no MLB id."
+  ]
 }
