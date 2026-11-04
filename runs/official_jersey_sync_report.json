@@ -1,82 +1,26 @@
 {
-  "updated": "2026-11-04T19:05:17Z",
+  "updated": "2026-11-04T19:06:05Z",
   "doc_counts": {
     "CAG": 41,
     "CAR": 60,
     "MAY": 37,
     "PON": 36,
-    "SJU": 44
+    "SJU": 35
   },
   "jersey_changes": [
     {
-      "team": "CAG",
-      "name": "Brett Rodriguez",
-      "id": 687858,
+      "team": "CAR",
+      "name": "Slater DeBrun",
+      "id": 828173,
       "old": null,
-      "new": "65",
-      "doc_name": "Sebastian Rodriguez"
-    },
-    {
-      "team": "CAG",
-      "name": "Steven Echavarria",
-      "id": 806064,
-      "old": null,
-      "new": "66",
-      "doc_name": "Juan Javier Echavarria"
-    },
-    {
-      "team": "MAY",
-      "name": "Ryan Hernandez",
-      "id": 689659,
-      "old": null,
-      "new": "20",
-      "doc_name": "Héctor Hernández"
-    },
-    {
-      "team": "MAY",
-      "name": "Devin Ortiz",
-      "id": 668776,
-      "old": null,
-      "new": "16",
-      "doc_name": "Daniel Ortiz"
-    },
-    {
-      "team": "PON",
-      "name": "Erik Rivera",
-      "id": 682992,
-      "old": null,
-      "new": "9",
-      "doc_name": "Jose Rivera"
-    },
-    {
-      "team": "PON",
-      "name": "Eddie Rosario",
-      "id": 592696,
-      "old": null,
-      "new": "31",
-      "doc_name": "Hemmanuel Rosario"
-    },
-    {
-      "team": "PON",
-      "name": "Emmanuel Rivera",
-      "id": 656896,
-      "old": null,
-      "new": "9",
-      "doc_name": "Jose Rivera"
-    },
-    {
-      "team": "SJU",
-      "name": "Curtis Terry",
-      "id": 663799,
-      "old": null,
-      "new": "34",
-      "doc_name": "Curtis Terry"
+      "new": "96",
+      "doc_name": "Slater De Brun"
     }
   ],
-  "change_count": 8,
+  "change_count": 1,
   "one_page_jersey_writes": 0,
-  "card_jersey_writes": 10,
-  "tth_jersey_writes": 3,
+  "card_jersey_writes": 1,
+  "tth_jersey_writes": 0,
   "game_day_override_updates": 0,
   "unmatched_roster": [
     {
@@ -96,11 +40,6 @@
     },
     {
       "team": "CAG",
-      "name": "Bryan Gonzalez Garcia",
-      "old": "67"
-    },
-    {
-      "team": "CAG",
       "name": "Tyler Myrick",
       "old": ""
     },
@@ -113,16 +52,6 @@
       "team": "CAR",
       "name": "Cody Bolton",
       "old": ""
-    },
-    {
-      "team": "CAR",
-      "name": "Slater DeBrun",
-      "old": ""
-    },
-    {
-      "team": "CAR",
-      "name": "Mervyl Melendez",
-      "old": "9"
     },
     {
       "team": "CAR",
@@ -158,11 +87,6 @@
       "team": "MAY",
       "name": "Davian Garcia",
       "old": ""
-    },
-    {
-      "team": "MAY",
-      "name": "Jonathan Haab",
-      "old": "64"
     },
     {
       "team": "MAY",
@@ -308,12 +232,6 @@
   "unmatched_doc_active": [
     {
       "team": "CAG",
-      "name": "Bryan Gonzalez",
-      "jersey": "67",
-      "pos": "INF/C"
-    },
-    {
-      "team": "CAG",
       "name": "Ismael Salgado",
       "jersey": "31",
       "pos": "OF"
@@ -356,18 +274,6 @@
     },
     {
       "team": "CAR",
-      "name": "MJ Melendez",
-      "jersey": "9",
-      "pos": "OF"
-    },
-    {
-      "team": "CAR",
-      "name": "Slater De Brun",
-      "jersey": "96",
-      "pos": "OF"
-    },
-    {
-      "team": "CAR",
       "name": "Aiden Ruiz",
       "jersey": "42",
       "pos": "INF"
@@ -401,66 +307,6 @@
       "name": "Nathan Torres",
       "jersey": "67",
       "pos": "RHP"
-    },
-    {
-      "team": "MAY",
-      "name": "Jonathan Happ",
-      "jersey": "64",
-      "pos": "RHP"
-    },
-    {
-      "team": "SJU",
-      "name": "Min",
-      "jersey": "190",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Mil",
-      "jersey": "185",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Agent Libre",
-      "jersey": "180",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Ind",
-      "jersey": "190",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Nym",
-      "jersey": "200",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Agente Libre",
-      "jersey": "185",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Jpfl",
-      "jersey": "198",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Free Agent",
-      "jersey": "210",
-      "pos": ""
-    },
-    {
-      "team": "SJU",
-      "name": "Oak",
-      "jersey": "205",
-      "pos": ""
     }
   ]
 }
