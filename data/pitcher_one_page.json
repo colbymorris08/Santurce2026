@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T18:59:36Z",
+  "updated": "2026-11-04T19:03:02Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -709,15 +709,15 @@
           "mlb_id": 806064,
           "velo": {
             "FB": "98-98",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "CB": "80-80",
+            "SL": "87-87",
+            "CH": "86-86",
             "CT": "88-88",
             "SPL": ""
           },
-          "freq_r": "FB 57%, SL 29%, CB 8%, CUT 5%",
-          "freq_l": "FB 58%, CH 18%, SL 11%, CB 10%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 57%, SL 29%, CB 8%, CUT 5%</span><br><span class=\"freq-l\">LHH: FB 58%, CH 18%, SL 11%, CB 10%</span>",
+          "freq_r": "FB 57%, SL 28%, CB 8%, CUT 4%",
+          "freq_l": "FB 57%, CH 21%, CB 10%, SL 9%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 57%, SL 28%, CB 8%, CUT 4%</span><br><span class=\"freq-l\">LHH: FB 57%, CH 21%, CB 10%, SL 9%</span>",
           "notes": "",
           "needs_data": false
         },
@@ -988,18 +988,18 @@
           "throws": "R",
           "mlb_id": -831444931,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
+            "FB": "90-90",
+            "CB": "79-79",
+            "SL": "82-82",
+            "CH": "85-85",
+            "CT": "89-89",
+            "SPL": "84-84"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 45%, SL 36%, CUT 14%, SPL 4%",
+          "freq_l": "FB 42%, SL 18%, CUT 13%, CH 11%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 45%, SL 36%, CUT 14%, SPL 4%</span><br><span class=\"freq-l\">LHH: FB 42%, SL 18%, CUT 13%, CH 11%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "77",
@@ -3049,21 +3049,21 @@
           "jersey": "",
           "name": "Leonardo Rodriguez",
           "name_display": "Rodriguez, Leonardo",
-          "throws": "",
+          "throws": "R",
           "mlb_id": -426239217,
           "velo": {
-            "FB": "",
+            "FB": "89-89",
             "CB": "",
-            "SL": "",
-            "CH": "",
+            "SL": "82-82",
+            "CH": "80-80",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 69%, SL 30%, CH 1%",
+          "freq_l": "FB 74%, SL 20%, CH 4%, CB 2%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 69%, SL 30%, CH 1%</span><br><span class=\"freq-l\">LHH: FB 74%, SL 20%, CH 4%, CB 2%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "54",

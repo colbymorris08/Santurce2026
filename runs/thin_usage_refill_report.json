@@ -1,0 +1,181 @@
+{
+  "updated": "2026-11-04T19:03:02Z",
+  "filled": [
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "id": -831444931,
+      "status": "populated",
+      "synergy_id": "6058f92e7e2bdddc3d2bf33a",
+      "synergy_name": "Sebastian Rodriguez",
+      "raw_events": 1500,
+      "stats_events": 444,
+      "window_used": "2025 fallback",
+      "pitches": 421,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Steven Echavarria",
+      "id": 806064,
+      "status": "populated",
+      "synergy_id": "5f48363d5f9a94d568e0b1d7",
+      "synergy_name": "Steven Echavarria",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool",
+      "pitches": 1340,
+      "movement": {
+        "status": "already",
+        "source": "MLB Statcast spring 2026",
+        "season": 2026
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "id": -779812433,
+      "status": "unresolved",
+      "candidates": [
+        "Gonzalez",
+        "Saul Gonzalez",
+        "Saul Gonzalez"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Jimenez",
+      "id": -433762629,
+      "status": "unresolved",
+      "candidates": [
+        "Jimenez",
+        "Joe Jimenez",
+        "Joe Jimenez",
+        "Joel Jimenez",
+        "Joeseph Jimenez",
+        "Joel Jimenez"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "id": 670232,
+      "status": "empty",
+      "synergy_id": "5c8ca0e1f52909811e2ff72f",
+      "synergy_name": "Rodriguez",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": 0,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "no IVB/HB in 2026-2024"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "id": -172871700,
+      "status": "empty",
+      "synergy_id": "686cb48931111e14d2e9a933",
+      "synergy_name": "Kyohei Yamashiro",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": 0,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "id": -693644039,
+      "status": "unresolved",
+      "candidates": [
+        "Cirino, Miguel Angel",
+        "Miguel Cirino Allende"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "id": 458960,
+      "status": "unresolved",
+      "candidates": [
+        "Jean Carlos Ortega"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Julio Cesar Ortiz",
+      "id": -324713460,
+      "status": "unresolved",
+      "candidates": [
+        "Julio Ortiz",
+        "Julio Ortiz"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "id": -426239217,
+      "status": "populated",
+      "synergy_id": "5ff0f79fee18be9c9cb159dc",
+      "synergy_name": "Leonardo Rodriguez",
+      "raw_events": 932,
+      "stats_events": 932,
+      "window_used": "2024 fallback",
+      "pitches": 636,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "id": -322791781,
+      "status": "empty",
+      "synergy_id": "681d6486373abc5e4678b3f2",
+      "synergy_name": "Keishin Saitoh",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": 0,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "2026 had 38 Synergy pitches but no IVB/HB"
+      }
+    }
+  ],
+  "coverage": {
+    "pitchers": 127,
+    "with_movement": 69,
+    "usage_10plus": 119,
+    "still_thin": [
+      "CAR Saul Gonzalez",
+      "CAR Joe Jimenez",
+      "CAR Ramon Rodriguez",
+      "PON Kyohei Yamashiro",
+      "SJU Miguel Cirino",
+      "SJU Jean Ortega",
+      "SJU Julio Cesar Ortiz",
+      "SJU Keishin Saito"
+    ]
+  }
+}
