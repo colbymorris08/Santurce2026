@@ -124,11 +124,25 @@
         : doc.one_page_notes;
       lsSet(ONEPAGE_KEY, Object.assign({}, (curFlat && typeof curFlat === 'object' ? curFlat : {}), incoming || {}));
     }
+    // Merge (do not replace) so a published/partial game-day map cannot wipe
+    // browser-only TTH/OF keys the coach typed before publish (e.g. new pitchers).
     if (doc.tth_overrides && typeof doc.tth_overrides === 'object') {
-      lsSet(TTH_KEY, doc.tth_overrides);
+      const cur = lsGet(TTH_KEY, {}) || {};
+      const merged = Object.assign({}, (cur && typeof cur === 'object' ? cur : {}));
+      for (const [id, fields] of Object.entries(doc.tth_overrides)) {
+        if (!fields || typeof fields !== 'object') continue;
+        merged[id] = Object.assign({}, merged[id] || {}, fields);
+      }
+      lsSet(TTH_KEY, merged);
     }
     if (doc.of_overrides && typeof doc.of_overrides === 'object') {
-      lsSet(OF_KEY, doc.of_overrides);
+      const cur = lsGet(OF_KEY, {}) || {};
+      const merged = Object.assign({}, (cur && typeof cur === 'object' ? cur : {}));
+      for (const [id, fields] of Object.entries(doc.of_overrides)) {
+        if (!fields || typeof fields !== 'object') continue;
+        merged[id] = Object.assign({}, merged[id] || {}, fields);
+      }
+      lsSet(OF_KEY, merged);
     }
     if (doc.positioning && typeof doc.positioning === 'object') {
       const cur = lsGet(POS_KEY, {}) || {};

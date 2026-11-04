@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-04T20:39:44Z",
+  "updated": "2026-11-04T23:14:21Z",
   "label": "11-3",
   "date_key": "2026-11-04",
   "published_from": "safari snapshot seed",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4.",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -686,6 +686,21 @@
     },
     "-846506108": {
       "time_to_home": "1.45"
+    },
+    "-411650644": {
+      "catcher_pop_time": "1.9"
+    },
+    "695467": {
+      "catcher_pop_time": "2.05"
+    },
+    "703804": {
+      "catcher_pop_time": "2.0"
+    },
+    "686766": {
+      "catcher_pop_time": "2.05"
+    },
+    "681493": {
+      "time_to_home": "1.3"
     }
   },
   "of_overrides": {},

@@ -4,7 +4,8 @@
     "note": "Pitcher time-to-home + catcher pop/arm. Site auto-saves overrides to GitHub when a PAT is set.",
     "units": "seconds (times) · 20–80 grades (arm)",
     "storage_key": "santurce_tth_pop_overrides_v1",
-    "repo_path": "data/pregame_tth_pop.json"
+    "repo_path": "data/pregame_tth_pop.json",
+    "restored_note": "Committed TTH/pop defaults; game-day hydrate merges (does not replace) browser overrides. Enlow/Aponte/Murphy TTH not found in PDF/excel backups as of restore."
   },
   "teams": [
     {
@@ -1325,7 +1326,7 @@
       "jersey": "",
       "status": "Active",
       "time_to_home": null,
-      "catcher_pop_time": null,
+      "catcher_pop_time": "1.9",
       "catcher_arm": null,
       "notes": ""
     },
@@ -1385,7 +1386,7 @@
       "jersey": "8",
       "status": "Active",
       "time_to_home": null,
-      "catcher_pop_time": null,
+      "catcher_pop_time": "2.05",
       "catcher_arm": null,
       "notes": ""
     },
@@ -1481,7 +1482,7 @@
       "jersey": "",
       "status": "Active",
       "time_to_home": null,
-      "catcher_pop_time": null,
+      "catcher_pop_time": "2.0",
       "catcher_arm": null,
       "notes": ""
     },
@@ -1505,7 +1506,7 @@
       "jersey": "33",
       "status": "Active",
       "time_to_home": null,
-      "catcher_pop_time": null,
+      "catcher_pop_time": "2.05",
       "catcher_arm": null,
       "notes": ""
     },

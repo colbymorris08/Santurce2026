@@ -385,7 +385,7 @@
         <input id="ofdef-search" placeholder="Player / team" oninput="renderOfDef()">
       </div>
       <div class="filter-field" style="min-width:220px"><label>GitHub PAT (repo write)</label>
-        <input id="scout-gh-pat" type="password" autocomplete="off" placeholder="ghp_…" onchange="saveScoutGhPat(this.value)" onblur="saveScoutGhPat(this.value)">
+        <input id="scout-gh-pat" class="scout-gh-pat-input" type="password" autocomplete="off" placeholder="ghp_…" onchange="saveScoutGhPat(this.value)" onblur="saveScoutGhPat(this.value)">
       </div>
       <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
         <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('of')">Publish OF now</button>
@@ -473,7 +473,7 @@
 
   <div id="panel-tth" class="panel">
     <div class="section-label" data-i18n="tthLabel">Time to Home and Catcher Arms</div>
-    <div class="note" data-i18n-html="tthNote">Pitcher <strong>time to home</strong> (s), catcher <strong>pop time</strong> (s), and catcher <strong>arm</strong> grade (20–80). Saves in-browser immediately and auto-publishes to the live site when a GitHub PAT is set on the OF tab (shared).</div>
+    <div class="note" data-i18n-html="tthNote">Pitcher <strong>time to home</strong> (s), catcher <strong>pop time</strong> (s), and catcher <strong>arm</strong> grade (20–80). Edits save in this browser immediately. <strong>Publish TTH now</strong> writes <code>data/pregame_tth_pop.json</code> to GitHub Pages — requires a GitHub PAT (repo Contents:write) below.</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="tth-team" onchange="renderTth()">
@@ -495,6 +495,9 @@
       </div>
       <div class="filter-field"><label data-i18n="search">Search</label>
         <input id="tth-search" placeholder="Player / team" oninput="renderTth()">
+      </div>
+      <div class="filter-field" style="min-width:220px"><label>GitHub PAT (repo write)</label>
+        <input id="scout-gh-pat-tth" class="scout-gh-pat-input" type="password" autocomplete="off" placeholder="ghp_…" onchange="saveScoutGhPat(this.value)" onblur="saveScoutGhPat(this.value)">
       </div>
       <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
         <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('tth')">Publish TTH now</button>
@@ -554,7 +557,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san227';
+const ASSET_V = 'san229';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4971,6 +4974,9 @@ function saveScoutGhPat(value){
     if(v) localStorage.setItem(SCOUT_GH_PAT_KEY, v);
     else localStorage.removeItem(SCOUT_GH_PAT_KEY);
   } catch(e){}
+  document.querySelectorAll('.scout-gh-pat-input').forEach(el => {
+    if(el.value !== v) el.value = v;
+  });
   updateTthPersistNote();
   updateOfPersistNote();
   updateOnePagePersistNote();
@@ -4980,8 +4986,41 @@ function saveScoutGhPat(value){
   }
 }
 function loadScoutPatInput(){
-  const el = document.getElementById('scout-gh-pat');
-  if(el) el.value = scoutGhPat();
+  const v = scoutGhPat();
+  document.querySelectorAll('.scout-gh-pat-input').forEach(el => { el.value = v; });
+}
+function focusScoutPatInput(){
+  const prefer = document.getElementById('scout-gh-pat-tth')
+    || document.getElementById('scout-gh-pat')
+    || document.querySelector('.scout-gh-pat-input');
+  if(!prefer) return;
+  try { prefer.scrollIntoView({ behavior:'smooth', block:'center' }); } catch(e){}
+  prefer.focus();
+  prefer.classList.add('pat-needed');
+  setTimeout(()=> prefer.classList.remove('pat-needed'), 4000);
+}
+function downloadScoutOverridesBackup(kind, reason){
+  try {
+    let payload, filename;
+    if(kind === 'of'){
+      payload = { meta:{ key:OF_STORAGE_KEY, exported_at:new Date().toISOString(), reason }, overrides: OF_OVERRIDES };
+      filename = 'santurce_of_arms_overrides.json';
+    } else if(kind === 'onepage'){
+      payload = { meta:{ key:'santurce_pitcher_one_page_notes_v1', exported_at:new Date().toISOString(), reason }, notes: loadOnePageNoteOverrides() };
+      filename = 'santurce_pitcher_one_page_notes.json';
+    } else {
+      payload = { meta:{ key:TTH_STORAGE_KEY, exported_at:new Date().toISOString(), reason }, overrides: TTH_OVERRIDES };
+      filename = 'santurce_tth_pop_overrides.json';
+    }
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  } catch(e){
+    console.warn('override backup download failed', e);
+  }
 }
 
 function loadTthOverrides(){
@@ -5148,13 +5187,21 @@ function scoutPersistNoteId(kind){
   if(kind === 'onepage') return 'onepage-persist-note';
   return 'tth-persist-note';
 }
-async function publishScoutSheet(kind){
+async function publishScoutSheet(kind, opts){
+  const options = opts || {};
   const el = document.getElementById(scoutPersistNoteId(kind));
+  const n = scoutOverrideCount(kind);
   if(!scoutGhPat()){
-    if(el) el.textContent = scoutStatusText(kind, scoutOverrideCount(kind));
-    return;
+    const msg = `Publish blocked: no GitHub PAT. Values are only in this browser (${n} override(s)). Paste a PAT with repo Contents:write, then click Publish again. A backup JSON download was started so you do not lose the numbers.`;
+    if(el) el.textContent = msg;
+    if(!options.quiet){
+      downloadScoutOverridesBackup(kind, 'publish-blocked-no-pat');
+      focusScoutPatInput();
+      alert(msg);
+    }
+    return false;
   }
-  if(el) el.textContent = 'Publishing to GitHub…';
+  if(el) el.textContent = `Publishing ${n} override(s) to GitHub…`;
   try {
     if(kind === 'of'){
       const doc = buildOfPublishDoc();
@@ -5169,24 +5216,37 @@ async function publishScoutSheet(kind){
       // cannot wipe keys when only the scout sheet was pushed.
       try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(doc.notes || {})); } catch(e){}
       updateOnePagePersistNote();
-      if(typeof publishGameDayNow === 'function'){
-        try { await publishGameDayNow({ skipScout: true }); } catch(e){ console.warn('one-page game-day side-publish', e); }
-      }
     } else {
       const doc = buildTthPublishDoc();
       await githubPutJson('data/pregame_tth_pop.json', doc, 'Scout update: time to home / catcher arms');
+      // Bake into CACHE so a reload of the sheet before Pages rebuild still shows values.
       CACHE.tth = doc;
+      if(typeof renderTth === 'function') renderTth();
     }
-    if(el) el.textContent = `Published to live site · ${new Date().toLocaleTimeString()}`;
+    // Always side-publish game-day overrides so cross-browser hydrate matches the sheet.
+    if(typeof publishGameDayNow === 'function'){
+      try { await publishGameDayNow({ skipScout: true }); } catch(e){ console.warn('scout game-day side-publish', e); }
+    }
+    if(el) el.textContent = `Published to live site (${scoutPublishPath(kind)}) · ${new Date().toLocaleTimeString()} · ${n} override(s)`;
+    return true;
   } catch(err){
-    if(el) el.textContent = `Publish failed: ${err.message || err}`;
+    const fail = `Publish failed: ${err.message || err}`;
+    if(el) el.textContent = fail;
+    if(!options.quiet){
+      downloadScoutOverridesBackup(kind, 'publish-failed');
+      alert(fail + '\n\nA backup JSON of your browser overrides was downloaded. Keep that file — Paste a valid PAT and retry Publish.');
+    }
+    return false;
   }
 }
 function queueScoutPublish(kind){
   clearTimeout(SCOUT_PUBLISH_TIMERS[kind]);
-  SCOUT_PUBLISH_TIMERS[kind] = setTimeout(()=>publishScoutSheet(kind), 1600);
+  // Quiet auto-publish: never alert/download on every keystroke debounce.
+  SCOUT_PUBLISH_TIMERS[kind] = setTimeout(()=>publishScoutSheet(kind, { quiet: true }), 1600);
 }
-function publishScoutSheetNow(kind){ publishScoutSheet(kind); }
+async function publishScoutSheetNow(kind){
+  return publishScoutSheet(kind, { quiet: false });
+}
 
 function exportTthOverrides(){
   const blob = new Blob([JSON.stringify({ meta:{ key:TTH_STORAGE_KEY, exported_at:new Date().toISOString() }, overrides:TTH_OVERRIDES }, null, 2)], {type:'application/json'});
