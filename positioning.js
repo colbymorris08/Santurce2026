@@ -168,7 +168,56 @@
     if (typeof ofPosTeamHitters === 'function') return ofPosTeamHitters(t || team());
     return [];
   }
+  /** Resolve strategy-card player id → advance/roster display name. */
+  function nameForStrategyId(id, t) {
+    const nid = Number(id);
+    if (!nid) return '';
+    try {
+      const cardPlayers = (typeof CACHE !== 'undefined' && CACHE.cardStats && CACHE.cardStats.players) || [];
+      const hit = cardPlayers.find((p) => Number(p.id) === nid && (!t || p.team === t));
+      if (hit && hit.name) return hit.name;
+      const any = cardPlayers.find((p) => Number(p.id) === nid);
+      if (any && any.name) return any.name;
+    } catch (e) {}
+    const pool = hitters(t);
+    for (let i = 0; i < pool.length; i++) {
+      const h = pool[i];
+      if (!h) continue;
+      if (typeof playerStrategyId === 'function' && playerStrategyId(h) === nid) return h.name;
+      if (Number(h._roster_id) === nid || Number(h.mlb_id) === nid || Number(h.player_id) === nid || Number(h.id) === nid) {
+        return h.name;
+      }
+    }
+    return '';
+  }
+  /**
+   * Night's strategy card order: batting 1–9, then checked bench (max 15 slots).
+   * Returns null when that team has no strategy lineup yet.
+   */
+  function strategyCardLineupNames(t) {
+    if (!window.CardApp || typeof CardApp.getLineupIds !== 'function') return null;
+    const lineupIds = CardApp.getLineupIds(t) || [];
+    if (!lineupIds.length) return null;
+    const activeIds = (typeof CardApp.getActiveHitterIds === 'function'
+      ? (CardApp.getActiveHitterIds(t) || lineupIds)
+      : lineupIds);
+    const seen = new Set();
+    const names = [];
+    activeIds.forEach((id) => {
+      const nm = nameForStrategyId(id, t);
+      if (!nm) return;
+      const key = norm(nm);
+      if (seen.has(key)) return;
+      seen.add(key);
+      names.push(nm);
+    });
+    if (!names.length) return null;
+    return Array.from({ length: 15 }, (_, i) => names[i] || '');
+  }
   function lineupNames(t) {
+    // Strategy card wins over seed / saved A–Z roster order.
+    const fromCard = strategyCardLineupNames(t);
+    if (fromCard && fromCard.some(Boolean)) return fromCard;
     const store = loadStore();
     const saved = store.lineups[t];
     if (Array.isArray(saved) && saved.length) {
@@ -178,6 +227,15 @@
     return Array.from({ length: 15 }, (_, i) => pool[i] || '');
   }
   function setLineupSlot(t, idx, name) {
+    // Manual slot edits only when strategy card has no lineup for this team.
+    if (strategyCardLineupNames(t)) {
+      alert(tr(
+        'Lineup order comes from the Strategy Card (1–9 + checked bench). Edit it there.',
+        'El orden viene de la Carta de Estrategia (1–9 + banca marcada). Edítalo allí.'
+      ));
+      render();
+      return;
+    }
     const store = loadStore();
     const row = lineupNames(t).slice();
     row[idx] = name || '';
@@ -609,20 +667,28 @@
         html,body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif}
         h1{font-size:16px;margin:0 0 8px;letter-spacing:.04em}
         h2{font-size:13px;margin:12px 0 6px;background:#111;color:#fff;padding:4px 8px;letter-spacing:.08em}
-        .pos-print-grid{display:grid;gap:10px}
+        .pos-print-grid{display:grid;gap:14px}
         .pos-print-3{grid-template-columns:1fr 1fr 1fr}
         .pos-print-2{grid-template-columns:1fr 1fr}
-        table{width:100%;border-collapse:collapse;font-size:11px}
-        th,td{border:1px solid #bbb;padding:3px 5px;text-align:center}
-        th{font-size:10px;letter-spacing:.04em}
-        td.name{text-align:left;font-weight:700;width:38%}
-        .pos-title{font-weight:800;background:#5B9BD5;color:#fff;text-align:left}
-        .pos-labels th{background:#D9D9D9;font-weight:700}
-        .pos-bench{background:#FCE4D6}
+        table.pos-card{
+          width:100%;border-collapse:collapse;font-size:11px;
+          border:2.5px solid #000;background:#fff;
+        }
+        table.pos-card th,table.pos-card td{
+          border:1px solid #999;padding:3px 5px;text-align:center;
+        }
+        table.pos-card th{font-size:10px;letter-spacing:.04em}
+        table.pos-card td.name{text-align:left;font-weight:700;width:34%}
+        table.pos-card .pos-title{
+          font-weight:800;background:#5B9BD5;color:#111;text-align:left;
+        }
+        table.pos-card .pos-labels th{background:#D9D9D9;font-weight:700;color:#111}
+        table.pos-card .pos-bench{background:#FCE4D6}
         .sc-lhb{color:#C0392B!important}
         .sc-shb{color:#1A5276!important}
         @media print {
-          h2,.pos-title,.pos-labels th,.pos-bench,.sc-lhb,.sc-shb{
+          h2,table.pos-card .pos-title,table.pos-card .pos-labels th,
+          table.pos-card .pos-bench,.sc-lhb,.sc-shb{
             -webkit-print-color-adjust:exact;print-color-adjust:exact
           }
         }
@@ -663,27 +729,26 @@
     const t = team();
     const list = lineupSlots(t, 15);
     const positions = scope === 'ALL' ? OF_POS : [scope];
-    function ofTable(pos, pHand, titleText) {
+    function ofTable(pos, pHand) {
       const rows = list.map((slot) => {
         const nm = slot.name;
         const pre = nm ? (getOf(t, nm, pos, 'PRE', pHand) || '') : '';
         const two = nm ? (getOf(t, nm, pos, '2K', pHand) || '') : '';
-        return `<tr>${printNameCell(slot)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
+        return `<tr>${printNameCell(slot)}<td></td><td></td><td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
       }).join('');
-      return `<table>
+      return `<table class="pos-card">
         <thead>
-          <tr><th class="pos-title" colspan="3">${esc(titleText)}</th></tr>
-          <tr class="pos-labels"><th></th><th>PRE</th><th>2K</th></tr>
+          <tr><th class="pos-title" colspan="5">${esc(pHand + 'HP')}</th></tr>
+          <tr class="pos-labels"><th>${esc(pos)}</th><th></th><th></th><th>PRE</th><th>2K</th></tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>`;
     }
     function block(pHand) {
       if (positions.length === 1) {
-        const pos = positions[0];
-        return `<div>${ofTable(pos, pHand, `${pHand}HP · ${pos}`)}</div>`;
+        return `<div>${ofTable(positions[0], pHand)}</div>`;
       }
-      const cols = positions.map((pos) => `<div>${ofTable(pos, pHand, pos)}</div>`).join('');
+      const cols = positions.map((pos) => `<div>${ofTable(pos, pHand)}</div>`).join('');
       return `<h2>${pHand}HP</h2><div class="pos-print-grid pos-print-3">${cols}</div>`;
     }
     const title = scope === 'ALL'
@@ -701,17 +766,17 @@
     const t = team();
     const list = lineupSlots(t, 15);
     const positions = scope === 'ALL' ? INF_POS : [scope];
-    function tableFor(pos, pHand, titleText) {
+    function tableFor(pos, pHand) {
       const rows = list.map((slot) => {
         const nm = slot.name;
         const cells = INF_SITS.map((sit) => `<td>${esc(nm ? (getInf(t, nm, pos, sit, pHand) || '') : '')}</td>`).join('');
-        return `<tr>${printNameCell(slot)}${cells}</tr>`;
+        return `<tr>${printNameCell(slot)}<td></td><td></td>${cells}</tr>`;
       }).join('');
       return `<div>
-        <table>
+        <table class="pos-card">
           <thead>
-            <tr><th class="pos-title" colspan="4">${esc(titleText || pos)}</th></tr>
-            <tr class="pos-labels"><th></th><th>Empty</th><th>RISP</th><th>DP</th></tr>
+            <tr><th class="pos-title" colspan="6">${esc(pHand + 'HP')}</th></tr>
+            <tr class="pos-labels"><th>${esc(pos)}</th><th></th><th></th><th>Empty</th><th>RISP</th><th>DP</th></tr>
           </thead>
           <tbody>${rows}</tbody>
         </table>
@@ -719,7 +784,7 @@
     }
     function block(pHand) {
       if (positions.length === 1) {
-        return tableFor(positions[0], pHand, `${pHand}HP · ${positions[0]}`);
+        return tableFor(positions[0], pHand);
       }
       // Excel: 1B|2B on top, SS|3B below
       return `<h2>${pHand}HP</h2>
@@ -752,6 +817,9 @@
   function solidFill(rgb) {
     return { patternType: 'solid', fgColor: { rgb } };
   }
+  function borderEdge(style) {
+    return { style: style || 'thin', color: { rgb: '000000' } };
+  }
   function ensureCell(ws, addr) {
     return ws[addr] || (ws[addr] = { t: 's', v: '' });
   }
@@ -771,6 +839,30 @@
     for (let c = c0; c <= c1; c++) {
       paintFill(ws, XLSX.utils.encode_cell({ r: r0, c }), rgb, extra);
     }
+  }
+  /** Thick black outer box around a card table; thin internal grid on every cell. */
+  function paintTableBox(ws, r0, r1, c0, c1) {
+    if (!ws || r1 < r0 || c1 < c0) return;
+    const thick = borderEdge('medium');
+    const thin = borderEdge('thin');
+    for (let r = r0; r <= r1; r++) {
+      for (let c = c0; c <= c1; c++) {
+        const cell = ensureCell(ws, XLSX.utils.encode_cell({ r, c }));
+        const border = {
+          top: r === r0 ? thick : thin,
+          bottom: r === r1 ? thick : thin,
+          left: c === c0 ? thick : thin,
+          right: c === c1 ? thick : thin,
+        };
+        cell.s = Object.assign({}, cell.s || {}, { border });
+      }
+    }
+  }
+  function titleFont() {
+    return { bold: true, color: { rgb: '000000' } };
+  }
+  function labelFont() {
+    return { bold: true, color: { rgb: '000000' } };
   }
 
   function exportOfExcel() {
@@ -802,16 +894,16 @@
     });
     const manualLast = Math.max(manualAoa.length, 2);
     const cardAoa = [[]];
-    const cardFormulas = [];
-    const cardNameStyles = []; // {r,c,hand,bench} 1-based excel
-    const cardHeaderStyles = []; // {r,c0,c1,kind:'title'|'label'} 0-based row
-    function pushHandBlock(label, range, col) {
+    const cardNameStyles = []; // {r,c,hand,bench} 0-based
+    const cardHeaderStyles = []; // {r,c0,c1,kind:'title'|'label'} 0-based
+    const cardBoxes = []; // {r0,r1,c0,c1} 0-based — every LF/CF/RF table
+    const OF_GROUPS = [[0, 4, 'LF'], [6, 10, 'CF'], [12, 16, 'RF']];
+    function pushHandBlock(label, pHand) {
       const head = Array(17).fill('');
       head[0] = label; head[6] = label; head[12] = label;
       cardAoa.push(head);
-      const titleR = cardAoa.length - 1; // 0-based
-      // Three OF tables side-by-side: LF cols 0–4, CF 6–10, RF 12–16
-      [[0, 4], [6, 10], [12, 16]].forEach(([c0, c1]) => {
+      const titleR = cardAoa.length - 1;
+      OF_GROUPS.forEach(([c0, c1]) => {
         cardHeaderStyles.push({ r: titleR, c0, c1, kind: 'title' });
       });
       const sub = Array(17).fill('');
@@ -820,33 +912,34 @@
       sub[12] = 'RF'; sub[15] = 'PRE'; sub[16] = '2K';
       cardAoa.push(sub);
       const labelR = cardAoa.length - 1;
-      [[0, 4], [6, 10], [12, 16]].forEach(([c0, c1]) => {
+      OF_GROUPS.forEach(([c0, c1]) => {
         cardHeaderStyles.push({ r: labelR, c0, c1, kind: 'label' });
       });
-      const headerRow = cardAoa.length;
+      const dataStart = cardAoa.length;
       for (let i = 0; i < 15; i++) {
-        const excelRow = cardAoa.length + 1;
-        const lineupRef = `LINEUP!B${i + 2}`;
-        const hand = lineupHands[i] || '';
+        const nm = lineup[i] || '';
+        const h = byName.get(nm);
+        const last = h ? lastUpper(h.name) : (nm ? lastUpper(nm) : '');
+        const nameKey = h ? h.name : nm;
+        const hand = h ? (hitterHand(h, t) || '') : (lineupHands[i] || '');
         const bench = i >= 9;
-        cardAoa.push(Array(17).fill(''));
-        [
-          [0, lineupRef],
-          [3, `IFERROR(VLOOKUP($A${excelRow}&"|"&A$${headerRow}&" PRE",'Manual Data'!${range},${col},0)," ")`],
-          [4, `IFERROR(VLOOKUP($A${excelRow}&"|"&A$${headerRow}&" 2K",'Manual Data'!${range},${col},0)," ")`],
-          [6, lineupRef],
-          [9, `IFERROR(VLOOKUP($G${excelRow}&"|"&G$${headerRow}&" PRE",'Manual Data'!${range},${col},0)," ")`],
-          [10, `IFERROR(VLOOKUP($G${excelRow}&"|"&G$${headerRow}&" 2K",'Manual Data'!${range},${col},0)," ")`],
-          [12, lineupRef],
-          [15, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" PRE",'Manual Data'!${range},${col},0)," ")`],
-          [16, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" 2K",'Manual Data'!${range},${col},0)," ")`],
-        ].forEach(([c, f]) => cardFormulas.push({ r: excelRow, c: c + 1, f }));
-        [0, 6, 12].forEach((c) => cardNameStyles.push({ r: excelRow, c: c + 1, hand, bench }));
+        const row = Array(17).fill('');
+        OF_GROUPS.forEach(([c0, , pos]) => {
+          row[c0] = last;
+          row[c0 + 3] = nameKey ? (getOf(t, nameKey, pos, 'PRE', pHand) || '') : '';
+          row[c0 + 4] = nameKey ? (getOf(t, nameKey, pos, '2K', pHand) || '') : '';
+          if (last) cardNameStyles.push({ r: dataStart + i, c: c0, hand, bench });
+        });
+        cardAoa.push(row);
       }
+      const dataEnd = cardAoa.length - 1;
+      OF_GROUPS.forEach(([c0, c1]) => {
+        cardBoxes.push({ r0: titleR, r1: dataEnd, c0, c1 });
+      });
     }
-    pushHandBlock('LHP', `$E$2:$G$${manualLast}`, 3);
+    pushHandBlock('LHP', 'L');
     cardAoa.push([]); cardAoa.push([]); cardAoa.push([]);
-    pushHandBlock('RHP', `$E$2:$I$${manualLast}`, 5);
+    pushHandBlock('RHP', 'R');
 
     const wb = XLSX.utils.book_new();
     const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
@@ -855,20 +948,15 @@
     for (let r = 2; r <= manualLast; r++) wsManual[`E${r}`] = { f: `C${r}&"|"&D${r}` };
     manualNameHands.forEach((hand, i) => paintNameCell(wsManual, `C${i + 2}`, hand));
     const wsCard = XLSX.utils.aoa_to_sheet(cardAoa);
-    cardFormulas.forEach(({ r, c, f }) => {
-      const addr = XLSX.utils.encode_cell({ r: r - 1, c: c - 1 });
-      const prev = wsCard[addr];
-      wsCard[addr] = Object.assign({}, prev || {}, { f });
-    });
+    // Boxes first so fills/fonts layer on top of borders.
+    cardBoxes.forEach(({ r0, r1, c0, c1 }) => paintTableBox(wsCard, r0, r1, c0, c1));
     cardHeaderStyles.forEach(({ r, c0, c1, kind }) => {
       const rgb = kind === 'title' ? POS_FILL.title : POS_FILL.label;
-      const extra = kind === 'title'
-        ? { font: { bold: true, color: { rgb: 'FFFFFF' } } }
-        : { font: { bold: true, color: { rgb: '000000' } } };
+      const extra = { font: kind === 'title' ? titleFont() : labelFont() };
       paintRowRange(wsCard, r, c0, c1, rgb, extra);
     });
     cardNameStyles.forEach(({ r, c, hand, bench }) => {
-      paintNameCell(wsCard, XLSX.utils.encode_cell({ r: r - 1, c: c - 1 }), hand, { bench });
+      paintNameCell(wsCard, XLSX.utils.encode_cell({ r, c }), hand, { bench });
     });
     XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
@@ -886,7 +974,7 @@
     const lineup = lineupNames(t);
     const lineupHands = [];
     const lineupAoa = [['#', 'Hitters', 'Hand']];
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 15; i++) {
       const h = byName.get(lineup[i]);
       const hand = h ? (hitterHand(h, t) || '') : '';
       lineupHands.push(hand);
@@ -921,12 +1009,14 @@
       const aoa = [[]];
       const nameStyles = []; // {r,c,hand,bench} 0-based
       const headerStyles = []; // {r,c0,c1,kind}
+      const boxes = []; // {r0,r1,c0,c1}
+      const INF_GROUPS = [[0, 5], [9, 14]];
       function pair(posA, posB) {
         const head = Array(15).fill('');
         head[0] = pHand + 'HP'; head[9] = pHand + 'HP';
         aoa.push(head);
         const titleR = aoa.length - 1;
-        [[0, 5], [9, 14]].forEach(([c0, c1]) => {
+        INF_GROUPS.forEach(([c0, c1]) => {
           headerStyles.push({ r: titleR, c0, c1, kind: 'title' });
         });
         const sub = Array(15).fill('');
@@ -934,10 +1024,10 @@
         sub[9] = posB; sub[12] = 'Empty'; sub[13] = 'RISP'; sub[14] = 'DP';
         aoa.push(sub);
         const labelR = aoa.length - 1;
-        [[0, 5], [9, 14]].forEach(([c0, c1]) => {
+        INF_GROUPS.forEach(([c0, c1]) => {
           headerStyles.push({ r: labelR, c0, c1, kind: 'label' });
         });
-        for (let i = 0; i < 18; i++) {
+        for (let i = 0; i < 15; i++) {
           const nm = lineup[i] || '';
           const h = byName.get(nm);
           const last = h ? lastUpper(h.name) : (nm ? lastUpper(nm) : '');
@@ -960,17 +1050,19 @@
             nameStyles.push({ r, c: 9, hand, bench });
           }
         }
+        const dataEnd = aoa.length - 1;
+        INF_GROUPS.forEach(([c0, c1]) => {
+          boxes.push({ r0: titleR, r1: dataEnd, c0, c1 });
+        });
       }
       pair('1B', '2B');
       aoa.push([]); aoa.push([]); aoa.push([]);
       pair('SS', '3B');
       const ws = XLSX.utils.aoa_to_sheet(aoa);
+      boxes.forEach(({ r0, r1, c0, c1 }) => paintTableBox(ws, r0, r1, c0, c1));
       headerStyles.forEach(({ r, c0, c1, kind }) => {
         const rgb = kind === 'title' ? POS_FILL.title : POS_FILL.label;
-        const extra = kind === 'title'
-          ? { font: { bold: true, color: { rgb: 'FFFFFF' } } }
-          : { font: { bold: true, color: { rgb: '000000' } } };
-        paintRowRange(ws, r, c0, c1, rgb, extra);
+        paintRowRange(ws, r, c0, c1, rgb, { font: kind === 'title' ? titleFont() : labelFont() });
       });
       nameStyles.forEach(({ r, c, hand, bench }) => {
         paintNameCell(ws, XLSX.utils.encode_cell({ r, c }), hand, { bench });

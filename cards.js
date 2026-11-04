@@ -941,7 +941,7 @@
     saveStrategy(state);
     queuePersist();
     renderStrategy();
-    // Keep hitter / spray PDF export lists in strategy lineup order.
+    // Keep hitter / spray PDF export lists + INF/OF cards in strategy lineup order.
     try {
       if (typeof window.fillAdvanceHitters === 'function'
           && document.getElementById('panel-hitter-advance')?.classList.contains('active')) {
@@ -951,6 +951,8 @@
           && document.getElementById('panel-spray')?.classList.contains('active')) {
         window.renderSpray();
       }
+      if (window.PosApp && typeof PosApp.render === 'function') PosApp.render();
+      else if (typeof window.renderOfPos === 'function') window.renderOfPos();
     } catch (e) {}
     const restore = () => {
       window.scrollTo(x, y);

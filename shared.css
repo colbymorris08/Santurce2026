@@ -2252,10 +2252,14 @@ input.tth-input:focus {
 }
 .pos-entry-row.is-active td { outline: 2px solid rgba(40, 110, 200, .45); outline-offset: -2px; }
 .pos-hitter-start td { border-top: 2px solid #8a95a5; }
-/* Card styling on entry sheet: title medium blue, labels light gray, bench name cells light orange */
+/* Card styling on entry sheet: boxed table, title medium blue, labels light gray, bench name orange */
+#tbl-ofpos.pos-entry-sheet {
+  border: 2.5px solid #000;
+  border-collapse: collapse;
+}
 #tbl-ofpos thead tr.pos-sheet-title th {
   background: #5B9BD5;
-  color: #fff;
+  color: #111;
   font-weight: 800;
   letter-spacing: .04em;
   text-align: left;

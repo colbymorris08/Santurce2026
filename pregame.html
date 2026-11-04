@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san210">
+<link rel="stylesheet" href="shared.css?v=san211">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -447,7 +447,7 @@
           <table id="tbl-ofpos" class="scout-sheet ofpos-sheet pos-entry-sheet"><thead></thead><tbody></tbody></table>
         </div>
         <details class="pos-lineup-details">
-          <summary data-i18n="ofposLineupLabel">Lineup (1–15) · print / Excel order</summary>
+          <summary data-i18n="ofposLineupLabel">Lineup (1–15) · from Strategy Card (1–9 + checked bench)</summary>
           <div id="ofpos-lineup" class="ofpos-lineup"></div>
         </details>
       </div>
@@ -544,14 +544,14 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san210"></script>
-<script src="cards.js?v=san210"></script>
-<script src="positioning.js?v=san210"></script>
-<script src="persist.js?v=san210"></script>
+<script src="i18n.js?v=san211"></script>
+<script src="cards.js?v=san211"></script>
+<script src="positioning.js?v=san211"></script>
+<script src="persist.js?v=san211"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san210';
+const ASSET_V = 'san211';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -5203,12 +5203,44 @@ function ofPosLastNameUpper(name){
   return last.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
 }
 function ofPosTeamHitters(team){
-  return sortByLastName(
-    advanceHitterList().filter(h => !team || h.team === team),
-    h => h.name
-  );
+  const rows = advanceHitterList().filter(h => !team || h.team === team);
+  // Strategy card order when set; otherwise A–Z.
+  return sortByStrategyLineup(rows, h => h.name, team);
 }
 function ofPosLineupNames(team){
+  // Prefer PosApp (strategy-card order) when available.
+  if(window.PosApp && typeof PosApp.render === 'function'){
+    try {
+      // PosApp.lineupNames is closed over; use strategy helpers directly.
+      if(window.CardApp && typeof CardApp.getLineupIds === 'function'){
+        const ids = CardApp.getLineupIds(team) || [];
+        if(ids.length){
+          const active = (typeof CardApp.getActiveHitterIds === 'function'
+            ? (CardApp.getActiveHitterIds(team) || ids) : ids);
+          const byId = new Map();
+          ((CACHE.cardStats && CACHE.cardStats.players) || []).forEach(p=>{
+            if(p && p.id != null) byId.set(Number(p.id), p.name);
+          });
+          ofPosTeamHitters(team).forEach(h=>{
+            const id = playerStrategyId(h);
+            if(id) byId.set(id, h.name);
+            if(h._roster_id) byId.set(Number(h._roster_id), h.name);
+          });
+          const seen = new Set();
+          const names = [];
+          active.forEach(id=>{
+            const nm = byId.get(Number(id));
+            if(!nm) return;
+            const k = normPersonName(nm);
+            if(seen.has(k)) return;
+            seen.add(k);
+            names.push(nm);
+          });
+          if(names.length) return Array.from({length:15}, (_,i)=> names[i] || '');
+        }
+      }
+    } catch(e){}
+  }
   const store = loadOfPosStore();
   const saved = store.lineups && store.lineups[team];
   if(Array.isArray(saved) && saved.length){
