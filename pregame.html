@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san208">
+<link rel="stylesheet" href="shared.css?v=san209">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -341,7 +341,7 @@
 
   <div id="panel-pitcher-one-page" class="panel">
     <div class="section-label" data-i18n="pitcherOnePageLabel">Pitcher One Page Sheet</div>
-    <div class="note" data-i18n-html="pitcherOnePageNote">One landscape page per team — jersey, velo bands (FB/CB/SL/CH/CT/SPL), RHH/LHH pitch frequency from Synergy, and scout notes. Notes save in this browser; seed defaults in <code>data/pitcher_one_page_notes.json</code>.</div>
+    <div class="note" data-i18n-html="pitcherOnePageNote">One landscape page per team — jersey, velo bands (FB/CB/SL/CH/CT/SPL), RHH/LHH pitch frequency from Synergy, and scout notes. Notes auto-save in this browser and <strong>auto-publish to</strong> <code>data/pitcher_one_page_notes.json</code> when a GitHub PAT is set (same PAT as OF / TTH).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="onepage-team" onchange="renderPitcherOnePage()">
@@ -355,9 +355,11 @@
       </div>
       <div class="filter-field" style="align-self:end">
         <button type="button" class="btn" onclick="exportPitcherOnePagePdf()">Print / PDF</button>
+        <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('onepage')">Publish notes now</button>
       </div>
     </div>
     <div id="onepage-meta" class="note" style="margin-top:4px"></div>
+    <div id="onepage-persist-note" class="note" style="margin-top:2px"></div>
     <div id="onepage-view" class="onepage-sheet"></div>
   </div>
 
@@ -542,14 +544,14 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san208"></script>
-<script src="cards.js?v=san208"></script>
-<script src="positioning.js?v=san208"></script>
-<script src="persist.js?v=san208"></script>
+<script src="i18n.js?v=san209"></script>
+<script src="cards.js?v=san209"></script>
+<script src="positioning.js?v=san209"></script>
+<script src="persist.js?v=san209"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san208';
+const ASSET_V = 'san209';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4944,6 +4946,7 @@ function saveScoutGhPat(value){
   } catch(e){}
   updateTthPersistNote();
   updateOfPersistNote();
+  updateOnePagePersistNote();
   if(window.GameDayPersist){
     GameDayPersist.updateNote();
     GameDayPersist.updateRevertButton();
@@ -4993,16 +4996,22 @@ function sheetMergedValue(overrides, player, field){
 function tthMergedValue(player, field){ return sheetMergedValue(TTH_OVERRIDES, player, field); }
 function ofMergedValue(player, field){ return sheetMergedValue(OF_OVERRIDES, player, field); }
 
+function scoutPublishPath(kind){
+  if(kind === 'of') return 'data/pregame_of_arms.json';
+  if(kind === 'onepage') return 'data/pitcher_one_page_notes.json';
+  return 'data/pregame_tth_pop.json';
+}
 function scoutStatusText(kind, n){
   const hasPat = !!scoutGhPat();
+  const path = scoutPublishPath(kind);
   if(hasPat){
     return n
-      ? `${n} override(s) in browser · auto-publish armed (debounced) → ${kind === 'of' ? 'data/pregame_of_arms.json' : 'data/pregame_tth_pop.json'}`
+      ? `${n} override(s) in browser · auto-publish armed (debounced) → ${path}`
       : `No browser overrides · PAT set · edits will publish to the live site JSON`;
   }
   return n
-    ? `${n} override(s) saved in this browser only. Paste a GitHub PAT (repo Contents:write) above to auto-publish to the site.`
-    : `No browser overrides yet. Paste a GitHub PAT to auto-publish edits to the live site.`;
+    ? `${n} override(s) saved in this browser only. Paste a GitHub PAT (repo Contents:write) on the OF Jump / Arm tab to auto-publish to the site.`
+    : `No browser overrides yet. Paste a GitHub PAT on the OF Jump / Arm tab to auto-publish edits to the live site.`;
 }
 function updateTthPersistNote(){
   const el = document.getElementById('tth-persist-note');
@@ -5102,11 +5111,20 @@ function buildOfPublishDoc(){
   };
 }
 
+function scoutOverrideCount(kind){
+  if(kind === 'of') return Object.keys(OF_OVERRIDES).length;
+  if(kind === 'onepage') return Object.keys(loadOnePageNoteOverrides()).length;
+  return Object.keys(TTH_OVERRIDES).length;
+}
+function scoutPersistNoteId(kind){
+  if(kind === 'of') return 'ofdef-persist-note';
+  if(kind === 'onepage') return 'onepage-persist-note';
+  return 'tth-persist-note';
+}
 async function publishScoutSheet(kind){
-  const noteId = kind === 'of' ? 'ofdef-persist-note' : 'tth-persist-note';
-  const el = document.getElementById(noteId);
+  const el = document.getElementById(scoutPersistNoteId(kind));
   if(!scoutGhPat()){
-    if(el) el.textContent = scoutStatusText(kind, Object.keys(kind==='of'?OF_OVERRIDES:TTH_OVERRIDES).length);
+    if(el) el.textContent = scoutStatusText(kind, scoutOverrideCount(kind));
     return;
   }
   if(el) el.textContent = 'Publishing to GitHub…';
@@ -5115,6 +5133,11 @@ async function publishScoutSheet(kind){
       const doc = buildOfPublishDoc();
       await githubPutJson('data/pregame_of_arms.json', doc, 'Scout update: OF jump / arm grades');
       CACHE.ofArms = doc;
+    } else if(kind === 'onepage'){
+      const doc = buildOnePageNotesPublishDoc();
+      await githubPutJson('data/pitcher_one_page_notes.json', doc, 'Scout update: pitcher one-page notes');
+      CACHE.onePageNotes = doc;
+      applyOnePageNotesToCache(doc);
     } else {
       const doc = buildTthPublishDoc();
       await githubPutJson('data/pregame_tth_pop.json', doc, 'Scout update: time to home / catcher arms');
@@ -6352,14 +6375,89 @@ function renderOfDef(){
 const ONEPAGE_NOTES_KEY = 'santurce_pitcher_one_page_notes_v1';
 const JERSEY_OVERRIDES_KEY = 'santurce_jersey_overrides_v1';
 function loadOnePageNoteOverrides(){
-  try { return JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {}; }
-  catch(e){ return {}; }
+  try {
+    const raw = JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {};
+    if(raw && typeof raw === 'object' && raw.notes && typeof raw.notes === 'object' && !Array.isArray(raw.notes)){
+      return raw.notes;
+    }
+    return (typeof raw === 'object' && !Array.isArray(raw)) ? raw : {};
+  } catch(e){ return {}; }
+}
+function onePageSeedNotes(){
+  const pack = CACHE.onePageNotes;
+  if(pack && typeof pack === 'object'){
+    if(pack.notes && typeof pack.notes === 'object') return pack.notes;
+    const skip = new Set(['updated','note','notes','published_from']);
+    const flat = {};
+    Object.keys(pack).forEach(k => {
+      if(skip.has(k)) return;
+      if(typeof pack[k] === 'string') flat[k] = pack[k];
+    });
+    if(Object.keys(flat).length) return flat;
+  }
+  return {};
+}
+function onePageMergedNote(p){
+  const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const display = String(p.name_display||p.name||'');
+  const overrides = loadOnePageNoteOverrides();
+  if(Object.prototype.hasOwnProperty.call(overrides, key)) return String(overrides[key] ?? '');
+  if(display && Object.prototype.hasOwnProperty.call(overrides, display)) return String(overrides[display] ?? '');
+  const seed = onePageSeedNotes();
+  if(seed[key] != null && String(seed[key]).trim() !== '') return String(seed[key]);
+  if(display && seed[display] != null && String(seed[display]).trim() !== '') return String(seed[display]);
+  return p.notes == null ? '' : String(p.notes);
+}
+function updateOnePagePersistNote(){
+  const el = document.getElementById('onepage-persist-note');
+  if(el) el.textContent = scoutStatusText('onepage', Object.keys(loadOnePageNoteOverrides()).length);
+}
+function buildOnePageNotesPublishDoc(){
+  const seed = {...onePageSeedNotes()};
+  const overrides = loadOnePageNoteOverrides();
+  Object.keys(overrides).forEach(k => {
+    const v = String(overrides[k] ?? '').trim();
+    if(!v) delete seed[k];
+    else seed[k] = String(overrides[k]);
+  });
+  const teams = CACHE.pitcherOnePage?.teams || {};
+  Object.values(teams).forEach(pack => {
+    (pack.pitchers || []).forEach(p => {
+      const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+      if(!key) return;
+      if(Object.prototype.hasOwnProperty.call(overrides, key)) return;
+      const n = String(p.notes || '').trim();
+      if(n && seed[key] == null) seed[key] = n;
+    });
+  });
+  return {
+    updated: new Date().toISOString(),
+    note: 'Scout notes for Pitcher One Page Sheet. Keys are normalized names (lowercase alphanumeric) or exact display names. HTML not allowed — plain text; the UI keeps line breaks.',
+    notes: seed,
+    published_from: 'pregame pitcher one-page sheet',
+  };
+}
+function applyOnePageNotesToCache(doc){
+  const map = (doc && doc.notes && typeof doc.notes === 'object') ? doc.notes : {};
+  const teams = CACHE.pitcherOnePage?.teams || {};
+  Object.values(teams).forEach(pack => {
+    (pack.pitchers || []).forEach(p => {
+      const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+      const display = String(p.name_display||p.name||'');
+      if(map[key] != null) p.notes = map[key];
+      else if(display && map[display] != null) p.notes = map[display];
+    });
+  });
 }
 function saveOnePageNote(key, text){
+  if(key == null || key === '') return;
   const all = loadOnePageNoteOverrides();
-  if(!text) delete all[key];
-  else all[key] = text;
+  const cleaned = String(text ?? '');
+  if(!cleaned.trim()) delete all[key];
+  else all[key] = cleaned;
   try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
+  updateOnePagePersistNote();
+  queueScoutPublish('onepage');
   if(typeof queueGameDayPublish === 'function') queueGameDayPublish();
 }
 function loadJerseyOverrides(){
@@ -6541,42 +6639,42 @@ function sheetPrintCss(kind){
     .onepage-title{font-size:15px;margin:0 0 3px}
     .onepage-print{border:none;padding:0;overflow:visible;display:block}
     .onepage-grid{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed}
-    .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:2px 2px;vertical-align:top;color:#000;background:#fff}
+    .onepage-grid th,.onepage-grid td{border:1px solid #999;padding:1px 2px;vertical-align:middle;color:#000;background:#fff}
     .onepage-grid thead{display:table-header-group}
     .onepage-grid tr{page-break-inside:avoid;break-inside:avoid}
-    .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px}
-    .onepage-grid .op-num{width:0.22in;max-width:0.28in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px;color:#000}
+    .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px;vertical-align:middle}
+    .onepage-grid .op-num{width:0.18in;max-width:0.22in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px;color:#000}
     .onepage-grid .op-num input{display:none!important}
-    .onepage-grid .op-name{width:0.95in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .onepage-grid .op-name{width:1.05in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .onepage-grid .op-name.op-lhp{color:#b00020}
     .onepage-grid .op-velo{width:0.40in;text-align:center;font-variant-numeric:tabular-nums;white-space:pre-line;font-size:9px;line-height:1.12}
     .onepage-grid .op-freq{width:19%;font-size:8.5px;line-height:1.15}
     .onepage-grid .op-freq .freq-r{color:#000;display:block}
     .onepage-grid .op-freq .freq-l{color:#b00020;display:block}
-    .onepage-grid .op-notes{width:34%;font-size:8.5px;line-height:1.15;white-space:pre-wrap;max-height:2.4em;overflow:hidden}
+    .onepage-grid .op-notes{width:34%;font-size:8.5px;line-height:1.15;white-space:pre-wrap;overflow:hidden}
     .onepage-grid tr.op-alt td{background:#f2f2f2!important}
     .onepage-grid textarea{display:none!important}
     .op-density-compact .onepage-title{font-size:13px;margin:0 0 2px}
     .op-density-compact .onepage-grid{font-size:8.2px}
-    .op-density-compact .onepage-grid th,.op-density-compact .onepage-grid td{padding:1px 1px}
+    .op-density-compact .onepage-grid th,.op-density-compact .onepage-grid td{padding:1px 1px;vertical-align:middle}
     .op-density-compact .onepage-grid thead th{font-size:8px}
     .op-density-compact .onepage-grid .op-velo{font-size:7.8px;line-height:1.08}
     .op-density-compact .onepage-grid .op-freq{font-size:7.5px;line-height:1.1}
-    .op-density-compact .onepage-grid .op-notes{font-size:7.5px;max-height:2.2em}
+    .op-density-compact .onepage-grid .op-notes{font-size:7.5px}
     .op-density-dense .onepage-title{font-size:12px;margin:0 0 1px}
     .op-density-dense .onepage-grid{font-size:7.4px}
-    .op-density-dense .onepage-grid th,.op-density-dense .onepage-grid td{padding:0 1px}
+    .op-density-dense .onepage-grid th,.op-density-dense .onepage-grid td{padding:0 1px;vertical-align:middle}
     .op-density-dense .onepage-grid thead th{font-size:7.2px;padding:1px}
     .op-density-dense .onepage-grid .op-velo{font-size:7px;line-height:1.05}
     .op-density-dense .onepage-grid .op-freq{font-size:6.8px;line-height:1.05}
-    .op-density-dense .onepage-grid .op-notes{font-size:6.8px;max-height:2em;line-height:1.05}
+    .op-density-dense .onepage-grid .op-notes{font-size:6.8px;line-height:1.05}
     .op-density-ultra .onepage-title{font-size:11px;margin:0 0 1px}
     .op-density-ultra .onepage-grid{font-size:6.6px}
-    .op-density-ultra .onepage-grid th,.op-density-ultra .onepage-grid td{padding:0 1px}
+    .op-density-ultra .onepage-grid th,.op-density-ultra .onepage-grid td{padding:0 1px;vertical-align:middle}
     .op-density-ultra .onepage-grid thead th{font-size:6.4px;padding:1px}
     .op-density-ultra .onepage-grid .op-velo{font-size:6.2px;line-height:1.02}
     .op-density-ultra .onepage-grid .op-freq{font-size:6px;line-height:1.02}
-    .op-density-ultra .onepage-grid .op-notes{font-size:6px;max-height:1.9em;line-height:1.02}
+    .op-density-ultra .onepage-grid .op-notes{font-size:6px;line-height:1.02}
   `;
 }
 function openSheetPrintWindow(title, bodyHtml, kind, opts){
@@ -6733,14 +6831,13 @@ function renderPitcherOnePage(){
       data.updated ? `Updated ${data.updated}` : '',
     ].filter(Boolean).join(' · ');
   }
-  const overrides = loadOnePageNoteOverrides();
   const cols = data.columns || ['FB','CB','SL','CH','CT','SPL'];
   const head = cols.map(c => `<th class="op-velo">${c}</th>`).join('');
   const rows = (pack.pitchers||[]).map((p, idx) => {
     const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
     const idKey = p.mlb_id != null ? String(p.mlb_id) : '';
     const jersey = jerseyDisplayValue(idKey, key, p.jersey);
-    const note = overrides[key] != null ? overrides[key] : (p.notes || '');
+    const note = onePageMergedNote(p);
     const velo = cols.map(c => {
       const raw = (p.velo && p.velo[c]) || '';
       return `<td class="op-velo">${escHtml(String(raw)).replace(/\n/g,'<br>')}</td>`;
@@ -6753,7 +6850,7 @@ function renderPitcherOnePage(){
       <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
       ${velo}
       <td class="op-freq">${p.freq_html || ''}</td>
-      <td class="op-notes"><textarea class="${noteClass}" data-op-key="${escHtml(key)}" rows="3" placeholder="Notes…" onchange="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
+      <td class="op-notes"><textarea class="${noteClass}" data-op-key="${escHtml(key)}" rows="2" placeholder="Notes…" oninput="saveOnePageNote(this.dataset.opKey, this.value)" onchange="saveOnePageNote(this.dataset.opKey, this.value)" onblur="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
     </tr>`;
   }).join('');
   root.innerHTML = `<div class="onepage-print">
@@ -6765,6 +6862,7 @@ function renderPitcherOnePage(){
       <tbody>${rows}</tbody>
     </table>
   </div>`;
+  updateOnePagePersistNote();
 }
 function bootFromHash(){
   const raw=(location.hash||'').replace(/^#/,'').trim();
@@ -6808,11 +6906,12 @@ Promise.all([
   fetch('data/bullpen_usage.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/bullpen_usage_test.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
+  fetch('data/pitcher_one_page_notes.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/positioning_v2.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/game_day_state.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
-]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed, gameDayState])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed, gameDayState};
+]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes, rosterAlert, positioningSeed, gameDayState])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes: onePageNotes || {notes:{}}, rosterAlert, positioningSeed, gameDayState};
   hydrateSpraySynergyFromAdvance();
   // Seed positioning first, then hydrate shared game-day overrides (lineup/TTH/etc) so coach cells win.
   if(window.PosApp && positioningSeed) PosApp.setPositionSeed(positioningSeed);
@@ -6823,6 +6922,7 @@ Promise.all([
   loadTthOverrides();
   loadOfOverrides();
   loadScoutPatInput();
+  applyOnePageNotesToCache(CACHE.onePageNotes);
   if(window.GameDayPersist) GameDayPersist.updateNote();
   document.getElementById('loading').style.display='none';
   if(rosterAlert && rosterAlert.changed){

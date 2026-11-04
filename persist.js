@@ -184,6 +184,7 @@
         if (typeof publishScoutSheet === 'function') {
           if (Object.keys(doc.tth_overrides || {}).length) await publishScoutSheet('tth');
           if (Object.keys(doc.of_overrides || {}).length) await publishScoutSheet('of');
+          if (Object.keys(doc.one_page_notes || {}).length) await publishScoutSheet('onepage');
         }
       } catch (e) {
         console.warn('scout sheet side-publish', e);

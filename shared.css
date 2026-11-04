@@ -1871,36 +1871,36 @@ input.tth-input:focus {
   z-index: 2;
 }
 
-/* Pitcher One Page Sheet */
+/* Pitcher One Page Sheet — match Ponce landscape PDF: middle-aligned cells, compact # */
 .onepage-sheet { margin-top: 10px; }
 .onepage-print { background: #fff; color: #111; border: 1px solid #ccc; padding: 8px; }
 .onepage-title { text-align: center; font-weight: 800; font-size: 18px; margin: 2px 0 8px; color: #111; }
 .onepage-grid { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
 .onepage-grid th, .onepage-grid td {
-  border: 1px solid #999; padding: 4px 3px; vertical-align: top; color: #111; background: #fff;
+  border: 1px solid #999; padding: 3px 3px; vertical-align: middle; color: #111; background: #fff;
 }
-.onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; }
-.onepage-grid .op-num { width: 28px; max-width: 34px; text-align: center; font-weight: 700; padding-left: 2px; padding-right: 2px; }
+.onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; vertical-align: middle; }
+.onepage-grid .op-num { width: 22px; max-width: 26px; text-align: center; font-weight: 700; padding-left: 1px; padding-right: 1px; }
 .onepage-grid .op-num input.op-jersey {
-  width: 100%; max-width: 28px; box-sizing: border-box;
+  width: 100%; max-width: 22px; box-sizing: border-box;
   border: 1px solid #bbb; border-radius: 2px;
   background: #fff; color: #111; -webkit-text-fill-color: #111;
   font: inherit; font-size: 11px; font-weight: 700; text-align: center;
-  padding: 1px 0; color-scheme: light;
+  padding: 0; color-scheme: light;
 }
 .onepage-grid .op-num input.op-jersey:focus { outline: 1px solid #e6c35c; border-color: #e6c35c; }
-.onepage-grid .op-name { width: 102px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.onepage-grid .op-name { width: 108px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .onepage-grid .op-name.op-lhp { color: #b00020; }
 .onepage-grid .op-velo { width: 44px; text-align: center; font-variant-numeric: tabular-nums; white-space: pre-line; font-size: 11px; line-height: 1.2; }
-.onepage-grid .op-freq { width: 20%; font-size: 11px; line-height: 1.3; }
+.onepage-grid .op-freq { width: 20%; font-size: 11px; line-height: 1.25; }
 .onepage-grid .op-freq .freq-r { color: #111; display: block; }
 .onepage-grid .op-freq .freq-l { color: #b00020; display: block; }
 .onepage-grid .op-notes { width: 36%; }
 .onepage-grid .op-notes textarea {
-  width: 100%; min-height: 44px; border: 1px solid #ccc; border-radius: 2px;
-  padding: 3px 4px; resize: vertical; cursor: text;
-  font: inherit; font-size: 11px; line-height: 1.3; background: #fff;
-  box-sizing: border-box;
+  width: 100%; min-height: 2.6em; border: 1px solid #ccc; border-radius: 2px;
+  padding: 2px 4px; resize: vertical; cursor: text;
+  font: inherit; font-size: 11px; line-height: 1.25; background: #fff;
+  box-sizing: border-box; vertical-align: middle;
 }
 .onepage-grid .op-notes textarea:focus {
   outline: 2px solid #2f3540; outline-offset: 0; border-color: #2f3540;
@@ -1909,6 +1909,7 @@ input.tth-input:focus {
 .onepage-grid .op-notes textarea.op-note-rhp { color: #111; }
 .onepage-grid tr.op-alt td { background: #f2f2f2; }
 .onepage-grid tr.op-needs td { outline: 1px solid #e6a800; }
+#onepage-persist-note { margin-top: 4px; }
 .winter-line-row td { color: #334; font-weight: 600; background: #f7fafc !important; }
 
 @media print {
@@ -1923,9 +1924,11 @@ input.tth-input:focus {
   #panel-bullpen.active .bullpen-grid td { padding: 2px 2px; }
   #panel-pitcher-one-page.active .onepage-grid { font-size: 9.5px; }
   #panel-pitcher-one-page.active .onepage-grid th,
-  #panel-pitcher-one-page.active .onepage-grid td { padding: 2px 2px; }
+  #panel-pitcher-one-page.active .onepage-grid td { padding: 1px 2px; vertical-align: middle; }
+  #panel-pitcher-one-page.active .onepage-grid .op-num { width: 0.18in; max-width: 0.22in; }
   #panel-pitcher-one-page.active .onepage-grid .op-notes textarea {
     min-height: 0; height: auto; resize: none; overflow: hidden; font-size: 9px;
+    border: none; padding: 0; background: transparent;
   }
 }
 
