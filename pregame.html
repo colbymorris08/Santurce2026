@@ -123,11 +123,12 @@
         <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportAdvanceZip()">Export selected → ZIP</button>
+        <button type="button" class="btn btn-sm" onclick="exportAdvancePdfsIndividually()" title="Same print/Save-as-PDF pages as Export → PDF, then download one PDF file per pitcher">Download each PDF</button>
         <button type="button" class="btn" onclick="exportArmSlotZip()">Arm slots → ZIP</button>
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. PDF = print dialog (one page per pitcher). ZIP = one named PDF file per checked pitcher (<code>TEAM/Last_First.pdf</code>). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same print export, then split into <code>TEAM/Last_First.pdf</code> (ZIP packs those files). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -166,9 +167,10 @@
         <label class="advance-check"><input type="checkbox" id="adv-h-select-all" onchange="toggleHitterExportAll(this.checked)"> Select all (filtered)</label>
         <button type="button" class="btn" onclick="exportHitterAdvancePdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportHitterAdvanceZip()">Export selected → ZIP</button>
+        <button type="button" class="btn btn-sm" onclick="exportHitterAdvancePdfsIndividually()" title="Same print/Save-as-PDF pages as Export → PDF, then download one PDF file per hitter">Download each PDF</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (strategy lineup order)"></div>
-      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card for the filtered team: batting order 1–9, then only bench hitters checked on the strategy card for that day (not the rest of the roster). Portrait — one page per checked hitter. ZIP = one named PDF file per hitter (<code>TEAM/Last_First.pdf</code>).</div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card for the filtered team: batting order 1–9, then only bench hitters checked on the strategy card for that day (not the rest of the roster). Portrait — one page per checked hitter. ZIP / Download each = same print export, then split into <code>TEAM/Last_First.pdf</code>.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -294,9 +296,10 @@
         <label class="advance-check"><input type="checkbox" id="spray-select-all" onchange="toggleSprayExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportSprayHandPdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportSprayHandZip()">Export selected → ZIP</button>
+        <button type="button" class="btn btn-sm" onclick="exportSprayHandPdfsIndividually()" title="Same print/Save-as-PDF pages as Export → PDF, then download one PDF file per hitter">Download each PDF</button>
       </div>
       <div id="spray-export-list" class="advance-export-list" aria-label="Hitters for spray PDF export (strategy lineup order)"></div>
-      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter. ZIP = one named PDF file per hitter (<code>TEAM/Last_First.pdf</code>).</div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter. ZIP / Download each = same print export, then split into <code>TEAM/Last_First.pdf</code>.</div>
     </div>
     <div id="spray-hit-legend"></div>
     <div id="spray-mlb" class="spray-grid"></div>
@@ -551,7 +554,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san224';
+const ASSET_V = 'san225';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1817,27 +1820,29 @@ function exportSprayHandPdf(){
     autoPrint:true
   });
 }
-async function exportSprayHandZip(){
-  const players = selectedSprayPlayers();
-  if(!players.length){ alert('Select at least one hitter to export.'); return; }
-  try{
-    const files = [];
-    for(const p of players){
-      const urls = bakeSprayHandUrls(p);
-      const data = await renderAdvanceSheetPdfBytes(
-        p.name,
-        buildSprayHandSheetHtml(p, {printPage:true, prefix:'z-', sprayUrls:urls})
-      );
-      files.push({
-        name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.pdf`,
-        data,
-      });
-    }
-    downloadBlob(zipStore(files), 'spray_charts.zip');
-  }catch(e){
-    console.error(e);
-    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
-  }
+function exportSprayHandZip(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'hitter',
+    zipName: 'spray_charts.zip',
+    mode: 'zip',
+    openPrint: ()=> exportSprayHandPdf(),
+    entries: ()=> selectedSprayPlayers().map(p=>({
+      team: p.team||'TEAM',
+      name: p.name,
+    })),
+  });
+}
+function exportSprayHandPdfsIndividually(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'hitter',
+    zipName: 'spray_charts.zip',
+    mode: 'files',
+    openPrint: ()=> exportSprayHandPdf(),
+    entries: ()=> selectedSprayPlayers().map(p=>({
+      team: p.team||'TEAM',
+      name: p.name,
+    })),
+  });
 }
 function renderSpray(){
   const spray=CACHE.spray||{};
@@ -3883,12 +3888,11 @@ function landscapePitcherPrintCss(){
       .advance-sheet-pitcher .advance-movement-frame .advance-movement-shot{width:100%;height:100%;object-fit:contain;object-position:center;background:#0e1a2b}
       .advance-sheet-pitcher .advance-headshot,.advance-sheet-pitcher .advance-hero{display:none!important}`;
 }
-/** Same HTML/CSS as “Export selected → PDF” / print dialog — shared by ZIP PDFs. */
+/** Same HTML/CSS as “Export selected → PDF” / print dialog. ZIP uses these pages (split), never a second layout. */
 function buildAdvancePrintHtml(title, bodyHtml, {
   orientation='landscape',
   pageMargin=null,
   autoPrint=false,
-  forCapture=false,
 }={}){
   const css = Array.from(document.querySelectorAll('link[rel=stylesheet]')).map(l=>`<link rel="stylesheet" href="${l.href}">`).join('\n');
   const page = orientation === 'portrait' ? 'letter portrait' : 'letter landscape';
@@ -3898,23 +3902,9 @@ function buildAdvancePrintHtml(title, bodyHtml, {
   const pitcherH = orientation === 'portrait' ? portraitExportCss('pitcher') : landscapePitcherPrintCss();
   const hitterH = orientation === 'portrait' ? portraitExportCss('hitter') : '';
   const sprayH = String(bodyHtml||'').includes('advance-sheet-spray') ? portraitExportCss('spray') : '';
-  const pageW = orientation === 'portrait' ? '8.5in' : '11in';
-  const pageH = orientation === 'portrait' ? '11in' : '8.5in';
-  // @page margins only apply when printing — for ZIP capture, pad a fixed letter box instead.
-  const captureShell = forCapture ? `
-      html,body{width:${pageW};height:${pageH};overflow:hidden}
-      .advance-zip-letter{
-        width:${pageW};height:${pageH};padding:${margin};box-sizing:border-box;overflow:hidden;
-        background:#fff;margin:0;
-      }
-      .advance-zip-letter > .advance-print-page{page-break-after:auto!important;break-after:auto!important;margin:0}
-    ` : '';
   const autoPrintScript = autoPrint
     ? `<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>`
     : '';
-  const bodyInner = forCapture
-    ? `<div class="advance-zip-letter">${bodyHtml}</div>`
-    : bodyHtml;
   return `<!doctype html><html style="color-scheme:only light"><head><meta charset="utf-8"><meta name="color-scheme" content="only light"><title>${title}</title>${css}
     <style>
       @page { size: ${page}; margin: ${margin}; }
@@ -3929,7 +3919,6 @@ function buildAdvancePrintHtml(title, bodyHtml, {
       ${pitcherH}
       ${hitterH}
       ${sprayH}
-      ${captureShell}
       @media print {
         @page { size: ${page}; margin: ${margin}; }
         body{padding:0;background:#fff!important;color-scheme:only light}
@@ -3940,22 +3929,20 @@ function buildAdvancePrintHtml(title, bodyHtml, {
         ${hitterH}
         ${sprayH}
       }
-    </style></head><body>${bodyInner}
+    </style></head><body>${bodyHtml}
     ${autoPrintScript}
     </body></html>`;
 }
 function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='landscape', autoPrint=true, pageMargin=null}={}){
   const w = window.open('', '_blank');
   if(!w){ alert('Pop-up blocked — allow pop-ups to export PDF.'); return null; }
-  w.document.write(buildAdvancePrintHtml(title, bodyHtml, {orientation, pageMargin, autoPrint, forCapture:false}));
+  w.document.write(buildAdvancePrintHtml(title, bodyHtml, {orientation, pageMargin, autoPrint}));
   w.document.close();
   if(afterWrite) setTimeout(()=>afterWrite(w), 80);
   return w;
 }
 function exportAdvancePdf(){
-  const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
-  const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
-  const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
+  const sheets = selectedPitcherAdvanceSheets();
   if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
   const body = sheets.map(p=>buildPitcherAdvanceSheetHtml(p,{printPage:true})).join('\n');
   openAdvancePrintWindow('Pitcher Advance Export', body, {orientation:'portrait', pageMargin:'1.32in 0.32in 0.32in 0.32in'});
@@ -4028,193 +4015,166 @@ function playerFileStem(name){
   const first = parts.slice(0, -1).join('_') || 'player';
   return `${last}_${first}`.replace(/[^\w.-]+/g, '_');
 }
-function ensureHtml2Canvas(){
-  if(typeof window.html2canvas === 'function') return Promise.resolve(window.html2canvas);
+/** ZIP / Download-each reuse Export → PDF (browser print → Save as PDF). No separate HTML/raster path. */
+function ensurePdfLib(){
+  if(window.PDFLib?.PDFDocument) return Promise.resolve(window.PDFLib);
   return new Promise((resolve, reject)=>{
-    const existing = document.querySelector('script[data-santurce-html2canvas]');
+    const existing = document.querySelector('script[data-santurce-pdf-lib]');
     if(existing){
-      existing.addEventListener('load', ()=> window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas missing')));
-      existing.addEventListener('error', ()=> reject(new Error('Could not load html2canvas')));
+      existing.addEventListener('load', ()=> window.PDFLib?.PDFDocument ? resolve(window.PDFLib) : reject(new Error('pdf-lib missing')));
+      existing.addEventListener('error', ()=> reject(new Error('Could not load pdf-lib')));
       return;
     }
     const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    s.src = 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js';
     s.async = true;
-    s.dataset.santurceHtml2canvas = '1';
-    s.onload = ()=> window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas missing'));
-    s.onerror = ()=> reject(new Error('Could not load html2canvas'));
+    s.dataset.santurcePdfLib = '1';
+    s.onload = ()=> window.PDFLib?.PDFDocument ? resolve(window.PDFLib) : reject(new Error('pdf-lib missing'));
+    s.onerror = ()=> reject(new Error('Could not load pdf-lib'));
     document.head.appendChild(s);
   });
 }
-function parseJpegSize(bytes){
-  let i = 2;
-  while(i + 9 < bytes.length){
-    if(bytes[i] !== 0xFF){ i++; continue; }
-    const marker = bytes[i + 1];
-    if(marker === 0xD8 || marker === 0x01){ i += 2; continue; }
-    if(marker === 0xD9 || (marker >= 0xD0 && marker <= 0xD7)){ i += 2; continue; }
-    const len = (bytes[i + 2] << 8) | bytes[i + 3];
-    if(marker >= 0xC0 && marker <= 0xC3){
-      return {
-        height: (bytes[i + 5] << 8) | bytes[i + 6],
-        width: (bytes[i + 7] << 8) | bytes[i + 8],
-      };
-    }
-    i += 2 + len;
+async function splitPrintPdfToPageBytes(pdfBytes){
+  const { PDFDocument } = await ensurePdfLib();
+  const src = await PDFDocument.load(pdfBytes);
+  const pages = [];
+  const n = src.getPageCount();
+  for(let i = 0; i < n; i++){
+    const doc = await PDFDocument.create();
+    const [page] = await doc.copyPages(src, [i]);
+    doc.addPage(page);
+    pages.push(new Uint8Array(await doc.save()));
   }
-  return {width: 0, height: 0};
+  return pages;
 }
-function jpegToPdfBytes(jpegBytes, pageWpt=612, pageHpt=792){
-  const enc = new TextEncoder();
-  const chunks = [];
-  let offset = 0;
-  const offs = {};
-  const put = (x)=>{
-    const u = typeof x === 'string' ? enc.encode(x) : x;
-    chunks.push(u);
-    offset += u.length;
-  };
-  const mark = (n)=>{ offs[n] = offset; };
-  const {width, height} = parseJpegSize(jpegBytes);
-  const w = width || 1;
-  const h = height || 1;
-  put('%PDF-1.4\n');
-  put(new Uint8Array([0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A])); // binary comment so readers treat file as binary
-  mark(1); put('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
-  mark(2); put('2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
-  mark(3); put(`3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWpt} ${pageHpt}] /Contents 4 0 R /Resources << /XObject << /Im0 5 0 R >> >> >>\nendobj\n`);
-  const content = `q\n${pageWpt} 0 0 ${pageHpt} 0 0 cm\n/Im0 Do\nQ\n`;
-  const contentBytes = enc.encode(content);
-  mark(4); put(`4 0 obj\n<< /Length ${contentBytes.length} >>\nstream\n`); put(contentBytes); put('\nendstream\nendobj\n');
-  mark(5); put(`5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>\nstream\n`);
-  put(jpegBytes);
-  put('\nendstream\nendobj\n');
-  const xrefStart = offset;
-  put('xref\n0 6\n');
-  put('0000000000 65535 f \n');
-  for(let n = 1; n <= 5; n++) put(String(offs[n]).padStart(10, '0') + ' 00000 n \n');
-  put(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`);
-  const out = new Uint8Array(offset);
-  let o = 0;
-  chunks.forEach(c=>{ out.set(c, o); o += c.length; });
-  return out;
-}
-async function inlineDocImages(doc){
-  const imgs = [...doc.images];
-  await Promise.all(imgs.map(async img=>{
-    const src = img.currentSrc || img.src;
-    if(!src || src.startsWith('data:')) return;
-    try{
-      const res = await fetch(src, {mode:'cors', credentials:'omit'});
-      if(!res.ok) throw new Error('fetch failed');
-      const blob = await res.blob();
-      img.src = await new Promise((resolve, reject)=>{
-        const fr = new FileReader();
-        fr.onload = ()=> resolve(fr.result);
-        fr.onerror = reject;
-        fr.readAsDataURL(blob);
-      });
-    }catch(e){
-      // Cross-origin headshots etc. — leave src; html2canvas may blank that image.
-    }
-  }));
-}
-async function waitDocImages(doc, timeoutMs=4000){
-  const imgs = [...doc.images];
-  if(!imgs.length) return;
-  await Promise.race([
-    Promise.all(imgs.map(img => img.complete ? Promise.resolve() : new Promise(res=>{
-      img.onload = img.onerror = res;
-    }))),
-    new Promise(res=> setTimeout(res, timeoutMs)),
-  ]);
-}
-async function waitDocStylesheets(doc, timeoutMs=4000){
-  const links = [...doc.querySelectorAll('link[rel=stylesheet]')];
-  if(!links.length) return;
-  await Promise.race([
-    Promise.all(links.map(link => link.sheet ? Promise.resolve() : new Promise(res=>{
-      link.onload = link.onerror = res;
-    }))),
-    new Promise(res=> setTimeout(res, timeoutMs)),
-  ]);
-}
-async function renderAdvanceSheetPdfBytes(title, bodyHtml){
-  // Same print HTML/CSS/margins as Export → PDF; rasterize the letter page box (not a second layout).
-  const html2canvas = await ensureHtml2Canvas();
-  const opts = advancePrintOptsForBody(bodyHtml);
-  const html = buildAdvancePrintHtml(title || 'sheet', bodyHtml, {
-    orientation: opts.orientation,
-    pageMargin: opts.pageMargin,
-    autoPrint: false,
-    forCapture: true,
+function pickSavedPrintPdfFile(){
+  if(typeof window.showOpenFilePicker === 'function'){
+    return window.showOpenFilePicker({
+      multiple: false,
+      types: [{ description: 'PDF', accept: { 'application/pdf': ['.pdf'] } }],
+    }).then(async handles=>{
+      if(!handles?.length) throw new Error('cancelled');
+      return handles[0].getFile();
+    });
+  }
+  return new Promise((resolve, reject)=>{
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/pdf,.pdf';
+    input.style.display = 'none';
+    const done = (fn)=>{
+      input.remove();
+      fn();
+    };
+    input.addEventListener('change', ()=>{
+      const file = input.files && input.files[0];
+      if(!file) done(()=> reject(new Error('cancelled')));
+      else done(()=> resolve(file));
+    });
+    input.addEventListener('cancel', ()=> done(()=> reject(new Error('cancelled'))));
+    document.body.appendChild(input);
+    input.click();
   });
-  const pageW = opts.orientation === 'portrait' ? 8.5 : 11;
-  const pageH = opts.orientation === 'portrait' ? 11 : 8.5;
-  const iframe = document.createElement('iframe');
-  iframe.setAttribute('aria-hidden', 'true');
-  iframe.style.cssText = `position:fixed;left:-12000px;top:0;width:${pageW}in;height:${pageH}in;border:0;opacity:0;pointer-events:none;background:#fff`;
-  document.body.appendChild(iframe);
-  try{
-    const idoc = iframe.contentDocument;
-    idoc.open();
-    idoc.write(html);
-    idoc.close();
-    await new Promise(res=>{
-      if(idoc.readyState === 'complete') res();
-      else iframe.onload = ()=> res();
-      setTimeout(res, 800);
+}
+function namedPdfFilesFromPrintPages(entries, pageBytes){
+  const n = Math.min(entries.length, pageBytes.length);
+  const files = [];
+  for(let i = 0; i < n; i++){
+    const e = entries[i];
+    files.push({
+      name: `${e.team||'TEAM'}/${playerFileStem(e.name)}.pdf`,
+      data: pageBytes[i],
     });
-    await waitDocStylesheets(idoc);
-    await waitDocImages(idoc);
-    await inlineDocImages(idoc);
-    await waitDocImages(idoc, 2000);
-    await new Promise(r=> setTimeout(r, 80));
-    const target = idoc.querySelector('.advance-zip-letter') || idoc.body;
-    const shot = await html2canvas(target, {
-      scale: 2,
-      width: Math.round(pageW * 96),
-      height: Math.round(pageH * 96),
-      windowWidth: Math.round(pageW * 96),
-      windowHeight: Math.round(pageH * 96),
-      useCORS: true,
-      allowTaint: false,
-      backgroundColor: '#ffffff',
-      logging: false,
-      imageTimeout: 4000,
-    });
-    const jpeg = await new Promise((resolve, reject)=>{
-      shot.toBlob(b=>{
-        if(!b) reject(new Error('JPEG encode failed'));
-        else b.arrayBuffer().then(ab=> resolve(new Uint8Array(ab)), reject);
-      }, 'image/jpeg', 0.93);
-    });
-    const pageWpt = opts.orientation === 'portrait' ? 612 : 792;
-    const pageHpt = opts.orientation === 'portrait' ? 792 : 612;
-    return jpegToPdfBytes(jpeg, pageWpt, pageHpt);
-  } finally {
-    iframe.remove();
+  }
+  return files;
+}
+async function deliverSplitPrintPdfs(entries, file, {mode='zip', zipName='advance_sheets.zip'}={}){
+  const pages = await splitPrintPdfToPageBytes(new Uint8Array(await file.arrayBuffer()));
+  if(!pages.length) throw new Error('empty pdf');
+  if(pages.length !== entries.length){
+    const ok = confirm(
+      `Saved PDF has ${pages.length} page(s) but ${entries.length} player(s) were selected.\n` +
+      `Continue with the first ${Math.min(pages.length, entries.length)} page(s)?`
+    );
+    if(!ok) throw new Error('cancelled');
+  }
+  const files = namedPdfFilesFromPrintPages(entries, pages);
+  if(!files.length) throw new Error('no pages');
+  if(mode === 'files'){
+    for(const f of files){
+      downloadBlob(new Blob([f.data], {type:'application/pdf'}), f.name.split('/').pop());
+      await new Promise(r=> setTimeout(r, 120));
+    }
+    return files.length;
+  }
+  downloadBlob(zipStore(files), zipName);
+  return files.length;
+}
+function dismissAdvanceZipSplitBar(){
+  document.getElementById('advance-zip-split-bar')?.remove();
+}
+function presentAdvanceZipSplitBar({entries, kindLabel, zipName, mode}){
+  dismissAdvanceZipSplitBar();
+  const bar = document.createElement('div');
+  bar.id = 'advance-zip-split-bar';
+  bar.setAttribute('role', 'status');
+  bar.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:99999;background:#1a2332;color:#fff;padding:10px 14px;border-radius:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,.35);font-size:13px;max-width:min(720px,94vw)';
+  const action = mode === 'files' ? 'download each PDF' : 'build the ZIP';
+  bar.innerHTML =
+    `<span style="line-height:1.35">Save the print dialog as PDF (${entries.length} ${kindLabel}${entries.length===1?'':'s'}), then choose that file to ${action}.</span>` +
+    `<button type="button" class="btn" id="advance-zip-pick">Choose saved PDF</button>` +
+    `<button type="button" class="btn btn-sm" id="advance-zip-dismiss">Dismiss</button>`;
+  document.body.appendChild(bar);
+  bar.querySelector('#advance-zip-dismiss').onclick = ()=> dismissAdvanceZipSplitBar();
+  bar.querySelector('#advance-zip-pick').onclick = async ()=>{
+    try{
+      const file = await pickSavedPrintPdfFile();
+      await deliverSplitPrintPdfs(entries, file, {mode, zipName});
+      dismissAdvanceZipSplitBar();
+    }catch(e){
+      if(String(e?.message||e) === 'cancelled') return;
+      console.error(e);
+      alert('Could not split that PDF into individual files. Save again from the print dialog (one page per player) and retry.');
+    }
+  };
+}
+function beginAdvancePrintZipExport({kindLabel, zipName, mode='zip', openPrint, entries}){
+  const list = (typeof entries === 'function' ? entries() : entries) || [];
+  const clean = list.filter(e=> e && e.name);
+  if(!clean.length){
+    alert(`Select at least one ${kindLabel} to export.`);
+    return;
+  }
+  presentAdvanceZipSplitBar({entries: clean, kindLabel, zipName, mode});
+  try { openPrint(); }
+  catch(e){
+    console.error(e);
+    dismissAdvanceZipSplitBar();
+    alert('Could not open the print export.');
   }
 }
-async function exportAdvanceZip(){
+function selectedPitcherAdvanceSheets(){
   const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
   const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
-  const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
-  if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
-  try{
-    const files = [];
-    for(const p of sheets){
-      const data = await renderAdvanceSheetPdfBytes(p.name, buildPitcherAdvanceSheetHtml(p, {printPage:true}));
-      files.push({
-        name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.pdf`,
-        data,
-      });
-    }
-    downloadBlob(zipStore(files), 'pitcher_advance_sheets.zip');
-  }catch(e){
-    console.error(e);
-    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
-  }
+  return ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
+}
+function exportAdvanceZip(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'pitcher',
+    zipName: 'pitcher_advance_sheets.zip',
+    mode: 'zip',
+    openPrint: ()=> exportAdvancePdf(),
+    entries: ()=> selectedPitcherAdvanceSheets().map(p=>({ team: p.team||'TEAM', name: p.name })),
+  });
+}
+function exportAdvancePdfsIndividually(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'pitcher',
+    zipName: 'pitcher_advance_sheets.zip',
+    mode: 'files',
+    openPrint: ()=> exportAdvancePdf(),
+    entries: ()=> selectedPitcherAdvanceSheets().map(p=>({ team: p.team||'TEAM', name: p.name })),
+  });
 }
 async function exportArmSlotZip(){
   const rows = arsenalPitchers().filter(p=>p && p.team && p.team!=='SAN' && p.arm_slot_image);
@@ -4895,34 +4855,30 @@ function exportHitterAdvancePdf(){
   });
 }
 
-async function exportHitterAdvanceZip(){
-  const ids = selectedHitterAdvanceIds();
-  const packs = [];
-  ids.forEach(id=>{
+function selectedHitterAdvanceEntries(){
+  return selectedHitterAdvanceIds().map(id=>{
     const h = resolveAdvanceHitter(id);
-    if(!h || !h.name || String(h.name).startsWith('Select All')) return;
-    let sprayUrls = null;
-    try { sprayUrls = bakeHitterSprayPairDataUrls([h]); } catch(e){ sprayUrls = null; }
-    packs.push({h, sprayUrls});
+    if(!h || !h.name || String(h.name).startsWith('Select All')) return null;
+    return { team: h.team||'TEAM', name: h.name };
+  }).filter(Boolean);
+}
+function exportHitterAdvanceZip(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'hitter',
+    zipName: 'hitter_advance_sheets.zip',
+    mode: 'zip',
+    openPrint: ()=> exportHitterAdvancePdf(),
+    entries: ()=> selectedHitterAdvanceEntries(),
   });
-  if(!packs.length){ alert('Select at least one hitter to export.'); return; }
-  try{
-    const files = [];
-    for(const {h, sprayUrls} of packs){
-      const data = await renderAdvanceSheetPdfBytes(
-        h.name,
-        buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:'z-', sprayUrls})
-      );
-      files.push({
-        name: `${h.team||'TEAM'}/${playerFileStem(h.name)}.pdf`,
-        data,
-      });
-    }
-    downloadBlob(zipStore(files), 'hitter_advance_sheets.zip');
-  }catch(e){
-    console.error(e);
-    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
-  }
+}
+function exportHitterAdvancePdfsIndividually(){
+  beginAdvancePrintZipExport({
+    kindLabel: 'hitter',
+    zipName: 'hitter_advance_sheets.zip',
+    mode: 'files',
+    openPrint: ()=> exportHitterAdvancePdf(),
+    entries: ()=> selectedHitterAdvanceEntries(),
+  });
 }
 
 
