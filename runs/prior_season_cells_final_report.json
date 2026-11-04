@@ -1,0 +1,957 @@
+{
+  "updated": "2026-11-04T20:47:12Z",
+  "note": "Prior-season backfill complete. Cells left blank only when Synergy/Savant/Statcast/Stats API have no sample. Numbers not invented.",
+  "mcmillon": {
+    "before": {
+      "velo_bands": "absent (one-page showed average-as-band 95-95 etc)",
+      "movement": "Prospect Savant IVB/HB present; CU spin=0 bogus",
+      "summer": "present (2026 LHV/CLE)"
+    },
+    "after": {
+      "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
+      "velo_band_season": 2026,
+      "arsenal": [
+        {
+          "type": "FF",
+          "velo": 95.0,
+          "velo_p25": 95.0,
+          "velo_p75": 96.5,
+          "velo_p90": 97.1,
+          "spin": 2218,
+          "ivb": 17.98,
+          "hb_hitter": -8.74,
+          "hb_pitcher": 8.74,
+          "spin_source": null
+        },
+        {
+          "type": "SL",
+          "velo": 84.2,
+          "velo_p25": 84.3,
+          "velo_p75": 86.1,
+          "velo_p90": 87.0,
+          "spin": 2224,
+          "ivb": 1.63,
+          "hb_hitter": 1.68,
+          "hb_pitcher": -1.68,
+          "spin_source": null
+        },
+        {
+          "type": "CH",
+          "velo": 90.1,
+          "velo_p25": null,
+          "velo_p75": null,
+          "velo_p90": null,
+          "spin": 2040,
+          "ivb": 19.39,
+          "hb_hitter": -9.65,
+          "hb_pitcher": 9.65,
+          "spin_source": null
+        },
+        {
+          "type": "CU",
+          "velo": 78.4,
+          "velo_p25": null,
+          "velo_p75": null,
+          "velo_p90": null,
+          "spin": null,
+          "ivb": 1.52,
+          "hb_hitter": 2.17,
+          "hb_pitcher": -2.17,
+          "spin_source": "unavailable (no tracked sample in PS/Statcast/Synergy)"
+        }
+      ],
+      "one_page_velo": {
+        "FB": "95-96",
+        "CB": "78-78",
+        "SL": "84-86",
+        "CH": "90-90",
+        "CT": "",
+        "SPL": ""
+      },
+      "movement_source": "Prospect Savant",
+      "ps_season": 2025,
+      "summer": "MLB Stats API 2026 AAA + Baseball-Reference 2026 Cleburne Indy combined",
+      "missing": [],
+      "cu_spin_note": "No tracked CU spin in PS/Statcast/Synergy across 2023–2026; cleared bogus 0 to null.",
+      "ch_cu_band_note": "CH/CU lack >=12 pitchSpeedMph samples; one-page falls back to mean-mean for those cells only."
+    }
+  },
+  "hole_counts_after": {
+    "movement": 53,
+    "summer": 24,
+    "velo_bands": 2,
+    "no_pitches": 4,
+    "no_arsenal": 4,
+    "count_hand": 1
+  },
+  "incomplete_players": 58,
+  "filled_this_run": [
+    {
+      "key": "CAG|johnmcmillon",
+      "name": "John McMillon",
+      "team": "CAG",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "CAG|sebastianrodriguez",
+      "name": "Sebastian Rodriguez",
+      "team": "CAG",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "PON|juanmarcano",
+      "name": "Juan Marcano",
+      "team": "PON",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "PON|kaiyokogawa",
+      "name": "Kai Yokogawa",
+      "team": "PON",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "PON|keitomatsuura",
+      "name": "Keito Matsuura",
+      "team": "PON",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "SJU|ivanhouellemont",
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "SJU|leonardorodriguez",
+      "name": "Leonardo Rodriguez",
+      "team": "SJU",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "SJU|rubenramirez",
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "CAG|stevenechavarria",
+      "name": "Steven Echavarria",
+      "team": "CAG",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "CAG|tylersantana",
+      "name": "Tyler Santana",
+      "team": "CAG",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "CAG|zachveen",
+      "name": "Zach Veen",
+      "team": "CAG",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "CAR|ricardovelez",
+      "name": "Ricardo Velez",
+      "team": "CAR",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "MAY|ashtongoudeau",
+      "name": "Ashton Goudeau",
+      "team": "MAY",
+      "filled": [
+        "velo_bands"
+      ]
+    },
+    {
+      "key": "SJU|juliocesarortiz",
+      "name": "Julio Cesar Ortiz",
+      "team": "SJU",
+      "filled": [
+        "movement:Prospect Savant 2024",
+        "summer:filled_2025",
+        "spin:['FF:2365@2024', 'SL:2009@2024', 'FC:2105@2024', 'CH:2038@2024', 'SI:2360@2024']"
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "mlb_id": 663499,
+      "pitches": 170,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "mlb_id": 488880,
+      "pitches": 497,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "mlb_id": 656479,
+      "pitches": 179,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "mlb_id": -840626507,
+      "pitches": 1357,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "mlb_id": -831444931,
+      "pitches": 421,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "mlb_id": 688014,
+      "pitches": 67,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "mlb_id": 670369,
+      "pitches": 399,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "mlb_id": 805753,
+      "pitches": 18,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "mlb_id": 682118,
+      "pitches": 130,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "mlb_id": 669418,
+      "pitches": 179,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "mlb_id": 681813,
+      "pitches": 62,
+      "missing": [
+        "summer"
+      ],
+      "reasons": [
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "mlb_id": -779812433,
+      "pitches": 33,
+      "missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2025 had 36 Synergy pitches but no IVB/HB",
+        "velo: synergy=no_bands statcast=no_mlb_id"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "mlb_id": 689214,
+      "pitches": 792,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "mlb_id": -742329386,
+      "pitches": 82,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 86 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "mlb_id": 806309,
+      "pitches": 541,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "mlb_id": 664371,
+      "pitches": 196,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "mlb_id": 693543,
+      "pitches": 120,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "mlb_id": 670232,
+      "pitches": 0,
+      "missing": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "reasons": [
+        "no usable arsenal/pitch sample"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "mlb_id": 545814,
+      "pitches": 158,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "mlb_id": -758984765,
+      "pitches": 39,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "mlb_id": -522170762,
+      "pitches": 287,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "mlb_id": 826141,
+      "pitches": 986,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "mlb_id": 694547,
+      "pitches": 205,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "mlb_id": -198603702,
+      "pitches": 105,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 71 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "mlb_id": 543071,
+      "pitches": 572,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "mlb_id": -346943911,
+      "pitches": 379,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "mlb_id": 571772,
+      "pitches": 336,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "mlb_id": 446651,
+      "pitches": 263,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "mlb_id": 624401,
+      "pitches": 150,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "mlb_id": -465760315,
+      "pitches": 1416,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "mlb_id": 683803,
+      "pitches": 331,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "mlb_id": 837223,
+      "pitches": 162,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "mlb_id": -165648089,
+      "pitches": 206,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "mlb_id": -539643335,
+      "pitches": 36,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 70 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "mlb_id": -259860308,
+      "pitches": 1350,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "mlb_id": 807620,
+      "pitches": 136,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2024",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "mlb_id": -799554792,
+      "pitches": 102,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "mlb_id": 801018,
+      "pitches": 213,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "mlb_id": 676984,
+      "pitches": 294,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "mlb_id": -346674215,
+      "pitches": 247,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2023 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Julio Torres",
+      "mlb_id": 692937,
+      "pitches": 197,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "mlb_id": -172871700,
+      "pitches": 0,
+      "missing": [
+        "no_pitches",
+        "no_arsenal",
+        "summer"
+      ],
+      "reasons": [
+        "summer: no_mlb_id",
+        "no usable arsenal/pitch sample"
+      ]
+    },
+    {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "mlb_id": -173172553,
+      "pitches": 444,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "mlb_id": -579003596,
+      "pitches": 709,
+      "missing": [
+        "velo_bands",
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "velo: synergy=no_bands statcast=no_mlb_id"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Freddy Cabrera",
+      "mlb_id": -280803405,
+      "pitches": 580,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2025 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "mlb_id": 690616,
+      "pitches": 495,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "mlb_id": 692808,
+      "pitches": 174,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "mlb_id": 671045,
+      "pitches": 315,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2024",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Agnel Miranda",
+      "mlb_id": 695064,
+      "pitches": 296,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "mlb_id": 684841,
+      "pitches": 10,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Haruse Narita",
+      "mlb_id": -670692245,
+      "pitches": 629,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "mlb_id": 458960,
+      "pitches": 0,
+      "missing": [
+        "no_pitches",
+        "no_arsenal",
+        "count_hand"
+      ],
+      "reasons": [
+        "no usable arsenal/pitch sample"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "mlb_id": 703211,
+      "pitches": 599,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2024",
+        "summer: unavailable"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "mlb_id": 681344,
+      "pitches": 35,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB",
+        "summer: no_mlb_id"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Raul Rivera",
+      "mlb_id": 572077,
+      "pitches": 204,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "mlb_id": -426239217,
+      "pitches": 636,
+      "missing": [
+        "movement"
+      ],
+      "reasons": [
+        "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "mlb_id": -322791781,
+      "pitches": 0,
+      "missing": [
+        "no_pitches",
+        "no_arsenal"
+      ],
+      "reasons": [
+        "no usable arsenal/pitch sample"
+      ]
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "mlb_id": 543803,
+      "pitches": 435,
+      "missing": [
+        "movement",
+        "summer"
+      ],
+      "reasons": [
+        "movement: unavailable no IVB/HB in 2026-2023",
+        "summer: unavailable"
+      ]
+    }
+  ]
+}

@@ -1,27 +1,65 @@
 {
-  "updated": "2026-11-04T20:46:40Z",
-  "note": "Prior-season backfill (Synergy/Savant/Statcast/Stats API). Numbers not invented. Prefer most recent season with metric.",
+  "updated": "2026-11-04T20:47:12Z",
+  "note": "Prior-season backfill complete. Cells left blank only when Synergy/Savant/Statcast/Stats API have no sample. Numbers not invented.",
   "mcmillon": {
     "before": {
-      "velo_bands": "average-as-band only (95-95 etc)",
-      "movement": "PS 2025 IVB/HB present",
-      "cu_spin": 0,
-      "missing_real": [
-        "velo_p25_p75",
-        "cu_spin"
-      ]
+      "velo_bands": "absent (one-page showed average-as-band 95-95 etc)",
+      "movement": "Prospect Savant IVB/HB present; CU spin=0 bogus",
+      "summer": "present (2026 LHV/CLE)"
     },
     "after": {
-      "velo_bands": {
-        "FF": "95.0-96.5",
-        "SL": "84.3-86.1",
-        "CH": null,
-        "CU": null
-      },
       "velo_band_source": "Synergy pitchSpeedMph 2026+2025,2024",
-      "movement": true,
-      "movement_source": "Prospect Savant",
-      "cu_spin": "unavailable (cleared fake 0; no PS/Statcast/Synergy spin sample)",
+      "velo_band_season": 2026,
+      "arsenal": [
+        {
+          "type": "FF",
+          "velo": 95.0,
+          "velo_p25": 95.0,
+          "velo_p75": 96.5,
+          "velo_p90": 97.1,
+          "spin": 2218,
+          "ivb": 17.98,
+          "hb_hitter": -8.74,
+          "hb_pitcher": 8.74,
+          "spin_source": null
+        },
+        {
+          "type": "SL",
+          "velo": 84.2,
+          "velo_p25": 84.3,
+          "velo_p75": 86.1,
+          "velo_p90": 87.0,
+          "spin": 2224,
+          "ivb": 1.63,
+          "hb_hitter": 1.68,
+          "hb_pitcher": -1.68,
+          "spin_source": null
+        },
+        {
+          "type": "CH",
+          "velo": 90.1,
+          "velo_p25": null,
+          "velo_p75": null,
+          "velo_p90": null,
+          "spin": 2040,
+          "ivb": 19.39,
+          "hb_hitter": -9.65,
+          "hb_pitcher": 9.65,
+          "spin_source": null
+        },
+        {
+          "type": "CU",
+          "velo": 78.4,
+          "velo_p25": null,
+          "velo_p75": null,
+          "velo_p90": null,
+          "spin": null,
+          "ivb": 1.52,
+          "hb_hitter": 2.17,
+          "hb_pitcher": -2.17,
+          "spin_source": "unavailable (no tracked sample in PS/Statcast/Synergy)"
+        }
+      ],
       "one_page_velo": {
         "FB": "95-96",
         "CB": "78-78",
@@ -30,8 +68,12 @@
         "CT": "",
         "SPL": ""
       },
+      "movement_source": "Prospect Savant",
+      "ps_season": 2025,
+      "summer": "MLB Stats API 2026 AAA + Baseball-Reference 2026 Cleburne Indy combined",
       "missing": [],
-      "ch_cu_bands": "no pitch-level speed n>=12 in any season (means only)"
+      "cu_spin_note": "No tracked CU spin in PS/Statcast/Synergy across 2023–2026; cleared bogus 0 to null.",
+      "ch_cu_band_note": "CH/CU lack >=12 pitchSpeedMph samples; one-page falls back to mean-mean for those cells only."
     }
   },
   "hole_counts_after": {
@@ -42,7 +84,6 @@
     "no_arsenal": 4,
     "count_hand": 1
   },
-  "incomplete_count": 58,
   "unavailable": [
     {
       "team": "CAG",
@@ -51,9 +92,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 663499,
-      "pitches": 170,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAG",
@@ -61,9 +100,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 488880,
-      "pitches": 497,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAG",
@@ -71,9 +108,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 656479,
-      "pitches": 179,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAG",
@@ -82,9 +117,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -840626507,
-      "pitches": 1357,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "CAG",
@@ -92,9 +125,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -831444931,
-      "pitches": 421,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "CAG",
@@ -102,9 +133,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 688014,
-      "pitches": 67,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAG",
@@ -112,9 +141,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 670369,
-      "pitches": 399,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAR",
@@ -123,9 +150,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 805753,
-      "pitches": 18,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAR",
@@ -134,9 +159,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 682118,
-      "pitches": 130,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAR",
@@ -144,9 +167,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 669418,
-      "pitches": 179,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAR",
@@ -154,9 +175,7 @@
       "fields": [
         "summer"
       ],
-      "mlb_id": 681813,
-      "pitches": 62,
-      "reason": "No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "summer: unavailable"
     },
     {
       "team": "CAR",
@@ -165,9 +184,7 @@
         "velo_bands",
         "movement"
       ],
-      "mlb_id": -779812433,
-      "pitches": 33,
-      "reason": "No Synergy pitchSpeedMph sample with n>=12 and no MLB Statcast speeds; No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2025 had 36 Synergy pitches but no IVB/HB; velo: synergy=no_bands statcast=no_mlb_id"
     },
     {
       "team": "CAR",
@@ -176,9 +193,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 689214,
-      "pitches": 792,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAR",
@@ -187,9 +202,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -742329386,
-      "pitches": 82,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 86 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "CAR",
@@ -198,9 +211,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 806309,
-      "pitches": 541,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAR",
@@ -208,9 +219,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 664371,
-      "pitches": 196,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAR",
@@ -219,9 +228,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 693543,
-      "pitches": 120,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "CAR",
@@ -230,9 +237,7 @@
         "no_pitches",
         "no_arsenal"
       ],
-      "mlb_id": 670232,
-      "pitches": 0,
-      "reason": "No usable Synergy/Statcast pitch sample for arsenal"
+      "reason": "no usable arsenal/pitch sample"
     },
     {
       "team": "CAR",
@@ -240,9 +245,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 545814,
-      "pitches": 158,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "CAR",
@@ -251,9 +254,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -758984765,
-      "pitches": 39,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "CAR",
@@ -262,9 +263,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -522170762,
-      "pitches": 287,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "MAY",
@@ -272,9 +271,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 826141,
-      "pitches": 986,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "MAY",
@@ -283,9 +280,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 694547,
-      "pitches": 205,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "MAY",
@@ -294,9 +289,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -198603702,
-      "pitches": 105,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 71 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "MAY",
@@ -305,9 +298,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 543071,
-      "pitches": 572,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "MAY",
@@ -315,9 +306,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -346943911,
-      "pitches": 379,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "MAY",
@@ -325,9 +314,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 571772,
-      "pitches": 336,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "MAY",
@@ -335,9 +322,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 446651,
-      "pitches": 263,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "MAY",
@@ -346,9 +331,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 624401,
-      "pitches": 150,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     },
     {
       "team": "MAY",
@@ -356,9 +339,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -465760315,
-      "pitches": 1416,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "MAY",
@@ -366,9 +347,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 683803,
-      "pitches": 331,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "MAY",
@@ -376,9 +355,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 837223,
-      "pitches": 162,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "MAY",
@@ -386,9 +363,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -165648089,
-      "pitches": 206,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2024 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "PON",
@@ -397,9 +372,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -539643335,
-      "pitches": 36,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 70 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "PON",
@@ -407,9 +380,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -259860308,
-      "pitches": 1350,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "PON",
@@ -418,9 +389,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 807620,
-      "pitches": 136,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2024; summer: unavailable"
     },
     {
       "team": "PON",
@@ -429,9 +398,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -799554792,
-      "pitches": 102,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "PON",
@@ -439,9 +406,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 801018,
-      "pitches": 213,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "PON",
@@ -449,9 +414,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 676984,
-      "pitches": 294,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "PON",
@@ -459,9 +422,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -346674215,
-      "pitches": 247,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2023 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "PON",
@@ -469,9 +430,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 692937,
-      "pitches": 197,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "PON",
@@ -481,9 +440,7 @@
         "no_arsenal",
         "summer"
       ],
-      "mlb_id": -172871700,
-      "pitches": 0,
-      "reason": "No Stats API summer line (2026/2025) and/or no positive MLB id; No usable Synergy/Statcast pitch sample for arsenal"
+      "reason": "summer: no_mlb_id; no usable arsenal/pitch sample"
     },
     {
       "team": "PON",
@@ -492,9 +449,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": -173172553,
-      "pitches": 444,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "SJU",
@@ -503,9 +458,7 @@
         "velo_bands",
         "movement"
       ],
-      "mlb_id": -579003596,
-      "pitches": 709,
-      "reason": "No Synergy pitchSpeedMph sample with n>=12 and no MLB Statcast speeds; No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; velo: synergy=no_bands statcast=no_mlb_id"
     },
     {
       "team": "SJU",
@@ -513,9 +466,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -280803405,
-      "pitches": 580,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2025 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "SJU",
@@ -523,9 +474,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 690616,
-      "pitches": 495,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "SJU",
@@ -533,9 +482,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 692808,
-      "pitches": 174,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "SJU",
@@ -544,9 +491,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 671045,
-      "pitches": 315,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2024; summer: unavailable"
     },
     {
       "team": "SJU",
@@ -554,9 +499,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 695064,
-      "pitches": 296,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "SJU",
@@ -564,9 +507,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 684841,
-      "pitches": 10,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "SJU",
@@ -574,9 +515,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -670692245,
-      "pitches": 629,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "SJU",
@@ -586,9 +525,7 @@
         "no_arsenal",
         "count_hand"
       ],
-      "mlb_id": 458960,
-      "pitches": 0,
-      "reason": "No usable Synergy/Statcast pitch sample for arsenal; No Synergy count/hand mix retained"
+      "reason": "no usable arsenal/pitch sample"
     },
     {
       "team": "SJU",
@@ -597,9 +534,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 703211,
-      "pitches": 599,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2024; summer: unavailable"
     },
     {
       "team": "SJU",
@@ -608,9 +543,7 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 681344,
-      "pitches": 35,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB; summer: no_mlb_id"
     },
     {
       "team": "SJU",
@@ -618,9 +551,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": 572077,
-      "pitches": 204,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023"
     },
     {
       "team": "SJU",
@@ -628,9 +559,7 @@
       "fields": [
         "movement"
       ],
-      "mlb_id": -426239217,
-      "pitches": 636,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons"
+      "reason": "movement: unavailable 2026 had 100 Synergy pitches but no IVB/HB"
     },
     {
       "team": "SJU",
@@ -639,9 +568,7 @@
         "no_pitches",
         "no_arsenal"
       ],
-      "mlb_id": -322791781,
-      "pitches": 0,
-      "reason": "No usable Synergy/Statcast pitch sample for arsenal"
+      "reason": "no usable arsenal/pitch sample"
     },
     {
       "team": "SJU",
@@ -650,9 +577,10 @@
         "movement",
         "summer"
       ],
-      "mlb_id": 543803,
-      "pitches": 435,
-      "reason": "No IVB/HB on Prospect Savant, Statcast, or Synergy prior seasons; No Stats API summer line (2026/2025) and/or no positive MLB id"
+      "reason": "movement: unavailable no IVB/HB in 2026-2023; summer: unavailable"
     }
-  ]
+  ],
+  "movement_blank_policy": "IVB/HB left blank when Prospect Savant, Statcast, and Synergy movement samples are all absent. Not invented.",
+  "velo_blank_policy": "p25–p75 left blank when Synergy pitchSpeedMph and Statcast release_speed both lack >=12 tracked speeds for that pitch.",
+  "summer_blank_policy": "Summer filled from Stats API 2026 then 2025 when positive MLB id has a line. Remaining blanks = no line and/or no MLB id."
 }
