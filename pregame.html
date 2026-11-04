@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san203">
+<link rel="stylesheet" href="shared.css?v=san207">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -127,7 +127,7 @@
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. Print → Save as PDF. Exactly one landscape page per checked pitcher (compact headshot · charts · shapes+SLG heat vs R then vs L · delivery). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. PDF = print dialog (one page per pitcher). ZIP = one named PDF file per checked pitcher (<code>TEAM/Last_First.pdf</code>). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -168,7 +168,7 @@
         <button type="button" class="btn" onclick="exportHitterAdvanceZip()">Export selected → ZIP</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (strategy lineup order)"></div>
-      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card for the filtered team: batting order 1–9, then only bench hitters checked on the strategy card for that day (not the rest of the roster). Portrait — one page per checked hitter: headshot · vs R | vs L · heat · sprays · bunts.</div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card for the filtered team: batting order 1–9, then only bench hitters checked on the strategy card for that day (not the rest of the roster). Portrait — one page per checked hitter. ZIP = one named PDF file per hitter (<code>TEAM/Last_First.pdf</code>).</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -296,7 +296,7 @@
         <button type="button" class="btn" onclick="exportSprayHandZip()">Export selected → ZIP</button>
       </div>
       <div id="spray-export-list" class="advance-export-list" aria-label="Hitters for spray PDF export (strategy lineup order)"></div>
-      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter, vs RHP | vs LHP × 2K / non-2K / RISP / non-RISP.</div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter. ZIP = one named PDF file per hitter (<code>TEAM/Last_First.pdf</code>).</div>
     </div>
     <div id="spray-hit-legend"></div>
     <div id="spray-mlb" class="spray-grid"></div>
@@ -542,14 +542,14 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san206"></script>
-<script src="cards.js?v=san206"></script>
-<script src="positioning.js?v=san206"></script>
-<script src="persist.js?v=san206"></script>
+<script src="i18n.js?v=san207"></script>
+<script src="cards.js?v=san207"></script>
+<script src="positioning.js?v=san207"></script>
+<script src="persist.js?v=san207"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san206';
+const ASSET_V = 'san207';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1815,17 +1815,27 @@ function exportSprayHandPdf(){
     autoPrint:true
   });
 }
-function exportSprayHandZip(){
+async function exportSprayHandZip(){
   const players = selectedSprayPlayers();
   if(!players.length){ alert('Select at least one hitter to export.'); return; }
-  const files = players.map(p=>{
-    const urls = bakeSprayHandUrls(p);
-    return {
-      name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.html`,
-      data: sheetHtmlFile(p.name, buildSprayHandSheetHtml(p, {printPage:true, prefix:'z-', sprayUrls:urls})),
-    };
-  });
-  downloadBlob(zipStore(files), 'spray_charts.zip');
+  try{
+    const files = [];
+    for(const p of players){
+      const urls = bakeSprayHandUrls(p);
+      const data = await renderAdvanceSheetPdfBytes(
+        p.name,
+        buildSprayHandSheetHtml(p, {printPage:true, prefix:'z-', sprayUrls:urls})
+      );
+      files.push({
+        name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.pdf`,
+        data,
+      });
+    }
+    downloadBlob(zipStore(files), 'spray_charts.zip');
+  }catch(e){
+    console.error(e);
+    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
+  }
 }
 function renderSpray(){
   const spray=CACHE.spray||{};
@@ -3967,30 +3977,213 @@ function playerFileStem(name){
   const first = parts.slice(0, -1).join('_') || 'player';
   return `${last}_${first}`.replace(/[^\w.-]+/g, '_');
 }
-function sheetHtmlFile(title, body){
+function advanceSheetKind(body){
+  if(String(body||'').includes('advance-sheet-pitcher')) return 'pitcher';
+  if(String(body||'').includes('advance-sheet-hitter')) return 'hitter';
+  if(String(body||'').includes('advance-sheet-spray')) return 'spray';
+  return '';
+}
+function advanceSheetMargins(kind){
+  if(kind === 'hitter') return {top:1.15, right:0.28, bottom:0.28, left:0.28};
+  if(kind === 'spray') return {top:0.38, right:0.32, bottom:0.28, left:0.32};
+  return {top:1.32, right:0.32, bottom:0.32, left:0.32};
+}
+function sheetHtmlDocument(title, body){
   const base = location.href.replace(/[^/]*$/, '');
   const css = new URL('shared.css?v=' + ASSET_V, base).href;
-  const kind = body.includes('advance-sheet-pitcher') ? 'pitcher' : (body.includes('advance-sheet-hitter') ? 'hitter' : (body.includes('advance-sheet-spray') ? 'spray' : ''));
-  const margin = kind === 'hitter' ? '1.15in 0.28in 0.28in 0.28in' : (kind === 'spray' ? '0.38in 0.32in 0.28in 0.32in' : '1.32in 0.32in 0.32in 0.32in');
+  const kind = advanceSheetKind(body);
+  const m = advanceSheetMargins(kind);
+  const margin = `${m.top}in ${m.right}in ${m.bottom}in ${m.left}in`;
   const page = kind ? `<style>
       @page { size: letter portrait; margin: ${margin}; }
       html,body{background:#fff;margin:0;padding:0;color:#111;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact}
       .advance-print-page{margin:0 auto}
       ${portraitExportCss(kind)}
     </style>` : '';
-  const html = `<!doctype html><html style="color-scheme:only light"><head><meta charset="utf-8"><meta name="color-scheme" content="only light"><base href="${base}"><title>${title}</title><link rel="stylesheet" href="${css}">${page}</head><body>${body}</body></html>`;
-  return new TextEncoder().encode(html);
+  return `<!doctype html><html style="color-scheme:only light"><head><meta charset="utf-8"><meta name="color-scheme" content="only light"><base href="${base}"><title>${title}</title><link rel="stylesheet" href="${css}">${page}</head><body>${body}</body></html>`;
 }
-function exportAdvanceZip(){
+function sheetHtmlFile(title, body){
+  return new TextEncoder().encode(sheetHtmlDocument(title, body));
+}
+function ensureHtml2Canvas(){
+  if(typeof window.html2canvas === 'function') return Promise.resolve(window.html2canvas);
+  return new Promise((resolve, reject)=>{
+    const existing = document.querySelector('script[data-santurce-html2canvas]');
+    if(existing){
+      existing.addEventListener('load', ()=> window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas missing')));
+      existing.addEventListener('error', ()=> reject(new Error('Could not load html2canvas')));
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    s.async = true;
+    s.dataset.santurceHtml2canvas = '1';
+    s.onload = ()=> window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas missing'));
+    s.onerror = ()=> reject(new Error('Could not load html2canvas'));
+    document.head.appendChild(s);
+  });
+}
+function parseJpegSize(bytes){
+  let i = 2;
+  while(i + 9 < bytes.length){
+    if(bytes[i] !== 0xFF){ i++; continue; }
+    const marker = bytes[i + 1];
+    if(marker === 0xD8 || marker === 0x01){ i += 2; continue; }
+    if(marker === 0xD9 || (marker >= 0xD0 && marker <= 0xD7)){ i += 2; continue; }
+    const len = (bytes[i + 2] << 8) | bytes[i + 3];
+    if(marker >= 0xC0 && marker <= 0xC3){
+      return {
+        height: (bytes[i + 5] << 8) | bytes[i + 6],
+        width: (bytes[i + 7] << 8) | bytes[i + 8],
+      };
+    }
+    i += 2 + len;
+  }
+  return {width: 0, height: 0};
+}
+function jpegToPdfBytes(jpegBytes, pageWpt=612, pageHpt=792){
+  const enc = new TextEncoder();
+  const chunks = [];
+  let offset = 0;
+  const offs = {};
+  const put = (x)=>{
+    const u = typeof x === 'string' ? enc.encode(x) : x;
+    chunks.push(u);
+    offset += u.length;
+  };
+  const mark = (n)=>{ offs[n] = offset; };
+  const {width, height} = parseJpegSize(jpegBytes);
+  const w = width || 1;
+  const h = height || 1;
+  put('%PDF-1.4\n');
+  put(new Uint8Array([0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A])); // binary comment so readers treat file as binary
+  mark(1); put('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+  mark(2); put('2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n');
+  mark(3); put(`3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageWpt} ${pageHpt}] /Contents 4 0 R /Resources << /XObject << /Im0 5 0 R >> >> >>\nendobj\n`);
+  const content = `q\n${pageWpt} 0 0 ${pageHpt} 0 0 cm\n/Im0 Do\nQ\n`;
+  const contentBytes = enc.encode(content);
+  mark(4); put(`4 0 obj\n<< /Length ${contentBytes.length} >>\nstream\n`); put(contentBytes); put('\nendstream\nendobj\n');
+  mark(5); put(`5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${w} /Height ${h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>\nstream\n`);
+  put(jpegBytes);
+  put('\nendstream\nendobj\n');
+  const xrefStart = offset;
+  put('xref\n0 6\n');
+  put('0000000000 65535 f \n');
+  for(let n = 1; n <= 5; n++) put(String(offs[n]).padStart(10, '0') + ' 00000 n \n');
+  put(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF\n`);
+  const out = new Uint8Array(offset);
+  let o = 0;
+  chunks.forEach(c=>{ out.set(c, o); o += c.length; });
+  return out;
+}
+async function inlineDocImages(doc){
+  const imgs = [...doc.images];
+  await Promise.all(imgs.map(async img=>{
+    const src = img.currentSrc || img.src;
+    if(!src || src.startsWith('data:')) return;
+    try{
+      const res = await fetch(src, {mode:'cors', credentials:'omit'});
+      if(!res.ok) throw new Error('fetch failed');
+      const blob = await res.blob();
+      img.src = await new Promise((resolve, reject)=>{
+        const fr = new FileReader();
+        fr.onload = ()=> resolve(fr.result);
+        fr.onerror = reject;
+        fr.readAsDataURL(blob);
+      });
+    }catch(e){
+      // Cross-origin headshots etc. — leave src; html2canvas may blank that image.
+    }
+  }));
+}
+async function waitDocImages(doc, timeoutMs=4000){
+  const imgs = [...doc.images];
+  if(!imgs.length) return;
+  await Promise.race([
+    Promise.all(imgs.map(img => img.complete ? Promise.resolve() : new Promise(res=>{
+      img.onload = img.onerror = res;
+    }))),
+    new Promise(res=> setTimeout(res, timeoutMs)),
+  ]);
+}
+async function renderAdvanceSheetPdfBytes(title, bodyHtml){
+  const html2canvas = await ensureHtml2Canvas();
+  const kind = advanceSheetKind(bodyHtml) || 'pitcher';
+  const margins = advanceSheetMargins(kind);
+  const iframe = document.createElement('iframe');
+  iframe.setAttribute('aria-hidden', 'true');
+  iframe.style.cssText = 'position:fixed;left:-12000px;top:0;width:8.5in;height:11in;border:0;opacity:0;pointer-events:none;background:#fff';
+  document.body.appendChild(iframe);
+  try{
+    const idoc = iframe.contentDocument;
+    idoc.open();
+    idoc.write(sheetHtmlDocument(title || 'sheet', bodyHtml));
+    idoc.close();
+    await new Promise(res=>{
+      if(idoc.readyState === 'complete') res();
+      else iframe.onload = ()=> res();
+      setTimeout(res, 800);
+    });
+    await waitDocImages(idoc);
+    await inlineDocImages(idoc);
+    await waitDocImages(idoc, 2000);
+    await new Promise(r=> setTimeout(r, 60));
+    const target = idoc.querySelector('.advance-print-page') || idoc.body;
+    const shot = await html2canvas(target, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#ffffff',
+      logging: false,
+      imageTimeout: 4000,
+    });
+    const scaleCss = 2;
+    const letterW = Math.round(8.5 * 96 * scaleCss);
+    const letterH = Math.round(11 * 96 * scaleCss);
+    const letter = document.createElement('canvas');
+    letter.width = letterW;
+    letter.height = letterH;
+    const ctx = letter.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, letterW, letterH);
+    const maxW = letterW - (margins.left + margins.right) * 96 * scaleCss;
+    const maxH = letterH - (margins.top + margins.bottom) * 96 * scaleCss;
+    const fit = Math.min(maxW / shot.width, maxH / shot.height, 1);
+    const dw = shot.width * fit;
+    const dh = shot.height * fit;
+    const dx = margins.left * 96 * scaleCss;
+    const dy = margins.top * 96 * scaleCss;
+    ctx.drawImage(shot, dx, dy, dw, dh);
+    const jpeg = await new Promise((resolve, reject)=>{
+      letter.toBlob(b=>{
+        if(!b) reject(new Error('JPEG encode failed'));
+        else b.arrayBuffer().then(ab=> resolve(new Uint8Array(ab)), reject);
+      }, 'image/jpeg', 0.93);
+    });
+    return jpegToPdfBytes(jpeg);
+  } finally {
+    iframe.remove();
+  }
+}
+async function exportAdvanceZip(){
   const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
   const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
   const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
   if(!sheets.length){ alert('Select at least one pitcher to export.'); return; }
-  const files = sheets.map(p=>({
-    name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.html`,
-    data: sheetHtmlFile(p.name, buildPitcherAdvanceSheetHtml(p, {printPage:true})),
-  }));
-  downloadBlob(zipStore(files), 'pitcher_advance_sheets.zip');
+  try{
+    const files = [];
+    for(const p of sheets){
+      const data = await renderAdvanceSheetPdfBytes(p.name, buildPitcherAdvanceSheetHtml(p, {printPage:true}));
+      files.push({
+        name: `${p.team||'TEAM'}/${playerFileStem(p.name)}.pdf`,
+        data,
+      });
+    }
+    downloadBlob(zipStore(files), 'pitcher_advance_sheets.zip');
+  }catch(e){
+    console.error(e);
+    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
+  }
 }
 async function exportArmSlotZip(){
   const rows = arsenalPitchers().filter(p=>p && p.team && p.team!=='SAN' && p.arm_slot_image);
@@ -4671,21 +4864,34 @@ function exportHitterAdvancePdf(){
   });
 }
 
-function exportHitterAdvanceZip(){
+async function exportHitterAdvanceZip(){
   const ids = selectedHitterAdvanceIds();
-  const files = [];
+  const packs = [];
   ids.forEach(id=>{
     const h = resolveAdvanceHitter(id);
     if(!h || !h.name || String(h.name).startsWith('Select All')) return;
     let sprayUrls = null;
     try { sprayUrls = bakeHitterSprayPairDataUrls([h]); } catch(e){ sprayUrls = null; }
-    files.push({
-      name: `${h.team||'TEAM'}/${playerFileStem(h.name)}.html`,
-      data: sheetHtmlFile(h.name, buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:'z-', sprayUrls})),
-    });
+    packs.push({h, sprayUrls});
   });
-  if(!files.length){ alert('Select at least one hitter to export.'); return; }
-  downloadBlob(zipStore(files), 'hitter_advance_sheets.zip');
+  if(!packs.length){ alert('Select at least one hitter to export.'); return; }
+  try{
+    const files = [];
+    for(const {h, sprayUrls} of packs){
+      const data = await renderAdvanceSheetPdfBytes(
+        h.name,
+        buildHitterAdvanceSheetHtml(h, [h], {printPage:true, prefix:'z-', sprayUrls})
+      );
+      files.push({
+        name: `${h.team||'TEAM'}/${playerFileStem(h.name)}.pdf`,
+        data,
+      });
+    }
+    downloadBlob(zipStore(files), 'hitter_advance_sheets.zip');
+  }catch(e){
+    console.error(e);
+    alert('ZIP PDF export failed. Check your network (html2canvas CDN) and try again.');
+  }
 }
 
 
