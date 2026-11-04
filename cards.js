@@ -17,9 +17,12 @@
   const POS_LABEL = Object.fromEntries(POS);
   const DEFAULT_POS = { C: '2', '1B': '3', '2B': '4', '3B': '5', SS: '6', LF: '7', CF: '8', RF: '9', OF: '8', IF: '4', INF: '4', UTL: 'DH', DH: 'DH', P: '1' };
 
-  let DATA = null;
+  // Never leave DATA null — OF positioning / GameDayPersist can call into CardApp
+  // before boot finishes (or if cardStats fetch fails).
+  let DATA = { teams: [], players: [], gaps: {} };
   let byId = new Map();
   let advById = new Map();
+  let booted = false;
 
   function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -76,13 +79,13 @@
   }
 
   function teamMeta(abbrev) {
-    return (DATA.teams || []).find((t) => t.abbrev === abbrev) || { abbrev, name: abbrev, color: '#333', logo: null };
+    return ((DATA && DATA.teams) || []).find((t) => t.abbrev === abbrev) || { abbrev, name: abbrev, color: '#333', logo: null };
   }
   function normPersonName(s){
     return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z ]/g,' ').replace(/\s+/g,' ').trim();
   }
   function roster(abbrev) {
-    const rows = (DATA.players || []).filter((p) => p.team === abbrev);
+    const rows = ((DATA && DATA.players) || []).filter((p) => p.team === abbrev);
     const by = new Map();
     rows.forEach((p) => {
       const key = `${p.role || ''}|${normPersonName(p.name)}`;
@@ -643,12 +646,12 @@
       return;
     }
     const state = loadStrategy();
-    const opponents = (DATA.teams || []).filter((t) => t.abbrev !== 'SAN');
+    const opponents = ((DATA && DATA.teams) || []).filter((t) => t.abbrev !== 'SAN');
     if (!opponents.some((t) => t.abbrev === state.opponent)) state.opponent = opponents[0] ? opponents[0].abbrev : 'CAG';
     const left = state.santurceHome ? 'SAN' : state.opponent;
     const right = state.santurceHome ? state.opponent : 'SAN';
     const oppOpts = opponents.map((t) => `<option value="${esc(t.abbrev)}"${t.abbrev === state.opponent ? ' selected' : ''}>${esc(t.name)}</option>`).join('');
-    const gaps = DATA.gaps || {};
+    const gaps = (DATA && DATA.gaps) || {};
     root.innerHTML = `
       <div class="sc-toolbar">
         <div class="sc-home-toggle" role="group" aria-label="Santurce home or away">
@@ -840,7 +843,7 @@
       return;
     }
     const notesState = loadNotes();
-    const teams = DATA.teams || [];
+    const teams = (DATA && DATA.teams) || [];
     if (!teams.some((t) => t.abbrev === notesState.team)) notesState.team = teams[0] ? teams[0].abbrev : 'SAN';
     const abbrev = notesState.team;
     const meta = teamMeta(abbrev);
@@ -1293,13 +1296,22 @@
 
   const CardApp = {
     boot(payload, advance) {
-      DATA = payload;
-      byId = new Map(((payload && payload.players) || []).map((p) => [p.id, p]));
+      DATA = (payload && typeof payload === 'object')
+        ? payload
+        : { teams: [], players: [], gaps: {} };
+      if (!Array.isArray(DATA.players)) DATA.players = [];
+      if (!Array.isArray(DATA.teams)) DATA.teams = [];
+      if (!DATA.gaps || typeof DATA.gaps !== 'object') DATA.gaps = {};
+      byId = new Map((DATA.players || []).map((p) => [p.id, p]));
       indexAdvance(advance);
+      booted = true;
     },
     renderStrategy,
     renderSmallBall,
-    refresh,
+    refresh() {
+      if (!booted && !((DATA && DATA.players) || []).length) return;
+      return refresh();
+    },
     setOpponent(v) { withStrategy((s) => { s.opponent = v; }); },
     setHome(flag) { withStrategy((s) => { s.santurceHome = !!flag; }); },
     setHomeTeam(abbrev) { withStrategy((s) => { s.santurceHome = abbrev === 'SAN'; }); },
@@ -1576,7 +1588,7 @@
     },
     /** All team abbrevs that have card roster players. */
     teamAbbrevs() {
-      return (DATA.teams || []).map((t) => t.abbrev).filter(Boolean);
+      return ((DATA && DATA.teams) || []).map((t) => t.abbrev).filter(Boolean);
     },
   };
   window.CardApp = CardApp;

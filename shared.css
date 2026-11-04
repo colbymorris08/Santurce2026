@@ -1880,13 +1880,18 @@ input.tth-input:focus {
   border: 1px solid #999; padding: 3px 3px; vertical-align: middle; color: #111; background: #fff;
 }
 .onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; vertical-align: middle; }
-.onepage-grid .op-num { width: 16px; max-width: 18px; text-align: center; font-weight: 700; padding-left: 0; padding-right: 0; }
+.onepage-grid .op-num {
+  width: 1.35ch; max-width: 12px; min-width: 0;
+  text-align: center; font-weight: 700;
+  padding-left: 0; padding-right: 0; overflow: hidden;
+}
+.onepage-grid thead th.op-num { width: 1.35ch; max-width: 12px; padding-left: 0; padding-right: 0; }
 .onepage-grid .op-num input.op-jersey {
-  width: 100%; max-width: 16px; box-sizing: border-box;
-  border: 1px solid #bbb; border-radius: 2px;
-  background: #fff; color: #111; -webkit-text-fill-color: #111;
+  width: 1.35ch; max-width: 11px; min-width: 0; box-sizing: border-box;
+  border: none; border-radius: 0; background: transparent;
+  color: #111; -webkit-text-fill-color: #111;
   font: inherit; font-size: 11px; font-weight: 700; text-align: center;
-  padding: 0; color-scheme: light;
+  padding: 0; margin: 0; color-scheme: light;
 }
 .onepage-grid .op-num input.op-jersey:focus { outline: 1px solid #e6c35c; border-color: #e6c35c; }
 .onepage-grid .op-name { width: 108px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1925,7 +1930,7 @@ input.tth-input:focus {
   #panel-pitcher-one-page.active .onepage-grid { font-size: 9.5px; }
   #panel-pitcher-one-page.active .onepage-grid th,
   #panel-pitcher-one-page.active .onepage-grid td { padding: 1px 2px; vertical-align: middle; }
-  #panel-pitcher-one-page.active .onepage-grid .op-num { width: 0.18in; max-width: 0.22in; }
+  #panel-pitcher-one-page.active .onepage-grid .op-num { width: 1.5ch; max-width: 12px; padding-left: 0; padding-right: 0; }
   #panel-pitcher-one-page.active .onepage-grid .op-notes textarea {
     min-height: 0; height: auto; resize: none; overflow: hidden; font-size: 9px;
     border: none; padding: 0; background: transparent;
