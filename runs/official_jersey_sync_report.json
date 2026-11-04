@@ -1,0 +1,466 @@
+{
+  "updated": "2026-11-04T19:05:17Z",
+  "doc_counts": {
+    "CAG": 41,
+    "CAR": 60,
+    "MAY": 37,
+    "PON": 36,
+    "SJU": 44
+  },
+  "jersey_changes": [
+    {
+      "team": "CAG",
+      "name": "Brett Rodriguez",
+      "id": 687858,
+      "old": null,
+      "new": "65",
+      "doc_name": "Sebastian Rodriguez"
+    },
+    {
+      "team": "CAG",
+      "name": "Steven Echavarria",
+      "id": 806064,
+      "old": null,
+      "new": "66",
+      "doc_name": "Juan Javier Echavarria"
+    },
+    {
+      "team": "MAY",
+      "name": "Ryan Hernandez",
+      "id": 689659,
+      "old": null,
+      "new": "20",
+      "doc_name": "Héctor Hernández"
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Ortiz",
+      "id": 668776,
+      "old": null,
+      "new": "16",
+      "doc_name": "Daniel Ortiz"
+    },
+    {
+      "team": "PON",
+      "name": "Erik Rivera",
+      "id": 682992,
+      "old": null,
+      "new": "9",
+      "doc_name": "Jose Rivera"
+    },
+    {
+      "team": "PON",
+      "name": "Eddie Rosario",
+      "id": 592696,
+      "old": null,
+      "new": "31",
+      "doc_name": "Hemmanuel Rosario"
+    },
+    {
+      "team": "PON",
+      "name": "Emmanuel Rivera",
+      "id": 656896,
+      "old": null,
+      "new": "9",
+      "doc_name": "Jose Rivera"
+    },
+    {
+      "team": "SJU",
+      "name": "Curtis Terry",
+      "id": 663799,
+      "old": null,
+      "new": "34",
+      "doc_name": "Curtis Terry"
+    }
+  ],
+  "change_count": 8,
+  "one_page_jersey_writes": 0,
+  "card_jersey_writes": 10,
+  "tth_jersey_writes": 3,
+  "game_day_override_updates": 0,
+  "unmatched_roster": [
+    {
+      "team": "CAG",
+      "name": "Jean Correa",
+      "old": ""
+    },
+    {
+      "team": "CAG",
+      "name": "Magdiel Cotto",
+      "old": "63"
+    },
+    {
+      "team": "CAG",
+      "name": "Trei Cruz",
+      "old": ""
+    },
+    {
+      "team": "CAG",
+      "name": "Bryan Gonzalez Garcia",
+      "old": "67"
+    },
+    {
+      "team": "CAG",
+      "name": "Tyler Myrick",
+      "old": ""
+    },
+    {
+      "team": "CAG",
+      "name": "Carlos Torres",
+      "old": ""
+    },
+    {
+      "team": "CAR",
+      "name": "Cody Bolton",
+      "old": ""
+    },
+    {
+      "team": "CAR",
+      "name": "Slater DeBrun",
+      "old": ""
+    },
+    {
+      "team": "CAR",
+      "name": "Mervyl Melendez",
+      "old": "9"
+    },
+    {
+      "team": "CAR",
+      "name": "Deniel Ortiz",
+      "old": "52"
+    },
+    {
+      "team": "CAR",
+      "name": "Walker Janek",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Campusano",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Cameron Cauley",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Carlos Cortes",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Adrian Del Castillo",
+      "old": "36"
+    },
+    {
+      "team": "MAY",
+      "name": "Davian Garcia",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Jonathan Haab",
+      "old": "64"
+    },
+    {
+      "team": "MAY",
+      "name": "Darell Hernaiz",
+      "old": "5"
+    },
+    {
+      "team": "MAY",
+      "name": "Ivan Luciano",
+      "old": "75"
+    },
+    {
+      "team": "MAY",
+      "name": "Matthew Lugo",
+      "old": "6"
+    },
+    {
+      "team": "MAY",
+      "name": "Cameron Maldonado",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "old": ""
+    },
+    {
+      "team": "MAY",
+      "name": "Derek West",
+      "old": "47"
+    },
+    {
+      "team": "PON",
+      "name": "Nolan Arenado",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Ricky Castro",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Tyler Gough",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Samuel Hernandez",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Josh James",
+      "old": "76"
+    },
+    {
+      "team": "PON",
+      "name": "John Montes",
+      "old": "20"
+    },
+    {
+      "team": "PON",
+      "name": "Michael Morales",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Orlando Ortiz-Mayr",
+      "old": "27"
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "old": "42"
+    },
+    {
+      "team": "PON",
+      "name": "Romeo Sanabria",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Alex Santos",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Charlee Soto",
+      "old": ""
+    },
+    {
+      "team": "PON",
+      "name": "Eric Torres",
+      "old": "37"
+    },
+    {
+      "team": "PON",
+      "name": "Mario Zabala",
+      "old": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Jose Cruz",
+      "old": "42"
+    },
+    {
+      "team": "SJU",
+      "name": "Randal Diaz",
+      "old": "48"
+    },
+    {
+      "team": "SJU",
+      "name": "Dyan Jorge",
+      "old": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Ryan Munoz",
+      "old": "33"
+    },
+    {
+      "team": "SJU",
+      "name": "Randy Ramnarace",
+      "old": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Ediel Rivera",
+      "old": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Nate Scantlin",
+      "old": ""
+    }
+  ],
+  "unmatched_doc_active": [
+    {
+      "team": "CAG",
+      "name": "Bryan Gonzalez",
+      "jersey": "67",
+      "pos": "INF/C"
+    },
+    {
+      "team": "CAG",
+      "name": "Ismael Salgado",
+      "jersey": "31",
+      "pos": "OF"
+    },
+    {
+      "team": "CAG",
+      "name": "Jovani Moran",
+      "jersey": "47",
+      "pos": "LHP"
+    },
+    {
+      "team": "CAG",
+      "name": "Tomas Nido",
+      "jersey": "54",
+      "pos": "C"
+    },
+    {
+      "team": "CAR",
+      "name": "Derek Datil",
+      "jersey": "29",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "Jan Luis Reyes",
+      "jersey": "18",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "Juriel Collazo",
+      "jersey": "96",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "Danandres Colon",
+      "jersey": "80",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "MJ Melendez",
+      "jersey": "9",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "Slater De Brun",
+      "jersey": "96",
+      "pos": "OF"
+    },
+    {
+      "team": "CAR",
+      "name": "Aiden Ruiz",
+      "jersey": "42",
+      "pos": "INF"
+    },
+    {
+      "team": "CAR",
+      "name": "Javier Vaz",
+      "jersey": "98",
+      "pos": "INF"
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Almeyda",
+      "jersey": "97",
+      "pos": "INF"
+    },
+    {
+      "team": "CAR",
+      "name": "Bryan Marrero",
+      "jersey": "73",
+      "pos": "RHP"
+    },
+    {
+      "team": "CAR",
+      "name": "Pitterson Rosa",
+      "jersey": "68",
+      "pos": "RHP"
+    },
+    {
+      "team": "CAR",
+      "name": "Nathan Torres",
+      "jersey": "67",
+      "pos": "RHP"
+    },
+    {
+      "team": "MAY",
+      "name": "Jonathan Happ",
+      "jersey": "64",
+      "pos": "RHP"
+    },
+    {
+      "team": "SJU",
+      "name": "Min",
+      "jersey": "190",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Mil",
+      "jersey": "185",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Agent Libre",
+      "jersey": "180",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Ind",
+      "jersey": "190",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Nym",
+      "jersey": "200",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Agente Libre",
+      "jersey": "185",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Jpfl",
+      "jersey": "198",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Free Agent",
+      "jersey": "210",
+      "pos": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Oak",
+      "jersey": "205",
+      "pos": ""
+    }
+  ]
+}
