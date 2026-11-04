@@ -926,6 +926,46 @@
     "SJU|freddycabrera": {
       "mlb_id": null,
       "reason": "no unique Stats API name match"
+    },
+    "PON|coltonbecker": {
+      "mlb_id": 813851,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|austinmurr": {
+      "mlb_id": 689456,
+      "throws": "L",
+      "source": "roster id"
+    },
+    "PON|johnbay": {
+      "mlb_id": 700083,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|joseortiz": {
+      "mlb_id": 806176,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|eddierosario": {
+      "mlb_id": 592696,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|emmanuelrivera": {
+      "mlb_id": 656896,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|jankelortiz": {
+      "mlb_id": 703638,
+      "throws": "R",
+      "source": "roster id"
+    },
+    "PON|juanmarcano": {
+      "mlb_id": 807620,
+      "throws": "R",
+      "source": "roster id"
     }
   },
   "people": {
@@ -1678,9 +1718,44 @@
       "fullName": "Eddy Demurias",
       "throws": "R",
       "bats": "R"
+    },
+    "689456": {
+      "fullName": "Austin Murr",
+      "throws": "L",
+      "bats": "L"
+    },
+    "700083": {
+      "fullName": "John Bay",
+      "throws": "R",
+      "bats": "R"
+    },
+    "813851": {
+      "fullName": "Colton Becker",
+      "throws": "R",
+      "bats": "R"
+    },
+    "592696": {
+      "fullName": "Eddie Rosario",
+      "throws": "R",
+      "bats": "L"
+    },
+    "703638": {
+      "fullName": "Jankel Ortiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "806176": {
+      "fullName": "Jose Ortiz",
+      "throws": "R",
+      "bats": "R"
+    },
+    "807620": {
+      "fullName": "Juan Marcano",
+      "throws": "R",
+      "bats": "R"
     }
   },
-  "updated": "2026-10-13T20:53:25Z",
+  "updated": "2026-11-04T02:09:34Z",
   "appearances": {
     "446651": {
       "mlb": [],

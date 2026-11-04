@@ -167,7 +167,7 @@
         <button type="button" class="btn" onclick="exportHitterAdvanceZip()">Export selected → ZIP</button>
       </div>
       <div id="adv-h-export-list" class="advance-export-list" aria-label="Hitters for PDF export (strategy lineup order)"></div>
-      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card lineup for the filtered team: batting order 1–9 first, then everyone else A–Z. Portrait — one page per checked hitter: headshot · vs R | vs L · heat · sprays · bunts.</div>
+      <div class="note" style="margin:6px 0 0">List and PDF follow the Strategy Card for the filtered team: batting order 1–9, then only bench hitters checked on the strategy card for that day (not the rest of the roster). Portrait — one page per checked hitter: headshot · vs R | vs L · heat · sprays · bunts.</div>
     </div>
     <div id="advance-hitters"></div>
   </div>
@@ -2729,12 +2729,36 @@ function strategyLineupIdOrder(teamAbbrev){
   });
   return out;
 }
+/** Lineup 1–9 then strategy-card bench ids (game-day set). */
+function strategyActiveHitterIdOrder(teamAbbrev){
+  if(!window.CardApp || typeof CardApp.getActiveHitterIds !== 'function'){
+    return strategyLineupIdOrder(teamAbbrev);
+  }
+  if(teamAbbrev && teamAbbrev !== 'all') return CardApp.getActiveHitterIds(teamAbbrev) || [];
+  const teams = (typeof CardApp.teamAbbrevs === 'function' && CardApp.teamAbbrevs())
+    || (CACHE.cardStats?.teams || []).map(t=>t.abbrev).filter(Boolean);
+  const out = [];
+  const seen = new Set();
+  (teams || []).forEach(abbr=>{
+    (CardApp.getActiveHitterIds(abbr) || []).forEach(id=>{
+      if(!seen.has(id)){ seen.add(id); out.push(id); }
+    });
+  });
+  return out;
+}
+/** When the strategy card has a lineup, keep only those hitters + selected bench. */
+function filterToStrategyGameDay(arr, teamAbbrev){
+  const lineup = strategyLineupIdOrder(teamAbbrev);
+  if(!lineup.length) return arr || [];
+  const want = new Set(strategyActiveHitterIdOrder(teamAbbrev));
+  return (arr || []).filter(h => want.has(playerStrategyId(h)));
+}
 /**
- * Strategy lineup order first (slots 1–9), then remaining hitters A–Z by last name.
+ * Strategy game-day order: batting order 1–9, then selected bench, then any leftovers A–Z.
  * teamAbbrev: filter team, or "all" / null to merge every team's lineup.
  */
 function sortByStrategyLineup(arr, nameFn, teamAbbrev){
-  const order = strategyLineupIdOrder(teamAbbrev);
+  const order = strategyActiveHitterIdOrder(teamAbbrev);
   if(!order.length) return sortByLastName(arr, nameFn);
   const rank = new Map(order.map((id, i)=>[id, i]));
   return [...(arr||[])].sort((a,b)=>{
@@ -4211,12 +4235,14 @@ function fillHitterExportList(list){
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
   const team = document.getElementById('adv-team')?.value || 'all';
-  const sorted = sortByStrategyLineup(list||[], h=>h.name, team);
+  // Only strategy-card lineup (1–9) + bench selected for that day.
+  const gameDay = filterToStrategyGameDay(list||[], team);
+  const sorted = sortByStrategyLineup(gameDay, h=>h.name, team);
   el.innerHTML = sorted.map(h=>{
     const id=hitterListId(h);
     return `<label class="advance-check"><input type="checkbox" value="${id}" ${prev.has(id)?'checked':''}> ${formatLastFirst(h.name)} · ${h.team||''}</label>`;
   }).join('')
-    || '<span class="note">No hitters in filter.</span>';
+    || '<span class="note">Set the Strategy Card lineup (and optional bench) for this team, or no matching advance rows yet.</span>';
   const all = document.getElementById('adv-h-select-all');
   if(all) all.checked = false;
 }
@@ -4228,9 +4254,13 @@ function selectedHitterAdvanceIds(){
     if(cur && cur!=='__all__') ids = [cur];
   }
   const team = document.getElementById('adv-team')?.value || 'all';
+  const active = new Set(strategyActiveHitterIdOrder(team));
   const packs = ids.map(id=>{
     const h = resolveAdvanceHitter(id);
-    return h ? {id, h} : null;
+    if(!h) return null;
+    // When a strategy lineup exists, refuse non-game-day roster hitters.
+    if(active.size && !active.has(playerStrategyId(h))) return null;
+    return {id, h};
   }).filter(Boolean);
   const ordered = sortByStrategyLineup(packs.map(p=>p.h), h=>h.name, team);
   const byKey = new Map(packs.map(p=>[hitterListId(p.h), p.id]));

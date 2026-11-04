@@ -25,6 +25,12 @@ TARGETS = [
     {"name": "Colton Becker", "team": "PON", "mlb_id": 813851, "kind": "hitter"},
     {"name": "Austin Murr", "team": "PON", "mlb_id": 689456, "kind": "hitter"},
     {"name": "John Bay", "team": "PON", "mlb_id": 700083, "kind": "hitter"},
+    # card bench / available (Nov 2026 sheet)
+    {"name": "Jose Ortiz", "team": "PON", "mlb_id": 806176, "kind": "hitter"},
+    {"name": "Eddie Rosario", "team": "PON", "mlb_id": 592696, "kind": "hitter"},
+    {"name": "Emmanuel Rivera", "team": "PON", "mlb_id": 656896, "kind": "hitter"},
+    {"name": "Jankel Ortiz", "team": "PON", "mlb_id": 703638, "kind": "hitter"},
+    {"name": "Juan Marcano", "team": "PON", "mlb_id": 807620, "kind": "pitcher"},
     # new NPB pitchers (synthetic negative ids)
     {"name": "Keito Matsuura", "team": "PON", "mlb_id": -799554792, "kind": "pitcher"},
     {"name": "Kyohei Yamashiro", "team": "PON", "mlb_id": -172871700, "kind": "pitcher"},

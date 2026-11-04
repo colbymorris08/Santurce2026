@@ -464,11 +464,9 @@
     const pitcherWho = sp
       ? whoCell('', 'P', cardLast(sp, pitchers), batsClass(sp), 2, sp)
       : whoCell('', 'P', '—', '', 2, null);
+    // Pitcher always after batting order #9 — never mid-lineup (e.g. after DH).
     const pitcherRow = starterStatRows(sp, pitcherWho);
-    const dhAt = slots.findIndex((slot) => slot && slot.pos === 'DH');
-    const hitterRows = dhAt >= 0
-      ? spotRows.slice(0, dhAt + 1).join('') + pitcherRow + spotRows.slice(dhAt + 1).join('')
-      : spotRows.join('') + pitcherRow;
+    const hitterRows = spotRows.join('') + pitcherRow;
     const benchSlots = st.bench.length ? st.bench : [null];
     const benchRows = benchSlots.map((slot) => {
       if (!slot) return emptyHitterPair('PH');
@@ -620,7 +618,7 @@
       <div class="sc-roster-list">${hitterChecks}</div>
       <div class="sc-editor-label">${tr('Order — drag a name onto a spot, then pick a position', 'Orden — arrastra un nombre a un turno y elige posición')}</div>
       <ol class="sc-spots">${spots}</ol>
-      <div class="sc-editor-label">${tr('Starter — one pitcher. Prints under the DH. Does not hit.', 'Abridor — un pitcher. Va debajo del DH. No batea.')}</div>
+      <div class="sc-editor-label">${tr('Starter — one pitcher. Prints after #9. Does not hit.', 'Abridor — un pitcher. Va después del #9. No batea.')}</div>
       <div class="sc-sp-wrap">${starterSelect}</div>
       <div class="sc-editor-label">${tr('Bench — hitters left off the lineup', 'Banca — bateadores fuera de la alineación')}</div>
       <div class="sc-roster-list">${benchChecks}</div>
@@ -1403,6 +1401,28 @@
       const state = loadStrategy();
       const st = ensureTeam(state, abbrev);
       return (st.lineup || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
+    },
+    /** Bench hitter ids selected on the strategy card for that day. */
+    getBenchIds(abbrev) {
+      const state = loadStrategy();
+      const st = ensureTeam(state, abbrev);
+      return (st.bench || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
+    },
+    /**
+     * Game-day hitters for PDF export: batting order 1–9, then checked bench.
+     * Omits other roster hitters not selected for that day.
+     */
+    getActiveHitterIds(abbrev) {
+      const lineup = this.getLineupIds(abbrev);
+      const seen = new Set(lineup);
+      const out = lineup.slice();
+      this.getBenchIds(abbrev).forEach((id) => {
+        if (!seen.has(id)) {
+          seen.add(id);
+          out.push(id);
+        }
+      });
+      return out;
     },
     /** All team abbrevs that have card roster players. */
     teamAbbrevs() {
