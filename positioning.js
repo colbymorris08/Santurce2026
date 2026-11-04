@@ -324,6 +324,15 @@
     </span>`;
   }
 
+  function isBenchName(t, name) {
+    if (!name) return false;
+    const names = lineupNames(t);
+    for (let i = 9; i < names.length; i++) {
+      if (names[i] === name) return true;
+    }
+    return false;
+  }
+
   function renderEntry() {
     const tbody = document.querySelector('#tbl-ofpos tbody');
     const thead = document.querySelector('#tbl-ofpos thead');
@@ -331,14 +340,16 @@
     const t = team();
     const hs = hitters(t);
     if (mode === 'OF') {
-      thead.innerHTML = `<tr>
-        <th>Hand</th><th>Hitter</th><th>Position</th>
-        <th>LHP</th><th>RHP</th>
-      </tr>`;
+      thead.innerHTML = `<tr class="pos-sheet-title"><th colspan="5">OF Positioning</th></tr>
+        <tr class="pos-sheet-labels">
+          <th>Hand</th><th>Hitter</th><th>Position</th>
+          <th>LHP</th><th>RHP</th>
+        </tr>`;
       const rows = [];
       hs.forEach((h) => {
         const hand = hitterHand(h, t);
         const nameCls = handNameClass(hand);
+        const benchCls = isBenchName(t, h.name) ? ' pos-bench-name' : '';
         let first = true;
         ofSlotOrder().forEach(({ pos, count, label }) => {
           const L = parseOfCode(getOf(t, h.name, pos, count, 'L'));
@@ -349,7 +360,7 @@
             <td>${first ? `<select class="pos-hand" data-team="${esc(t)}" data-hitter="${esc(h.name)}">
               ${['', 'R', 'L', 'S'].map((x) => `<option value="${x}"${x === hand ? ' selected' : ''}>${x || '—'}</option>`).join('')}
             </select>` : ''}</td>
-            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
+            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}${first ? benchCls : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
             <td>${esc(label)}</td>
             <td class="pos-input">${ofSelect(L.shade, L.steps, metaL)}<span class="pos-code-out">${esc(composeOf(L.shade, L.steps))}</span></td>
             <td class="pos-input">${ofSelect(R.shade, R.steps, metaR)}<span class="pos-code-out">${esc(composeOf(R.shade, R.steps))}</span></td>
@@ -359,15 +370,17 @@
       });
       tbody.innerHTML = rows.join('') || `<tr><td colspan="5" class="note">No hitters.</td></tr>`;
     } else {
-      thead.innerHTML = `<tr>
-        <th>Hand</th><th>Hitter</th><th>Pos</th>
-        <th colspan="3">LHP · Empty / RISP / DP</th>
-        <th colspan="3">RHP · Empty / RISP / DP</th>
-      </tr>`;
+      thead.innerHTML = `<tr class="pos-sheet-title"><th colspan="9">INF Positioning</th></tr>
+        <tr class="pos-sheet-labels">
+          <th>Hand</th><th>Hitter</th><th>Pos</th>
+          <th colspan="3">LHP · Empty / RISP / DP</th>
+          <th colspan="3">RHP · Empty / RISP / DP</th>
+        </tr>`;
       const rows = [];
       hs.forEach((h) => {
         const hand = hitterHand(h, t);
         const nameCls = handNameClass(hand);
+        const benchCls = isBenchName(t, h.name) ? ' pos-bench-name' : '';
         let first = true;
         INF_POS.forEach((pos) => {
           const cells = (pHand) => INF_SITS.map((sit) => {
@@ -379,7 +392,7 @@
             <td>${first ? `<select class="pos-hand" data-team="${esc(t)}" data-hitter="${esc(h.name)}">
               ${['', 'R', 'L', 'S'].map((x) => `<option value="${x}"${x === hand ? ' selected' : ''}>${x || '—'}</option>`).join('')}
             </select>` : ''}</td>
-            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
+            <td class="ofpos-hitter${first && nameCls ? ` ${nameCls}` : ''}${first ? benchCls : ''}">${first ? esc((typeof formatLastFirst === 'function' ? formatLastFirst(h.name) : h.name) || h.name) : ''}</td>
             <td>${pos}</td>
             ${cells('L')}${cells('R')}
           </tr>`);
@@ -577,6 +590,13 @@
   }
 
   /* ── Print cards (Excel layouts, no sprays) ── */
+  /* Card sheet colors (print + Excel): title medium blue, labels light gray, bench name cells light orange. */
+  const POS_FILL = {
+    title: '5B9BD5',   // medium blue
+    label: 'D9D9D9',   // light gray
+    bench: 'FCE4D6',   // light orange (name cells only)
+  };
+
   function printOpen(title, bodyHtml) {
     const w = window.open('', '_blank');
     if (!w) {
@@ -594,70 +614,76 @@
         .pos-print-2{grid-template-columns:1fr 1fr}
         table{width:100%;border-collapse:collapse;font-size:11px}
         th,td{border:1px solid #bbb;padding:3px 5px;text-align:center}
-        th{background:#e8e8e8;font-size:10px;letter-spacing:.04em}
+        th{font-size:10px;letter-spacing:.04em}
         td.name{text-align:left;font-weight:700;width:38%}
-        .pos-title{font-weight:800;background:#d0d4da;text-align:left}
+        .pos-title{font-weight:800;background:#5B9BD5;color:#fff;text-align:left}
+        .pos-labels th{background:#D9D9D9;font-weight:700}
+        .pos-bench{background:#FCE4D6}
         .sc-lhb{color:#C0392B!important}
         .sc-shb{color:#1A5276!important}
-        @media print { h2,.sc-lhb,.sc-shb{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+        @media print {
+          h2,.pos-title,.pos-labels th,.pos-bench,.sc-lhb,.sc-shb{
+            -webkit-print-color-adjust:exact;print-color-adjust:exact
+          }
+        }
       </style></head><body>${bodyHtml}</body></html>`);
     w.document.close();
     setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 200);
   }
 
-  function lineupHitters(t) {
+  /** Lineup card slots 1–N (0-based). Slots 10+ (index ≥ 9) are bench. */
+  function lineupSlots(t, n) {
     const by = new Map(hitters(t).map((h) => [h.name, h]));
+    const names = lineupNames(t);
     const out = [];
-    const seen = new Set();
-    lineupNames(t).forEach((nm) => {
-      if (!nm || seen.has(nm)) return;
-      const h = by.get(nm);
-      if (h) { out.push(h); seen.add(nm); }
-      else out.push({ name: nm, bats: '' });
-    });
-    // fill with remaining roster so card isn't empty
-    hitters(t).forEach((h) => {
-      if (seen.has(h.name)) return;
-      out.push(h);
-      seen.add(h.name);
-    });
-    return out.slice(0, 15);
+    for (let i = 0; i < n; i++) {
+      const nm = names[i] || '';
+      const h = nm ? by.get(nm) : null;
+      out.push({
+        name: h ? h.name : nm,
+        bats: h ? (h.bats || '') : '',
+        hand: h ? (hitterHand(h, t) || '') : '',
+        last: nm ? lastUpper(h ? h.name : nm) : '',
+        slot: i,
+        isBench: i >= 9,
+      });
+    }
+    return out;
+  }
+
+  function printNameCell(slot) {
+    if (!slot || !slot.last) return '<td class="name"></td>';
+    const nc = handNameClass(slot.hand);
+    const bench = slot.isBench ? ' pos-bench' : '';
+    return `<td class="name${bench}${nc ? ` ${nc}` : ''}">${esc(slot.last)}</td>`;
   }
 
   function printOf(scope) {
-    // scope: 'LF'|'CF'|'RF'|'ALL'
+    // scope: 'LF'|'CF'|'RF'|'ALL' — Entire OF = 6 tables (LF/CF/RF × LHP/RHP)
     const t = team();
-    const list = lineupHitters(t);
+    const list = lineupSlots(t, 15);
     const positions = scope === 'ALL' ? OF_POS : [scope];
-    function nameCell(h) {
-      const last = lastUpper(h.name);
-      const nc = handNameClass(hitterHand(h, t));
-      return `<td class="name${nc ? ` ${nc}` : ''}">${esc(last)}</td>`;
+    function ofTable(pos, pHand, titleText) {
+      const rows = list.map((slot) => {
+        const nm = slot.name;
+        const pre = nm ? (getOf(t, nm, pos, 'PRE', pHand) || '') : '';
+        const two = nm ? (getOf(t, nm, pos, '2K', pHand) || '') : '';
+        return `<tr>${printNameCell(slot)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
+      }).join('');
+      return `<table>
+        <thead>
+          <tr><th class="pos-title" colspan="3">${esc(titleText)}</th></tr>
+          <tr class="pos-labels"><th></th><th>PRE</th><th>2K</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>`;
     }
     function block(pHand) {
       if (positions.length === 1) {
         const pos = positions[0];
-        const rows = list.map((h) => {
-          const pre = getOf(t, h.name, pos, 'PRE', pHand) || '';
-          const two = getOf(t, h.name, pos, '2K', pHand) || '';
-          return `<tr>${nameCell(h)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
-        }).join('');
-        return `<div>
-          <h2>${pHand}HP · ${pos}</h2>
-          <table><thead><tr><th>${pos}</th><th>PRE</th><th>2K</th></tr></thead><tbody>${rows}</tbody></table>
-        </div>`;
+        return `<div>${ofTable(pos, pHand, `${pHand}HP · ${pos}`)}</div>`;
       }
-      const cols = positions.map((pos) => {
-        const rows = list.map((h) => {
-          const pre = getOf(t, h.name, pos, 'PRE', pHand) || '';
-          const two = getOf(t, h.name, pos, '2K', pHand) || '';
-          return `<tr>${nameCell(h)}<td>${esc(pre)}</td><td>${esc(two)}</td></tr>`;
-        }).join('');
-        return `<div>
-          <table><thead><tr><th class="pos-title" colspan="3">${pos}</th></tr>
-          <tr><th></th><th>PRE</th><th>2K</th></tr></thead><tbody>${rows}</tbody></table>
-        </div>`;
-      }).join('');
+      const cols = positions.map((pos) => `<div>${ofTable(pos, pHand, pos)}</div>`).join('');
       return `<h2>${pHand}HP</h2><div class="pos-print-grid pos-print-3">${cols}</div>`;
     }
     const title = scope === 'ALL'
@@ -673,23 +699,27 @@
   function printInf(scope) {
     // scope: '1B'|'2B'|'SS'|'3B'|'ALL'
     const t = team();
-    const list = lineupHitters(t);
+    const list = lineupSlots(t, 15);
     const positions = scope === 'ALL' ? INF_POS : [scope];
-    function tableFor(pos, pHand) {
-      const rows = list.map((h) => {
-        const nc = handNameClass(hitterHand(h, t));
-        const cells = INF_SITS.map((sit) => `<td>${esc(getInf(t, h.name, pos, sit, pHand) || '')}</td>`).join('');
-        return `<tr><td class="name${nc ? ` ${nc}` : ''}">${esc(lastUpper(h.name))}</td>${cells}</tr>`;
+    function tableFor(pos, pHand, titleText) {
+      const rows = list.map((slot) => {
+        const nm = slot.name;
+        const cells = INF_SITS.map((sit) => `<td>${esc(nm ? (getInf(t, nm, pos, sit, pHand) || '') : '')}</td>`).join('');
+        return `<tr>${printNameCell(slot)}${cells}</tr>`;
       }).join('');
       return `<div>
-        <table><thead><tr><th class="pos-title" colspan="4">${pos}</th></tr>
-        <tr><th></th><th>Empty</th><th>RISP</th><th>DP</th></tr></thead>
-        <tbody>${rows}</tbody></table>
+        <table>
+          <thead>
+            <tr><th class="pos-title" colspan="4">${esc(titleText || pos)}</th></tr>
+            <tr class="pos-labels"><th></th><th>Empty</th><th>RISP</th><th>DP</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
       </div>`;
     }
     function block(pHand) {
       if (positions.length === 1) {
-        return `<div><h2>${pHand}HP · ${positions[0]}</h2>${tableFor(positions[0], pHand)}</div>`;
+        return tableFor(positions[0], pHand, `${pHand}HP · ${positions[0]}`);
       }
       // Excel: 1B|2B on top, SS|3B below
       return `<h2>${pHand}HP</h2>
@@ -719,10 +749,28 @@
     if (h === 'S') return { color: { rgb: '1A5276' }, bold: true };
     return { color: { rgb: '000000' }, bold: true };
   }
-  function paintNameCell(ws, addr, hand) {
+  function solidFill(rgb) {
+    return { patternType: 'solid', fgColor: { rgb } };
+  }
+  function ensureCell(ws, addr) {
+    return ws[addr] || (ws[addr] = { t: 's', v: '' });
+  }
+  function paintFill(ws, addr, rgb, extra) {
+    if (!ws || !addr || !rgb) return;
+    const cell = ensureCell(ws, addr);
+    cell.s = Object.assign({}, cell.s || {}, { fill: solidFill(rgb) }, extra || {});
+  }
+  function paintNameCell(ws, addr, hand, opts) {
     if (!ws || !addr) return;
-    const cell = ws[addr] || (ws[addr] = { t: 's', v: '' });
-    cell.s = Object.assign({}, cell.s || {}, { font: handNameFont(hand) });
+    const cell = ensureCell(ws, addr);
+    const style = { font: handNameFont(hand) };
+    if (opts && opts.bench) style.fill = solidFill(POS_FILL.bench);
+    cell.s = Object.assign({}, cell.s || {}, style);
+  }
+  function paintRowRange(ws, r0, c0, c1, rgb, extra) {
+    for (let c = c0; c <= c1; c++) {
+      paintFill(ws, XLSX.utils.encode_cell({ r: r0, c }), rgb, extra);
+    }
   }
 
   function exportOfExcel() {
@@ -755,21 +803,32 @@
     const manualLast = Math.max(manualAoa.length, 2);
     const cardAoa = [[]];
     const cardFormulas = [];
-    const cardNameStyles = []; // {r,c,hand} 1-based excel
+    const cardNameStyles = []; // {r,c,hand,bench} 1-based excel
+    const cardHeaderStyles = []; // {r,c0,c1,kind:'title'|'label'} 0-based row
     function pushHandBlock(label, range, col) {
       const head = Array(17).fill('');
       head[0] = label; head[6] = label; head[12] = label;
       cardAoa.push(head);
+      const titleR = cardAoa.length - 1; // 0-based
+      // Three OF tables side-by-side: LF cols 0–4, CF 6–10, RF 12–16
+      [[0, 4], [6, 10], [12, 16]].forEach(([c0, c1]) => {
+        cardHeaderStyles.push({ r: titleR, c0, c1, kind: 'title' });
+      });
       const sub = Array(17).fill('');
       sub[0] = 'LF'; sub[3] = 'PRE'; sub[4] = '2K';
       sub[6] = 'CF'; sub[9] = 'PRE'; sub[10] = '2K';
       sub[12] = 'RF'; sub[15] = 'PRE'; sub[16] = '2K';
       cardAoa.push(sub);
+      const labelR = cardAoa.length - 1;
+      [[0, 4], [6, 10], [12, 16]].forEach(([c0, c1]) => {
+        cardHeaderStyles.push({ r: labelR, c0, c1, kind: 'label' });
+      });
       const headerRow = cardAoa.length;
       for (let i = 0; i < 15; i++) {
         const excelRow = cardAoa.length + 1;
         const lineupRef = `LINEUP!B${i + 2}`;
         const hand = lineupHands[i] || '';
+        const bench = i >= 9;
         cardAoa.push(Array(17).fill(''));
         [
           [0, lineupRef],
@@ -782,7 +841,7 @@
           [15, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" PRE",'Manual Data'!${range},${col},0)," ")`],
           [16, `IFERROR(VLOOKUP($M${excelRow}&"|"&M$${headerRow}&" 2K",'Manual Data'!${range},${col},0)," ")`],
         ].forEach(([c, f]) => cardFormulas.push({ r: excelRow, c: c + 1, f }));
-        [0, 6, 12].forEach((c) => cardNameStyles.push({ r: excelRow, c: c + 1, hand }));
+        [0, 6, 12].forEach((c) => cardNameStyles.push({ r: excelRow, c: c + 1, hand, bench }));
       }
     }
     pushHandBlock('LHP', `$E$2:$G$${manualLast}`, 3);
@@ -791,16 +850,25 @@
 
     const wb = XLSX.utils.book_new();
     const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
-    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand));
+    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand, { bench: i >= 9 }));
     const wsManual = XLSX.utils.aoa_to_sheet(manualAoa);
     for (let r = 2; r <= manualLast; r++) wsManual[`E${r}`] = { f: `C${r}&"|"&D${r}` };
     manualNameHands.forEach((hand, i) => paintNameCell(wsManual, `C${i + 2}`, hand));
     const wsCard = XLSX.utils.aoa_to_sheet(cardAoa);
     cardFormulas.forEach(({ r, c, f }) => {
-      wsCard[XLSX.utils.encode_cell({ r: r - 1, c: c - 1 })] = { f };
+      const addr = XLSX.utils.encode_cell({ r: r - 1, c: c - 1 });
+      const prev = wsCard[addr];
+      wsCard[addr] = Object.assign({}, prev || {}, { f });
     });
-    cardNameStyles.forEach(({ r, c, hand }) => {
-      paintNameCell(wsCard, XLSX.utils.encode_cell({ r: r - 1, c: c - 1 }), hand);
+    cardHeaderStyles.forEach(({ r, c0, c1, kind }) => {
+      const rgb = kind === 'title' ? POS_FILL.title : POS_FILL.label;
+      const extra = kind === 'title'
+        ? { font: { bold: true, color: { rgb: 'FFFFFF' } } }
+        : { font: { bold: true, color: { rgb: '000000' } } };
+      paintRowRange(wsCard, r, c0, c1, rgb, extra);
+    });
+    cardNameStyles.forEach(({ r, c, hand, bench }) => {
+      paintNameCell(wsCard, XLSX.utils.encode_cell({ r: r - 1, c: c - 1 }), hand, { bench });
     });
     XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
@@ -851,21 +919,31 @@
     function buildHandSheet(pHand) {
       // Values filled directly (no formulas) so print/export is self-contained
       const aoa = [[]];
-      const nameStyles = []; // {r,c,hand} 0-based
+      const nameStyles = []; // {r,c,hand,bench} 0-based
+      const headerStyles = []; // {r,c0,c1,kind}
       function pair(posA, posB) {
         const head = Array(15).fill('');
         head[0] = pHand + 'HP'; head[9] = pHand + 'HP';
         aoa.push(head);
+        const titleR = aoa.length - 1;
+        [[0, 5], [9, 14]].forEach(([c0, c1]) => {
+          headerStyles.push({ r: titleR, c0, c1, kind: 'title' });
+        });
         const sub = Array(15).fill('');
         sub[0] = posA; sub[3] = 'Empty'; sub[4] = 'RISP'; sub[5] = 'DP';
         sub[9] = posB; sub[12] = 'Empty'; sub[13] = 'RISP'; sub[14] = 'DP';
         aoa.push(sub);
+        const labelR = aoa.length - 1;
+        [[0, 5], [9, 14]].forEach(([c0, c1]) => {
+          headerStyles.push({ r: labelR, c0, c1, kind: 'label' });
+        });
         for (let i = 0; i < 18; i++) {
           const nm = lineup[i] || '';
           const h = byName.get(nm);
           const last = h ? lastUpper(h.name) : (nm ? lastUpper(nm) : '');
           const nameKey = h ? h.name : nm;
           const hand = h ? (hitterHand(h, t) || '') : (lineupHands[i] || '');
+          const bench = i >= 9;
           const row = Array(15).fill('');
           row[0] = last;
           row[3] = nameKey ? (getInf(t, nameKey, posA, 'EMPTY', pHand) || '') : '';
@@ -878,8 +956,8 @@
           const r = aoa.length;
           aoa.push(row);
           if (last) {
-            nameStyles.push({ r, c: 0, hand });
-            nameStyles.push({ r, c: 9, hand });
+            nameStyles.push({ r, c: 0, hand, bench });
+            nameStyles.push({ r, c: 9, hand, bench });
           }
         }
       }
@@ -887,15 +965,22 @@
       aoa.push([]); aoa.push([]); aoa.push([]);
       pair('SS', '3B');
       const ws = XLSX.utils.aoa_to_sheet(aoa);
-      nameStyles.forEach(({ r, c, hand }) => {
-        paintNameCell(ws, XLSX.utils.encode_cell({ r, c }), hand);
+      headerStyles.forEach(({ r, c0, c1, kind }) => {
+        const rgb = kind === 'title' ? POS_FILL.title : POS_FILL.label;
+        const extra = kind === 'title'
+          ? { font: { bold: true, color: { rgb: 'FFFFFF' } } }
+          : { font: { bold: true, color: { rgb: '000000' } } };
+        paintRowRange(ws, r, c0, c1, rgb, extra);
+      });
+      nameStyles.forEach(({ r, c, hand, bench }) => {
+        paintNameCell(ws, XLSX.utils.encode_cell({ r, c }), hand, { bench });
       });
       return ws;
     }
 
     const wb = XLSX.utils.book_new();
     const wsLineup = XLSX.utils.aoa_to_sheet(lineupAoa);
-    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand));
+    lineupHands.forEach((hand, i) => paintNameCell(wsLineup, `B${i + 2}`, hand, { bench: i >= 9 }));
     const wsManual = XLSX.utils.aoa_to_sheet(manualAoa);
     for (let r = 3; r <= manualLast; r++) wsManual[`E${r}`] = { f: `C${r}&"|"&D${r}` };
     manualNameHands.forEach((hand, i) => paintNameCell(wsManual, `C${i + 3}`, hand));
