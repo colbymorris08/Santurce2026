@@ -8,14 +8,16 @@ Hitters  → Hitter Advance, Spray, BR card, Lineup spots (SAN), OF tabs gate,
           Strategy (roster), card_whiff when SAN. (TTH only if C.)
 Both     → lbprc_2025_rosters.json (must already list them).
 
-By default this stubs / wires roster identity into the site caches. Prefer
-passing a real MLBAM id (`--id`). If the roster still has a synthetic negative
-id, `--resolve-mlb` looks up free_agent_pool + Synergy mlbProfileId and rewrites
-the roster + caches. Pass `--fill-synergy` to pull Synergy samples immediately
-so MiLB pitchers/hitters are not left as empty stubs.
+By default this wires roster identity AND fills every tab that has real data
+(Synergy usages/heat + Prospect Savant movement for pitchers). Prefer a real
+MLBAM id (`--id`). If the roster still has a synthetic negative id,
+`--resolve-mlb` looks up free_agent_pool + Synergy mlbProfileId and rewrites
+the roster + caches. Pass `--stub-only` only when you intentionally want empty
+shells (offline / no credentials).
 
-  python3 ensure_roster_player.py --name "Ryan Murphy" --team PON --id 694885 --fill-synergy
-  python3 ensure_roster_player.py --name "John Aponte" --team PON --resolve-mlb --fill-synergy
+  python3 ensure_roster_player.py --name "Ryan Murphy" --team PON --id 694885
+  python3 ensure_roster_player.py --name "John Aponte" --team PON --resolve-mlb
+  python3 ensure_roster_player.py --name "X" --team CAG --stub-only   # identity only
 """
 
 from __future__ import annotations
@@ -142,6 +144,49 @@ def rewrite_roster_id(player: dict, new_id: int) -> None:
                 player["id"] = int(new_id)
                 return
     raise SystemExit(f"rewrite_roster_id miss {player.get('name')} {team}")
+
+
+def fill_movement_now(player: dict) -> dict[str, Any]:
+    """Overlay Prospect Savant / Statcast / Synergy IVB+HB onto the arsenal row."""
+    if not is_pitcher(player):
+        return {"status": "skipped", "reason": "not_pitcher"}
+    import fill_movement_plot_batches as move
+    import fill_remaining_holes as holes
+
+    arsenal_doc = holes.load("pregame_pitcher_arsenals.json")
+    arsenal_by = holes.index_rows(arsenal_doc.get("pitchers") or [])
+    holes_ckpt = json.loads(holes.CHECKPOINT.read_text()) if holes.CHECKPOINT.is_file() else {}
+    resolved = holes_ckpt.get("resolved_ids") or {}
+    row = move.ensure_row(arsenal_doc, player, arsenal_by)
+    if holes.has_movement(row):
+        return {
+            "status": "already",
+            "source": row.get("ps_source") or row.get("movement_source"),
+            "season": row.get("ps_season") or row.get("movement_season"),
+        }
+    token_box: dict = {"keys": set()}
+    found = move.lookup_pitcher(player, row, resolved, token_box)
+    added = False
+    if found.get("pitches"):
+        added = move.merge_plot_only(
+            row,
+            found["pitches"],
+            source=found["source"],
+            season=found["season"],
+            throws=found.get("throws") or player.get("throws") or "",
+        )
+    if added:
+        note = str(row.get("note") or "")
+        if "stub" in note.lower() or "scaffold" in note.lower() or "run Synergy" in note:
+            row.pop("note", None)
+        arsenal_doc["updated"] = now()
+        holes.dump(DATA / "pregame_pitcher_arsenals.json", arsenal_doc)
+    return {
+        "status": "filled" if added else "no_plot",
+        "source": found.get("source") or None,
+        "season": found.get("season"),
+        "why": None if added else move.best_why(found.get("attempts") or []),
+    }
 
 
 def fill_synergy_now(player: dict) -> dict[str, Any]:
@@ -271,6 +316,7 @@ def fill_synergy_now(player: dict) -> dict[str, Any]:
             )
         except Exception as exc:  # noqa: BLE001
             print(f"  arsenal merge warn: {exc}")
+        movement = fill_movement_now(player)
         return {
             "status": "populated" if mix.get("pitches") else "empty",
             "synergy_id": str(sid),
@@ -279,6 +325,7 @@ def fill_synergy_now(player: dict) -> dict[str, Any]:
             "stats_events": len(stats or []),
             "window_used": window,
             "pitches": mix.get("pitches") or 0,
+            "movement": movement,
         }
 
     # hitter path
@@ -552,6 +599,25 @@ def ensure_hitter(player: dict) -> dict[str, str]:
     return actions
 
 
+def ensure_and_fill(player: dict, *, stub_only: bool = False) -> dict[str, Any]:
+    """Wire every tab cache, then fill Synergy + Savant unless stub_only."""
+    actions = ensure_shared(player)
+    if is_pitcher(player):
+        actions.update(ensure_pitcher(player))
+        role = "pitcher"
+    else:
+        actions.update(ensure_hitter(player))
+        role = "hitter"
+    fill_result = None
+    if not stub_only:
+        fill_result = fill_synergy_now(player)
+    if role == "pitcher":
+        one = ligapr.build_pitcher_one_page()
+        ligapr.write_json("pitcher_one_page.json", one)
+        actions["one_page"] = "rebuilt"
+    return {"role": role, "actions": actions, "fill": fill_result}
+
+
 def ensure_shared(player: dict) -> dict[str, str]:
     mid = int(player.get("id") or 0)
     actions = {}
@@ -621,9 +687,15 @@ def main() -> None:
     ap.add_argument(
         "--fill-synergy",
         action="store_true",
-        help="Immediately pull Synergy into advance/arsenal/heat (not stub-only)",
+        help="Deprecated alias: fill is now the default (Synergy + Savant movement)",
+    )
+    ap.add_argument(
+        "--stub-only",
+        action="store_true",
+        help="Wire identity into caches only — skip Synergy/Savant fills",
     )
     args = ap.parse_args()
+    do_fill = not args.stub_only  # fill-all-tabs is the default
 
     player = find_roster(args.name, args.id, args.team)
     if not player:
@@ -660,22 +732,19 @@ def main() -> None:
         role = "hitter"
 
     synergy_result = None
-    if args.fill_synergy:
-        print("filling Synergy…")
+    if do_fill:
+        print("filling Synergy + Prospect Savant movement…")
         synergy_result = fill_synergy_now(player)
         print(json.dumps({"synergy": synergy_result}, indent=2))
+    else:
+        print("stub-only: skipped Synergy/Savant fills")
 
-    if args.rebuild_one_page or role == "pitcher" or args.fill_synergy:
+    if args.rebuild_one_page or role == "pitcher" or do_fill:
         one = ligapr.build_pitcher_one_page()
         ligapr.write_json("pitcher_one_page.json", one)
         actions["one_page"] = "rebuilt"
 
     print(json.dumps({"role": role, "actions": actions, "resolve": resolve_info}, indent=2))
-    if not args.fill_synergy:
-        print(
-            "Next: re-run with --fill-synergy (and --id / --resolve-mlb) so MiLB "
-            "players are not left as empty stubs."
-        )
 
 
 if __name__ == "__main__":

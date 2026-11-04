@@ -340,12 +340,11 @@ def ensure_all(rows: list[dict]) -> None:
             player["throws"] = row["throws"]
         if row.get("jersey") is not None:
             player["jersey"] = str(row["jersey"])
-        actions = erp.ensure_shared(player)
-        if erp.is_pitcher(player):
-            actions.update(erp.ensure_pitcher(player))
-        else:
-            actions.update(erp.ensure_hitter(player))
-        print(f"ensure PON {player['name']}: {actions}")
+        result = erp.ensure_and_fill(player)
+        print(
+            f"ensure+fill PON {player['name']}: {result.get('actions')} "
+            f"fill={(result.get('fill') or {}).get('status')}"
+        )
 
 
 def publish_notes() -> dict:

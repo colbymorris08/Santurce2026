@@ -261,12 +261,9 @@ def ensure_all(rows: list[dict]) -> None:
             player["bats"] = row["bats"]
         if row.get("throws"):
             player["throws"] = row["throws"]
-        actions = erp.ensure_shared(player)
-        if erp.is_pitcher(player):
-            actions.update(erp.ensure_pitcher(player))
-        else:
-            actions.update(erp.ensure_hitter(player))
-        print(f"ensure {row['team']} {player['name']}: {actions}")
+        # Fill-all-tabs default: Synergy usages/heat + Prospect Savant movement
+        result = erp.ensure_and_fill(player)
+        print(f"ensure+fill {row['team']} {player['name']}: {result.get('actions')} fill={ (result.get('fill') or {}).get('status') }")
 
 
 def seed_summer_lines(players: list[dict]) -> None:

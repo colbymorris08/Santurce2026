@@ -1,0 +1,183 @@
+{
+  "updated": "2026-11-04T18:40:25Z",
+  "movement": [],
+  "synergy_pitchers": [],
+  "synergy_hitters": [
+    {
+      "name": "Jean Correa",
+      "team": "CAG",
+      "id": -617163636,
+      "status": "empty",
+      "synergy_id": "60bbd21bd052b6537cc09cae",
+      "synergy_name": "Jean Correa",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": null,
+      "spray": 0
+    },
+    {
+      "name": "Jose Miranda",
+      "team": "CAG",
+      "id": 811368,
+      "status": "empty",
+      "synergy_id": "636cc7cd1b1c550664d3b7b9",
+      "synergy_name": "Jose Miranda",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": null,
+      "spray": 0
+    },
+    {
+      "name": "Brett Rodriguez",
+      "team": "CAG",
+      "id": 687858,
+      "status": "populated",
+      "synergy_id": "58b6c9484b8b525a4c5a2139",
+      "synergy_name": "Rodriguez",
+      "raw_events": 1400,
+      "stats_events": 1223,
+      "window_used": "2024 fallback",
+      "pitches": 1191,
+      "spray": 156
+    },
+    {
+      "name": "Hector Santiago",
+      "team": "CAG",
+      "id": 502327,
+      "status": "empty",
+      "synergy_id": "573d7056080cc2cbe8bf2e95",
+      "synergy_name": "Santiago",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": null,
+      "spray": 0
+    },
+    {
+      "name": "Jonathan Morales",
+      "team": "CAG",
+      "id": 664966,
+      "status": "populated",
+      "synergy_id": "5abcb5322cb661f293636a79",
+      "synergy_name": "Morales",
+      "raw_events": 1400,
+      "stats_events": 298,
+      "window_used": "2026+2025 pool",
+      "pitches": 295,
+      "spray": 49
+    },
+    {
+      "name": "Slater DeBrun",
+      "team": "CAR",
+      "id": 828173,
+      "status": "unresolved",
+      "candidates": []
+    },
+    {
+      "name": "Mervyl Melendez",
+      "team": "CAR",
+      "id": -268338446,
+      "status": "unresolved",
+      "candidates": []
+    },
+    {
+      "name": "Jose Silva",
+      "team": "CAR",
+      "id": -213606773,
+      "status": "populated",
+      "synergy_id": "66b06b851c740ec06f702e57",
+      "synergy_name": "Jose Silva",
+      "raw_events": 683,
+      "stats_events": 597,
+      "window_used": "2026+2025 pool",
+      "pitches": 578,
+      "spray": 56
+    },
+    {
+      "name": "Jamal George",
+      "team": "MAY",
+      "id": -840209350,
+      "status": "populated",
+      "synergy_id": "607f23252a20973e219e9303",
+      "synergy_name": "Jamal George",
+      "raw_events": 925,
+      "stats_events": 792,
+      "window_used": "2024 fallback",
+      "pitches": 746,
+      "spray": 79
+    },
+    {
+      "name": "Emmanuel Rivera",
+      "team": "MAY",
+      "id": 656896,
+      "status": "populated",
+      "synergy_id": "5abcb5312cb661f293635860",
+      "synergy_name": "Rivera",
+      "raw_events": 1500,
+      "stats_events": 1500,
+      "window_used": "2026+2025 pool",
+      "pitches": 1482,
+      "spray": 293
+    },
+    {
+      "name": "Samuel Hernandez",
+      "team": "PON",
+      "id": -411650644,
+      "status": "populated",
+      "synergy_id": "5f835f031cb0540001a5439b",
+      "synergy_name": "Samuel Hernandez",
+      "raw_events": 1500,
+      "stats_events": 1438,
+      "window_used": "2026+2025 pool",
+      "pitches": 1422,
+      "spray": 224
+    },
+    {
+      "name": "Gabriel Rosado",
+      "team": "PON",
+      "id": -173185958,
+      "status": "populated",
+      "synergy_id": "64bd8e131e62b98de7bbd4bf",
+      "synergy_name": "Gabriel Rosado",
+      "raw_events": 82,
+      "stats_events": 59,
+      "window_used": "2024 fallback",
+      "pitches": 59,
+      "spray": 11
+    },
+    {
+      "name": "Robbie Enriquez",
+      "team": "SJU",
+      "id": 690702,
+      "status": "unresolved",
+      "candidates": []
+    },
+    {
+      "name": "Manny Garcia",
+      "team": "SJU",
+      "id": -413913713,
+      "status": "populated",
+      "synergy_id": "5a793f78da5c2a42882922f3",
+      "synergy_name": "Manny Garcia",
+      "raw_events": 1500,
+      "stats_events": 184,
+      "window_used": "2026+2025 pool",
+      "pitches": 184,
+      "spray": 26
+    }
+  ],
+  "summary": {
+    "pitchers_roster": 0,
+    "with_movement": 0,
+    "with_usage_10plus": 0,
+    "movement_filled_this_run": 0,
+    "movement_no_plot": 0,
+    "synergy_populated": 0,
+    "synergy_still_empty": 0,
+    "murphy": null,
+    "no_plot_names": [],
+    "synergy_empty_names": []
+  }
+}

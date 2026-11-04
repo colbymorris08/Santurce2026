@@ -64,23 +64,27 @@ Card rates are built with `python3 build_pregame_cards.py` → `data/pregame_car
 
 ## Adding a roster player (every tab)
 
+**Fill-all-tabs is the default.** Do not leave empty stubs when Synergy / Prospect Savant data exists.
+
 1. Put them on `data/lbprc_2025_rosters.json` (correct team + MLBAM id).
-2. Stub every tab cache for their role:
+2. Wire + fill every tab in one step:
    ```bash
-   python3 ensure_roster_player.py --name "First Last" --id 123456 --team CAG --rebuild-one-page
+   python3 ensure_roster_player.py --name "First Last" --id 123456 --team CAG
    ```
-   - **Pitchers** → arsenal / stuff / advance pitchers / one-page / TTH / strategy roster
-   - **Hitters** → advance hitters / spray / baserunning / TTH / strategy roster
-3. Fill real samples (do not invent coords/stats):
+   This pulls **Synergy** (usages, count, platoon, heat) and **Prospect Savant**
+   movement (IVB/HB/velo/spin) when tracked, then rebuilds pitcher one-page.
+   - **Pitchers** → arsenal / stuff / advance / one-page / heat / TTH / strategy
+   - **Hitters** → advance / spray / baserunning / heat / TTH / strategy
+   - Use `--stub-only` only for offline identity wiring (no credentials).
+3. Batch-fill many new / thin players:
    ```bash
-   python3 fill_missing_count_synergy.py          # count usage
-   python3 fill_missing_platoon_synergy.py --new-only   # RHH/LHH pitch frequency (one-page)
-   python3 fill_movement_plot_batches.py --team CAG
-   # heatmaps / summer lines / spray / card whiff as needed
-   python3 fill_card_whiff.py                     # SAN strategy whiff
+   python3 fill_all_tabs_complete.py --team CAG --team CAR --team MAY --team SJU --team PON
+   # or priority Nov-4 / Murphy set:
+   python3 fill_all_tabs_complete.py --priority-only
+   python3 fill_card_whiff.py          # SAN strategy whiff
    python3 build_pregame_cards.py
    ```
-4. Rebuild one-page after platoon fills (`fill_missing_platoon_synergy.py` does this), bump `ASSET_V` if the UI changed, commit + push `main`.
+4. Bump `ASSET_V` if the UI changed, commit + push `data/*` + scripts to `main`.
 
 ## Refresh Synergy data
 
