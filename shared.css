@@ -1881,13 +1881,13 @@ input.tth-input:focus {
 }
 .onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; vertical-align: middle; }
 .onepage-grid .op-num {
-  width: 1.35ch; max-width: 12px; min-width: 0;
+  width: 4.05ch; max-width: 36px; min-width: 36px;
   text-align: center; font-weight: 700;
-  padding-left: 0; padding-right: 0; overflow: hidden;
+  padding-left: 0; padding-right: 0; overflow: visible;
 }
-.onepage-grid thead th.op-num { width: 1.35ch; max-width: 12px; padding-left: 0; padding-right: 0; }
+.onepage-grid thead th.op-num { width: 4.05ch; max-width: 36px; min-width: 36px; padding-left: 0; padding-right: 0; }
 .onepage-grid .op-num input.op-jersey {
-  width: 1.35ch; max-width: 11px; min-width: 0; box-sizing: border-box;
+  width: 4.05ch; max-width: 33px; min-width: 0; box-sizing: border-box;
   border: none; border-radius: 0; background: transparent;
   color: #111; -webkit-text-fill-color: #111;
   font: inherit; font-size: 11px; font-weight: 700; text-align: center;
@@ -1930,7 +1930,7 @@ input.tth-input:focus {
   #panel-pitcher-one-page.active .onepage-grid { font-size: 9.5px; }
   #panel-pitcher-one-page.active .onepage-grid th,
   #panel-pitcher-one-page.active .onepage-grid td { padding: 1px 2px; vertical-align: middle; }
-  #panel-pitcher-one-page.active .onepage-grid .op-num { width: 1.5ch; max-width: 12px; padding-left: 0; padding-right: 0; }
+  #panel-pitcher-one-page.active .onepage-grid .op-num { width: 4.5ch; max-width: 36px; min-width: 36px; padding-left: 0; padding-right: 0; }
   #panel-pitcher-one-page.active .onepage-grid .op-notes textarea {
     min-height: 0; height: auto; resize: none; overflow: hidden; font-size: 9px;
     border: none; padding: 0; background: transparent;
