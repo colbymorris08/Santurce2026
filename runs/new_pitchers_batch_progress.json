@@ -1,0 +1,619 @@
+{
+  "done": {
+    "MAY|luisramos": {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "mlb_id": 624401,
+      "at": "2026-11-04T19:27:54Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 59 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "no_bands",
+        "events": 400,
+        "bands": ""
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": false,
+      "movement_present": false
+    },
+    "MAY|seanbarnett": {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "mlb_id": 826141,
+      "at": "2026-11-04T19:28:08Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 96-98, SL 84-86, FC 91-93"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "MAY|sebastianbentz": {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "mlb_id": 694547,
+      "at": "2026-11-04T19:28:15Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "CH 82-84, SL 78-82, FF 82-84"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "MAY|shadaicolon": {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "mlb_id": null,
+      "at": "2026-11-04T19:28:31Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2025 had 29 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 84-85, CH 71-71"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "MAY|yarielrodriguez": {
+      "team": "MAY",
+      "name": "Yariel Rodriguez",
+      "mlb_id": 684320,
+      "at": "2026-11-04T19:28:42Z",
+      "movement": {
+        "status": "already",
+        "source": "Prospect Savant"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 94-96, SL 84-86, FS 87-88, SI 95-96"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": true
+    },
+    "PON|johnaponte": {
+      "team": "PON",
+      "name": "John Aponte",
+      "mlb_id": null,
+      "at": "2026-11-04T19:28:53Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 25 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 164,
+        "bands": "FF 85-86"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "SJU|giovannisoto": {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "mlb_id": 543803,
+      "at": "2026-11-04T19:28:56Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 86-88, CH 73-77, CU 71-74, SL 75-81"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 414,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "SJU|matthewrivera": {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "mlb_id": 681344,
+      "at": "2026-11-04T19:29:07Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 87-90, FC 84-85, CU 72-74, CH 79-83, SL 82-84"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    "SJU|ryderryan": {
+      "team": "SJU",
+      "name": "Ryder Ryan",
+      "mlb_id": 656924,
+      "at": "2026-11-04T19:29:19Z",
+      "movement": {
+        "status": "already",
+        "source": "Prospect Savant"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 92-93, SL 81-82, ST 81-82, SI 92-93, CH 87-89"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": true
+    }
+  },
+  "log": [
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "mlb_id": 624401,
+      "at": "2026-11-04T19:27:54Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 59 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "no_bands",
+        "events": 400,
+        "bands": ""
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": false,
+      "movement_present": false
+    },
+    {
+      "team": "MAY",
+      "name": "Sean Barnett",
+      "mlb_id": 826141,
+      "at": "2026-11-04T19:28:08Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 96-98, SL 84-86, FC 91-93"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "mlb_id": 694547,
+      "at": "2026-11-04T19:28:15Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "CH 82-84, SL 78-82, FF 82-84"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "mlb_id": null,
+      "at": "2026-11-04T19:28:31Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2025 had 29 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 84-85, CH 71-71"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "MAY",
+      "name": "Yariel Rodriguez",
+      "mlb_id": 684320,
+      "at": "2026-11-04T19:28:42Z",
+      "movement": {
+        "status": "already",
+        "source": "Prospect Savant"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 94-96, SL 84-86, FS 87-88, SI 95-96"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": true
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "mlb_id": null,
+      "at": "2026-11-04T19:28:53Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 25 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 164,
+        "bands": "FF 85-86"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_mlb_id"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "mlb_id": 543803,
+      "at": "2026-11-04T19:28:56Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2023 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 86-88, CH 73-77, CU 71-74, SL 75-81"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 414,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "mlb_id": 681344,
+      "at": "2026-11-04T19:29:07Z",
+      "movement": {
+        "status": "no_plot",
+        "why": "2026 had 100 Synergy pitches but no IVB/HB"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 87-90, FC 84-85, CU 72-74, CH 79-83, SL 82-84"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "no_line"
+      },
+      "ok": true,
+      "movement_present": false
+    },
+    {
+      "team": "SJU",
+      "name": "Ryder Ryan",
+      "mlb_id": 656924,
+      "at": "2026-11-04T19:29:19Z",
+      "movement": {
+        "status": "already",
+        "source": "Prospect Savant"
+      },
+      "velo": {
+        "status": "filled",
+        "events": 400,
+        "bands": "FF 92-93, SL 81-82, ST 81-82, SI 92-93, CH 87-89"
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ]
+      },
+      "summer": {
+        "status": "already"
+      },
+      "ok": true,
+      "movement_present": true
+    }
+  ],
+  "updated": "2026-11-04T19:29:19Z"
+}

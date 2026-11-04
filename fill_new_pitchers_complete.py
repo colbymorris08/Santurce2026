@@ -460,44 +460,8 @@ def main() -> None:
             and (holes.has_movement(row) or True)  # movement may be unavailable
         )
         if already_rich and has_velo_bands(row) and has_count_hand(row):
-            # Still try movement/summer if missing, but skip heavy velo/count fetches
-            if not holes.has_movement(row):
-                try:
-                    found = move.lookup_pitcher(player, row, resolved, token_box)
-                    added = False
-                    if found.get("pitches"):
-                        added = move.merge_plot_only(
-                            row,
-                            found["pitches"],
-                            source=found["source"],
-                            season=found["season"],
-                            throws=found.get("throws") or player.get("throws") or "",
-                        )
-                    print(
-                        f"  resume move {'filled' if added else 'no_plot'} {found.get('source') or move.best_why(found.get('attempts') or [])}",
-                        flush=True,
-                    )
-                    report["movement"].append(
-                        {
-                            "name": player["name"],
-                            "team": player["team"],
-                            "status": "filled" if added else "no_plot",
-                            "source": found.get("source"),
-                            "resumed": True,
-                        }
-                    )
-                except Exception as exc:  # noqa: BLE001
-                    print(f"  resume move error {exc}", flush=True)
-            else:
-                report["movement"].append(
-                    {
-                        "name": player["name"],
-                        "team": player["team"],
-                        "status": "already",
-                        "source": row.get("ps_source") or row.get("movement_source"),
-                        "resumed": True,
-                    }
-                )
+            # Do NOT re-hit Prospect Savant on resume — it stalls and gets aborted.
+            # Summer is cheap (MLB Stats API); try that only.
             if not has_summer(row, adv):
                 srec = fill_summer_for(player, row, adv)
                 report["summer"].append({"name": player["name"], "team": player["team"], **srec, "resumed": True})
@@ -506,13 +470,22 @@ def main() -> None:
                 report["summer"].append(
                     {"name": player["name"], "team": player["team"], "status": "already", "resumed": True}
                 )
+            report["movement"].append(
+                {
+                    "name": player["name"],
+                    "team": player["team"],
+                    "status": "already" if holes.has_movement(row) else "skipped_retry",
+                    "source": row.get("ps_source") or row.get("movement_source"),
+                    "resumed": True,
+                }
+            )
             report["velo"].append(
                 {"name": player["name"], "team": player["team"], "status": "already", "resumed": True}
             )
             report["count_hand"].append(
                 {"name": player["name"], "team": player["team"], "status": "already", "resumed": True}
             )
-            print("  resume skip velo/count (already filled)", flush=True)
+            print("  resume skip velo/count/move (already filled)", flush=True)
             arsenal_doc["updated"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             holes.dump(DATA / "pregame_pitcher_arsenals.json", arsenal_doc)
             adv_doc["updated"] = arsenal_doc["updated"]
