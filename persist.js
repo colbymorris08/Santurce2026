@@ -114,7 +114,16 @@
     if (doc.strategy && typeof doc.strategy === 'object') lsSet(STRATEGY_KEY, doc.strategy);
     if (doc.notes && typeof doc.notes === 'object') lsSet(NOTES_KEY, doc.notes);
     if (doc.jersey_overrides && typeof doc.jersey_overrides === 'object') lsSet(JERSEY_KEY, doc.jersey_overrides);
-    if (doc.one_page_notes && typeof doc.one_page_notes === 'object') lsSet(ONEPAGE_KEY, doc.one_page_notes);
+    if (doc.one_page_notes && typeof doc.one_page_notes === 'object') {
+      // Merge (server wins on conflict) so a stale/partial game-day map cannot drop
+      // keys the browser already has from the published pitcher_one_page_notes.json hydrate.
+      const cur = lsGet(ONEPAGE_KEY, {}) || {};
+      const curFlat = (cur && cur.notes && typeof cur.notes === 'object') ? cur.notes : cur;
+      const incoming = (doc.one_page_notes.notes && typeof doc.one_page_notes.notes === 'object')
+        ? doc.one_page_notes.notes
+        : doc.one_page_notes;
+      lsSet(ONEPAGE_KEY, Object.assign({}, (curFlat && typeof curFlat === 'object' ? curFlat : {}), incoming || {}));
+    }
     if (doc.tth_overrides && typeof doc.tth_overrides === 'object') {
       lsSet(TTH_KEY, doc.tth_overrides);
     }
@@ -165,7 +174,8 @@
     return `${d.getMonth() + 1}-${d.getDate()}`;
   }
 
-  async function publishGameDayState() {
+  async function publishGameDayState(opts) {
+    const options = opts || {};
     if (!hasPat()) {
       setStatus('Game-day edits stay in this browser until a GitHub PAT is set (OF Jump / Arm tab).');
       return false;
@@ -180,14 +190,17 @@
       await githubPutJson(STATE_PATH, doc, `Game-day state: lineup / notes / overrides (${doc.label})`);
       LIVE_STATE = doc;
       // Keep scout sheets in sync when those override maps changed.
-      try {
-        if (typeof publishScoutSheet === 'function') {
-          if (Object.keys(doc.tth_overrides || {}).length) await publishScoutSheet('tth');
-          if (Object.keys(doc.of_overrides || {}).length) await publishScoutSheet('of');
-          if (Object.keys(doc.one_page_notes || {}).length) await publishScoutSheet('onepage');
+      // skipScout: when a scout sheet publish already triggered this (avoids recursion).
+      if (!options.skipScout) {
+        try {
+          if (typeof publishScoutSheet === 'function') {
+            if (Object.keys(doc.tth_overrides || {}).length) await publishScoutSheet('tth');
+            if (Object.keys(doc.of_overrides || {}).length) await publishScoutSheet('of');
+            if (Object.keys(doc.one_page_notes || {}).length) await publishScoutSheet('onepage');
+          }
+        } catch (e) {
+          console.warn('scout sheet side-publish', e);
         }
-      } catch (e) {
-        console.warn('scout sheet side-publish', e);
       }
       // Positioning seed file — only when coach store has cells (additive merge on disk via full put of current seed+overrides is heavy;
       // store coach blob inside game_day_state; optional full positioning publish via PosApp dump).
@@ -458,7 +471,7 @@
     live: () => LIVE_STATE,
   };
   window.queueGameDayPublish = queueGameDayPublish;
-  window.publishGameDayNow = () => publishGameDayState();
+  window.publishGameDayNow = (opts) => publishGameDayState(opts);
   window.createGameDaySnapshotNow = () => createTodaySnapshot();
   window.revertGameDayNow = () => revertToSelected();
   window.onRevertConfirmChange = updateRevertButton;

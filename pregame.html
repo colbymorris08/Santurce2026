@@ -547,11 +547,11 @@
 <script src="i18n.js?v=san211"></script>
 <script src="cards.js?v=san211"></script>
 <script src="positioning.js?v=san211"></script>
-<script src="persist.js?v=san211"></script>
+<script src="persist.js?v=san222"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san221';
+const ASSET_V = 'san222';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -5138,6 +5138,13 @@ async function publishScoutSheet(kind){
       await githubPutJson('data/pitcher_one_page_notes.json', doc, 'Scout update: pitcher one-page notes');
       CACHE.onePageNotes = doc;
       applyOnePageNotesToCache(doc);
+      // Keep browser + game-day map aligned with the published notes file so refresh
+      // cannot wipe keys when only the scout sheet was pushed.
+      try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(doc.notes || {})); } catch(e){}
+      updateOnePagePersistNote();
+      if(typeof publishGameDayNow === 'function'){
+        try { await publishGameDayNow({ skipScout: true }); } catch(e){ console.warn('one-page game-day side-publish', e); }
+      }
     } else {
       const doc = buildTthPublishDoc();
       await githubPutJson('data/pregame_tth_pop.json', doc, 'Scout update: time to home / catcher arms');
@@ -6406,38 +6413,59 @@ function renderOfDef(){
 
 const ONEPAGE_NOTES_KEY = 'santurce_pitcher_one_page_notes_v1';
 const JERSEY_OVERRIDES_KEY = 'santurce_jersey_overrides_v1';
+function normalizeOnePageNotesMap(raw){
+  if(!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
+  if(raw.notes && typeof raw.notes === 'object' && !Array.isArray(raw.notes)) return {...raw.notes};
+  const skip = new Set(['updated','note','notes','published_from','label','date_key']);
+  const flat = {};
+  Object.keys(raw).forEach(k => {
+    if(skip.has(k)) return;
+    if(typeof raw[k] === 'string') flat[k] = raw[k];
+  });
+  return flat;
+}
 function loadOnePageNoteOverrides(){
   try {
-    const raw = JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {};
-    if(raw && typeof raw === 'object' && raw.notes && typeof raw.notes === 'object' && !Array.isArray(raw.notes)){
-      return raw.notes;
-    }
-    return (typeof raw === 'object' && !Array.isArray(raw)) ? raw : {};
+    return normalizeOnePageNotesMap(JSON.parse(localStorage.getItem(ONEPAGE_NOTES_KEY) || '{}') || {});
   } catch(e){ return {}; }
 }
 function onePageSeedNotes(){
-  const pack = CACHE.onePageNotes;
-  if(pack && typeof pack === 'object'){
-    if(pack.notes && typeof pack.notes === 'object') return pack.notes;
-    const skip = new Set(['updated','note','notes','published_from']);
-    const flat = {};
-    Object.keys(pack).forEach(k => {
-      if(skip.has(k)) return;
-      if(typeof pack[k] === 'string') flat[k] = pack[k];
-    });
-    if(Object.keys(flat).length) return flat;
+  return normalizeOnePageNotesMap(CACHE.onePageNotes || {});
+}
+/** After game-day hydrate (which can be stale), fill any missing keys from the published notes file. */
+function hydrateOnePageNotesFromSeed(){
+  const seed = onePageSeedNotes();
+  const all = loadOnePageNoteOverrides();
+  let changed = false;
+  Object.keys(seed).forEach(k => {
+    const v = String(seed[k] ?? '').trim();
+    if(!v) return;
+    if(!Object.prototype.hasOwnProperty.call(all, k) || !String(all[k] ?? '').trim()){
+      all[k] = seed[k];
+      changed = true;
+    }
+  });
+  if(changed){
+    try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
   }
-  return {};
+  return all;
 }
 function onePageMergedNote(p){
   const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
   const display = String(p.name_display||p.name||'');
   const overrides = loadOnePageNoteOverrides();
-  if(Object.prototype.hasOwnProperty.call(overrides, key)) return String(overrides[key] ?? '');
-  if(display && Object.prototype.hasOwnProperty.call(overrides, display)) return String(overrides[display] ?? '');
+  if(Object.prototype.hasOwnProperty.call(overrides, key) && String(overrides[key] ?? '').trim() !== ''){
+    return String(overrides[key] ?? '');
+  }
+  if(display && Object.prototype.hasOwnProperty.call(overrides, display) && String(overrides[display] ?? '').trim() !== ''){
+    return String(overrides[display] ?? '');
+  }
   const seed = onePageSeedNotes();
   if(seed[key] != null && String(seed[key]).trim() !== '') return String(seed[key]);
   if(display && seed[display] != null && String(seed[display]).trim() !== '') return String(seed[display]);
+  // Empty override means explicit clear — only when key present and blank.
+  if(Object.prototype.hasOwnProperty.call(overrides, key)) return '';
+  if(display && Object.prototype.hasOwnProperty.call(overrides, display)) return '';
   return p.notes == null ? '' : String(p.notes);
 }
 function updateOnePagePersistNote(){
@@ -6957,6 +6985,9 @@ Promise.all([
   loadOfOverrides();
   loadScoutPatInput();
   applyOnePageNotesToCache(CACHE.onePageNotes);
+  // Published notes file is source of truth for keys missing/empty after game-day hydrate.
+  hydrateOnePageNotesFromSeed();
+  applyOnePageNotesToCache({ notes: loadOnePageNoteOverrides() });
   if(window.GameDayPersist) GameDayPersist.updateNote();
   document.getElementById('loading').style.display='none';
   if(rosterAlert && rosterAlert.changed){
