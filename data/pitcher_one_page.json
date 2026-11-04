@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T16:57:17Z",
+  "updated": "2026-11-04T18:02:01Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -648,18 +648,18 @@
           "throws": "R",
           "mlb_id": 669142,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "94-94",
+            "CB": "79-79",
+            "SL": "85-85",
+            "CH": "89-89",
             "CT": "",
-            "SPL": ""
+            "SPL": "88-88"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 50%, SL 38%, CB 7%, SPL 6%",
+          "freq_l": "FB 52%, SL 26%, SPL 13%, CB 7%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 50%, SL 38%, CB 7%, SPL 6%</span><br><span class=\"freq-l\">LHH: FB 52%, SL 26%, SPL 13%, CB 7%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "63",
@@ -728,18 +728,18 @@
           "throws": "R",
           "mlb_id": 669416,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "94-94",
+            "CB": "83-83",
+            "SL": "86-86",
+            "CH": "91-91",
+            "CT": "91-91",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "CUT 32%, FB 31%, CB 25%, SL 7%",
+          "freq_l": "CUT 38%, CB 27%, FB 24%, CH 5%",
+          "freq_html": "<span class=\"freq-r\">RHH: CUT 32%, FB 31%, CB 25%, SL 7%</span><br><span class=\"freq-l\">LHH: CUT 38%, CB 27%, FB 24%, CH 5%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "48",
@@ -888,18 +888,18 @@
           "throws": "R",
           "mlb_id": -840626507,
           "velo": {
-            "FB": "",
+            "FB": "89-89",
             "CB": "",
-            "SL": "",
-            "CH": "",
+            "SL": "79-79",
+            "CH": "84-84",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 51%, SL 47%, CH 2%, CB 0%",
+          "freq_l": "FB 69%, SL 23%, CH 8%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 51%, SL 47%, CH 2%, CB 0%</span><br><span class=\"freq-l\">LHH: FB 69%, SL 23%, CH 8%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
@@ -1274,18 +1274,18 @@
           "throws": "L",
           "mlb_id": 681813,
           "velo": {
-            "FB": "",
+            "FB": "91-91",
             "CB": "",
-            "SL": "",
-            "CH": "",
+            "SL": "81-81",
+            "CH": "85-85",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 82%, CH 16%, SL 3%",
+          "freq_l": "FB 88%, SL 12%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 82%, CH 16%, SL 3%</span><br><span class=\"freq-l\">LHH: FB 88%, SL 12%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "46",
@@ -2161,10 +2161,10 @@
       "pitchers": [
         {
           "jersey": "57",
-          "name": "Aponte",
-          "name_display": "Aponte",
+          "name": "John Aponte",
+          "name_display": "Aponte, John",
           "throws": "R",
-          "mlb_id": -701686069,
+          "mlb_id": -539643335,
           "velo": {
             "FB": "",
             "CB": "",
@@ -2180,7 +2180,7 @@
           "needs_data": true
         },
         {
-          "jersey": "51",
+          "jersey": "41",
           "name": "Jonathan Bermudez",
           "name_display": "Bermudez, Jonathan (l)",
           "throws": "L",
@@ -2196,7 +2196,7 @@
           "freq_r": "FB 46%, CH 32%, SL 13%, CUT 6%",
           "freq_l": "FB 46%, SL 33%, CB 8%, CH 7%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 46%, CH 32%, SL 13%, CUT 6%</span><br><span class=\"freq-l\">LHH: FB 46%, SL 33%, CB 8%, CH 7%</span>",
-          "notes": "",
+          "notes": "FB average shape, primary offspeed big sweeper, average CH, flashes SL/CT shape vs LHH",
           "needs_data": false
         },
         {
@@ -2216,7 +2216,7 @@
           "freq_r": "FB 44%, CUT 21%, CH 14%, SL 14%",
           "freq_l": "FB 40%, CH 25%, CUT 16%, CB 13%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 44%, CUT 21%, CH 14%, SL 14%</span><br><span class=\"freq-l\">LHH: FB 40%, CH 25%, CUT 16%, CB 13%</span>",
-          "notes": "",
+          "notes": "Ride on FB, high release. CH has some depth, CT is primary BB. More SL to RHH, CH to LHH",
           "needs_data": false
         },
         {
@@ -2236,7 +2236,7 @@
           "freq_r": "CH 43%, FB 35%, SL 14%, IB 4%",
           "freq_l": "SL 48%, FB 42%, CH 5%, SNK 4%",
           "freq_html": "<span class=\"freq-r\">RHH: CH 43%, FB 35%, SL 14%, IB 4%</span><br><span class=\"freq-l\">LHH: SL 48%, FB 42%, CH 5%, SNK 4%</span>",
-          "notes": "",
+          "notes": "Heavy low slot sinker, CH mimics SNK movement, SL is cuttery. CH to RHH, SL to LHH",
           "needs_data": false
         },
         {
@@ -2256,7 +2256,7 @@
           "freq_r": "FB 46%, SL 44%, CB 6%, CH 4%",
           "freq_l": "FB 54%, CH 30%, SL 15%, CB 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 46%, SL 44%, CB 6%, CH 4%</span><br><span class=\"freq-l\">LHH: FB 54%, CH 30%, SL 15%, CB 2%</span>",
-          "notes": "",
+          "notes": "FB does not have ride, SL is gyro shape, CH has good depth and throws only to LHH",
           "needs_data": false
         },
         {
@@ -2276,7 +2276,7 @@
           "freq_r": "FB 72%, SL 24%, SPL 2%, SNK 1%",
           "freq_l": "FB 74%, SL 10%, CB 6%, SPL 6%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 72%, SL 24%, SPL 2%, SNK 1%</span><br><span class=\"freq-l\">LHH: FB 74%, SL 10%, CB 6%, SPL 6%</span>",
-          "notes": "",
+          "notes": "4S and SL only - 4S no ride. SL is a short slurve. 75% FB",
           "needs_data": false
         },
         {
@@ -2336,7 +2336,7 @@
           "freq_r": "FB 43%, CH 26%, CB 19%, SL 12%",
           "freq_l": "FB 50%, CB 22%, SL 19%, CH 10%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 43%, CH 26%, CB 19%, SL 12%</span><br><span class=\"freq-l\">LHH: FB 50%, CB 22%, SL 19%, CH 10%</span>",
-          "notes": "",
+          "notes": "Upper 80's LHP, CB and CH are offspeed pitches",
           "needs_data": false
         },
         {
@@ -2356,7 +2356,7 @@
           "freq_r": "FB 55%, SL 43%, CH 1%, SNK 1%",
           "freq_l": "FB 51%, CH 29%, SL 20%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 55%, SL 43%, CH 1%, SNK 1%</span><br><span class=\"freq-l\">LHH: FB 51%, CH 29%, SL 20%</span>",
-          "notes": "",
+          "notes": ">50% FB, leans on SL to RHH, some CH to LHH",
           "needs_data": false
         },
         {
@@ -2376,7 +2376,7 @@
           "freq_r": "SL 52%, FB 44%, CH 2%, CB 1%",
           "freq_l": "FB 62%, SL 31%, CH 3%, SPL 2%",
           "freq_html": "<span class=\"freq-r\">RHH: SL 52%, FB 44%, CH 2%, CB 1%</span><br><span class=\"freq-l\">LHH: FB 62%, SL 31%, CH 3%, SPL 2%</span>",
-          "notes": "",
+          "notes": "Avg. ride on 4S, high release. SL has some sweep, 50/50 FB SL to RHH",
           "needs_data": false
         },
         {
@@ -2396,7 +2396,7 @@
           "freq_r": "FB 69%, SPL 13%, CUT 12%, SL 7%",
           "freq_l": "FB 85%, CUT 12%, SL 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 69%, SPL 13%, CUT 12%, SL 7%</span><br><span class=\"freq-l\">LHH: FB 85%, CUT 12%, SL 2%</span>",
-          "notes": "",
+          "notes": "High FB usage, low 90's",
           "needs_data": false
         },
         {
@@ -2416,7 +2416,7 @@
           "freq_r": "FB 60%, CH 24%, CB 10%, SL 6%",
           "freq_l": "FB 61%, CB 19%, CH 11%, SL 8%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 60%, CH 24%, CB 10%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 61%, CB 19%, CH 11%, SL 8%</span>",
-          "notes": "",
+          "notes": "High release, leans on FB, CH to RHH, spin to LHH",
           "needs_data": false
         },
         {
@@ -2436,8 +2436,28 @@
           "freq_r": "FB 30%, SL 26%, CUT 26%, CB 14%",
           "freq_l": "FB 31%, CUT 20%, CH 19%, CB 18%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 30%, SL 26%, CUT 26%, CB 14%</span><br><span class=\"freq-l\">LHH: FB 31%, CUT 20%, CH 19%, CB 18%</span>",
-          "notes": "",
+          "notes": "Avg. ride, some cut to 4S. Good extension. Sweeper to RHH, CB/CT to LHH. CB has depth and sweep",
           "needs_data": false
+        },
+        {
+          "jersey": "40",
+          "name": "Ryan Murphy",
+          "name_display": "Murphy, Ryan",
+          "throws": "R",
+          "mlb_id": -415129273,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true
         },
         {
           "jersey": "27",
@@ -2476,11 +2496,11 @@
           "freq_r": "FB 61%, CH 25%, SL 13%, CUT 1%",
           "freq_l": "FB 60%, SL 33%, CH 4%, CUT 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 61%, CH 25%, SL 13%, CUT 1%</span><br><span class=\"freq-l\">LHH: FB 60%, SL 33%, CH 4%, CUT 2%</span>",
-          "notes": "",
+          "notes": "Tons of FB, CH to RHH. Damage down in zone",
           "needs_data": false
         },
         {
-          "jersey": "",
+          "jersey": "29",
           "name": "Hector Quinones",
           "name_display": "Quinones, Hector",
           "throws": "R",
@@ -2496,7 +2516,7 @@
           "freq_r": "FB 54%, SL 31%, SPL 14%, CH 2%",
           "freq_l": "FB 57%, SPL 26%, CH 10%, SL 6%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 54%, SL 31%, SPL 14%, CH 2%</span><br><span class=\"freq-l\">LHH: FB 57%, SPL 26%, CH 10%, SL 6%</span>",
-          "notes": "",
+          "notes": "Damage down, average release height, SL to RHH, SP to LHH",
           "needs_data": false
         },
         {
@@ -2516,7 +2536,7 @@
           "freq_r": "FB 65%, SL 23%, CH 6%, CB 2%",
           "freq_l": "FB 66%, SL 27%, CUT 2%, CB 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 65%, SL 23%, CH 6%, CB 2%</span><br><span class=\"freq-l\">LHH: FB 66%, SL 27%, CUT 2%, CB 2%</span>",
-          "notes": "",
+          "notes": "Some ride on FB, short slider, high extension. Damage in to RHH.",
           "needs_data": false
         },
         {
@@ -2536,7 +2556,7 @@
           "freq_r": "FB 63%, SL 23%, SPL 7%, CH 6%",
           "freq_l": "FB 61%, SL 36%, SPL 1%, CUT 1%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 63%, SL 23%, SPL 7%, CH 6%</span><br><span class=\"freq-l\">LHH: FB 61%, SL 36%, SPL 1%, CUT 1%</span>",
-          "notes": "",
+          "notes": "Ride on FB, low spin on splitter, wobbles - throws to RHH. high release. Short slider to LHH",
           "needs_data": false
         },
         {
@@ -2556,7 +2576,7 @@
           "freq_r": "FB 47%, SL 30%, CUT 11%, SW 10%",
           "freq_l": "FB 50%, SL 20%, CUT 17%, CB 6%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 47%, SL 30%, CUT 11%, SW 10%</span><br><span class=\"freq-l\">LHH: FB 50%, SL 20%, CUT 17%, CB 6%</span>",
-          "notes": "",
+          "notes": "Avg FB movement, good sweeper with lift and sweep. Cutter to LHH SW to RHH. Wide release",
           "needs_data": false
         },
         {
@@ -2576,7 +2596,7 @@
           "freq_r": "FB 39%, SL 27%, CUT 21%, SNK 6%",
           "freq_l": "FB 57%, CH 19%, CUT 10%, SL 10%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 39%, SL 27%, CUT 21%, SNK 6%</span><br><span class=\"freq-l\">LHH: FB 57%, CH 19%, CUT 10%, SL 10%</span>",
-          "notes": "",
+          "notes": "Ride and run, short slider, most pitches move arm side. Damage up and in to LHH, middle to RHH.",
           "needs_data": false
         },
         {
@@ -2596,7 +2616,7 @@
           "freq_r": "FB 76%, SL 15%, CH 7%, UN 2%",
           "freq_l": "FB 76%, SL 21%, UN 1%, CH 1%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 76%, SL 15%, CH 7%, UN 2%</span><br><span class=\"freq-l\">LHH: FB 76%, SL 21%, UN 1%, CH 1%</span>",
-          "notes": "",
+          "notes": "Run on FB, Sweeper to LHH, low/wide release",
           "needs_data": false
         },
         {
@@ -2616,7 +2636,7 @@
           "freq_r": "FB 49%, CH 42%, CUT 4%, SL 4%",
           "freq_l": "FB 57%, SL 25%, CUT 16%, CH 3%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 49%, CH 42%, CUT 4%, SL 4%</span><br><span class=\"freq-l\">LHH: FB 57%, SL 25%, CUT 16%, CH 3%</span>",
-          "notes": "",
+          "notes": "High FB usage, damage middle and in to RHH. Low velocity.",
           "needs_data": false
         },
         {
@@ -2636,7 +2656,7 @@
           "freq_r": "FB 59%, SL 26%, SNK 12%, UN 4%",
           "freq_l": "FB 70%, SL 15%, SNK 9%, CH 2%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 59%, SL 26%, SNK 12%, UN 4%</span><br><span class=\"freq-l\">LHH: FB 70%, SL 15%, SNK 9%, CH 2%</span>",
-          "notes": "",
+          "notes": "Some ride and run, high velocity. short slider to RHH. Some SNK with some run no sink. CH has some depth.",
           "needs_data": false
         },
         {
@@ -2676,7 +2696,7 @@
           "freq_r": "FB 41%, SL 18%, SPL 16%, CB 13%",
           "freq_l": "FB 44%, CUT 24%, CB 14%, SL 10%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 41%, SL 18%, SPL 16%, CB 13%</span><br><span class=\"freq-l\">LHH: FB 44%, CUT 24%, CB 14%, SL 10%</span>",
-          "notes": "",
+          "notes": "Damage away from RHH, down to LHH. Works CT CB SL and SP. Leans fb but throws all pitches",
           "needs_data": false
         },
         {
@@ -2696,7 +2716,7 @@
           "freq_r": "FB 71%, SL 29%",
           "freq_l": "FB 73%, SL 27%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 71%, SL 29%</span><br><span class=\"freq-l\">LHH: FB 73%, SL 27%</span>",
-          "notes": "",
+          "notes": "Good extension, some ride and short slider. High FB usage. See it up.",
           "needs_data": false
         }
       ]

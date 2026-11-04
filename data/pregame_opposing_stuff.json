@@ -1171,7 +1171,8 @@
       }
     ],
     "source": "Prospect Savant",
-    "level_hint": "MLB"
+    "level_hint": "MLB",
+    "mlb_id": 642834
   },
   {
     "name": "Eric Torres",
@@ -1903,7 +1904,8 @@
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": "MiLB/AAA"
+    "level_hint": "MiLB/AAA",
+    "mlb_id": -346674215
   },
   {
     "name": "Erik Rivera",
@@ -2307,8 +2309,8 @@
     "level_hint": null
   },
   {
-    "name": "Aponte",
-    "player_id": null,
+    "name": "John Aponte",
+    "player_id": -539643335,
     "team": "PON",
     "mlb_debut": null,
     "birth_country": null,
@@ -2316,7 +2318,8 @@
     "pitches": null,
     "arsenal": [],
     "source": "unavailable",
-    "level_hint": null
+    "level_hint": null,
+    "mlb_id": -539643335
   },
   {
     "name": "Blayne Enlow",
@@ -2586,6 +2589,18 @@
     "name": "Ruben Ramirez",
     "player_id": 703211,
     "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Ryan Murphy",
+    "player_id": null,
+    "team": "PON",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,

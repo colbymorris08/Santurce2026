@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T16:57:17Z",
+  "updated": "2026-11-04T18:01:52Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -62,6 +62,129 @@
     ]
   },
   "pitchers": [
+    {
+      "synergy_id": "5e2452207057115f5cc21e64",
+      "name": "Aaron Mishoulam",
+      "pitches": 1357,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 795,
+            "usage": 58.6
+          },
+          {
+            "type": "SL",
+            "pitches": 507,
+            "usage": 37.4
+          },
+          {
+            "type": "CH",
+            "pitches": 53,
+            "usage": 3.9
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 226,
+            "usage": 63.3
+          },
+          {
+            "type": "SL",
+            "pitches": 123,
+            "usage": 34.5
+          },
+          {
+            "type": "CH",
+            "pitches": 8,
+            "usage": 2.2
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 172,
+            "usage": 51.0
+          },
+          {
+            "type": "FF",
+            "pitches": 152,
+            "usage": 45.1
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 3.6
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 381,
+            "usage": 69.3
+          },
+          {
+            "type": "SL",
+            "pitches": 128,
+            "usage": 23.3
+          },
+          {
+            "type": "CH",
+            "pitches": 41,
+            "usage": 7.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 414,
+            "usage": 51.3
+          },
+          {
+            "type": "SL",
+            "pitches": 379,
+            "usage": 47.0
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 1.5
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 550,
+        "vs_RHH": 807
+      },
+      "leagues": {
+        "AAPB": 153
+      },
+      "years": [
+        2024
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": null,
+      "window_used": "2024 fallback"
+    },
     {
       "synergy_id": "5dd5dec14b8b4e95c8bbde6a",
       "name": "Adalberto Flores",
@@ -447,6 +570,238 @@
         }
       },
       "throws": "R"
+    },
+    {
+      "synergy_id": "5f99b13972b306000157fe99",
+      "name": "Blayne Enlow",
+      "pitches": 588,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FC",
+            "pitches": 208,
+            "usage": 35.4
+          },
+          {
+            "type": "FF",
+            "pitches": 161,
+            "usage": 27.4
+          },
+          {
+            "type": "CU",
+            "pitches": 153,
+            "usage": 26.0
+          },
+          {
+            "type": "SL",
+            "pitches": 24,
+            "usage": 4.1
+          },
+          {
+            "type": "ST",
+            "pitches": 24,
+            "usage": 4.1
+          },
+          {
+            "type": "CH",
+            "pitches": 17,
+            "usage": 2.9
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FC",
+            "pitches": 57,
+            "usage": 37.7
+          },
+          {
+            "type": "FF",
+            "pitches": 48,
+            "usage": 31.8
+          },
+          {
+            "type": "CU",
+            "pitches": 32,
+            "usage": 21.2
+          },
+          {
+            "type": "ST",
+            "pitches": 7,
+            "usage": 4.6
+          },
+          {
+            "type": "SL",
+            "pitches": 3,
+            "usage": 2.0
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 2.0
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.7
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "CU",
+            "pitches": 76,
+            "usage": 45.2
+          },
+          {
+            "type": "FC",
+            "pitches": 38,
+            "usage": 22.6
+          },
+          {
+            "type": "FF",
+            "pitches": 33,
+            "usage": 19.6
+          },
+          {
+            "type": "SL",
+            "pitches": 10,
+            "usage": 6.0
+          },
+          {
+            "type": "ST",
+            "pitches": 9,
+            "usage": 5.4
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 1.2
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FC",
+            "pitches": 119,
+            "usage": 38.0
+          },
+          {
+            "type": "CU",
+            "pitches": 84,
+            "usage": 26.8
+          },
+          {
+            "type": "FF",
+            "pitches": 76,
+            "usage": 24.3
+          },
+          {
+            "type": "CH",
+            "pitches": 16,
+            "usage": 5.1
+          },
+          {
+            "type": "ST",
+            "pitches": 12,
+            "usage": 3.8
+          },
+          {
+            "type": "SL",
+            "pitches": 5,
+            "usage": 1.6
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FC",
+            "pitches": 89,
+            "usage": 32.4
+          },
+          {
+            "type": "FF",
+            "pitches": 85,
+            "usage": 30.9
+          },
+          {
+            "type": "CU",
+            "pitches": 69,
+            "usage": 25.1
+          },
+          {
+            "type": "SL",
+            "pitches": 19,
+            "usage": 6.9
+          },
+          {
+            "type": "ST",
+            "pitches": 12,
+            "usage": 4.4
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 0.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 313,
+        "vs_RHH": 275
+      },
+      "leagues": {
+        "MILB": 527,
+        "MLB": 61
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 669416,
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "COL",
+        "team_name": "Columbus Clingstones",
+        "season": "Summer 2026",
+        "league": "SOU",
+        "circuit": "MiLB",
+        "league_name": "Southern League",
+        "level": "AA",
+        "ip": "17.0",
+        "outs": 51,
+        "g": 14,
+        "gs": 0,
+        "k": 18,
+        "bb": 10,
+        "k9": "9.5",
+        "bb9": "5.3",
+        "era": "5.29",
+        "fip": null,
+        "whip": "1.29",
+        "h": 12,
+        "hr": 2,
+        "sb_allowed": 2,
+        "cs_allowed": 1,
+        "sport_id": 12,
+        "assignments": 3,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "synergy_id": "5e25fda0455b981528c9dc59",
@@ -1320,6 +1675,228 @@
           "sb_allowed": null,
           "cs_allowed": null,
           "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
+        }
+      },
+      "throws": "R"
+    },
+    {
+      "synergy_id": "5e20823150c03b26e0aed09e",
+      "name": "Jarret Whorf",
+      "pitches": 889,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 348,
+            "usage": 39.1
+          },
+          {
+            "type": "CH",
+            "pitches": 275,
+            "usage": 30.9
+          },
+          {
+            "type": "SL",
+            "pitches": 123,
+            "usage": 13.8
+          },
+          {
+            "type": "FC",
+            "pitches": 107,
+            "usage": 12.0
+          },
+          {
+            "type": "SI",
+            "pitches": 32,
+            "usage": 3.6
+          },
+          {
+            "type": "CU",
+            "pitches": 3,
+            "usage": 0.3
+          },
+          {
+            "type": "PO",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 80,
+            "usage": 33.6
+          },
+          {
+            "type": "CH",
+            "pitches": 58,
+            "usage": 24.4
+          },
+          {
+            "type": "FC",
+            "pitches": 49,
+            "usage": 20.6
+          },
+          {
+            "type": "SL",
+            "pitches": 41,
+            "usage": 17.2
+          },
+          {
+            "type": "SI",
+            "pitches": 8,
+            "usage": 3.4
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.8
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "CH",
+            "pitches": 102,
+            "usage": 40.5
+          },
+          {
+            "type": "FF",
+            "pitches": 89,
+            "usage": 35.3
+          },
+          {
+            "type": "SL",
+            "pitches": 41,
+            "usage": 16.3
+          },
+          {
+            "type": "FC",
+            "pitches": 15,
+            "usage": 6.0
+          },
+          {
+            "type": "SI",
+            "pitches": 5,
+            "usage": 2.0
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 177,
+            "usage": 40.8
+          },
+          {
+            "type": "CH",
+            "pitches": 166,
+            "usage": 38.2
+          },
+          {
+            "type": "FC",
+            "pitches": 47,
+            "usage": 10.8
+          },
+          {
+            "type": "SL",
+            "pitches": 23,
+            "usage": 5.3
+          },
+          {
+            "type": "SI",
+            "pitches": 18,
+            "usage": 4.1
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.5
+          },
+          {
+            "type": "PO",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 171,
+            "usage": 37.6
+          },
+          {
+            "type": "CH",
+            "pitches": 109,
+            "usage": 24.0
+          },
+          {
+            "type": "SL",
+            "pitches": 100,
+            "usage": 22.0
+          },
+          {
+            "type": "FC",
+            "pitches": 60,
+            "usage": 13.2
+          },
+          {
+            "type": "SI",
+            "pitches": 14,
+            "usage": 3.1
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 434,
+        "vs_RHH": 455
+      },
+      "leagues": {
+        "MILB": 889
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 806337,
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "WCH",
+        "team_name": "Wichita Wind Surge",
+        "season": "Summer 2026",
+        "league": "TEX",
+        "circuit": "MiLB",
+        "league_name": "Texas League",
+        "level": "AA",
+        "ip": "26.1",
+        "outs": 79,
+        "g": 19,
+        "gs": 0,
+        "k": 22,
+        "bb": 9,
+        "k9": "7.5",
+        "bb9": "3.1",
+        "era": "11.28",
+        "fip": "6.52",
+        "whip": "1.90",
+        "h": 41,
+        "hr": 8,
+        "sb_allowed": 11,
+        "cs_allowed": 0,
+        "sport_id": 12,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API HR/BB/HBP/K/IP with constant 3.10"
         }
       },
       "throws": "R"
@@ -2324,6 +2901,17 @@
       "throws": "R"
     },
     {
+      "name": "Juan Javier Echavarria",
+      "mlb_id": null,
+      "team": "CAG",
+      "throws": "R",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5d0d76e94b8b4e352c29c0a8",
       "name": "Magdiel Cotto",
       "pitches": 309,
@@ -3107,6 +3695,188 @@
         2026
       ],
       "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)"
+    },
+    {
+      "synergy_id": "5a81ae14da5c2a4c98ae5f41",
+      "name": "Tanner Burns",
+      "pitches": 575,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 291,
+            "usage": 50.6
+          },
+          {
+            "type": "SL",
+            "pitches": 187,
+            "usage": 32.5
+          },
+          {
+            "type": "FS",
+            "pitches": 52,
+            "usage": 9.0
+          },
+          {
+            "type": "CU",
+            "pitches": 40,
+            "usage": 7.0
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 0.9
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 58,
+            "usage": 40.8
+          },
+          {
+            "type": "SL",
+            "pitches": 56,
+            "usage": 39.4
+          },
+          {
+            "type": "CU",
+            "pitches": 23,
+            "usage": 16.2
+          },
+          {
+            "type": "FS",
+            "pitches": 5,
+            "usage": 3.5
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 100,
+            "usage": 59.5
+          },
+          {
+            "type": "SL",
+            "pitches": 35,
+            "usage": 20.8
+          },
+          {
+            "type": "FS",
+            "pitches": 24,
+            "usage": 14.3
+          },
+          {
+            "type": "CU",
+            "pitches": 7,
+            "usage": 4.2
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 1.2
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 132,
+            "usage": 52.0
+          },
+          {
+            "type": "SL",
+            "pitches": 65,
+            "usage": 25.6
+          },
+          {
+            "type": "FS",
+            "pitches": 34,
+            "usage": 13.4
+          },
+          {
+            "type": "CU",
+            "pitches": 18,
+            "usage": 7.1
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 2.0
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 159,
+            "usage": 49.5
+          },
+          {
+            "type": "SL",
+            "pitches": 122,
+            "usage": 38.0
+          },
+          {
+            "type": "CU",
+            "pitches": 22,
+            "usage": 6.9
+          },
+          {
+            "type": "FS",
+            "pitches": 18,
+            "usage": 5.6
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 254,
+        "vs_RHH": 321
+      },
+      "leagues": {
+        "MILB": 517,
+        "MLB": 58
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "CAG",
+      "mlb_id": 669142,
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "COL",
+        "team_name": "Columbus Clippers",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "26.2",
+        "outs": 80,
+        "g": 24,
+        "gs": 0,
+        "k": 29,
+        "bb": 22,
+        "k9": "9.8",
+        "bb9": "7.4",
+        "era": "7.09",
+        "fip": null,
+        "whip": "1.73",
+        "h": 24,
+        "hr": 3,
+        "sb_allowed": 4,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
     },
     {
       "synergy_id": "58e997e44b8b534848f38de0",
@@ -4183,6 +4953,17 @@
       "throws": "L"
     },
     {
+      "name": "Albert Oliva",
+      "mlb_id": 806309,
+      "team": "CAR",
+      "throws": "R",
+      "synergy_id": "6012fafc6d03bdaa4ae5ad6f",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5a78a1fdda5c2a72b4c2eda4",
       "name": "Alexander Castro",
       "pitches": 179,
@@ -5141,6 +5922,120 @@
       "throws": "R"
     },
     {
+      "synergy_id": "5fd12a915fe05a0e9fc11267",
+      "name": "Gabriel Cotto",
+      "pitches": 62,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 52,
+            "usage": 83.9
+          },
+          {
+            "type": "CH",
+            "pitches": 6,
+            "usage": 9.7
+          },
+          {
+            "type": "SL",
+            "pitches": 4,
+            "usage": 6.5
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 12,
+            "usage": 75.0
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 12.5
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 12.5
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 8,
+            "usage": 80.0
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 10.0
+          },
+          {
+            "type": "SL",
+            "pitches": 1,
+            "usage": 10.0
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 21,
+            "usage": 87.5
+          },
+          {
+            "type": "SL",
+            "pitches": 3,
+            "usage": 12.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 31,
+            "usage": 81.6
+          },
+          {
+            "type": "CH",
+            "pitches": 6,
+            "usage": 15.8
+          },
+          {
+            "type": "SL",
+            "pitches": 1,
+            "usage": 2.6
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 24,
+        "vs_RHH": 38
+      },
+      "leagues": {
+        "LBPRC": 62
+      },
+      "years": [
+        2025
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "CAR",
+      "mlb_id": 681813,
+      "window_used": "2026+2025 pool"
+    },
+    {
+      "name": "Jake Gozzo",
+      "mlb_id": 689214,
+      "team": "CAR",
+      "throws": "R",
+      "synergy_id": "681e7a6a252a9358b82531da",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "60ca08f50a5437fe8e8f5129",
       "name": "Jarrette Bonet",
       "pitches": 1423,
@@ -5988,6 +6883,50 @@
       "throws": "R"
     },
     {
+      "name": "Jose Acosta",
+      "mlb_id": null,
+      "team": "CAR",
+      "throws": "L",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Kaito Uchino",
+      "mlb_id": null,
+      "team": "CAR",
+      "throws": "R",
+      "synergy_id": "67d4b4d2474d32d809e36b9d",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Keishin Nagamizu",
+      "mlb_id": null,
+      "team": "CAR",
+      "throws": "L",
+      "synergy_id": "67d4b3d7474d32d809e36b99",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Luis Rodriguez",
+      "mlb_id": 693543,
+      "team": "CAR",
+      "throws": "R",
+      "synergy_id": "626735df68628ad9ea0242a9",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "60b8f2dce22410a01cd50436",
       "name": "Matt Givin",
       "pitches": 617,
@@ -6172,6 +7111,17 @@
         }
       },
       "throws": "R"
+    },
+    {
+      "name": "Miguel Ausua",
+      "mlb_id": 682118,
+      "team": "CAR",
+      "throws": "L",
+      "synergy_id": "58b45d364b8b536f7c313c03",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": "61878530c379865a58bb2725",
@@ -7243,6 +8193,17 @@
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gonzal003sau"
       },
       "source": "Season line attached for a roster arm that has no Synergy packet"
+    },
+    {
+      "name": "Yusei Tobita",
+      "mlb_id": null,
+      "team": "CAR",
+      "throws": "R",
+      "synergy_id": "6744a7c38a4d9e91b8d01a53",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": "5fd12a915fe05a0e9fc11347",
@@ -9008,6 +9969,173 @@
       "player_id": 681493
     },
     {
+      "synergy_id": "582b877935be47a9274df61a",
+      "name": "Eddy Demurias",
+      "pitches": 169,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 84,
+            "usage": 49.7
+          },
+          {
+            "type": "CU",
+            "pitches": 32,
+            "usage": 18.9
+          },
+          {
+            "type": "SL",
+            "pitches": 28,
+            "usage": 16.6
+          },
+          {
+            "type": "CH",
+            "pitches": 25,
+            "usage": 14.8
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 23,
+            "usage": 51.1
+          },
+          {
+            "type": "SL",
+            "pitches": 11,
+            "usage": 24.4
+          },
+          {
+            "type": "CU",
+            "pitches": 9,
+            "usage": 20.0
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 4.4
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 23,
+            "usage": 47.9
+          },
+          {
+            "type": "CU",
+            "pitches": 13,
+            "usage": 27.1
+          },
+          {
+            "type": "CH",
+            "pitches": 11,
+            "usage": 22.9
+          },
+          {
+            "type": "SL",
+            "pitches": 1,
+            "usage": 2.1
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 22,
+            "usage": 43.1
+          },
+          {
+            "type": "CH",
+            "pitches": 18,
+            "usage": 35.3
+          },
+          {
+            "type": "CU",
+            "pitches": 9,
+            "usage": 17.6
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 3.9
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 62,
+            "usage": 52.5
+          },
+          {
+            "type": "SL",
+            "pitches": 26,
+            "usage": 22.0
+          },
+          {
+            "type": "CU",
+            "pitches": 23,
+            "usage": 19.5
+          },
+          {
+            "type": "CH",
+            "pitches": 7,
+            "usage": 5.9
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 51,
+        "vs_RHH": 118
+      },
+      "leagues": {
+        "LMB": 169
+      },
+      "years": [
+        2026
+      ],
+      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "team": "MAY",
+      "mlb_id": 681493,
+      "window_used": "2026+2025 pool",
+      "summer_line": {
+        "team": "LAG",
+        "team_name": "Algodoneros Union Laguna",
+        "season": "Summer 2026",
+        "league": "LMB",
+        "circuit": "LMB",
+        "league_name": "Mexican League",
+        "level": "IND",
+        "ip": "6.0",
+        "outs": 18,
+        "g": 1,
+        "gs": 1,
+        "k": 3,
+        "bb": 1,
+        "k9": "4.5",
+        "bb9": "1.5",
+        "era": "0.00",
+        "fip": "2.60",
+        "whip": "0.83",
+        "h": 4,
+        "hr": 0,
+        "sb_allowed": 0,
+        "cs_allowed": 0,
+        "sport_id": 23,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
+        }
+      },
+      "throws": "R"
+    },
+    {
       "synergy_id": "5c7a392a85d07ba97655f43d",
       "name": "Hector Hernandez",
       "pitches": 336,
@@ -9989,6 +11117,17 @@
       "throws": "R"
     },
     {
+      "name": "Luis Leroy Cruz",
+      "mlb_id": 543071,
+      "team": "MAY",
+      "throws": "L",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5f79fc49cfdd5600011f487f",
       "name": "Luis Quinonez",
       "pitches": 886,
@@ -10216,6 +11355,17 @@
         }
       },
       "throws": "R"
+    },
+    {
+      "name": "Luis Ramos",
+      "mlb_id": null,
+      "team": "MAY",
+      "throws": "L",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": "5fd0cfc2af4a6f44dfdcb350",
@@ -10544,6 +11694,114 @@
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=fuente002nel"
       },
       "throws": "L"
+    },
+    {
+      "name": "Sean Barnett",
+      "mlb_id": 826141,
+      "team": "MAY",
+      "throws": "R",
+      "synergy_id": "64110710fb1ea4ab92978780",
+      "pitches": 0,
+      "summer_line": {
+        "team": "LE",
+        "team_name": "Lake Elsinore Storm",
+        "season": "Summer 2026",
+        "league": "CAL",
+        "circuit": "MiLB",
+        "league_name": "California League",
+        "level": "A",
+        "ip": "36.1",
+        "outs": 109,
+        "g": 32,
+        "gs": 0,
+        "k": 47,
+        "bb": 40,
+        "k9": "11.6",
+        "bb9": "9.9",
+        "era": "5.94",
+        "fip": null,
+        "whip": "1.95",
+        "h": 31,
+        "hr": 0,
+        "sb_allowed": 7,
+        "cs_allowed": 0,
+        "sport_id": 14,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      },
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Sebastian Bentz",
+      "mlb_id": null,
+      "team": "MAY",
+      "throws": "L",
+      "synergy_id": "61466837ae1fd0110657f945",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Shadai Colon",
+      "mlb_id": null,
+      "team": "MAY",
+      "throws": "L",
+      "synergy_id": "623a1a302b7aa6e7196c76ca",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
+      "name": "Yariel Rodriguez",
+      "mlb_id": 684320,
+      "team": "MAY",
+      "throws": "R",
+      "synergy_id": "5f30240523f2d73454b25912",
+      "pitches": 0,
+      "summer_line": {
+        "team": "BUF",
+        "team_name": "Buffalo Bisons",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "15.2",
+        "outs": 47,
+        "g": 13,
+        "gs": 1,
+        "k": 26,
+        "bb": 12,
+        "k9": "14.9",
+        "bb9": "6.9",
+        "era": "2.87",
+        "fip": null,
+        "whip": "1.28",
+        "h": 8,
+        "hr": 0,
+        "sb_allowed": 7,
+        "cs_allowed": 0,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      },
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": "573d7065080cc2cbe8bf3063",
@@ -11264,17 +12522,6 @@
         }
       },
       "throws": "R"
-    },
-    {
-      "name": "Aponte",
-      "mlb_id": -701686069,
-      "team": "PON",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
     },
     {
       "synergy_id": "5f889f3e1cb0540001a5488d",
@@ -12592,7 +13839,20 @@
           "team_through_hr": "Baseball Reference Register 2017 standard pitching"
         }
       },
-      "throws": "R"
+      "throws": "R",
+      "player_id": -346674215
+    },
+    {
+      "name": "John Aponte",
+      "mlb_id": -539643335,
+      "team": "PON",
+      "throws": "R",
+      "synergy_id": "616f22089b4397faf0dc0052",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {},
+      "player_id": -539643335
     },
     {
       "synergy_id": "5cad08898df5e60d6c924061",
@@ -12823,7 +14083,8 @@
           "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
         }
       },
-      "throws": "L"
+      "throws": "L",
+      "player_id": 642834
     },
     {
       "synergy_id": "6115b53de911423818fc3fc1",
@@ -15038,6 +16299,17 @@
         }
       },
       "throws": "R"
+    },
+    {
+      "name": "Ryan Murphy",
+      "mlb_id": -415129273,
+      "team": "PON",
+      "throws": "R",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": "5f387d65d812f7433020842b",
@@ -17756,6 +19028,17 @@
       "throws": "R"
     },
     {
+      "name": "Giovanni Soto",
+      "mlb_id": 543803,
+      "team": "SJU",
+      "throws": "L",
+      "synergy_id": "573d70c0080cc2cbe8bf31e6",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "67e6d014be559430bd271882",
       "name": "Haruse Narita",
       "team": "SJU",
@@ -17906,6 +19189,17 @@
           }
         ]
       }
+    },
+    {
+      "name": "Ivan Houellemont",
+      "mlb_id": 671045,
+      "team": "SJU",
+      "throws": "R",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
     },
     {
       "synergy_id": null,
@@ -18330,6 +19624,17 @@
       "source": "Season line attached for a roster arm that has no Synergy packet"
     },
     {
+      "name": "Matthew Rivera",
+      "mlb_id": null,
+      "team": "SJU",
+      "throws": "R",
+      "synergy_id": "61fbc5437c4a0519c1cba796",
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": null,
       "name": "Miguel Cirino",
       "team": "SJU",
@@ -18742,6 +20047,17 @@
       "throws": "R"
     },
     {
+      "name": "Ruben Ramirez",
+      "mlb_id": 703211,
+      "team": "SJU",
+      "throws": "R",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5e52ca0f7455336e875b7a5d",
       "name": "Ryan Munoz",
       "pitches": 10,
@@ -19054,6 +20370,49 @@
       "throws": "R"
     },
     {
+      "name": "Ryder Ryan",
+      "mlb_id": 656924,
+      "team": "SJU",
+      "throws": "R",
+      "synergy_id": "5c73a1f585d07ba976ccef46",
+      "pitches": 0,
+      "summer_line": {
+        "team": "OKC",
+        "team_name": "Oklahoma City Comets",
+        "season": "Summer 2026",
+        "league": "PCL",
+        "circuit": "MiLB",
+        "league_name": "Pacific Coast League",
+        "level": "AAA",
+        "ip": "76.1",
+        "outs": 229,
+        "g": 26,
+        "gs": 11,
+        "k": 58,
+        "bb": 33,
+        "k9": "6.8",
+        "bb9": "3.9",
+        "era": "5.19",
+        "fip": null,
+        "whip": "1.51",
+        "h": 82,
+        "hr": 10,
+        "sb_allowed": 10,
+        "cs_allowed": 5,
+        "sport_id": 11,
+        "assignments": 1,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      },
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5834aa2d35be47a927637d92",
       "name": "Sidney Duprey",
       "pitches": 268,
@@ -19187,659 +20546,6 @@
         "source": "Local LBPRC 2025 season pitching file"
       },
       "throws": "L"
-    },
-    {
-      "name": "Blayne Enlow",
-      "mlb_id": 669416,
-      "team": "CAG",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Juan Javier Echavarria",
-      "mlb_id": null,
-      "team": "CAG",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Tanner Burns",
-      "mlb_id": 669142,
-      "team": "CAG",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Aaron Mishoulam",
-      "mlb_id": null,
-      "team": "CAG",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Miguel Ausua",
-      "mlb_id": 682118,
-      "team": "CAR",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Jose Acosta",
-      "mlb_id": null,
-      "team": "CAR",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Gabriel Cotto",
-      "mlb_id": 681813,
-      "team": "CAR",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Luis Rodriguez",
-      "mlb_id": 693543,
-      "team": "CAR",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Albert Oliva",
-      "mlb_id": 806309,
-      "team": "CAR",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Jake Gozzo",
-      "mlb_id": 689214,
-      "team": "CAR",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Keishin Nagamizu",
-      "mlb_id": null,
-      "team": "CAR",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Kaito Uchino",
-      "mlb_id": null,
-      "team": "CAR",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Yusei Tobita",
-      "mlb_id": null,
-      "team": "CAR",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Luis Ramos",
-      "mlb_id": null,
-      "team": "MAY",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Shadai Colon",
-      "mlb_id": null,
-      "team": "MAY",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Sebastian Bentz",
-      "mlb_id": null,
-      "team": "MAY",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Sean Barnett",
-      "mlb_id": 826141,
-      "team": "MAY",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Yariel Rodriguez",
-      "mlb_id": 684320,
-      "team": "MAY",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Giovanni Soto",
-      "mlb_id": 543803,
-      "team": "SJU",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Matthew Rivera",
-      "mlb_id": null,
-      "team": "SJU",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Ryder Ryan",
-      "mlb_id": 656924,
-      "team": "SJU",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Ivan Houellemont",
-      "mlb_id": 671045,
-      "team": "SJU",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Ruben Ramirez",
-      "mlb_id": 703211,
-      "team": "SJU",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Luis Leroy Cruz",
-      "mlb_id": 543071,
-      "team": "MAY",
-      "throws": "L",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "synergy_id": "5e20823150c03b26e0aed09e",
-      "name": "Jarret Whorf",
-      "pitches": 889,
-      "count_mix": {
-        "overall": [
-          {
-            "type": "FF",
-            "pitches": 348,
-            "usage": 39.1
-          },
-          {
-            "type": "CH",
-            "pitches": 275,
-            "usage": 30.9
-          },
-          {
-            "type": "SL",
-            "pitches": 123,
-            "usage": 13.8
-          },
-          {
-            "type": "FC",
-            "pitches": 107,
-            "usage": 12.0
-          },
-          {
-            "type": "SI",
-            "pitches": 32,
-            "usage": 3.6
-          },
-          {
-            "type": "CU",
-            "pitches": 3,
-            "usage": 0.3
-          },
-          {
-            "type": "PO",
-            "pitches": 1,
-            "usage": 0.1
-          }
-        ],
-        "0-0": [
-          {
-            "type": "FF",
-            "pitches": 80,
-            "usage": 33.6
-          },
-          {
-            "type": "CH",
-            "pitches": 58,
-            "usage": 24.4
-          },
-          {
-            "type": "FC",
-            "pitches": 49,
-            "usage": 20.6
-          },
-          {
-            "type": "SL",
-            "pitches": 41,
-            "usage": 17.2
-          },
-          {
-            "type": "SI",
-            "pitches": 8,
-            "usage": 3.4
-          },
-          {
-            "type": "CU",
-            "pitches": 2,
-            "usage": 0.8
-          }
-        ],
-        "2_strikes": [
-          {
-            "type": "CH",
-            "pitches": 102,
-            "usage": 40.5
-          },
-          {
-            "type": "FF",
-            "pitches": 89,
-            "usage": 35.3
-          },
-          {
-            "type": "SL",
-            "pitches": 41,
-            "usage": 16.3
-          },
-          {
-            "type": "FC",
-            "pitches": 15,
-            "usage": 6.0
-          },
-          {
-            "type": "SI",
-            "pitches": 5,
-            "usage": 2.0
-          }
-        ]
-      },
-      "platoon": {
-        "vs_LHB": [
-          {
-            "type": "FF",
-            "pitches": 177,
-            "usage": 40.8
-          },
-          {
-            "type": "CH",
-            "pitches": 166,
-            "usage": 38.2
-          },
-          {
-            "type": "FC",
-            "pitches": 47,
-            "usage": 10.8
-          },
-          {
-            "type": "SL",
-            "pitches": 23,
-            "usage": 5.3
-          },
-          {
-            "type": "SI",
-            "pitches": 18,
-            "usage": 4.1
-          },
-          {
-            "type": "CU",
-            "pitches": 2,
-            "usage": 0.5
-          },
-          {
-            "type": "PO",
-            "pitches": 1,
-            "usage": 0.2
-          }
-        ],
-        "vs_RHB": [
-          {
-            "type": "FF",
-            "pitches": 171,
-            "usage": 37.6
-          },
-          {
-            "type": "CH",
-            "pitches": 109,
-            "usage": 24.0
-          },
-          {
-            "type": "SL",
-            "pitches": 100,
-            "usage": 22.0
-          },
-          {
-            "type": "FC",
-            "pitches": 60,
-            "usage": 13.2
-          },
-          {
-            "type": "SI",
-            "pitches": 14,
-            "usage": 3.1
-          },
-          {
-            "type": "CU",
-            "pitches": 1,
-            "usage": 0.2
-          }
-        ]
-      },
-      "hand_n": {
-        "vs_LHH": 434,
-        "vs_RHH": 455
-      },
-      "leagues": {
-        "MILB": 889
-      },
-      "years": [
-        2026
-      ],
-      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "team": "CAG",
-      "mlb_id": 806337,
-      "window_used": "2026+2025 pool",
-      "summer_line": {
-        "team": "WCH",
-        "team_name": "Wichita Wind Surge",
-        "season": "Summer 2026",
-        "league": "TEX",
-        "circuit": "MiLB",
-        "league_name": "Texas League",
-        "level": "AA",
-        "ip": "26.1",
-        "outs": 79,
-        "g": 19,
-        "gs": 0,
-        "k": 22,
-        "bb": 9,
-        "k9": "7.5",
-        "bb9": "3.1",
-        "era": "11.28",
-        "fip": "6.52",
-        "whip": "1.90",
-        "h": 41,
-        "hr": 8,
-        "sb_allowed": 11,
-        "cs_allowed": 0,
-        "sport_id": 12,
-        "assignments": 2,
-        "source": "MLB Stats API 2026 regular-season pitching team split",
-        "field_sources": {
-          "team_through_hr": "MLB Stats API season pitching team split",
-          "sb_allowed": "MLB Stats API pitching stolenBases",
-          "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": "Computed from MLB Stats API HR/BB/HBP/K/IP with constant 3.10"
-        }
-      },
-      "throws": "R"
-    },
-    {
-      "synergy_id": "582b877935be47a9274df61a",
-      "name": "Eddy Demurias",
-      "pitches": 169,
-      "count_mix": {
-        "overall": [
-          {
-            "type": "FF",
-            "pitches": 84,
-            "usage": 49.7
-          },
-          {
-            "type": "CU",
-            "pitches": 32,
-            "usage": 18.9
-          },
-          {
-            "type": "SL",
-            "pitches": 28,
-            "usage": 16.6
-          },
-          {
-            "type": "CH",
-            "pitches": 25,
-            "usage": 14.8
-          }
-        ],
-        "0-0": [
-          {
-            "type": "FF",
-            "pitches": 23,
-            "usage": 51.1
-          },
-          {
-            "type": "SL",
-            "pitches": 11,
-            "usage": 24.4
-          },
-          {
-            "type": "CU",
-            "pitches": 9,
-            "usage": 20.0
-          },
-          {
-            "type": "CH",
-            "pitches": 2,
-            "usage": 4.4
-          }
-        ],
-        "2_strikes": [
-          {
-            "type": "FF",
-            "pitches": 23,
-            "usage": 47.9
-          },
-          {
-            "type": "CU",
-            "pitches": 13,
-            "usage": 27.1
-          },
-          {
-            "type": "CH",
-            "pitches": 11,
-            "usage": 22.9
-          },
-          {
-            "type": "SL",
-            "pitches": 1,
-            "usage": 2.1
-          }
-        ]
-      },
-      "platoon": {
-        "vs_LHB": [
-          {
-            "type": "FF",
-            "pitches": 22,
-            "usage": 43.1
-          },
-          {
-            "type": "CH",
-            "pitches": 18,
-            "usage": 35.3
-          },
-          {
-            "type": "CU",
-            "pitches": 9,
-            "usage": 17.6
-          },
-          {
-            "type": "SL",
-            "pitches": 2,
-            "usage": 3.9
-          }
-        ],
-        "vs_RHB": [
-          {
-            "type": "FF",
-            "pitches": 62,
-            "usage": 52.5
-          },
-          {
-            "type": "SL",
-            "pitches": 26,
-            "usage": 22.0
-          },
-          {
-            "type": "CU",
-            "pitches": 23,
-            "usage": 19.5
-          },
-          {
-            "type": "CH",
-            "pitches": 7,
-            "usage": 5.9
-          }
-        ]
-      },
-      "hand_n": {
-        "vs_LHH": 51,
-        "vs_RHH": 118
-      },
-      "leagues": {
-        "LMB": 169
-      },
-      "years": [
-        2026
-      ],
-      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
-      "team": "MAY",
-      "mlb_id": 681493,
-      "window_used": "2026+2025 pool",
-      "summer_line": {
-        "team": "LAG",
-        "team_name": "Algodoneros Union Laguna",
-        "season": "Summer 2026",
-        "league": "LMB",
-        "circuit": "LMB",
-        "league_name": "Mexican League",
-        "level": "IND",
-        "ip": "6.0",
-        "outs": 18,
-        "g": 1,
-        "gs": 1,
-        "k": 3,
-        "bb": 1,
-        "k9": "4.5",
-        "bb9": "1.5",
-        "era": "0.00",
-        "fip": "2.60",
-        "whip": "0.83",
-        "h": 4,
-        "hr": 0,
-        "sb_allowed": 0,
-        "cs_allowed": 0,
-        "sport_id": 23,
-        "assignments": 1,
-        "source": "MLB Stats API 2026 regular-season pitching team split",
-        "field_sources": {
-          "team_through_hr": "MLB Stats API season pitching team split",
-          "sb_allowed": "MLB Stats API pitching stolenBases",
-          "cs_allowed": "MLB Stats API pitching caughtStealing",
-          "fip": "Computed from MLB Stats API LMB HR/BB/HBP/K/IP with constant 3.10"
-        }
-      },
-      "throws": "R"
     }
   ],
   "empty": [
