@@ -46832,7 +46832,7 @@
           "name": "FF",
           "usage": 84.0,
           "pitches": 126,
-          "velo": null,
+          "velo": 86.8,
           "spin": null,
           "ivb": null,
           "hb_pitcher": null,
@@ -46843,14 +46843,18 @@
           "usage_l": 82.9,
           "pitches_l": 29,
           "usage_r": 84.3,
-          "pitches_r": 97
+          "pitches_r": 97,
+          "velo_p25": 85.0,
+          "velo_p75": 89.0,
+          "velo_p90": 89.0,
+          "velo_n": 55
         },
         {
           "type": "SL",
           "name": "SL",
           "usage": 14.0,
           "pitches": 21,
-          "velo": null,
+          "velo": 80.9,
           "spin": null,
           "ivb": null,
           "hb_pitcher": null,
@@ -46861,14 +46865,18 @@
           "usage_l": 17.1,
           "pitches_l": 6,
           "usage_r": 13.0,
-          "pitches_r": 15
+          "pitches_r": 15,
+          "velo_p25": 80.5,
+          "velo_p75": 82.0,
+          "velo_p90": 82.6,
+          "velo_n": 15
         },
         {
           "type": "CH",
           "name": "CH",
           "usage": 2.0,
           "pitches": 3,
-          "velo": null,
+          "velo": 81.8,
           "spin": null,
           "ivb": null,
           "hb_pitcher": null,
@@ -46877,7 +46885,11 @@
           "whiff": 50.0,
           "xwoba": null,
           "usage_r": 2.6,
-          "pitches_r": 3
+          "pitches_r": 3,
+          "velo_p25": 82.0,
+          "velo_p75": 83.0,
+          "velo_p90": 83.0,
+          "velo_n": 13
         }
       ],
       "usage_by_count": {
