@@ -1,183 +1,3083 @@
 {
-  "updated": "2026-11-04T18:40:25Z",
-  "movement": [],
-  "synergy_pitchers": [],
-  "synergy_hitters": [
+  "updated": "2026-11-04T18:48:27Z",
+  "movement": [
     {
-      "name": "Jean Correa",
+      "name": "Juan Javier Echavarria",
       "team": "CAG",
-      "id": -617163636,
-      "status": "empty",
-      "synergy_id": "60bbd21bd052b6537cc09cae",
-      "synergy_name": "Jean Correa",
-      "raw_events": 0,
-      "stats_events": 0,
-      "window_used": "none",
-      "pitches": null,
-      "spray": 0
+      "mlb_id": 663499,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Jose Miranda",
+      "name": "Tanner Burns",
       "team": "CAG",
-      "id": 811368,
-      "status": "empty",
-      "synergy_id": "636cc7cd1b1c550664d3b7b9",
-      "synergy_name": "Jose Miranda",
-      "raw_events": 0,
-      "stats_events": 0,
-      "window_used": "none",
-      "pitches": null,
-      "spray": 0
+      "mlb_id": 669142,
+      "status": "filled",
+      "source": "Prospect Savant 2026",
+      "season": 2026,
+      "why": null,
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "season": 2026,
+          "n": 4
+        }
+      ]
     },
     {
-      "name": "Brett Rodriguez",
-      "team": "CAG",
-      "id": 687858,
-      "status": "populated",
-      "synergy_id": "58b6c9484b8b525a4c5a2139",
-      "synergy_name": "Rodriguez",
-      "raw_events": 1400,
-      "stats_events": 1223,
-      "window_used": "2024 fallback",
-      "pitches": 1191,
-      "spray": 156
-    },
-    {
-      "name": "Hector Santiago",
-      "team": "CAG",
-      "id": 502327,
-      "status": "empty",
-      "synergy_id": "573d7056080cc2cbe8bf2e95",
-      "synergy_name": "Santiago",
-      "raw_events": 0,
-      "stats_events": 0,
-      "window_used": "none",
-      "pitches": null,
-      "spray": 0
-    },
-    {
-      "name": "Jonathan Morales",
-      "team": "CAG",
-      "id": 664966,
-      "status": "populated",
-      "synergy_id": "5abcb5322cb661f293636a79",
-      "synergy_name": "Morales",
-      "raw_events": 1400,
-      "stats_events": 298,
-      "window_used": "2026+2025 pool",
-      "pitches": 295,
-      "spray": 49
-    },
-    {
-      "name": "Slater DeBrun",
+      "name": "Albert Oliva",
       "team": "CAR",
-      "id": 828173,
-      "status": "unresolved",
-      "candidates": []
+      "mlb_id": 806309,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=0 kept=0 complete=True",
+          "events": 0
+        },
+        {
+          "source": "Synergy",
+          "result": "scanned=0 kept=0 complete=True"
+        }
+      ]
     },
     {
-      "name": "Mervyl Melendez",
+      "name": "Gabriel Cotto",
       "team": "CAR",
-      "id": -268338446,
-      "status": "unresolved",
-      "candidates": []
+      "mlb_id": 681813,
+      "status": "filled",
+      "source": "Prospect Savant 2023",
+      "season": 2023,
+      "why": null,
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "season": 2023,
+          "n": 4
+        }
+      ]
     },
     {
-      "name": "Jose Silva",
+      "name": "Jake Gozzo",
       "team": "CAR",
-      "id": -213606773,
-      "status": "populated",
-      "synergy_id": "66b06b851c740ec06f702e57",
-      "synergy_name": "Jose Silva",
-      "raw_events": 683,
-      "stats_events": 597,
-      "window_used": "2026+2025 pool",
-      "pitches": 578,
-      "spray": 56
+      "mlb_id": 689214,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Jamal George",
+      "name": "Jose Acosta",
+      "team": "CAR",
+      "mlb_id": 805753,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "2024 had 18 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "2023 had 82 Synergy pitches but no IVB/HB"
+        }
+      ]
+    },
+    {
+      "name": "Luis Rodriguez",
+      "team": "CAR",
+      "mlb_id": 693543,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Miguel Ausua",
+      "team": "CAR",
+      "mlb_id": 682118,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 44 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 56 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Adalberto Flores",
+      "team": "CAG",
+      "mlb_id": 488880,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Christian Torres",
+      "team": "CAG",
+      "mlb_id": 670369,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Edwin Sanchez",
+      "team": "CAG",
+      "mlb_id": 688014,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 69 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "2023 had 31 Synergy pitches but no IVB/HB"
+        }
+      ]
+    },
+    {
+      "name": "Marvin Gorgas",
+      "team": "CAG",
+      "mlb_id": 656479,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Alexander Castro",
+      "team": "CAR",
+      "mlb_id": 669418,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Eddy Reynoso",
+      "team": "CAR",
+      "mlb_id": 664371,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Ramesis Rosa",
+      "team": "CAR",
+      "mlb_id": 545814,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Ramon Rodriguez",
+      "team": "CAR",
+      "mlb_id": 670232,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=0 kept=0 complete=False",
+          "events": 0
+        },
+        {
+          "source": "Synergy",
+          "result": "scanned=0 kept=0 complete=False"
+        }
+      ]
+    },
+    {
+      "name": "Hector Hernandez",
       "team": "MAY",
-      "id": -840209350,
-      "status": "populated",
-      "synergy_id": "607f23252a20973e219e9303",
-      "synergy_name": "Jamal George",
-      "raw_events": 925,
-      "stats_events": 792,
-      "window_used": "2024 fallback",
-      "pitches": 746,
-      "spray": 79
+      "mlb_id": 571772,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 53 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 47 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Emmanuel Rivera",
+      "name": "Kazuto Taguchi",
       "team": "MAY",
-      "id": 656896,
-      "status": "populated",
-      "synergy_id": "5abcb5312cb661f293635860",
-      "synergy_name": "Rivera",
-      "raw_events": 1500,
-      "stats_events": 1500,
-      "window_used": "2026+2025 pool",
-      "pitches": 1482,
-      "spray": 293
+      "mlb_id": 683803,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Samuel Hernandez",
+      "name": "Lucas Vega",
+      "team": "MAY",
+      "mlb_id": 837223,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Luis Leroy Cruz",
+      "team": "MAY",
+      "mlb_id": 543071,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Luis Ramos",
+      "team": "MAY",
+      "mlb_id": 624401,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 41 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "2023 had 59 Synergy pitches but no IVB/HB"
+        }
+      ]
+    },
+    {
+      "name": "Miguel Martinez",
+      "team": "MAY",
+      "mlb_id": 446651,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Sean Barnett",
+      "team": "MAY",
+      "mlb_id": 826141,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Sebastian Bentz",
+      "team": "MAY",
+      "mlb_id": 694547,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Yariel Rodriguez",
+      "team": "MAY",
+      "mlb_id": 684320,
+      "status": "filled",
+      "source": "Prospect Savant 2026",
+      "season": 2026,
+      "why": null,
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "season": 2026,
+          "n": 4
+        }
+      ]
+    },
+    {
+      "name": "Juan Marcano",
       "team": "PON",
-      "id": -411650644,
-      "status": "populated",
-      "synergy_id": "5f835f031cb0540001a5439b",
-      "synergy_name": "Samuel Hernandez",
-      "raw_events": 1500,
-      "stats_events": 1438,
-      "window_used": "2026+2025 pool",
-      "pitches": 1422,
-      "spray": 224
+      "mlb_id": 807620,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "2024 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Gabriel Rosado",
+      "name": "Julio Torres",
       "team": "PON",
-      "id": -173185958,
-      "status": "populated",
-      "synergy_id": "64bd8e131e62b98de7bbd4bf",
-      "synergy_name": "Gabriel Rosado",
-      "raw_events": 82,
-      "stats_events": 59,
-      "window_used": "2024 fallback",
-      "pitches": 59,
-      "spray": 11
+      "mlb_id": 692937,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Robbie Enriquez",
-      "team": "SJU",
-      "id": 690702,
-      "status": "unresolved",
-      "candidates": []
+      "name": "Noel Pinto",
+      "team": "PON",
+      "mlb_id": 676984,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 64 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 36 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
     },
     {
-      "name": "Manny Garcia",
+      "name": "Omar Melendez",
+      "team": "PON",
+      "mlb_id": 801018,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Agnel Miranda",
       "team": "SJU",
-      "id": -413913713,
-      "status": "populated",
-      "synergy_id": "5a793f78da5c2a42882922f3",
-      "synergy_name": "Manny Garcia",
-      "raw_events": 1500,
-      "stats_events": 184,
-      "window_used": "2026+2025 pool",
-      "pitches": 184,
-      "spray": 26
+      "mlb_id": 695064,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Giovanni Soto",
+      "team": "SJU",
+      "mlb_id": 543803,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "2023 had 100 Synergy pitches but no IVB/HB"
+        }
+      ]
+    },
+    {
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "mlb_id": 671045,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy",
+          "result": "no synergy_id"
+        }
+      ]
+    },
+    {
+      "name": "Jean Ortega",
+      "team": "SJU",
+      "mlb_id": 458960,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy",
+          "result": "no synergy_id"
+        }
+      ]
+    },
+    {
+      "name": "Jose Cruz",
+      "team": "SJU",
+      "mlb_id": 692808,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Matthew Rivera",
+      "team": "SJU",
+      "mlb_id": 681344,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "2026 had 100 Synergy pitches but no IVB/HB",
+      "attempts": [
+        {
+          "source": "Prospect Savant/Statcast",
+          "result": "no MLB id"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "2026 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Raul Rivera",
+      "team": "SJU",
+      "mlb_id": 572077,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 100 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "mlb_id": 703211,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy",
+          "result": "no synergy_id"
+        }
+      ]
+    },
+    {
+      "name": "Ryan Munoz",
+      "team": "SJU",
+      "mlb_id": 684841,
+      "status": "no_plot",
+      "source": null,
+      "season": null,
+      "why": "no IVB/HB in 2026-2024",
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "result": "no IVB/HB in 2026-2024"
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2026,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2025,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2024,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast regular",
+          "season": 2023,
+          "result": "empty",
+          "statcast_pitches": null
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2026,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2025,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2024,
+          "result": "empty"
+        },
+        {
+          "source": "MLB Statcast spring",
+          "season": 2023,
+          "result": "empty"
+        },
+        {
+          "source": "Synergy events",
+          "note": "scanned=100 kept=100 complete=True",
+          "events": 100
+        },
+        {
+          "source": "Synergy",
+          "season": 2026,
+          "result": "no events that year"
+        },
+        {
+          "source": "Synergy",
+          "season": 2025,
+          "result": "2025 had 10 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2024,
+          "result": "2024 had 90 Synergy pitches but no IVB/HB"
+        },
+        {
+          "source": "Synergy",
+          "season": 2023,
+          "result": "no events that year"
+        }
+      ]
+    },
+    {
+      "name": "Ryder Ryan",
+      "team": "SJU",
+      "mlb_id": 656924,
+      "status": "filled",
+      "source": "Prospect Savant 2026",
+      "season": 2026,
+      "why": null,
+      "attempts": [
+        {
+          "source": "Prospect Savant",
+          "season": 2026,
+          "n": 5
+        }
+      ]
     }
   ],
+  "synergy_pitchers": [
+    {
+      "name": "Joe Jimenez",
+      "team": "CAR",
+      "id": -433762629,
+      "status": "unresolved",
+      "candidates": [
+        "Jimenez",
+        "Joe Jimenez",
+        "Joe Jimenez",
+        "Joel Jimenez",
+        "Joeseph Jimenez",
+        "Joel Jimenez"
+      ]
+    },
+    {
+      "name": "Ramon Rodriguez",
+      "team": "CAR",
+      "id": 670232,
+      "status": "empty",
+      "synergy_id": "5c8ca0e1f52909811e2ff72f",
+      "synergy_name": "Rodriguez",
+      "raw_events": 0,
+      "stats_events": 0,
+      "window_used": "none",
+      "pitches": 0,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "no IVB/HB in 2026-2024"
+      }
+    },
+    {
+      "name": "Ivan Houellemont",
+      "team": "SJU",
+      "id": 671045,
+      "status": "populated",
+      "synergy_id": "5834ab3935be47a927639054",
+      "synergy_name": "Ivan Houellemont",
+      "raw_events": 600,
+      "stats_events": 343,
+      "window_used": "2026+2025 pool",
+      "pitches": 315,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "no IVB/HB in 2026-2024"
+      }
+    },
+    {
+      "name": "Jean Ortega",
+      "team": "SJU",
+      "id": 458960,
+      "status": "unresolved",
+      "candidates": [
+        "Jean Carlos Ortega"
+      ]
+    },
+    {
+      "name": "Ruben Ramirez",
+      "team": "SJU",
+      "id": 703211,
+      "status": "populated",
+      "synergy_id": "610d24816f71458169c84c6a",
+      "synergy_name": "Ruben Ramirez",
+      "raw_events": 1500,
+      "stats_events": 628,
+      "window_used": "2026+2025 pool",
+      "pitches": 599,
+      "movement": {
+        "status": "no_plot",
+        "source": null,
+        "season": null,
+        "why": "no IVB/HB in 2026-2024"
+      }
+    }
+  ],
+  "synergy_hitters": [],
   "summary": {
-    "pitchers_roster": 0,
-    "with_movement": 0,
-    "with_usage_10plus": 0,
-    "movement_filled_this_run": 0,
-    "movement_no_plot": 0,
-    "synergy_populated": 0,
-    "synergy_still_empty": 0,
-    "murphy": null,
-    "no_plot_names": [],
-    "synergy_empty_names": []
+    "pitchers_roster": 127,
+    "with_movement": 69,
+    "with_usage_10plus": 116,
+    "movement_filled_this_run": 4,
+    "movement_no_plot": 35,
+    "synergy_populated": 2,
+    "synergy_still_empty": 3,
+    "murphy": {
+      "movement": true,
+      "pitches": 1097,
+      "ps_source": "Prospect Savant",
+      "arsenal": [
+        {
+          "type": "SI",
+          "n": 430,
+          "velo": 92.9,
+          "ivb": 11.65,
+          "hb": 11.11
+        },
+        {
+          "type": "CU",
+          "n": 282,
+          "velo": 83.3,
+          "ivb": -1.64,
+          "hb": -8.47
+        },
+        {
+          "type": "FF",
+          "n": 142,
+          "velo": 93.7,
+          "ivb": 15.16,
+          "hb": 9.06
+        },
+        {
+          "type": "FC",
+          "n": 141,
+          "velo": 87.3,
+          "ivb": 2.73,
+          "hb": -1.61
+        },
+        {
+          "type": "SL",
+          "n": 72,
+          "velo": 83.5,
+          "ivb": 3.02,
+          "hb": -11.78
+        },
+        {
+          "type": "CH",
+          "n": 30,
+          "velo": 87.5,
+          "ivb": 3.65,
+          "hb": 14.99
+        }
+      ],
+      "summer": {
+        "team": "MEM",
+        "team_name": "Memphis Redbirds",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "50.1",
+        "outs": 151,
+        "g": 37,
+        "gs": 1,
+        "k": 53,
+        "bb": 35,
+        "k9": "9.5",
+        "bb9": "6.3",
+        "era": "6.97",
+        "fip": null,
+        "whip": "1.87",
+        "h": 59,
+        "hr": 10,
+        "sb_allowed": 9,
+        "cs_allowed": 2,
+        "sport_id": 11,
+        "assignments": 2,
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
+      }
+    },
+    "no_plot_names": [
+      "CAG Juan Javier Echavarria: no IVB/HB in 2026-2024",
+      "CAR Albert Oliva: no IVB/HB in 2026-2024",
+      "CAR Jake Gozzo: no IVB/HB in 2026-2024",
+      "CAR Jose Acosta: no IVB/HB in 2026-2024",
+      "CAR Luis Rodriguez: no IVB/HB in 2026-2024",
+      "CAR Miguel Ausua: no IVB/HB in 2026-2024",
+      "CAG Adalberto Flores: no IVB/HB in 2026-2024",
+      "CAG Christian Torres: no IVB/HB in 2026-2024",
+      "CAG Edwin Sanchez: no IVB/HB in 2026-2024",
+      "CAG Marvin Gorgas: no IVB/HB in 2026-2024",
+      "CAR Alexander Castro: no IVB/HB in 2026-2024",
+      "CAR Eddy Reynoso: no IVB/HB in 2026-2024",
+      "CAR Ramesis Rosa: no IVB/HB in 2026-2024",
+      "CAR Ramon Rodriguez: no IVB/HB in 2026-2024",
+      "MAY Hector Hernandez: no IVB/HB in 2026-2024",
+      "MAY Kazuto Taguchi: no IVB/HB in 2026-2024",
+      "MAY Lucas Vega: no IVB/HB in 2026-2024",
+      "MAY Luis Leroy Cruz: no IVB/HB in 2026-2024",
+      "MAY Luis Ramos: no IVB/HB in 2026-2024",
+      "MAY Miguel Martinez: no IVB/HB in 2026-2024",
+      "MAY Sean Barnett: no IVB/HB in 2026-2024",
+      "MAY Sebastian Bentz: no IVB/HB in 2026-2024",
+      "PON Juan Marcano: no IVB/HB in 2026-2024",
+      "PON Julio Torres: no IVB/HB in 2026-2024",
+      "PON Noel Pinto: no IVB/HB in 2026-2024",
+      "PON Omar Melendez: no IVB/HB in 2026-2024",
+      "SJU Agnel Miranda: no IVB/HB in 2026-2024",
+      "SJU Giovanni Soto: no IVB/HB in 2026-2024",
+      "SJU Ivan Houellemont: no IVB/HB in 2026-2024",
+      "SJU Jean Ortega: no IVB/HB in 2026-2024",
+      "SJU Jose Cruz: no IVB/HB in 2026-2024",
+      "SJU Matthew Rivera: 2026 had 100 Synergy pitches but no IVB/HB",
+      "SJU Raul Rivera: no IVB/HB in 2026-2024",
+      "SJU Ruben Ramirez: no IVB/HB in 2026-2024",
+      "SJU Ryan Munoz: no IVB/HB in 2026-2024"
+    ],
+    "synergy_empty_names": [
+      "CAR Joe Jimenez: unresolved",
+      "CAR Ramon Rodriguez: empty",
+      "SJU Jean Ortega: unresolved"
+    ]
   }
 }

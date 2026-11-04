@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T18:47:21Z",
+  "updated": "2026-11-04T18:59:36Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1278,7 +1278,7 @@
             "CB": "",
             "SL": "81-81",
             "CH": "85-85",
-            "CT": "",
+            "CT": "85-85",
             "SPL": ""
           },
           "freq_r": "FB 82%, CH 16%, SL 3%",
@@ -2832,18 +2832,18 @@
           "throws": "R",
           "mlb_id": 671045,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "84-84",
+            "CB": "74-74",
+            "SL": "80-80",
+            "CH": "79-79",
+            "CT": "82-82",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "SL 46%, FB 42%, CB 7%, CUT 2%",
+          "freq_l": "FB 56%, SL 28%, CB 7%, CH 5%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 46%, FB 42%, CB 7%, CUT 2%</span><br><span class=\"freq-l\">LHH: FB 56%, SL 28%, CB 7%, CH 5%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "55",
@@ -2952,18 +2952,18 @@
           "throws": "R",
           "mlb_id": 703211,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "88-88",
+            "CB": "71-71",
+            "SL": "78-78",
+            "CH": "78-78",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 55%, SL 40%, CH 4%, CB 0%",
+          "freq_l": "FB 59%, CH 23%, SL 18%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 55%, SL 40%, CH 4%, CB 0%</span><br><span class=\"freq-l\">LHH: FB 59%, CH 23%, SL 18%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "",
