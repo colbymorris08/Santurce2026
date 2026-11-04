@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T02:09:14Z",
+  "updated": "2026-11-04T02:10:39Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -11263,6 +11263,17 @@
       "throws": "R"
     },
     {
+      "name": "Aponte",
+      "mlb_id": -701686069,
+      "team": "PON",
+      "throws": "R",
+      "synergy_id": null,
+      "pitches": 0,
+      "summer_line": null,
+      "platoon": {},
+      "count_mix": {}
+    },
+    {
       "synergy_id": "5f889f3e1cb0540001a5488d",
       "name": "Charlee Soto",
       "pitches": 54,
@@ -13109,6 +13120,130 @@
         "source": "Local LBPRC 2025 season pitching file"
       },
       "throws": "R"
+    },
+    {
+      "name": "Juan Marcano",
+      "mlb_id": 807620,
+      "team": "PON",
+      "throws": "R",
+      "synergy_id": "63544374c869bcc38088b4a3",
+      "pitches": 136,
+      "summer_line": null,
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 21,
+            "usage": 51.2
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 29.3
+          },
+          {
+            "type": "SL",
+            "pitches": 8,
+            "usage": 19.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 52,
+            "usage": 54.7
+          },
+          {
+            "type": "SL",
+            "pitches": 41,
+            "usage": 43.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 1.1
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 1.1
+          }
+        ]
+      },
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 73,
+            "usage": 53.7
+          },
+          {
+            "type": "SL",
+            "pitches": 49,
+            "usage": 36.0
+          },
+          {
+            "type": "CH",
+            "pitches": 13,
+            "usage": 9.6
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.7
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 23,
+            "usage": 62.2
+          },
+          {
+            "type": "SL",
+            "pitches": 11,
+            "usage": 29.7
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 5.4
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 2.7
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 17,
+            "usage": 50.0
+          },
+          {
+            "type": "FF",
+            "pitches": 12,
+            "usage": 35.3
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 14.7
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 41,
+        "vs_RHH": 95
+      },
+      "leagues": {
+        "LBPRC": 136
+      },
+      "years": [
+        2024
+      ],
+      "source": "2024 fallback"
     },
     {
       "synergy_id": "5df286ca4b8b5006984fee0f",
@@ -19049,28 +19184,6 @@
         "source": "Local LBPRC 2025 season pitching file"
       },
       "throws": "L"
-    },
-    {
-      "name": "Juan Marcano",
-      "mlb_id": 807620,
-      "team": "PON",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
-    },
-    {
-      "name": "Aponte",
-      "mlb_id": -701686069,
-      "team": "PON",
-      "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
-      "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
     }
   ],
   "empty": [

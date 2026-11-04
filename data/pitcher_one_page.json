@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T19:09:51Z",
+  "updated": "2026-11-04T02:10:41Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1800,6 +1800,26 @@
       "team_name": "Leones de Ponce",
       "pitchers": [
         {
+          "jersey": "57",
+          "name": "Aponte",
+          "name_display": "Aponte",
+          "throws": "R",
+          "mlb_id": -701686069,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true
+        },
+        {
           "jersey": "51",
           "name": "Jonathan Bermudez",
           "name_display": "Bermudez, Jonathan (l)",
@@ -1960,6 +1980,26 @@
           "needs_data": false
         },
         {
+          "jersey": "49",
+          "name": "Juan Marcano",
+          "name_display": "Marcano, Juan",
+          "throws": "R",
+          "mlb_id": 807620,
+          "velo": {
+            "FB": "89-89",
+            "CB": "",
+            "SL": "78-78",
+            "CH": "83-83",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 55%, SL 43%, CH 1%, SNK 1%",
+          "freq_l": "FB 51%, CH 29%, SL 20%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 55%, SL 43%, CH 1%, SNK 1%</span><br><span class=\"freq-l\">LHH: FB 51%, CH 29%, SL 20%</span>",
+          "notes": "",
+          "needs_data": false
+        },
+        {
           "jersey": "63",
           "name": "Andrew Marrero",
           "name_display": "Marrero, Andrew",
@@ -1980,7 +2020,7 @@
           "needs_data": false
         },
         {
-          "jersey": "",
+          "jersey": "46",
           "name": "Keito Matsuura",
           "name_display": "Matsuura, Keito (l)",
           "throws": "L",
@@ -2220,7 +2260,7 @@
           "needs_data": false
         },
         {
-          "jersey": "41",
+          "jersey": "45",
           "name": "Lenny Torres",
           "name_display": "Torres, Lenny",
           "throws": "R",
@@ -2240,7 +2280,7 @@
           "needs_data": false
         },
         {
-          "jersey": "",
+          "jersey": "48",
           "name": "Kyohei Yamashiro",
           "name_display": "Yamashiro, Kyohei (l)",
           "throws": "L",
@@ -2260,7 +2300,7 @@
           "needs_data": true
         },
         {
-          "jersey": "",
+          "jersey": "43",
           "name": "Kai Yokogawa",
           "name_display": "Yokogawa, Kai (l)",
           "throws": "L",

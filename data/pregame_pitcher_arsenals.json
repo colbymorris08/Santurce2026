@@ -43058,6 +43058,22 @@
       }
     },
     {
+      "name": "Aponte",
+      "player_id": null,
+      "team": "PON",
+      "throws": "R",
+      "mlb_debut": null,
+      "level_hint": null,
+      "stuff_plus": null,
+      "pitches": 0,
+      "arsenal": [],
+      "usage_by_count": {},
+      "count_mix": {},
+      "platoon": {},
+      "view": "hitter",
+      "note": "Roster stub — run Synergy / Prospect Savant fills"
+    },
+    {
       "name": "Charlee Soto",
       "player_id": -458228708,
       "team": "PON",
@@ -49771,6 +49787,184 @@
           }
         }
       }
+    },
+    {
+      "name": "Juan Marcano",
+      "player_id": 807620,
+      "team": "PON",
+      "throws": "R",
+      "mlb_debut": null,
+      "level_hint": null,
+      "stuff_plus": null,
+      "pitches": 136,
+      "arsenal": [
+        {
+          "type": "FF",
+          "name": "FF",
+          "usage": 53.7,
+          "pitches": 73,
+          "velo": 89.3,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": 13.3,
+          "xwoba": null
+        },
+        {
+          "type": "SL",
+          "name": "SL",
+          "usage": 36.0,
+          "pitches": 49,
+          "velo": 78.2,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": 23.8,
+          "xwoba": null
+        },
+        {
+          "type": "CH",
+          "name": "CH",
+          "usage": 9.6,
+          "pitches": 13,
+          "velo": 83.2,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": 28.6,
+          "xwoba": null
+        },
+        {
+          "type": "SI",
+          "name": "SI",
+          "usage": 0.7,
+          "pitches": 1,
+          "velo": null,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": null,
+          "xwoba": null
+        }
+      ],
+      "usage_by_count": {},
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 73,
+            "usage": 53.7
+          },
+          {
+            "type": "SL",
+            "pitches": 49,
+            "usage": 36.0
+          },
+          {
+            "type": "CH",
+            "pitches": 13,
+            "usage": 9.6
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.7
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 23,
+            "usage": 62.2
+          },
+          {
+            "type": "SL",
+            "pitches": 11,
+            "usage": 29.7
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 5.4
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 2.7
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "SL",
+            "pitches": 17,
+            "usage": 50.0
+          },
+          {
+            "type": "FF",
+            "pitches": 12,
+            "usage": 35.3
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 14.7
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 21,
+            "usage": 51.2
+          },
+          {
+            "type": "CH",
+            "pitches": 12,
+            "usage": 29.3
+          },
+          {
+            "type": "SL",
+            "pitches": 8,
+            "usage": 19.5
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 52,
+            "usage": 54.7
+          },
+          {
+            "type": "SL",
+            "pitches": 41,
+            "usage": 43.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 1.1
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 1.1
+          }
+        ]
+      },
+      "view": "hitter",
+      "note": "Roster stub — run Synergy / Prospect Savant fills",
+      "synergy_id": "63544374c869bcc38088b4a3",
+      "synergy_usage_source": "2024 fallback",
+      "mlb_id": 807620
     },
     {
       "name": "Julio Torres",
@@ -82293,41 +82487,9 @@
           }
         }
       }
-    },
-    {
-      "name": "Juan Marcano",
-      "player_id": 807620,
-      "team": "PON",
-      "throws": "R",
-      "mlb_debut": null,
-      "level_hint": null,
-      "stuff_plus": null,
-      "pitches": 0,
-      "arsenal": [],
-      "usage_by_count": {},
-      "count_mix": {},
-      "platoon": {},
-      "view": "hitter",
-      "note": "Roster stub — run Synergy / Prospect Savant fills"
-    },
-    {
-      "name": "Aponte",
-      "player_id": null,
-      "team": "PON",
-      "throws": "R",
-      "mlb_debut": null,
-      "level_hint": null,
-      "stuff_plus": null,
-      "pitches": 0,
-      "arsenal": [],
-      "usage_by_count": {},
-      "count_mix": {},
-      "platoon": {},
-      "view": "hitter",
-      "note": "Roster stub — run Synergy / Prospect Savant fills"
     }
   ],
-  "updated": "2026-11-04T02:09:14Z",
+  "updated": "2026-11-04T02:10:39Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",
