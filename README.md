@@ -36,7 +36,7 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#strategy
 
 - Opponent dropdown on the right. Santurce home/away swaps which side of the sheet Santurce occupies.
 - Check hitters into today’s lineup, drag to set the order, pick a position (1–9 or DH). The starter is pinned at the bottom of the lineup and leads the pitcher block; other checked arms are the bullpen; everyone else on the hitting roster is the bench.
-- Lineup, starter, and pen persist in this browser (`localStorage` key `santurce_strategy_lineup_v1`).
+- Lineup / pen / notes / jersey edits save in the browser and **publish to** `data/game_day_state.json` when a GitHub PAT is set (same PAT field on **OF Jump / Arm**). Use **Publish lineup** on the strategy toolbar (or wait for auto-publish) so Chrome sees what Safari saved.
 - Export PDF: one portrait page, scaled to fit.
 
 ### Baserunning and bunting card
@@ -45,7 +45,17 @@ https://colbymorris08.github.io/Santurce2026/pregame.html#br
 - Team dropdown fills that LBPRC roster. 2B / 3B are steals of second and third when a split exists; otherwise the total SB/SBA spans both columns.
 - SAC is sacrifice bunts (LBPRC 2025 + 2026 summer). Frequent >5 green, occasional 2–5 white, rare <2 red.
 - Notes turn red when one base, or one bunt situation, is much more common than the other.
-- Team notes persist in this browser (`localStorage` key `santurce_smallball_notes_v1`).
+- Team notes sync with the same game-day publish as the strategy card.
+
+### Cross-browser publish + daily Revert
+https://colbymorris08.github.io/Santurce2026/pregame.html#revert
+
+1. Paste a GitHub PAT (Contents:write) on the **OF Jump / Arm** tab once — shared with TTH / game-day.
+2. Edit lineup, bench checks, notes, jerseys, TTH, OF grades, positioning, one-page notes as usual.
+3. **Publish lineup** (strategy tab) or wait for debounced auto-publish → writes `data/game_day_state.json` (and refreshes TTH/OF live JSON when those maps changed). Other browsers pick it up after a hard-refresh once GitHub Pages updates (~30s).
+4. **Revert** tab (last tab): dropdown of saved dates → check all **three Yes** boxes → **Revert** restores that day’s files under `data/versions/YYYY-MM-DD/` back onto the live `data/*` paths via the GitHub API.
+5. Baseline snapshot **11-3** (`2026-11-03`) is already on disk. Snapshots are **additive** (nothing wiped). Create another with **Snapshot today** in about a week at the next roster update.
+6. Delivery/movement **pictures** remain browser-local (size); use **Export uploads → JSON** + `import_pitcher_media_export.py` to commit image bytes. Game-day state only stores media *refs*.
 
 ### Other
 Spray charts still live on the Spray tab (Synergy `landingLocationX/Y` + MLB Statcast toggle).

@@ -53,6 +53,7 @@
     <button class="tab" data-tab="ofdef" onclick="switchTab('ofdef')" data-i18n="ofdefTab">OF Jump / Arm</button>
     <button class="tab" data-tab="ofpos" onclick="switchTab('ofpos')" data-i18n="ofposTab">INF / OF Positioning</button>
     <button class="tab" data-tab="tth" onclick="switchTab('tth')" data-i18n="tthTab">Time to Home and Catcher Pop Times</button>
+    <button class="tab" data-tab="revert" onclick="switchTab('revert')" data-i18n="revertTab">Revert</button>
   </div>
 
   <div id="loading" class="loading">Loading pregame caches…</div>
@@ -509,14 +510,46 @@
       </tr></thead><tbody></tbody></table>
     </div>
   </div>
+
+  <div id="panel-revert" class="panel">
+    <div class="section-label" data-i18n="revertLabel">Revert to a saved day</div>
+    <div class="note" data-i18n-html="revertNote">Restores a daily snapshot to the <strong>live site</strong> files via GitHub (same PAT as OF / TTH). Snapshots are additive — older dates stay. Plan to snapshot again in about a week at the next roster update. Delivery / movement <em>pictures</em> stay browser-local (use Export uploads → JSON); only media refs are versioned here.</div>
+    <div class="filters" style="align-items:flex-end;flex-wrap:wrap;gap:12px">
+      <div class="filter-field" style="min-width:220px"><label data-i18n="revertDateLabel">Saved date</label>
+        <select id="revert-date" onchange="onRevertConfirmChange()"></select>
+      </div>
+      <div class="filter-actions" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-sm" onclick="createGameDaySnapshotNow()" data-i18n="revertSnapshotBtn">Snapshot today</button>
+        <button type="button" class="btn btn-sm" onclick="publishGameDayNow()" data-i18n="revertPublishBtn">Publish game-day now</button>
+      </div>
+    </div>
+    <div class="revert-confirm" style="margin-top:14px;max-width:520px">
+      <p class="note" style="margin-bottom:8px" data-i18n="revertConfirmIntro">Check all three boxes (required) before Revert enables:</p>
+      <label class="revert-yes" style="display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer">
+        <input type="checkbox" id="revert-yes-1" onchange="onRevertConfirmChange()">
+        <span data-i18n="revertYes1">Yes — I understand this overwrites the live game-day / scout JSON on GitHub.</span>
+      </label>
+      <label class="revert-yes" style="display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer">
+        <input type="checkbox" id="revert-yes-2" onchange="onRevertConfirmChange()">
+        <span data-i18n="revertYes2">Yes — I picked the correct saved date in the dropdown.</span>
+      </label>
+      <label class="revert-yes" style="display:flex;gap:10px;align-items:flex-start;margin:8px 0;cursor:pointer">
+        <input type="checkbox" id="revert-yes-3" onchange="onRevertConfirmChange()">
+        <span data-i18n="revertYes3">Yes — I want to restore that day’s snapshot to the live site now.</span>
+      </label>
+      <button type="button" class="btn" id="revert-run" disabled onclick="revertGameDayNow()" data-i18n="revertRunBtn" style="margin-top:10px;background:#8b1e1e">Revert</button>
+    </div>
+    <div class="note" id="revert-status" style="margin-top:10px"></div>
+  </div>
 </main>
-<script src="i18n.js?v=san196"></script>
-<script src="cards.js?v=san205"></script>
-<script src="positioning.js?v=san200"></script>
+<script src="i18n.js?v=san206"></script>
+<script src="cards.js?v=san206"></script>
+<script src="positioning.js?v=san206"></script>
+<script src="persist.js?v=san206"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san205';
+const ASSET_V = 'san206';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -584,6 +617,11 @@ function switchTab(name){
   if(name==='tth') renderTth();
   if(name==='strategy' && window.CardApp) CardApp.renderStrategy();
   if(name==='br' && window.CardApp) CardApp.renderSmallBall();
+  if(name==='revert' && window.GameDayPersist){
+    GameDayPersist.fillRevertDropdown();
+    GameDayPersist.updateRevertButton();
+    GameDayPersist.updateNote();
+  }
   if(location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
 }
 
@@ -4671,6 +4709,10 @@ function saveScoutGhPat(value){
   } catch(e){}
   updateTthPersistNote();
   updateOfPersistNote();
+  if(window.GameDayPersist){
+    GameDayPersist.updateNote();
+    GameDayPersist.updateRevertButton();
+  }
 }
 function loadScoutPatInput(){
   const el = document.getElementById('scout-gh-pat');
@@ -4698,11 +4740,13 @@ function saveTthOverrides(){
   // mutating CACHE would make cleared fields stick after refresh of the JSON base.
   updateTthPersistNote();
   queueScoutPublish('tth');
+  if(typeof queueGameDayPublish === 'function') queueGameDayPublish();
 }
 function saveOfOverrides(){
   try { localStorage.setItem(OF_STORAGE_KEY, JSON.stringify(OF_OVERRIDES)); } catch(e){}
   updateOfPersistNote();
   queueScoutPublish('of');
+  if(typeof queueGameDayPublish === 'function') queueGameDayPublish();
 }
 function sheetMergedValue(overrides, player, field){
   const id = String(player.player_id);
@@ -6081,6 +6125,7 @@ function saveOnePageNote(key, text){
   if(!text) delete all[key];
   else all[key] = text;
   try { localStorage.setItem(ONEPAGE_NOTES_KEY, JSON.stringify(all)); } catch(e){}
+  if(typeof queueGameDayPublish === 'function') queueGameDayPublish();
 }
 function loadJerseyOverrides(){
   try { return JSON.parse(localStorage.getItem(JERSEY_OVERRIDES_KEY) || '{}') || {}; }
@@ -6093,6 +6138,7 @@ function saveJerseyOverride(key, text){
   if(!val) delete all[String(key)];
   else all[String(key)] = val;
   try { localStorage.setItem(JERSEY_OVERRIDES_KEY, JSON.stringify(all)); } catch(e){}
+  if(typeof queueGameDayPublish === 'function') queueGameDayPublish();
 }
 function jerseyDisplayValue(idKey, nameKey, rosterJersey){
   const all = loadJerseyOverrides();
@@ -6494,6 +6540,7 @@ function bootFromHash(){
     strategy:'strategy', br:'br', lineup:'lineup',
     matchup:'matchup', hvp:'hvp', spray:'spray',
     ofdef:'ofdef', ofpos:'ofpos', tth:'tth',
+    revert:'revert',
     bullpen:'bullpen',
     'pitcher-one-page':'pitcher-one-page',
     onepage:'pitcher-one-page',
@@ -6528,16 +6575,20 @@ Promise.all([
   fetch('data/pitcher_one_page.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/positioning_v2.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-]).then(([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed};
+  fetch('data/game_day_state.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
+]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed, gameDayState])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, rosterAlert, positioningSeed, gameDayState};
   hydrateSpraySynergyFromAdvance();
-  if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
+  // Seed positioning first, then hydrate shared game-day overrides (lineup/TTH/etc) so coach cells win.
   if(window.PosApp && positioningSeed) PosApp.setPositionSeed(positioningSeed);
+  if(window.GameDayPersist) await GameDayPersist.boot(gameDayState || null);
+  if(window.CardApp) CardApp.boot(cardStats, advanceHitters);
   FPS=fps;
   computeFpsAvgs();
   loadTthOverrides();
   loadOfOverrides();
   loadScoutPatInput();
+  if(window.GameDayPersist) GameDayPersist.updateNote();
   document.getElementById('loading').style.display='none';
   if(rosterAlert && rosterAlert.changed){
     const nAdd = (rosterAlert.added||[]).length;

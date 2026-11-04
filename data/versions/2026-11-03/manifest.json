@@ -1,0 +1,22 @@
+{
+  "date_key": "2026-11-03",
+  "label": "11-3",
+  "created": "2026-11-04T03:02:59Z",
+  "note": "Baseline before next roster update (~1 week). Additive versions; does not wipe prior data.",
+  "files": [
+    "game_day_state.json",
+    "pregame_tth_pop.json",
+    "pregame_of_arms.json",
+    "positioning_v2.json",
+    "pitcher_one_page_notes.json",
+    "pregame_card_stats.json"
+  ],
+  "restore_targets": {
+    "game_day_state.json": "data/game_day_state.json",
+    "pregame_tth_pop.json": "data/pregame_tth_pop.json",
+    "pregame_of_arms.json": "data/pregame_of_arms.json",
+    "positioning_v2.json": "data/positioning_v2.json",
+    "pitcher_one_page_notes.json": "data/pitcher_one_page_notes.json",
+    "pregame_card_stats.json": "data/pregame_card_stats.json"
+  }
+}

@@ -1,0 +1,1018 @@
+{
+  "updated": "2026-11-04T03:02:59Z",
+  "label": "11-3",
+  "date_key": "2026-11-03",
+  "published_from": "safari snapshot seed",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update.",
+  "strategy": {
+    "teams": {
+      "SAN": {
+        "sp": 673933,
+        "pen": [
+          688965,
+          700842,
+          444354,
+          687900,
+          -286366361,
+          689713,
+          572363,
+          800514,
+          531565,
+          681154
+        ],
+        "lineup": [
+          {
+            "id": 623205,
+            "pos": "6"
+          },
+          {
+            "id": 605346,
+            "pos": "5"
+          },
+          {
+            "id": 643418,
+            "pos": "4"
+          },
+          {
+            "id": 571685,
+            "pos": "DH"
+          },
+          {
+            "id": 824605,
+            "pos": "3"
+          },
+          {
+            "id": 681023,
+            "pos": "9"
+          },
+          {
+            "id": 640459,
+            "pos": "2"
+          },
+          {
+            "id": 641561,
+            "pos": "8"
+          },
+          {
+            "id": 671080,
+            "pos": "7"
+          }
+        ],
+        "bench": [
+          {
+            "id": 518542,
+            "pos": "3"
+          },
+          {
+            "id": 694563,
+            "pos": "4"
+          },
+          {
+            "id": 829227,
+            "pos": "2"
+          },
+          {
+            "id": 829166,
+            "pos": "4"
+          },
+          {
+            "id": -108026908,
+            "pos": "4"
+          },
+          {
+            "id": 703639,
+            "pos": "4"
+          },
+          {
+            "id": -533438595,
+            "pos": "8"
+          },
+          {
+            "id": 806176,
+            "pos": "8"
+          },
+          {
+            "id": 592656,
+            "pos": "8"
+          },
+          {
+            "id": 624414,
+            "pos": "5"
+          },
+          {
+            "id": -574284888,
+            "pos": "4"
+          },
+          {
+            "id": 641521,
+            "pos": "6"
+          },
+          {
+            "id": 844087,
+            "pos": "8"
+          },
+          {
+            "id": 641896,
+            "pos": "2"
+          },
+          {
+            "id": 641943,
+            "pos": "8"
+          },
+          {
+            "id": 687069,
+            "pos": "6"
+          },
+          {
+            "id": -174247804,
+            "pos": "4"
+          },
+          {
+            "id": 519304,
+            "pos": "3"
+          },
+          {
+            "id": 805834,
+            "pos": "4"
+          },
+          {
+            "id": 691002,
+            "pos": "3"
+          }
+        ]
+      },
+      "CAG": {
+        "sp": 688014,
+        "pen": [
+          676221,
+          694365,
+          592254,
+          664744,
+          488880,
+          656479,
+          687424,
+          686924,
+          656820,
+          683068,
+          605441,
+          -831444931,
+          688876,
+          670369,
+          621249,
+          806337,
+          669111,
+          805731,
+          687825,
+          806064
+        ],
+        "lineup": [
+          {
+            "id": 663494,
+            "pos": "7"
+          },
+          {
+            "id": 663708,
+            "pos": "4"
+          },
+          {
+            "id": 605353,
+            "pos": "3"
+          },
+          {
+            "id": 811368,
+            "pos": "DH"
+          },
+          {
+            "id": 701831,
+            "pos": "5"
+          },
+          {
+            "id": 676679,
+            "pos": "6"
+          },
+          {
+            "id": 800231,
+            "pos": "9"
+          },
+          {
+            "id": 681974,
+            "pos": "2"
+          },
+          {
+            "id": 641685,
+            "pos": "8"
+          }
+        ],
+        "bench": [
+          {
+            "id": 669360,
+            "pos": "6"
+          },
+          {
+            "id": -617163636,
+            "pos": "6"
+          },
+          {
+            "id": 694541,
+            "pos": "2"
+          },
+          {
+            "id": 695634,
+            "pos": "8"
+          },
+          {
+            "id": 811314,
+            "pos": "2"
+          },
+          {
+            "id": 828116,
+            "pos": "6"
+          },
+          {
+            "id": -348534068,
+            "pos": "6"
+          },
+          {
+            "id": 664966,
+            "pos": "2"
+          },
+          {
+            "id": -380914779,
+            "pos": "8"
+          },
+          {
+            "id": 502327,
+            "pos": "6"
+          },
+          {
+            "id": 676369,
+            "pos": "9"
+          }
+        ]
+      }
+    },
+    "opponent": "CAG",
+    "santurceHome": false
+  },
+  "notes": {
+    "team": "CAG",
+    "notes": {}
+  },
+  "jersey_overrides": {},
+  "one_page_notes": {},
+  "tth_overrides": {
+    "446651": {
+      "time_to_home": "1.5"
+    },
+    "488880": {
+      "time_to_home": "1.45"
+    },
+    "545814": {
+      "time_to_home": "1.6"
+    },
+    "571772": {
+      "time_to_home": "1.5"
+    },
+    "572077": {
+      "time_to_home": "1.2"
+    },
+    "592222": {
+      "time_to_home": "1.45"
+    },
+    "605347": {
+      "time_to_home": "1.4"
+    },
+    "605441": {
+      "time_to_home": "1.45"
+    },
+    "621249": {
+      "time_to_home": "1.5"
+    },
+    "623485": {
+      "time_to_home": "1.4"
+    },
+    "642834": {
+      "time_to_home": "1.6"
+    },
+    "656389": {
+      "time_to_home": "1.45"
+    },
+    "656479": {
+      "time_to_home": "1.25"
+    },
+    "656820": {
+      "time_to_home": "1.4"
+    },
+    "657624": {
+      "time_to_home": "1.45"
+    },
+    "663723": {
+      "time_to_home": "1.3"
+    },
+    "664371": {
+      "time_to_home": "1.4"
+    },
+    "664744": {
+      "time_to_home": "1.3"
+    },
+    "669111": {
+      "time_to_home": "1.35"
+    },
+    "669134": {
+      "catcher_pop_time": "1.9"
+    },
+    "669418": {
+      "time_to_home": "1.7"
+    },
+    "670103": {
+      "time_to_home": "1.5"
+    },
+    "670369": {
+      "time_to_home": "1.5"
+    },
+    "675989": {
+      "time_to_home": "1.2"
+    },
+    "676047": {
+      "time_to_home": "1.2"
+    },
+    "676082": {
+      "time_to_home": "1.55"
+    },
+    "676219": {
+      "time_to_home": "1.2"
+    },
+    "676221": {
+      "time_to_home": "1.7"
+    },
+    "676435": {
+      "time_to_home": "1.35"
+    },
+    "676769": {
+      "time_to_home": "1.35"
+    },
+    "676984": {
+      "time_to_home": "1.3"
+    },
+    "678013": {
+      "time_to_home": "1.25"
+    },
+    "681938": {
+      "time_to_home": "1.15"
+    },
+    "682992": {
+      "time_to_home": "1.6"
+    },
+    "683068": {
+      "time_to_home": "1.6"
+    },
+    "683803": {
+      "time_to_home": "1.3"
+    },
+    "684841": {
+      "time_to_home": "1.2"
+    },
+    "686924": {
+      "time_to_home": "1.25"
+    },
+    "687424": {
+      "time_to_home": "1.4"
+    },
+    "687560": {
+      "time_to_home": "1.2"
+    },
+    "687817": {
+      "time_to_home": "1.5"
+    },
+    "687825": {
+      "time_to_home": "1.2"
+    },
+    "687956": {
+      "time_to_home": "1.2"
+    },
+    "688876": {
+      "time_to_home": "1.45"
+    },
+    "689508": {
+      "time_to_home": "1.3"
+    },
+    "690148": {
+      "time_to_home": "1.55"
+    },
+    "690462": {
+      "time_to_home": "1.3"
+    },
+    "691012": {
+      "time_to_home": "1.5"
+    },
+    "691786": {
+      "time_to_home": "1.3"
+    },
+    "692808": {
+      "time_to_home": "1.35"
+    },
+    "692937": {
+      "time_to_home": "1.7"
+    },
+    "693546": {
+      "time_to_home": "1.3"
+    },
+    "694365": {
+      "time_to_home": "1.5"
+    },
+    "695064": {
+      "time_to_home": "1.4"
+    },
+    "695684": {
+      "time_to_home": "1.25"
+    },
+    "701539": {
+      "time_to_home": "1.5"
+    },
+    "703106": {
+      "time_to_home": "1.4"
+    },
+    "801018": {
+      "time_to_home": "1.6"
+    },
+    "803035": {
+      "time_to_home": "1.5"
+    },
+    "805248": {
+      "time_to_home": "1.4"
+    },
+    "805678": {
+      "time_to_home": "1.2"
+    },
+    "805731": {
+      "time_to_home": "1.5"
+    },
+    "805749": {
+      "time_to_home": "1.5"
+    },
+    "806064": {
+      "time_to_home": "1.25"
+    },
+    "806337": {
+      "time_to_home": "1.55"
+    },
+    "806586": {
+      "time_to_home": "1.2"
+    },
+    "807485": {
+      "time_to_home": "1.5"
+    },
+    "837223": {
+      "time_to_home": "1.5"
+    },
+    "-831444931": {
+      "time_to_home": "1.4"
+    },
+    "-359955779": {
+      "time_to_home": "1.35"
+    },
+    "-158179355": {
+      "time_to_home": "1.4"
+    },
+    "-268179393": {
+      "time_to_home": "1.4"
+    },
+    "-863509874": {
+      "time_to_home": "1.2"
+    },
+    "-601861522": {
+      "catcher_pop_time": "2.1"
+    },
+    "-887923890": {
+      "time_to_home": "1.3"
+    },
+    "-346943911": {
+      "time_to_home": "1.6"
+    },
+    "-165648089": {
+      "time_to_home": "1.3"
+    },
+    "-368999174": {
+      "time_to_home": "1.35"
+    },
+    "-259860308": {
+      "time_to_home": "1.4"
+    },
+    "-346674215": {
+      "time_to_home": "1.6"
+    },
+    "-458228708": {
+      "time_to_home": "1.4"
+    },
+    "-174792236": {
+      "time_to_home": "1.2"
+    },
+    "-579003596": {
+      "time_to_home": "1.2"
+    },
+    "-670692245": {
+      "time_to_home": "1.15"
+    },
+    "-842689811": {
+      "time_to_home": "1.35"
+    },
+    "-322791781": {
+      "time_to_home": "1.2"
+    },
+    "-846506108": {
+      "time_to_home": "1.45"
+    }
+  },
+  "of_overrides": {},
+  "positioning": {
+    "of": {
+      "PON|nolan arenado|RF|PRE|L": "G-10",
+      "PON|nolan arenado|LF|PRE|L": "L-10",
+      "PON|nolan arenado|LF|2K|L": "L-10",
+      "PON|nolan arenado|RF|PRE|R": "G-10",
+      "PON|chris arroyo|CF|2K|L": "P-10",
+      "PON|chris arroyo|LF|PRE|R": "L-10"
+    },
+    "inf": {
+      "PON|nolan arenado|1B|EMPTY|L": "N",
+      "PON|nolan arenado|2B|EMPTY|L": "N",
+      "PON|nolan arenado|SS|EMPTY|L": "N",
+      "PON|nolan arenado|3B|EMPTY|L": "R-3",
+      "PON|nolan arenado|1B|RISP|L": "N",
+      "PON|nolan arenado|2B|RISP|L": "N",
+      "PON|nolan arenado|SS|RISP|L": "N",
+      "PON|nolan arenado|3B|RISP|L": "N",
+      "PON|nolan arenado|1B|DP|L": "L-3",
+      "PON|nolan arenado|SS|DP|L": "L-3",
+      "PON|nolan arenado|2B|DP|L": "N",
+      "PON|nolan arenado|3B|DP|L": "H",
+      "PON|nolan arenado|1B|EMPTY|R": "R-3",
+      "PON|nolan arenado|2B|EMPTY|R": "N",
+      "PON|nolan arenado|SS|EMPTY|R": "R-3",
+      "PON|nolan arenado|3B|EMPTY|R": "R-3",
+      "PON|nolan arenado|1B|RISP|R": "R-3",
+      "PON|nolan arenado|2B|RISP|R": "N",
+      "PON|nolan arenado|SS|RISP|R": "N",
+      "PON|nolan arenado|3B|RISP|R": "N",
+      "PON|nolan arenado|3B|DP|R": "H",
+      "PON|nolan arenado|SS|DP|R": "L-3",
+      "PON|nolan arenado|2B|DP|R": "N",
+      "PON|nolan arenado|1B|DP|R": "N",
+      "PON|chris arroyo|1B|EMPTY|L": "N",
+      "PON|chris arroyo|2B|EMPTY|L": "N",
+      "PON|chris arroyo|SS|EMPTY|L": "N",
+      "PON|chris arroyo|3B|EMPTY|L": "H",
+      "PON|chris arroyo|3B|DP|L": "H",
+      "PON|chris arroyo|SS|DP|L": "N",
+      "PON|chris arroyo|2B|DP|L": "H",
+      "PON|chris arroyo|1B|DP|L": "N",
+      "PON|chris arroyo|3B|RISP|L": "N",
+      "PON|chris arroyo|SS|RISP|L": "N",
+      "PON|chris arroyo|2B|RISP|L": "R-3",
+      "PON|chris arroyo|1B|RISP|L": "R-3",
+      "PON|chris arroyo|1B|EMPTY|R": "L-3",
+      "PON|chris arroyo|2B|EMPTY|R": "L-3",
+      "PON|chris arroyo|SS|EMPTY|R": "L-6",
+      "PON|chris arroyo|3B|EMPTY|R": "L-6",
+      "PON|chris arroyo|3B|RISP|R": "L-3",
+      "PON|chris arroyo|SS|RISP|R": "L-3",
+      "PON|chris arroyo|2B|RISP|R": "H",
+      "PON|chris arroyo|1B|RISP|R": "H",
+      "PON|chris arroyo|3B|DP|R": "L-3",
+      "PON|chris arroyo|SS|DP|R": "L-3",
+      "PON|chris arroyo|2B|DP|R": "H-3",
+      "PON|chris arroyo|1B|DP|R": "H-3"
+    },
+    "hands": {
+      "CAG|won bin cho": "R"
+    },
+    "lineups": {},
+    "_posSeedVer": null
+  },
+  "media_refs": [
+    {
+      "id": "-158179355",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-158179355",
+      "slot": "delivery"
+    },
+    {
+      "id": "-163227368",
+      "slot": "delivery"
+    },
+    {
+      "id": "-165648089",
+      "slot": "delivery"
+    },
+    {
+      "id": "-174792236",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-174792236",
+      "slot": "delivery"
+    },
+    {
+      "id": "-259860308",
+      "slot": "delivery"
+    },
+    {
+      "id": "-268179393",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-268179393",
+      "slot": "delivery"
+    },
+    {
+      "id": "-346674215",
+      "slot": "delivery"
+    },
+    {
+      "id": "-346943911",
+      "slot": "delivery"
+    },
+    {
+      "id": "-359955779",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-359955779",
+      "slot": "delivery"
+    },
+    {
+      "id": "-368999174",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-368999174",
+      "slot": "delivery"
+    },
+    {
+      "id": "-433762629",
+      "slot": "delivery"
+    },
+    {
+      "id": "-458228708",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-458228708",
+      "slot": "delivery"
+    },
+    {
+      "id": "-465760315",
+      "slot": "delivery"
+    },
+    {
+      "id": "-579003596",
+      "slot": "delivery"
+    },
+    {
+      "id": "-670692245",
+      "slot": "delivery"
+    },
+    {
+      "id": "-842689811",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-842689811",
+      "slot": "delivery"
+    },
+    {
+      "id": "-846506108",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-846506108",
+      "slot": "delivery"
+    },
+    {
+      "id": "-863509874",
+      "slot": "delivery"
+    },
+    {
+      "id": "-887923890",
+      "slot": "arsenal"
+    },
+    {
+      "id": "-887923890",
+      "slot": "delivery"
+    },
+    {
+      "id": "446651",
+      "slot": "delivery"
+    },
+    {
+      "id": "488880",
+      "slot": "delivery"
+    },
+    {
+      "id": "545814",
+      "slot": "delivery"
+    },
+    {
+      "id": "571772",
+      "slot": "delivery"
+    },
+    {
+      "id": "572077",
+      "slot": "delivery"
+    },
+    {
+      "id": "592222",
+      "slot": "delivery"
+    },
+    {
+      "id": "592254",
+      "slot": "delivery"
+    },
+    {
+      "id": "605347",
+      "slot": "delivery"
+    },
+    {
+      "id": "605441",
+      "slot": "delivery"
+    },
+    {
+      "id": "605446",
+      "slot": "heatmap"
+    },
+    {
+      "id": "621249",
+      "slot": "delivery"
+    },
+    {
+      "id": "623485",
+      "slot": "delivery"
+    },
+    {
+      "id": "642834",
+      "slot": "delivery"
+    },
+    {
+      "id": "656389",
+      "slot": "arsenal"
+    },
+    {
+      "id": "656389",
+      "slot": "delivery"
+    },
+    {
+      "id": "656479",
+      "slot": "delivery"
+    },
+    {
+      "id": "656820",
+      "slot": "delivery"
+    },
+    {
+      "id": "657624",
+      "slot": "delivery"
+    },
+    {
+      "id": "663723",
+      "slot": "arsenal"
+    },
+    {
+      "id": "663723",
+      "slot": "delivery"
+    },
+    {
+      "id": "664371",
+      "slot": "delivery"
+    },
+    {
+      "id": "664744",
+      "slot": "delivery"
+    },
+    {
+      "id": "669418",
+      "slot": "delivery"
+    },
+    {
+      "id": "670103",
+      "slot": "delivery"
+    },
+    {
+      "id": "670369",
+      "slot": "delivery"
+    },
+    {
+      "id": "675989",
+      "slot": "delivery"
+    },
+    {
+      "id": "676047",
+      "slot": "delivery"
+    },
+    {
+      "id": "676082",
+      "slot": "arsenal"
+    },
+    {
+      "id": "676082",
+      "slot": "delivery"
+    },
+    {
+      "id": "676219",
+      "slot": "arsenal"
+    },
+    {
+      "id": "676219",
+      "slot": "delivery"
+    },
+    {
+      "id": "676221",
+      "slot": "delivery"
+    },
+    {
+      "id": "676435",
+      "slot": "arsenal"
+    },
+    {
+      "id": "676435",
+      "slot": "delivery"
+    },
+    {
+      "id": "676769",
+      "slot": "delivery"
+    },
+    {
+      "id": "676984",
+      "slot": "delivery"
+    },
+    {
+      "id": "678013",
+      "slot": "delivery"
+    },
+    {
+      "id": "681938",
+      "slot": "delivery"
+    },
+    {
+      "id": "682992",
+      "slot": "delivery"
+    },
+    {
+      "id": "683068",
+      "slot": "delivery"
+    },
+    {
+      "id": "683803",
+      "slot": "delivery"
+    },
+    {
+      "id": "684841",
+      "slot": "delivery"
+    },
+    {
+      "id": "686924",
+      "slot": "delivery"
+    },
+    {
+      "id": "687424",
+      "slot": "delivery"
+    },
+    {
+      "id": "687560",
+      "slot": "arsenal"
+    },
+    {
+      "id": "687560",
+      "slot": "delivery"
+    },
+    {
+      "id": "687817",
+      "slot": "delivery"
+    },
+    {
+      "id": "687879",
+      "slot": "delivery"
+    },
+    {
+      "id": "687956",
+      "slot": "delivery"
+    },
+    {
+      "id": "688014",
+      "slot": "delivery"
+    },
+    {
+      "id": "688876",
+      "slot": "arsenal"
+    },
+    {
+      "id": "688876",
+      "slot": "delivery"
+    },
+    {
+      "id": "689508",
+      "slot": "arsenal"
+    },
+    {
+      "id": "689508",
+      "slot": "delivery"
+    },
+    {
+      "id": "690148",
+      "slot": "delivery"
+    },
+    {
+      "id": "690462",
+      "slot": "delivery"
+    },
+    {
+      "id": "691012",
+      "slot": "delivery"
+    },
+    {
+      "id": "691786",
+      "slot": "delivery"
+    },
+    {
+      "id": "692808",
+      "slot": "delivery"
+    },
+    {
+      "id": "692937",
+      "slot": "delivery"
+    },
+    {
+      "id": "693546",
+      "slot": "arsenal"
+    },
+    {
+      "id": "693546",
+      "slot": "delivery"
+    },
+    {
+      "id": "694365",
+      "slot": "delivery"
+    },
+    {
+      "id": "695064",
+      "slot": "delivery"
+    },
+    {
+      "id": "695684",
+      "slot": "delivery"
+    },
+    {
+      "id": "701539",
+      "slot": "delivery"
+    },
+    {
+      "id": "703106",
+      "slot": "delivery"
+    },
+    {
+      "id": "801018",
+      "slot": "delivery"
+    },
+    {
+      "id": "803035",
+      "slot": "delivery"
+    },
+    {
+      "id": "805248",
+      "slot": "arsenal"
+    },
+    {
+      "id": "805248",
+      "slot": "delivery"
+    },
+    {
+      "id": "805678",
+      "slot": "arsenal"
+    },
+    {
+      "id": "805749",
+      "slot": "arsenal"
+    },
+    {
+      "id": "806337",
+      "slot": "delivery"
+    },
+    {
+      "id": "806586",
+      "slot": "arsenal"
+    },
+    {
+      "id": "806586",
+      "slot": "delivery"
+    },
+    {
+      "id": "807485",
+      "slot": "delivery"
+    },
+    {
+      "id": "837223",
+      "slot": "delivery"
+    }
+  ]
+}

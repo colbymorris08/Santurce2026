@@ -671,8 +671,10 @@
             <select onchange="CardApp.setOpponent(this.value)">${oppOpts}</select>
           </label>
           <button type="button" class="sc-export" onclick="CardApp.exportStrategy()">${tr('Export PDF', 'Exportar PDF')}</button>
+          <button type="button" class="sc-export" onclick="publishGameDayNow()" title="${tr('Push lineup / notes / jersey / overrides to the live site JSON', 'Publicar alineación / notas / dorsales al JSON del sitio')}">${tr('Publish lineup', 'Publicar alineación')}</button>
         </div>
       </div>
+      <p class="note" id="gameday-persist-note" style="margin:6px 0 0"></p>
       <p class="note sc-gap">${esc(gaps.pitcher_platoon || '')} ${esc(gaps.hitter_platoon_k_gb || '')}</p>
       <div class="sc-editors">
         ${editorSide(left, state)}
@@ -924,6 +926,12 @@
     if (document.getElementById('panel-br')?.classList.contains('active')) renderSmallBall();
   }
 
+  function queuePersist() {
+    try {
+      if (typeof window.queueGameDayPublish === 'function') window.queueGameDayPublish();
+    } catch (e) {}
+  }
+
   function withStrategy(fn) {
     const x = window.scrollX;
     const y = window.scrollY;
@@ -931,6 +939,7 @@
     const state = loadStrategy();
     fn(state);
     saveStrategy(state);
+    queuePersist();
     renderStrategy();
     // Keep hitter / spray PDF export lists in strategy lineup order.
     try {
@@ -1439,15 +1448,18 @@
       const state = loadNotes();
       state.team = v;
       saveNotesState(state);
+      queuePersist();
       renderSmallBall();
     },
     saveTeamNotes(team, text) {
       const state = loadNotes();
       state.notes[team] = text;
       saveNotesState(state);
+      queuePersist();
     },
     saveJersey(playerId, value) {
       saveJerseyOverride(playerId, value);
+      queuePersist();
     },
     exportStrategy() {
       const el = document.getElementById('strategy-sheet');

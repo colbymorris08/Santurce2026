@@ -63,8 +63,12 @@
     applySeed(raw);
     return raw;
   }
-  function saveStore(store) {
+  function saveStore(store, opts) {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {}
+    if (opts && opts.silent) return;
+    try {
+      if (typeof window.queueGameDayPublish === 'function') window.queueGameDayPublish();
+    } catch (e) {}
   }
   function goldenNameNeedles(seed) {
     const names = (seed && seed.meta && seed.meta.golden_names) || ['Nolan Arenado', 'Chris Arroyo'];
@@ -103,7 +107,7 @@
       }
       store._posSeedVer = ver;
       store._seed = true;
-      saveStore(store);
+      saveStore(store, { silent: true });
       return;
     }
     // Same version: fill any missing keys only (do not clobber coach edits).
@@ -154,7 +158,7 @@
       if (!store.of[nk]) store.of[nk] = code;
     });
     store._migratedOfV1 = true;
-    saveStore(store);
+    saveStore(store, { silent: true });
   }
 
   function team() {
