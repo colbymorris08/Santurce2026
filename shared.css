@@ -1880,9 +1880,9 @@ input.tth-input:focus {
   border: 1px solid #999; padding: 3px 3px; vertical-align: middle; color: #111; background: #fff;
 }
 .onepage-grid thead th { background: #2f3540; color: #fff; font-weight: 700; text-align: center; font-size: 11px; vertical-align: middle; }
-.onepage-grid .op-num { width: 22px; max-width: 26px; text-align: center; font-weight: 700; padding-left: 1px; padding-right: 1px; }
+.onepage-grid .op-num { width: 16px; max-width: 18px; text-align: center; font-weight: 700; padding-left: 0; padding-right: 0; }
 .onepage-grid .op-num input.op-jersey {
-  width: 100%; max-width: 22px; box-sizing: border-box;
+  width: 100%; max-width: 16px; box-sizing: border-box;
   border: 1px solid #bbb; border-radius: 2px;
   background: #fff; color: #111; -webkit-text-fill-color: #111;
   font: inherit; font-size: 11px; font-weight: 700; text-align: center;

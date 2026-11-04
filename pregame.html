@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san211">
+<link rel="stylesheet" href="shared.css?v=san212">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -551,7 +551,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san211';
+const ASSET_V = 'san212';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6675,7 +6675,7 @@ function sheetPrintCss(kind){
     .onepage-grid thead{display:table-header-group}
     .onepage-grid tr{page-break-inside:avoid;break-inside:avoid}
     .onepage-grid thead th{background:#2f3540!important;color:#fff!important;font-weight:700;text-align:center;font-size:9px;vertical-align:middle}
-    .onepage-grid .op-num{width:0.18in;max-width:0.22in;text-align:center;font-weight:700;padding-left:1px;padding-right:1px;color:#000}
+    .onepage-grid .op-num{width:0.14in;max-width:0.16in;text-align:center;font-weight:700;padding-left:0;padding-right:0;color:#000}
     .onepage-grid .op-num input{display:none!important}
     .onepage-grid .op-name{width:1.05in;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .onepage-grid .op-name.op-lhp{color:#b00020}
