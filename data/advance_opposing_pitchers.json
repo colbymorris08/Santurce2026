@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T18:26:34Z",
+  "updated": "2026-11-04T18:59:29Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -8522,7 +8522,7 @@
       "throws": "L"
     },
     {
-      "synergy_id": null,
+      "synergy_id": "5c8ca0e1f52909811e2ff72f",
       "name": "Ramon Rodriguez",
       "team": "CAR",
       "mlb_id": 670232,
@@ -8557,7 +8557,9 @@
           "team_through_hr": "Baseball Reference Register 2026 standard pitching"
         }
       },
-      "source": "Season line attached for a roster arm that has no Synergy packet"
+      "source": "none",
+      "player_id": 670232,
+      "window_used": "none"
     },
     {
       "synergy_id": "5f8628c91cb0540001a546de",
@@ -21555,11 +21557,171 @@
       "mlb_id": 671045,
       "team": "SJU",
       "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
+      "synergy_id": "5834ab3935be47a927639054",
+      "pitches": 315,
       "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 76,
+            "usage": 56.3
+          },
+          {
+            "type": "SL",
+            "pitches": 38,
+            "usage": 28.1
+          },
+          {
+            "type": "CU",
+            "pitches": 10,
+            "usage": 7.4
+          },
+          {
+            "type": "CH",
+            "pitches": 7,
+            "usage": 5.2
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 2.2
+          },
+          {
+            "type": "PO",
+            "pitches": 1,
+            "usage": 0.7
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "SL",
+            "pitches": 83,
+            "usage": 46.1
+          },
+          {
+            "type": "FF",
+            "pitches": 76,
+            "usage": 42.2
+          },
+          {
+            "type": "CU",
+            "pitches": 13,
+            "usage": 7.2
+          },
+          {
+            "type": "FC",
+            "pitches": 4,
+            "usage": 2.2
+          },
+          {
+            "type": "CH",
+            "pitches": 4,
+            "usage": 2.2
+          }
+        ]
+      },
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 152,
+            "usage": 48.3
+          },
+          {
+            "type": "SL",
+            "pitches": 121,
+            "usage": 38.4
+          },
+          {
+            "type": "CU",
+            "pitches": 23,
+            "usage": 7.3
+          },
+          {
+            "type": "CH",
+            "pitches": 11,
+            "usage": 3.5
+          },
+          {
+            "type": "FC",
+            "pitches": 7,
+            "usage": 2.2
+          },
+          {
+            "type": "PO",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 39,
+            "usage": 50.0
+          },
+          {
+            "type": "SL",
+            "pitches": 30,
+            "usage": 38.5
+          },
+          {
+            "type": "CU",
+            "pitches": 4,
+            "usage": 5.1
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 3.8
+          },
+          {
+            "type": "FC",
+            "pitches": 2,
+            "usage": 2.6
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 37,
+            "usage": 39.8
+          },
+          {
+            "type": "SL",
+            "pitches": 34,
+            "usage": 36.6
+          },
+          {
+            "type": "CU",
+            "pitches": 14,
+            "usage": 15.1
+          },
+          {
+            "type": "CH",
+            "pitches": 6,
+            "usage": 6.5
+          },
+          {
+            "type": "FC",
+            "pitches": 2,
+            "usage": 2.2
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 135,
+        "vs_RHH": 180
+      },
+      "leagues": {
+        "LBPRC": 315
+      },
+      "years": [
+        2025
+      ],
+      "source": "2026+2025 pool",
+      "player_id": 671045,
+      "window_used": "2026+2025 pool"
     },
     {
       "synergy_id": null,
@@ -22484,11 +22646,126 @@
       "mlb_id": 703211,
       "team": "SJU",
       "throws": "R",
-      "synergy_id": null,
-      "pitches": 0,
+      "synergy_id": "610d24816f71458169c84c6a",
+      "pitches": 599,
       "summer_line": null,
-      "platoon": {},
-      "count_mix": {}
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 170,
+            "usage": 58.6
+          },
+          {
+            "type": "CH",
+            "pitches": 68,
+            "usage": 23.4
+          },
+          {
+            "type": "SL",
+            "pitches": 52,
+            "usage": 17.9
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 169,
+            "usage": 54.7
+          },
+          {
+            "type": "SL",
+            "pitches": 125,
+            "usage": 40.5
+          },
+          {
+            "type": "CH",
+            "pitches": 14,
+            "usage": 4.5
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ]
+      },
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 339,
+            "usage": 56.6
+          },
+          {
+            "type": "SL",
+            "pitches": 177,
+            "usage": 29.5
+          },
+          {
+            "type": "CH",
+            "pitches": 82,
+            "usage": 13.7
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 99,
+            "usage": 63.1
+          },
+          {
+            "type": "SL",
+            "pitches": 42,
+            "usage": 26.8
+          },
+          {
+            "type": "CH",
+            "pitches": 15,
+            "usage": 9.6
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.6
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 88,
+            "usage": 51.5
+          },
+          {
+            "type": "SL",
+            "pitches": 50,
+            "usage": 29.2
+          },
+          {
+            "type": "CH",
+            "pitches": 33,
+            "usage": 19.3
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 290,
+        "vs_RHH": 309
+      },
+      "leagues": {
+        "LBPRC": 599
+      },
+      "years": [
+        2025
+      ],
+      "source": "2026+2025 pool",
+      "player_id": 703211,
+      "window_used": "2026+2025 pool"
     },
     {
       "synergy_id": "5e52ca0f7455336e875b7a5d",
