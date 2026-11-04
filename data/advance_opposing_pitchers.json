@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T19:30:37Z",
+  "updated": "2026-11-04T19:56:43Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -7119,39 +7119,137 @@
       "throws": "R"
     },
     {
-      "synergy_id": null,
+      "synergy_id": "58efddca35268c61b008c20b",
       "name": "Joe Jimenez",
       "team": "CAR",
-      "mlb_id": -433762629,
+      "mlb_id": 641729,
       "throws": "R",
       "summer_line": {
-        "team": "ATL",
-        "team_name": "Atlanta Braves",
-        "season": "Summer 2024",
-        "league": "NL",
-        "circuit": "MLB",
-        "league_name": "National League",
-        "level": "MLB",
-        "ip": "68.2",
-        "outs": 206,
-        "g": 69,
+        "team": "GWN",
+        "team_name": "Gwinnett Stripers",
+        "season": "Summer 2026",
+        "league": "INT",
+        "circuit": "MiLB",
+        "league_name": "International League",
+        "level": "AAA",
+        "ip": "2.2",
+        "outs": 8,
+        "g": 3,
         "gs": 0,
-        "k": 82,
-        "bb": 23,
-        "k9": "10.8",
-        "bb9": "3.0",
-        "era": "2.62",
+        "k": 2,
+        "bb": 2,
+        "k9": "6.8",
+        "bb9": "6.8",
+        "era": "6.75",
         "fip": null,
-        "whip": "0.99",
-        "h": 45,
-        "hr": 2,
-        "sb_allowed": null,
-        "cs_allowed": null,
+        "whip": "2.25",
+        "h": 4,
+        "hr": 0,
+        "sb_allowed": 3,
+        "cs_allowed": 0,
+        "sport_id": 11,
         "assignments": 1,
-        "source": "MLB Stats API 2024 Atlanta Braves pitching",
-        "source_url": "https://statsapi.mlb.com/api/v1/people/641729"
+        "source": "MLB Stats API 2026 regular-season pitching team split",
+        "field_sources": {
+          "team_through_hr": "MLB Stats API season pitching team split",
+          "sb_allowed": "MLB Stats API pitching stolenBases",
+          "cs_allowed": "MLB Stats API pitching caughtStealing",
+          "fip": null
+        }
       },
-      "source": "Season line attached for a roster arm that has no Synergy packet"
+      "source": "2025-2026 any league",
+      "pitches": 52,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 32,
+            "usage": 61.5
+          },
+          {
+            "type": "SL",
+            "pitches": 15,
+            "usage": 28.8
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 9.6
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 8,
+            "usage": 57.1
+          },
+          {
+            "type": "SL",
+            "pitches": 5,
+            "usage": 35.7
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 7.1
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 8,
+            "usage": 66.7
+          },
+          {
+            "type": "SL",
+            "pitches": 4,
+            "usage": 33.3
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 17,
+            "usage": 70.8
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 20.8
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 8.3
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 15,
+            "usage": 53.6
+          },
+          {
+            "type": "SL",
+            "pitches": 13,
+            "usage": 46.4
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 24,
+        "vs_RHH": 28
+      },
+      "leagues": {
+        "MILB": 52
+      },
+      "years": [
+        2026
+      ],
+      "player_id": 641729,
+      "window_used": "2025-2026 any league"
     },
     {
       "synergy_id": "6266f2ccf340c2395a244fec",
@@ -9378,10 +9476,10 @@
       "throws": "R"
     },
     {
-      "synergy_id": null,
+      "synergy_id": "67a50288b715c117c31a99a1",
       "name": "Saul Gonzalez",
       "team": "CAR",
-      "mlb_id": -779812433,
+      "mlb_id": null,
       "throws": null,
       "summer_line": {
         "team": "LIN",
@@ -9410,7 +9508,80 @@
         "source": "Baseball Reference Register 2025 Lincoln Saltdogs pitching",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=gonzal003sau"
       },
-      "source": "Season line attached for a roster arm that has no Synergy packet"
+      "source": "2025-2026 any league",
+      "pitches": 33,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 24,
+            "usage": 72.7
+          },
+          {
+            "type": "CU",
+            "pitches": 8,
+            "usage": 24.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 3.0
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 9,
+            "usage": 81.8
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 18.2
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 50.0
+          },
+          {
+            "type": "FF",
+            "pitches": 2,
+            "usage": 50.0
+          }
+        ]
+      },
+      "platoon": {
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 20,
+            "usage": 76.9
+          },
+          {
+            "type": "CU",
+            "pitches": 5,
+            "usage": 19.2
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 3.8
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 7,
+        "vs_RHH": 26
+      },
+      "leagues": {},
+      "years": [
+        2025
+      ],
+      "player_id": null,
+      "window_used": "2025-2026 any league"
     },
     {
       "name": "Yusei Tobita",
@@ -22242,6 +22413,201 @@
       "throws": "R"
     },
     {
+      "synergy_id": "6547d33440530b6dc8dd11f7",
+      "name": "Julio Cesar Ortiz",
+      "pitches": 1491,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 1050,
+            "usage": 70.4
+          },
+          {
+            "type": "SL",
+            "pitches": 411,
+            "usage": 27.6
+          },
+          {
+            "type": "FC",
+            "pitches": 15,
+            "usage": 1.0
+          },
+          {
+            "type": "CH",
+            "pitches": 9,
+            "usage": 0.6
+          },
+          {
+            "type": "CU",
+            "pitches": 3,
+            "usage": 0.2
+          },
+          {
+            "type": "FS",
+            "pitches": 2,
+            "usage": 0.1
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 248,
+            "usage": 71.9
+          },
+          {
+            "type": "SL",
+            "pitches": 93,
+            "usage": 27.0
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 0.6
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.3
+          },
+          {
+            "type": "FC",
+            "pitches": 1,
+            "usage": 0.3
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 247,
+            "usage": 58.8
+          },
+          {
+            "type": "SL",
+            "pitches": 159,
+            "usage": 37.9
+          },
+          {
+            "type": "FC",
+            "pitches": 8,
+            "usage": 1.9
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 0.7
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.2
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.2
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.2
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 524,
+            "usage": 73.1
+          },
+          {
+            "type": "SL",
+            "pitches": 177,
+            "usage": 24.7
+          },
+          {
+            "type": "FC",
+            "pitches": 10,
+            "usage": 1.4
+          },
+          {
+            "type": "CH",
+            "pitches": 3,
+            "usage": 0.4
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.1
+          },
+          {
+            "type": "SI",
+            "pitches": 1,
+            "usage": 0.1
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 526,
+            "usage": 68.0
+          },
+          {
+            "type": "SL",
+            "pitches": 234,
+            "usage": 30.2
+          },
+          {
+            "type": "CH",
+            "pitches": 6,
+            "usage": 0.8
+          },
+          {
+            "type": "FC",
+            "pitches": 5,
+            "usage": 0.6
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.3
+          },
+          {
+            "type": "FS",
+            "pitches": 1,
+            "usage": 0.1
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 717,
+        "vs_RHH": 774
+      },
+      "leagues": {
+        "MILB": 811
+      },
+      "years": [
+        2025,
+        2026
+      ],
+      "source": "2025-2026 any league",
+      "team": "SJU",
+      "mlb_id": 683650,
+      "player_id": 683650,
+      "window_used": "2025-2026 any league"
+    },
+    {
       "synergy_id": null,
       "name": "Julio Ortiz",
       "team": "SJU",
@@ -22551,10 +22917,10 @@
       "window_used": "years [2023]"
     },
     {
-      "synergy_id": null,
+      "synergy_id": "618b6200c379865a58bb5e70",
       "name": "Miguel Cirino",
       "team": "SJU",
-      "mlb_id": -693644039,
+      "mlb_id": 690616,
       "throws": null,
       "summer_line": {
         "team": "SJU",
@@ -22583,7 +22949,157 @@
         "source": "Baseball Reference Register 2024-25 San Juan winter pitching",
         "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=cirino000mig"
       },
-      "source": "Season line attached for a roster arm that has no Synergy packet"
+      "source": "2025-2026 any league",
+      "pitches": 495,
+      "count_mix": {
+        "overall": [
+          {
+            "type": "FF",
+            "pitches": 244,
+            "usage": 49.3
+          },
+          {
+            "type": "SI",
+            "pitches": 82,
+            "usage": 16.6
+          },
+          {
+            "type": "SL",
+            "pitches": 80,
+            "usage": 16.2
+          },
+          {
+            "type": "CH",
+            "pitches": 65,
+            "usage": 13.1
+          },
+          {
+            "type": "CU",
+            "pitches": 24,
+            "usage": 4.8
+          }
+        ],
+        "0-0": [
+          {
+            "type": "FF",
+            "pitches": 64,
+            "usage": 51.6
+          },
+          {
+            "type": "SI",
+            "pitches": 21,
+            "usage": 16.9
+          },
+          {
+            "type": "SL",
+            "pitches": 18,
+            "usage": 14.5
+          },
+          {
+            "type": "CH",
+            "pitches": 14,
+            "usage": 11.3
+          },
+          {
+            "type": "CU",
+            "pitches": 7,
+            "usage": 5.6
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 63,
+            "usage": 45.3
+          },
+          {
+            "type": "CH",
+            "pitches": 28,
+            "usage": 20.1
+          },
+          {
+            "type": "SL",
+            "pitches": 28,
+            "usage": 20.1
+          },
+          {
+            "type": "SI",
+            "pitches": 14,
+            "usage": 10.1
+          },
+          {
+            "type": "CU",
+            "pitches": 6,
+            "usage": 4.3
+          }
+        ]
+      },
+      "platoon": {
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 102,
+            "usage": 49.8
+          },
+          {
+            "type": "CH",
+            "pitches": 51,
+            "usage": 24.9
+          },
+          {
+            "type": "SI",
+            "pitches": 38,
+            "usage": 18.5
+          },
+          {
+            "type": "SL",
+            "pitches": 7,
+            "usage": 3.4
+          },
+          {
+            "type": "CU",
+            "pitches": 7,
+            "usage": 3.4
+          }
+        ],
+        "vs_RHB": [
+          {
+            "type": "FF",
+            "pitches": 142,
+            "usage": 49.0
+          },
+          {
+            "type": "SL",
+            "pitches": 73,
+            "usage": 25.2
+          },
+          {
+            "type": "SI",
+            "pitches": 44,
+            "usage": 15.2
+          },
+          {
+            "type": "CU",
+            "pitches": 17,
+            "usage": 5.9
+          },
+          {
+            "type": "CH",
+            "pitches": 14,
+            "usage": 4.8
+          }
+        ]
+      },
+      "hand_n": {
+        "vs_LHH": 205,
+        "vs_RHH": 290
+      },
+      "leagues": {},
+      "years": [
+        2026
+      ],
+      "player_id": 690616,
+      "window_used": "2025-2026 any league"
     },
     {
       "synergy_id": "60fb2668f97523255ad9db6f",

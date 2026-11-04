@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T19:31:23Z",
+  "updated": "2026-11-04T19:57:16Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1310,8 +1310,8 @@
         {
           "jersey": "58",
           "name": "Saul Gonzalez",
-          "name_display": "Gonzalez, Saul",
-          "throws": "",
+          "name_display": "Gonzalez, Saul (l)",
+          "throws": "L",
           "mlb_id": -779812433,
           "velo": {
             "FB": "",
@@ -1321,11 +1321,11 @@
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
+          "freq_r": "FB 77%, CB 19%, CH 4%",
           "freq_l": "",
-          "freq_html": "",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 77%, CB 19%, CH 4%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "51",
@@ -1372,18 +1372,18 @@
           "name": "Joe Jimenez",
           "name_display": "Jimenez, Joe",
           "throws": "R",
-          "mlb_id": -433762629,
+          "mlb_id": 641729,
           "velo": {
-            "FB": "93-93",
+            "FB": "94-95",
             "CB": "",
-            "SL": "83-83",
-            "CH": "88-88",
+            "SL": "84-86",
+            "CH": "89-91",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 54%, SL 46%",
+          "freq_l": "FB 71%, CH 21%, SL 8%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 54%, SL 46%</span><br><span class=\"freq-l\">LHH: FB 71%, CH 21%, SL 8%</span>",
           "notes": "",
           "needs_data": false
         },
@@ -2769,21 +2769,21 @@
           "jersey": "43",
           "name": "Miguel Cirino",
           "name_display": "Cirino, Miguel",
-          "throws": "",
-          "mlb_id": -693644039,
+          "throws": "R",
+          "mlb_id": 690616,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
+            "FB": "90-92",
+            "CB": "73-78",
+            "SL": "77-79",
+            "CH": "84-87",
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 49%, SL 25%, SNK 15%, CB 6%",
+          "freq_l": "FB 50%, CH 25%, SNK 18%, SL 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 49%, SL 25%, SNK 15%, CB 6%</span><br><span class=\"freq-l\">LHH: FB 50%, CH 25%, SNK 18%, SL 3%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "42",
@@ -2929,21 +2929,21 @@
           "jersey": "36",
           "name": "Julio Cesar Ortiz",
           "name_display": "Ortiz, Julio Cesar",
-          "throws": "",
-          "mlb_id": -324713460,
+          "throws": "R",
+          "mlb_id": 683650,
           "velo": {
-            "FB": "",
+            "FB": "95-97",
             "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
+            "SL": "84-87",
+            "CH": "86-86",
+            "CT": "87-87",
+            "SPL": "87-87"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 68%, SL 30%, CH 1%, CUT 1%",
+          "freq_l": "FB 73%, SL 25%, CUT 1%, CH 0%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 68%, SL 30%, CH 1%, CUT 1%</span><br><span class=\"freq-l\">LHH: FB 73%, SL 25%, CUT 1%, CH 0%</span>",
           "notes": "",
-          "needs_data": true
+          "needs_data": false
         },
         {
           "jersey": "52",

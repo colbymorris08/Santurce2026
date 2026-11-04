@@ -1,0 +1,1769 @@
+{
+  "updated": "2026-11-04T19:49:11Z",
+  "actions": [
+    {
+      "team": "CAG",
+      "name": "Jorge Benitez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Magdiel Cotto",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Steven Echavarria",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Jose Espada",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Adalberto Flores",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Marvin Gorgas",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Duane Underwood Jr.",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Jose De Leon",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Anthony Maldonado",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "John McMillon",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Tyler Myrick",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Nicholas Padilla",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Zach Penrod",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Yacksel Rios",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Sebastian Rodriguez",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Tyler Santana",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Carlos Torres",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Christian Torres",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Zach Veen",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAG",
+      "name": "Jarrett Whorff",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Osvaldo Berrios",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Cody Bolton",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Jarrette Bonet",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Raymond Burgos",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Alexander Castro",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Matt Givin",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "before_missing": [
+        "count_hand",
+        "no_arsenal",
+        "no_pitches",
+        "summer"
+      ],
+      "synergy_boot": {
+        "status": "unresolved",
+        "candidates": [
+          "Gonzalez",
+          "Saul Gonzalez",
+          "Saul Gonzalez"
+        ]
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Riley Gowens",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "before_missing": [
+        "heat",
+        "movement",
+        "summer"
+      ],
+      "heat": {
+        "status": "empty",
+        "located": 0,
+        "events": 0,
+        "window": "none"
+      },
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Jimenez",
+      "before_missing": [
+        "count_hand",
+        "no_pitches",
+        "summer"
+      ],
+      "synergy_boot": {
+        "status": "unresolved",
+        "candidates": [
+          "Jimenez",
+          "Joe Jimenez",
+          "Joe Jimenez",
+          "Joel Jimenez",
+          "Joeseph Jimenez",
+          "Joel Jimenez"
+        ]
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Chris Kachmar",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Adiel Melendez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "before_missing": [
+        "heat",
+        "movement",
+        "summer"
+      ],
+      "heat": {
+        "status": "empty",
+        "located": 0,
+        "events": 0,
+        "window": "none"
+      },
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "before_missing": [
+        "heat",
+        "movement",
+        "summer"
+      ],
+      "heat": {
+        "status": "empty",
+        "located": 0,
+        "events": 0,
+        "window": "none"
+      },
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Johzan Oquendo",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "JeanPierre Ortiz",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Eddy Reynoso",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Joe Riley",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Elmer Rodriguez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "before_missing": [
+        "no_arsenal",
+        "no_pitches",
+        "summer"
+      ],
+      "synergy_boot": {
+        "status": "empty",
+        "synergy_id": "5c8ca0e1f52909811e2ff72f",
+        "synergy_name": "Rodriguez",
+        "raw_events": 0,
+        "stats_events": 0,
+        "window_used": "none",
+        "pitches": 0,
+        "movement": {
+          "status": "no_plot",
+          "source": null,
+          "season": null,
+          "why": "no IVB/HB in 2026-2024"
+        }
+      },
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Ramesis Rosa",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "before_missing": [
+        "heat",
+        "movement",
+        "summer"
+      ],
+      "heat": {
+        "status": "empty",
+        "located": 0,
+        "events": 0,
+        "window": "none"
+      },
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "CAR",
+      "name": "Ricardo Velez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Eddie Demurias",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Carlos Francisco",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Nelvin Fuentes",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Davian Garcia",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Ashton Goudeau",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Jonathan Haab",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Hector Hernandez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Jorge Lopez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Miguel Martinez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Quinonez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Angel Reyes",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Devin Rivera",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Bryant Salgado",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Kazuto Taguchi",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Lucas Vega",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Antonio Velez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "MAY",
+      "name": "Derek West",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Jonathan Bermudez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Ricky Castro",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Alex Claudio",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Harold Cortijo",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Eric Garcia",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Tyler Gough",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Josh James",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Jorhan Laboy",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 667,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Andrew Marrero",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Omar Melendez",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Michael Morales",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Ryan Murphy",
+      "before_missing": [],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "heat": {
+        "status": "filled",
+        "located": 1119,
+        "events": 2500,
+        "window": "2026+2025 pool"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Orlando Ortiz-Mayr",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Noel Pinto",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Hector Quinones",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Erik Rivera",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Gabriel Rodriguez",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Alex Santos",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Charlee Soto",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Eric Torres",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Julio Torres",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Lenny Torres",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "before_missing": [
+        "count_hand",
+        "no_arsenal",
+        "no_pitches",
+        "summer"
+      ],
+      "synergy_boot": {
+        "status": "empty",
+        "synergy_id": "686cb48931111e14d2e9a933",
+        "synergy_name": "Kyohei Yamashiro",
+        "raw_events": 0,
+        "stats_events": 0,
+        "window_used": "none",
+        "pitches": 0,
+        "movement": {
+          "status": "no_plot",
+          "source": null,
+          "season": null,
+          "why": "2026 had 100 Synergy pitches but no IVB/HB"
+        }
+      },
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "no_mlb_id",
+        "reason": "No positive MLB id for Stats API summer lookup"
+      }
+    },
+    {
+      "team": "PON",
+      "name": "Mario Zabala",
+      "before_missing": [
+        "summer"
+      ],
+      "summer": {
+        "status": "copied_from_advance"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "before_missing": [
+        "movement",
+        "velo_bands"
+      ],
+      "velo": {
+        "status": "no_bands",
+        "events": 400,
+        "bands": 0
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Miguel Cirino",
+      "before_missing": [
+        "count_hand",
+        "no_arsenal",
+        "no_pitches"
+      ],
+      "synergy_boot": {
+        "status": "unresolved",
+        "candidates": [
+          "Cirino, Miguel Angel",
+          "Miguel Cirino Allende"
+        ]
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "before_missing": [
+        "count_hand",
+        "no_arsenal",
+        "no_pitches"
+      ],
+      "synergy_boot": {
+        "status": "unresolved",
+        "candidates": [
+          "Jean Carlos Ortega"
+        ]
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Julio Cesar Ortiz",
+      "before_missing": [
+        "count_hand",
+        "no_arsenal",
+        "no_arsenal_row",
+        "no_pitches",
+        "summer"
+      ],
+      "synergy_boot": {
+        "status": "unresolved",
+        "candidates": [
+          "Julio Ortiz",
+          "Julio Ortiz"
+        ]
+      },
+      "skipped": "no_arsenal_row_after_boot"
+    },
+    {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement",
+        "summer"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 800,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      },
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Leonardo Rodriguez",
+      "before_missing": [
+        "count_hand",
+        "iz",
+        "movement"
+      ],
+      "count_hand": {
+        "status": "filled",
+        "events": 0,
+        "keys": [
+          "0-0",
+          "1k",
+          "2_strikes",
+          "3-2",
+          "hitter_ahead",
+          "iz",
+          "overall",
+          "risp"
+        ],
+        "has_iz": true
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "before_missing": [
+        "no_arsenal",
+        "no_pitches"
+      ],
+      "synergy_boot": {
+        "status": "empty",
+        "synergy_id": "681d6486373abc5e4678b3f2",
+        "synergy_name": "Keishin Saitoh",
+        "raw_events": 0,
+        "stats_events": 0,
+        "window_used": "none",
+        "pitches": 0,
+        "movement": {
+          "status": "no_plot",
+          "source": null,
+          "season": null,
+          "why": "2026 had 38 Synergy pitches but no IVB/HB"
+        }
+      }
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "before_missing": [
+        "movement",
+        "summer"
+      ],
+      "summer": {
+        "status": "unavailable",
+        "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+      }
+    }
+  ],
+  "unavailable": [
+    {
+      "team": "CAG",
+      "name": "Juan Javier Echavarria",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAG",
+      "name": "Aaron Mishoulam",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "CAR",
+      "name": "Jose Acosta",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Miguel Ausua",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Gabriel Cotto",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Jake Gozzo",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Keishin Nagamizu",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "CAR",
+      "name": "Albert Oliva",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Rodriguez",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "CAR",
+      "name": "Yusei Tobita",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "CAR",
+      "name": "Kaito Uchino",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "MAY",
+      "name": "Sebastian Bentz",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "MAY",
+      "name": "Shadai Colon",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Leroy Cruz",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "MAY",
+      "name": "Luis Ramos",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "PON",
+      "name": "John Aponte",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "PON",
+      "name": "Juan Marcano",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "PON",
+      "name": "Keito Matsuura",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "PON",
+      "name": "Kai Yokogawa",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No positive MLB id for Stats API summer lookup"
+    },
+    {
+      "team": "SJU",
+      "name": "Ivan Houellemont",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "SJU",
+      "name": "Julio Cesar Ortiz",
+      "fields": [
+        "count_hand",
+        "summer"
+      ],
+      "reason": "No arsenal/Synergy identity resolved"
+    },
+    {
+      "team": "SJU",
+      "name": "Ruben Ramirez",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "SJU",
+      "name": "Matthew Rivera",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    },
+    {
+      "team": "SJU",
+      "name": "Giovanni Soto",
+      "fields": [
+        "summer"
+      ],
+      "reason": "No 2026 MiLB/MLB summer pitching line on Stats API"
+    }
+  ],
+  "before_missing": {
+    "summer": 104,
+    "movement": 51,
+    "count_hand": 17,
+    "iz": 11,
+    "no_pitches": 8,
+    "no_arsenal": 7,
+    "heat": 4,
+    "velo_bands": 1,
+    "no_arsenal_row": 1
+  },
+  "after_missing": {
+    "movement": 51,
+    "summer": 25,
+    "no_pitches": 8,
+    "no_arsenal": 7,
+    "count_hand": 5,
+    "heat": 4,
+    "velo_bands": 1,
+    "no_arsenal_row": 1
+  },
+  "murphy_before": {
+    "team": "PON",
+    "name": "Ryan Murphy",
+    "mlb_id": 694885,
+    "player_id": 694885,
+    "synergy_id": "5e31bc4696adda46f4f954da",
+    "pitches": 1097,
+    "heat_located": 1119,
+    "has_iz": true,
+    "iz_overall_l": 38.3,
+    "iz_overall_r": 42.0,
+    "count_hand": true,
+    "velo_bands": true,
+    "movement": true,
+    "summer": true,
+    "missing": [],
+    "movement_source": "Prospect Savant 2026"
+  },
+  "murphy_after": {
+    "team": "PON",
+    "name": "Ryan Murphy",
+    "mlb_id": 694885,
+    "player_id": 694885,
+    "synergy_id": "5e31bc4696adda46f4f954da",
+    "pitches": 1097,
+    "heat_located": 1119,
+    "has_iz": true,
+    "iz_overall_l": 38.3,
+    "iz_overall_r": 42.0,
+    "count_hand": true,
+    "velo_bands": true,
+    "movement": true,
+    "summer": true,
+    "missing": [],
+    "movement_source": "Prospect Savant 2026"
+  }
+}

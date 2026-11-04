@@ -1,0 +1,75 @@
+{
+  "updated": "2026-11-04T20:00:00Z",
+  "note": "Cells left blank only when real Synergy/Savant/Statcast/Stats API sources have no sample. Numbers were not invented.",
+  "murphy_zone_rates": {
+    "name": "Ryan Murphy",
+    "team": "PON",
+    "status": "complete",
+    "count_hand_mix_iz": true,
+    "iz_overall_vs_LHB": 38.3,
+    "iz_overall_vs_RHB": 42.0,
+    "heat_located": 1119,
+    "velo_bands": true,
+    "movement_source": "Prospect Savant 2026",
+    "summer_line": "MEM AAA 50.1 IP ERA 6.97"
+  },
+  "hole_counts_before": {
+    "summer": 104,
+    "movement": 51,
+    "count_hand": 17,
+    "iz": 11,
+    "heat": 4,
+    "no_pitches": 8,
+    "no_arsenal": 7,
+    "velo_bands": 1,
+    "no_arsenal_row": 1
+  },
+  "hole_counts_after": {
+    "movement": 54,
+    "summer": 25,
+    "velo_bands": 2,
+    "no_pitches": 4,
+    "no_arsenal": 4,
+    "count_hand": 1
+  },
+  "unavailable": [
+    {
+      "team": "SJU",
+      "name": "Anthony Borrero",
+      "fields": ["velo_bands", "movement"],
+      "reason": "Synergy has 709 pitch events with usages/platoon/count_hand/IZ/heat, but pitchSpeedMph and IVB/HB are not tracked on those Atlantic League events."
+    },
+    {
+      "team": "CAR",
+      "name": "Saul Gonzalez",
+      "fields": ["velo_bands", "movement", "summer"],
+      "reason": "Thin Synergy sample (33 pitches) with locations/usages/IZ but no pitchSpeedMph, no IVB/HB, and no positive MLB id for Stats API summer."
+    },
+    {
+      "team": "CAR",
+      "name": "Ramon Rodriguez",
+      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement"],
+      "reason": "Synergy id 5c8ca0e1f52909811e2ff72f resolves but returns no retained 2022–2026 pitcher events (empty boot)."
+    },
+    {
+      "team": "PON",
+      "name": "Kyohei Yamashiro",
+      "fields": ["arsenal", "pitches", "heat", "velo_bands", "movement", "summer"],
+      "reason": "Synergy id present; event pull yields no usable pitcher pitch sample for arsenal/heat. No positive MLB id for summer."
+    },
+    {
+      "team": "SJU",
+      "name": "Jean Ortega",
+      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement"],
+      "reason": "Best Synergy candidate (Jean Carlos Ortega / 6a03ee1a8d5f953964d5e4cc) returns 0 events in 2022–2026 scan."
+    },
+    {
+      "team": "SJU",
+      "name": "Keishin Saito",
+      "fields": ["arsenal", "count_hand", "iz", "heat", "velo_bands", "movement", "summer"],
+      "reason": "Synergy match Keishin Saitoh has only a handful of non-pitch / empty events after boot; no located arsenal sample."
+    }
+  ],
+  "movement_blank_policy": "IVB/HB left blank when Prospect Savant, Statcast, and Synergy movement samples are all absent. Not invented.",
+  "summer_blank_policy": "Summer lines filled from Stats API when a positive MLB id has a 2026 MiLB/MLB pitching line, or copied from advance when already present. Remaining blanks = no line on Stats API and/or no MLB id."
+}

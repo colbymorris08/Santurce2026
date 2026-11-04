@@ -655,7 +655,12 @@ def event_in_heat_fallback_scan(ev: dict) -> bool:
 
 
 def select_heat_window(events: list[dict]) -> tuple[list[dict], str]:
-    """Choose one map window, using older seasons only when newer ones have no locations."""
+    """Choose one map window, using older seasons only when newer ones have no locations.
+
+    After MLB/MiLB/LMB/LBPRC windows, fall back to any Synergy league with plate
+    locations (Pioneer / showcase / indy) so newly added arms still get heat maps
+    when pitches exist.
+    """
     windows = (
         (HEAT_PRIMARY_WINDOW, [ev for ev in events if event_in_heat_window(ev)]),
         (
@@ -674,6 +679,18 @@ def select_heat_window(events: list[dict]) -> tuple[list[dict], str]:
         (
             HEAT_2023_FALLBACK,
             [ev for ev in events if event_season_year(ev) == 2023],
+        ),
+        (
+            "2026 any league",
+            [ev for ev in events if event_season_year(ev) == 2026],
+        ),
+        (
+            "2025-2026 any league",
+            [ev for ev in events if event_season_year(ev) in (2025, 2026)],
+        ),
+        (
+            "2022-2026 any league",
+            [ev for ev in events if (event_season_year(ev) or 0) >= 2022],
         ),
     )
     for label, rows in windows:
