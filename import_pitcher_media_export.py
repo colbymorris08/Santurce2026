@@ -127,7 +127,9 @@ def main() -> int:
         dest.write_bytes(raw)
         rel = f"assets/advance/{fname}"
         if row is not None:
-            row[field] = rel
+            # Never clear an existing image path with a blank; only set when we wrote bytes.
+            if rel:
+                row[field] = rel
         written.append(
             {
                 "player_id": pid,

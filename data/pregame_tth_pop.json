@@ -5,7 +5,12 @@
     "units": "seconds (times) · 20–80 grades (arm)",
     "storage_key": "santurce_tth_pop_overrides_v1",
     "repo_path": "data/pregame_tth_pop.json",
-    "restored_note": "Committed TTH/pop defaults; game-day hydrate merges (does not replace) browser overrides. Enlow/Aponte/Murphy TTH not found in PDF/excel backups as of restore."
+    "restored_note": "Committed TTH/pop defaults; game-day hydrate merges (does not replace) browser overrides. Enlow/Aponte/Murphy TTH not found in PDF/excel backups as of restore.",
+    "excel_tth_import": {
+      "source": "/Users/colbymorris/Downloads/pitchers_missing_tth_with_video/pitchers_with_video_missing_tth.xlsx",
+      "imported": 26,
+      "at": "2026-11-05T00:13:26.442283+00:00"
+    }
   },
   "teams": [
     {
@@ -461,7 +466,7 @@
       "position": "P",
       "jersey": "87",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.25",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -605,7 +610,7 @@
       "position": "P",
       "jersey": "68",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.35",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -965,7 +970,7 @@
       "position": "P",
       "jersey": "41",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.5",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -1937,7 +1942,7 @@
       "position": "P",
       "jersey": "49",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.5",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -1949,7 +1954,7 @@
       "position": "P",
       "jersey": "57",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.35",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -1961,7 +1966,7 @@
       "position": "P",
       "jersey": "46",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.35",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -1985,7 +1990,7 @@
       "position": "P",
       "jersey": "63",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.3",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -1997,7 +2002,7 @@
       "position": "P",
       "jersey": "62",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.35",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2033,7 +2038,7 @@
       "position": "P",
       "jersey": "18",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.7",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2045,7 +2050,7 @@
       "position": "P",
       "jersey": "39",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.1",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2057,7 +2062,7 @@
       "position": "P",
       "jersey": "44",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.35",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2069,7 +2074,7 @@
       "position": "P",
       "jersey": "28",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.15",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2081,7 +2086,7 @@
       "position": "P",
       "jersey": "5",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.3",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2093,7 +2098,7 @@
       "position": "P",
       "jersey": "38",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.4",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2129,7 +2134,7 @@
       "position": "P",
       "jersey": "59",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.1",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2141,7 +2146,7 @@
       "position": "P",
       "jersey": "39",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.4",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2153,7 +2158,7 @@
       "position": "P",
       "jersey": "69",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.5",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2165,7 +2170,7 @@
       "position": "P",
       "jersey": "46",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.6",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2177,7 +2182,7 @@
       "position": "P",
       "jersey": "72",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.4",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2189,7 +2194,7 @@
       "position": "P",
       "jersey": "45",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.7",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2213,7 +2218,7 @@
       "position": "P",
       "jersey": "67",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.5",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2225,7 +2230,7 @@
       "position": "P",
       "jersey": "95",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.45",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2237,7 +2242,7 @@
       "position": "P",
       "jersey": "54",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.4",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2249,7 +2254,7 @@
       "position": "P",
       "jersey": "56",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.45",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2261,7 +2266,7 @@
       "position": "P",
       "jersey": "52",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.4",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
@@ -2285,12 +2290,12 @@
       "position": "P",
       "jersey": "40",
       "status": "Active",
-      "time_to_home": null,
+      "time_to_home": "1.25",
       "catcher_pop_time": null,
       "catcher_arm": null,
       "notes": ""
     }
   ],
-  "updated": "2026-11-04T03:03:07Z",
+  "updated": "2026-11-05T00:13:26.442288+00:00",
   "published_from": "safari snapshot seed 2026-11-03"
 }
