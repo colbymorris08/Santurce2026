@@ -704,7 +704,9 @@
         ${sheetSide(left, state)}
         ${sheetSide(right, state)}
       </div>`;
-    saveStrategy(state);
+    // Do not persist on render. ensureTeam drops IDs that are not on the current
+    // roster lookup; writing that back is what emptied SAN after hydrate and
+    // stripped Ponce bench rows that are not in card-stats.
   }
 
   function band(n) {

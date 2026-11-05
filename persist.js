@@ -3,7 +3,9 @@
    Versions: data/versions/index.json + data/versions/YYYY-MM-DD/
    Uses the same PAT as OF/TTH (santurce_gh_pat_v1 → scoutGhPat / githubPutJson).
    Hydrate merges strategy/TTH/notes (never replace) so a stale Pages JSON cannot
-   wipe a lineup just saved in this browser. Publish overlays local lineup onto the
+   wipe a lineup just saved in this browser. A committed full 1–9 still wins over
+   an empty/stale localStorage team (timestamp-only “newer” empty SAN must not
+   hide the published SAN vs PON card). Publish overlays local lineup onto the
    live GitHub file and will not PUT empty TTH/notes/pics maps over filled ones.
 */
 (function () {
@@ -103,6 +105,12 @@
   function filledRows(list) {
     return (list || []).filter((r) => r && r.id != null && r.id !== '');
   }
+  function lineupCount(st) {
+    return filledRows((st && st.lineup) || []).length;
+  }
+  function hasFullLineup(st) {
+    return lineupCount(st) >= 9;
+  }
   function cloneTeam(st) {
     if (!isMap(st)) return { sp: null, pen: [], lineup: [], bench: [] };
     return {
@@ -116,6 +124,18 @@
     const t = cloneTeam(st);
     return (t.sp != null ? 2 : 0) + t.pen.filter(Boolean).length
       + filledRows(t.lineup).length * 3 + filledRows(t.bench).length;
+  }
+  function fillEmptyTeamFields(out, fallback) {
+    if (!isMap(out) || !isMap(fallback)) return out;
+    if (out.sp == null && fallback.sp != null) out.sp = fallback.sp;
+    if (!out.pen.length && fallback.pen.length) out.pen = fallback.pen.slice();
+    if (!filledRows(out.lineup).length && filledRows(fallback.lineup).length) {
+      out.lineup = fallback.lineup.slice();
+    }
+    if (!filledRows(out.bench).length && filledRows(fallback.bench).length) {
+      out.bench = fallback.bench.slice();
+    }
+    return out;
   }
   function stripPitchersFromBench(st) {
     const t = cloneTeam(st);
@@ -131,20 +151,24 @@
     return t;
   }
   function mergeTeamBlock(local, incoming, { preferIncoming, localExists, incomingExists }) {
+    const loc = cloneTeam(local);
+    const inc = cloneTeam(incoming);
+    const locHasTeam = !!localExists && teamFilled(local) > 0;
+    const incHasTeam = !!incomingExists && teamFilled(incoming) > 0;
     let out;
-    if (localExists && !incomingExists) out = cloneTeam(local);
-    else if (!localExists && incomingExists) out = cloneTeam(incoming);
-    else if (!localExists && !incomingExists) out = cloneTeam(null);
-    else if (preferIncoming) {
-      out = cloneTeam(incoming);
-      const loc = cloneTeam(local);
-      if (out.sp == null && loc.sp != null) out.sp = loc.sp;
-      if (!out.pen.length && loc.pen.length) out.pen = loc.pen;
-      if (!filledRows(out.lineup).length && filledRows(loc.lineup).length) out.lineup = loc.lineup;
-      if (!filledRows(out.bench).length && filledRows(loc.bench).length) out.bench = loc.bench;
-    } else {
-      out = cloneTeam(local);
+    if (locHasTeam && !incHasTeam) out = loc;
+    else if (!locHasTeam && incHasTeam) out = inc;
+    else if (!locHasTeam && !incHasTeam) out = cloneTeam(null);
+    else {
+      out = cloneTeam(preferIncoming ? inc : loc);
+      fillEmptyTeamFields(out, preferIncoming ? loc : inc);
     }
+    // A committed full 1–9 always beats an empty lineup, even when the empty
+    // side has a newer localStorage timestamp (hard-refresh after a blank SAN).
+    if (hasFullLineup(inc) && !filledRows(out.lineup).length) out.lineup = inc.lineup.slice();
+    if (hasFullLineup(loc) && !filledRows(out.lineup).length) out.lineup = loc.lineup.slice();
+    fillEmptyTeamFields(out, inc);
+    fillEmptyTeamFields(out, loc);
     return stripPitchersFromBench(out);
   }
   function teamMap(strategy) {
@@ -168,15 +192,20 @@
         incomingExists: Object.prototype.hasOwnProperty.call(bTeams, abbr),
       });
     });
-    const newer = preferIncoming ? b : a;
-    const older = preferIncoming ? a : b;
+    const incomingHasGame = hasFullLineup(bTeams.SAN) && !!b.opponent;
+    const localSanEmpty = !filledRows((aTeams.SAN && aTeams.SAN.lineup) || []).length;
+    // Published SAN vs PON (full 1–9) must set the opponent when local SAN is empty,
+    // even if leftover localStorage still says CAG and has a newer timestamp.
+    const takeIncomingMeta = incomingHasGame && localSanEmpty;
+    const newer = (takeIncomingMeta || preferIncoming) ? b : a;
+    const older = (takeIncomingMeta || preferIncoming) ? a : b;
     return {
       teams: outTeams,
       opponent: newer.opponent || older.opponent || 'CAG',
       santurceHome: typeof newer.santurceHome === 'boolean'
         ? newer.santurceHome
         : (typeof older.santurceHome === 'boolean' ? older.santurceHome : true),
-      updated: (aT >= bT ? a.updated : b.updated) || a.updated || b.updated || null,
+      updated: (bT >= aT ? b.updated : a.updated) || b.updated || a.updated || null,
     };
   }
   function mergeNotes(local, incoming) {
@@ -233,6 +262,19 @@
     const over = isMap(local) ? local : {};
     const strategy = mergeStrategy(base.strategy, over.strategy, {
       forceIncoming: strategyForceLocal !== false,
+    });
+    // Never PUT an empty SAN/PON 1–9 over a committed full card.
+    const remoteTeams = teamMap(base.strategy);
+    Object.keys(remoteTeams).forEach((abbr) => {
+      const remote = remoteTeams[abbr];
+      const next = strategy.teams[abbr];
+      if (hasFullLineup(remote) && !hasFullLineup(next)) {
+        strategy.teams[abbr] = mergeTeamBlock(remote, next, {
+          preferIncoming: false,
+          localExists: true,
+          incomingExists: !!next && teamFilled(next) > 0,
+        });
+      }
     });
     strategy.updated = over.updated || strategy.updated || new Date().toISOString();
     return {
@@ -305,8 +347,12 @@
       if (doc.strategy && typeof doc.strategy === 'object') {
         // Merge (do not replace) so a stale Pages copy of game_day_state.json cannot
         // wipe a lineup the coach just saved in this browser (same class as TTH).
+        // Stamp the file clock onto strategy when the blob omitted it — otherwise a
+        // newer empty localStorage always beats the committed SAN vs PON 1–9.
         const cur = lsGet(STRATEGY_KEY, {}) || {};
-        lsSet(STRATEGY_KEY, mergeStrategy(cur, doc.strategy));
+        const incoming = Object.assign({}, doc.strategy);
+        if (!incoming.updated && doc.updated) incoming.updated = doc.updated;
+        lsSet(STRATEGY_KEY, mergeStrategy(cur, incoming));
       }
       if (doc.notes && typeof doc.notes === 'object') {
         lsSet(NOTES_KEY, mergeNotes(lsGet(NOTES_KEY, { team: 'CAG', notes: {} }), doc.notes));
