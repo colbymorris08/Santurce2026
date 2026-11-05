@@ -1,12 +1,12 @@
 /* Game-day persistence: publish browser state to GitHub + daily version snapshots.
-   Live file: data/game_day_state.json
+   Live file: data/game_day_state.json — source of truth for published daily lineups.
    Versions: data/versions/index.json + data/versions/YYYY-MM-DD/
    Uses the same PAT as OF/TTH (santurce_gh_pat_v1 → scoutGhPat / githubPutJson).
-   Hydrate merges strategy/TTH/notes (never replace) so a stale Pages JSON cannot
-   wipe a lineup just saved in this browser. A committed full 1–9 still wins over
-   an empty/stale localStorage team (timestamp-only “newer” empty SAN must not
-   hide the published SAN vs PON card). Publish overlays local lineup onto the
-   live GitHub file and will not PUT empty TTH/notes/pics maps over filled ones.
+   Hydrate: committed JSON wins for SAN (and any published full 1–9). Empty
+   localStorage cannot hide that card. Browser Ponce is kept when that is where
+   today’s opponent card lives; empty JSON never wipes a filled local side.
+   Publish: PAT required; must PUT/commit data/game_day_state.json (no silent
+   local-only success). Empty local teams never replace a filled GitHub card.
 */
 (function () {
   const STATE_PATH = 'data/game_day_state.json';
@@ -32,6 +32,7 @@
   let publishTimer = null;
   let LIVE_STATE = null;
   let VERSIONS = null;
+  let LAST_PUBLISH = null;
 
   function lsGet(key, fallback) {
     try {
@@ -150,6 +151,15 @@
     });
     return t;
   }
+  function pickTeamPreferPrimary(primary, secondary) {
+    const a = cloneTeam(primary);
+    const b = cloneTeam(secondary);
+    if (hasFullLineup(primary)) return stripPitchersFromBench(fillEmptyTeamFields(a, b));
+    if (hasFullLineup(secondary)) return stripPitchersFromBench(fillEmptyTeamFields(b, a));
+    if (teamFilled(primary) > 0) return stripPitchersFromBench(fillEmptyTeamFields(a, b));
+    if (teamFilled(secondary) > 0) return stripPitchersFromBench(fillEmptyTeamFields(b, a));
+    return stripPitchersFromBench(fillEmptyTeamFields(a, b));
+  }
   function mergeTeamBlock(local, incoming, { preferIncoming, localExists, incomingExists }) {
     const loc = cloneTeam(local);
     const inc = cloneTeam(incoming);
@@ -175,7 +185,7 @@
     const teams = strategy && strategy.teams;
     return isMap(teams) ? teams : {};
   }
-  function mergeStrategy(local, incoming, { forceIncoming } = {}) {
+  function mergeStrategy(local, incoming, { forceIncoming, hydrate } = {}) {
     const a = isMap(local) ? local : {};
     const b = isMap(incoming) ? incoming : {};
     const aTeams = teamMap(a);
@@ -186,6 +196,17 @@
     const outTeams = {};
     const keys = new Set([...Object.keys(aTeams), ...Object.keys(bTeams)]);
     keys.forEach((abbr) => {
+      if (hydrate) {
+        // incoming = published JSON. SAN (daily card) comes from JSON when it
+        // has a full 1–9. Ponce stays from the browser when that is where
+        // today’s opponent card lives. Empty never wipes a filled side.
+        if (abbr === 'PON' && teamFilled(aTeams[abbr]) > 0) {
+          outTeams[abbr] = pickTeamPreferPrimary(aTeams[abbr], bTeams[abbr]);
+        } else {
+          outTeams[abbr] = pickTeamPreferPrimary(bTeams[abbr], aTeams[abbr]);
+        }
+        return;
+      }
       outTeams[abbr] = mergeTeamBlock(aTeams[abbr], bTeams[abbr], {
         preferIncoming,
         localExists: Object.prototype.hasOwnProperty.call(aTeams, abbr),
@@ -194,11 +215,11 @@
     });
     const incomingHasGame = hasFullLineup(bTeams.SAN) && !!b.opponent;
     const localSanEmpty = !filledRows((aTeams.SAN && aTeams.SAN.lineup) || []).length;
-    // Published SAN vs PON (full 1–9) must set the opponent when local SAN is empty,
-    // even if leftover localStorage still says CAG and has a newer timestamp.
-    const takeIncomingMeta = incomingHasGame && localSanEmpty;
-    const newer = (takeIncomingMeta || preferIncoming) ? b : a;
-    const older = (takeIncomingMeta || preferIncoming) ? a : b;
+    const takeIncomingMeta = hydrate
+      ? incomingHasGame
+      : (incomingHasGame && localSanEmpty) || preferIncoming;
+    const newer = takeIncomingMeta ? b : (preferIncoming ? b : a);
+    const older = takeIncomingMeta ? a : (preferIncoming ? a : b);
     return {
       teams: outTeams,
       opponent: newer.opponent || older.opponent || 'CAG',
@@ -352,7 +373,7 @@
         const cur = lsGet(STRATEGY_KEY, {}) || {};
         const incoming = Object.assign({}, doc.strategy);
         if (!incoming.updated && doc.updated) incoming.updated = doc.updated;
-        lsSet(STRATEGY_KEY, mergeStrategy(cur, incoming));
+        lsSet(STRATEGY_KEY, mergeStrategy(cur, incoming, { hydrate: true }));
       }
       if (doc.notes && typeof doc.notes === 'object') {
         lsSet(NOTES_KEY, mergeNotes(lsGet(NOTES_KEY, { team: 'CAG', notes: {} }), doc.notes));
@@ -422,15 +443,24 @@
     return LIVE_STATE;
   }
 
+  function putCommitSha(put) {
+    if (!put || typeof put !== 'object') return '';
+    return (put && put._commitSha)
+      || (put.commit && put.commit.sha)
+      || (put.content && put.content.sha)
+      || '';
+  }
+
   async function publishGameDayState(opts) {
     const options = opts || {};
     const quiet = !!options.quiet || !!options.skipScout;
     const local = collectGameDayState();
     if (!hasPat()) {
+      LAST_PUBLISH = { ok: false, reason: 'no-pat', at: new Date().toISOString() };
       const nTeams = Object.keys(teamMap(local.strategy)).filter((k) => teamFilled(teamMap(local.strategy)[k]) > 0);
       const msg = nTeams.length
-        ? `Publish blocked: no GitHub PAT. Lineup for ${nTeams.join('/')} is only in this browser. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.`
-        : 'Publish blocked: no GitHub PAT. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.';
+        ? `Publish blocked: no GitHub PAT. Lineup for ${nTeams.join('/')} is only in this browser — it was NOT written to ${STATE_PATH}. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.`
+        : `Publish blocked: no GitHub PAT. Nothing was written to ${STATE_PATH}. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.`;
       setStatus(msg);
       if (!quiet) {
         downloadGameDayBackup('publish-blocked-no-pat');
@@ -440,7 +470,8 @@
       return false;
     }
     if (typeof githubPutJson !== 'function') {
-      const msg = 'Publish failed: GitHub helper missing';
+      LAST_PUBLISH = { ok: false, reason: 'no-helper', at: new Date().toISOString() };
+      const msg = `Publish failed: GitHub helper missing. ${STATE_PATH} was not updated.`;
       setStatus(msg);
       if (!quiet) {
         downloadGameDayBackup('publish-failed-no-helper');
@@ -448,7 +479,7 @@
       }
       return false;
     }
-    setStatus('Publishing game-day state to GitHub…');
+    setStatus(`Publishing ${STATE_PATH} to GitHub (PUT)…`);
     try {
       const remote = await loadRemoteGameDayState();
       // Overlay this browser’s lineup onto the live GitHub file. Empty local
@@ -457,7 +488,11 @@
       if (!strategyHasLineup(doc.strategy) && strategyHasLineup(local.strategy)) {
         doc.strategy = local.strategy;
       }
-      await githubPutJson(STATE_PATH, doc, `Game-day state: lineup / notes / overrides (${doc.label})`);
+      const put = await githubPutJson(STATE_PATH, doc, `Game-day state: lineup / notes / overrides (${doc.label})`);
+      const sha = putCommitSha(put);
+      if (!sha) {
+        throw new Error(`GitHub PUT did not commit ${STATE_PATH}. Lineup is still only in this browser.`);
+      }
       LIVE_STATE = doc;
       applyGameDayState(doc, { quiet: true });
       // Keep scout sheets in sync when those override maps changed.
@@ -473,14 +508,19 @@
           console.warn('scout sheet side-publish', e);
         }
       }
-      // Positioning seed file — only when coach store has cells (additive merge on disk via full put of current seed+overrides is heavy;
-      // store coach blob inside game_day_state; optional full positioning publish via PosApp dump).
       const teams = Object.keys(teamMap(doc.strategy)).filter((k) => teamFilled(teamMap(doc.strategy)[k]) > 0);
-      setStatus(`Published lineup${teams.length ? ` (${teams.join('/')})` : ''} · ${new Date().toLocaleTimeString()} → ${STATE_PATH}`);
-      updateGameDayPersistNote();
+      LAST_PUBLISH = {
+        ok: true,
+        sha,
+        teams,
+        path: STATE_PATH,
+        at: new Date().toISOString(),
+      };
+      setStatus(`Published ${STATE_PATH} to GitHub · ${sha.slice(0, 7)} · ${teams.join('/') || 'no teams'} · ${new Date().toLocaleTimeString()}`);
       return true;
     } catch (err) {
-      const fail = `Publish failed: ${err.message || err}`;
+      LAST_PUBLISH = { ok: false, reason: String(err.message || err), at: new Date().toISOString() };
+      const fail = `Publish failed — ${STATE_PATH} was NOT updated: ${err.message || err}`;
       setStatus(fail);
       if (!quiet) {
         downloadGameDayBackup('publish-failed');
@@ -499,21 +539,21 @@
   function updateGameDayPersistNote() {
     const el = statusEl();
     if (!el) return;
+    if (LAST_PUBLISH && LAST_PUBLISH.ok && LAST_PUBLISH.sha) {
+      el.textContent = `On GitHub: ${STATE_PATH} · ${LAST_PUBLISH.sha.slice(0, 7)} · ${(LAST_PUBLISH.teams || []).join('/') || 'lineup'} · ${new Date(LAST_PUBLISH.at).toLocaleTimeString()}`;
+      return;
+    }
     const doc = collectGameDayState();
-    const teams = Object.keys((doc.strategy && doc.strategy.teams) || {});
-    const nJersey = Object.keys(doc.jersey_overrides || {}).length;
-    const nTth = Object.keys(doc.tth_overrides || {}).length;
-    const nMedia = (doc.media_refs || []).length;
-    const bits = [
-      teams.length ? `lineup ${teams.join('/')}` : 'no lineup yet',
-      nJersey ? `${nJersey} jersey` : null,
-      nTth ? `${nTth} TTH` : null,
-      nMedia ? `${nMedia} media refs` : null,
-    ].filter(Boolean).join(' · ');
+    const teams = Object.keys(teamMap(doc.strategy)).filter((k) => teamFilled(teamMap(doc.strategy)[k]) > 0);
+    const bits = teams.length ? `browser lineup ${teams.join('/')}` : 'no lineup in this browser';
+    if (LAST_PUBLISH && LAST_PUBLISH.ok === false) {
+      el.textContent = `${bits} · last publish did NOT write ${STATE_PATH} (${LAST_PUBLISH.reason || 'failed'})`;
+      return;
+    }
     if (hasPat()) {
-      el.textContent = `${bits} · auto-publish armed → ${STATE_PATH}`;
+      el.textContent = `${bits} · PAT set — click Publish lineup to PUT ${STATE_PATH} on GitHub`;
     } else {
-      el.textContent = `${bits} · browser-only until PAT set on OF Jump / Arm (shared).`;
+      el.textContent = `${bits} · browser-only until a PAT is set on OF Jump / Arm, then Publish lineup writes ${STATE_PATH}`;
     }
   }
 
