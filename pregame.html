@@ -562,7 +562,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san239';
+const ASSET_V = 'san240';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -1166,7 +1166,7 @@ function renderHvp(){
   const rows=(CACHE.hvp||[]).filter(r=>{
     if(r.PA<minPA) return false;
     if(team!=='all' && r.pitcher_team!==team) return false;
-    if(q && !`${r.hitter_name} ${r.pitcher_name}`.toLowerCase().includes(q)) return false;
+    if(q && !personSearchHit(r, q) && !`${r.hitter_name} ${r.pitcher_name}`.toLowerCase().includes(q)) return false;
     return true;
   });
   document.querySelector('#tbl-hvp tbody').innerHTML = rows.map(r=>{
@@ -1195,7 +1195,7 @@ function renderStuff(){
   const team=document.getElementById('stuff-team').value;
   const rows=(CACHE.stuff||[]).filter(r=>{
     if(team!=='all' && r.team!==team) return false;
-    if(q && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
+    if(q && !personSearchHit(r, q) && !`${r.name} ${r.team}`.toLowerCase().includes(q)) return false;
     return true;
   });
   document.querySelector('#tbl-stuff tbody').innerHTML = rows.map(r=>{
@@ -2723,10 +2723,10 @@ function fillAdvancePitchers(){
   teamSel.innerHTML = '<option value="all">All Teams</option>' + teams.map(t=>`<option value="${t}">${t}</option>`).join('');
   teamSel.value = (prevTeam==='all' || teams.includes(prevTeam)) ? prevTeam : 'all';
   const team = teamSel.value;
-  const q = normPersonName(searchEl?.value || '');
+  const q = searchEl?.value || '';
   const list = sortByLastName(rows.filter(r=>{
     if(team!=='all' && r.team!==team) return false;
-    if(q && !normPersonName(`${r.name} ${formatLastFirst(r.name)} ${r.team}`).includes(q)) return false;
+    if(q && !personSearchHit(r, q)) return false;
     return true;
   }), r=>r.name);
   const prev = pitcherSel.value;
@@ -4353,6 +4353,22 @@ function aggregateHitters(hitters, label){
 }
 function normPersonName(s){
   return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z ]/g,' ').replace(/\s+/g,' ').trim();
+}
+/** Roster/search aliases so misspellings still find the player. */
+const PERSON_SEARCH_ALIASES = {
+  805248: ['haab', 'habb', 'happ', 'jonathan haab', 'jonathan habb', 'jonathan happ'],
+};
+function personSearchBlob(row){
+  const id = Number(row.player_id || row.mlb_id || row.id || row.pitcher_id || 0);
+  const extras = PERSON_SEARCH_ALIASES[id] || [];
+  const name = row.name || row.pitcher_name || '';
+  const team = row.team || row.pitcher_team || '';
+  return normPersonName([name, typeof formatLastFirst === 'function' ? formatLastFirst(name) : '', team, extras.join(' ')].join(' '));
+}
+function personSearchHit(row, q){
+  const nq = normPersonName(q);
+  if(!nq) return true;
+  return personSearchBlob(row).includes(nq);
 }
 function positivePersonId(v){
   const n = Number(v);
@@ -6450,7 +6466,7 @@ function renderTth(){
   if(team !== 'all') rows = rows.filter(r => r.team === team);
   if(role === 'P') rows = rows.filter(isTthPitcher);
   else if(role === 'C') rows = rows.filter(isTthCatcher);
-  if(q) rows = rows.filter(r => `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
+  if(q) rows = rows.filter(r => personSearchHit(r, q) || `${r.name} ${r.team} ${r.position}`.toLowerCase().includes(q));
   rows = sortByLastName(rows, r => r.name);
   const tbody = document.querySelector('#tbl-tth tbody');
   if(!tbody) return;

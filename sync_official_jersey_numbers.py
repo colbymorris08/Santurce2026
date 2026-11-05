@@ -50,7 +50,8 @@ ALIASES: dict[str, dict[str, str]] = {
         "SLATER DE BRUN": "SLATER DEBRUN",
     },
     "MAY": {
-        "JONATHAN HAPP": "JONATHAN HAAB",
+        "JONATHAN HAPP": "JONATHAN HABB",
+        "JONATHAN HAAB": "JONATHAN HABB",
     },
 }
 

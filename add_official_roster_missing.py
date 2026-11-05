@@ -151,7 +151,7 @@ ADDITIONS: list[dict] = [
 ALIASES = [
     {"team": "CAG", "match_id": 806337, "name": "Jarrett Whorff", "jersey": "60", "position": "P"},
     {"team": "MAY", "match_id": -163227368, "name": "Luis Leroy Cruz", "jersey": "41", "position": "P"},
-    {"team": "MAY", "match_id": 805248, "name": "Jonathan Happ", "jersey": "64", "position": "P"},
+    {"team": "MAY", "match_id": 805248, "name": "Jonathan Habb", "jersey": "64", "position": "P"},
     {"team": "MAY", "match_id": 681493, "name": "Eddie Demurias", "jersey": "60", "position": "P"},
     {"team": "SJU", "match_id": 690702, "name": "Robbie Enriquez", "jersey": "27", "position": "OF"},
     {"team": "SJU", "match_id": -413913713, "name": "Manny Garcia", "jersey": "69", "position": "OF"},

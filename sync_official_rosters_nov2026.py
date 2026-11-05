@@ -159,7 +159,7 @@ PATCHES: dict[str, list[dict]] = {
             "throws": "L",
         },
         {"match_name": "Eddie Demurias", "id": 681493, "jersey": "60", "position": "P", "throws": "R"},
-        {"match_name": "Jonathan Haab", "jersey": "64", "position": "P"},
+        {"match_name": "Jonathan Haab", "name": "Jonathan Habb", "jersey": "64", "position": "P", "throws": "R"},
         {"match_name": "Darren Baker", "position": "INF", "jersey": "2"},
         {"match_name": "Ruben Castro", "position": "OF", "jersey": "4"},
         {"match_name": "Carter Trice", "position": "OF", "jersey": "63"},

@@ -41,6 +41,8 @@ NAME_VARIANTS = {
     "kyohei yamashiro": ["Kyohei Yamashiro"],
     "kai yokogawa": ["Kai Yokogawa"],
     "william simoneit": ["Will Simoneit", "William Simoneit"],
+    "jonathan habb": ["Jonathan Haab", "Jonathan Happ", "Jonathan Habb"],
+    "jonathan haab": ["Jonathan Habb", "Jonathan Happ", "Jonathan Haab"],
 }
 
 
