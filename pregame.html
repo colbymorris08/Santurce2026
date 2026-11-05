@@ -123,12 +123,12 @@
         <label class="advance-check"><input type="checkbox" id="adv-p-select-all" onchange="toggleAdvanceExportAll(this.checked)"> Select all (filtered team)</label>
         <button type="button" class="btn" onclick="exportAdvancePdf()">Export selected → PDF</button>
         <button type="button" class="btn" onclick="exportAdvanceZip()">Export selected → ZIP</button>
-        <button type="button" class="btn btn-sm" onclick="exportAdvancePdfsIndividually()" title="Same print → Save as PDF as Export → PDF, then split into one file per pitcher">Download each PDF</button>
+        <button type="button" class="btn btn-sm" onclick="exportAdvancePdfsIndividually()" title="Same print → Save as PDF, then split. After Choose saved PDF, click Save all so every page actually lands (browsers block extra downloads).">Download each PDF</button>
         <button type="button" class="btn" onclick="exportArmSlotZip()">Arm slots → ZIP</button>
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same print export, then you choose the saved multipage PDF and it splits into <code>TEAM/Last_First.pdf</code> (ZIP packs those pages). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same print export, then you choose the saved multipage PDF and it splits into <code>TEAM/Last_First.pdf</code> (ZIP packs those pages). Download each then asks <b>Save all</b> so every page is written (Safari/Chrome otherwise silently drop files after ~8–10). <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -499,9 +499,13 @@
       <div class="filter-field" style="min-width:220px"><label>GitHub PAT (repo write)</label>
         <input id="scout-gh-pat-tth" class="scout-gh-pat-input" type="password" autocomplete="off" placeholder="ghp_…" onchange="saveScoutGhPat(this.value)" onblur="saveScoutGhPat(this.value)">
       </div>
-      <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap">
+      <div class="filter-actions" style="align-self:flex-end;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <button type="button" class="btn btn-sm" onclick="publishScoutSheetNow('tth')">Publish TTH now</button>
         <button type="button" class="btn btn-sm" onclick="exportTthOverrides()" data-i18n="tthExport">Download overrides</button>
+        <label class="btn btn-sm" style="cursor:pointer;margin:0">
+          Import TTH JSON
+          <input id="tth-import-json" type="file" accept="application/json,.json" style="display:none" onchange="importTthOverridesFromFile(this)">
+        </label>
         <button type="button" class="btn btn-sm" onclick="clearTthOverrides()" data-i18n="tthClear">Clear overrides</button>
       </div>
     </div>
@@ -557,7 +561,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san229';
+const ASSET_V = 'san232';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -4006,10 +4010,18 @@ function zipStore(files){
 }
 function downloadBlob(blob, filename){
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
+  a.href = url;
   a.download = filename;
+  a.rel = 'noopener';
+  a.style.display = 'none';
+  document.body.appendChild(a);
   a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  // Keep the blob URL alive — Chrome queues downloads and 2s revoke dropped later files.
+  setTimeout(()=>{
+    try{ URL.revokeObjectURL(url); }catch(e){}
+    a.remove();
+  }, 300000);
 }
 function playerFileStem(name){
   const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
@@ -4017,6 +4029,87 @@ function playerFileStem(name){
   const last = parts[parts.length-1];
   const first = parts.slice(0, -1).join('_') || 'player';
   return `${last}_${first}`.replace(/[^\w.-]+/g, '_');
+}
+function uniquePdfRelPaths(files){
+  const used = new Set();
+  return (files||[]).map(f=>{
+    let name = String(f.name||'player.pdf');
+    if(!/\.pdf$/i.test(name)) name += '.pdf';
+    const m = name.match(/^(.*)(\.pdf)$/i);
+    const base = m ? m[1] : name;
+    const ext = m ? m[2] : '';
+    let out = name;
+    let n = 2;
+    while(used.has(out.toLowerCase())){
+      out = `${base}_${n}${ext}`;
+      n++;
+    }
+    used.add(out.toLowerCase());
+    return Object.assign({}, f, {name: out});
+  });
+}
+/** Every PDF page becomes a file. Never drop extras with Math.min. */
+function namedPdfFilesFromPrintPages(entries, pageBytes){
+  const list = entries || [];
+  const files = [];
+  for(let i = 0; i < pageBytes.length; i++){
+    const e = list[i];
+    const name = (e && e.name)
+      ? `${String(e.team||'TEAM').replace(/[^\w.-]+/g,'_')}/${playerFileStem(e.name)}.pdf`
+      : `unmapped/page_${String(i+1).padStart(3,'0')}.pdf`;
+    files.push({ name, data: pageBytes[i] });
+  }
+  return uniquePdfRelPaths(files);
+}
+const PDF_DOWNLOAD_BATCH = 8;
+function clickDownloadAnchors(files){
+  const nodes = [];
+  for(const f of files){
+    const a = document.createElement('a');
+    const url = URL.createObjectURL(new Blob([f.data], {type:'application/pdf'}));
+    a.href = url;
+    a.download = String(f.name||'player.pdf').replace(/\//g, '_');
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    nodes.push({a, url});
+  }
+  setTimeout(()=>{
+    nodes.forEach(({a, url})=>{
+      try{ URL.revokeObjectURL(url); }catch(e){}
+      a.remove();
+    });
+  }, 300000);
+  return files.length;
+}
+async function pickPdfOutputDirectory(){
+  const base = { mode:'readwrite', id:'santurce-advance-pdfs' };
+  try{
+    return await window.showDirectoryPicker(Object.assign({startIn:'downloads'}, base));
+  }catch(e){
+    if(e?.name === 'AbortError') throw e;
+    return await window.showDirectoryPicker(base);
+  }
+}
+async function writePdfFilesToDirectory(files, onProgress){
+  const root = await pickPdfOutputDirectory();
+  let written = 0;
+  for(const f of files){
+    const parts = String(f.name||'player.pdf').split('/').filter(Boolean);
+    let dir = root;
+    for(let i = 0; i < parts.length - 1; i++){
+      dir = await dir.getDirectoryHandle(parts[i], { create: true });
+    }
+    const fh = await dir.getFileHandle(parts[parts.length-1], { create: true });
+    const w = await fh.createWritable();
+    await w.write(f.data);
+    await w.close();
+    written++;
+    if(onProgress) onProgress(written, files.length);
+  }
+  if(written !== files.length) throw new Error(`incomplete folder write ${written}/${files.length}`);
+  return written;
 }
 /** ZIP / Download-each = Export → PDF print pages (Save as PDF), then split. No html2canvas raster path. */
 function ensurePdfLib(){
@@ -4079,62 +4172,38 @@ function pickSavedPrintPdfFile(){
     input.click();
   });
 }
-function namedPdfFilesFromPrintPages(entries, pageBytes){
-  const n = Math.min(entries.length, pageBytes.length);
-  const files = [];
-  for(let i = 0; i < n; i++){
-    const e = entries[i];
-    files.push({
-      name: `${e.team||'TEAM'}/${playerFileStem(e.name)}.pdf`,
-      data: pageBytes[i],
-    });
-  }
-  return files;
-}
-async function downloadSplitPdfFiles(files){
-  if(typeof window.showDirectoryPicker === 'function'){
-    try{
-      const root = await window.showDirectoryPicker({ mode: 'readwrite' });
-      for(const f of files){
-        const parts = String(f.name||'player.pdf').split('/');
-        let dir = root;
-        for(let i = 0; i < parts.length - 1; i++){
-          dir = await dir.getDirectoryHandle(parts[i], { create: true });
-        }
-        const fh = await dir.getFileHandle(parts[parts.length - 1], { create: true });
-        const w = await fh.createWritable();
-        await w.write(f.data);
-        await w.close();
-      }
-      return 'folder';
-    }catch(e){
-      if(e?.name === 'AbortError') throw new Error('cancelled');
-    }
-  }
-  for(const f of files){
-    downloadBlob(new Blob([f.data], {type:'application/pdf'}), String(f.name||'player.pdf').replace(/\//g, '_'));
-    await new Promise(r=> setTimeout(r, 150));
-  }
-  return 'files';
-}
-async function deliverSplitPrintPdfs(entries, file, {mode='zip', zipName='advance_sheets.zip'}={}){
+async function splitPrintPdfToNamedFiles(entries, file){
   const pages = await splitPrintPdfToPageBytes(new Uint8Array(await file.arrayBuffer()));
   if(!pages.length) throw new Error('empty pdf');
-  if(pages.length !== entries.length){
-    const ok = confirm(
-      `Saved PDF has ${pages.length} page(s) but ${entries.length} player(s) were selected.\n` +
-      `Continue with the first ${Math.min(pages.length, entries.length)} page(s)?`
-    );
-    if(!ok) throw new Error('cancelled');
-  }
   const files = namedPdfFilesFromPrintPages(entries, pages);
   if(!files.length) throw new Error('no pages');
-  if(mode === 'files'){
-    await downloadSplitPdfFiles(files);
-    return files.length;
+  return { files, pages: pages.length, selected: (entries||[]).length };
+}
+async function downloadSplitPdfFiles(files, {onProgress, batchOffset=0}={}){
+  const list = uniquePdfRelPaths(files);
+  if(batchOffset === 0 && typeof window.showDirectoryPicker === 'function'){
+    try{
+      const n = await writePdfFilesToDirectory(list, onProgress);
+      return { method:'folder', count:n, total:list.length, nextOffset:list.length };
+    }catch(e){
+      // Canceling the folder picker falls through to Downloads instead of aborting the whole save.
+      if(e?.name !== 'AbortError') console.warn('Folder save failed; using Downloads', e);
+    }
   }
-  downloadBlob(zipStore(files), zipName);
-  return files.length;
+  const batch = list.slice(batchOffset, batchOffset + PDF_DOWNLOAD_BATCH);
+  clickDownloadAnchors(batch);
+  const nextOffset = batchOffset + batch.length;
+  if(onProgress) onProgress(nextOffset, list.length);
+  return { method:'files', count:nextOffset, total:list.length, nextOffset };
+}
+async function deliverSplitPrintPdfs(entries, file, {mode='zip', zipName='advance_sheets.zip'}={}){
+  const split = await splitPrintPdfToNamedFiles(entries, file);
+  if(mode === 'files'){
+    const result = await downloadSplitPdfFiles(split.files);
+    return result.count;
+  }
+  downloadBlob(zipStore(split.files), zipName);
+  return split.files.length;
 }
 function dismissAdvanceZipSplitBar(){
   const bar = document.getElementById('advance-zip-split-bar');
@@ -4164,12 +4233,13 @@ function presentAdvanceZipSplitBar({entries, kindLabel, zipName, mode}){
   bar.id = 'advance-zip-split-bar';
   bar.setAttribute('role', 'status');
   bar.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:99999;background:#1a2332;color:#fff;padding:12px 16px;border-radius:10px;display:flex;flex-direction:column;gap:10px;box-shadow:0 8px 28px rgba(0,0,0,.45);font-size:13px;max-width:min(760px,94vw);border:1px solid #3a4a63';
-  const resultLabel = mode === 'files' ? 'one PDF per player' : 'a ZIP of those pages';
+  const resultLabel = mode === 'files' ? 'one PDF per page' : 'a ZIP of those pages';
   bar.innerHTML =
     `<div style="line-height:1.45">` +
       `<strong style="display:block;margin-bottom:4px">ZIP / Download each uses print Save as PDF (exact format)</strong>` +
       `<div><b>1.</b> In the print dialog: Destination → <b>Save as PDF</b> → Save (${entries.length} ${kindLabel}${entries.length===1?'':'s'}, one page each).</div>` +
       `<div><b>2.</b> Come back here and click <b>Choose saved PDF</b> — that file is split into ${resultLabel}.</div>` +
+      (mode === 'files' ? `<div><b>3.</b> Click <b>Save all PDFs</b> (folder or Downloads). Browsers block extra files unless this is its own click.</div>` : '') +
     `</div>` +
     `<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">` +
       `<button type="button" class="btn" id="advance-zip-pick" style="font-weight:700">Choose saved PDF</button>` +
@@ -4180,16 +4250,64 @@ function presentAdvanceZipSplitBar({entries, kindLabel, zipName, mode}){
   const statusEl = ()=> document.getElementById('advance-zip-status');
   const setStatus = (msg)=>{ const el = statusEl(); if(el) el.textContent = msg || ''; };
   bar.querySelector('#advance-zip-dismiss').onclick = ()=> dismissAdvanceZipSplitBar();
+  const countNote = (split)=> split.pages === split.selected
+    ? `${split.files.length} PDF${split.files.length===1?'':'s'}`
+    : `${split.files.length} PDFs (${split.pages} pages in / ${split.selected} selected — every page kept)`;
+  const wireSaveAll = (pickBtn, split)=>{
+    let offset = 0;
+    pickBtn.disabled = false;
+    pickBtn.textContent = `Save all ${split.files.length} PDFs`;
+    setStatus(`${countNote(split)} ready. Click Save all so the browser allows every file.`);
+    pickBtn.onclick = async ()=>{
+      pickBtn.disabled = true;
+      try{
+        setStatus(`Saving ${split.files.length} PDFs…`);
+        const result = await downloadSplitPdfFiles(split.files, {
+          batchOffset: offset,
+          onProgress: (done, total)=> setStatus(`Saving ${done}/${total} PDFs…`),
+        });
+        offset = result.nextOffset;
+        if(offset < split.files.length){
+          const left = split.files.length - offset;
+          setStatus(`Saved ${offset}/${split.files.length} to Downloads. Browser limit — click to save the next batch (${left} left).`);
+          pickBtn.textContent = `Save next ${Math.min(PDF_DOWNLOAD_BATCH, left)} (${left} left)`;
+          pickBtn.disabled = false;
+          return;
+        }
+        if(offset !== split.files.length){
+          throw new Error(`incomplete ${offset}/${split.files.length}`);
+        }
+        setStatus(`Saved ${offset}/${split.files.length} PDFs (${split.pages} pages in).`);
+        pickBtn.textContent = `Saved ${offset}/${split.files.length}`;
+        setTimeout(()=> dismissAdvanceZipSplitBar(), 2800);
+      }catch(e){
+        pickBtn.disabled = false;
+        if(String(e?.message||e) === 'cancelled'){
+          setStatus('Cancelled — click Save all to try again.');
+          return;
+        }
+        console.error(e);
+        setStatus('Save failed — click to retry the rest.');
+        alert('Could not save every PDF. Click Save all again, allow multiple downloads if asked, or pick a folder.');
+      }
+    };
+  };
   bar.querySelector('#advance-zip-pick').onclick = async ()=>{
     const pickBtn = bar.querySelector('#advance-zip-pick');
     try{
       pickBtn.disabled = true;
       setStatus('Waiting for file…');
       const file = await pickSavedPrintPdfFile();
-      setStatus(`Splitting “${file.name}”…`);
-      const n = await deliverSplitPrintPdfs(entries, file, {mode, zipName});
-      setStatus(mode === 'files' ? `Saved ${n} PDF${n===1?'':'s'}.` : `Downloaded ZIP (${n} PDF${n===1?'':'s'}).`);
-      setTimeout(()=> dismissAdvanceZipSplitBar(), 1200);
+      setStatus(`Splitting “${file.name}” (${entries.length} selected)…`);
+      const split = await splitPrintPdfToNamedFiles(entries, file);
+      bar._split = split;
+      if(mode === 'zip'){
+        downloadBlob(zipStore(split.files), zipName);
+        setStatus(`Downloaded ZIP (${countNote(split)}).`);
+        setTimeout(()=> dismissAdvanceZipSplitBar(), 1600);
+        return;
+      }
+      wireSaveAll(pickBtn, split);
     }catch(e){
       pickBtn.disabled = false;
       if(String(e?.message||e) === 'cancelled'){ setStatus(''); return; }
@@ -4203,6 +4321,7 @@ function presentAdvanceZipSplitBar({entries, kindLabel, zipName, mode}){
   setTimeout(()=>{ armed = true; }, 900);
   const onReturn = ()=>{
     if(!armed || !document.getElementById('advance-zip-split-bar')) return;
+    if(bar._split) return;
     flashAdvanceZipPickButton();
     setStatus('Saved? Click Choose saved PDF.');
   };
@@ -5113,10 +5232,28 @@ function applyOverridesToPlayers(players, overrides, fields){
     const row = {...p};
     const ov = overrides[String(p.player_id)] || {};
     fields.forEach(f => {
+      // Never apply empty override on top of a filled committed value.
       if(ov[f] != null && String(ov[f]).trim() !== '') row[f] = ov[f];
     });
     return row;
   });
+}
+
+/** Merge override maps; empty incoming fields never wipe filled values. */
+function mergeScoutOverrideMaps(cur, incoming){
+  const merged = Object.assign({}, (cur && typeof cur === 'object' && !Array.isArray(cur) ? cur : {}));
+  if(!incoming || typeof incoming !== 'object' || Array.isArray(incoming)) return merged;
+  for(const [id, fields] of Object.entries(incoming)){
+    if(!fields || typeof fields !== 'object' || Array.isArray(fields)) continue;
+    const row = Object.assign({}, merged[id] || {});
+    for(const [field, raw] of Object.entries(fields)){
+      const cleaned = raw == null ? '' : String(raw).trim();
+      if(cleaned === '') continue;
+      row[field] = cleaned;
+    }
+    if(Object.keys(row).length) merged[id] = row;
+  }
+  return merged;
 }
 
 async function githubPutJson(path, obj, message){
@@ -5227,7 +5364,9 @@ async function publishScoutSheet(kind, opts){
     if(typeof publishGameDayNow === 'function'){
       try { await publishGameDayNow({ skipScout: true }); } catch(e){ console.warn('scout game-day side-publish', e); }
     }
-    if(el) el.textContent = `Published to live site (${scoutPublishPath(kind)}) · ${new Date().toLocaleTimeString()} · ${n} override(s)`;
+    // Always keep a local JSON backup after a successful publish click (not quiet debounce).
+    if(!options.quiet) downloadScoutOverridesBackup(kind, 'publish-success');
+    if(el) el.textContent = `Published to live site (${scoutPublishPath(kind)}) · ${new Date().toLocaleTimeString()} · ${n} override(s) · backup JSON downloaded`;
     return true;
   } catch(err){
     const fail = `Publish failed: ${err.message || err}`;
@@ -5255,6 +5394,35 @@ function exportTthOverrides(){
   a.download = 'santurce_tth_pop_overrides.json';
   a.click();
   URL.revokeObjectURL(a.href);
+}
+function importTthOverridesFromFile(input){
+  const file = input && input.files && input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const raw = JSON.parse(String(reader.result || ''));
+      const incoming = (raw && typeof raw === 'object' && raw.overrides && typeof raw.overrides === 'object')
+        ? raw.overrides
+        : (raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : null);
+      if(!incoming) throw new Error('JSON must be { overrides: { playerId: { time_to_home } } } or a flat override map');
+      const before = Object.keys(TTH_OVERRIDES).length;
+      TTH_OVERRIDES = mergeScoutOverrideMaps(TTH_OVERRIDES, incoming);
+      saveTthOverrides();
+      if(typeof renderTth === 'function') renderTth();
+      const after = Object.keys(TTH_OVERRIDES).length;
+      const el = document.getElementById('tth-persist-note');
+      const msg = `Imported TTH JSON (merge-only). Overrides ${before} → ${after}. Empty fields did not wipe filled values. Click Publish TTH now (with PAT) to push live.`;
+      if(el) el.textContent = msg;
+      alert(msg);
+    } catch(err){
+      alert(`TTH JSON import failed: ${err.message || err}`);
+    } finally {
+      try { input.value = ''; } catch(e){}
+    }
+  };
+  reader.onerror = () => alert('Could not read TTH JSON file');
+  reader.readAsText(file);
 }
 function exportOfOverrides(){
   const blob = new Blob([JSON.stringify({ meta:{ key:OF_STORAGE_KEY, exported_at:new Date().toISOString() }, overrides:OF_OVERRIDES }, null, 2)], {type:'application/json'});
