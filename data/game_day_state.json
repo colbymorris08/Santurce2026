@@ -1,32 +1,36 @@
 {
-  "updated": "2026-11-05T03:50:00Z",
-  "label": "11-3",
-  "date_key": "2026-11-04",
-  "published_from": "safari snapshot seed",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5.",
+  "updated": "2026-11-05T03:56:21Z",
+  "label": "11-5",
+  "date_key": "2026-11-05",
+  "published_from": "official SAN lineup PDF vs Ponce 11-5-26",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 673933,
+        "sp": 444354,
         "pen": [
-          688965,
-          700842,
-          444354,
-          687900,
-          -286366361,
-          689713,
           572363,
-          800514,
+          -667432779,
+          689713,
+          673933,
           531565,
-          681154
+          605446,
+          687900,
+          800514,
+          -286366361,
+          688965,
+          803596,
+          681154,
+          810862,
+          815048
         ],
         "lineup": [
           {
-            "id": 623205,
-            "pos": "6"
+            "id": 671080,
+            "pos": "7"
           },
           {
-            "id": 605346,
+            "id": 824605,
             "pos": "5"
           },
           {
@@ -38,50 +42,34 @@
             "pos": "DH"
           },
           {
-            "id": 824605,
-            "pos": "3"
-          },
-          {
             "id": 681023,
             "pos": "9"
           },
           {
-            "id": 640459,
+            "id": 518542,
             "pos": "2"
           },
           {
-            "id": 641561,
-            "pos": "8"
+            "id": 641896,
+            "pos": "3"
           },
           {
-            "id": 671080,
-            "pos": "7"
+            "id": 623205,
+            "pos": "6"
+          },
+          {
+            "id": 605346,
+            "pos": "8"
           }
         ],
         "bench": [
           {
-            "id": 518542,
-            "pos": "3"
+            "id": 592656,
+            "pos": "8"
           },
           {
-            "id": 694563,
-            "pos": "4"
-          },
-          {
-            "id": 829227,
+            "id": 640459,
             "pos": "2"
-          },
-          {
-            "id": 829166,
-            "pos": "4"
-          },
-          {
-            "id": -108026908,
-            "pos": "4"
-          },
-          {
-            "id": 703639,
-            "pos": "4"
           },
           {
             "id": -533438595,
@@ -92,52 +80,12 @@
             "pos": "8"
           },
           {
-            "id": 592656,
-            "pos": "8"
-          },
-          {
-            "id": 624414,
-            "pos": "5"
-          },
-          {
-            "id": -574284888,
+            "id": -108026908,
             "pos": "4"
           },
           {
-            "id": 641521,
-            "pos": "6"
-          },
-          {
-            "id": 844087,
+            "id": 641561,
             "pos": "8"
-          },
-          {
-            "id": 641896,
-            "pos": "2"
-          },
-          {
-            "id": 641943,
-            "pos": "8"
-          },
-          {
-            "id": 687069,
-            "pos": "6"
-          },
-          {
-            "id": -174247804,
-            "pos": "4"
-          },
-          {
-            "id": 519304,
-            "pos": "3"
-          },
-          {
-            "id": 805834,
-            "pos": "4"
-          },
-          {
-            "id": 691002,
-            "pos": "3"
           }
         ]
       },
@@ -349,11 +297,11 @@
         ]
       }
     },
-    "opponent": "CAG",
+    "opponent": "PON",
     "santurceHome": false
   },
   "notes": {
-    "team": "CAG",
+    "team": "PON",
     "notes": {}
   },
   "jersey_overrides": {},
