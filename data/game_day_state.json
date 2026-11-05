@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-04T23:14:21Z",
+  "updated": "2026-11-05T00:13:26Z",
   "label": "11-3",
   "date_key": "2026-11-04",
   "published_from": "safari snapshot seed",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF.",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -648,9 +648,6 @@
     "-601861522": {
       "catcher_pop_time": "2.1"
     },
-    "-887923890": {
-      "time_to_home": "1.3"
-    },
     "-346943911": {
       "time_to_home": "1.6"
     },
@@ -701,6 +698,72 @@
     },
     "681493": {
       "time_to_home": "1.3"
+    },
+    "None": {
+      "time_to_home": "1.45"
+    },
+    "669416": {
+      "time_to_home": "1.35"
+    },
+    "688014": {
+      "time_to_home": "1.35"
+    },
+    "592254": {
+      "time_to_home": "1.25"
+    },
+    "669142": {
+      "time_to_home": "1.3"
+    },
+    "806309": {
+      "time_to_home": "1.3"
+    },
+    "681813": {
+      "time_to_home": "1.35"
+    },
+    "689214": {
+      "time_to_home": "1.4"
+    },
+    "805753": {
+      "time_to_home": "1.1"
+    },
+    "693543": {
+      "time_to_home": "1.15"
+    },
+    "682118": {
+      "time_to_home": "1.7"
+    },
+    "543071": {
+      "time_to_home": "1.5"
+    },
+    "826141": {
+      "time_to_home": "1.4"
+    },
+    "694547": {
+      "time_to_home": "1.6"
+    },
+    "684320": {
+      "time_to_home": "1.7"
+    },
+    "-539643335": {
+      "time_to_home": "1.35"
+    },
+    "807620": {
+      "time_to_home": "1.5"
+    },
+    "694885": {
+      "time_to_home": "1.25"
+    },
+    "543803": {
+      "time_to_home": "1.5"
+    },
+    "671045": {
+      "time_to_home": "1.45"
+    },
+    "703211": {
+      "time_to_home": "1.4"
+    },
+    "656924": {
+      "time_to_home": "1.4"
     }
   },
   "of_overrides": {},
@@ -875,11 +938,11 @@
       "slot": "delivery"
     },
     {
-      "id": "-887923890",
+      "id": "681493",
       "slot": "arsenal"
     },
     {
-      "id": "-887923890",
+      "id": "681493",
       "slot": "delivery"
     },
     {

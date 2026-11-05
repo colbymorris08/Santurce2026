@@ -34,6 +34,7 @@ PRIOR_LINES = {
     "jarrette bonet": ("Wisconsin Timber Rattlers", 2026, "A"),
     "adiel melendez": ("Augusta GreenJackets", 2026, "A"),
     "johzan oquendo": ("Knoxville Smokies", 2025, "AA"),
+    "eddie demurias": ("Algodoneros de Union Laguna", 2026, "MEX"),
     "eddy demurias": ("Algodoneros de Union Laguna", 2026, "MEX"),
     "jonathan haab": ("Tecos de los Dos Laredos", 2026, "MEX"),
     "charlee soto": ("Fort Myers Mighty Mussels", 2026, "A"),
