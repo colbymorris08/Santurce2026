@@ -33,13 +33,16 @@
   function loadStrategy() {
     let raw = {};
     try { raw = JSON.parse(localStorage.getItem(STRATEGY_KEY) || '{}') || {}; } catch (e) { raw = {}; }
-    if (!raw.teams || typeof raw.teams !== 'object') raw.teams = {};
+    if (!raw.teams || typeof raw.teams !== 'object' || Array.isArray(raw.teams)) raw.teams = {};
     if (!raw.opponent) raw.opponent = 'CAG';
     if (typeof raw.santurceHome !== 'boolean') raw.santurceHome = true;
     return raw;
   }
   function saveStrategy(state) {
-    try { localStorage.setItem(STRATEGY_KEY, JSON.stringify(state)); } catch (e) {}
+    try {
+      state.updated = new Date().toISOString();
+      localStorage.setItem(STRATEGY_KEY, JSON.stringify(state));
+    } catch (e) {}
   }
   function loadNotes() {
     let raw = {};
@@ -97,7 +100,7 @@
   function ensureTeam(state, abbrev) {
     if (!state.teams[abbrev]) state.teams[abbrev] = { sp: null, pen: [], lineup: [], bench: [] };
     const st = state.teams[abbrev];
-    const ids = new Set(roster(abbrev).map((p) => p.id));
+    const ids = new Set(roster(abbrev).map((p) => Number(p.id)));
     const keepRow = (r) => {
       if (!r || !ids.has(Number(r.id))) return null;
       const player = byId.get(Number(r.id));
@@ -458,12 +461,12 @@
     while (slots.length < 9) slots.push(null);
     const spotRows = slots.map((slot, i) => {
       if (!slot) return emptyHitterPair(String(i + 1));
-      const player = byId.get(slot.id);
+      const player = byId.get(Number(slot.id));
       if (!player) return emptyHitterPair(String(i + 1));
       const who = whoCell(String(i + 1), posName(slot.pos), cardLast(player, hitters), batsClass(player), 2, player);
       return hitterStatRows(player, who, esc(sbText(player.hitter)));
     });
-    const sp = st.sp ? byId.get(st.sp) : null;
+    const sp = st.sp ? byId.get(Number(st.sp)) : null;
     const pitcherWho = sp
       ? whoCell('', 'P', cardLast(sp, pitchers), batsClass(sp), 2, sp)
       : whoCell('', 'P', '—', '', 2, null);
@@ -473,14 +476,14 @@
     const benchSlots = st.bench.length ? st.bench : [null];
     const benchRows = benchSlots.map((slot) => {
       if (!slot) return emptyHitterPair('PH');
-      const player = byId.get(slot.id);
+      const player = byId.get(Number(slot.id));
       if (!player) return emptyHitterPair('PH');
       const who = whoCell('PH', posName(slot.pos), cardLast(player, hitters), batsClass(player), 2, player);
       return hitterStatRows(player, who, esc(sbText(player.hitter)));
     }).join('');
 
-    const penIds = st.pen.filter((id) => id !== st.sp);
-    const pen = penIds.map((id) => byId.get(id)).filter(Boolean).sort((a, b) => a.last.localeCompare(b.last));
+    const penIds = st.pen.filter((id) => Number(id) !== Number(st.sp));
+    const pen = penIds.map((id) => byId.get(Number(id))).filter(Boolean).sort((a, b) => a.last.localeCompare(b.last));
     let pitRows = '';
     if (sp) {
       const who = whoCell('SP', '', cardLast(sp, pitchers), batsClass(sp), 2, sp);
@@ -587,11 +590,11 @@
     }).join('');
     const starterSelect = `<select class="sc-sp-select" onchange="CardApp.setSp('${esc(abbrev)}', this.value)">
       <option value="">${tr('Select starter', 'Elegir abridor')}</option>
-      ${pitchers.map((p) => `<option value="${p.id}"${st.sp === p.id ? ' selected' : ''}>${esc(lastComma(p.name))}</option>`).join('')}
+      ${pitchers.map((p) => `<option value="${p.id}"${Number(st.sp) === Number(p.id) ? ' selected' : ''}>${esc(lastComma(p.name))}</option>`).join('')}
     </select>`;
     const spots = slots.map((row, i) => {
       const taken = new Set(slots.filter((other) => other && (!row || other.id !== row.id)).map((other) => other.pos));
-      const player = row ? byId.get(row.id) : null;
+      const player = row ? byId.get(Number(row.id)) : null;
       const body = player
         ? `<span class="sc-edit-name" draggable="true" data-id="${row.id}" data-team="${esc(abbrev)}" ondragstart="CardApp.dragStart(event)">${esc(lastComma(player.name))}</span>
            <select class="sc-pos-select" onmousedown="event.stopPropagation()" onchange="CardApp.setPos('${esc(abbrev)}', 'lineup', ${row.id}, this.value)">${posOptions(row.pos, taken)}</select>`
@@ -1302,7 +1305,7 @@
       if (!Array.isArray(DATA.players)) DATA.players = [];
       if (!Array.isArray(DATA.teams)) DATA.teams = [];
       if (!DATA.gaps || typeof DATA.gaps !== 'object') DATA.gaps = {};
-      byId = new Map((DATA.players || []).map((p) => [p.id, p]));
+      byId = new Map((DATA.players || []).map((p) => [Number(p.id), p]).filter((row) => Number.isFinite(row[0])));
       indexAdvance(advance);
       booted = true;
     },

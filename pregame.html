@@ -555,14 +555,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san211"></script>
+<script src="cards.js?v=san236"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
-<script src="persist.js?v=san222"></script>
+<script src="persist.js?v=san236"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san235';
+const ASSET_V = 'san236';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -5095,7 +5095,15 @@ async function githubPutJson(path, obj, message){
     branch: SCOUT_GH_BRANCH,
   };
   if(sha) body.sha = sha;
-  const putRes = await fetch(api, { method:'PUT', headers:{...headers,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  let putRes = await fetch(api, { method:'PUT', headers:{...headers,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  if(putRes.status === 409){
+    const retryGet = await fetch(`${api}?ref=${encodeURIComponent(SCOUT_GH_BRANCH)}`, { headers });
+    if(retryGet.ok){
+      const cur = await retryGet.json();
+      body.sha = cur.sha;
+      putRes = await fetch(api, { method:'PUT', headers:{...headers,'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    }
+  }
   if(!putRes.ok){
     const err = await putRes.text();
     throw new Error(`PUT ${path} failed (${putRes.status}): ${err.slice(0,200)}`);
@@ -7040,7 +7048,7 @@ Promise.all([
   fetch('data/pitcher_one_page_notes.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/positioning_v2.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
-  fetch('data/game_day_state.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch('data/game_day_state.json?v='+ASSET_V+'&t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
 ]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes, rosterAlert, positioningSeed, gameDayState])=>{
   CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes: onePageNotes || {notes:{}}, rosterAlert, positioningSeed, gameDayState};
   hydrateSpraySynergyFromAdvance();

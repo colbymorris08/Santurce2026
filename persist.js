@@ -2,6 +2,9 @@
    Live file: data/game_day_state.json
    Versions: data/versions/index.json + data/versions/YYYY-MM-DD/
    Uses the same PAT as OF/TTH (santurce_gh_pat_v1 → scoutGhPat / githubPutJson).
+   Hydrate merges strategy/TTH/notes (never replace) so a stale Pages JSON cannot
+   wipe a lineup just saved in this browser. Publish overlays local lineup onto the
+   live GitHub file and will not PUT empty TTH/notes/pics maps over filled ones.
 */
 (function () {
   const STATE_PATH = 'data/game_day_state.json';
@@ -90,14 +93,178 @@
     };
   }
 
+  function isMap(v) {
+    return !!(v && typeof v === 'object' && !Array.isArray(v));
+  }
+  function isoTime(s) {
+    const t = Date.parse(s || '');
+    return Number.isFinite(t) ? t : 0;
+  }
+  function filledRows(list) {
+    return (list || []).filter((r) => r && r.id != null && r.id !== '');
+  }
+  function cloneTeam(st) {
+    if (!isMap(st)) return { sp: null, pen: [], lineup: [], bench: [] };
+    return {
+      sp: st.sp != null && st.sp !== '' ? st.sp : null,
+      pen: Array.isArray(st.pen) ? st.pen.slice() : [],
+      lineup: Array.isArray(st.lineup) ? st.lineup.slice() : [],
+      bench: Array.isArray(st.bench) ? st.bench.slice() : [],
+    };
+  }
+  function teamFilled(st) {
+    const t = cloneTeam(st);
+    return (t.sp != null ? 2 : 0) + t.pen.filter(Boolean).length
+      + filledRows(t.lineup).length * 3 + filledRows(t.bench).length;
+  }
+  function mergeTeamBlock(local, incoming, { preferIncoming, localExists, incomingExists }) {
+    if (localExists && !incomingExists) return cloneTeam(local);
+    if (!localExists && incomingExists) return cloneTeam(incoming);
+    if (!localExists && !incomingExists) return cloneTeam(null);
+    if (preferIncoming) {
+      const out = cloneTeam(incoming);
+      const loc = cloneTeam(local);
+      if (out.sp == null && loc.sp != null) out.sp = loc.sp;
+      if (!out.pen.length && loc.pen.length) out.pen = loc.pen;
+      if (!filledRows(out.lineup).length && filledRows(loc.lineup).length) out.lineup = loc.lineup;
+      if (!filledRows(out.bench).length && filledRows(loc.bench).length) out.bench = loc.bench;
+      return out;
+    }
+    return cloneTeam(local);
+  }
+  function teamMap(strategy) {
+    const teams = strategy && strategy.teams;
+    return isMap(teams) ? teams : {};
+  }
+  function mergeStrategy(local, incoming, { forceIncoming } = {}) {
+    const a = isMap(local) ? local : {};
+    const b = isMap(incoming) ? incoming : {};
+    const aTeams = teamMap(a);
+    const bTeams = teamMap(b);
+    const aT = isoTime(a.updated);
+    const bT = isoTime(b.updated);
+    const preferIncoming = !!forceIncoming || (bT > aT);
+    const outTeams = {};
+    const keys = new Set([...Object.keys(aTeams), ...Object.keys(bTeams)]);
+    keys.forEach((abbr) => {
+      outTeams[abbr] = mergeTeamBlock(aTeams[abbr], bTeams[abbr], {
+        preferIncoming,
+        localExists: Object.prototype.hasOwnProperty.call(aTeams, abbr),
+        incomingExists: Object.prototype.hasOwnProperty.call(bTeams, abbr),
+      });
+    });
+    const newer = preferIncoming ? b : a;
+    const older = preferIncoming ? a : b;
+    return {
+      teams: outTeams,
+      opponent: newer.opponent || older.opponent || 'CAG',
+      santurceHome: typeof newer.santurceHome === 'boolean'
+        ? newer.santurceHome
+        : (typeof older.santurceHome === 'boolean' ? older.santurceHome : true),
+      updated: (aT >= bT ? a.updated : b.updated) || a.updated || b.updated || null,
+    };
+  }
+  function mergeNotes(local, incoming) {
+    const a = isMap(local) ? local : {};
+    const b = isMap(incoming) ? incoming : {};
+    const aNotes = isMap(a.notes) ? a.notes : (isMap(a) && !a.notes ? {} : {});
+    const bNotes = isMap(b.notes) ? b.notes : {};
+    const notes = Object.assign({}, aNotes);
+    Object.entries(bNotes).forEach(([k, v]) => {
+      if (v != null && String(v).trim() !== '') notes[k] = v;
+    });
+    return { team: b.team || a.team || 'CAG', notes };
+  }
+  function mergeOverrideMaps(base, overlay) {
+    const merged = Object.assign({}, isMap(base) ? base : {});
+    if (!isMap(overlay)) return merged;
+    Object.entries(overlay).forEach(([id, fields]) => {
+      if (!isMap(fields)) return;
+      const row = Object.assign({}, merged[id] || {});
+      Object.entries(fields).forEach(([field, raw]) => {
+        if (raw == null || String(raw).trim() === '') return;
+        row[field] = raw;
+      });
+      if (Object.keys(row).length) merged[id] = row;
+    });
+    return merged;
+  }
+  function flattenNotesMap(raw) {
+    if (!isMap(raw)) return {};
+    return isMap(raw.notes) ? raw.notes : raw;
+  }
+  function mergePositioningMaps(cur, incoming) {
+    const next = {
+      of: Object.assign({}, (cur && cur.of) || {}, (incoming && incoming.of) || {}),
+      inf: Object.assign({}, (cur && cur.inf) || {}, (incoming && incoming.inf) || {}),
+      hands: Object.assign({}, (cur && cur.hands) || {}, (incoming && incoming.hands) || {}),
+      lineups: Object.assign({}, (cur && cur.lineups) || {}, (incoming && incoming.lineups) || {}),
+    };
+    if (incoming && incoming._posSeedVer) next._posSeedVer = incoming._posSeedVer;
+    else if (cur && cur._posSeedVer) next._posSeedVer = cur._posSeedVer;
+    if (cur && cur._migratedOfV1) next._migratedOfV1 = cur._migratedOfV1;
+    return next;
+  }
+  function unionMediaRefs(a, b) {
+    const map = new Map();
+    [...(Array.isArray(a) ? a : []), ...(Array.isArray(b) ? b : [])].forEach((r) => {
+      if (!r || r.id == null || r.slot == null || r.slot === '') return;
+      map.set(`${r.id}:${r.slot}`, { id: r.id, slot: r.slot });
+    });
+    return [...map.values()];
+  }
+  function mergeGameDayDocs(remote, local, { strategyForceLocal } = {}) {
+    const base = isMap(remote) ? remote : {};
+    const over = isMap(local) ? local : {};
+    const strategy = mergeStrategy(base.strategy, over.strategy, {
+      forceIncoming: strategyForceLocal !== false,
+    });
+    strategy.updated = over.updated || strategy.updated || new Date().toISOString();
+    return {
+      updated: over.updated || new Date().toISOString(),
+      label: over.label || base.label || todayLabel(),
+      date_key: over.date_key || base.date_key || todayKey(),
+      published_from: over.published_from || 'pregame game-day publish',
+      note: base.note || over.note || 'Shared across browsers after publish. Snapshot again ~weekly at roster update.',
+      strategy,
+      notes: mergeNotes(base.notes, over.notes),
+      jersey_overrides: Object.assign({}, isMap(base.jersey_overrides) ? base.jersey_overrides : {}, isMap(over.jersey_overrides) ? over.jersey_overrides : {}),
+      one_page_notes: Object.assign({}, flattenNotesMap(base.one_page_notes), flattenNotesMap(over.one_page_notes)),
+      tth_overrides: mergeOverrideMaps(base.tth_overrides, over.tth_overrides),
+      of_overrides: mergeOverrideMaps(base.of_overrides, over.of_overrides),
+      positioning: mergePositioningMaps(base.positioning, over.positioning),
+      media_refs: unionMediaRefs(base.media_refs, over.media_refs),
+    };
+  }
+  function strategyHasLineup(strategy) {
+    const teams = teamMap(strategy);
+    return Object.keys(teams).some((abbr) => teamFilled(teams[abbr]) > 0);
+  }
+  function downloadGameDayBackup(reason) {
+    try {
+      const payload = collectGameDayState();
+      payload.meta = { exported_at: new Date().toISOString(), reason: reason || 'backup' };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'santurce_game_day_state.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } catch (e) {
+      console.warn('game-day backup download failed', e);
+    }
+  }
+
   function collectGameDayState() {
+    const strategy = lsGet(STRATEGY_KEY, {}) || {};
+    if (isMap(strategy) && !strategy.updated) strategy.updated = new Date().toISOString();
     return {
       updated: new Date().toISOString(),
       label: todayLabel(),
       date_key: todayKey(),
       published_from: 'pregame game-day publish',
       note: 'Shared across browsers after publish. Snapshot again ~weekly at roster update.',
-      strategy: lsGet(STRATEGY_KEY, {}) || {},
+      strategy,
       notes: lsGet(NOTES_KEY, { team: 'CAG', notes: {} }) || { team: 'CAG', notes: {} },
       jersey_overrides: lsGet(JERSEY_KEY, {}) || {},
       one_page_notes: lsGet(ONEPAGE_KEY, {}) || {},
@@ -108,54 +275,49 @@
     };
   }
 
-  function applyGameDayState(doc, { quiet } = {}) {
+  function applyGameDayState(doc, { quiet, replace } = {}) {
     if (!doc || typeof doc !== 'object') return false;
     LIVE_STATE = doc;
-    if (doc.strategy && typeof doc.strategy === 'object') lsSet(STRATEGY_KEY, doc.strategy);
-    if (doc.notes && typeof doc.notes === 'object') lsSet(NOTES_KEY, doc.notes);
-    if (doc.jersey_overrides && typeof doc.jersey_overrides === 'object') lsSet(JERSEY_KEY, doc.jersey_overrides);
-    if (doc.one_page_notes && typeof doc.one_page_notes === 'object') {
-      // Merge (server wins on conflict) so a stale/partial game-day map cannot drop
-      // keys the browser already has from the published pitcher_one_page_notes.json hydrate.
-      const cur = lsGet(ONEPAGE_KEY, {}) || {};
-      const curFlat = (cur && cur.notes && typeof cur.notes === 'object') ? cur.notes : cur;
-      const incoming = (doc.one_page_notes.notes && typeof doc.one_page_notes.notes === 'object')
-        ? doc.one_page_notes.notes
-        : doc.one_page_notes;
-      lsSet(ONEPAGE_KEY, Object.assign({}, (curFlat && typeof curFlat === 'object' ? curFlat : {}), incoming || {}));
-    }
-    // Merge (do not replace) so a published/partial game-day map cannot wipe
-    // browser-only TTH/OF keys the coach typed before publish (e.g. new pitchers).
-    if (doc.tth_overrides && typeof doc.tth_overrides === 'object') {
-      const cur = lsGet(TTH_KEY, {}) || {};
-      const merged = Object.assign({}, (cur && typeof cur === 'object' ? cur : {}));
-      for (const [id, fields] of Object.entries(doc.tth_overrides)) {
-        if (!fields || typeof fields !== 'object') continue;
-        merged[id] = Object.assign({}, merged[id] || {}, fields);
+    if (replace) {
+      if (doc.strategy && typeof doc.strategy === 'object') lsSet(STRATEGY_KEY, doc.strategy);
+      if (doc.notes && typeof doc.notes === 'object') lsSet(NOTES_KEY, doc.notes);
+      if (doc.jersey_overrides && typeof doc.jersey_overrides === 'object') lsSet(JERSEY_KEY, doc.jersey_overrides);
+      if (doc.one_page_notes && typeof doc.one_page_notes === 'object') lsSet(ONEPAGE_KEY, flattenNotesMap(doc.one_page_notes));
+      if (doc.tth_overrides && typeof doc.tth_overrides === 'object') lsSet(TTH_KEY, doc.tth_overrides);
+      if (doc.of_overrides && typeof doc.of_overrides === 'object') lsSet(OF_KEY, doc.of_overrides);
+      if (doc.positioning && typeof doc.positioning === 'object') lsSet(POS_KEY, mergePositioningMaps({}, doc.positioning));
+    } else {
+      if (doc.strategy && typeof doc.strategy === 'object') {
+        // Merge (do not replace) so a stale Pages copy of game_day_state.json cannot
+        // wipe a lineup the coach just saved in this browser (same class as TTH).
+        const cur = lsGet(STRATEGY_KEY, {}) || {};
+        lsSet(STRATEGY_KEY, mergeStrategy(cur, doc.strategy));
       }
-      lsSet(TTH_KEY, merged);
-    }
-    if (doc.of_overrides && typeof doc.of_overrides === 'object') {
-      const cur = lsGet(OF_KEY, {}) || {};
-      const merged = Object.assign({}, (cur && typeof cur === 'object' ? cur : {}));
-      for (const [id, fields] of Object.entries(doc.of_overrides)) {
-        if (!fields || typeof fields !== 'object') continue;
-        merged[id] = Object.assign({}, merged[id] || {}, fields);
+      if (doc.notes && typeof doc.notes === 'object') {
+        lsSet(NOTES_KEY, mergeNotes(lsGet(NOTES_KEY, { team: 'CAG', notes: {} }), doc.notes));
       }
-      lsSet(OF_KEY, merged);
-    }
-    if (doc.positioning && typeof doc.positioning === 'object') {
-      const cur = lsGet(POS_KEY, {}) || {};
-      const next = {
-        of: Object.assign({}, cur.of || {}, doc.positioning.of || {}),
-        inf: Object.assign({}, cur.inf || {}, doc.positioning.inf || {}),
-        hands: Object.assign({}, cur.hands || {}, doc.positioning.hands || {}),
-        lineups: Object.assign({}, cur.lineups || {}, doc.positioning.lineups || {}),
-      };
-      if (doc.positioning._posSeedVer) next._posSeedVer = doc.positioning._posSeedVer;
-      else if (cur._posSeedVer) next._posSeedVer = cur._posSeedVer;
-      if (cur._migratedOfV1) next._migratedOfV1 = cur._migratedOfV1;
-      lsSet(POS_KEY, next);
+      if (doc.jersey_overrides && typeof doc.jersey_overrides === 'object') {
+        lsSet(JERSEY_KEY, Object.assign({}, lsGet(JERSEY_KEY, {}) || {}, doc.jersey_overrides));
+      }
+      if (doc.one_page_notes && typeof doc.one_page_notes === 'object') {
+        // Merge (server wins on conflict) so a stale/partial game-day map cannot drop
+        // keys the browser already has from the published pitcher_one_page_notes.json hydrate.
+        const cur = lsGet(ONEPAGE_KEY, {}) || {};
+        const curFlat = flattenNotesMap(cur);
+        const incoming = flattenNotesMap(doc.one_page_notes);
+        lsSet(ONEPAGE_KEY, Object.assign({}, curFlat, incoming || {}));
+      }
+      // Merge (do not replace) so a published/partial game-day map cannot wipe
+      // browser-only TTH/OF keys the coach typed before publish (e.g. new pitchers).
+      if (doc.tth_overrides && typeof doc.tth_overrides === 'object') {
+        lsSet(TTH_KEY, mergeOverrideMaps(lsGet(TTH_KEY, {}) || {}, doc.tth_overrides));
+      }
+      if (doc.of_overrides && typeof doc.of_overrides === 'object') {
+        lsSet(OF_KEY, mergeOverrideMaps(lsGet(OF_KEY, {}) || {}, doc.of_overrides));
+      }
+      if (doc.positioning && typeof doc.positioning === 'object') {
+        lsSet(POS_KEY, mergePositioningMaps(lsGet(POS_KEY, {}) || {}, doc.positioning));
+      }
     }
     try {
       if (typeof loadTthOverrides === 'function') loadTthOverrides();
@@ -188,29 +350,63 @@
     return `${d.getMonth() + 1}-${d.getDate()}`;
   }
 
+  async function loadRemoteGameDayState() {
+    if (hasPat()) {
+      try {
+        return await githubGetJson(STATE_PATH);
+      } catch (e) {
+        /* 404 on first publish is fine; fall back to in-memory/pages copy */
+      }
+    }
+    return LIVE_STATE;
+  }
+
   async function publishGameDayState(opts) {
     const options = opts || {};
+    const quiet = !!options.quiet || !!options.skipScout;
+    const local = collectGameDayState();
     if (!hasPat()) {
-      setStatus('Game-day edits stay in this browser until a GitHub PAT is set (OF Jump / Arm tab).');
+      const nTeams = Object.keys(teamMap(local.strategy)).filter((k) => teamFilled(teamMap(local.strategy)[k]) > 0);
+      const msg = nTeams.length
+        ? `Publish blocked: no GitHub PAT. Lineup for ${nTeams.join('/')} is only in this browser. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.`
+        : 'Publish blocked: no GitHub PAT. Paste a PAT with repo Contents:write on the OF Jump / Arm tab, then click Publish lineup again.';
+      setStatus(msg);
+      if (!quiet) {
+        downloadGameDayBackup('publish-blocked-no-pat');
+        if (typeof focusScoutPatInput === 'function') focusScoutPatInput();
+        alert(`${msg}\n\nA backup JSON of this browser’s game-day state was downloaded so the lineup is not lost.`);
+      }
       return false;
     }
     if (typeof githubPutJson !== 'function') {
-      setStatus('Publish failed: GitHub helper missing');
+      const msg = 'Publish failed: GitHub helper missing';
+      setStatus(msg);
+      if (!quiet) {
+        downloadGameDayBackup('publish-failed-no-helper');
+        alert(msg);
+      }
       return false;
     }
     setStatus('Publishing game-day state to GitHub…');
     try {
-      const doc = collectGameDayState();
+      const remote = await loadRemoteGameDayState();
+      // Overlay this browser’s lineup onto the live GitHub file. Empty local
+      // TTH/notes/pics/positioning maps never replace filled remote keys.
+      const doc = mergeGameDayDocs(remote, local, { strategyForceLocal: true });
+      if (!strategyHasLineup(doc.strategy) && strategyHasLineup(local.strategy)) {
+        doc.strategy = local.strategy;
+      }
       await githubPutJson(STATE_PATH, doc, `Game-day state: lineup / notes / overrides (${doc.label})`);
       LIVE_STATE = doc;
+      applyGameDayState(doc, { quiet: true });
       // Keep scout sheets in sync when those override maps changed.
       // skipScout: when a scout sheet publish already triggered this (avoids recursion).
       if (!options.skipScout) {
         try {
           if (typeof publishScoutSheet === 'function') {
-            if (Object.keys(doc.tth_overrides || {}).length) await publishScoutSheet('tth');
-            if (Object.keys(doc.of_overrides || {}).length) await publishScoutSheet('of');
-            if (Object.keys(doc.one_page_notes || {}).length) await publishScoutSheet('onepage');
+            if (Object.keys(doc.tth_overrides || {}).length) await publishScoutSheet('tth', { quiet: true });
+            if (Object.keys(doc.of_overrides || {}).length) await publishScoutSheet('of', { quiet: true });
+            if (Object.keys(doc.one_page_notes || {}).length) await publishScoutSheet('onepage', { quiet: true });
           }
         } catch (e) {
           console.warn('scout sheet side-publish', e);
@@ -218,18 +414,24 @@
       }
       // Positioning seed file — only when coach store has cells (additive merge on disk via full put of current seed+overrides is heavy;
       // store coach blob inside game_day_state; optional full positioning publish via PosApp dump).
-      setStatus(`Published game-day state · ${new Date().toLocaleTimeString()} → ${STATE_PATH}`);
+      const teams = Object.keys(teamMap(doc.strategy)).filter((k) => teamFilled(teamMap(doc.strategy)[k]) > 0);
+      setStatus(`Published lineup${teams.length ? ` (${teams.join('/')})` : ''} · ${new Date().toLocaleTimeString()} → ${STATE_PATH}`);
       updateGameDayPersistNote();
       return true;
     } catch (err) {
-      setStatus(`Publish failed: ${err.message || err}`);
+      const fail = `Publish failed: ${err.message || err}`;
+      setStatus(fail);
+      if (!quiet) {
+        downloadGameDayBackup('publish-failed');
+        alert(`${fail}\n\nA backup JSON of this browser’s game-day state was downloaded. Keep that file — fix the PAT if needed and retry Publish lineup.`);
+      }
       return false;
     }
   }
 
   function queueGameDayPublish() {
     clearTimeout(publishTimer);
-    publishTimer = setTimeout(() => { publishGameDayState(); }, 1800);
+    publishTimer = setTimeout(() => { publishGameDayState({ quiet: true }); }, 1800);
     updateGameDayPersistNote();
   }
 
@@ -255,7 +457,9 @@
   }
 
   async function fetchJson(path) {
-    const res = await fetch(`${path}?v=${encodeURIComponent(assetV())}`);
+    const live = path === STATE_PATH;
+    const url = `${path}?v=${encodeURIComponent(assetV())}${live ? `&t=${Date.now()}` : ''}`;
+    const res = await fetch(url, live ? { cache: 'no-store' } : undefined);
     if (!res.ok) throw new Error(`GET ${path} failed (${res.status})`);
     return res.json();
   }
@@ -328,8 +532,10 @@
     const label = todayLabel();
     setRevertStatus(`Creating snapshot ${label} (${dateKey})…`);
     try {
-      // Ensure live game-day file is current first.
-      const doc = collectGameDayState();
+      // Ensure live game-day file is current first (merge so snapshot cannot drop TTH/notes/pics).
+      const local = collectGameDayState();
+      const remote = await loadRemoteGameDayState();
+      const doc = mergeGameDayDocs(remote, local, { strategyForceLocal: true });
       doc.date_key = dateKey;
       doc.label = label;
       await githubPutJson(STATE_PATH, doc, `Game-day state before snapshot ${label}`);
@@ -416,7 +622,7 @@
         const livePath = targets[name] || `data/${name}`;
         const body = await githubGetJson(snapPath);
         await githubPutJson(livePath, body, `Revert live ${name} ← ${dateKey}`);
-        if (name === 'game_day_state.json') applyGameDayState(body);
+        if (name === 'game_day_state.json') applyGameDayState(body, { replace: true });
       }
       // Clear confirmations so a second click is intentional.
       ['revert-yes-1', 'revert-yes-2', 'revert-yes-3'].forEach((id) => {
@@ -444,15 +650,23 @@
   }
 
   async function bootPersist(seedDoc) {
-    if (seedDoc) applyGameDayState(seedDoc, { quiet: true });
-    else {
+    let doc = seedDoc || null;
+    if (!doc) {
       try {
-        const doc = await fetchJson(STATE_PATH);
-        applyGameDayState(doc, { quiet: true });
+        doc = await fetchJson(STATE_PATH);
       } catch (e) {
         /* first boot without published state is fine */
       }
     }
+    // PAT copy is the live GitHub file (not the cached Pages asset). Prefer it
+    // when newer so a just-published lineup hydrates even before Pages rebuilds.
+    if (hasPat()) {
+      try {
+        const remote = await githubGetJson(STATE_PATH);
+        if (remote && (!doc || isoTime(remote.updated) >= isoTime(doc.updated))) doc = remote;
+      } catch (e) {}
+    }
+    if (doc) applyGameDayState(doc, { quiet: true });
     await loadVersionsIndex();
     fillRevertDropdown();
     updateGameDayPersistNote();
@@ -474,6 +688,8 @@
     collect: collectGameDayState,
     apply: applyGameDayState,
     publish: publishGameDayState,
+    mergeStrategy,
+    mergeGameDayDocs,
     queuePublish: queueGameDayPublish,
     createTodaySnapshot,
     revertToSelected,
