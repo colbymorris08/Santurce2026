@@ -1,37 +1,11 @@
 {
-  "updated": "2026-11-05T09:03:55Z",
+  "updated": "2026-11-05T10:12:37Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": true,
+  "changed": false,
   "ligapr_stats_ready": true,
-  "added": [
-    {
-      "team": "SAN",
-      "name": "Brian Navarreto",
-      "role": "H"
-    },
-    {
-      "team": "SAN",
-      "name": "Johnneswy Fargas",
-      "role": "H"
-    },
-    {
-      "team": "MAY",
-      "name": "Jonathan Happ",
-      "role": "P"
-    },
-    {
-      "team": "MAY",
-      "name": "Danny Ortiz",
-      "role": "H"
-    }
-  ],
+  "added": [],
   "removed": [],
-  "message": "Roster sync applied from ligapr equipos: +4 / -0.",
-  "action_needed": [
-    "Populate Synergy / advance packets for new arms and bats",
-    "Add pitcher release (delivery) pictures",
-    "Confirm movement charts / arsenal XY uploads",
-    "Fill pitcher one-page scout notes where blank"
-  ]
+  "message": "ligapr equipo lists checked — no roster membership changes.",
+  "action_needed": []
 }
