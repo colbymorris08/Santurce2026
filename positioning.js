@@ -8,7 +8,7 @@
   const STORE_KEY = 'santurce_positioning_v2';
   const LEGACY_OF_KEY = 'santurce_of_positioning_v1';
   /** Bump when data/positioning_v2.json is regenerated so devices re-pull seed. */
-  const SEED_VERSION = '2026-11-04a';
+  const SEED_VERSION = '2026-11-04b';
 
   const OF_POS = ['LF', 'CF', 'RF'];
   const OF_COUNTS = ['PRE', '2K'];
