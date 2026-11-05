@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T10:12:27Z",
+  "updated": "2026-11-05T09:03:02Z",
   "source": "https://ligapr.com/estadisticas/boxscores",
   "league_id": 18,
   "subleague_id": 18,
@@ -20,9 +20,66 @@
     "SAN": {
       "team": "SAN",
       "team_name": "Cangrejeros de Santurce",
-      "games": [],
-      "starters": [],
-      "relievers": [],
+      "games": [
+        {
+          "game_id": 599,
+          "title": "CAN - LEO 599",
+          "date": null,
+          "home": true,
+          "label": "vs PON",
+          "result": "SAN 4-1",
+          "opp": "PON",
+          "score_for": 4,
+          "score_against": 1,
+          "won": true,
+          "starter": "DERECK RODRIGUEZ",
+          "starter_ip": "5"
+        }
+      ],
+      "starters": [
+        {
+          "name": "DERECK RODRIGUEZ",
+          "last_app": "vs PON",
+          "last_app_game_id": 599,
+          "cells": [
+            "5 IP"
+          ]
+        }
+      ],
+      "relievers": [
+        {
+          "name": "CARLOS ESPINOSA",
+          "last_app": "vs PON",
+          "last_app_game_id": 599,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "JACK HARTMAN",
+          "last_app": "vs PON",
+          "last_app_game_id": 599,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "KEYLAN KILLGORE",
+          "last_app": "vs PON",
+          "last_app_game_id": 599,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Francisco Mateo",
+          "last_app": "vs PON",
+          "last_app_game_id": 599,
+          "cells": [
+            "1 IP"
+          ]
+        }
+      ],
       "notes": []
     },
     "SJU": {
@@ -36,25 +93,196 @@
     "CAR": {
       "team": "CAR",
       "team_name": "Gigantes de Carolina",
-      "games": [],
-      "starters": [],
-      "relievers": [],
+      "games": [
+        {
+          "game_id": 601,
+          "title": "GIG - IND 601",
+          "date": null,
+          "home": true,
+          "label": "vs MAY",
+          "result": "CAR 6-1",
+          "opp": "MAY",
+          "score_for": 6,
+          "score_against": 1,
+          "won": true,
+          "starter": "Keishin Nagamizu",
+          "starter_ip": "4"
+        }
+      ],
+      "starters": [
+        {
+          "name": "Keishin Nagamizu",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "4 IP"
+          ]
+        }
+      ],
+      "relievers": [
+        {
+          "name": "Miguel Auzua",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Osvaldo Berrios",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Matt Givin",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Joe Jimenez",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Eddy Reynoso",
+          "last_app": "vs MAY",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        }
+      ],
       "notes": []
     },
     "MAY": {
       "team": "MAY",
       "team_name": "Indios de Mayagüez",
-      "games": [],
-      "starters": [],
-      "relievers": [],
+      "games": [
+        {
+          "game_id": 601,
+          "title": "GIG - IND 601",
+          "date": null,
+          "home": false,
+          "label": "@ CAR",
+          "result": "CAR 6-1",
+          "opp": "CAR",
+          "score_for": 1,
+          "score_against": 6,
+          "won": false,
+          "starter": "Ashton Goudeau",
+          "starter_ip": "3.2"
+        }
+      ],
+      "starters": [
+        {
+          "name": "Ashton Goudeau",
+          "last_app": "@ CAR",
+          "last_app_game_id": 601,
+          "cells": [
+            "3.2 IP"
+          ]
+        }
+      ],
+      "relievers": [
+        {
+          "name": "Carlos Francisco",
+          "last_app": "@ CAR",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Nelvin Fuentes",
+          "last_app": "@ CAR",
+          "last_app_game_id": 601,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Jonathan Happ",
+          "last_app": "@ CAR",
+          "last_app_game_id": 601,
+          "cells": [
+            "0.1 IP"
+          ]
+        },
+        {
+          "name": "Miguel Martinez",
+          "last_app": "@ CAR",
+          "last_app_game_id": 601,
+          "cells": [
+            "2 IP"
+          ]
+        }
+      ],
       "notes": []
     },
     "PON": {
       "team": "PON",
       "team_name": "Leones de Ponce",
-      "games": [],
-      "starters": [],
-      "relievers": [],
+      "games": [
+        {
+          "game_id": 599,
+          "title": "CAN - LEO 599",
+          "date": null,
+          "home": false,
+          "label": "@ SAN",
+          "result": "SAN 4-1",
+          "opp": "SAN",
+          "score_for": 1,
+          "score_against": 4,
+          "won": false,
+          "starter": "KAI YOKOGAMA",
+          "starter_ip": "2.2"
+        }
+      ],
+      "starters": [
+        {
+          "name": "KAI YOKOGAMA",
+          "last_app": "@ SAN",
+          "last_app_game_id": 599,
+          "cells": [
+            "2.2 IP"
+          ]
+        }
+      ],
+      "relievers": [
+        {
+          "name": "Alex Claudio",
+          "last_app": "@ SAN",
+          "last_app_game_id": 599,
+          "cells": [
+            "1.1 IP"
+          ]
+        },
+        {
+          "name": "Harold Cortijo",
+          "last_app": "@ SAN",
+          "last_app_game_id": 599,
+          "cells": [
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Juan Marcano",
+          "last_app": "@ SAN",
+          "last_app_game_id": 599,
+          "cells": [
+            "3 IP"
+          ]
+        }
+      ],
       "notes": []
     }
   },

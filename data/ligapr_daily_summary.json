@@ -1,19 +1,19 @@
 {
-  "updated": "2026-11-04T10:13:06Z",
+  "updated": "2026-11-05T09:03:56Z",
   "league": {
     "league_id": 18,
     "subleague_id": 18,
-    "finished_games": 0,
-    "expandable": 0,
+    "finished_games": 2,
+    "expandable": 2,
     "label": "2026-27 LBPRC"
   },
   "bullpen_teams": {
     "CAG": 0,
-    "SAN": 0,
+    "SAN": 1,
     "SJU": 0,
-    "CAR": 0,
-    "MAY": 0,
-    "PON": 0
+    "CAR": 1,
+    "MAY": 1,
+    "PON": 1
   },
   "bullpen_test_teams": {
     "CAG": 4,
@@ -24,17 +24,17 @@
     "PON": 4
   },
   "roster_alert": {
-    "changed": false,
-    "added": 0,
+    "changed": true,
+    "added": 4,
     "removed": 0,
-    "message": "LBPRC 2026-27 equipo bateo/lanzadores not published yet on ligapr — kept existing workbook rosters. Will sync automatically when stats appear."
+    "message": "Roster sync applied from ligapr equipos: +4 / -0."
   },
   "one_page_teams": {
     "SAN": 30,
-    "CAG": 21,
-    "CAR": 19,
-    "MAY": 18,
-    "PON": 27,
-    "SJU": 18
+    "CAG": 25,
+    "CAR": 28,
+    "MAY": 23,
+    "PON": 28,
+    "SJU": 23
   }
 }
