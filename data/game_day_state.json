@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-05T00:13:26Z",
+  "updated": "2026-11-05T03:50:00Z",
   "label": "11-3",
   "date_key": "2026-11-04",
   "published_from": "safari snapshot seed",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx.",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -252,7 +252,21 @@
       },
       "PON": {
         "sp": -173172553,
-        "pen": [],
+        "pen": [
+          -799554792,
+          -172871700,
+          676435,
+          806586,
+          592222,
+          807620,
+          676082,
+          692937,
+          687817,
+          678013,
+          -539643335,
+          642834,
+          -346674215
+        ],
         "lineup": [
           {
             "id": 700083,
@@ -329,64 +343,8 @@
             "pos": "6"
           },
           {
-            "id": -799554792,
-            "pos": "1"
-          },
-          {
-            "id": -172871700,
-            "pos": "1"
-          },
-          {
-            "id": 676435,
-            "pos": "1"
-          },
-          {
-            "id": 806586,
-            "pos": "1"
-          },
-          {
-            "id": 592222,
-            "pos": "1"
-          },
-          {
-            "id": 807620,
-            "pos": "1"
-          },
-          {
-            "id": 676082,
-            "pos": "1"
-          },
-          {
-            "id": 692937,
-            "pos": "1"
-          },
-          {
-            "id": 687817,
-            "pos": "1"
-          },
-          {
-            "id": 678013,
-            "pos": "1"
-          },
-          {
-            "id": -539643335,
-            "pos": "1"
-          },
-          {
-            "id": -415129273,
-            "pos": "1"
-          },
-          {
             "id": 702501,
             "pos": "7"
-          },
-          {
-            "id": 642834,
-            "pos": "1"
-          },
-          {
-            "id": -346674215,
-            "pos": "1"
           }
         ]
       }

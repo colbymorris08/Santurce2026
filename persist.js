@@ -117,20 +117,35 @@
     return (t.sp != null ? 2 : 0) + t.pen.filter(Boolean).length
       + filledRows(t.lineup).length * 3 + filledRows(t.bench).length;
   }
+  function stripPitchersFromBench(st) {
+    const t = cloneTeam(st);
+    const blocked = new Set((t.pen || []).map(Number).filter(Boolean));
+    if (t.sp != null && t.sp !== '') blocked.add(Number(t.sp));
+    t.bench = (t.bench || []).filter((r) => {
+      if (!r || r.id == null || r.id === '') return false;
+      if (blocked.has(Number(r.id))) return false;
+      // Import bug: unused arms were saved on the bench with pos 1 / P.
+      if (String(r.pos) === '1' || String(r.pos).toUpperCase() === 'P') return false;
+      return true;
+    });
+    return t;
+  }
   function mergeTeamBlock(local, incoming, { preferIncoming, localExists, incomingExists }) {
-    if (localExists && !incomingExists) return cloneTeam(local);
-    if (!localExists && incomingExists) return cloneTeam(incoming);
-    if (!localExists && !incomingExists) return cloneTeam(null);
-    if (preferIncoming) {
-      const out = cloneTeam(incoming);
+    let out;
+    if (localExists && !incomingExists) out = cloneTeam(local);
+    else if (!localExists && incomingExists) out = cloneTeam(incoming);
+    else if (!localExists && !incomingExists) out = cloneTeam(null);
+    else if (preferIncoming) {
+      out = cloneTeam(incoming);
       const loc = cloneTeam(local);
       if (out.sp == null && loc.sp != null) out.sp = loc.sp;
       if (!out.pen.length && loc.pen.length) out.pen = loc.pen;
       if (!filledRows(out.lineup).length && filledRows(loc.lineup).length) out.lineup = loc.lineup;
       if (!filledRows(out.bench).length && filledRows(loc.bench).length) out.bench = loc.bench;
-      return out;
+    } else {
+      out = cloneTeam(local);
     }
-    return cloneTeam(local);
+    return stripPitchersFromBench(out);
   }
   function teamMap(strategy) {
     const teams = strategy && strategy.teams;

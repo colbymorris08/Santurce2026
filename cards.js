@@ -125,11 +125,13 @@
     st.lineup = slots;
     const benchSeen = new Set(st.lineup.filter(Boolean).map((r) => r.id));
     st.bench = (st.bench || []).map(keepRow).filter(Boolean).filter((r) => {
+      if (!benchHitterRow(r)) return false;
       if (benchSeen.has(r.id)) return false;
       benchSeen.add(r.id);
       return true;
     });
     overflow.forEach((row) => {
+      if (!benchHitterRow(row)) return;
       if (!st.bench.some((b) => b.id === row.id)) st.bench.push(row);
     });
     st.pen = (st.pen || []).map(Number).filter((id) => ids.has(id) && id !== Number(st.sp));
@@ -149,6 +151,18 @@
   }
   function posName(code) { return POS_LABEL[code] || code || ''; }
   function defaultPos(player) { return DEFAULT_POS[player.roster_pos] || 'DH'; }
+  function isPitcherPlayer(player) {
+    if (!player) return false;
+    if (player.role === 'P') return true;
+    const pos = String(player.roster_pos || '').toUpperCase();
+    return pos === 'P' || pos === 'RHP' || pos === 'LHP';
+  }
+  function benchHitterRow(row) {
+    if (!row) return null;
+    const player = byId.get(Number(row.id));
+    if (isPitcherPlayer(player) || String(row.pos) === '1') return null;
+    return row;
+  }
   function openStarterPos(lineup, prefer) {
     const used = new Set((lineup || []).filter(Boolean).map((r) => r.pos));
     if (prefer && STARTER_POS.includes(prefer) && !used.has(prefer)) return prefer;
@@ -1342,10 +1356,11 @@
         const st = ensureTeam(s, team);
         const pid = Number(id);
         if (on) {
+          const player = byId.get(pid);
+          if (!player || player.role !== 'H') return;
           st.lineup = st.lineup.map((r) => (r && r.id === pid ? null : r));
           if (!st.bench.some((b) => b.id === pid)) {
-            const player = byId.get(pid);
-            st.bench.push({ id: pid, pos: player ? defaultPos(player) : 'DH' });
+            st.bench.push({ id: pid, pos: defaultPos(player) });
           }
         } else {
           st.bench = st.bench.filter((b) => b.id !== pid);
@@ -1356,7 +1371,7 @@
       withStrategy((s) => {
         const st = ensureTeam(s, team);
         const inLine = new Set(st.lineup.filter(Boolean).map((r) => r.id));
-        roster(team).filter((p) => p.role === 'H' && !inLine.has(p.id)).forEach((p) => {
+        roster(team).filter((p) => p.role === 'H' && !isPitcherPlayer(p) && !inLine.has(p.id)).forEach((p) => {
           if (!st.bench.some((b) => b.id === p.id)) st.bench.push({ id: p.id, pos: defaultPos(p) });
         });
       });
@@ -1385,6 +1400,7 @@
         }
         if (list.some((r) => r && r.id === pid) || other.some((r) => r && r.id === pid)) return;
         const player = byId.get(pid);
+        if (listName === 'bench' && (!player || player.role !== 'H' || isPitcherPlayer(player))) return;
         const row = list.find((r) => r && r.id === previous);
         const others = listName === 'bench' ? [] : st.lineup.filter((r) => r && (!row || r.id !== row.id));
         const pos = listName === 'bench'

@@ -388,6 +388,13 @@ def seed_pon_strategy(notes_doc: dict) -> None:
         lineup.append(None)
 
     in_line = {r["id"] for r in lineup if r}
+    gd = load("game_day_state.json")
+    strat = gd.setdefault("strategy", {})
+    teams = strat.setdefault("teams", {})
+    # Preserve SAN/CAG entirely; only set/merge PON.
+    existing = teams.get("PON") or {"sp": None, "pen": [], "lineup": [], "bench": []}
+    # Keep any prior pen selections; replace lineup/bench/sp from card for today's sheet.
+    pen = [int(x) for x in (existing.get("pen") or []) if x is not None and x != ""]
     bench = []
     for name in BENCH_NAMES:
         mid = pid(name)
@@ -396,9 +403,13 @@ def seed_pon_strategy(notes_doc: dict) -> None:
             continue
         if mid in in_line:
             continue
+        p = by_name[erp.ligapr.norm_name(name)]
+        if erp.is_pitcher(p):
+            if mid not in pen:
+                pen.append(mid)
+            continue
         if any(b["id"] == mid for b in bench):
             continue
-        p = by_name[erp.ligapr.norm_name(name)]
         pos = str(p.get("position") or "DH")
         # Map rough role → strategy pos codes used by cards.js
         pos_map = {
@@ -412,22 +423,13 @@ def seed_pon_strategy(notes_doc: dict) -> None:
             "CF": "8",
             "LF": "7",
             "RF": "9",
-            "P": "1",
-            "RHP": "1",
-            "LHP": "1",
-            "DH": "1",
+            "DH": "DH",
         }
-        bench.append({"id": mid, "pos": pos_map.get(pos.upper(), "1" if erp.is_pitcher(p) else "DH")})
+        bench.append({"id": mid, "pos": pos_map.get(pos.upper(), "DH")})
 
     sp = pid(SP_NAME)
-
-    gd = load("game_day_state.json")
-    strat = gd.setdefault("strategy", {})
-    teams = strat.setdefault("teams", {})
-    # Preserve SAN/CAG entirely; only set/merge PON.
-    existing = teams.get("PON") or {"sp": None, "pen": [], "lineup": [], "bench": []}
-    # Keep any prior pen selections; replace lineup/bench/sp from card for today's sheet.
-    pen = list(existing.get("pen") or [])
+    if sp is not None:
+        pen = [x for x in pen if x != sp]
     teams["PON"] = {
         "sp": sp if sp is not None else existing.get("sp"),
         "pen": pen,
@@ -444,7 +446,7 @@ def seed_pon_strategy(notes_doc: dict) -> None:
         + " | PON official roster + card lineup/bench + pitcher one-page notes 11-4."
     ).strip(" |")
     dump("game_day_state.json", gd)
-    print(f"PON strategy: lineup={sum(1 for r in lineup if r)} bench={len(bench)} sp={sp}")
+    print(f"PON strategy: lineup={sum(1 for r in lineup if r)} bench={len(bench)} pen={len(pen)} sp={sp}")
 
 
 def seed_summer(players: list[dict]) -> None:
