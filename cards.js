@@ -1000,14 +1000,14 @@
     .sc-pair{min-width:0}
     .sc-side{min-width:0;overflow:hidden}
     .sc-grid{width:100%;border-collapse:collapse;font-size:8px;line-height:1.15;table-layout:fixed}
-    .sc-col-who{width:34%}
+    .sc-col-who{width:38%}
     .sc-col-sb{width:11%}
     .sc-col-vs{width:6%}
-    .sc-col-stat{width:9.8%}
+    .sc-col-stat{width:9%}
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
     .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
-    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis}
+    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis;max-width:0;width:38%}
     .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
     .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
@@ -1094,8 +1094,11 @@
     if (!whos.length) return;
     const add = extraPx / whos.length;
     whos.forEach((td) => {
-      const h = td.getBoundingClientRect().height;
-      td.style.height = `${Math.max(h + add, h)}px`;
+      const cs = getComputedStyle(td);
+      const pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+      const border = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+      const content = td.getBoundingClientRect().height - pad - border;
+      td.style.height = `${Math.max(content + add, content)}px`;
       td.style.verticalAlign = 'middle';
     });
   }
@@ -1161,6 +1164,17 @@
       });
       h = sideNaturalHeight(front) || h;
     }
+    // Short card: give leftover pixels to the 1–9 (capped name cells can grow).
+    // Zoom only shrinks, so do this before any whole-card scale.
+    if (h < bodyAvail - 4) {
+      front.querySelectorAll('.sc-side').forEach((side) => {
+        const lineup = side.querySelector('.sc-grid-lineup');
+        if (!lineup) return;
+        const room = bodyAvail - side.getBoundingClientRect().height;
+        if (room > 4) addWhoHeights(lineup, room - 2);
+      });
+      h = sideNaturalHeight(front) || h;
+    }
     let z = 1;
     if (h > bodyAvail + 0.5) {
       z = Math.max(0.42, bodyAvail / Math.max(h, 1));
@@ -1173,13 +1187,14 @@
       }
     }
     front.classList.remove('sc-measuring');
-    if (z < 0.995) return;
     front.classList.add('sc-fill');
-    const slack = body.getBoundingClientRect().height - sideNaturalHeight(front);
-    if (slack > 4) {
-      front.querySelectorAll('.sc-grid-lineup').forEach((lineup) => {
-        addWhoHeights(lineup, slack);
-      });
+    if (z >= 0.995) {
+      const slack = bodyAvail - sideNaturalHeight(front);
+      if (slack > 4) {
+        front.querySelectorAll('.sc-grid-lineup').forEach((lineup) => {
+          addWhoHeights(lineup, slack - 2);
+        });
+      }
     }
   }
 
@@ -1293,8 +1308,11 @@
             if(!whos.length) return;
             var add = extraPx / whos.length;
             Array.prototype.forEach.call(whos, function(td){
-              var hh = td.getBoundingClientRect().height;
-              td.style.height = (hh + add) + 'px';
+              var cs = getComputedStyle(td);
+              var pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+              var border = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+              var content = td.getBoundingClientRect().height - pad - border;
+              td.style.height = Math.max(content + add, content) + 'px';
               td.style.verticalAlign = 'middle';
             });
           }
@@ -1348,6 +1366,15 @@
               });
               h = sideH(front) || h;
             }
+            if(h < bodyAvail - 4){
+              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+                var lineup = side.querySelector('.sc-grid-lineup');
+                if(!lineup) return;
+                var room = bodyAvail - side.getBoundingClientRect().height;
+                if(room > 4) addWhoHeights(lineup, room - 2);
+              });
+              h = sideH(front) || h;
+            }
             var z = 1;
             if(h > bodyAvail + 0.5){
               z = Math.max(0.42, bodyAvail / Math.max(h, 1));
@@ -1360,13 +1387,14 @@
               }
             }
             front.classList.remove('sc-measuring');
-            if(z < 0.995) return;
             front.classList.add('sc-fill');
-            var slack = body.getBoundingClientRect().height - sideH(front);
-            if(slack > 4){
-              Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-lineup'), function(lineup){
-                addWhoHeights(lineup, slack);
-              });
+            if(z >= 0.995){
+              var slack = bodyAvail - sideH(front);
+              if(slack > 4){
+                Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-lineup'), function(lineup){
+                  addWhoHeights(lineup, slack - 2);
+                });
+              }
             }
           }
           function fit(){
@@ -1771,13 +1799,14 @@
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
         /* Page 1: leftover height → 1–9 row height down to a fixed 1.5" notes footer.
-           Name column stays yesterday's 34% nowrap (do not re-widen). */
+           Cap the name column at 38% (max-width:0) so nowrap last names fit and rows can grow. */
         .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden;display:flex;flex-direction:column}
         .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
         .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:0;position:relative;z-index:2;background:#fff}
         .sc-print-front .sc-pair{gap:12px;align-items:stretch;min-height:0}
         .sc-print-front .sc-side{overflow:hidden;min-width:0}
-        .sc-print-front .sc-col-who{width:34%}
+        .sc-print-front .sc-col-who{width:38%}
+        .sc-print-front .sc-col-stat{width:9%}
         .sc-print-front .sc-aux-block{display:grid;grid-template-columns:1fr 1.15fr;gap:6px;align-items:start}
         .sc-print-front .sc-aux-cols{display:grid;grid-template-columns:1fr 1fr;gap:3px;align-items:start}
         .sc-print-front .sc-aux-block .sc-grid{font-size:7.5px;line-height:1.05}
@@ -1791,7 +1820,7 @@
         .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
         .sc-print-front .sc-head-name{font-size:17px}
         .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
-        .sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:38%}
         .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}

@@ -1732,10 +1732,10 @@ input.tth-input:focus {
   letter-spacing: .08em; padding: 8px 0; border-top: 1px solid #b7bcc6; border-bottom: 1px solid #b7bcc6;
 }
 .sc-grid { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.35; background: #fff; table-layout: fixed; }
-.sc-col-who { width: 34%; }
+.sc-col-who { width: 38%; }
 .sc-col-sb { width: 11%; }
 .sc-col-vs { width: 6%; }
-.sc-col-stat { width: 9.8%; }
+.sc-col-stat { width: 9%; }
 .sc-grid th {
   background: #e6e8ec; color: #222; font-weight: 700; font-size: 12px; letter-spacing: .02em;
   padding: 6px 3px; border: 1px solid #c5c9d0; text-align: center; overflow: hidden;
@@ -1766,7 +1766,7 @@ input.tth-input:focus {
   -webkit-text-fill-color: #fff;
 }
 .sc-ttp { color: #111; font-weight: 800; }
-.sc-who { text-align: left !important; white-space: nowrap; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.sc-grid td.sc-who, .sc-who { text-align: left !important; white-space: nowrap; font-weight: 700; overflow: hidden; text-overflow: ellipsis; max-width: 0; width: 38%; }
 .sc-sb { overflow: hidden; }
 .sc-ord, .sc-pos { display: inline-block; min-width: 1em; margin-right: 2px; font-weight: 800; }
 .sc-jersey {
