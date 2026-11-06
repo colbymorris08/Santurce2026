@@ -1000,14 +1000,14 @@
     .sc-pair{min-width:0}
     .sc-side{min-width:0;overflow:hidden}
     .sc-grid{width:100%;border-collapse:collapse;font-size:8px;line-height:1.15;table-layout:fixed}
-    .sc-col-who{width:38%}
+    .sc-col-who{width:34%}
     .sc-col-sb{width:11%}
     .sc-col-vs{width:6%}
-    .sc-col-stat{width:9%}
+    .sc-col-stat{width:9.8%}
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
     .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
-    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis;max-width:0;width:38%}
+    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
     .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
     .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
@@ -1051,7 +1051,7 @@
     .sc-front-page{display:flex;flex-direction:column;box-sizing:border-box}
     .sc-front-body{flex:1 1 auto;min-height:0;overflow:hidden}
     .sc-front-scale{display:block;transform-origin:top left}
-    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:0}
+    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:auto}
     .sc-front-notes .sc-bar{flex:0 0 auto}
     .sc-back{display:flex;flex-direction:column;gap:14px;box-sizing:border-box}
     .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;color:#111}
@@ -1120,59 +1120,48 @@
   }
 
   /**
-   * Fit the front body above the fixed 1.5" notes.
-   * Compact bench/pen with CSS first (never scale them into unreadable
-   * specks — that leftover strip is why the 1–9 still looked mid-page).
-   * Any leftover height goes into 1–9 row height. Whole-card zoom only
-   * if the card is still taller than the notes ceiling.
+   * Grow every pair in a column (lineup, bench, and pen together) so that
+   * column meets the notes. Each side sizes itself — a shorter pen must
+   * not leave a hole above the band. max-width:0 on the name cell is what
+   * lets the row height actually increase.
+   */
+  function growSide(side, extraVisualPx, zoom) {
+    if (!side || extraVisualPx <= 2) return;
+    const z = zoom > 0 ? zoom : 1;
+    const whos = [...side.querySelectorAll('td.sc-who')];
+    if (!whos.length) return;
+    const add = (extraVisualPx / whos.length) / z;
+    whos.forEach((td) => {
+      const cs = getComputedStyle(td);
+      const pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+      const border = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+      const content = td.getBoundingClientRect().height / z - pad - border;
+      td.style.height = `${Math.max(content + add, content)}px`;
+      td.style.verticalAlign = 'middle';
+    });
+  }
+
+  /**
+   * Fit the stacked front (hitters, then bench, then pen) above the 1.5" notes.
+   * Tighten the whole card (dense → xdense → zoom) before clipping.
+   * If the stack is still short, grow every pair so the longer column
+   * reaches the notes instead of dying mid-page.
    */
   function fitFrontBody(front, body, bodyAvail) {
     if (!front || !body) return;
     const scale = body.querySelector('.sc-front-scale') || body;
     front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
     clearScale(scale);
-    front.querySelectorAll('.sc-grid-bench, .sc-grid-pen').forEach(clearScale);
     clearWhoHeights(front);
     body.style.overflow = 'hidden';
 
-    front.classList.add('sc-measuring');
     let h = sideNaturalHeight(front) || scale.scrollHeight || 1;
     if (h > bodyAvail + 1) {
-      front.classList.add('sc-aux-dense');
+      front.classList.add('sc-dense');
       h = sideNaturalHeight(front) || h;
     }
     if (h > bodyAvail + 1) {
-      front.classList.add('sc-aux-xdense');
-      h = sideNaturalHeight(front) || h;
-    }
-    if (h > bodyAvail + 0.5) {
-      // Bench | pen already share a short block. Only shrink that block
-      // if it still crowds the 1–9. Do not zoom the lineup to fit.
-      const auxBudget = Math.min(168, Math.max(130, bodyAvail * 0.18));
-      front.querySelectorAll('.sc-side').forEach((side) => {
-        const block = side.querySelector('.sc-aux-block');
-        const bench = side.querySelector('.sc-grid-bench');
-        const pen = side.querySelector('.sc-grid-pen');
-        const auxH = block
-          ? block.getBoundingClientRect().height
-          : (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
-        if (auxH > auxBudget + 1) {
-          const az = Math.max(0.55, auxBudget / Math.max(auxH, 1));
-          applyZoom(block || bench, az);
-          if (!block) applyZoom(pen, az);
-        }
-      });
-      h = sideNaturalHeight(front) || h;
-    }
-    // Short card: give leftover pixels to the 1–9 (capped name cells can grow).
-    // Zoom only shrinks, so do this before any whole-card scale.
-    if (h < bodyAvail - 4) {
-      front.querySelectorAll('.sc-side').forEach((side) => {
-        const lineup = side.querySelector('.sc-grid-lineup');
-        if (!lineup) return;
-        const room = bodyAvail - side.getBoundingClientRect().height;
-        if (room > 4) addWhoHeights(lineup, room - 2);
-      });
+      front.classList.add('sc-xdense');
       h = sideNaturalHeight(front) || h;
     }
     let z = 1;
@@ -1186,15 +1175,14 @@
         applyZoom(scale, z);
       }
     }
-    front.classList.remove('sc-measuring');
-    front.classList.add('sc-fill');
-    if (z >= 0.995) {
-      const slack = bodyAvail - sideNaturalHeight(front);
-      if (slack > 4) {
-        front.querySelectorAll('.sc-grid-lineup').forEach((lineup) => {
-          addWhoHeights(lineup, slack - 2);
-        });
-      }
+    const zoomProp = parseFloat(scale.style.zoom || '');
+    const scaleMatch = /scale\(([\d.]+)\)/.exec(scale.style.transform || '');
+    const applied = (zoomProp && zoomProp < 0.995) ? zoomProp : (scaleMatch ? parseFloat(scaleMatch[1]) : 1);
+    for (let pass = 0; pass < 3; pass++) {
+      front.querySelectorAll('.sc-side').forEach((side) => {
+        const room = bodyAvail - side.getBoundingClientRect().height - 2;
+        if (room > 4) growSide(side, room, applied);
+      });
     }
   }
 
@@ -1247,7 +1235,7 @@
     }
     const portrait = orientation === 'portrait';
     const page = portrait ? 'letter portrait' : 'letter landscape';
-    const wide = portrait ? '8.0in' : '10.7in';
+    const wide = portrait ? '8.14in' : '10.7in';
     // Letter usable height after ~0.18in margins.
     const tallIn = portrait ? 10.5 : 7.55;
     const notesIn = 1.5;
@@ -1331,48 +1319,35 @@
               el.style.marginBottom = ((z - 1) * natural) + 'px';
             }
           }
+          function growSide(side, extraVisualPx, zoom){
+            if(!side || extraVisualPx <= 2) return;
+            var z = zoom > 0 ? zoom : 1;
+            var whos = side.querySelectorAll('td.sc-who');
+            if(!whos.length) return;
+            var add = (extraVisualPx / whos.length) / z;
+            Array.prototype.forEach.call(whos, function(td){
+              var cs = getComputedStyle(td);
+              var pad = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+              var border = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+              var content = td.getBoundingClientRect().height / z - pad - border;
+              td.style.height = Math.max(content + add, content) + 'px';
+              td.style.verticalAlign = 'middle';
+            });
+          }
           function fitFront(front, body, bodyAvail){
             if(!front || !body) return;
             var scale = body.querySelector('.sc-front-scale') || body;
             front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
             clearScale(scale);
-            Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-bench, .sc-grid-pen'), clearScale);
             clearWhoHeights(front);
             body.style.overflow = 'hidden';
-            front.classList.add('sc-measuring');
             var h = sideH(front) || scale.scrollHeight || 1;
             if(h > bodyAvail + 1){
-              front.classList.add('sc-aux-dense');
+              front.classList.add('sc-dense');
               h = sideH(front) || h;
             }
             if(h > bodyAvail + 1){
-              front.classList.add('sc-aux-xdense');
-              h = sideH(front) || h;
-            }
-            if(h > bodyAvail + 0.5){
-              var auxBudget = Math.min(168, Math.max(130, bodyAvail * 0.18));
-              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
-                var block = side.querySelector('.sc-aux-block');
-                var bench = side.querySelector('.sc-grid-bench');
-                var pen = side.querySelector('.sc-grid-pen');
-                var auxH = block
-                  ? block.getBoundingClientRect().height
-                  : (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
-                if(auxH > auxBudget + 1){
-                  var az = Math.max(0.55, auxBudget / Math.max(auxH, 1));
-                  applyZoom(block || bench, az);
-                  if(!block) applyZoom(pen, az);
-                }
-              });
-              h = sideH(front) || h;
-            }
-            if(h < bodyAvail - 4){
-              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
-                var lineup = side.querySelector('.sc-grid-lineup');
-                if(!lineup) return;
-                var room = bodyAvail - side.getBoundingClientRect().height;
-                if(room > 4) addWhoHeights(lineup, room - 2);
-              });
+              front.classList.add('sc-xdense');
               h = sideH(front) || h;
             }
             var z = 1;
@@ -1386,15 +1361,14 @@
                 applyZoom(scale, z);
               }
             }
-            front.classList.remove('sc-measuring');
-            front.classList.add('sc-fill');
-            if(z >= 0.995){
-              var slack = bodyAvail - sideH(front);
-              if(slack > 4){
-                Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-lineup'), function(lineup){
-                  addWhoHeights(lineup, slack - 2);
-                });
-              }
+            var zoomProp = parseFloat(scale.style.zoom || '');
+            var scaleMatch = /scale\(([\d.]+)\)/.exec(scale.style.transform || '');
+            var applied = (zoomProp && zoomProp < 0.995) ? zoomProp : (scaleMatch ? parseFloat(scaleMatch[1]) : 1);
+            for(var pass = 0; pass < 3; pass++){
+              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+                var room = bodyAvail - side.getBoundingClientRect().height - 2;
+                if(room > 4) growSide(side, room, applied);
+              });
             }
           }
           function fit(){
@@ -1723,49 +1697,6 @@
       if (!el) return;
       const state = loadStrategy();
       const opponent = state.opponent;
-      function splitAuxGrid(table, cols) {
-        const rows = [...table.querySelectorAll('tbody tr')].filter((tr) => !tr.classList.contains('sc-subhead'));
-        const wrap = document.createElement('div');
-        wrap.className = 'sc-aux-cols';
-        if (rows.length <= 9) {
-          wrap.appendChild(table);
-          return wrap;
-        }
-        const per = Math.ceil(rows.length / cols);
-        const thead = table.querySelector('thead');
-        for (let c = 0; c < cols; c++) {
-          const slice = rows.slice(c * per, (c + 1) * per);
-          if (!slice.length) continue;
-          const t = document.createElement('table');
-          t.className = table.className;
-          if (thead) t.appendChild(thead.cloneNode(true));
-          const tb = document.createElement('tbody');
-          slice.forEach((r) => tb.appendChild(r));
-          t.appendChild(tb);
-          wrap.appendChild(t);
-        }
-        table.remove();
-        return wrap;
-      }
-      function packAuxPrint(side) {
-        const bars = [...side.querySelectorAll(':scope > .sc-bar')];
-        const benchBar = bars.find((el) => /BENCH/i.test(el.textContent));
-        const pitBar = bars.find((el) => /PITCHER/i.test(el.textContent));
-        const bench = side.querySelector(':scope > .sc-grid-bench');
-        const pen = side.querySelector(':scope > .sc-grid-pen');
-        if (!benchBar || !pitBar || !bench || !pen) return;
-        const block = document.createElement('div');
-        block.className = 'sc-aux-block';
-        const left = document.createElement('div');
-        const right = document.createElement('div');
-        left.appendChild(benchBar);
-        left.appendChild(splitAuxGrid(bench, 2));
-        right.appendChild(pitBar);
-        right.appendChild(splitAuxGrid(pen, 2));
-        block.appendChild(left);
-        block.appendChild(right);
-        side.appendChild(block);
-      }
       const sheet = el.cloneNode(true);
       sheet.querySelectorAll('input.sc-jersey').forEach((inp) => {
         const span = document.createElement('span');
@@ -1773,23 +1704,7 @@
         span.textContent = inp.value || '';
         inp.replaceWith(span);
       });
-      // Print bench/pen as one row per player, then sit bench | pen
-      // side by side in two columns. A single 19+ / 20+ stack was ~2.4in
-      // and left the 1–9 mid-page above the 1.5in notes.
-      sheet.querySelectorAll('.sc-grid-bench tbody, .sc-grid-pen tbody').forEach((tbody) => {
-        [...tbody.querySelectorAll('tr')].forEach((tr) => {
-          if (tr.classList.contains('sc-subhead')) return;
-          const who = tr.querySelector('td.sc-who');
-          if (!who) {
-            tr.remove();
-            return;
-          }
-          who.rowSpan = 1;
-          tr.querySelectorAll('td[rowspan]').forEach((td) => { td.rowSpan = 1; });
-        });
-      });
-      sheet.querySelectorAll('.sc-side').forEach((side) => packAuxPrint(side));
-      const front = `<div class="sc-print-page sc-print-front sc-front-page sc-fill">
+      const front = `<div class="sc-print-page sc-print-front sc-front-page">
         <div class="sc-front-body"><div class="sc-front-scale">${sheet.outerHTML}</div></div>
         <section class="sc-front-notes">
           <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
@@ -1798,68 +1713,51 @@
       </div>`;
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
-        /* Page 1: leftover height → 1–9 row height down to a fixed 1.5" notes footer.
-           Cap the name column at 38% (max-width:0) so nowrap last names fit and rows can grow. */
-        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden;display:flex;flex-direction:column}
+        /* Page 1 matches the 11-4 Ponce card: two teams side by side,
+           each column stacked hitters → bench → pen, 1.5in notes at the bottom.
+           Name column stays 34% with max-width:0 so rows can still grow. */
+        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden}
         .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
-        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:0;position:relative;z-index:2;background:#fff}
-        .sc-print-front .sc-pair{gap:12px;align-items:stretch;min-height:0}
+        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:auto;position:relative;z-index:2;background:#fff}
+        .sc-print-front .sc-pair{gap:12px;align-items:start;min-width:0}
         .sc-print-front .sc-side{overflow:hidden;min-width:0}
-        .sc-print-front .sc-col-who{width:38%}
-        .sc-print-front .sc-col-stat{width:9%}
-        .sc-print-front .sc-aux-block{display:grid;grid-template-columns:1fr 1.15fr;gap:6px;align-items:start}
-        .sc-print-front .sc-aux-cols{display:grid;grid-template-columns:1fr 1fr;gap:3px;align-items:start}
-        .sc-print-front .sc-aux-block .sc-grid{font-size:7.5px;line-height:1.05}
-        .sc-print-front .sc-aux-block .sc-grid th{font-size:6.5px;padding:1px 0}
-        .sc-print-front .sc-aux-block .sc-grid td{padding:0 1px}
-        .sc-print-front .sc-aux-block .sc-who{font-size:7.5px}
-        .sc-print-front .sc-aux-block .sc-bar{font-size:9px;padding:2px 0}
-        .sc-print-front .sc-grid{font-size:12px;line-height:1.32}
+        .sc-print-front .sc-col-who{width:34%}
+        .sc-print-front .sc-col-sb{width:11%}
+        .sc-print-front .sc-col-vs{width:6%}
+        .sc-print-front .sc-col-stat{width:9.8%}
+        .sc-print-front .sc-grid{font-size:12px;line-height:1.32;table-layout:fixed;width:100%}
         .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
         .sc-print-front .sc-grid td{padding:4px 3px}
         .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
         .sc-print-front .sc-head-name{font-size:17px}
         .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
-        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:38%}
+        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
         .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
-        .sc-print-front.sc-fill .sc-front-body,
-        .sc-print-front.sc-fill .sc-front-scale{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column}
-        .sc-print-front.sc-fill .sc-pair{flex:1 1 auto;min-height:0;height:100%;display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
-        .sc-print-front.sc-fill .sc-side{display:flex;flex-direction:column;height:100%;min-height:0}
-        .sc-print-front.sc-fill .sc-head,
-        .sc-print-front.sc-fill .sc-date,
-        .sc-print-front.sc-fill .sc-bar,
-        .sc-print-front.sc-fill .sc-grid-bench,
-        .sc-print-front.sc-fill .sc-grid-pen,
-        .sc-print-front.sc-fill .sc-aux-block{flex:0 0 auto}
-        .sc-print-front.sc-fill .sc-grid-lineup{flex:1 1 auto;height:100%;min-height:0}
-        .sc-print-front.sc-fill .sc-grid-lineup td.sc-who{vertical-align:middle}
-        .sc-print-front.sc-measuring .sc-front-body,
-        .sc-print-front.sc-measuring .sc-front-scale,
-        .sc-print-front.sc-measuring .sc-side,
-        .sc-print-front.sc-measuring .sc-grid-lineup{height:auto!important;flex:0 0 auto!important;display:block!important}
-        .sc-print-front.sc-measuring .sc-pair{height:auto!important;flex:0 0 auto!important;display:grid!important;align-items:start}
-        .sc-print-front.sc-aux-dense .sc-grid-bench,
-        .sc-print-front.sc-aux-dense .sc-grid-pen{font-size:8.5px;line-height:1.08}
-        .sc-print-front.sc-aux-dense .sc-grid-bench th,
-        .sc-print-front.sc-aux-dense .sc-grid-pen th{font-size:7px;padding:1px}
-        .sc-print-front.sc-aux-dense .sc-grid-bench td,
-        .sc-print-front.sc-aux-dense .sc-grid-pen td{padding:1px 2px}
-        .sc-print-front.sc-aux-dense .sc-grid-bench .sc-who,
-        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-who{font-size:8.5px}
-        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-subhead td{font-size:8px;padding:1px 2px}
-        .sc-print-front.sc-aux-xdense .sc-grid-bench,
-        .sc-print-front.sc-aux-xdense .sc-grid-pen{font-size:6.5px;line-height:1.02}
-        .sc-print-front.sc-aux-xdense .sc-grid-bench th,
-        .sc-print-front.sc-aux-xdense .sc-grid-pen th{font-size:6px;padding:0}
-        .sc-print-front.sc-aux-xdense .sc-grid-bench td,
-        .sc-print-front.sc-aux-xdense .sc-grid-pen td{padding:0 1px}
-        .sc-print-front.sc-aux-xdense .sc-grid-bench .sc-who,
-        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-who{font-size:6.5px}
-        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-subhead td{font-size:6.5px;padding:0 1px}
-        /* Page 2: opponent TTP + catcher pop only — fill the page. */
+        .sc-print-front.sc-dense .sc-grid{font-size:10px;line-height:1.18}
+        .sc-print-front.sc-dense .sc-grid th{font-size:8px;padding:2px 1px}
+        .sc-print-front.sc-dense .sc-grid td{padding:2px 2px}
+        .sc-print-front.sc-dense .sc-head{min-height:36px;padding:5px 8px}
+        .sc-print-front.sc-dense .sc-head-name{font-size:14px}
+        .sc-print-front.sc-dense .sc-logo,.sc-print-front.sc-dense .sc-mono{width:32px;height:32px}
+        .sc-print-front.sc-dense .sc-who{font-size:10px}
+        .sc-print-front.sc-dense .sc-bar{font-size:11px;padding:3px 0}
+        .sc-print-front.sc-dense .sc-date{font-size:11px;padding:3px 0 4px}
+        .sc-print-front.sc-dense .sc-subhead td{font-size:9px;padding:2px 3px}
+        .sc-print-front.sc-dense .sc-pair{gap:8px}
+        .sc-print-front.sc-xdense .sc-grid{font-size:8px;line-height:1.08}
+        .sc-print-front.sc-xdense .sc-grid th{font-size:7px;padding:1px}
+        .sc-print-front.sc-xdense .sc-grid td{padding:1px 1px}
+        .sc-print-front.sc-xdense .sc-head{min-height:28px;padding:3px 6px}
+        .sc-print-front.sc-xdense .sc-head-name{font-size:12px}
+        .sc-print-front.sc-xdense .sc-logo,.sc-print-front.sc-xdense .sc-mono{width:26px;height:26px}
+        .sc-print-front.sc-xdense .sc-who{font-size:8px}
+        .sc-print-front.sc-xdense .sc-bar{font-size:9px;padding:2px 0;letter-spacing:.06em}
+        .sc-print-front.sc-xdense .sc-date{font-size:9px;padding:2px 0}
+        .sc-print-front.sc-xdense .sc-subhead td{font-size:8px;padding:1px 2px}
+        .sc-print-front.sc-xdense .sc-pair{gap:4px}
+        /* Page 2: opponent TTP + catcher pop only. */
         .sc-print-back .sc-back{min-height:10.0in;height:100%;padding-top:4px;box-sizing:border-box}
         .sc-print-back .sc-head{min-height:52px;padding:10px 12px}
         .sc-print-back .sc-head-name{font-size:18px}

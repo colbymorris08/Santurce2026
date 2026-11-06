@@ -244,6 +244,18 @@ await printPage.waitForTimeout(50);
     backHasTtp: !!back?.querySelector('.sc-ttp-table'),
     backHasPop: (back?.querySelectorAll('.sc-bar') || []).length >= 2,
     backBars: [...(back?.querySelectorAll('.sc-bar') || [])].map((el) => el.textContent.trim()),
+    stacked: (() => {
+      const side = document.querySelector('.sc-print-front .sc-side');
+      if (!side || side.querySelector('.sc-aux-block')) return false;
+      const lineup = side.querySelector('.sc-grid-lineup');
+      const bench = side.querySelector('.sc-grid-bench');
+      const pen = side.querySelector('.sc-grid-pen');
+      if (!lineup || !bench || !pen) return false;
+      const lr = lineup.getBoundingClientRect();
+      const br = bench.getBoundingClientRect();
+      const pr = pen.getBoundingClientRect();
+      return br.top >= lr.bottom - 2 && pr.top >= br.bottom - 2 && br.left < lr.right - 8;
+    })(),
   };
 });
 
@@ -277,7 +289,8 @@ const result = {
     && layout.fillsToNotes
     && layout.scaleUsesMostOfBody
     && layout.lineupBiggerThanBench
-    && layout.nameColOk,
+    && layout.nameColOk
+    && layout.stacked,
 };
 
 console.log(JSON.stringify(result, null, 2));
