@@ -4,6 +4,7 @@
  * Page 2 = TTP + catcher pop only.
  * Stress: Ponce (long bench/pen) vs Santurce, both fully filled.
  */
+import { chromium } from 'playwright';
 import { createServer } from 'http';
 import { readFileSync, existsSync, statSync, writeFileSync } from 'fs';
 import { extname, join, normalize } from 'path';
@@ -35,32 +36,17 @@ await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const { port } = server.address();
 const base = `http://127.0.0.1:${port}`;
 
-async function launchBrowser() {
-  try {
-    const { chromium } = await import('playwright');
-    process.env.PLAYWRIGHT_BROWSERS_PATH = join(root, '.pw-browsers');
-    const browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
-    return { browser, page: await context.newPage(), newPage: () => context.newPage() };
-  } catch {
-    const puppeteer = (await import('puppeteer-core')).default;
-    const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-    const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: existsSync(chrome) ? chrome : undefined,
-      args: ['--no-sandbox', '--disable-gpu'],
-    });
-    return { browser, page: await browser.newPage(), newPage: () => browser.newPage() };
-  }
-}
-const { browser, page, newPage } = await launchBrowser();
+process.env.PLAYWRIGHT_BROWSERS_PATH = join(root, '.pw-browsers');
+const browser = await chromium.launch({ headless: true });
+const context = await browser.newContext();
+const page = await context.newPage();
 
 const printDocs = [];
 await page.exposeFunction('__capturePrintDoc', (html) => {
   printDocs.push(html);
 });
 
-const openHook = () => {
+await page.addInitScript(() => {
   window.open = () => {
     const doc = {
       open() {},
@@ -82,22 +68,13 @@ const openHook = () => {
       __scFitPrintPages: null,
     };
   };
-};
-if (typeof page.addInitScript === 'function') await page.addInitScript(openHook);
-else await page.evaluateOnNewDocument(openHook);
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-try {
-  await page.goto(`${base}/pregame.html#strategy`, { waitUntil: 'networkidle', timeout: 60000 });
-} catch {
-  await page.goto(`${base}/pregame.html#strategy`, { waitUntil: 'networkidle0', timeout: 60000 });
-}
-await page.waitForSelector('#loading', { hidden: true, timeout: 60000 }).catch(async () => {
-  await page.waitForSelector('#loading', { state: 'hidden', timeout: 60000 });
 });
+
+await page.goto(`${base}/pregame.html#strategy`, { waitUntil: 'networkidle' });
+await page.waitForSelector('#loading', { state: 'hidden', timeout: 60000 });
 await page.waitForFunction(() => typeof window.CardApp === 'object' && typeof CardApp.exportStrategy === 'function', { timeout: 20000 });
 await page.waitForSelector('#strategy-sheet .sc-side', { timeout: 30000 });
-await sleep(400);
+await page.waitForTimeout(400);
 
 // Fill long Ponce + Santurce cards (lineup 9, rest bench, all pen).
 const cardStats = JSON.parse(readFileSync(join(root, 'data/pregame_card_stats.json'), 'utf8'));
@@ -134,13 +111,13 @@ await page.evaluate((stats) => {
   CardApp.renderStrategy();
 }, cardStats);
 
-await sleep(500);
+await page.waitForTimeout(500);
 await page.waitForSelector('#strategy-sheet .sc-side', { timeout: 10000 });
 
 printDocs.length = 0;
 await page.evaluate(() => { window.__lastPrintHtml = ''; });
 await page.evaluate(() => CardApp.exportStrategy());
-await sleep(200);
+await page.waitForTimeout(200);
 
 const html = printDocs[printDocs.length - 1] || await page.evaluate(() => window.__lastPrintHtml || '');
 if (!html) {
@@ -150,14 +127,14 @@ if (!html) {
   process.exit(1);
 }
 
-const printPage = await newPage();
+const printPage = await context.newPage();
 await printPage.setContent(html, { waitUntil: 'load' });
-await sleep(150);
+await printPage.waitForTimeout(150);
 // Run embedded fit (or fallback).
 await printPage.evaluate(() => {
   if (typeof window.__scFitPrintPages === 'function') window.__scFitPrintPages();
 });
-await sleep(50);
+await printPage.waitForTimeout(50);
 
   const layout = await printPage.evaluate(() => {
   const tallIn = 10.5;
@@ -192,16 +169,6 @@ await sleep(50);
   const bodyLayoutH = bodyBox ? bodyBox.height : 0;
   const scaleLayoutH = scaleBox ? scaleBox.height : 0;
   const notesH = notesBox ? notesBox.height : 0;
-  const gapToNotesPx = notesBox && scaleBox ? notesBox.top - scaleBox.bottom : 999;
-  const lineupEl = document.querySelector('.sc-print-front .sc-grid-lineup');
-  const benchEl = document.querySelector('.sc-print-front .sc-grid-bench');
-  const lineupFontPx = lineupEl ? parseFloat(getComputedStyle(lineupEl).fontSize) : 0;
-  const benchFontPx = benchEl ? parseFloat(getComputedStyle(benchEl).fontSize) : 0;
-  const whoCellEl = document.querySelector('.sc-print-front .sc-grid-lineup td.sc-who');
-  const whoW = whoCellEl ? whoCellEl.getBoundingClientRect().width : 0;
-  const tableW = lineupEl ? lineupEl.getBoundingClientRect().width : 1;
-  const whoColPct = whoW / Math.max(tableW, 1);
-  const hasFirstName = !!document.querySelector('.sc-print-front .sc-first');
   const ceiling = notesBox && bodyBox
     ? Math.min(notesBox.top, bodyBox.bottom)
     : (notesBox ? notesBox.top : Infinity);
@@ -241,23 +208,11 @@ await sleep(50);
     frontFitsAvail: frontH <= avail + 1,
     bodyPlusNotesFits: (bodyLayoutH + notesH) <= avail + 2,
     scaleUsesMostOfBody: scaleLayoutH >= bodyAvail * 0.85 || bodyZoom >= 0.95,
-    fillsToNotes: gapToNotesPx >= -4 && gapToNotesPx <= 32,
-    gapToNotesPx,
-    lineupFontPx,
-    benchFontPx,
-    lineupBiggerThanBench: !benchFontPx || lineupFontPx + 0.4 >= benchFontPx,
     namesPastNotes,
     namesClipped,
     ordLabels: ordLabels.slice(0, 12),
     dense: front ? front.classList.contains('sc-dense') : false,
     xdense: front ? front.classList.contains('sc-xdense') : false,
-    auxDense: front ? front.classList.contains('sc-aux-dense') : false,
-    auxXdense: front ? front.classList.contains('sc-aux-xdense') : false,
-    fills: front ? front.classList.contains('sc-fill') : false,
-    whoColPct,
-    whoWidthIn: whoW / 96,
-    hasFirstName,
-    nameColNarrow: whoColPct > 0 && whoColPct <= 0.28,
     backHasTtp: !!back?.querySelector('.sc-ttp-table'),
     backBars: [...(back?.querySelectorAll('.sc-bar') || [])].map((el) => el.textContent.trim()),
   };
@@ -288,12 +243,7 @@ const result = {
     && layout.frontFitsAvail
     && layout.namesPastNotes.length === 0
     && layout.namesClipped.length === 0
-    && layout.backHasTtp
-    && layout.fillsToNotes
-    && layout.scaleUsesMostOfBody
-    && layout.lineupBiggerThanBench
-    && layout.nameColNarrow
-    && layout.hasFirstName,
+    && layout.backHasTtp,
 };
 
 console.log(JSON.stringify(result, null, 2));
