@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T10:12:37Z",
+  "updated": "2026-11-06T09:03:31Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1674,26 +1674,6 @@
       "team_name": "Indios de Mayaguez",
       "pitchers": [
         {
-          "jersey": "36",
-          "name": "Alexander Castro",
-          "name_display": "Castro, Alexander",
-          "throws": "R",
-          "mlb_id": 669418,
-          "velo": {
-            "FB": "92-94",
-            "CB": "",
-            "SL": "81-84",
-            "CH": "83-84",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "SL 62%, FB 33%, SNK 5%",
-          "freq_l": "FB 51%, SL 36%, CH 13%",
-          "freq_html": "<span class=\"freq-r\">RHH: SL 62%, FB 33%, SNK 5%</span><br><span class=\"freq-l\">LHH: FB 51%, SL 36%, CH 13%</span>",
-          "notes": "",
-          "needs_data": false
-        },
-        {
           "jersey": "72",
           "name": "Sean Barnett",
           "name_display": "Barnett, Sean",
@@ -1730,6 +1710,26 @@
           "freq_r": "FB 73%, CH 17%, CB 6%, SL 2%",
           "freq_l": "FB 69%, CB 13%, CUT 12%, CH 4%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 73%, CH 17%, CB 6%, SL 2%</span><br><span class=\"freq-l\">LHH: FB 69%, CB 13%, CUT 12%, CH 4%</span>",
+          "notes": "",
+          "needs_data": false
+        },
+        {
+          "jersey": "36",
+          "name": "Alexander Castro",
+          "name_display": "Castro, Alexander",
+          "throws": "R",
+          "mlb_id": 669418,
+          "velo": {
+            "FB": "92-94",
+            "CB": "",
+            "SL": "81-84",
+            "CH": "83-84",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "SL 62%, FB 33%, SNK 5%",
+          "freq_l": "FB 51%, SL 36%, CH 13%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 62%, FB 33%, SNK 5%</span><br><span class=\"freq-l\">LHH: FB 51%, SL 36%, CH 13%</span>",
           "notes": "",
           "needs_data": false
         },
