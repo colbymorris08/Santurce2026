@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-06T07:35:00Z",
+  "updated": "2026-11-06T15:40:00Z",
   "label": "11-6",
   "date_key": "2026-11-06",
-  "published_from": "official SAN lineup PDF vs Mayagüez 11-6-26; MAY 1-9 from ligapr box (Salgado SP override; Castro to pen)",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only.",
+  "published_from": "official SAN lineup PDF vs Mayagüez 11-6-26; MAY 1-9/extras/pen from 11-6 lineup sheet (Salgado SP)",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only. | MAY 11-6 lineup sheet: Salgado SP, photo 1-9/extras/pen (numbered only). Castro jersey override #6.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -299,25 +299,19 @@
       "MAY": {
         "sp": 687560,
         "pen": [
-          669418,
-          543071,
-          681493,
-          687956,
-          -346943911,
-          623485,
-          805248,
           571772,
-          605347,
-          446651,
-          687879,
-          681938,
           683803,
-          837223,
-          663723,
+          446651,
+          694547,
           624401,
           -198603702,
-          694547,
+          -346943911,
+          687879,
+          605347,
+          805248,
           826141,
+          681938,
+          687956,
           684320
         ],
         "lineup": [
@@ -326,12 +320,12 @@
             "pos": "9"
           },
           {
-            "id": 656371,
-            "pos": "6"
-          },
-          {
             "id": 656896,
             "pos": "5"
+          },
+          {
+            "id": 656371,
+            "pos": "6"
           },
           {
             "id": 647351,
@@ -342,81 +336,45 @@
             "pos": "DH"
           },
           {
-            "id": 807714,
-            "pos": "8"
-          },
-          {
-            "id": 543611,
-            "pos": "7"
+            "id": 700845,
+            "pos": "2"
           },
           {
             "id": 671117,
             "pos": "4"
           },
           {
-            "id": 676566,
-            "pos": "2"
+            "id": 807714,
+            "pos": "8"
+          },
+          {
+            "id": 543611,
+            "pos": "7"
           }
         ],
         "bench": [
           {
-            "id": -722051519,
-            "pos": "8"
-          },
-          {
-            "id": -161299452,
-            "pos": "4"
-          },
-          {
-            "id": 680728,
-            "pos": "2"
-          },
-          {
-            "id": 666128,
-            "pos": "2"
-          },
-          {
-            "id": 703742,
-            "pos": "4"
-          },
-          {
-            "id": -840209350,
-            "pos": "4"
-          },
-          {
-            "id": 687231,
-            "pos": "6"
-          },
-          {
-            "id": 689659,
-            "pos": "3"
-          },
-          {
-            "id": 813930,
-            "pos": "2"
-          },
-          {
-            "id": 683090,
-            "pos": "7"
+            "id": 592680,
+            "pos": "5"
           },
           {
             "id": -229984899,
             "pos": "6"
           },
           {
+            "id": 703742,
+            "pos": "4"
+          },
+          {
             "id": 680107,
             "pos": "4"
           },
           {
-            "id": 668776,
-            "pos": "DH"
+            "id": -722051519,
+            "pos": "8"
           },
           {
-            "id": 592680,
-            "pos": "5"
-          },
-          {
-            "id": 700845,
+            "id": 676566,
             "pos": "2"
           }
         ]
@@ -424,7 +382,7 @@
     },
     "opponent": "MAY",
     "santurceHome": false,
-    "updated": "2026-11-06T07:35:00Z"
+    "updated": "2026-11-06T15:40:00Z"
   },
   "notes": {
     "team": "MAY",
@@ -460,7 +418,8 @@
     "803596": "43",
     "681154": "59",
     "810862": "38",
-    "815048": "62"
+    "815048": "62",
+    "657538": "6"
   },
   "one_page_notes": {
     "jonathanbermudez": "FB average shape, primary offspeed big sweeper, average CH, flashes SL/CT shape vs LHH",
