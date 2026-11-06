@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-06T06:50:00Z",
+  "updated": "2026-11-06T07:35:00Z",
   "label": "11-6",
   "date_key": "2026-11-06",
   "published_from": "official SAN lineup PDF vs Mayagüez 11-6-26; MAY 1-9 from ligapr box (Salgado SP override; Castro to pen)",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. MAY Salgado SP (Castro to pen, not ligapr S-1) + ligapr 1-9. Pens = roster pitchers minus SP.",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -22,22 +22,7 @@
           803596,
           681154,
           810862,
-          815048,
-          692064,
-          -114075284,
-          677369,
-          -509515430,
-          -283863159,
-          -301498672,
-          518585,
-          664747,
-          592329,
-          -682585200,
-          -145641423,
-          803409,
-          700247,
-          700842,
-          -477757957
+          815048
         ],
         "lineup": [
           {
@@ -319,7 +304,6 @@
           681493,
           687956,
           -346943911,
-          807485,
           623485,
           805248,
           571772,
@@ -327,10 +311,8 @@
           446651,
           687879,
           681938,
-          -465760315,
           683803,
           837223,
-          -165648089,
           663723,
           624401,
           -198603702,
@@ -382,18 +364,6 @@
             "pos": "8"
           },
           {
-            "id": 669134,
-            "pos": "2"
-          },
-          {
-            "id": -677575556,
-            "pos": "6"
-          },
-          {
-            "id": 666126,
-            "pos": "7"
-          },
-          {
             "id": -161299452,
             "pos": "4"
           },
@@ -430,10 +400,6 @@
             "pos": "7"
           },
           {
-            "id": 809686,
-            "pos": "8"
-          },
-          {
             "id": -229984899,
             "pos": "6"
           },
@@ -458,7 +424,7 @@
     },
     "opponent": "MAY",
     "santurceHome": false,
-    "updated": "2026-11-06T06:50:00Z"
+    "updated": "2026-11-06T07:35:00Z"
   },
   "notes": {
     "team": "MAY",
