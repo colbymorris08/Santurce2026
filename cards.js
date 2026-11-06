@@ -446,8 +446,9 @@
       <col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat">
     </colgroup>`;
   }
-  function hitterTable(players, rowsHtml) {
-    return `<table class="sc-grid">
+  function hitterTable(players, rowsHtml, extraClass) {
+    const cls = extraClass ? `sc-grid ${extraClass}` : 'sc-grid';
+    return `<table class="${cls}">
       ${gridCols()}
       <thead><tr>
         <th>${tr('PLAYER', 'JUGADOR')}</th><th>SB/SBA</th><th>VS</th><th>K</th><th>GB</th><th>WH</th><th>AVG</th><th>OPS</th>
@@ -455,8 +456,9 @@
       <tbody>${rowsHtml}</tbody>
     </table>`;
   }
-  function pitcherTable(rowsHtml) {
-    return `<table class="sc-grid">
+  function pitcherTable(rowsHtml, extraClass) {
+    const cls = extraClass ? `sc-grid ${extraClass}` : 'sc-grid';
+    return `<table class="${cls}">
       ${gridCols()}
       <thead><tr>
         <th>${tr('PLAYER', 'JUGADOR')}</th><th>TTP</th><th>VS</th><th>K</th><th>GB</th><th>WH</th><th>BB</th><th>OPS</th>
@@ -526,11 +528,11 @@
       </header>
       <div class="sc-date">${esc(dateStr)}</div>
       <div class="sc-bar">HITTERS</div>
-      ${hitterTable(hitters, hitterRows)}
+      ${hitterTable(hitters, hitterRows, 'sc-grid-lineup')}
       <div class="sc-bar">BENCH / PH</div>
-      ${hitterTable(hitters, benchRows)}
+      ${hitterTable(hitters, benchRows, 'sc-grid-bench')}
       <div class="sc-bar">PITCHERS</div>
-      ${pitcherTable(pitRows)}
+      ${pitcherTable(pitRows, 'sc-grid-pen')}
     </section>`;
   }
 
@@ -1049,7 +1051,7 @@
     .sc-front-page{display:flex;flex-direction:column;box-sizing:border-box}
     .sc-front-body{flex:1 1 auto;min-height:0;overflow:hidden}
     .sc-front-scale{display:block;transform-origin:top left}
-    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:auto}
+    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:0}
     .sc-front-notes .sc-bar{flex:0 0 auto}
     .sc-back{display:flex;flex-direction:column;gap:14px;box-sizing:border-box}
     .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;color:#111}
@@ -1062,35 +1064,92 @@
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
 
+  function sideNaturalHeight(front) {
+    let max = 0;
+    front.querySelectorAll('.sc-side').forEach((side) => {
+      const r = side.getBoundingClientRect().height;
+      max = Math.max(max, r || side.scrollHeight || 0);
+    });
+    return max;
+  }
+  function clearScale(el) {
+    if (!el) return;
+    el.style.zoom = '1';
+    el.style.transform = '';
+    el.style.transformOrigin = 'top left';
+    el.style.marginBottom = '';
+    el.style.width = '';
+  }
+  /** CSS zoom when the engine honors it; transform + negative margin otherwise. */
+  function applyZoom(el, z) {
+    if (!el) return;
+    z = Math.max(0.22, Math.min(1, z));
+    clearScale(el);
+    if (z >= 0.995) return;
+    el.style.zoom = String(z);
+    const layoutH = el.getBoundingClientRect().height;
+    const natural = el.scrollHeight || layoutH;
+    if (layoutH > natural * z + 6) {
+      el.style.zoom = '1';
+      el.style.transform = `scale(${z})`;
+      el.style.width = `${100 / z}%`;
+      el.style.marginBottom = `${(z - 1) * natural}px`;
+    }
+  }
+
   /**
-   * Scale the inner .sc-front-scale so lineup fits above the fixed 1.5" notes.
-   * Zoom is applied to the INNER wrapper only — never to the flex shell that
-   * owns max-height — otherwise zoom multiplies max-height and clips names.
+   * Fit the front body above the fixed 1.5" notes.
+   * Starting 1–9 stays large and stretches into leftover space. Long
+   * bench/pen compact (then scale) first. Whole-card zoom is last resort
+   * so densify cannot leave a mid-page gap above the notes band.
    */
   function fitFrontBody(front, body, bodyAvail) {
     if (!front || !body) return;
     const scale = body.querySelector('.sc-front-scale') || body;
-    front.classList.remove('sc-dense', 'sc-xdense');
-    scale.style.zoom = '1';
-    let bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    if (bh > bodyAvail * 1.02) {
-      front.classList.add('sc-dense');
-      bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    }
-    if (bh > bodyAvail * 1.02) {
-      front.classList.add('sc-xdense');
-      bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    }
-    let z = Math.min(1, bodyAvail / Math.max(bh, 1));
-    z = Math.max(0.28, z);
-    scale.style.zoom = String(z);
-    for (let i = 0; i < 6; i++) {
-      const layoutH = scale.getBoundingClientRect().height;
-      if (layoutH <= bodyAvail + 0.5) break;
-      z = Math.max(0.28, z * (bodyAvail / Math.max(layoutH, 1)));
-      scale.style.zoom = String(z);
-    }
+    front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
+    clearScale(scale);
+    front.querySelectorAll('.sc-grid-bench, .sc-grid-pen').forEach(clearScale);
     body.style.overflow = 'hidden';
+
+    front.classList.add('sc-measuring');
+    let h = sideNaturalHeight(front) || scale.scrollHeight || 1;
+    if (h > bodyAvail + 1) {
+      front.classList.add('sc-aux-dense');
+      h = sideNaturalHeight(front) || h;
+    }
+    if (h > bodyAvail + 1) {
+      front.classList.add('sc-aux-xdense');
+      h = sideNaturalHeight(front) || h;
+    }
+    if (h > bodyAvail + 0.5) {
+      front.querySelectorAll('.sc-side').forEach((side) => {
+        const bench = side.querySelector('.sc-grid-bench');
+        const pen = side.querySelector('.sc-grid-pen');
+        const sideH = side.scrollHeight || side.getBoundingClientRect().height;
+        const auxH = (bench ? bench.getBoundingClientRect().height : 0)
+          + (pen ? pen.getBoundingClientRect().height : 0);
+        const remain = Math.max(36, bodyAvail - (sideH - auxH));
+        if (auxH > remain + 1) {
+          const az = remain / Math.max(auxH, 1);
+          applyZoom(bench, az);
+          applyZoom(pen, az);
+        }
+      });
+      h = sideNaturalHeight(front) || h;
+    }
+    let z = 1;
+    if (h > bodyAvail + 0.5) {
+      z = Math.max(0.42, bodyAvail / Math.max(h, 1));
+      applyZoom(scale, z);
+      for (let i = 0; i < 6; i++) {
+        const layoutH = scale.getBoundingClientRect().height;
+        if (layoutH <= bodyAvail + 0.5) break;
+        z = Math.max(0.42, z * (bodyAvail / Math.max(layoutH, 1)));
+        applyZoom(scale, z);
+      }
+    }
+    front.classList.remove('sc-measuring');
+    if (z >= 0.995) front.classList.add('sc-fill');
   }
 
   /** Fit strategy/small-ball print pages in the popup (also used by measure scripts). */
@@ -1115,9 +1174,22 @@
         fitFrontBody(p, body, bodyAvail);
         return;
       }
-      // Back (TTP / catcher pop): fill one page; scale down only if needed.
-      const h = p.scrollHeight || p.getBoundingClientRect().height;
-      if (h > avail) p.style.zoom = String(Math.max(0.35, avail / h));
+      // Back (TTP / catcher pop): measure unconstrained content, then scale to one page.
+      const inner = p.querySelector('.sc-back') || p;
+      const prevOverflow = p.style.overflow;
+      const prevMax = p.style.maxHeight;
+      const prevH = p.style.height;
+      p.style.overflow = 'visible';
+      p.style.maxHeight = 'none';
+      p.style.height = 'auto';
+      const h = inner.scrollHeight || inner.getBoundingClientRect().height;
+      p.style.overflow = prevOverflow;
+      p.style.maxHeight = prevMax;
+      p.style.height = prevH;
+      if (h > avail) {
+        inner.style.minHeight = '0';
+        applyZoom(inner, Math.max(0.35, avail / h));
+      }
     });
   }
 
@@ -1161,30 +1233,82 @@
         (function(){
           var tallIn = ${tallIn};
           var notesIn = ${notesIn};
+          function sideH(front){
+            var max = 0;
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+              var r = side.getBoundingClientRect().height;
+              max = Math.max(max, r || side.scrollHeight || 0);
+            });
+            return max;
+          }
+          function clearScale(el){
+            if(!el) return;
+            el.style.zoom = '1';
+            el.style.transform = '';
+            el.style.transformOrigin = 'top left';
+            el.style.marginBottom = '';
+            el.style.width = '';
+          }
+          function applyZoom(el, z){
+            if(!el) return;
+            z = Math.max(0.22, Math.min(1, z));
+            clearScale(el);
+            if(z >= 0.995) return;
+            el.style.zoom = String(z);
+            var layoutH = el.getBoundingClientRect().height;
+            var natural = el.scrollHeight || layoutH;
+            if(layoutH > natural * z + 6){
+              el.style.zoom = '1';
+              el.style.transform = 'scale(' + z + ')';
+              el.style.width = (100 / z) + '%';
+              el.style.marginBottom = ((z - 1) * natural) + 'px';
+            }
+          }
           function fitFront(front, body, bodyAvail){
             if(!front || !body) return;
             var scale = body.querySelector('.sc-front-scale') || body;
-            front.classList.remove('sc-dense', 'sc-xdense');
-            scale.style.zoom = '1';
-            var bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            if(bh > bodyAvail * 1.02){
-              front.classList.add('sc-dense');
-              bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            }
-            if(bh > bodyAvail * 1.02){
-              front.classList.add('sc-xdense');
-              bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            }
-            var z = Math.min(1, bodyAvail / Math.max(bh, 1));
-            z = Math.max(0.28, z);
-            scale.style.zoom = String(z);
-            for(var i = 0; i < 6; i++){
-              var layoutH = scale.getBoundingClientRect().height;
-              if(layoutH <= bodyAvail + 0.5) break;
-              z = Math.max(0.28, z * (bodyAvail / Math.max(layoutH, 1)));
-              scale.style.zoom = String(z);
-            }
+            front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
+            clearScale(scale);
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-bench, .sc-grid-pen'), clearScale);
             body.style.overflow = 'hidden';
+            front.classList.add('sc-measuring');
+            var h = sideH(front) || scale.scrollHeight || 1;
+            if(h > bodyAvail + 1){
+              front.classList.add('sc-aux-dense');
+              h = sideH(front) || h;
+            }
+            if(h > bodyAvail + 1){
+              front.classList.add('sc-aux-xdense');
+              h = sideH(front) || h;
+            }
+            if(h > bodyAvail + 0.5){
+              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+                var bench = side.querySelector('.sc-grid-bench');
+                var pen = side.querySelector('.sc-grid-pen');
+                var sideH0 = side.scrollHeight || side.getBoundingClientRect().height;
+                var auxH = (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
+                var remain = Math.max(36, bodyAvail - (sideH0 - auxH));
+                if(auxH > remain + 1){
+                  var az = remain / Math.max(auxH, 1);
+                  applyZoom(bench, az);
+                  applyZoom(pen, az);
+                }
+              });
+              h = sideH(front) || h;
+            }
+            var z = 1;
+            if(h > bodyAvail + 0.5){
+              z = Math.max(0.42, bodyAvail / Math.max(h, 1));
+              applyZoom(scale, z);
+              for(var i = 0; i < 6; i++){
+                var layoutH2 = scale.getBoundingClientRect().height;
+                if(layoutH2 <= bodyAvail + 0.5) break;
+                z = Math.max(0.42, z * (bodyAvail / Math.max(layoutH2, 1)));
+                applyZoom(scale, z);
+              }
+            }
+            front.classList.remove('sc-measuring');
+            if(z >= 0.995) front.classList.add('sc-fill');
           }
           function fit(){
             var pages = Array.prototype.slice.call(document.querySelectorAll('.sc-print-page'));
@@ -1205,8 +1329,19 @@
                 fitFront(p, body, Math.max(120, avail - notesH));
                 return;
               }
-              var h = p.scrollHeight || p.getBoundingClientRect().height;
-              if(h > avail) p.style.zoom = String(Math.max(0.35, avail / h));
+              var inner = p.querySelector('.sc-back') || p;
+              var prevOverflow = p.style.overflow, prevMax = p.style.maxHeight, prevH = p.style.height;
+              p.style.overflow = 'visible';
+              p.style.maxHeight = 'none';
+              p.style.height = 'auto';
+              var h = inner.scrollHeight || inner.getBoundingClientRect().height;
+              p.style.overflow = prevOverflow;
+              p.style.maxHeight = prevMax;
+              p.style.height = prevH;
+              if(h > avail){
+                inner.style.minHeight = '0';
+                applyZoom(inner, Math.max(0.35, avail / h));
+              }
             });
           }
           window.__scFitPrintPages = fit;
@@ -1508,7 +1643,7 @@
         span.textContent = inp.value || '';
         inp.replaceWith(span);
       });
-      const front = `<div class="sc-print-page sc-print-front sc-front-page">
+      const front = `<div class="sc-print-page sc-print-front sc-front-page sc-fill">
         <div class="sc-front-body"><div class="sc-front-scale">${sheet.outerHTML}</div></div>
         <section class="sc-front-notes">
           <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
@@ -1517,13 +1652,13 @@
       </div>`;
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
-        /* Page 1: full lineup (pitcher after #9) + fixed 1.5" notes BELOW all names.
-           Zoom lives on .sc-front-scale; the flex shell keeps an unzoomed max-height. */
-        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden}
-        .sc-print-front .sc-front-scale{display:block;width:100%}
-        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:auto;position:relative;z-index:2;background:#fff}
-        .sc-print-front .sc-pair{gap:12px;align-items:start}
-        .sc-print-front .sc-side{overflow:visible}
+        /* Page 1: starting lineup fills down to a fixed 1.5" notes footer.
+           Bench/pen compact if needed; do not densify the 1–9 into a mid-page gap. */
+        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden;display:flex;flex-direction:column}
+        .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
+        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:0;position:relative;z-index:2;background:#fff}
+        .sc-print-front .sc-pair{gap:12px;align-items:stretch;min-height:0}
+        .sc-print-front .sc-side{overflow:hidden;min-width:0}
         .sc-print-front .sc-grid{font-size:12px;line-height:1.32}
         .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
         .sc-print-front .sc-grid td{padding:4px 3px}
@@ -1534,29 +1669,40 @@
         .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
-        /* Long benches / pens (Ponce): tighten before zoom. */
-        .sc-print-front.sc-dense .sc-grid{font-size:10px;line-height:1.18}
-        .sc-print-front.sc-dense .sc-grid th{font-size:8px;padding:2px 1px}
-        .sc-print-front.sc-dense .sc-grid td{padding:2px 2px}
-        .sc-print-front.sc-dense .sc-head{min-height:36px;padding:5px 8px}
-        .sc-print-front.sc-dense .sc-head-name{font-size:14px}
-        .sc-print-front.sc-dense .sc-logo,.sc-print-front.sc-dense .sc-mono{width:32px;height:32px}
-        .sc-print-front.sc-dense .sc-who{font-size:10px}
-        .sc-print-front.sc-dense .sc-bar{font-size:11px;padding:3px 0}
-        .sc-print-front.sc-dense .sc-date{font-size:11px;padding:3px 0 4px}
-        .sc-print-front.sc-dense .sc-subhead td{font-size:9px;padding:2px 3px}
-        .sc-print-front.sc-dense .sc-pair{gap:8px}
-        .sc-print-front.sc-xdense .sc-grid{font-size:8px;line-height:1.08}
-        .sc-print-front.sc-xdense .sc-grid th{font-size:7px;padding:1px}
-        .sc-print-front.sc-xdense .sc-grid td{padding:1px 1px}
-        .sc-print-front.sc-xdense .sc-head{min-height:28px;padding:3px 6px}
-        .sc-print-front.sc-xdense .sc-head-name{font-size:12px}
-        .sc-print-front.sc-xdense .sc-logo,.sc-print-front.sc-xdense .sc-mono{width:26px;height:26px}
-        .sc-print-front.sc-xdense .sc-who{font-size:8px}
-        .sc-print-front.sc-xdense .sc-bar{font-size:9px;padding:2px 0;letter-spacing:.06em}
-        .sc-print-front.sc-xdense .sc-date{font-size:9px;padding:2px 0}
-        .sc-print-front.sc-xdense .sc-subhead td{font-size:8px;padding:1px 2px}
-        .sc-print-front.sc-xdense .sc-pair{gap:4px}
+        .sc-print-front.sc-fill .sc-front-body,
+        .sc-print-front.sc-fill .sc-front-scale{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column}
+        .sc-print-front.sc-fill .sc-pair{flex:1 1 auto;min-height:0;height:100%;display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+        .sc-print-front.sc-fill .sc-side{display:flex;flex-direction:column;height:100%;min-height:0}
+        .sc-print-front.sc-fill .sc-head,
+        .sc-print-front.sc-fill .sc-date,
+        .sc-print-front.sc-fill .sc-bar,
+        .sc-print-front.sc-fill .sc-grid-bench,
+        .sc-print-front.sc-fill .sc-grid-pen{flex:0 0 auto}
+        .sc-print-front.sc-fill .sc-grid-lineup{flex:1 1 auto;height:100%;min-height:0}
+        .sc-print-front.sc-fill .sc-grid-lineup tbody{height:100%}
+        .sc-print-front.sc-measuring .sc-front-body,
+        .sc-print-front.sc-measuring .sc-front-scale,
+        .sc-print-front.sc-measuring .sc-side,
+        .sc-print-front.sc-measuring .sc-grid-lineup{height:auto!important;flex:0 0 auto!important;display:block!important}
+        .sc-print-front.sc-measuring .sc-pair{height:auto!important;flex:0 0 auto!important;display:grid!important;align-items:start}
+        .sc-print-front.sc-aux-dense .sc-grid-bench,
+        .sc-print-front.sc-aux-dense .sc-grid-pen{font-size:8.5px;line-height:1.08}
+        .sc-print-front.sc-aux-dense .sc-grid-bench th,
+        .sc-print-front.sc-aux-dense .sc-grid-pen th{font-size:7px;padding:1px}
+        .sc-print-front.sc-aux-dense .sc-grid-bench td,
+        .sc-print-front.sc-aux-dense .sc-grid-pen td{padding:1px 2px}
+        .sc-print-front.sc-aux-dense .sc-grid-bench .sc-who,
+        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-who{font-size:8.5px}
+        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-subhead td{font-size:8px;padding:1px 2px}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen{font-size:6.5px;line-height:1.02}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench th,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen th{font-size:6px;padding:0}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench td,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen td{padding:0 1px}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench .sc-who,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-who{font-size:6.5px}
+        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-subhead td{font-size:6.5px;padding:0 1px}
         /* Page 2: opponent TTP + catcher pop only — fill the page. */
         .sc-print-back .sc-back{min-height:10.0in;height:100%;padding-top:4px;box-sizing:border-box}
         .sc-print-back .sc-head{min-height:52px;padding:10px 12px}

@@ -169,6 +169,11 @@ await printPage.waitForTimeout(50);
   const bodyLayoutH = bodyBox ? bodyBox.height : 0;
   const scaleLayoutH = scaleBox ? scaleBox.height : 0;
   const notesH = notesBox ? notesBox.height : 0;
+  const gapToNotesPx = notesBox && scaleBox ? notesBox.top - scaleBox.bottom : 999;
+  const lineupEl = document.querySelector('.sc-print-front .sc-grid-lineup');
+  const benchEl = document.querySelector('.sc-print-front .sc-grid-bench');
+  const lineupFontPx = lineupEl ? parseFloat(getComputedStyle(lineupEl).fontSize) : 0;
+  const benchFontPx = benchEl ? parseFloat(getComputedStyle(benchEl).fontSize) : 0;
   const ceiling = notesBox && bodyBox
     ? Math.min(notesBox.top, bodyBox.bottom)
     : (notesBox ? notesBox.top : Infinity);
@@ -208,12 +213,21 @@ await printPage.waitForTimeout(50);
     frontFitsAvail: frontH <= avail + 1,
     bodyPlusNotesFits: (bodyLayoutH + notesH) <= avail + 2,
     scaleUsesMostOfBody: scaleLayoutH >= bodyAvail * 0.85 || bodyZoom >= 0.95,
+    fillsToNotes: gapToNotesPx >= -4 && gapToNotesPx <= 32,
+    gapToNotesPx,
+    lineupFontPx,
+    benchFontPx,
+    lineupBiggerThanBench: !benchFontPx || lineupFontPx + 0.4 >= benchFontPx,
     namesPastNotes,
     namesClipped,
     ordLabels: ordLabels.slice(0, 12),
     dense: front ? front.classList.contains('sc-dense') : false,
     xdense: front ? front.classList.contains('sc-xdense') : false,
+    auxDense: front ? front.classList.contains('sc-aux-dense') : false,
+    auxXdense: front ? front.classList.contains('sc-aux-xdense') : false,
+    fills: front ? front.classList.contains('sc-fill') : false,
     backHasTtp: !!back?.querySelector('.sc-ttp-table'),
+    backHasPop: (back?.querySelectorAll('.sc-bar') || []).length >= 2,
     backBars: [...(back?.querySelectorAll('.sc-bar') || [])].map((el) => el.textContent.trim()),
   };
 });
@@ -243,7 +257,11 @@ const result = {
     && layout.frontFitsAvail
     && layout.namesPastNotes.length === 0
     && layout.namesClipped.length === 0
-    && layout.backHasTtp,
+    && layout.backHasTtp
+    && layout.backHasPop
+    && layout.fillsToNotes
+    && layout.scaleUsesMostOfBody
+    && layout.lineupBiggerThanBench,
 };
 
 console.log(JSON.stringify(result, null, 2));
