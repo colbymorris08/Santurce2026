@@ -1,52 +1,11 @@
 {
-  "updated": "2026-11-06T09:03:31Z",
+  "updated": "2026-11-06T10:11:51Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": true,
+  "changed": false,
   "ligapr_stats_ready": true,
-  "added": [
-    {
-      "team": "CAG",
-      "name": "Juan Echevarría",
-      "role": "P"
-    },
-    {
-      "team": "SJU",
-      "name": "Narita Haruse",
-      "role": "P"
-    },
-    {
-      "team": "SJU",
-      "name": "Rey Fuentes",
-      "role": "H"
-    },
-    {
-      "team": "SJU",
-      "name": "Roberto Enriquez",
-      "role": "H"
-    },
-    {
-      "team": "SJU",
-      "name": "Nakami Yuta",
-      "role": "H"
-    },
-    {
-      "team": "CAR",
-      "name": "Alexander Castro",
-      "role": "P"
-    },
-    {
-      "team": "MAY",
-      "name": "Luis Quiñones",
-      "role": "P"
-    }
-  ],
+  "added": [],
   "removed": [],
-  "message": "Roster sync applied from ligapr equipos: +7 / -0.",
-  "action_needed": [
-    "Populate Synergy / advance packets for new arms and bats",
-    "Add pitcher release (delivery) pictures",
-    "Confirm movement charts / arsenal XY uploads",
-    "Fill pitcher one-page scout notes where blank"
-  ]
+  "message": "ligapr equipo lists checked — no roster membership changes.",
+  "action_needed": []
 }
