@@ -1007,7 +1007,7 @@
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
     .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
-    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden}
+    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis}
     .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
     .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
@@ -1080,6 +1080,25 @@
     el.style.marginBottom = '';
     el.style.width = '';
   }
+  function clearWhoHeights(root) {
+    if (!root) return;
+    root.querySelectorAll('td.sc-who').forEach((td) => {
+      td.style.height = '';
+      td.style.verticalAlign = '';
+    });
+  }
+  /** Put leftover pixels into player-pair row height (rowspan-2 .sc-who cells). */
+  function addWhoHeights(table, extraPx) {
+    if (!table || extraPx <= 0) return;
+    const whos = [...table.querySelectorAll('td.sc-who')];
+    if (!whos.length) return;
+    const add = extraPx / whos.length;
+    whos.forEach((td) => {
+      const h = td.getBoundingClientRect().height;
+      td.style.height = `${Math.max(h + add, h)}px`;
+      td.style.verticalAlign = 'middle';
+    });
+  }
   /** CSS zoom when the engine honors it; transform + negative margin otherwise. */
   function applyZoom(el, z) {
     if (!el) return;
@@ -1099,9 +1118,10 @@
 
   /**
    * Fit the front body above the fixed 1.5" notes.
-   * Starting 1–9 stays large and stretches into leftover space. Long
-   * bench/pen compact (then scale) first. Whole-card zoom is last resort
-   * so densify cannot leave a mid-page gap above the notes band.
+   * Compact bench/pen with CSS first (never scale them into unreadable
+   * specks — that leftover strip is why the 1–9 still looked mid-page).
+   * Any leftover height goes into 1–9 row height. Whole-card zoom only
+   * if the card is still taller than the notes ceiling.
    */
   function fitFrontBody(front, body, bodyAvail) {
     if (!front || !body) return;
@@ -1109,6 +1129,7 @@
     front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
     clearScale(scale);
     front.querySelectorAll('.sc-grid-bench, .sc-grid-pen').forEach(clearScale);
+    clearWhoHeights(front);
     body.style.overflow = 'hidden';
 
     front.classList.add('sc-measuring');
@@ -1122,17 +1143,20 @@
       h = sideNaturalHeight(front) || h;
     }
     if (h > bodyAvail + 0.5) {
+      // Bench | pen already share a short block. Only shrink that block
+      // if it still crowds the 1–9. Do not zoom the lineup to fit.
+      const auxBudget = Math.min(168, Math.max(130, bodyAvail * 0.18));
       front.querySelectorAll('.sc-side').forEach((side) => {
+        const block = side.querySelector('.sc-aux-block');
         const bench = side.querySelector('.sc-grid-bench');
         const pen = side.querySelector('.sc-grid-pen');
-        const sideH = side.scrollHeight || side.getBoundingClientRect().height;
-        const auxH = (bench ? bench.getBoundingClientRect().height : 0)
-          + (pen ? pen.getBoundingClientRect().height : 0);
-        const remain = Math.max(36, bodyAvail - (sideH - auxH));
-        if (auxH > remain + 1) {
-          const az = remain / Math.max(auxH, 1);
-          applyZoom(bench, az);
-          applyZoom(pen, az);
+        const auxH = block
+          ? block.getBoundingClientRect().height
+          : (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
+        if (auxH > auxBudget + 1) {
+          const az = Math.max(0.55, auxBudget / Math.max(auxH, 1));
+          applyZoom(block || bench, az);
+          if (!block) applyZoom(pen, az);
         }
       });
       h = sideNaturalHeight(front) || h;
@@ -1149,7 +1173,14 @@
       }
     }
     front.classList.remove('sc-measuring');
-    if (z >= 0.995) front.classList.add('sc-fill');
+    if (z < 0.995) return;
+    front.classList.add('sc-fill');
+    const slack = body.getBoundingClientRect().height - sideNaturalHeight(front);
+    if (slack > 4) {
+      front.querySelectorAll('.sc-grid-lineup').forEach((lineup) => {
+        addWhoHeights(lineup, slack);
+      });
+    }
   }
 
   /** Fit strategy/small-ball print pages in the popup (also used by measure scripts). */
@@ -1249,6 +1280,24 @@
             el.style.marginBottom = '';
             el.style.width = '';
           }
+          function clearWhoHeights(root){
+            if(!root) return;
+            Array.prototype.forEach.call(root.querySelectorAll('td.sc-who'), function(td){
+              td.style.height = '';
+              td.style.verticalAlign = '';
+            });
+          }
+          function addWhoHeights(table, extraPx){
+            if(!table || extraPx <= 0) return;
+            var whos = table.querySelectorAll('td.sc-who');
+            if(!whos.length) return;
+            var add = extraPx / whos.length;
+            Array.prototype.forEach.call(whos, function(td){
+              var hh = td.getBoundingClientRect().height;
+              td.style.height = (hh + add) + 'px';
+              td.style.verticalAlign = 'middle';
+            });
+          }
           function applyZoom(el, z){
             if(!el) return;
             z = Math.max(0.22, Math.min(1, z));
@@ -1270,6 +1319,7 @@
             front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
             clearScale(scale);
             Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-bench, .sc-grid-pen'), clearScale);
+            clearWhoHeights(front);
             body.style.overflow = 'hidden';
             front.classList.add('sc-measuring');
             var h = sideH(front) || scale.scrollHeight || 1;
@@ -1282,16 +1332,18 @@
               h = sideH(front) || h;
             }
             if(h > bodyAvail + 0.5){
+              var auxBudget = Math.min(168, Math.max(130, bodyAvail * 0.18));
               Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+                var block = side.querySelector('.sc-aux-block');
                 var bench = side.querySelector('.sc-grid-bench');
                 var pen = side.querySelector('.sc-grid-pen');
-                var sideH0 = side.scrollHeight || side.getBoundingClientRect().height;
-                var auxH = (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
-                var remain = Math.max(36, bodyAvail - (sideH0 - auxH));
-                if(auxH > remain + 1){
-                  var az = remain / Math.max(auxH, 1);
-                  applyZoom(bench, az);
-                  applyZoom(pen, az);
+                var auxH = block
+                  ? block.getBoundingClientRect().height
+                  : (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
+                if(auxH > auxBudget + 1){
+                  var az = Math.max(0.55, auxBudget / Math.max(auxH, 1));
+                  applyZoom(block || bench, az);
+                  if(!block) applyZoom(pen, az);
                 }
               });
               h = sideH(front) || h;
@@ -1308,7 +1360,14 @@
               }
             }
             front.classList.remove('sc-measuring');
-            if(z >= 0.995) front.classList.add('sc-fill');
+            if(z < 0.995) return;
+            front.classList.add('sc-fill');
+            var slack = body.getBoundingClientRect().height - sideH(front);
+            if(slack > 4){
+              Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-lineup'), function(lineup){
+                addWhoHeights(lineup, slack);
+              });
+            }
           }
           function fit(){
             var pages = Array.prototype.slice.call(document.querySelectorAll('.sc-print-page'));
@@ -1636,6 +1695,49 @@
       if (!el) return;
       const state = loadStrategy();
       const opponent = state.opponent;
+      function splitAuxGrid(table, cols) {
+        const rows = [...table.querySelectorAll('tbody tr')].filter((tr) => !tr.classList.contains('sc-subhead'));
+        const wrap = document.createElement('div');
+        wrap.className = 'sc-aux-cols';
+        if (rows.length <= 9) {
+          wrap.appendChild(table);
+          return wrap;
+        }
+        const per = Math.ceil(rows.length / cols);
+        const thead = table.querySelector('thead');
+        for (let c = 0; c < cols; c++) {
+          const slice = rows.slice(c * per, (c + 1) * per);
+          if (!slice.length) continue;
+          const t = document.createElement('table');
+          t.className = table.className;
+          if (thead) t.appendChild(thead.cloneNode(true));
+          const tb = document.createElement('tbody');
+          slice.forEach((r) => tb.appendChild(r));
+          t.appendChild(tb);
+          wrap.appendChild(t);
+        }
+        table.remove();
+        return wrap;
+      }
+      function packAuxPrint(side) {
+        const bars = [...side.querySelectorAll(':scope > .sc-bar')];
+        const benchBar = bars.find((el) => /BENCH/i.test(el.textContent));
+        const pitBar = bars.find((el) => /PITCHER/i.test(el.textContent));
+        const bench = side.querySelector(':scope > .sc-grid-bench');
+        const pen = side.querySelector(':scope > .sc-grid-pen');
+        if (!benchBar || !pitBar || !bench || !pen) return;
+        const block = document.createElement('div');
+        block.className = 'sc-aux-block';
+        const left = document.createElement('div');
+        const right = document.createElement('div');
+        left.appendChild(benchBar);
+        left.appendChild(splitAuxGrid(bench, 2));
+        right.appendChild(pitBar);
+        right.appendChild(splitAuxGrid(pen, 2));
+        block.appendChild(left);
+        block.appendChild(right);
+        side.appendChild(block);
+      }
       const sheet = el.cloneNode(true);
       sheet.querySelectorAll('input.sc-jersey').forEach((inp) => {
         const span = document.createElement('span');
@@ -1643,6 +1745,22 @@
         span.textContent = inp.value || '';
         inp.replaceWith(span);
       });
+      // Print bench/pen as one row per player, then sit bench | pen
+      // side by side in two columns. A single 19+ / 20+ stack was ~2.4in
+      // and left the 1–9 mid-page above the 1.5in notes.
+      sheet.querySelectorAll('.sc-grid-bench tbody, .sc-grid-pen tbody').forEach((tbody) => {
+        [...tbody.querySelectorAll('tr')].forEach((tr) => {
+          if (tr.classList.contains('sc-subhead')) return;
+          const who = tr.querySelector('td.sc-who');
+          if (!who) {
+            tr.remove();
+            return;
+          }
+          who.rowSpan = 1;
+          tr.querySelectorAll('td[rowspan]').forEach((td) => { td.rowSpan = 1; });
+        });
+      });
+      sheet.querySelectorAll('.sc-side').forEach((side) => packAuxPrint(side));
       const front = `<div class="sc-print-page sc-print-front sc-front-page sc-fill">
         <div class="sc-front-body"><div class="sc-front-scale">${sheet.outerHTML}</div></div>
         <section class="sc-front-notes">
@@ -1652,20 +1770,28 @@
       </div>`;
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
-        /* Page 1: starting lineup fills down to a fixed 1.5" notes footer.
-           Bench/pen compact if needed; do not densify the 1–9 into a mid-page gap. */
+        /* Page 1: leftover height → 1–9 row height down to a fixed 1.5" notes footer.
+           Name column stays yesterday's 34% nowrap (do not re-widen). */
         .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden;display:flex;flex-direction:column}
         .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
         .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:0;position:relative;z-index:2;background:#fff}
         .sc-print-front .sc-pair{gap:12px;align-items:stretch;min-height:0}
         .sc-print-front .sc-side{overflow:hidden;min-width:0}
+        .sc-print-front .sc-col-who{width:34%}
+        .sc-print-front .sc-aux-block{display:grid;grid-template-columns:1fr 1.15fr;gap:6px;align-items:start}
+        .sc-print-front .sc-aux-cols{display:grid;grid-template-columns:1fr 1fr;gap:3px;align-items:start}
+        .sc-print-front .sc-aux-block .sc-grid{font-size:7.5px;line-height:1.05}
+        .sc-print-front .sc-aux-block .sc-grid th{font-size:6.5px;padding:1px 0}
+        .sc-print-front .sc-aux-block .sc-grid td{padding:0 1px}
+        .sc-print-front .sc-aux-block .sc-who{font-size:7.5px}
+        .sc-print-front .sc-aux-block .sc-bar{font-size:9px;padding:2px 0}
         .sc-print-front .sc-grid{font-size:12px;line-height:1.32}
         .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
         .sc-print-front .sc-grid td{padding:4px 3px}
         .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
         .sc-print-front .sc-head-name{font-size:17px}
         .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
-        .sc-print-front .sc-who{font-size:12px}
+        .sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
         .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
@@ -1677,9 +1803,10 @@
         .sc-print-front.sc-fill .sc-date,
         .sc-print-front.sc-fill .sc-bar,
         .sc-print-front.sc-fill .sc-grid-bench,
-        .sc-print-front.sc-fill .sc-grid-pen{flex:0 0 auto}
+        .sc-print-front.sc-fill .sc-grid-pen,
+        .sc-print-front.sc-fill .sc-aux-block{flex:0 0 auto}
         .sc-print-front.sc-fill .sc-grid-lineup{flex:1 1 auto;height:100%;min-height:0}
-        .sc-print-front.sc-fill .sc-grid-lineup tbody{height:100%}
+        .sc-print-front.sc-fill .sc-grid-lineup td.sc-who{vertical-align:middle}
         .sc-print-front.sc-measuring .sc-front-body,
         .sc-print-front.sc-measuring .sc-front-scale,
         .sc-print-front.sc-measuring .sc-side,

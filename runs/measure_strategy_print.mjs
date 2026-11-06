@@ -174,6 +174,15 @@ await printPage.waitForTimeout(50);
   const benchEl = document.querySelector('.sc-print-front .sc-grid-bench');
   const lineupFontPx = lineupEl ? parseFloat(getComputedStyle(lineupEl).fontSize) : 0;
   const benchFontPx = benchEl ? parseFloat(getComputedStyle(benchEl).fontSize) : 0;
+  const whoEl = document.querySelector('.sc-print-front .sc-grid-lineup td.sc-who');
+  const whoBox = whoEl?.getBoundingClientRect();
+  const lineupBox = lineupEl?.getBoundingClientRect();
+  const namePct = whoBox && lineupBox && lineupBox.width ? (100 * whoBox.width / lineupBox.width) : 0;
+  const whoH = whoBox ? whoBox.height : 0;
+  const lastWho = [...document.querySelectorAll('.sc-print-front .sc-grid-lineup td.sc-who')].pop();
+  const lastWhoToNotesPx = lastWho && notesBox ? notesBox.top - lastWho.getBoundingClientRect().bottom : 999;
+  const benchTransform = benchEl?.style?.transform || '';
+  const benchZoom = parseFloat(benchEl?.style?.zoom || '1') || 1;
   const ceiling = notesBox && bodyBox
     ? Math.min(notesBox.top, bodyBox.bottom)
     : (notesBox ? notesBox.top : Infinity);
@@ -217,6 +226,12 @@ await printPage.waitForTimeout(50);
     gapToNotesPx,
     lineupFontPx,
     benchFontPx,
+    namePct: +namePct.toFixed(1),
+    whoH: +whoH.toFixed(1),
+    lastWhoToNotesPx: +lastWhoToNotesPx.toFixed(1),
+    benchTransform,
+    benchZoom,
+    nameColOk: namePct >= 26 && namePct <= 40,
     lineupBiggerThanBench: !benchFontPx || lineupFontPx + 0.4 >= benchFontPx,
     namesPastNotes,
     namesClipped,
@@ -261,7 +276,8 @@ const result = {
     && layout.backHasPop
     && layout.fillsToNotes
     && layout.scaleUsesMostOfBody
-    && layout.lineupBiggerThanBench,
+    && layout.lineupBiggerThanBench
+    && layout.nameColOk,
 };
 
 console.log(JSON.stringify(result, null, 2));
