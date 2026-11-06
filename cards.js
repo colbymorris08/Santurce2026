@@ -174,6 +174,27 @@
     const ini = (player.name.split(/\s+/)[0] || '').slice(0, 1);
     return ini ? `${ini}. ${player.last}` : player.last;
   }
+  const NAME_SUFFIXES = new Set(['jr', 'sr', 'ii', 'iii', 'iv', 'v']);
+  const NAME_PARTICLES = new Set(['de', 'del', 'la', 'los', 'las', 'da', 'dos', 'van', 'von']);
+  function lastComma(name) {
+    const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+    const suffix = [];
+    while (parts.length && NAME_SUFFIXES.has(parts[parts.length - 1].toLowerCase().replace(/\./g, ''))) suffix.unshift(parts.pop());
+    if (!parts.length) return suffix.join(' ');
+    let n = 1;
+    if (parts.length >= 3 && NAME_PARTICLES.has(parts[parts.length - 3].toLowerCase()) && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 3;
+    else if (parts.length >= 2 && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 2;
+    const last = parts.slice(-n).join(' ');
+    const first = parts.slice(0, -n).join(' ');
+    const lastBit = suffix.length ? `${last} ${suffix.join(' ')}`.trim() : last;
+    return first ? `${lastBit}, ${first}` : lastBit;
+  }
+  function givenName(player) {
+    if (!player || !player.name) return '';
+    const comma = lastComma(player.name);
+    const idx = comma.indexOf(', ');
+    return idx >= 0 ? comma.slice(idx + 2) : '';
+  }
   function batsClass(player) {
     if (player.role === 'P') return player.throws === 'L' ? 'sc-lhb' : '';
     if (player.bats === 'L') return 'sc-lhb';
@@ -425,13 +446,17 @@
   }
 
   function whoCell(order, pos, last, bats, rowspan, player) {
-    const bits = [];
-    if (order) bits.push(`<span class="sc-ord">${esc(order)}</span>`);
-    if (pos) bits.push(`<span class="sc-pos">${esc(pos)}</span>`);
+    const meta = [];
+    if (order) meta.push(`<span class="sc-ord">${esc(order)}</span>`);
+    if (pos) meta.push(`<span class="sc-pos">${esc(pos)}</span>`);
     const jersey = jerseyInput(player);
-    if (jersey) bits.push(jersey);
-    bits.push(`<span class="sc-last ${bats || ''}">${esc(last || '')}</span>`);
-    return `<td class="sc-who" rowspan="${rowspan || 2}">${bits.join(' ')}</td>`;
+    if (jersey) meta.push(jersey);
+    const first = player ? givenName(player) : '';
+    const nameCls = bats || '';
+    const full = player ? lastComma(player.name) : (last || '');
+    const nameBits = [`<span class="sc-last ${nameCls}">${esc(last || '')}</span>`];
+    if (first) nameBits.push(`<span class="sc-first ${nameCls}">${esc(first)}</span>`);
+    return `<td class="sc-who" rowspan="${rowspan || 2}" title="${esc(full)}"><span class="sc-who-meta">${meta.join('')}</span><span class="sc-who-name">${nameBits.join('')}</span></td>`;
   }
 
   function emptyHitterPair(order) {
@@ -446,8 +471,9 @@
       <col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat"><col class="sc-col-stat">
     </colgroup>`;
   }
-  function hitterTable(players, rowsHtml) {
-    return `<table class="sc-grid">
+  function hitterTable(players, rowsHtml, extraClass) {
+    const cls = extraClass ? `sc-grid ${extraClass}` : 'sc-grid';
+    return `<table class="${cls}">
       ${gridCols()}
       <thead><tr>
         <th>${tr('PLAYER', 'JUGADOR')}</th><th>SB/SBA</th><th>VS</th><th>K</th><th>GB</th><th>WH</th><th>AVG</th><th>OPS</th>
@@ -455,8 +481,9 @@
       <tbody>${rowsHtml}</tbody>
     </table>`;
   }
-  function pitcherTable(rowsHtml) {
-    return `<table class="sc-grid">
+  function pitcherTable(rowsHtml, extraClass) {
+    const cls = extraClass ? `sc-grid ${extraClass}` : 'sc-grid';
+    return `<table class="${cls}">
       ${gridCols()}
       <thead><tr>
         <th>${tr('PLAYER', 'JUGADOR')}</th><th>TTP</th><th>VS</th><th>K</th><th>GB</th><th>WH</th><th>BB</th><th>OPS</th>
@@ -526,11 +553,11 @@
       </header>
       <div class="sc-date">${esc(dateStr)}</div>
       <div class="sc-bar">HITTERS</div>
-      ${hitterTable(hitters, hitterRows)}
+      ${hitterTable(hitters, hitterRows, 'sc-grid-lineup')}
       <div class="sc-bar">BENCH / PH</div>
-      ${hitterTable(hitters, benchRows)}
+      ${hitterTable(hitters, benchRows, 'sc-grid-bench')}
       <div class="sc-bar">PITCHERS</div>
-      ${pitcherTable(pitRows)}
+      ${pitcherTable(pitRows, 'sc-grid-pen')}
     </section>`;
   }
 
@@ -541,22 +568,6 @@
       const label = code === 'DH' ? 'DH' : code + ' ' + name;
       return `<option value="${code}"${code === selected ? ' selected' : ''}>${label}</option>`;
     }).join('');
-  }
-
-  const NAME_SUFFIXES = new Set(['jr', 'sr', 'ii', 'iii', 'iv', 'v']);
-  const NAME_PARTICLES = new Set(['de', 'del', 'la', 'los', 'las', 'da', 'dos', 'van', 'von']);
-  function lastComma(name) {
-    const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-    const suffix = [];
-    while (parts.length && NAME_SUFFIXES.has(parts[parts.length - 1].toLowerCase().replace(/\./g, ''))) suffix.unshift(parts.pop());
-    if (!parts.length) return suffix.join(' ');
-    let n = 1;
-    if (parts.length >= 3 && NAME_PARTICLES.has(parts[parts.length - 3].toLowerCase()) && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 3;
-    else if (parts.length >= 2 && NAME_PARTICLES.has(parts[parts.length - 2].toLowerCase())) n = 2;
-    const last = parts.slice(-n).join(' ');
-    const first = parts.slice(0, -n).join(' ');
-    const lastBit = suffix.length ? `${last} ${suffix.join(' ')}`.trim() : last;
-    return first ? `${lastBit}, ${first}` : lastBit;
   }
 
   function playerOptions(hitters, selectedId, blocked) {
@@ -998,23 +1009,26 @@
     .sc-pair{min-width:0}
     .sc-side{min-width:0;overflow:hidden}
     .sc-grid{width:100%;border-collapse:collapse;font-size:8px;line-height:1.15;table-layout:fixed}
-    .sc-col-who{width:34%}
+    .sc-col-who{width:22%}
     .sc-col-sb{width:11%}
-    .sc-col-vs{width:6%}
-    .sc-col-stat{width:9.8%}
+    .sc-col-vs{width:5%}
+    .sc-col-stat{width:12.4%}
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
     .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
-    .sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden}
+    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:normal;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;max-width:0;width:22%;vertical-align:middle}
+    .sc-who-meta{display:flex;align-items:baseline;gap:2px;min-width:0;white-space:nowrap;overflow:hidden}
+    .sc-who-name{display:block;min-width:0;overflow:hidden}
+    .sc-last,.sc-first{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+    .sc-first{font-weight:600;font-size:.88em;line-height:1.05}
     .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
     .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-lhb{color:#c0392b!important;-webkit-text-fill-color:#c0392b!important}
     .sc-shb{color:#1a5276!important;-webkit-text-fill-color:#1a5276!important}
-    .sc-jersey-print{display:inline-block;min-width:1.2em;margin-right:2px;font-weight:800}
+    .sc-jersey-print{display:inline-block;min-width:0;max-width:1.6em;margin-right:0;font-weight:800;overflow:hidden}
     .sc-sb{overflow:hidden}
-    .sc-ord,.sc-pos{display:inline-block;min-width:1em;margin-right:2px;font-weight:800}
-    .sc-last{font-weight:800}
+    .sc-ord,.sc-pos{display:inline-block;min-width:0;margin-right:0;font-weight:800;flex:0 0 auto}
     .sc-vs{font-weight:700;color:#333;-webkit-text-fill-color:#333}
     .sc-good{background:#2e9e4f !important;color:#fff !important;-webkit-text-fill-color:#fff!important;font-weight:800}
     .sc-bad{background:#e04b4b !important;color:#fff !important;-webkit-text-fill-color:#fff!important;font-weight:800}
@@ -1049,7 +1063,7 @@
     .sc-front-page{display:flex;flex-direction:column;box-sizing:border-box}
     .sc-front-body{flex:1 1 auto;min-height:0;overflow:hidden}
     .sc-front-scale{display:block;transform-origin:top left}
-    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:auto}
+    .sc-front-notes{flex:0 0 1.5in;height:1.5in;border:1px solid #c5c9d0;background:#fff;display:flex;flex-direction:column;overflow:hidden;margin-top:0}
     .sc-front-notes .sc-bar{flex:0 0 auto}
     .sc-back{display:flex;flex-direction:column;gap:14px;box-sizing:border-box}
     .sc-ttp-table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;color:#111}
@@ -1062,35 +1076,133 @@
     @media print { .sc-good,.sc-bad,.sb-freq,.sb-rare,.sb-major,.sb-band th,.sb-cols th,.sc-head,.sb-teamhead,.sb-title,.sb-teamnotes th{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
   `;
 
+  function clearFrontHeights(front) {
+    front.querySelectorAll('.sc-front-scale, .sc-pair, .sc-side, .sc-grid').forEach((el) => {
+      el.style.height = '';
+    });
+  }
+  function sideNaturalHeight(front) {
+    let max = 0;
+    front.querySelectorAll('.sc-side').forEach((side) => {
+      const r = side.getBoundingClientRect().height;
+      max = Math.max(max, r || side.scrollHeight || 0);
+    });
+    return max;
+  }
+  function canStretchTable(el) {
+    if (!el) return false;
+    const z = parseFloat(el.style.zoom || '1') || 1;
+    return z >= 0.995 && !el.style.transform;
+  }
+  function stretchFront(front, bodyAvail) {
+    const scale = front.querySelector('.sc-front-scale');
+    const pair = front.querySelector('.sc-pair');
+    if (scale) scale.style.height = `${bodyAvail}px`;
+    if (pair) pair.style.height = `${bodyAvail}px`;
+    front.querySelectorAll('.sc-side').forEach((side) => {
+      side.style.height = `${bodyAvail}px`;
+      const weighted = [
+        [side.querySelector('.sc-grid-lineup'), 3],
+        [side.querySelector('.sc-grid-bench'), 1],
+        [side.querySelector('.sc-grid-pen'), 1.35],
+      ].filter((row) => canStretchTable(row[0]));
+      if (!weighted.length) return;
+      const otherH = [...side.children].reduce((sum, el) => (
+        weighted.some((row) => row[0] === el) ? sum : sum + el.getBoundingClientRect().height
+      ), 0);
+      const natural = weighted.map(([t]) => t.getBoundingClientRect().height);
+      const leftover = bodyAvail - otherH - natural.reduce((a, b) => a + b, 0);
+      if (leftover <= 2) return;
+      const wsum = weighted.reduce((s, row) => s + row[1], 0);
+      weighted.forEach(([t, w], i) => {
+        t.style.height = `${natural[i] + leftover * (w / wsum)}px`;
+      });
+    });
+  }
+
+  function clearScale(el) {
+    if (!el) return;
+    el.style.zoom = '1';
+    el.style.transform = '';
+    el.style.transformOrigin = 'top left';
+    el.style.marginBottom = '';
+    el.style.width = '';
+  }
+
+  /** Shrink an element in layout+paint. CSS zoom when the engine honors it; transform otherwise. */
+  function applyZoom(el, z) {
+    if (!el) return;
+    z = Math.max(0.22, Math.min(1, z));
+    clearScale(el);
+    if (z >= 0.995) return;
+    el.style.zoom = String(z);
+    const layoutH = el.getBoundingClientRect().height;
+    const natural = el.scrollHeight || layoutH;
+    if (layoutH > natural * z + 6) {
+      el.style.zoom = '1';
+      el.style.transform = `scale(${z})`;
+      el.style.width = `${100 / z}%`;
+      el.style.marginBottom = `${(z - 1) * natural}px`;
+    }
+  }
+
   /**
-   * Scale the inner .sc-front-scale so lineup fits above the fixed 1.5" notes.
-   * Zoom is applied to the INNER wrapper only — never to the flex shell that
-   * owns max-height — otherwise zoom multiplies max-height and clips names.
+   * Fit the front body above the fixed 1.5" notes.
+   * Starting 1–9 stays large and stretches into leftover space. Long
+   * bench/pen compact (then scale) first. Whole-card zoom is last resort
+   * so densify cannot leave a mid-page gap above the notes band.
    */
   function fitFrontBody(front, body, bodyAvail) {
     if (!front || !body) return;
     const scale = body.querySelector('.sc-front-scale') || body;
-    front.classList.remove('sc-dense', 'sc-xdense');
-    scale.style.zoom = '1';
-    let bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    if (bh > bodyAvail * 1.02) {
-      front.classList.add('sc-dense');
-      bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    }
-    if (bh > bodyAvail * 1.02) {
-      front.classList.add('sc-xdense');
-      bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-    }
-    let z = Math.min(1, bodyAvail / Math.max(bh, 1));
-    z = Math.max(0.28, z);
-    scale.style.zoom = String(z);
-    for (let i = 0; i < 6; i++) {
-      const layoutH = scale.getBoundingClientRect().height;
-      if (layoutH <= bodyAvail + 0.5) break;
-      z = Math.max(0.28, z * (bodyAvail / Math.max(layoutH, 1)));
-      scale.style.zoom = String(z);
-    }
+    front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
+    clearScale(scale);
+    front.querySelectorAll('.sc-grid-bench, .sc-grid-pen').forEach(clearScale);
+    clearFrontHeights(front);
     body.style.overflow = 'hidden';
+
+    front.classList.add('sc-measuring');
+    let h = sideNaturalHeight(front) || scale.scrollHeight || 1;
+    if (h > bodyAvail + 1) {
+      front.classList.add('sc-aux-dense');
+      h = sideNaturalHeight(front) || h;
+    }
+    if (h > bodyAvail + 1) {
+      front.classList.add('sc-aux-xdense');
+      h = sideNaturalHeight(front) || h;
+    }
+    if (h > bodyAvail + 0.5) {
+      front.querySelectorAll('.sc-side').forEach((side) => {
+        const bench = side.querySelector('.sc-grid-bench');
+        const pen = side.querySelector('.sc-grid-pen');
+        const sideH = side.scrollHeight || side.getBoundingClientRect().height;
+        const auxH = (bench ? bench.getBoundingClientRect().height : 0)
+          + (pen ? pen.getBoundingClientRect().height : 0);
+        const remain = Math.max(36, bodyAvail - (sideH - auxH));
+        if (auxH > remain + 1) {
+          const az = remain / Math.max(auxH, 1);
+          applyZoom(bench, az);
+          applyZoom(pen, az);
+        }
+      });
+      h = sideNaturalHeight(front) || h;
+    }
+    let z = 1;
+    if (h > bodyAvail + 0.5) {
+      z = Math.max(0.42, bodyAvail / Math.max(h, 1));
+      applyZoom(scale, z);
+      for (let i = 0; i < 6; i++) {
+        const layoutH = scale.getBoundingClientRect().height;
+        if (layoutH <= bodyAvail + 0.5) break;
+        z = Math.max(0.42, z * (bodyAvail / Math.max(layoutH, 1)));
+        applyZoom(scale, z);
+      }
+    }
+    front.classList.remove('sc-measuring');
+    if (z >= 0.995) {
+      front.classList.add('sc-fill');
+      stretchFront(front, bodyAvail);
+    }
   }
 
   /** Fit strategy/small-ball print pages in the popup (also used by measure scripts). */
@@ -1115,9 +1227,19 @@
         fitFrontBody(p, body, bodyAvail);
         return;
       }
-      // Back (TTP / catcher pop): fill one page; scale down only if needed.
-      const h = p.scrollHeight || p.getBoundingClientRect().height;
-      if (h > avail) p.style.zoom = String(Math.max(0.35, avail / h));
+      // Back (TTP / catcher pop): measure unconstrained content, then scale to one page.
+      const inner = p.querySelector('.sc-back') || p;
+      const prevOverflow = p.style.overflow;
+      const prevMax = p.style.maxHeight;
+      const prevH = p.style.height;
+      p.style.overflow = 'visible';
+      p.style.maxHeight = 'none';
+      p.style.height = 'auto';
+      const h = inner.scrollHeight || inner.getBoundingClientRect().height;
+      p.style.overflow = prevOverflow;
+      p.style.maxHeight = prevMax;
+      p.style.height = prevH;
+      if (h > avail) applyZoom(p, Math.max(0.35, avail / h));
     });
   }
 
@@ -1161,30 +1283,121 @@
         (function(){
           var tallIn = ${tallIn};
           var notesIn = ${notesIn};
+          function clearHeights(front){
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-front-scale, .sc-pair, .sc-side, .sc-grid'), function(el){
+              el.style.height = '';
+            });
+          }
+          function sideH(front){
+            var max = 0;
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+              var r = side.getBoundingClientRect().height;
+              max = Math.max(max, r || side.scrollHeight || 0);
+            });
+            return max;
+          }
+          function canStretch(el){
+            if(!el) return false;
+            var z0 = parseFloat(el.style.zoom || '1') || 1;
+            return z0 >= 0.995 && !el.style.transform;
+          }
+          function stretch(front, bodyAvail){
+            var scaleEl = front.querySelector('.sc-front-scale');
+            var pair = front.querySelector('.sc-pair');
+            if(scaleEl) scaleEl.style.height = bodyAvail + 'px';
+            if(pair) pair.style.height = bodyAvail + 'px';
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+              side.style.height = bodyAvail + 'px';
+              var weighted = [
+                [side.querySelector('.sc-grid-lineup'), 3],
+                [side.querySelector('.sc-grid-bench'), 1],
+                [side.querySelector('.sc-grid-pen'), 1.35]
+              ].filter(function(row){ return canStretch(row[0]); });
+              if(!weighted.length) return;
+              var otherH = Array.prototype.reduce.call(side.children, function(sum, el){
+                return weighted.some(function(row){ return row[0] === el; }) ? sum : sum + el.getBoundingClientRect().height;
+              }, 0);
+              var natural = weighted.map(function(row){ return row[0].getBoundingClientRect().height; });
+              var leftover = bodyAvail - otherH - natural.reduce(function(a,b){ return a + b; }, 0);
+              if(leftover <= 2) return;
+              var wsum = weighted.reduce(function(s, row){ return s + row[1]; }, 0);
+              weighted.forEach(function(row, i){
+                row[0].style.height = (natural[i] + leftover * (row[1] / wsum)) + 'px';
+              });
+            });
+          }
+          function clearScale(el){
+            if(!el) return;
+            el.style.zoom = '1';
+            el.style.transform = '';
+            el.style.transformOrigin = 'top left';
+            el.style.marginBottom = '';
+            el.style.width = '';
+          }
+          function applyZoom(el, z){
+            if(!el) return;
+            z = Math.max(0.22, Math.min(1, z));
+            clearScale(el);
+            if(z >= 0.995) return;
+            el.style.zoom = String(z);
+            var layoutH = el.getBoundingClientRect().height;
+            var natural = el.scrollHeight || layoutH;
+            if(layoutH > natural * z + 6){
+              el.style.zoom = '1';
+              el.style.transform = 'scale(' + z + ')';
+              el.style.width = (100 / z) + '%';
+              el.style.marginBottom = ((z - 1) * natural) + 'px';
+            }
+          }
           function fitFront(front, body, bodyAvail){
             if(!front || !body) return;
             var scale = body.querySelector('.sc-front-scale') || body;
-            front.classList.remove('sc-dense', 'sc-xdense');
-            scale.style.zoom = '1';
-            var bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            if(bh > bodyAvail * 1.02){
-              front.classList.add('sc-dense');
-              bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            }
-            if(bh > bodyAvail * 1.02){
-              front.classList.add('sc-xdense');
-              bh = scale.scrollHeight || scale.getBoundingClientRect().height;
-            }
-            var z = Math.min(1, bodyAvail / Math.max(bh, 1));
-            z = Math.max(0.28, z);
-            scale.style.zoom = String(z);
-            for(var i = 0; i < 6; i++){
-              var layoutH = scale.getBoundingClientRect().height;
-              if(layoutH <= bodyAvail + 0.5) break;
-              z = Math.max(0.28, z * (bodyAvail / Math.max(layoutH, 1)));
-              scale.style.zoom = String(z);
-            }
+            front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
+            clearScale(scale);
+            Array.prototype.forEach.call(front.querySelectorAll('.sc-grid-bench, .sc-grid-pen'), clearScale);
+            clearHeights(front);
             body.style.overflow = 'hidden';
+            front.classList.add('sc-measuring');
+            var h = sideH(front) || scale.scrollHeight || 1;
+            if(h > bodyAvail + 1){
+              front.classList.add('sc-aux-dense');
+              h = sideH(front) || h;
+            }
+            if(h > bodyAvail + 1){
+              front.classList.add('sc-aux-xdense');
+              h = sideH(front) || h;
+            }
+            if(h > bodyAvail + 0.5){
+              Array.prototype.forEach.call(front.querySelectorAll('.sc-side'), function(side){
+                var bench = side.querySelector('.sc-grid-bench');
+                var pen = side.querySelector('.sc-grid-pen');
+                var sideH0 = side.scrollHeight || side.getBoundingClientRect().height;
+                var auxH = (bench ? bench.getBoundingClientRect().height : 0) + (pen ? pen.getBoundingClientRect().height : 0);
+                var remain = Math.max(36, bodyAvail - (sideH0 - auxH));
+                if(auxH > remain + 1){
+                  var az = remain / Math.max(auxH, 1);
+                  applyZoom(bench, az);
+                  applyZoom(pen, az);
+                }
+              });
+              h = sideH(front) || h;
+            }
+            var z = 1;
+            if(h > bodyAvail + 0.5){
+              z = Math.max(0.42, bodyAvail / Math.max(h, 1));
+              applyZoom(scale, z);
+              for(var i = 0; i < 6; i++){
+                var layoutH2 = scale.getBoundingClientRect().height;
+                if(layoutH2 <= bodyAvail + 0.5) break;
+                z = Math.max(0.42, z * (bodyAvail / Math.max(layoutH2, 1)));
+                applyZoom(scale, z);
+              }
+            }
+            front.classList.remove('sc-measuring');
+            if(z >= 0.995){
+              front.classList.add('sc-fill');
+              stretch(front, bodyAvail);
+            }
           }
           function fit(){
             var pages = Array.prototype.slice.call(document.querySelectorAll('.sc-print-page'));
@@ -1205,8 +1418,16 @@
                 fitFront(p, body, Math.max(120, avail - notesH));
                 return;
               }
-              var h = p.scrollHeight || p.getBoundingClientRect().height;
-              if(h > avail) p.style.zoom = String(Math.max(0.35, avail / h));
+              var inner = p.querySelector('.sc-back') || p;
+              var prevOverflow = p.style.overflow, prevMax = p.style.maxHeight, prevH = p.style.height;
+              p.style.overflow = 'visible';
+              p.style.maxHeight = 'none';
+              p.style.height = 'auto';
+              var h = inner.scrollHeight || inner.getBoundingClientRect().height;
+              p.style.overflow = prevOverflow;
+              p.style.maxHeight = prevMax;
+              p.style.height = prevH;
+              if(h > avail) applyZoom(p, Math.max(0.35, avail / h));
             });
           }
           window.__scFitPrintPages = fit;
@@ -1508,7 +1729,7 @@
         span.textContent = inp.value || '';
         inp.replaceWith(span);
       });
-      const front = `<div class="sc-print-page sc-print-front sc-front-page">
+      const front = `<div class="sc-print-page sc-print-front sc-front-page sc-fill">
         <div class="sc-front-body"><div class="sc-front-scale">${sheet.outerHTML}</div></div>
         <section class="sc-front-notes">
           <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
@@ -1517,46 +1738,69 @@
       </div>`;
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
       openPrint('Strategy card', front + back, 'portrait', `
-        /* Page 1: full lineup (pitcher after #9) + fixed 1.5" notes BELOW all names.
-           Zoom lives on .sc-front-scale; the flex shell keeps an unzoomed max-height. */
-        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden}
-        .sc-print-front .sc-front-scale{display:block;width:100%}
-        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:auto;position:relative;z-index:2;background:#fff}
-        .sc-print-front .sc-pair{gap:12px;align-items:start}
-        .sc-print-front .sc-side{overflow:visible}
-        .sc-print-front .sc-grid{font-size:12px;line-height:1.32}
+        /* Page 1: starting lineup fills down to a fixed 1.5" notes footer.
+           Bench/pen compact if needed; do not densify the 1–9 into a mid-page gap. */
+        .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden;display:flex;flex-direction:column}
+        .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
+        .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:0;position:relative;z-index:2;background:#fff}
+        .sc-print-front .sc-pair{gap:12px;align-items:stretch;min-height:0}
+        .sc-print-front .sc-side{overflow:hidden;min-width:0}
+        .sc-print-front .sc-col-who{width:22%}
+        .sc-print-front .sc-col-sb{width:11%}
+        .sc-print-front .sc-col-vs{width:5%}
+        .sc-print-front .sc-col-stat{width:12.4%}
+        .sc-print-front .sc-grid{font-size:12px;line-height:1.32;table-layout:fixed;width:100%;min-width:0}
         .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
         .sc-print-front .sc-grid td{padding:4px 3px}
         .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
         .sc-print-front .sc-head-name{font-size:17px}
         .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
-        .sc-print-front .sc-who{font-size:12px}
+        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:12px;white-space:normal;max-width:0;width:22%;overflow:hidden;vertical-align:middle}
         .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
-        /* Long benches / pens (Ponce): tighten before zoom. */
-        .sc-print-front.sc-dense .sc-grid{font-size:10px;line-height:1.18}
-        .sc-print-front.sc-dense .sc-grid th{font-size:8px;padding:2px 1px}
-        .sc-print-front.sc-dense .sc-grid td{padding:2px 2px}
-        .sc-print-front.sc-dense .sc-head{min-height:36px;padding:5px 8px}
-        .sc-print-front.sc-dense .sc-head-name{font-size:14px}
-        .sc-print-front.sc-dense .sc-logo,.sc-print-front.sc-dense .sc-mono{width:32px;height:32px}
-        .sc-print-front.sc-dense .sc-who{font-size:10px}
-        .sc-print-front.sc-dense .sc-bar{font-size:11px;padding:3px 0}
-        .sc-print-front.sc-dense .sc-date{font-size:11px;padding:3px 0 4px}
-        .sc-print-front.sc-dense .sc-subhead td{font-size:9px;padding:2px 3px}
-        .sc-print-front.sc-dense .sc-pair{gap:8px}
-        .sc-print-front.sc-xdense .sc-grid{font-size:8px;line-height:1.08}
-        .sc-print-front.sc-xdense .sc-grid th{font-size:7px;padding:1px}
-        .sc-print-front.sc-xdense .sc-grid td{padding:1px 1px}
-        .sc-print-front.sc-xdense .sc-head{min-height:28px;padding:3px 6px}
-        .sc-print-front.sc-xdense .sc-head-name{font-size:12px}
-        .sc-print-front.sc-xdense .sc-logo,.sc-print-front.sc-xdense .sc-mono{width:26px;height:26px}
-        .sc-print-front.sc-xdense .sc-who{font-size:8px}
-        .sc-print-front.sc-xdense .sc-bar{font-size:9px;padding:2px 0;letter-spacing:.06em}
-        .sc-print-front.sc-xdense .sc-date{font-size:9px;padding:2px 0}
-        .sc-print-front.sc-xdense .sc-subhead td{font-size:8px;padding:1px 2px}
-        .sc-print-front.sc-xdense .sc-pair{gap:4px}
+        /* Stretch starting 1–9 into leftover space above the notes. */
+        .sc-print-front.sc-fill .sc-front-body,
+        .sc-print-front.sc-fill .sc-front-scale{flex:1 1 auto;min-height:0;height:100%;display:flex;flex-direction:column}
+        .sc-print-front.sc-fill .sc-pair{flex:1 1 auto;min-height:0;height:100%;display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+        .sc-print-front.sc-fill .sc-side{display:flex;flex-direction:column;height:100%;min-height:0}
+        .sc-print-front.sc-fill .sc-head,
+        .sc-print-front.sc-fill .sc-date,
+        .sc-print-front.sc-fill .sc-bar,
+        .sc-print-front.sc-fill .sc-grid-bench{flex:1 1 auto;min-height:0}
+        .sc-print-front.sc-fill .sc-grid-pen{flex:1.35 1 auto;min-height:0}
+        .sc-print-front.sc-fill .sc-grid-lineup{flex:3 1 auto;height:100%;min-height:0}
+        .sc-print-front.sc-fill .sc-grid tbody{height:100%}
+        /* Measure natural height without stretch before choosing aux compact / zoom. */
+        .sc-print-front.sc-measuring .sc-front-body,
+        .sc-print-front.sc-measuring .sc-front-scale,
+        .sc-print-front.sc-measuring .sc-side,
+        .sc-print-front.sc-measuring .sc-grid{height:auto!important;flex:0 0 auto!important}
+        .sc-print-front.sc-measuring .sc-grid-lineup{display:table!important}
+        .sc-print-front.sc-measuring .sc-pair{height:auto!important;flex:0 0 auto!important;display:grid!important;align-items:start}
+        /* Long benches / pens: compact those tables only — never the starting 1–9. */
+        .sc-print-front.sc-aux-dense .sc-grid-bench,
+        .sc-print-front.sc-aux-dense .sc-grid-pen{font-size:8.5px;line-height:1.08}
+        .sc-print-front.sc-aux-dense .sc-grid-bench th,
+        .sc-print-front.sc-aux-dense .sc-grid-pen th{font-size:7px;padding:1px}
+        .sc-print-front.sc-aux-dense .sc-grid-bench td,
+        .sc-print-front.sc-aux-dense .sc-grid-pen td{padding:1px 2px}
+        .sc-print-front.sc-aux-dense .sc-grid-bench .sc-who,
+        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-who{font-size:8.5px}
+        .sc-print-front.sc-aux-dense .sc-grid-bench .sc-first,
+        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-first{display:none}
+        .sc-print-front.sc-aux-dense .sc-grid-pen .sc-subhead td{font-size:8px;padding:1px 2px}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen{font-size:6.5px;line-height:1.02}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench th,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen th{font-size:6px;padding:0}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench td,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen td{padding:0 1px}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench .sc-who,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-who{font-size:6.5px}
+        .sc-print-front.sc-aux-xdense .sc-grid-bench .sc-first,
+        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-first{display:none}
+        .sc-print-front.sc-aux-xdense .sc-grid-pen .sc-subhead td{font-size:6.5px;padding:0 1px}
         /* Page 2: opponent TTP + catcher pop only — fill the page. */
         .sc-print-back .sc-back{min-height:10.0in;height:100%;padding-top:4px;box-sizing:border-box}
         .sc-print-back .sc-head{min-height:52px;padding:10px 12px}
