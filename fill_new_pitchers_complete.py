@@ -247,11 +247,7 @@ def snapshot(players: list[dict]) -> list[dict]:
 
 
 def synergy_token() -> str:
-    path = Path("/tmp/synergy_token.txt")
-    if path.is_file():
-        tok = path.read_text().strip()
-        if tok:
-            return tok
+    # Santurce org only. Does not read leftover GB /tmp tokens.
     return bas.login_token(headed=False)
 
 

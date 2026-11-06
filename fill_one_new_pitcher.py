@@ -42,12 +42,8 @@ def norm(name: str) -> str:
 
 
 def synergy_token() -> str:
-    p = Path("/tmp/synergy_token.txt")
-    if p.is_file() and p.read_text().strip():
-        return p.read_text().strip()
-    tok = bas.login_token(headed=False)
-    p.write_text(tok)
-    return tok
+    # Santurce org only. Does not read leftover GB /tmp tokens.
+    return bas.login_token(headed=False)
 
 
 def find_row(ars: dict, team: str, name: str) -> dict | None:

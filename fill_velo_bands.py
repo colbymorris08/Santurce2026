@@ -118,7 +118,7 @@ def load_checkpoint() -> dict:
 def main() -> None:
     doc = json.loads(ARSENAL.read_text())
     done = load_checkpoint()
-    token = Path("/tmp/synergy_token.txt").read_text().strip()
+    token = bas.login_token(headed=False)
     targets = [p for p in doc["pitchers"] if p.get("synergy_id")]
     print(f"pitchers {len(targets)} cached {len(done)}", flush=True)
     for i, p in enumerate(targets, 1):

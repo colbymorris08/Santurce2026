@@ -2,9 +2,9 @@
    Live file: data/game_day_state.json — source of truth for published daily lineups.
    Versions: data/versions/index.json + data/versions/YYYY-MM-DD/
    Uses the same PAT as OF/TTH (santurce_gh_pat_v1 → scoutGhPat / githubPutJson).
-   Hydrate: committed JSON wins for SAN (and any published full 1–9). Empty
-   localStorage cannot hide that card. Browser Ponce is kept when that is where
-   today’s opponent card lives; empty JSON never wipes a filled local side.
+   Hydrate: committed JSON is source of truth for SAN and today’s opponent.
+   Empty localStorage cannot wipe a published 1–9. Other filled browser sides
+   (an old Ponce card, etc.) stay local unless JSON has a full 1–9 for them.
    Publish: PAT required; must PUT/commit data/game_day_state.json (no silent
    local-only success). Empty local teams never replace a filled GitHub card.
 */
@@ -195,12 +195,13 @@
     const preferIncoming = !!forceIncoming || (bT > aT);
     const outTeams = {};
     const keys = new Set([...Object.keys(aTeams), ...Object.keys(bTeams)]);
+    const jsonOpp = String((hydrate ? b.opponent : '') || '').toUpperCase();
     keys.forEach((abbr) => {
       if (hydrate) {
-        // incoming = published JSON. SAN (daily card) comes from JSON when it
-        // has a full 1–9. Ponce stays from the browser when that is where
-        // today’s opponent card lives. Empty never wipes a filled side.
-        if (abbr === 'PON' && teamFilled(aTeams[abbr]) > 0) {
+        // incoming = published JSON. JSON wins for SAN + today's opponent so
+        // an empty/stale localStorage cannot hide the daily card.
+        const daily = abbr === 'SAN' || (jsonOpp && abbr === jsonOpp);
+        if (!daily && teamFilled(aTeams[abbr]) > 0 && !hasFullLineup(bTeams[abbr])) {
           outTeams[abbr] = pickTeamPreferPrimary(aTeams[abbr], bTeams[abbr]);
         } else {
           outTeams[abbr] = pickTeamPreferPrimary(bTeams[abbr], aTeams[abbr]);
@@ -284,7 +285,7 @@
     const strategy = mergeStrategy(base.strategy, over.strategy, {
       forceIncoming: strategyForceLocal !== false,
     });
-    // Never PUT an empty SAN/PON 1–9 over a committed full card.
+    // Never PUT an empty 1–9 over a committed full card (SAN, MAY, or any side).
     const remoteTeams = teamMap(base.strategy);
     Object.keys(remoteTeams).forEach((abbr) => {
       const remote = remoteTeams[abbr];

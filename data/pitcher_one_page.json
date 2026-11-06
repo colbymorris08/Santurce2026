@@ -1248,26 +1248,6 @@
           "needs_data": false
         },
         {
-          "jersey": "36",
-          "name": "Alexander Castro",
-          "name_display": "Castro, Alexander",
-          "throws": "R",
-          "mlb_id": 669418,
-          "velo": {
-            "FB": "92-94",
-            "CB": "",
-            "SL": "81-84",
-            "CH": "83-84",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "SL 62%, FB 33%, SNK 5%",
-          "freq_l": "FB 51%, SL 36%, CH 13%",
-          "freq_html": "<span class=\"freq-r\">RHH: SL 62%, FB 33%, SNK 5%</span><br><span class=\"freq-l\">LHH: FB 51%, SL 36%, CH 13%</span>",
-          "notes": "",
-          "needs_data": false
-        },
-        {
           "jersey": "44",
           "name": "Gabriel Cotto",
           "name_display": "Cotto, Gabriel (l)",
@@ -1693,6 +1673,26 @@
       "team": "MAY",
       "team_name": "Indios de Mayaguez",
       "pitchers": [
+        {
+          "jersey": "36",
+          "name": "Alexander Castro",
+          "name_display": "Castro, Alexander",
+          "throws": "R",
+          "mlb_id": 669418,
+          "velo": {
+            "FB": "92-94",
+            "CB": "",
+            "SL": "81-84",
+            "CH": "83-84",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "SL 62%, FB 33%, SNK 5%",
+          "freq_l": "FB 51%, SL 36%, CH 13%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 62%, FB 33%, SNK 5%</span><br><span class=\"freq-l\">LHH: FB 51%, SL 36%, CH 13%</span>",
+          "notes": "",
+          "needs_data": false
+        },
         {
           "jersey": "72",
           "name": "Sean Barnett",

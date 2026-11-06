@@ -88,15 +88,20 @@ Card rates are built with `python3 build_pregame_cards.py` → `data/pregame_car
 
 ## Refresh Synergy data
 
+**Santurce org only — never Great Britain.** The GB account is logged out.
+`login_token()` fails until a headed login with the **new Santurce Synergy account**.
+Do not restore GB email/password, `/tmp/synergy_token.txt`, or Chrome Synergy cookies.
+
 Credentials live in the pitch-tips Synergy env (never commit):
 
-- `/Users/colbymorris/apexstats/pitch-tips/.env.synergy`
+- `/Users/colbymorris/apexstats/pitch-tips/.env.synergy` — set `SYNERGY_ORG=santurce`
 - loader: `pitch-tips/cv/preflight/synergy_env.py`
+- GB logout sentinel: `~/.config/apex-preflight/SYNERGY_GB_LOGGED_OUT`
 
 ```bash
 cd /Users/colbymorris/Santurce2026
-python3 build_advance_synergy.py --years 2025 2026 --max-events-per-team 4000
-# optional: --headed   (visible Chrome login)
+# Tomorrow, after Santurce credentials exist:
+python3 build_advance_synergy.py --headed --years 2025 2026 --max-events-per-team 4000
 git add data/advance_*.json data/pregame_spray_charts.json
 git add pregame.html i18n.js shared.css build_advance_synergy.py README.md
 git commit -m "Refresh Synergy advance / spray caches"

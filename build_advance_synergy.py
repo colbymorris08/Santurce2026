@@ -14,6 +14,8 @@ Sample expansion: for those players only, attach winter LBPRC + summer MLB/MiLB/
 events for target years (default 2025–2026). Summer-only players are excluded.
 
 Auth: pitch-tips/.env.synergy via Playwright OIDC (Chrome channel).
+Santurce org only — never Great Britain. GB credentials/tokens were wiped;
+login_token() fails until a headed login with the new Santurce account.
 Never writes secrets into site JSON.
 
 Refresh:
@@ -25,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import base64
 import json
 import os
 import re
@@ -314,26 +317,114 @@ def _load_env() -> None:
     load_synergy_env()
 
 
+# GB Synergy is logged out. Headless reuse is blocked. Headed login = Santurce org only.
+SYNERGY_ORG_ALLOWED = {"santurce", "san", "cangrejeros"}
+GB_LOGOUT_SENTINEL = Path.home() / ".config" / "apex-preflight" / "SYNERGY_GB_LOGGED_OUT"
+GB_LOGOUT_MSG = (
+    "Great Britain Synergy account is logged out. No headless reuse of GB tokens "
+    "or cookies. Tomorrow: set SYNERGY_ORG=santurce in pitch-tips/.env.synergy, "
+    "then python3 build_advance_synergy.py --headed and sign in with the new "
+    "Santurce Synergy account only (never GB)."
+)
+GB_BLOCKED_EMAILS = {"colby.morris08@gmail.com"}
+
+
+def _synergy_org() -> str:
+    return (os.environ.get("SYNERGY_ORG") or "").strip().lower()
+
+
+def _is_gb_email(email: str) -> bool:
+    em = (email or "").strip().lower()
+    if not em:
+        return False
+    if em in GB_BLOCKED_EMAILS:
+        return True
+    compact = em.replace(" ", "").replace("-", "").replace(".", "")
+    return "greatbritain" in compact or em.startswith("gb@") or ".gb@" in em
+
+
+def _jwt_email(token: str) -> str:
+    try:
+        payload = (token or "").split(".")[1]
+        payload += "=" * ((4 - len(payload) % 4) % 4)
+        data = json.loads(base64.urlsafe_b64decode(payload.encode()))
+        return str(data.get("email") or data.get("unique_name") or "").strip().lower()
+    except Exception:
+        return ""
+
+
+def _refuse_gb_identity(*, email: str = "", token: str = "") -> None:
+    em = (email or "").strip().lower() or _jwt_email(token)
+    if _is_gb_email(em):
+        raise RuntimeError(
+            f"Blocked Great Britain Synergy account ({em or 'token email'}). "
+            f"{GB_LOGOUT_MSG}"
+        )
+
+
+def _org_is_santurce() -> bool:
+    org = _synergy_org()
+    return (not org) or org in SYNERGY_ORG_ALLOWED
+
+
+def _token_org_path(cached: Path) -> Path:
+    return cached.with_name(cached.name + ".org")
+
+
+def _drop_stale_token(cached: Path) -> None:
+    """Delete GB leftover tokens so no script can silently reuse them."""
+    sidecar = _token_org_path(cached)
+    try:
+        if cached.is_file():
+            stamp = GB_LOGOUT_SENTINEL.stat().st_mtime if GB_LOGOUT_SENTINEL.is_file() else time.time()
+            org = sidecar.read_text().strip().lower() if sidecar.is_file() else ""
+            too_old = cached.stat().st_mtime < stamp + 0.01
+            if too_old or org not in SYNERGY_ORG_ALLOWED:
+                cached.unlink(missing_ok=True)
+                sidecar.unlink(missing_ok=True)
+    except OSError:
+        cached.unlink(missing_ok=True)
+        sidecar.unlink(missing_ok=True)
+
+
 async def _login_chrome(headed: bool = False) -> str:
     _load_env()
+    if not _org_is_santurce():
+        raise RuntimeError(
+            f"SYNERGY_ORG={_synergy_org()!r} is not Santurce. Never log into GB. {GB_LOGOUT_MSG}"
+        )
+    if not headed:
+        raise RuntimeError(GB_LOGOUT_MSG)
+
     email = (os.environ.get("SYNERGY_EMAIL") or "").strip()
     password = (os.environ.get("SYNERGY_PASSWORD") or "").strip()
-    if not email or not password:
-        raise RuntimeError("SYNERGY_EMAIL / SYNERGY_PASSWORD missing in pitch-tips/.env.synergy")
+    _refuse_gb_identity(email=email)
+    auto_fill = bool(email and password and _synergy_org() in SYNERGY_ORG_ALLOWED)
 
     from playwright.async_api import async_playwright
 
+    print(
+        "Headed Synergy login: Santurce org only (never GB). "
+        + ("Signing in with SYNERGY_EMAIL from env." if auto_fill
+           else "Log in manually in Chrome with the new Santurce account."),
+        flush=True,
+    )
     async with async_playwright() as p:
-        browser = await p.chromium.launch(channel="chrome", headless=not headed)
+        browser = await p.chromium.launch(channel="chrome", headless=False)
         page = await browser.new_page()
         await page.goto("https://baseball-web.synergysports.com/", wait_until="domcontentloaded", timeout=60000)
-        await page.locator('input[type="password"]').first.wait_for(timeout=25000)
-        await page.locator('input[type="email"], input[name="Username"], input#Username').first.fill(email)
-        await page.locator('input[type="password"]').first.fill(password)
-        await page.get_by_role("button", name=re.compile("login", re.I)).click()
+        if auto_fill:
+            await page.locator('input[type="password"]').first.wait_for(timeout=25000)
+            await page.locator('input[type="email"], input[name="Username"], input#Username').first.fill(email)
+            await page.locator('input[type="password"]').first.fill(password)
+            await page.get_by_role("button", name=re.compile("login", re.I)).click()
+            loops, pause_ms = 50, 600
+        else:
+            print("Waiting up to 4 minutes for Santurce OIDC token in the Chrome window…", flush=True)
+            loops, pause_ms = 120, 2000
         user = None
-        for _ in range(50):
-            await page.wait_for_timeout(600)
+        for _ in range(loops):
+            await page.wait_for_timeout(pause_ms)
             user = await page.evaluate(
                 """() => {
                   const k = Object.keys(localStorage).find(x => x.startsWith('oidc.user:'));
@@ -345,18 +436,46 @@ async def _login_chrome(headed: bool = False) -> str:
                 break
         await browser.close()
     if not user or not user.get("access_token"):
-        raise RuntimeError("Synergy OIDC login failed")
-    return str(user["access_token"])
+        raise RuntimeError(
+            "Synergy OIDC login failed. Headed Chrome did not yield a token. "
+            "Sign in with the Santurce org only (never GB)."
+        )
+    tok = str(user["access_token"])
+    _refuse_gb_identity(token=tok)
+    return tok
 
 
 def login_token(headed: bool = False, cached: Path | None = None) -> str:
+    """Return a Santurce-org Bearer token. Fails until headed Santurce login.
+
+    GB cookies/tokens are invalid. Headless calls raise. Pass headed=True
+    (or --headed) tomorrow to log into the new Santurce account.
+    """
+    _load_env()
     cached = cached or Path("/tmp/synergy_token.txt")
-    if cached.is_file() and cached.stat().st_size > 100:
+    sidecar = _token_org_path(cached)
+    _drop_stale_token(cached)
+    if (
+        cached.is_file()
+        and cached.stat().st_size > 100
+        and sidecar.is_file()
+        and sidecar.read_text().strip().lower() in SYNERGY_ORG_ALLOWED
+        and _synergy_org() in SYNERGY_ORG_ALLOWED
+    ):
         age = time.time() - cached.stat().st_mtime
         if age < 3000:
-            return cached.read_text().strip()
-    tok = asyncio.run(_login_chrome(headed=headed))
+            tok = cached.read_text().strip()
+            _refuse_gb_identity(token=tok)
+            return tok
+    cached.unlink(missing_ok=True)
+    sidecar.unlink(missing_ok=True)
+    if not headed:
+        raise RuntimeError(GB_LOGOUT_MSG)
+    tok = asyncio.run(_login_chrome(headed=True))
+    _refuse_gb_identity(token=tok)
+    cached.parent.mkdir(parents=True, exist_ok=True)
     cached.write_text(tok)
+    sidecar.write_text("santurce\n")
     return tok
 
 

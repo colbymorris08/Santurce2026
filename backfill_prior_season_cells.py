@@ -51,12 +51,8 @@ def norm(name: str) -> str:
 
 
 def synergy_token() -> str:
-    path = Path("/tmp/synergy_token.txt")
-    if path.is_file() and path.read_text().strip():
-        return path.read_text().strip()
-    tok = bas.login_token(headed=False)
-    path.write_text(tok)
-    return tok
+    # Santurce org only. Does not read leftover GB /tmp tokens.
+    return bas.login_token(headed=False)
 
 
 def mlb_id(row: dict) -> int | None:

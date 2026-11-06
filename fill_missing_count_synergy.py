@@ -103,6 +103,7 @@ def missing_count() -> list[dict]:
 def main() -> None:
     year_set = {2024, 2025, 2026}
     max_events = 1000
+    # Santurce org only. Headless fails until headed Santurce login (never GB).
     token = bas.login_token(headed=False)
     print("Synergy login ok")
     missing = missing_count()
