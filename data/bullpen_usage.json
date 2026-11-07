@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T10:11:08Z",
+  "updated": "2026-11-07T09:02:15Z",
   "source": "https://ligapr.com/estadisticas/boxscores",
   "league_id": 18,
   "subleague_id": 18,
@@ -13,6 +13,20 @@
       "team": "CAG",
       "team_name": "Criollos de Caguas",
       "games": [
+        {
+          "game_id": 605,
+          "title": "CRI - LEO 605",
+          "date": null,
+          "home": true,
+          "label": "vs PON",
+          "result": "CAG 21-7",
+          "opp": "PON",
+          "score_for": 21,
+          "score_against": 7,
+          "won": true,
+          "starter": "ZACH PENROD",
+          "starter_ip": "3.2"
+        },
         {
           "game_id": 603,
           "title": "SEN - CRI 603",
@@ -30,20 +44,58 @@
       ],
       "starters": [
         {
+          "name": "ZACH PENROD",
+          "last_app": "vs PON",
+          "last_app_game_id": 605,
+          "cells": [
+            "3.2 IP",
+            null
+          ]
+        },
+        {
           "name": "JOSE DE LEON",
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "4 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "ADALBERTO FLORES",
+          "last_app": "vs PON",
+          "last_app_game_id": 605,
+          "cells": [
+            "2.1 IP",
+            null
+          ]
+        },
+        {
+          "name": "MARVIN GORGAS",
+          "last_app": "vs PON",
+          "last_app_game_id": 605,
+          "cells": [
+            "1.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "ZACH VEEN",
+          "last_app": "vs PON",
+          "last_app_game_id": 605,
+          "cells": [
+            "1.1 IP",
+            "0 IP"
+          ]
+        },
+        {
           "name": "JUAN JAVIER ECHAVARRIA",
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "0.1 IP"
           ]
         },
@@ -52,6 +104,7 @@
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -60,6 +113,7 @@
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -68,6 +122,7 @@
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -76,15 +131,8 @@
           "last_app": "@ SJU",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "0.2 IP"
-          ]
-        },
-        {
-          "name": "ZACH VEEN",
-          "last_app": "@ SJU",
-          "last_app_game_id": 603,
-          "cells": [
-            "0 IP"
           ]
         }
       ],
@@ -94,6 +142,20 @@
       "team": "SAN",
       "team_name": "Cangrejeros de Santurce",
       "games": [
+        {
+          "game_id": 607,
+          "title": "CAN - IND 607",
+          "date": null,
+          "home": true,
+          "label": "vs MAY",
+          "result": "MAY 8-7",
+          "opp": "MAY",
+          "score_for": 7,
+          "score_against": 8,
+          "won": false,
+          "starter": "DAVID LEBRON",
+          "starter_ip": "3.1"
+        },
         {
           "game_id": 602,
           "title": "LEO - CAN 602",
@@ -125,10 +187,21 @@
       ],
       "starters": [
         {
+          "name": "DAVID LEBRON",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "3.1 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "Daryl Thompson",
           "last_app": "@ PON",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "4 IP",
             null
           ]
@@ -139,16 +212,78 @@
           "last_app_game_id": 599,
           "cells": [
             null,
+            null,
             "5 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "ANDREW BAKER",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "1.1 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "TREY BRAITHWAITE",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "1.2 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "CARLOS ESPINOSA",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "JACK HARTMAN",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "KEYLAN KILLGORE",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "0.2 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "MIGUEL MEJIA",
+          "last_app": "vs MAY",
+          "last_app_game_id": 607,
+          "cells": [
+            "1 IP",
+            "1 IP",
+            null
+          ]
+        },
+        {
           "name": "Bryan Escanio",
           "last_app": "@ PON",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "2 IP",
             null
           ]
@@ -158,16 +293,8 @@
           "last_app": "@ PON",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "0.2 IP",
-            null
-          ]
-        },
-        {
-          "name": "Miguel Mejia",
-          "last_app": "@ PON",
-          "last_app_game_id": 602,
-          "cells": [
-            "1 IP",
             null
           ]
         },
@@ -176,35 +303,9 @@
           "last_app": "@ PON",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "0.1 IP",
             null
-          ]
-        },
-        {
-          "name": "CARLOS ESPINOSA",
-          "last_app": "vs PON",
-          "last_app_game_id": 599,
-          "cells": [
-            null,
-            "1 IP"
-          ]
-        },
-        {
-          "name": "JACK HARTMAN",
-          "last_app": "vs PON",
-          "last_app_game_id": 599,
-          "cells": [
-            null,
-            "1 IP"
-          ]
-        },
-        {
-          "name": "KEYLAN KILLGORE",
-          "last_app": "vs PON",
-          "last_app_game_id": 599,
-          "cells": [
-            null,
-            "1 IP"
           ]
         },
         {
@@ -212,6 +313,7 @@
           "last_app": "vs PON",
           "last_app_game_id": 599,
           "cells": [
+            null,
             null,
             "1 IP"
           ]
@@ -223,6 +325,20 @@
       "team": "SJU",
       "team_name": "Senadores de San Juan",
       "games": [
+        {
+          "game_id": 606,
+          "title": "GIG - SEN 606",
+          "date": null,
+          "home": false,
+          "label": "@ CAR",
+          "result": "CAR 10-5",
+          "opp": "CAR",
+          "score_for": 5,
+          "score_against": 10,
+          "won": false,
+          "starter": "Brady Tedesco",
+          "starter_ip": "2"
+        },
         {
           "game_id": 603,
           "title": "SEN - CRI 603",
@@ -240,20 +356,85 @@
       ],
       "starters": [
         {
+          "name": "Brady Tedesco",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "2 IP",
+            null
+          ]
+        },
+        {
           "name": "RYDER RYAN",
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1.2 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "Anthony Borrero",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "0.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "Sidney Duprey",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "1.1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Julio Cesar Ortiz",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "0.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "Jerryell Rivera",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Mattew Rivera",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Ryan Velqzquez",
+          "last_app": "@ CAR",
+          "last_app_game_id": 606,
+          "cells": [
+            "1.1 IP",
+            null
+          ]
+        },
+        {
           "name": "NARITA HARUSE",
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -262,6 +443,7 @@
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1.1 IP"
           ]
         },
@@ -270,6 +452,7 @@
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -278,6 +461,7 @@
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "2 IP"
           ]
         },
@@ -286,6 +470,7 @@
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         },
@@ -294,6 +479,7 @@
           "last_app": "vs CAG",
           "last_app_game_id": 603,
           "cells": [
+            null,
             "1 IP"
           ]
         }
@@ -304,6 +490,20 @@
       "team": "CAR",
       "team_name": "Gigantes de Carolina",
       "games": [
+        {
+          "game_id": 606,
+          "title": "GIG - SEN 606",
+          "date": null,
+          "home": true,
+          "label": "vs SJU",
+          "result": "CAR 10-5",
+          "opp": "SJU",
+          "score_for": 10,
+          "score_against": 5,
+          "won": true,
+          "starter": "Riley Gowens",
+          "starter_ip": "6"
+        },
         {
           "game_id": 604,
           "title": "IND - GIG 604",
@@ -335,10 +535,21 @@
       ],
       "starters": [
         {
+          "name": "Riley Gowens",
+          "last_app": "vs SJU",
+          "last_app_game_id": 606,
+          "cells": [
+            "6 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "KAITO UCHINO",
           "last_app": "@ MAY",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "6 IP",
             null
           ]
@@ -349,16 +560,48 @@
           "last_app_game_id": 601,
           "cells": [
             null,
+            null,
             "4 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "Osvaldo Berrios",
+          "last_app": "vs SJU",
+          "last_app_game_id": 606,
+          "cells": [
+            "1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Albert Oliva",
+          "last_app": "vs SJU",
+          "last_app_game_id": 606,
+          "cells": [
+            "1 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "Eddie Reynoso",
+          "last_app": "vs SJU",
+          "last_app_game_id": 606,
+          "cells": [
+            "1 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "JAKE GOZZO",
           "last_app": "@ MAY",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "1.1 IP",
             null
           ]
@@ -368,6 +611,7 @@
           "last_app": "@ MAY",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "0.2 IP",
             null
           ]
@@ -377,6 +621,7 @@
           "last_app": "@ MAY",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "1 IP",
             null
           ]
@@ -387,14 +632,6 @@
           "last_app_game_id": 601,
           "cells": [
             null,
-            "1 IP"
-          ]
-        },
-        {
-          "name": "Osvaldo Berrios",
-          "last_app": "vs MAY",
-          "last_app_game_id": 601,
-          "cells": [
             null,
             "1 IP"
           ]
@@ -405,6 +642,7 @@
           "last_app_game_id": 601,
           "cells": [
             null,
+            null,
             "1 IP"
           ]
         },
@@ -414,6 +652,7 @@
           "last_app_game_id": 601,
           "cells": [
             null,
+            null,
             "1 IP"
           ]
         },
@@ -422,6 +661,7 @@
           "last_app": "vs MAY",
           "last_app_game_id": 601,
           "cells": [
+            null,
             null,
             "1 IP"
           ]
@@ -433,6 +673,20 @@
       "team": "MAY",
       "team_name": "Indios de Mayagüez",
       "games": [
+        {
+          "game_id": 607,
+          "title": "CAN - IND 607",
+          "date": null,
+          "home": false,
+          "label": "@ SAN",
+          "result": "MAY 8-7",
+          "opp": "SAN",
+          "score_for": 8,
+          "score_against": 7,
+          "won": true,
+          "starter": "BRYANT SALGADO",
+          "starter_ip": "4"
+        },
         {
           "game_id": 604,
           "title": "IND - GIG 604",
@@ -464,10 +718,21 @@
       ],
       "starters": [
         {
+          "name": "BRYANT SALGADO",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "4 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "LUIS CRUZ",
           "last_app": "vs CAR",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "2.1 IP",
             null
           ]
@@ -478,26 +743,79 @@
           "last_app_game_id": 601,
           "cells": [
             null,
+            null,
             "3.2 IP"
           ]
         }
       ],
       "relievers": [
         {
-          "name": "SEAN BARNETT",
-          "last_app": "vs CAR",
-          "last_app_game_id": 604,
+          "name": "CARLOS FRANCISCO",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "0 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "NELVIN FUENTES",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
           "cells": [
             "0.1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "JONATHAN HABB",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "0.2 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "HECTOR HERNANDEZ",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "2 IP",
+            null,
             null
           ]
         },
         {
           "name": "JORGE LOPEZ",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "2 IP",
+            "0.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "ANGEL REYES",
+          "last_app": "@ SAN",
+          "last_app_game_id": 607,
+          "cells": [
+            "1 IP",
+            "1 IP",
+            null
+          ]
+        },
+        {
+          "name": "SEAN BARNETT",
           "last_app": "vs CAR",
           "last_app_game_id": 604,
           "cells": [
-            "0.2 IP",
+            null,
+            "0.1 IP",
             null
           ]
         },
@@ -506,15 +824,7 @@
           "last_app": "vs CAR",
           "last_app_game_id": 604,
           "cells": [
-            "1 IP",
-            null
-          ]
-        },
-        {
-          "name": "ANGEL REYES",
-          "last_app": "vs CAR",
-          "last_app_game_id": 604,
-          "cells": [
+            null,
             "1 IP",
             null
           ]
@@ -524,6 +834,7 @@
           "last_app": "vs CAR",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "1 IP",
             null
           ]
@@ -533,26 +844,9 @@
           "last_app": "vs CAR",
           "last_app_game_id": 604,
           "cells": [
+            null,
             "2.2 IP",
             null
-          ]
-        },
-        {
-          "name": "Carlos Francisco",
-          "last_app": "@ CAR",
-          "last_app_game_id": 601,
-          "cells": [
-            null,
-            "1 IP"
-          ]
-        },
-        {
-          "name": "Nelvin Fuentes",
-          "last_app": "@ CAR",
-          "last_app_game_id": 601,
-          "cells": [
-            null,
-            "1 IP"
           ]
         },
         {
@@ -560,6 +854,7 @@
           "last_app": "@ CAR",
           "last_app_game_id": 601,
           "cells": [
+            null,
             null,
             "0.1 IP"
           ]
@@ -569,6 +864,7 @@
           "last_app": "@ CAR",
           "last_app_game_id": 601,
           "cells": [
+            null,
             null,
             "2 IP"
           ]
@@ -580,6 +876,20 @@
       "team": "PON",
       "team_name": "Leones de Ponce",
       "games": [
+        {
+          "game_id": 605,
+          "title": "CRI - LEO 605",
+          "date": null,
+          "home": false,
+          "label": "@ CAG",
+          "result": "CAG 21-7",
+          "opp": "CAG",
+          "score_for": 7,
+          "score_against": 21,
+          "won": false,
+          "starter": "JONATHAN BERMUDEZ",
+          "starter_ip": "1"
+        },
         {
           "game_id": 602,
           "title": "LEO - CAN 602",
@@ -611,10 +921,21 @@
       ],
       "starters": [
         {
+          "name": "JONATHAN BERMUDEZ",
+          "last_app": "@ CAG",
+          "last_app_game_id": 605,
+          "cells": [
+            "1 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "Ryan Murphy",
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "3 IP",
             null
           ]
@@ -625,16 +946,58 @@
           "last_app_game_id": 599,
           "cells": [
             null,
+            null,
             "2.2 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "JOHN APONTE",
+          "last_app": "@ CAG",
+          "last_app_game_id": 605,
+          "cells": [
+            "0.1 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "ERIC GARCIA",
+          "last_app": "@ CAG",
+          "last_app_game_id": 605,
+          "cells": [
+            "2 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "HECTOR QUIÑONEZ",
+          "last_app": "@ CAG",
+          "last_app_game_id": 605,
+          "cells": [
+            "2 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "JULIO TORRES",
+          "last_app": "@ CAG",
+          "last_app_game_id": 605,
+          "cells": [
+            "2.2 IP",
+            null,
+            null
+          ]
+        },
+        {
           "name": "Alex Claudio",
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "1 IP",
             "1.1 IP"
           ]
@@ -644,6 +1007,7 @@
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "1.1 IP",
             null
           ]
@@ -653,6 +1017,7 @@
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "2 IP",
             null
           ]
@@ -662,6 +1027,7 @@
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "0.2 IP",
             null
           ]
@@ -671,6 +1037,7 @@
           "last_app": "vs SAN",
           "last_app_game_id": 602,
           "cells": [
+            null,
             "1 IP",
             null
           ]
@@ -681,6 +1048,7 @@
           "last_app_game_id": 599,
           "cells": [
             null,
+            null,
             "1 IP"
           ]
         },
@@ -689,6 +1057,7 @@
           "last_app": "@ SAN",
           "last_app_game_id": 599,
           "cells": [
+            null,
             null,
             "3 IP"
           ]
