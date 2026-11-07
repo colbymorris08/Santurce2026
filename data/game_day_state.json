@@ -1,36 +1,21 @@
 {
-  "updated": "2026-11-06T15:40:00Z",
-  "label": "11-6",
-  "date_key": "2026-11-06",
-  "published_from": "official SAN lineup PDF vs Mayagüez 11-6-26; MAY 1-9/extras/pen from 11-6 lineup sheet (Salgado SP)",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only. | MAY 11-6 lineup sheet: Salgado SP, photo 1-9/extras/pen (numbered only). Castro jersey override #6.",
+  "updated": "2026-11-07T16:00:00Z",
+  "label": "11-7",
+  "date_key": "2026-11-07",
+  "published_from": "official SAN daily schedule PDF vs Mayagüez 11-7-26 (1-9 + Mateo SP; no extras/pen on sheet); MAY 1-9/extras/pen from 11-7 lineup sheet (Demurias SP, Salgado off)",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only. | MAY 11-6 lineup sheet: Salgado SP, photo 1-9/extras/pen (numbered only). Castro jersey override #6. | SAN vs MAY 11-7 HOME: Mateo SP + daily-schedule 1-9 (Andiarena/Centeno/Garcia corrected to roster IDs). SAN bench/pen empty — not listed on daily schedule. MAY Demurias SP + photo 1-9/extras/pen (numbered only; Salgado not on sheet). Castro jersey #6.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 673933,
-        "pen": [
-          572363,
-          -667432779,
-          689713,
-          444354,
-          531565,
-          605446,
-          687900,
-          800514,
-          -286366361,
-          688965,
-          803596,
-          681154,
-          810862,
-          815048
-        ],
+        "sp": 688965,
+        "pen": [],
         "lineup": [
           {
             "id": 671080,
             "pos": "4"
           },
           {
-            "id": 806176,
+            "id": -533438595,
             "pos": "7"
           },
           {
@@ -38,11 +23,11 @@
             "pos": "3"
           },
           {
-            "id": 640459,
+            "id": 518542,
             "pos": "2"
           },
           {
-            "id": -533438595,
+            "id": 571685,
             "pos": "DH"
           },
           {
@@ -50,44 +35,19 @@
             "pos": "9"
           },
           {
-            "id": 605346,
-            "pos": "5"
-          },
-          {
             "id": 623205,
             "pos": "6"
+          },
+          {
+            "id": 605346,
+            "pos": "5"
           },
           {
             "id": 641561,
             "pos": "8"
           }
         ],
-        "bench": [
-          {
-            "id": 592656,
-            "pos": "8"
-          },
-          {
-            "id": 518542,
-            "pos": "2"
-          },
-          {
-            "id": 643418,
-            "pos": "4"
-          },
-          {
-            "id": 571685,
-            "pos": "8"
-          },
-          {
-            "id": -108026908,
-            "pos": "4"
-          },
-          {
-            "id": 824605,
-            "pos": "4"
-          }
-        ]
+        "bench": []
       },
       "CAG": {
         "sp": 688014,
@@ -297,7 +257,7 @@
         ]
       },
       "MAY": {
-        "sp": 687560,
+        "sp": 681493,
         "pen": [
           571772,
           683803,
@@ -321,41 +281,41 @@
           },
           {
             "id": 656896,
-            "pos": "5"
+            "pos": "DH"
           },
           {
             "id": 656371,
             "pos": "6"
           },
           {
-            "id": 647351,
-            "pos": "3"
-          },
-          {
-            "id": 621458,
-            "pos": "DH"
-          },
-          {
             "id": 700845,
             "pos": "2"
           },
           {
-            "id": 671117,
-            "pos": "4"
+            "id": 621458,
+            "pos": "3"
           },
           {
-            "id": 807714,
-            "pos": "8"
+            "id": 647351,
+            "pos": "5"
           },
           {
             "id": 543611,
             "pos": "7"
+          },
+          {
+            "id": 592680,
+            "pos": "4"
+          },
+          {
+            "id": 671117,
+            "pos": "8"
           }
         ],
         "bench": [
           {
-            "id": 592680,
-            "pos": "5"
+            "id": 807714,
+            "pos": "8"
           },
           {
             "id": -229984899,
@@ -381,8 +341,8 @@
       }
     },
     "opponent": "MAY",
-    "santurceHome": false,
-    "updated": "2026-11-06T15:40:00Z"
+    "santurceHome": true,
+    "updated": "2026-11-07T16:00:00Z"
   },
   "notes": {
     "team": "MAY",
@@ -393,7 +353,7 @@
     "806176": "52",
     "641896": "25",
     "640459": "66",
-    "-533438595": "54",
+    "-533438595": "52",
     "681023": "13",
     "605346": "5",
     "623205": "6",
@@ -419,7 +379,36 @@
     "681154": "59",
     "810862": "38",
     "815048": "62",
-    "657538": "6"
+    "657538": "6",
+    "656896": "26",
+    "656371": "28",
+    "700845": "36",
+    "621458": "43",
+    "647351": "29",
+    "543611": "16",
+    "592680": "32",
+    "671117": "2",
+    "681493": "60",
+    "807714": "63",
+    "-229984899": "76",
+    "703742": "71",
+    "680107": "10",
+    "-722051519": "50",
+    "676566": "73",
+    "571772": "20",
+    "683803": "70",
+    "446651": "44",
+    "694547": "46",
+    "624401": "39",
+    "-198603702": "69",
+    "-346943911": "48",
+    "687879": "51",
+    "605347": "38",
+    "805248": "64",
+    "826141": "72",
+    "681938": "34",
+    "687956": "66",
+    "684320": "45"
   },
   "one_page_notes": {
     "jonathanbermudez": "FB average shape, primary offspeed big sweeper, average CH, flashes SL/CT shape vs LHH",
