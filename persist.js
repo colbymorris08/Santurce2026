@@ -3,8 +3,9 @@
    Versions: data/versions/index.json + data/versions/YYYY-MM-DD/
    Uses the same PAT as OF/TTH (santurce_gh_pat_v1 → scoutGhPat / githubPutJson).
    Hydrate: committed JSON is source of truth for SAN and today’s opponent.
-   Empty localStorage cannot wipe a published 1–9. Other filled browser sides
-   (an old Ponce card, etc.) stay local unless JSON has a full 1–9 for them.
+   Empty localStorage cannot wipe a published 1–9, and cannot reseed stale
+   non-daily opponents (e.g. MAY) from JSON. Other filled browser sides
+   (an old Ponce card, etc.) stay local only.
    Publish: PAT required; must PUT/commit data/game_day_state.json (no silent
    local-only success). Empty local teams never replace a filled GitHub card.
 */
@@ -201,11 +202,16 @@
         // incoming = published JSON. JSON wins for SAN + today's opponent so
         // an empty/stale localStorage cannot hide the daily card.
         const daily = abbr === 'SAN' || (jsonOpp && abbr === jsonOpp);
-        if (!daily && teamFilled(aTeams[abbr]) > 0 && !hasFullLineup(bTeams[abbr])) {
-          outTeams[abbr] = pickTeamPreferPrimary(aTeams[abbr], bTeams[abbr]);
-        } else {
-          outTeams[abbr] = pickTeamPreferPrimary(bTeams[abbr], aTeams[abbr]);
+        if (!daily) {
+          // Keep a filled local side (old Ponce card, etc.) but never seed
+          // yesterday's opponent from committed JSON into an empty browser —
+          // that resurrected MAY over CAR after a cleared localStorage.
+          if (teamFilled(aTeams[abbr]) > 0) {
+            outTeams[abbr] = pickTeamPreferPrimary(aTeams[abbr], bTeams[abbr]);
+          }
+          return;
         }
+        outTeams[abbr] = pickTeamPreferPrimary(bTeams[abbr], aTeams[abbr]);
         return;
       }
       outTeams[abbr] = mergeTeamBlock(aTeams[abbr], bTeams[abbr], {
