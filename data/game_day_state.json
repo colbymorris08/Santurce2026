@@ -1,21 +1,17 @@
 {
-  "updated": "2026-11-07T16:00:00Z",
-  "label": "11-7",
-  "date_key": "2026-11-07",
-  "published_from": "official SAN daily schedule PDF vs Mayagüez 11-7-26 (1-9 + Mateo SP; no extras/pen on sheet); MAY 1-9/extras/pen from 11-7 lineup sheet (Demurias SP, Salgado off)",
-  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only. | MAY 11-6 lineup sheet: Salgado SP, photo 1-9/extras/pen (numbered only). Castro jersey override #6. | SAN vs MAY 11-7 HOME: Mateo SP + daily-schedule 1-9 (Andiarena/Centeno/Garcia corrected to roster IDs). SAN bench/pen empty — not listed on daily schedule. MAY Demurias SP + photo 1-9/extras/pen (numbered only; Salgado not on sheet). Castro jersey #6.",
+  "updated": "2026-11-08T07:30:00Z",
+  "label": "11-8",
+  "date_key": "2026-11-08",
+  "published_from": "official SAN daily schedule PDF vs Carolina 11-8-26 (1-9 + Sanchez SP; no extras/pen on sheet); CAR 1-9/SP from lineup graphic (Tobita SP; Youngblood–González); CAR bench/pen = numbered roster hitters/pitchers excluding 1-9/SP",
+  "note": "Live game-day overrides shared across browsers via GitHub publish. Snapshot again ~1 week at roster update. | PON official roster + card lineup/bench + pitcher one-page notes 11-4 | Aponte/Murphy one-page notes 11-4 | Ponce catcher pop from 11-1 Time to home PDF | Excel TTH import pitchers_with_video_missing_tth.xlsx. | PON bench pitchers moved to bullpen 11-5. | SAN official lineup vs PON 11-5 from Lineup vs Ponce PDF. | SAN vs MAY 11-6: Lebron SP + official PDF 1-9/extras. SAN pen = 11-5 pen minus Lebron, plus Thompson (on the 11-6 sheet). MAY Salgado SP + ligapr 1-9. MAY bench/pen keep numbered players only. | MAY 11-6 lineup sheet: Salgado SP, photo 1-9/extras/pen (numbered only). Castro jersey override #6. | SAN vs MAY 11-7 HOME: Mateo SP + daily-schedule 1-9 (Andiarena/Centeno/Garcia corrected to roster IDs). SAN bench/pen empty — not listed on daily schedule. MAY Demurias SP + photo 1-9/extras/pen (numbered only; Salgado not on sheet). Castro jersey #6. | SAN vs CAR 11-8 AWAY: Sanchez SP + daily-schedule 1-9. SAN bench/pen empty — not listed on daily schedule. CAR Tobita SP + lineup-graphic 1-9 (names→CAR despite AWAY branding). CAR bench/pen numbered roster extras only.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 688965,
+        "sp": 803596,
         "pen": [],
         "lineup": [
           {
             "id": 671080,
-            "pos": "4"
-          },
-          {
-            "id": -533438595,
             "pos": "7"
           },
           {
@@ -23,16 +19,20 @@
             "pos": "3"
           },
           {
-            "id": 518542,
-            "pos": "2"
+            "id": 681023,
+            "pos": "9"
           },
           {
             "id": 571685,
             "pos": "DH"
           },
           {
-            "id": 681023,
-            "pos": "9"
+            "id": 640459,
+            "pos": "2"
+          },
+          {
+            "id": 643418,
+            "pos": "4"
           },
           {
             "id": 623205,
@@ -338,14 +338,144 @@
             "pos": "2"
           }
         ]
+      },
+      "CAR": {
+        "sp": -758984765,
+        "pen": [
+          806309,
+          -158179355,
+          682118,
+          545814,
+          693543,
+          676047,
+          676769,
+          670103,
+          689214,
+          805753,
+          681813,
+          690148,
+          -268179393,
+          703106,
+          664371,
+          803035,
+          -779812433,
+          695684,
+          -742329386,
+          -863509874,
+          670232,
+          -522170762,
+          641729,
+          -359955779,
+          805678
+        ],
+        "lineup": [
+          {
+            "id": 827636,
+            "pos": "8"
+          },
+          {
+            "id": 815464,
+            "pos": "7"
+          },
+          {
+            "id": 694673,
+            "pos": "3"
+          },
+          {
+            "id": 671286,
+            "pos": "9"
+          },
+          {
+            "id": 641521,
+            "pos": "6"
+          },
+          {
+            "id": 694754,
+            "pos": "5"
+          },
+          {
+            "id": 813844,
+            "pos": "DH"
+          },
+          {
+            "id": 691724,
+            "pos": "4"
+          },
+          {
+            "id": 806083,
+            "pos": "2"
+          }
+        ],
+        "bench": [
+          {
+            "id": 703641,
+            "pos": "6"
+          },
+          {
+            "id": -654236427,
+            "pos": "6"
+          },
+          {
+            "id": -601861522,
+            "pos": "2"
+          },
+          {
+            "id": -213606773,
+            "pos": "6"
+          },
+          {
+            "id": 571771,
+            "pos": "6"
+          },
+          {
+            "id": -268338446,
+            "pos": "8"
+          },
+          {
+            "id": 687567,
+            "pos": "4"
+          },
+          {
+            "id": 703160,
+            "pos": "8"
+          },
+          {
+            "id": 681515,
+            "pos": "6"
+          },
+          {
+            "id": 828227,
+            "pos": "2"
+          },
+          {
+            "id": 682196,
+            "pos": "6"
+          },
+          {
+            "id": 811765,
+            "pos": "5"
+          },
+          {
+            "id": 695506,
+            "pos": "3"
+          },
+          {
+            "id": 805125,
+            "pos": "8"
+          },
+          {
+            "id": 828173,
+            "pos": "8"
+          }
+        ]
       }
     },
-    "opponent": "MAY",
-    "santurceHome": true,
-    "updated": "2026-11-07T16:00:00Z"
+    "opponent": "CAR",
+    "santurceHome": false,
+    "updated": "2026-11-08T07:30:00Z"
   },
   "notes": {
-    "team": "MAY",
+    "team": "CAR",
     "notes": {}
   },
   "jersey_overrides": {
