@@ -1,7 +1,8 @@
 /**
- * Measure strategy-card PDF: exactly 2 pages.
- * Page 1 = full lineup body + 1.5in notes below all names (no mid-lineup notes).
- * Page 2 = TTP + catcher pop only.
+ * Measure strategy-card PDF: exactly 3 pages.
+ * Page 1 = lineups (1–9 + SP) + 1.5in notes (no bench/pen).
+ * Page 2 = bench + bullpen for both teams.
+ * Page 3 = TTP + catcher pop only (unchanged former page 2).
  * Stress: Ponce (long bench/pen) vs Santurce, both fully filled.
  */
 import { chromium } from 'playwright';
@@ -143,10 +144,12 @@ await printPage.waitForTimeout(50);
   const bodyAvail = (tallIn - notesIn - 0.08) * 96;
   const pages = [...document.querySelectorAll('.sc-print-page')];
   const front = document.querySelector('.sc-print-front');
+  const aux = document.querySelector('.sc-print-aux');
   const back = document.querySelector('.sc-print-back');
   const notes = document.querySelector('.sc-front-notes');
-  const body = document.querySelector('.sc-front-body');
+  const body = front?.querySelector('.sc-front-body');
   const names = [...document.querySelectorAll('.sc-print-front .sc-last')].map((el) => el.textContent.trim()).filter(Boolean);
+  const auxNames = [...document.querySelectorAll('.sc-print-aux .sc-last')].map((el) => el.textContent.trim()).filter(Boolean);
 
   const frontBox = front?.getBoundingClientRect();
   const notesBox = notes?.getBoundingClientRect();
@@ -160,7 +163,7 @@ await printPage.waitForTimeout(50);
     ? Math.abs(notesBox.bottom - frontBox.bottom) <= 2 && notesBox.height >= (notesIn * 96) - 4
     : false;
 
-  const scale = document.querySelector('.sc-front-scale');
+  const scale = front?.querySelector('.sc-front-scale');
   const scaleBox = scale?.getBoundingClientRect();
   const bodyZoom = parseFloat(scale?.style?.zoom || body?.style?.zoom || '1') || 1;
   const backZoom = parseFloat(back?.style?.zoom || '1') || 1;
@@ -171,9 +174,11 @@ await printPage.waitForTimeout(50);
   const notesH = notesBox ? notesBox.height : 0;
   const gapToNotesPx = notesBox && scaleBox ? notesBox.top - scaleBox.bottom : 999;
   const lineupEl = document.querySelector('.sc-print-front .sc-grid-lineup');
-  const benchEl = document.querySelector('.sc-print-front .sc-grid-bench');
+  const frontBench = document.querySelector('.sc-print-front .sc-grid-bench');
+  const frontPen = document.querySelector('.sc-print-front .sc-grid-pen');
+  const auxBench = document.querySelector('.sc-print-aux .sc-grid-bench');
+  const auxPen = document.querySelector('.sc-print-aux .sc-grid-pen');
   const lineupFontPx = lineupEl ? parseFloat(getComputedStyle(lineupEl).fontSize) : 0;
-  const benchFontPx = benchEl ? parseFloat(getComputedStyle(benchEl).fontSize) : 0;
   const whoEl = document.querySelector('.sc-print-front .sc-grid-lineup td.sc-who');
   const whoBox = whoEl?.getBoundingClientRect();
   const lineupBox = lineupEl?.getBoundingClientRect();
@@ -181,8 +186,6 @@ await printPage.waitForTimeout(50);
   const whoH = whoBox ? whoBox.height : 0;
   const lastWho = [...document.querySelectorAll('.sc-print-front .sc-grid-lineup td.sc-who')].pop();
   const lastWhoToNotesPx = lastWho && notesBox ? notesBox.top - lastWho.getBoundingClientRect().bottom : 999;
-  const benchTransform = benchEl?.style?.transform || '';
-  const benchZoom = parseFloat(benchEl?.style?.zoom || '1') || 1;
   const ceiling = notesBox && bodyBox
     ? Math.min(notesBox.top, bodyBox.bottom)
     : (notesBox ? notesBox.top : Infinity);
@@ -205,9 +208,14 @@ await printPage.waitForTimeout(50);
   return {
     printPageDivs: pages.length,
     hasFront: !!front,
+    hasAux: !!aux,
     hasBack: !!back,
     hasNotes: !!notes,
+    frontHasNoBenchPen: !frontBench && !frontPen,
+    auxHasBenchPen: !!auxBench && !!auxPen,
+    auxHasNoLineup: !document.querySelector('.sc-print-aux .sc-grid-lineup'),
     nameCount: names.length,
+    auxNameCount: auxNames.length,
     sampleNames: names.slice(0, 8),
     lastNames: names.slice(-6),
     namesAboveNotes: namesPastNotes.length === 0,
@@ -225,37 +233,19 @@ await printPage.waitForTimeout(50);
     fillsToNotes: gapToNotesPx >= -4 && gapToNotesPx <= 32,
     gapToNotesPx,
     lineupFontPx,
-    benchFontPx,
     namePct: +namePct.toFixed(1),
     whoH: +whoH.toFixed(1),
     lastWhoToNotesPx: +lastWhoToNotesPx.toFixed(1),
-    benchTransform,
-    benchZoom,
     nameColOk: namePct >= 26 && namePct <= 40,
-    lineupBiggerThanBench: !benchFontPx || lineupFontPx + 0.4 >= benchFontPx,
     namesPastNotes,
     namesClipped,
     ordLabels: ordLabels.slice(0, 12),
     dense: front ? front.classList.contains('sc-dense') : false,
     xdense: front ? front.classList.contains('sc-xdense') : false,
-    auxDense: front ? front.classList.contains('sc-aux-dense') : false,
-    auxXdense: front ? front.classList.contains('sc-aux-xdense') : false,
     fills: front ? front.classList.contains('sc-fill') : false,
     backHasTtp: !!back?.querySelector('.sc-ttp-table'),
     backHasPop: (back?.querySelectorAll('.sc-bar') || []).length >= 2,
     backBars: [...(back?.querySelectorAll('.sc-bar') || [])].map((el) => el.textContent.trim()),
-    stacked: (() => {
-      const side = document.querySelector('.sc-print-front .sc-side');
-      if (!side || side.querySelector('.sc-aux-block')) return false;
-      const lineup = side.querySelector('.sc-grid-lineup');
-      const bench = side.querySelector('.sc-grid-bench');
-      const pen = side.querySelector('.sc-grid-pen');
-      if (!lineup || !bench || !pen) return false;
-      const lr = lineup.getBoundingClientRect();
-      const br = bench.getBoundingClientRect();
-      const pr = pen.getBoundingClientRect();
-      return br.top >= lr.bottom - 2 && pr.top >= br.bottom - 2 && br.left < lr.right - 8;
-    })(),
   };
 });
 
@@ -271,13 +261,17 @@ writeFileSync(join(root, 'runs', 'strategy_card_measure.pdf'), pdf);
 const result = {
   ...layout,
   pdfPages,
-  exactlyTwoPages: pdfPages === 2 && layout.printPageDivs === 2,
+  exactlyThreePages: pdfPages === 3 && layout.printPageDivs === 3,
   ok:
-    pdfPages === 2
-    && layout.printPageDivs === 2
+    pdfPages === 3
+    && layout.printPageDivs === 3
     && layout.hasFront
+    && layout.hasAux
     && layout.hasBack
     && layout.hasNotes
+    && layout.frontHasNoBenchPen
+    && layout.auxHasBenchPen
+    && layout.auxHasNoLineup
     && layout.namesAboveNotes
     && layout.notesAtBottom
     && layout.notesHeightIn >= 1.45
@@ -288,9 +282,8 @@ const result = {
     && layout.backHasPop
     && layout.fillsToNotes
     && layout.scaleUsesMostOfBody
-    && layout.lineupBiggerThanBench
     && layout.nameColOk
-    && layout.stacked,
+    && layout.whoH >= 28,
 };
 
 console.log(JSON.stringify(result, null, 2));

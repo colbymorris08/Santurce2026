@@ -467,7 +467,14 @@
     </table>`;
   }
 
-  function sheetSide(abbrev, state) {
+  /**
+   * One team column for the strategy sheet / PDF.
+   * mode: 'all' (screen), 'lineup' (PDF p1: 1–9 + SP), 'aux' (PDF p2: bench + pen).
+   */
+  function sheetSide(abbrev, state, mode) {
+    const section = mode || 'all';
+    const showLineup = section === 'all' || section === 'lineup';
+    const showAux = section === 'all' || section === 'aux';
     const meta = teamMeta(abbrev);
     const people = roster(abbrev);
     const st = ensureTeam(state, abbrev);
@@ -521,19 +528,40 @@
       ? `<img class="sc-logo" src="${esc(meta.logo)}" alt="">`
       : `<span class="sc-mono">${esc(meta.abbrev)}</span>`;
     const dateStr = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const lineupBlock = showLineup ? `
+      <div class="sc-bar">HITTERS</div>
+      ${hitterTable(hitters, hitterRows, 'sc-grid-lineup')}` : '';
+    const auxBlock = showAux ? `
+      <div class="sc-bar">BENCH / PH</div>
+      ${hitterTable(hitters, benchRows, 'sc-grid-bench')}
+      <div class="sc-bar">PITCHERS</div>
+      ${pitcherTable(pitRows, 'sc-grid-pen')}` : '';
     return `<section class="sc-side">
       <header class="sc-head" style="background:${esc(meta.color)}">
         <div class="sc-head-name">${esc(meta.name)}</div>
         ${logo}
       </header>
       <div class="sc-date">${esc(dateStr)}</div>
-      <div class="sc-bar">HITTERS</div>
-      ${hitterTable(hitters, hitterRows, 'sc-grid-lineup')}
-      <div class="sc-bar">BENCH / PH</div>
-      ${hitterTable(hitters, benchRows, 'sc-grid-bench')}
-      <div class="sc-bar">PITCHERS</div>
-      ${pitcherTable(pitRows, 'sc-grid-pen')}
+      ${lineupBlock}
+      ${auxBlock}
     </section>`;
+  }
+
+  function strategyPairHtml(left, right, state, mode) {
+    return `<div class="sc-pair">${sheetSide(left, state, mode)}${sheetSide(right, state, mode)}</div>`;
+  }
+
+  /** Replace live jersey inputs with print spans (same as cloning the screen sheet). */
+  function jerseyPrintHtml(html) {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('input.sc-jersey').forEach((inp) => {
+      const span = document.createElement('span');
+      span.className = 'sc-jersey-print';
+      span.textContent = inp.value || '';
+      inp.replaceWith(span);
+    });
+    return wrap.innerHTML;
   }
 
   function posOptions(selected, taken) {
@@ -1120,10 +1148,9 @@
   }
 
   /**
-   * Grow every pair in a column (lineup, bench, and pen together) so that
-   * column meets the notes. Each side sizes itself — a shorter pen must
-   * not leave a hole above the band. max-width:0 on the name cell is what
-   * lets the row height actually increase.
+   * Grow every pair in a column so that column fills the available body
+   * (down to notes on page 1, or full page on bench/pen). Each side sizes
+   * itself. max-width:0 on the name cell is what lets the row height grow.
    */
   function growSide(side, extraVisualPx, zoom) {
     if (!side || extraVisualPx <= 2) return;
@@ -1142,10 +1169,9 @@
   }
 
   /**
-   * Fit the stacked front (hitters, then bench, then pen) above the 1.5" notes.
-   * Tighten the whole card (dense → xdense → zoom) before clipping.
-   * If the stack is still short, grow every pair so the longer column
-   * reaches the notes instead of dying mid-page.
+   * Fit a card body page (lineups on p1, or bench/pen on p2).
+   * Tighten (dense → xdense → zoom) before clipping; if still short, grow
+   * every pair so the column fills the available height.
    */
   function fitFrontBody(front, body, bodyAvail) {
     if (!front || !body) return;
@@ -1200,15 +1226,15 @@
     }
     pages.forEach((p) => {
       p.style.zoom = '';
-      // Front: densify + scale ONLY the lineup body so the 1.5" notes strip stays fixed at bottom.
+      // Page 1 (lineups+notes) or page 2 (bench/pen): densify + scale the body.
       const body = p.querySelector('.sc-front-body');
-      if (body && p.classList.contains('sc-print-front')) {
-        const notesH = (notesIn + 0.08) * 96;
+      if (body && (p.classList.contains('sc-print-front') || p.classList.contains('sc-print-aux'))) {
+        const notesH = p.classList.contains('sc-print-front') ? (notesIn + 0.08) * 96 : 0;
         const bodyAvail = Math.max(120, avail - notesH);
         fitFrontBody(p, body, bodyAvail);
         return;
       }
-      // Back (TTP / catcher pop): measure unconstrained content, then scale to one page.
+      // Page 3 (TTP / catcher pop): measure unconstrained content, then scale to one page.
       const inner = p.querySelector('.sc-back') || p;
       const prevOverflow = p.style.overflow;
       const prevMax = p.style.maxHeight;
@@ -1252,6 +1278,11 @@
           height:${tallIn}in;max-height:${tallIn}in;min-height:${tallIn}in;overflow:hidden;
           display:flex;flex-direction:column;
         }
+        .sc-print-aux{
+          height:${tallIn}in;max-height:${tallIn}in;min-height:${tallIn}in;overflow:hidden;
+          display:flex;flex-direction:column;
+          page-break-before:always;break-before:page;
+        }
         .sc-print-back{
           height:${tallIn}in;max-height:${tallIn}in;min-height:${tallIn}in;overflow:hidden;
           page-break-before:always;break-before:page;
@@ -1260,6 +1291,7 @@
           .sc-print-page{page-break-after:always;break-after:page;page-break-inside:avoid;break-inside:avoid}
           .sc-print-page:last-child{page-break-after:auto;break-after:auto}
           .sc-print-front.sc-front-page{height:${tallIn}in;max-height:${tallIn}in;overflow:hidden}
+          .sc-print-aux{height:${tallIn}in;max-height:${tallIn}in;overflow:hidden;page-break-before:always;break-before:page}
           .sc-print-back{height:${tallIn}in;max-height:${tallIn}in;overflow:hidden;page-break-before:always;break-before:page}
         }
       </style></head><body><div id="fit">${inner}</div>
@@ -1385,8 +1417,8 @@
             pages.forEach(function(p){
               p.style.zoom = '';
               var body = p.querySelector('.sc-front-body');
-              if(body && p.classList.contains('sc-print-front')){
-                var notesH = (notesIn + 0.08) * 96;
+              if(body && (p.classList.contains('sc-print-front') || p.classList.contains('sc-print-aux'))){
+                var notesH = p.classList.contains('sc-print-front') ? (notesIn + 0.08) * 96 : 0;
                 fitFront(p, body, Math.max(120, avail - notesH));
                 return;
               }
@@ -1693,71 +1725,106 @@
       queuePersist();
     },
     exportStrategy() {
-      const el = document.getElementById('strategy-sheet');
-      if (!el) return;
+      if (!document.getElementById('strategy-sheet')) return;
       const state = loadStrategy();
       const opponent = state.opponent;
-      const sheet = el.cloneNode(true);
-      sheet.querySelectorAll('input.sc-jersey').forEach((inp) => {
-        const span = document.createElement('span');
-        span.className = 'sc-jersey-print';
-        span.textContent = inp.value || '';
-        inp.replaceWith(span);
-      });
+      const left = state.santurceHome ? 'SAN' : state.opponent;
+      const right = state.santurceHome ? state.opponent : 'SAN';
+      const lineupPair = jerseyPrintHtml(strategyPairHtml(left, right, state, 'lineup'));
+      const auxPair = jerseyPrintHtml(strategyPairHtml(left, right, state, 'aux'));
+      // Page 1: lineups (1–9 + SP) side-by-side + 1.5" notes. Rows grow to fill.
       const front = `<div class="sc-print-page sc-print-front sc-front-page">
-        <div class="sc-front-body"><div class="sc-front-scale">${sheet.outerHTML}</div></div>
+        <div class="sc-front-body"><div class="sc-front-scale">${lineupPair}</div></div>
         <section class="sc-front-notes">
           <div class="sc-bar">${tr('NOTES / RUNNING GAME', 'NOTAS / JUEGO EN BASES')}</div>
           <div class="sc-back-lines" aria-hidden="true"></div>
         </section>
       </div>`;
+      // Page 2: bench + bullpen (what used to share page 1 with the lineup).
+      const aux = `<div class="sc-print-page sc-print-aux">
+        <div class="sc-front-body"><div class="sc-front-scale">${auxPair}</div></div>
+      </div>`;
+      // Page 3: opponent TTP + catcher pop (unchanged former page 2).
       const back = `<div class="sc-print-page sc-print-back">${buildStrategyBack(opponent, state)}</div>`;
-      openPrint('Strategy card', front + back, 'portrait', `
-        /* Page 1 matches the 11-4 Ponce card: two teams side by side,
-           each column stacked hitters → bench → pen, 1.5in notes at the bottom.
-           Name column stays 34% with max-width:0 so rows can still grow. */
+      openPrint('Strategy card', front + aux + back, 'portrait', `
+        /* Shared column layout: teams side by side (11-4 Ponce style). */
+        .sc-print-front .sc-pair,.sc-print-aux .sc-pair{gap:12px;align-items:start;min-width:0}
+        .sc-print-front .sc-side,.sc-print-aux .sc-side{overflow:hidden;min-width:0}
+        .sc-print-front .sc-col-who,.sc-print-aux .sc-col-who{width:34%}
+        .sc-print-front .sc-col-sb,.sc-print-aux .sc-col-sb{width:11%}
+        .sc-print-front .sc-col-vs,.sc-print-aux .sc-col-vs{width:6%}
+        .sc-print-front .sc-col-stat,.sc-print-aux .sc-col-stat{width:9.8%}
+        .sc-print-front .sc-front-scale,.sc-print-aux .sc-front-scale{display:block;width:100%;transform-origin:top left}
+        /* Page 1: lineup only + fixed 1.5in notes. Bigger base type — room to grow. */
         .sc-print-front .sc-front-body{flex:1 1 auto;min-height:0;max-height:calc(10.5in - 1.5in);overflow:hidden}
-        .sc-print-front .sc-front-scale{display:block;width:100%;transform-origin:top left}
         .sc-print-front .sc-front-notes{flex:0 0 1.5in;height:1.5in;min-height:1.5in;max-height:1.5in;margin-top:auto;position:relative;z-index:2;background:#fff}
-        .sc-print-front .sc-pair{gap:12px;align-items:start;min-width:0}
-        .sc-print-front .sc-side{overflow:hidden;min-width:0}
-        .sc-print-front .sc-col-who{width:34%}
-        .sc-print-front .sc-col-sb{width:11%}
-        .sc-print-front .sc-col-vs{width:6%}
-        .sc-print-front .sc-col-stat{width:9.8%}
-        .sc-print-front .sc-grid{font-size:12px;line-height:1.32;table-layout:fixed;width:100%}
-        .sc-print-front .sc-grid th{font-size:10px;padding:4px 2px}
-        .sc-print-front .sc-grid td{padding:4px 3px}
-        .sc-print-front .sc-head{min-height:48px;padding:8px 10px}
-        .sc-print-front .sc-head-name{font-size:17px}
-        .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:40px;height:40px}
-        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
-        .sc-print-front .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
-        .sc-print-front .sc-date{font-size:13px;padding:5px 0 6px}
-        .sc-print-front .sc-subhead td{font-size:11px;padding:4px 4px}
-        .sc-print-front.sc-dense .sc-grid{font-size:10px;line-height:1.18}
-        .sc-print-front.sc-dense .sc-grid th{font-size:8px;padding:2px 1px}
-        .sc-print-front.sc-dense .sc-grid td{padding:2px 2px}
-        .sc-print-front.sc-dense .sc-head{min-height:36px;padding:5px 8px}
-        .sc-print-front.sc-dense .sc-head-name{font-size:14px}
-        .sc-print-front.sc-dense .sc-logo,.sc-print-front.sc-dense .sc-mono{width:32px;height:32px}
-        .sc-print-front.sc-dense .sc-who{font-size:10px}
-        .sc-print-front.sc-dense .sc-bar{font-size:11px;padding:3px 0}
-        .sc-print-front.sc-dense .sc-date{font-size:11px;padding:3px 0 4px}
-        .sc-print-front.sc-dense .sc-subhead td{font-size:9px;padding:2px 3px}
+        .sc-print-front .sc-grid{font-size:14px;line-height:1.35;table-layout:fixed;width:100%}
+        .sc-print-front .sc-grid th{font-size:11px;padding:5px 2px}
+        .sc-print-front .sc-grid td{padding:5px 3px}
+        .sc-print-front .sc-head{min-height:52px;padding:10px 12px}
+        .sc-print-front .sc-head-name{font-size:18px}
+        .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:42px;height:42px}
+        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
+        .sc-print-front .sc-bar{font-size:14px;padding:6px 0;letter-spacing:.1em}
+        .sc-print-front .sc-date{font-size:14px;padding:6px 0 7px}
+        .sc-print-front .sc-subhead td{font-size:12px;padding:4px 4px}
+        .sc-print-front.sc-dense .sc-grid{font-size:12px;line-height:1.25}
+        .sc-print-front.sc-dense .sc-grid th{font-size:9px;padding:3px 1px}
+        .sc-print-front.sc-dense .sc-grid td{padding:3px 2px}
+        .sc-print-front.sc-dense .sc-head{min-height:40px;padding:6px 8px}
+        .sc-print-front.sc-dense .sc-head-name{font-size:15px}
+        .sc-print-front.sc-dense .sc-logo,.sc-print-front.sc-dense .sc-mono{width:34px;height:34px}
+        .sc-print-front.sc-dense .sc-who{font-size:12px}
+        .sc-print-front.sc-dense .sc-bar{font-size:12px;padding:4px 0}
+        .sc-print-front.sc-dense .sc-date{font-size:12px;padding:4px 0 5px}
+        .sc-print-front.sc-dense .sc-subhead td{font-size:10px;padding:3px 3px}
         .sc-print-front.sc-dense .sc-pair{gap:8px}
-        .sc-print-front.sc-xdense .sc-grid{font-size:8px;line-height:1.08}
-        .sc-print-front.sc-xdense .sc-grid th{font-size:7px;padding:1px}
-        .sc-print-front.sc-xdense .sc-grid td{padding:1px 1px}
-        .sc-print-front.sc-xdense .sc-head{min-height:28px;padding:3px 6px}
-        .sc-print-front.sc-xdense .sc-head-name{font-size:12px}
-        .sc-print-front.sc-xdense .sc-logo,.sc-print-front.sc-xdense .sc-mono{width:26px;height:26px}
-        .sc-print-front.sc-xdense .sc-who{font-size:8px}
-        .sc-print-front.sc-xdense .sc-bar{font-size:9px;padding:2px 0;letter-spacing:.06em}
-        .sc-print-front.sc-xdense .sc-date{font-size:9px;padding:2px 0}
-        .sc-print-front.sc-xdense .sc-subhead td{font-size:8px;padding:1px 2px}
+        .sc-print-front.sc-xdense .sc-grid{font-size:10px;line-height:1.12}
+        .sc-print-front.sc-xdense .sc-grid th{font-size:8px;padding:2px}
+        .sc-print-front.sc-xdense .sc-grid td{padding:2px 2px}
+        .sc-print-front.sc-xdense .sc-head{min-height:32px;padding:4px 6px}
+        .sc-print-front.sc-xdense .sc-head-name{font-size:13px}
+        .sc-print-front.sc-xdense .sc-logo,.sc-print-front.sc-xdense .sc-mono{width:28px;height:28px}
+        .sc-print-front.sc-xdense .sc-who{font-size:10px}
+        .sc-print-front.sc-xdense .sc-bar{font-size:10px;padding:3px 0;letter-spacing:.06em}
+        .sc-print-front.sc-xdense .sc-date{font-size:10px;padding:3px 0}
+        .sc-print-front.sc-xdense .sc-subhead td{font-size:9px;padding:2px 2px}
         .sc-print-front.sc-xdense .sc-pair{gap:4px}
-        /* Page 2: opponent TTP + catcher pop only. */
+        /* Page 2: bench + bullpen full page (no notes). */
+        .sc-print-aux .sc-front-body{flex:1 1 auto;min-height:0;height:100%;overflow:hidden}
+        .sc-print-aux .sc-grid{font-size:12px;line-height:1.32;table-layout:fixed;width:100%}
+        .sc-print-aux .sc-grid th{font-size:10px;padding:4px 2px}
+        .sc-print-aux .sc-grid td{padding:4px 3px}
+        .sc-print-aux .sc-head{min-height:48px;padding:8px 10px}
+        .sc-print-aux .sc-head-name{font-size:17px}
+        .sc-print-aux .sc-logo,.sc-print-aux .sc-mono{width:40px;height:40px}
+        .sc-print-aux .sc-grid td.sc-who,.sc-print-aux .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
+        .sc-print-aux .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
+        .sc-print-aux .sc-date{font-size:13px;padding:5px 0 6px}
+        .sc-print-aux .sc-subhead td{font-size:11px;padding:4px 4px}
+        .sc-print-aux.sc-dense .sc-grid{font-size:10px;line-height:1.18}
+        .sc-print-aux.sc-dense .sc-grid th{font-size:8px;padding:2px 1px}
+        .sc-print-aux.sc-dense .sc-grid td{padding:2px 2px}
+        .sc-print-aux.sc-dense .sc-head{min-height:36px;padding:5px 8px}
+        .sc-print-aux.sc-dense .sc-head-name{font-size:14px}
+        .sc-print-aux.sc-dense .sc-logo,.sc-print-aux.sc-dense .sc-mono{width:32px;height:32px}
+        .sc-print-aux.sc-dense .sc-who{font-size:10px}
+        .sc-print-aux.sc-dense .sc-bar{font-size:11px;padding:3px 0}
+        .sc-print-aux.sc-dense .sc-date{font-size:11px;padding:3px 0 4px}
+        .sc-print-aux.sc-dense .sc-subhead td{font-size:9px;padding:2px 3px}
+        .sc-print-aux.sc-dense .sc-pair{gap:8px}
+        .sc-print-aux.sc-xdense .sc-grid{font-size:8px;line-height:1.08}
+        .sc-print-aux.sc-xdense .sc-grid th{font-size:7px;padding:1px}
+        .sc-print-aux.sc-xdense .sc-grid td{padding:1px 1px}
+        .sc-print-aux.sc-xdense .sc-head{min-height:28px;padding:3px 6px}
+        .sc-print-aux.sc-xdense .sc-head-name{font-size:12px}
+        .sc-print-aux.sc-xdense .sc-logo,.sc-print-aux.sc-xdense .sc-mono{width:26px;height:26px}
+        .sc-print-aux.sc-xdense .sc-who{font-size:8px}
+        .sc-print-aux.sc-xdense .sc-bar{font-size:9px;padding:2px 0;letter-spacing:.06em}
+        .sc-print-aux.sc-xdense .sc-date{font-size:9px;padding:2px 0}
+        .sc-print-aux.sc-xdense .sc-subhead td{font-size:8px;padding:1px 2px}
+        .sc-print-aux.sc-xdense .sc-pair{gap:4px}
+        /* Page 3: opponent TTP + catcher pop only. */
         .sc-print-back .sc-back{min-height:10.0in;height:100%;padding-top:4px;box-sizing:border-box}
         .sc-print-back .sc-head{min-height:52px;padding:10px 12px}
         .sc-print-back .sc-head-name{font-size:18px}
