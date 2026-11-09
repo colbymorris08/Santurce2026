@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san253">
+<link rel="stylesheet" href="shared.css?v=san256">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -316,6 +316,11 @@
     </div>
   </div>
 
+  <style>
+  .bullpen-grid thead th.bp-date{line-height:1.15;white-space:normal;vertical-align:bottom}
+  .bullpen-grid thead th.bp-date .bp-matchup{display:block;font-weight:700}
+  .bullpen-grid thead th.bp-date .bp-dow{display:block;font-weight:600;opacity:.92;font-size:10px}
+</style>
   <div id="panel-bullpen" class="panel">
     <div class="section-label" data-i18n="bullpenLabel">Recent Bullpen Usage</div>
     <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starters and relievers each have their own section. Default tab is live 2026-27; Test is last week of Dec 2025.</div>
@@ -562,7 +567,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san254';
+const ASSET_V = 'san256';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6660,13 +6665,48 @@ function bullpenArmRows(arms, gamesLen, emptyMsg){
     </tr>`;
   }).join('');
 }
+function bullpenParseIsoDate(g){
+  const raw = String(g?.date || '').trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+  // Fallback: M/D in label (assume season year from ISO-ish nearby or 2025/2026 heuristics)
+  const lab = String(g?.label || '');
+  const md = lab.match(/\b(\d{1,2})\/(\d{1,2})\b/);
+  if(!md) return '';
+  const month = Number(md[1]), day = Number(md[2]);
+  // Prefer year from neighboring dated games in pack is handled by callers; default winter season year.
+  let year = month >= 11 ? 2025 : 2026;
+  if(month >= 11) year = 2025; // test Dec 2025 window
+  // Live 2026-27 opening week uses 2026 for Nov.
+  if(month === 11 && day <= 15) year = 2026;
+  if(month === 12) year = 2025;
+  return `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+}
+function bullpenMatchupOnly(label){
+  return String(label || '').replace(/\s+\d{1,2}\/\d{1,2}\b/g, '').trim();
+}
+function bullpenDateDowLabel(iso){
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-').map(Number);
+  if(!y || !m || !d) return '';
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if(Number.isNaN(dt.getTime())) return '';
+  const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getUTCDay()];
+  return `${dow} ${m}/${d}`;
+}
+function bullpenColumnHeaderHtml(g){
+  const tip = escHtml(g.result || g.title || '');
+  const matchup = bullpenMatchupOnly(g.label || '') || (g.opp ? `${g.home ? 'vs' : '@'} ${g.opp}` : '');
+  const iso = bullpenParseIsoDate(g);
+  const dow = bullpenDateDowLabel(iso);
+  if(dow){
+    return `<th class="bp-date" title="${tip}"><span class="bp-matchup">${escHtml(matchup)}</span><span class="bp-dow">${escHtml(dow)}</span></th>`;
+  }
+  return `<th class="bp-date" title="${tip}">${escHtml(g.label || matchup || '')}</th>`;
+}
 function buildBullpenSheetHtml(pack, {teamLabel='', forPrint=false}={}){
   const games = pack.games || [];
   const colSpan = games.length + 2;
-  const matchupCells = games.map(g => {
-    const tip = escHtml(g.result || g.title || '');
-    return `<th class="bp-date" title="${tip}">${escHtml(g.label||'')}</th>`;
-  }).join('');
+  const matchupCells = games.map(g => bullpenColumnHeaderHtml(g)).join('');
   const starters = pack.starters || [];
   // Fallback: older caches without starters[] — derive from game header
   const starterRows = starters.length ? starters : (() => {
@@ -6788,6 +6828,8 @@ function sheetPrintCss(kind){
       .bullpen-grid thead .bp-corner:first-child{width:0.95in}
       .bullpen-grid thead .bp-corner:nth-child(2){width:0.88in}
       .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:9px;line-height:1.15;white-space:normal;padding:2px 1px}
+      .bullpen-grid .bp-date .bp-matchup{display:block;font-weight:700}
+      .bullpen-grid .bp-date .bp-dow{display:block;font-size:8.5px;font-weight:600;opacity:.95}
       .bullpen-grid .bp-cell,.bullpen-grid tbody td{color:#000!important;font-variant-numeric:tabular-nums;font-size:10.5px;padding:2px 1px;white-space:nowrap}
       .bullpen-grid tr.bp-section th{
         background:#4a5568!important;color:#fff!important;text-align:left;font-size:10.5px;

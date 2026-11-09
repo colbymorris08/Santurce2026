@@ -70,6 +70,24 @@ BULLPEN_TEST_LABEL = "Test · Dec 25–29, 2025"
 BULLPEN_TEST_SEASON = "2025-26 LBPRC"
 # Verified final-week dates (ligapr omits dates on finished cards; rematches
 # can steal late schedule slots during greedy matching).
+LBPRC_2026_27_GAME_DATE_OVERRIDES = {
+    # Opening week 2026-27 (ligapr omits dates on finished cards). Nov 10 slate = 614–616;
+    # Nov 9 reassignment day had no finished games.
+    599: "2026-11-04",
+    601: "2026-11-04",
+    602: "2026-11-05",
+    603: "2026-11-05",
+    604: "2026-11-05",
+    605: "2026-11-06",
+    606: "2026-11-06",
+    607: "2026-11-06",
+    608: "2026-11-07",
+    610: "2026-11-07",
+    611: "2026-11-08",
+    612: "2026-11-08",
+    613: "2026-11-08",
+}
+
 LBPRC_2025_26_GAME_DATE_OVERRIDES = {
     560: "2025-12-22",
     561: "2025-12-22",
@@ -479,6 +497,7 @@ def build_league_game_dates(
         if g.get("game_id") is not None and g.get("date")
     }
     out.update(LBPRC_2025_26_GAME_DATE_OVERRIDES)
+    out.update(LBPRC_2026_27_GAME_DATE_OVERRIDES)
     return out
 
 
