@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T10:11:06Z",
+  "updated": "2026-11-09T20:25:20Z",
   "source": "https://ligapr.com/estadisticas/boxscores",
   "league_id": 18,
   "subleague_id": 18,
@@ -1657,5 +1657,12 @@
     }
   },
   "tab": "live",
-  "season_display": "2026-27 LBPRC (live)"
+  "season_display": "2026-27 LBPRC (live)",
+  "verified_for": {
+    "date": "2026-11-10",
+    "matchup": "SAN @ SJU",
+    "ligapr_game_id_scheduled": 616,
+    "source": "https://ligapr.com/subleagues/18/2/getBoxScores",
+    "note": "Verified against live ligapr finished cards; Nov 9 reassignment day — no new finished games since morning CI refresh."
+  }
 }

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san252">
+<link rel="stylesheet" href="shared.css?v=san253">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -326,12 +326,12 @@
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="bullpen-team" onchange="renderBullpen()">
+          <option value="SAN" selected>Cangrejeros de Santurce</option>
+          <option value="SJU">Senadores de San Juan</option>
           <option value="PON">Leones de Ponce</option>
-          <option value="SAN">Cangrejeros de Santurce</option>
           <option value="CAG">Criollos de Caguas</option>
           <option value="CAR">Gigantes de Carolina</option>
           <option value="MAY">Indios de Mayagüez</option>
-          <option value="SJU">Senadores de San Juan</option>
         </select>
       </div>
       <div class="filter-field" style="align-self:end">
@@ -555,14 +555,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san252"></script>
+<script src="cards.js?v=san253"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
-<script src="persist.js?v=san252"></script>
+<script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san252';
+const ASSET_V = 'san253';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
