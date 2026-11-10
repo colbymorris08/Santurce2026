@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T20:25:20Z",
+  "updated": "2026-11-10T09:03:08Z",
   "league": {
     "league_id": 18,
     "subleague_id": 18,
@@ -27,14 +27,14 @@
     "changed": false,
     "added": 0,
     "removed": 0,
-    "message": "bullpen verify-only for SAN @ SJU (Nov 10) — roster sync skipped to avoid conflicting with in-flight roster fills."
+    "message": "ligapr equipo lists checked — no roster membership changes."
   },
-  "one_page_teams": {},
-  "note": "Verified live SAN/SJU bullpen usage vs ligapr boxscores for tomorrow SAN @ SJU (#616). No new finished games (Nov 9 reassignment). game_day_state left on 11-8 CAR — no SJU lineup PDF.",
-  "next_game": {
-    "date": "2026-11-10",
-    "matchup": "SAN @ SJU",
-    "ligapr_title": "SEN - CAN 616",
-    "time_local": "7:00 p.m."
+  "one_page_teams": {
+    "SAN": 31,
+    "CAG": 27,
+    "CAR": 28,
+    "MAY": 28,
+    "PON": 28,
+    "SJU": 24
   }
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-09T22:00:52Z",
+  "updated": "2026-11-10T09:03:07Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -416,6 +416,26 @@
           "needs_data": false
         },
         {
+          "jersey": "33",
+          "name": "Ryan Munoz",
+          "name_display": "Munoz, Ryan (l)",
+          "throws": "L",
+          "mlb_id": 684841,
+          "velo": {
+            "FB": "87-89",
+            "CB": "",
+            "SL": "74-78",
+            "CH": "",
+            "CT": "84-84",
+            "SPL": ""
+          },
+          "freq_r": "SL 38%, FB 29%, CH 24%, CB 9%",
+          "freq_l": "SL 56%, FB 33%, CB 8%, CH 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: SL 38%, FB 29%, CH 24%, CB 9%</span><br><span class=\"freq-l\">LHH: SL 56%, FB 33%, CB 8%, CH 3%</span>",
+          "notes": "High slot LHP. FB SL only, SL has depth and is scurvy. Damage middle in to RHH and same to LHH. Gets ahead and throws mostly SL unless behind in count.",
+          "needs_data": false
+        },
+        {
           "jersey": "56",
           "name": "Jose Pena",
           "name_display": "Pena, Jose",
@@ -614,27 +634,6 @@
           "freq_html": "<span class=\"freq-r\">RHH: FB 55%, CB 19%, CUT 13%, CH 8%</span><br><span class=\"freq-l\">LHH: FB 62%, CB 25%, CUT 7%, SL 5%</span>",
           "notes": "",
           "needs_data": false
-        },
-        {
-          "jersey": "33",
-          "name": "Ryan Munoz",
-          "name_display": "Munoz, Ryan (l)",
-          "throws": "L",
-          "mlb_id": 684841,
-          "velo": {
-            "FB": "87-89",
-            "CB": "",
-            "SL": "74-78",
-            "CH": "",
-            "CT": "84-84",
-            "SPL": ""
-          },
-          "freq_r": "SL 38%, FB 29%, CH 24%, CB 9%",
-          "freq_l": "SL 56%, FB 33%, CB 8%, CH 3%",
-          "freq_html": "<span class=\"freq-r\">RHH: SL 38%, FB 29%, CH 24%, CB 9%</span><br><span class=\"freq-l\">LHH: SL 56%, FB 33%, CB 8%, CH 3%</span>",
-          "notes": "High slot LHP. FB SL only, SL has depth and is scurvy. Damage middle in to RHH and same to LHH. Gets ahead and throws mostly SL unless behind in count.",
-          "needs_data": false,
-          "team": "SAN"
         }
       ]
     },
