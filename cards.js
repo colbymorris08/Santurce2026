@@ -737,6 +737,9 @@
     // Do not persist on render. ensureTeam drops IDs that are not on the current
     // roster lookup; writing that back is what emptied SAN after hydrate and
     // stripped Ponce bench rows that are not in card-stats.
+    requestAnimationFrame(() => {
+      try { fitWhoNames(document.getElementById('strategy-sheet')); } catch (e) {}
+    });
   }
 
   function band(n) {
@@ -1035,7 +1038,7 @@
     .sc-grid th{background:#e6e8ec;color:#222;font-weight:700;font-size:7px;letter-spacing:.02em;padding:2px 1px;border:1px solid #c5c9d0;text-align:center;overflow:hidden}
     .sc-grid td{border:1px solid #e1e4ea;padding:1px 2px;text-align:center;background:#fff;color:#111;white-space:nowrap;overflow:hidden}
     .sc-ttp{color:#111;font-weight:800;-webkit-text-fill-color:#111}
-    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
+    .sc-grid td.sc-who,.sc-who{text-align:left !important;white-space:nowrap;font-weight:700;color:#111;-webkit-text-fill-color:#111;overflow:hidden;max-width:0;width:34%}
     .sc-side .sc-grid td{color:#111;-webkit-text-fill-color:#111}
     .sc-good{color:#fff!important;-webkit-text-fill-color:#fff!important}
     .sc-bad{color:#fff!important;-webkit-text-fill-color:#fff!important}
@@ -1115,6 +1118,27 @@
       td.style.verticalAlign = '';
     });
   }
+  function clearWhoNameFonts(root) {
+    if (!root) return;
+    root.querySelectorAll('td.sc-who .sc-last').forEach((el) => {
+      el.style.fontSize = '';
+    });
+  }
+  /** Shrink .sc-last only until the PLAYER cell no longer overflows horizontally. */
+  function fitWhoNames(root) {
+    if (!root) return;
+    root.querySelectorAll('td.sc-who').forEach((td) => {
+      const name = td.querySelector('.sc-last');
+      if (!name || !String(name.textContent || '').trim()) return;
+      name.style.fontSize = '';
+      let guard = 0;
+      while (td.scrollWidth > td.clientWidth + 0.5 && guard++ < 48) {
+        const cur = parseFloat(getComputedStyle(name).fontSize) || 12;
+        if (cur <= 6) break;
+        name.style.fontSize = `${Math.max(6, cur - 0.5)}px`;
+      }
+    });
+  }
   /** Put leftover pixels into player-pair row height (rowspan-2 .sc-who cells). */
   function addWhoHeights(table, extraPx) {
     if (!table || extraPx <= 0) return;
@@ -1179,6 +1203,7 @@
     front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
     clearScale(scale);
     clearWhoHeights(front);
+    clearWhoNameFonts(front);
     body.style.overflow = 'hidden';
 
     let h = sideNaturalHeight(front) || scale.scrollHeight || 1;
@@ -1190,6 +1215,9 @@
       front.classList.add('sc-xdense');
       h = sideNaturalHeight(front) || h;
     }
+    // Fit long last names at the chosen type tier before any page zoom.
+    fitWhoNames(front);
+    h = sideNaturalHeight(front) || h;
     let z = 1;
     if (h > bodyAvail + 0.5) {
       z = Math.max(0.42, bodyAvail / Math.max(h, 1));
@@ -1322,6 +1350,26 @@
               td.style.verticalAlign = '';
             });
           }
+          function clearWhoNameFonts(root){
+            if(!root) return;
+            Array.prototype.forEach.call(root.querySelectorAll('td.sc-who .sc-last'), function(el){
+              el.style.fontSize = '';
+            });
+          }
+          function fitWhoNames(root){
+            if(!root) return;
+            Array.prototype.forEach.call(root.querySelectorAll('td.sc-who'), function(td){
+              var name = td.querySelector('.sc-last');
+              if(!name || !String(name.textContent || '').trim()) return;
+              name.style.fontSize = '';
+              var guard = 0;
+              while(td.scrollWidth > td.clientWidth + 0.5 && guard++ < 48){
+                var cur = parseFloat(getComputedStyle(name).fontSize) || 12;
+                if(cur <= 6) break;
+                name.style.fontSize = Math.max(6, cur - 0.5) + 'px';
+              }
+            });
+          }
           function addWhoHeights(table, extraPx){
             if(!table || extraPx <= 0) return;
             var whos = table.querySelectorAll('td.sc-who');
@@ -1372,6 +1420,7 @@
             front.classList.remove('sc-dense', 'sc-xdense', 'sc-aux-dense', 'sc-aux-xdense', 'sc-fill', 'sc-measuring');
             clearScale(scale);
             clearWhoHeights(front);
+            clearWhoNameFonts(front);
             body.style.overflow = 'hidden';
             var h = sideH(front) || scale.scrollHeight || 1;
             if(h > bodyAvail + 1){
@@ -1382,6 +1431,8 @@
               front.classList.add('sc-xdense');
               h = sideH(front) || h;
             }
+            fitWhoNames(front);
+            h = sideH(front) || h;
             var z = 1;
             if(h > bodyAvail + 0.5){
               z = Math.max(0.42, bodyAvail / Math.max(h, 1));
@@ -1764,7 +1815,7 @@
         .sc-print-front .sc-head{min-height:52px;padding:10px 12px}
         .sc-print-front .sc-head-name{font-size:18px}
         .sc-print-front .sc-logo,.sc-print-front .sc-mono{width:42px;height:42px}
-        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
+        .sc-print-front .sc-grid td.sc-who,.sc-print-front .sc-who{font-size:14px;white-space:nowrap;overflow:hidden;max-width:0;width:34%}
         .sc-print-front .sc-bar{font-size:14px;padding:6px 0;letter-spacing:.1em}
         .sc-print-front .sc-date{font-size:14px;padding:6px 0 7px}
         .sc-print-front .sc-subhead td{font-size:12px;padding:4px 4px}
@@ -1798,7 +1849,7 @@
         .sc-print-aux .sc-head{min-height:48px;padding:8px 10px}
         .sc-print-aux .sc-head-name{font-size:17px}
         .sc-print-aux .sc-logo,.sc-print-aux .sc-mono{width:40px;height:40px}
-        .sc-print-aux .sc-grid td.sc-who,.sc-print-aux .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:0;width:34%}
+        .sc-print-aux .sc-grid td.sc-who,.sc-print-aux .sc-who{font-size:12px;white-space:nowrap;overflow:hidden;max-width:0;width:34%}
         .sc-print-aux .sc-bar{font-size:13px;padding:5px 0;letter-spacing:.1em}
         .sc-print-aux .sc-date{font-size:13px;padding:5px 0 6px}
         .sc-print-aux .sc-subhead td{font-size:11px;padding:4px 4px}
