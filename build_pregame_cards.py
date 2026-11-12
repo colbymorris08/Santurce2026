@@ -551,6 +551,34 @@ def confirmed_pitching_lines() -> dict[int, dict]:
     return out
 
 
+def apply_pitcher_platoon_overrides(players: list[dict]) -> int:
+    """Merge data/card_pitcher_platoon_overrides.json onto matching pitcher rows."""
+    raw = load("card_pitcher_platoon_overrides.json") or {}
+    overrides = raw.get("pitchers") or {}
+    if not overrides:
+        return 0
+    applied = 0
+    for player in players:
+        if player.get("role") != "P":
+            continue
+        ov = overrides.get(str(player.get("id") or ""))
+        if not ov:
+            continue
+        want_team = (ov.get("team") or "").upper()
+        if want_team and want_team != (player.get("team") or "").upper():
+            continue
+        block = dict(player.get("pitcher") or {})
+        for key in (
+            "bf", "k", "gb", "bb", "ops", "avg", "wh", "wh_l", "wh_r",
+            "gs", "hand_split", "src", "vs_l", "vs_r",
+        ):
+            if key in ov:
+                block[key] = ov[key]
+        player["pitcher"] = block
+        applied += 1
+    return applied
+
+
 SB_LEVELS = {
     "MLB": "MLB",
     "AAA": "AAA",
@@ -1220,6 +1248,9 @@ def main() -> None:
                 }
             )
 
+    platoon_overrides = apply_pitcher_platoon_overrides(players)
+    print(f"  pitcher platoon overrides: {platoon_overrides}")
+
     filled_gb = fill_missing_ground_balls(players)
     print(f"  ground balls filled: {filled_gb}")
 
@@ -1248,7 +1279,7 @@ def main() -> None:
         "roster_source": "data/lbprc_2025_rosters.json (2026-27 workbooks plus supplied October transactions)",
         "sb_2b_3b_split": "Synergy sb_from_1b / sb_from_2b is 0 for every advance hitter — runner heuristic did not record steals. LBPRC and 2026 summer files only have total SB/CS.",
         "sprint_speed": "No sprint-speed field in the caches. SPD column is blank.",
-        "pitcher_platoon": "No vs-LHB / vs-RHB outcome split (K/GB/WH/BB/OPS) in the pitching cache. Both rows repeat the season line.",
+        "pitcher_platoon": "Pitcher L/R outcome splits when present in data/card_pitcher_platoon_overrides.json (e.g. CAR Gowens Prospect Savant 2026 AAA). Otherwise both rows repeat the season line.",
         "hitter_platoon_k_gb": "K% and GB% are season totals. WH is the Synergy whiff vs that hand when swings exist, otherwise the hitter's overall whiff. AVG/OPS use the Synergy split only when that side has at least 15 PA.",
         "santurce_synergy": "WH is Synergy whiffs/swings. Players missing from the opposing advance file, including Santurce, use data/card_whiff.json (2026 summer, then LBPRC, then 2025 summer). A player with no swings in that window stays blank.",
         "sju_in_br_file": "pregame_baserunning_bunting.json omits SJU; SJU counting stats come from lbprc_2025_hitting.json.",

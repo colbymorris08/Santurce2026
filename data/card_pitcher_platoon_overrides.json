@@ -1,0 +1,43 @@
+{
+  "updated": "2026-11-12",
+  "note": "Manual pitcher L/R outcome overrides for the strategy card. Applied after build_pregame_cards season-line selection.",
+  "pitchers": {
+    "803035": {
+      "name": "Riley Gowens",
+      "team": "CAR",
+      "bf": 119,
+      "k": 19.3,
+      "gb": 46.9,
+      "bb": 8.4,
+      "ops": 0.707,
+      "avg": 0.236,
+      "wh": 18.8,
+      "wh_l": 16.7,
+      "wh_r": 20.5,
+      "gs": 0,
+      "hand_split": true,
+      "src": "Prospect Savant 2026 AAA",
+      "vs_l": {
+        "bf": 51,
+        "k": 15.7,
+        "gb": 55.6,
+        "bb": 13.7,
+        "ops": 0.434,
+        "avg": 0.159,
+        "wh": 16.7,
+        "swings": 96
+      },
+      "vs_r": {
+        "bf": 68,
+        "k": 22.1,
+        "gb": 41.7,
+        "bb": 4.4,
+        "ops": 0.903,
+        "avg": 0.29,
+        "wh": 20.5,
+        "swings": 132
+      },
+      "source_detail": "Overall rates from Prospect Savant player/803035 2026_AAA. L/R K%/BB%/OPS/AVG/WH/GB from StatsAPI AAA (sportId=11) Charlotte game feeds for the same 119 BF, which reconcile to the Prospect Savant AAA totals."
+    }
+  }
+}

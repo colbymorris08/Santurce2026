@@ -373,6 +373,27 @@
     return rows.join('');
   }
 
+  function pitcherSideLine(p, side) {
+    const split = side === 'L' ? p.vs_l : p.vs_r;
+    const useSplit = !!(p.hand_split && split);
+    const sample = useSplit ? (split.bf || split.pa || 0) : (p.bf || 0);
+    const wh = useSplit && split.wh != null
+      ? split.wh
+      : ((side === 'L' && p.wh_l != null) ? p.wh_l : ((side === 'R' && p.wh_r != null) ? p.wh_r : p.wh));
+    const whSample = useSplit && split.swings != null ? split.swings : sample;
+    return {
+      k: useSplit && split.k != null ? split.k : p.k,
+      gb: useSplit && split.gb != null ? split.gb : p.gb,
+      bb: useSplit && split.bb != null ? split.bb : p.bb,
+      avg: useSplit && split.avg != null ? split.avg : p.avg,
+      ops: useSplit && split.ops != null ? split.ops : p.ops,
+      wh,
+      sample,
+      whSample,
+      split: useSplit,
+    };
+  }
+
   function starterStatRows(player, whoHtml) {
     const p = player && player.pitcher;
     if (!p) {
@@ -380,25 +401,29 @@
         <tr><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     }
     const seasonLabel = p.src || '';
-    const title = seasonLabel
+    const seasonTitle = seasonLabel
       ? tr(`${seasonLabel} pitching line, repeated on L and R`, `Línea de pitcheo ${seasonLabel}, repetida en L y R`)
       : tr('Pitching line, repeated on L and R', 'Línea de pitcheo, repetida en L y R');
-    const sample = p.bf || 0;
-    const whFor = (side) => (side === 'L' && p.wh_l != null) ? p.wh_l : ((side === 'R' && p.wh_r != null) ? p.wh_r : p.wh);
-    const avgTone = (v) => {
+    const avgTone = (v, sample) => {
       if (v == null || sample < 20) return '';
       const n = Number(v);
       if (n <= 0.22) return 'sc-good';
       if (n >= 0.29) return 'sc-bad';
       return '';
     };
-    const rowFor = (side) => [
-      statCell(fmtPct(p.k), tonePitcher('k', p.k, sample), title),
-      statCell(fmtPct(p.gb), tonePitcher('gb', p.gb, sample), title),
-      statCell(fmtPct(whFor(side)), tonePitcher('wh', whFor(side), sample), whFor(side) == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
-      statCell(fmtAvg(p.avg), avgTone(p.avg), title),
-      statCell(fmtAvg(p.ops), tonePitcher('ops', p.ops, sample), title),
-    ].join('');
+    const rowFor = (side) => {
+      const line = pitcherSideLine(p, side);
+      const title = line.split
+        ? tr(`${seasonLabel} vs ${side}HH · ${line.sample} BF`, `${seasonLabel} vs ${side}HH · ${line.sample} BF`)
+        : seasonTitle;
+      return [
+        statCell(fmtPct(line.k), tonePitcher('k', line.k, line.sample), title),
+        statCell(fmtPct(line.gb), tonePitcher('gb', line.gb, line.sample), title),
+        statCell(fmtPct(line.wh), tonePitcher('wh', line.wh, line.whSample), line.wh == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
+        statCell(fmtAvg(line.avg), avgTone(line.avg, line.sample), title),
+        statCell(fmtAvg(line.ops), tonePitcher('ops', line.ops, line.sample), title),
+      ].join('');
+    };
     return `<tr>${whoHtml}<td class="sc-sb" rowspan="2"></td><td class="sc-vs">L</td>${rowFor('L')}</tr><tr><td class="sc-vs">R</td>${rowFor('R')}</tr>`;
   }
 
@@ -411,16 +436,20 @@
         <tr><td>R</td><td></td><td></td><td></td><td></td><td></td></tr>`;
     }
     const seasonLabel = p.src || 'LBPRC 2025';
-    const title = tr(`${seasonLabel} season line, repeated on L and R (no platoon split)`, `Línea ${seasonLabel}, repetida en L y R (sin split de platoon)`);
-    const sample = p.bf || 0;
-    const whFor = (side) => (side === 'L' && p.wh_l != null) ? p.wh_l : ((side === 'R' && p.wh_r != null) ? p.wh_r : p.wh);
-    const rowFor = (side) => [
-      statCell(fmtPct(p.k), tonePitcher('k', p.k, sample), title),
-      statCell(fmtPct(p.gb), tonePitcher('gb', p.gb, sample), title),
-      statCell(fmtPct(whFor(side)), tonePitcher('wh', whFor(side), sample), whFor(side) == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
-      statCell(fmtPct(p.bb), tonePitcher('bb', p.bb, sample), title),
-      statCell(fmtAvg(p.ops), tonePitcher('ops', p.ops, sample), title),
-    ].join('');
+    const seasonTitle = tr(`${seasonLabel} season line, repeated on L and R (no platoon split)`, `Línea ${seasonLabel}, repetida en L y R (sin split de platoon)`);
+    const rowFor = (side) => {
+      const line = pitcherSideLine(p, side);
+      const title = line.split
+        ? tr(`${seasonLabel} vs ${side}HH · ${line.sample} BF`, `${seasonLabel} vs ${side}HH · ${line.sample} BF`)
+        : seasonTitle;
+      return [
+        statCell(fmtPct(line.k), tonePitcher('k', line.k, line.sample), title),
+        statCell(fmtPct(line.gb), tonePitcher('gb', line.gb, line.sample), title),
+        statCell(fmtPct(line.wh), tonePitcher('wh', line.wh, line.whSample), line.wh == null ? tr('No whiff in the arsenal cache', 'Sin whiff en el caché de arsenal') : title),
+        statCell(fmtPct(line.bb), tonePitcher('bb', line.bb, line.sample), title),
+        statCell(fmtAvg(line.ops), tonePitcher('ops', line.ops, line.sample), title),
+      ].join('');
+    };
     return `<tr>${whoHtml}${ttpCell}<td class="sc-vs">L</td>${rowFor('L')}</tr><tr><td class="sc-vs">R</td>${rowFor('R')}</tr>`;
   }
 
