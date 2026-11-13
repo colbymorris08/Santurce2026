@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san267">
+<link rel="stylesheet" href="shared.css?v=san268">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -349,7 +349,7 @@
 
   <div id="panel-pitcher-one-page" class="panel">
     <div class="section-label" data-i18n="pitcherOnePageLabel">Pitcher One Page Sheet</div>
-    <div class="note" data-i18n-html="pitcherOnePageNote">One landscape page per team — jersey, velo bands (FB/CB/SL/CH/CT/SPL), RHH/LHH pitch frequency from Synergy, and scout notes. Notes auto-save in this browser and <strong>auto-publish to</strong> <code>data/pitcher_one_page_notes.json</code> when a GitHub PAT is set (same PAT as OF / TTH).</div>
+    <div class="note" data-i18n-html="pitcherOnePageNote">One landscape page per team — jersey, velo bands (FB/CB/SL/CH/CT/SPL), RHH/LHH pitch frequency from Synergy, and scout notes. Pitchers with <strong>2026-27 LBPRC appearances</strong> sort to the top (rest below). Notes auto-save in this browser and <strong>auto-publish to</strong> <code>data/pitcher_one_page_notes.json</code> when a GitHub PAT is set (same PAT as OF / TTH).</div>
     <div class="filters">
       <div class="filter-field"><label data-i18n="lbprcTeam">LBPRC Team</label>
         <select id="onepage-team" onchange="renderPitcherOnePage()">
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san267"></script>
+<script src="cards.js?v=san268"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san267';
+const ASSET_V = 'san268';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -7029,13 +7029,39 @@ function pitcherAdvancePacketOnCard(p){
   if(!index.ids.length) return true; // no card staff for team → keep selection
   return onePageCardRank(p, index) != null;
 }
+function onePageAppearedNameKeys(team){
+  const keys = new Set();
+  const pack = CACHE.bullpenUsage?.teams?.[team];
+  if(pack){
+    for(const section of ['starters','relievers']){
+      for(const row of pack[section] || []){
+        if(!(row.cells || []).some(Boolean)) continue;
+        const nk = onePageNormName(row.name);
+        if(nk) keys.add(nk);
+      }
+    }
+  }
+  return keys;
+}
+function onePageHasAppeared(p, appearedKeys){
+  if(p && p.appeared_lbprc === true) return true;
+  if(p && p.appeared_lbprc === false) return false;
+  const nk = onePageNormName(p && p.name);
+  return !!(nk && appearedKeys && appearedKeys.has(nk));
+}
 function orderPitchersForOnePage(pitchers, team){
   const list = Array.isArray(pitchers) ? pitchers.slice() : [];
   const index = onePageCardPitcherIndex(team);
-  if(!index.ids.length) return list;
+  const appearedKeys = onePageAppearedNameKeys(team);
+  // Priority: lineup-card order (if set) → LBPRC appearances this season → original order.
   return list.map((p, i) => {
-    const rank = onePageCardRank(p, index);
-    return { p, i, rank: rank == null ? 10000 + i : rank };
+    const cardRank = onePageCardRank(p, index);
+    const appeared = onePageHasAppeared(p, appearedKeys);
+    let rank;
+    if(cardRank != null) rank = cardRank;
+    else if(appeared) rank = 1000 + i;
+    else rank = 5000 + i;
+    return { p, i, rank, appeared };
   }).sort((a, b) => a.rank - b.rank || a.i - b.i).map(x => x.p);
 }
 function exportPitcherOnePagePdf(){
@@ -7122,6 +7148,7 @@ function renderPitcherOnePage(){
   const cols = data.columns || ['FB','CB','SL','CH','CT','SPL'];
   const head = cols.map(c => `<th class="op-velo">${c}</th>`).join('');
   const cardIndex = onePageCardPitcherIndex(team);
+  const appearedKeys = onePageAppearedNameKeys(team);
   const ordered = orderPitchersForOnePage(pack.pitchers || [], team);
   const rows = ordered.map((p, idx) => {
     const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -7129,6 +7156,7 @@ function renderPitcherOnePage(){
     const jersey = jerseyDisplayValue(idKey, key, p.jersey);
     const note = onePageMergedNote(p);
     const onCard = onePageCardRank(p, cardIndex) != null;
+    const appeared = onePageHasAppeared(p, appearedKeys);
     const velo = cols.map(c => {
       const raw = (p.velo && p.velo[c]) || '';
       return `<td class="op-velo">${escHtml(String(raw)).replace(/\n/g,'<br>')}</td>`;
@@ -7136,7 +7164,7 @@ function renderPitcherOnePage(){
     const isLhp = String(p.throws||'').toUpperCase().startsWith('L');
     const lClass = isLhp ? ' op-lhp' : '';
     const noteClass = isLhp ? 'op-note-lhp' : 'op-note-rhp';
-    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}" data-op-id="${escHtml(idKey)}" data-op-key="${escHtml(key)}" data-op-on-card="${onCard ? '1' : '0'}">
+    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}${appeared?' op-appeared':''}" data-op-id="${escHtml(idKey)}" data-op-key="${escHtml(key)}" data-op-on-card="${onCard ? '1' : '0'}" data-op-appeared="${appeared ? '1' : '0'}">
       <td class="op-num"><input class="op-jersey" type="text" inputmode="numeric" maxlength="3" value="${escHtml(jersey)}" data-op-key="${escHtml(key)}" data-op-id="${escHtml(idKey)}" placeholder="#" aria-label="Jersey number" onchange="saveOnePageJersey(this)" oninput="saveOnePageJersey(this)"></td>
       <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
       ${velo}
@@ -7145,9 +7173,11 @@ function renderPitcherOnePage(){
     </tr>`;
   }).join('');
   const cardN = cardIndex.ids.length;
-  const metaExtra = cardN
-    ? ` · card order ${cardN} first` + (ordered.length > cardN ? `; print exports card only` : '')
-    : '';
+  const appearedN = ordered.filter(p => onePageHasAppeared(p, appearedKeys)).length;
+  const metaExtra = [
+    appearedN ? ` · ${appearedN} with 2026-27 LBPRC apps first` : '',
+    cardN ? ` · card order ${cardN}` + (ordered.length > cardN ? `; print exports card only` : '') : '',
+  ].join('');
   if(meta){
     meta.textContent = [
       pack.team_name || team,

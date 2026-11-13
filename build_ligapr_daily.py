@@ -872,6 +872,33 @@ def freq_line(pitches: list[dict[str, Any]] | None, limit: int = 4) -> str:
     return ", ".join(parts)
 
 
+def _appeared_name_keys_by_team() -> dict[str, set[str]]:
+    """Normalized names of pitchers with 2026-27 LBPRC appearances (equipo + bullpen)."""
+    out: dict[str, set[str]] = {abbr: set() for abbr in {m["abbr"] for m in LIGAPR_TEAMS.values()}}
+    pitching = load_json("lbprc_2026_27_pitching.json", {}) or {}
+    for abbr, rows in (pitching.get("teams") or {}).items():
+        bag = out.setdefault(str(abbr).upper(), set())
+        for row in rows or []:
+            key = norm_name(row.get("name") or "")
+            if key:
+                bag.add(key)
+    bullpen = load_json("bullpen_usage.json", {}) or {}
+    for abbr, pack in (bullpen.get("teams") or {}).items():
+        bag = out.setdefault(str(abbr).upper(), set())
+        for section in ("starters", "relievers"):
+            for row in pack.get(section) or []:
+                if not any(row.get("cells") or []):
+                    continue
+                key = norm_name(row.get("name") or "")
+                if key:
+                    bag.add(key)
+    return out
+
+
+def _is_pitcher_roster_pos(pos: str | None) -> bool:
+    return str(pos or "").upper() in {"P", "RHP", "LHP", "RHR", "LHR", "RHS", "LHS"}
+
+
 def build_pitcher_one_page() -> dict[str, Any]:
     rosters = load_json("lbprc_2025_rosters.json", {}) or {}
     arsenals = {
@@ -886,18 +913,29 @@ def build_pitcher_one_page() -> dict[str, Any]:
     notes_map = notes_file.get("notes") if isinstance(notes_file, dict) else {}
     if not isinstance(notes_map, dict):
         notes_map = {}
+    appeared_by_team = _appeared_name_keys_by_team()
 
     teams: dict[str, Any] = {}
     for team in rosters.values():
         abbr = team.get("teamAbbrev")
         if not abbr:
             continue
+        appeared = appeared_by_team.get(str(abbr).upper(), set())
         rows = []
+        seen_ids: set[str] = set()
         for player in team.get("players") or []:
-            if str(player.get("position") or "").upper() not in {"P", "RHP", "LHP", "RHR", "LHR", "RHS", "LHS"}:
-                continue
             name = player.get("name") or ""
             key = norm_name(name)
+            has_app = key in appeared
+            # Include non-P roster players who have already pitched this LBPRC season
+            # (e.g. CAG Hector Santiago listed as SS but started games).
+            if not _is_pitcher_roster_pos(player.get("position")) and not has_app:
+                continue
+            pid = player.get("id")
+            id_key = str(pid) if pid is not None else f"name:{key}"
+            if id_key in seen_ids:
+                continue
+            seen_ids.add(id_key)
             ar = arsenals.get(key) or {}
             adv = advance.get(key) or {}
             arsenal = ar.get("arsenal") or []
@@ -939,15 +977,27 @@ def build_pitcher_one_page() -> dict[str, Any]:
                     "freq_html": _freq_html(vs_r, vs_l),
                     "notes": note,
                     "needs_data": not bool(arsenal),
+                    "appeared_lbprc": has_app,
                 }
             )
-        rows.sort(key=lambda r: (r["name"].split()[-1].lower(), r["name"].lower()))
+        # Appeared this season first, then the rest (A–Z by last within each group).
+        rows.sort(
+            key=lambda r: (
+                0 if r.get("appeared_lbprc") else 1,
+                r["name"].split()[-1].lower(),
+                r["name"].lower(),
+            )
+        )
         teams[abbr] = {
             "team": abbr,
             "team_name": team.get("teamName"),
             "pitchers": rows,
+            "appeared_count": sum(1 for r in rows if r.get("appeared_lbprc")),
         }
-        print(f"  one-pager {abbr}: {len(rows)} pitchers")
+        print(
+            f"  one-pager {abbr}: {len(rows)} pitchers "
+            f"({teams[abbr]['appeared_count']} with 2026-27 LBPRC apps)"
+        )
 
     return {
         "updated": now_iso(),
@@ -956,6 +1006,7 @@ def build_pitcher_one_page() -> dict[str, Any]:
         "note": (
             "Velo bands from pregame arsenals (p25–p75 when tracked). "
             "Pitch frequency from Synergy platoon splits on advance packets. "
+            "Order: pitchers with 2026-27 LBPRC appearances first, then the rest. "
             "Scout notes: edit data/pitcher_one_page_notes.json (keyed by normalized name)."
         ),
         "teams": teams,
