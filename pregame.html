@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san264">
+<link rel="stylesheet" href="shared.css?v=san265">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san264"></script>
+<script src="cards.js?v=san265"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san264';
+const ASSET_V = 'san265';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3362,10 +3362,33 @@ function statLineSeasonLabel(line){
   if(!line) return '—';
   const raw = String(line.season || '').trim();
   if(!raw) return '—';
-  if(/^summer 2026$/i.test(raw)) return '2026 summer';
-  if(/^summer 2025$/i.test(raw)) return '2025 summer';
-  if(/2026-27|2026–27|lbprc/i.test(raw)) return '2026-27 LBPRC';
+  if(/^summer 2026$/i.test(raw) || /^2026 summer$/i.test(raw)) return '2026 summer';
+  if(/^summer 2025$/i.test(raw) || /^2025 summer$/i.test(raw)) return '2025 summer';
+  if(/^summer 2024$/i.test(raw) || /^2024 summer$/i.test(raw)) return '2024 summer';
+  if(/^summer 2023$/i.test(raw) || /^2023 summer$/i.test(raw)) return '2023 summer';
+  // Current winter first — do NOT map every "LBPRC" string to 2026-27 (older winter
+  // fallbacks live in summer_line for players with no true summer sample).
+  if(/2026\s*[-–]\s*27/i.test(raw)) return '2026-27 LBPRC';
+  if(/2025\s*[-–]\s*26/i.test(raw) || /2025 LBPRC winter/i.test(raw) || /^winter 2025/i.test(raw)) return '2025-26 LBPRC';
+  if(/2024\s*[-–]\s*25/i.test(raw) || /2024 LBPRC winter/i.test(raw) || /^winter 2024/i.test(raw)) return '2024-25 LBPRC';
+  if(/lbprc/i.test(raw) || /^winter\b/i.test(raw)) return raw;
   return raw;
+}
+/** Current 2026-27 LBPRC winter line for the second stats-bar row. */
+function isAdvanceLbprc2627Line(line){
+  if(!line) return false;
+  return /2026\s*[-–]\s*27/i.test(String(line.season || '').trim());
+}
+/**
+ * Top row = summer_line (Summer 2026 when present; older summer / prior-winter
+ * fallbacks kept when no 2026 summer sample). Second row = 2026-27 LBPRC.
+ * Never promotes the current winter line into the top slot.
+ */
+function pickAdvanceSeasonBarLines(summerLine, winterLine){
+  const winter = winterLine || null;
+  let summer = summerLine || null;
+  if(summer && isAdvanceLbprc2627Line(summer)) summer = null;
+  return { summer, winter };
 }
 /** MiLB lines show the level (AAA, AA, A+, A, ROK), not the league abbrev (INT, PCL, EAS). */
 function statBarLeague(line){
@@ -3403,14 +3426,13 @@ function hitterSeasonRowCells(line, dash){
     ['wOBA', line ? fmtWoba(summerLineWoba(line)) : dash, 'FanGraphs 2026 wOBA weights (MLB-scale)'],
   ];
 }
-/** Summer row + 2026-27 LBPRC winter row under it. */
+/** Top row = summer (2026 preferred); second row = 2026-27 LBPRC. */
 function hitterSummerBarHtml(h){
   if(!h || String(h.name||'').startsWith('Select All')) return '';
   const dash = '—';
-  const summer = h.summer_line || null;
-  const winter = h.lbprc_line || h.winter_line || null;
-  const cols = hitterSeasonRowCells(summer, dash);
-  const winterCols = hitterSeasonRowCells(winter, dash);
+  const picked = pickAdvanceSeasonBarLines(h.summer_line || null, h.lbprc_line || h.winter_line || null);
+  const cols = hitterSeasonRowCells(picked.summer, dash);
+  const winterCols = hitterSeasonRowCells(picked.winter, dash);
   const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
   const rowHtml = (rowCols) => rowCols.map(([,val,tip])=>{
     const t = tip ? ` title="${escHtml(tip)}"` : '';
@@ -3420,7 +3442,7 @@ function hitterSummerBarHtml(h){
     <table>
       <thead><tr>${heads}</tr></thead>
       <tbody>
-        <tr>${rowHtml(cols)}</tr>
+        <tr class="summer-line-row">${rowHtml(cols)}</tr>
         <tr class="winter-line-row">${rowHtml(winterCols)}</tr>
       </tbody>
     </table>
@@ -3479,14 +3501,16 @@ function pitcherSeasonRowCells(line, dash){
     ['CS allowed', num(line && line.cs_allowed), ''],
   ];
 }
-/** Summer row + 2026-27 LBPRC winter row under it. */
+/** Top row = summer (2026 preferred); second row = 2026-27 LBPRC. */
 function pitcherSummerBarHtml(p){
   if(!p) return '';
   const dash = '—';
-  const summer = p.summer_line || pitcherSummerLineFor(p);
-  const winter = p.lbprc_line || p.winter_line || null;
-  const cols = pitcherSeasonRowCells(summer, dash);
-  const winterCols = pitcherSeasonRowCells(winter, dash);
+  const picked = pickAdvanceSeasonBarLines(
+    p.summer_line || pitcherSummerLineFor(p),
+    p.lbprc_line || p.winter_line || null
+  );
+  const cols = pitcherSeasonRowCells(picked.summer, dash);
+  const winterCols = pitcherSeasonRowCells(picked.winter, dash);
   const heads = cols.map(([lab])=>`<th>${lab}</th>`).join('');
   const rowHtml = (rowCols) => rowCols.map(([,val,tip])=>{
     const t = tip ? ` title="${escHtml(tip)}"` : '';
@@ -3496,7 +3520,7 @@ function pitcherSummerBarHtml(p){
     <table>
       <thead><tr>${heads}</tr></thead>
       <tbody>
-        <tr>${rowHtml(cols)}</tr>
+        <tr class="summer-line-row">${rowHtml(cols)}</tr>
         <tr class="winter-line-row">${rowHtml(winterCols)}</tr>
       </tbody>
     </table>
