@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san266">
+<link rel="stylesheet" href="shared.css?v=san267">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -318,12 +318,12 @@
 
   <style>
   .bullpen-grid thead th.bp-date{line-height:1.15;white-space:normal;vertical-align:bottom}
-  .bullpen-grid thead th.bp-date .bp-matchup{display:block;font-weight:700}
-  .bullpen-grid thead th.bp-date .bp-dow{display:block;font-weight:600;opacity:.92;font-size:10px}
+  .bullpen-grid thead th.bp-date .bp-dow{display:block;font-weight:800;opacity:1;font-size:10.5px;letter-spacing:.02em}
+  .bullpen-grid thead th.bp-date .bp-matchup{display:block;font-weight:600;opacity:.95;font-size:10px;margin-top:1px}
 </style>
   <div id="panel-bullpen" class="panel">
     <div class="section-label" data-i18n="bullpenLabel">Recent Bullpen Usage</div>
-    <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Cells are IP from the pitching line — pitch counts are not published on ligapr. Starters and relievers each have their own section. Default tab is live 2026-27; Test is last week of Dec 2025.</div>
+    <div class="note" data-i18n-html="bullpenNote">Daily from <a href="https://ligapr.com/estadisticas/boxscores" target="_blank" rel="noopener">ligapr boxscores</a> (5 AM ET). Column headers show <strong>game date (DOW M/D)</strong> on top, then matchup — dates refresh automatically with each daily rebuild. Cells are IP from the pitching line — pitch counts are not published on ligapr. Starters and relievers each have their own section. Default tab is live 2026-27; Test is last week of Dec 2025.</div>
     <div class="subtab-bar" id="bullpen-subtabs" role="tablist">
       <button type="button" class="subtab active" data-bp-tab="live" onclick="setBullpenTab('live')" data-i18n="bullpenTabLive">2026-27 Live</button>
       <button type="button" class="subtab" data-bp-tab="test" onclick="setBullpenTab('test')" data-i18n="bullpenTabTest">Test · Dec 2025</button>
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san266"></script>
+<script src="cards.js?v=san267"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san266';
+const ASSET_V = 'san267';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6734,8 +6734,9 @@ function bullpenColumnHeaderHtml(g){
   const matchup = bullpenMatchupOnly(g.label || '') || (g.opp ? `${g.home ? 'vs' : '@'} ${g.opp}` : '');
   const iso = bullpenParseIsoDate(g);
   const dow = bullpenDateDowLabel(iso);
+  // Date/DOW on top of each column; matchup underneath (daily rebuild fills dates).
   if(dow){
-    return `<th class="bp-date" title="${tip}"><span class="bp-matchup">${escHtml(matchup)}</span><span class="bp-dow">${escHtml(dow)}</span></th>`;
+    return `<th class="bp-date" title="${tip}"><span class="bp-dow">${escHtml(dow)}</span><span class="bp-matchup">${escHtml(matchup)}</span></th>`;
   }
   return `<th class="bp-date" title="${tip}">${escHtml(g.label || matchup || '')}</th>`;
 }
@@ -6864,8 +6865,8 @@ function sheetPrintCss(kind){
       .bullpen-grid thead .bp-corner:first-child{width:0.95in}
       .bullpen-grid thead .bp-corner:nth-child(2){width:0.88in}
       .bullpen-grid .bp-result,.bullpen-grid .bp-date{font-size:9px;line-height:1.15;white-space:normal;padding:2px 1px}
-      .bullpen-grid .bp-date .bp-matchup{display:block;font-weight:700}
-      .bullpen-grid .bp-date .bp-dow{display:block;font-size:8.5px;font-weight:600;opacity:.95}
+      .bullpen-grid .bp-date .bp-dow{display:block;font-size:9px;font-weight:800;opacity:1}
+      .bullpen-grid .bp-date .bp-matchup{display:block;font-size:8.5px;font-weight:600;opacity:.95}
       .bullpen-grid .bp-cell,.bullpen-grid tbody td{color:#000!important;font-variant-numeric:tabular-nums;font-size:10.5px;padding:2px 1px;white-space:nowrap}
       .bullpen-grid tr.bp-section th{
         background:#4a5568!important;color:#fff!important;text-align:left;font-size:10.5px;

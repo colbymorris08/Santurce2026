@@ -71,21 +71,28 @@ BULLPEN_TEST_SEASON = "2025-26 LBPRC"
 # Verified final-week dates (ligapr omits dates on finished cards; rematches
 # can steal late schedule slots during greedy matching).
 LBPRC_2026_27_GAME_DATE_OVERRIDES = {
-    # Opening week 2026-27 (ligapr omits dates on finished cards). Nov 10 slate = 614–616;
-    # Nov 9 reassignment day had no finished games.
-    599: "2026-11-04",
-    601: "2026-11-04",
-    602: "2026-11-05",
-    603: "2026-11-05",
-    604: "2026-11-05",
-    605: "2026-11-06",
-    606: "2026-11-06",
-    607: "2026-11-06",
-    608: "2026-11-07",
-    610: "2026-11-07",
-    611: "2026-11-08",
-    612: "2026-11-08",
-    613: "2026-11-08",
+    # Opening weeks 2026-27 (ligapr omits dates on finished cards).
+    # Nov 9 / Nov 12 = reassignment (no games). Verified against official schedule
+    # + finished boxscore titles in data/bullpen_usage.json.
+    599: "2026-11-04",  # PON @ SAN
+    601: "2026-11-04",  # MAY @ CAR
+    602: "2026-11-05",  # SAN @ PON
+    603: "2026-11-05",  # CAG @ SJU
+    604: "2026-11-05",  # CAR @ MAY
+    605: "2026-11-06",  # PON @ CAG
+    606: "2026-11-06",  # SJU @ CAR
+    607: "2026-11-06",  # MAY @ SAN
+    608: "2026-11-07",  # MAY @ SAN
+    610: "2026-11-07",  # CAR @ PON
+    611: "2026-11-08",  # CAG @ MAY
+    612: "2026-11-08",  # SAN @ CAR
+    613: "2026-11-08",  # PON @ SJU
+    614: "2026-11-10",  # CAR @ CAG
+    615: "2026-11-10",  # MAY @ PON
+    616: "2026-11-10",  # SAN @ SJU
+    617: "2026-11-11",  # PON @ MAY
+    618: "2026-11-11",  # SJU @ SAN
+    619: "2026-11-11",  # CAR @ CAG
 }
 
 LBPRC_2025_26_GAME_DATE_OVERRIDES = {
@@ -784,11 +791,11 @@ def build_bullpen_usage(
 ) -> dict[str, Any]:
     limit = BULLPEN_GAME_LIMIT if game_limit is None else game_limit
     schedule = load_schedule_dates(schedule_file) if schedule_file else []
-    game_dates: dict[int, str] = {}
-    if schedule:
-        print("  dating league boxscores via schedule…")
-        game_dates = build_league_game_dates(sub_id, schedule)
-        print(f"  dated {len(game_dates)} games")
+    # Always date columns: schedule match + hardcoded overrides (ligapr finished
+    # cards omit dates). Daily cron keeps this fresh as new game_ids finish.
+    print("  dating league boxscores via schedule/overrides…")
+    game_dates = build_league_game_dates(sub_id, schedule)
+    print(f"  dated {len(game_dates)} games")
     teams_out = {}
     for tid, meta in LIGAPR_TEAMS.items():
         abbr = meta["abbr"]
@@ -1226,6 +1233,7 @@ def main() -> int:
         resolve_league(CURRENT_LEAGUE_ID)["subleague_id"],
         season=SEASON_LABEL,
         max_pages=2,
+        schedule_file="lbprc_2026_27_schedule.json",
     )
     bullpen["tab"] = "live"
     bullpen["season_display"] = "2026-27 LBPRC (live)"
