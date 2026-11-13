@@ -1939,6 +1939,26 @@
       return (st.bench || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
     },
     /**
+     * Pitchers listed on today's lineup card: SP first, then eligible pen in card order.
+     * Includes negative synthetic ids used by winter-roster stubs.
+     */
+    getCardPitcherIds(abbrev) {
+      const state = loadStrategy();
+      const st = ensureTeam(state, abbrev);
+      const out = [];
+      const seen = new Set();
+      const push = (raw) => {
+        if (raw == null || raw === '') return;
+        const id = Number(raw);
+        if (!Number.isFinite(id) || seen.has(id)) return;
+        seen.add(id);
+        out.push(id);
+      };
+      push(st.sp);
+      (st.pen || []).forEach(push);
+      return out;
+    },
+    /**
      * Game-day hitters for PDF export: batting order 1–9, then checked bench.
      * Omits other roster hitters not selected for that day.
      */

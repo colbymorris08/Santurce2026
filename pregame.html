@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san261">
+<link rel="stylesheet" href="shared.css?v=san264">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san261"></script>
+<script src="cards.js?v=san264"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san263';
+const ASSET_V = 'san264';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -6950,6 +6950,44 @@ function exportBullpenPdf(){
   const inner = buildBullpenSheetHtml(pack, {teamLabel: `${label} (${tag})`, forPrint:true});
   openSheetPrintWindow(`${label} Bullpen Usage`, `<div class="bullpen-print-page">${inner}</div>`, 'bullpen');
 }
+function onePageNormName(s){
+  return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+/** Lineup-card pitchers (SP + eligible pen) for one-page order / print filter. */
+function onePageCardPitcherIndex(team){
+  const ids = (window.CardApp && typeof CardApp.getCardPitcherIds === 'function')
+    ? (CardApp.getCardPitcherIds(team) || [])
+    : [];
+  if(!ids.length) return { ids: [], byId: new Map(), byName: new Map() };
+  const byId = new Map();
+  const byName = new Map();
+  const players = (CACHE.cardStats && CACHE.cardStats.players) || [];
+  const playerById = new Map(players.map(p => [Number(p.id), p]));
+  ids.forEach((id, order) => {
+    byId.set(Number(id), order);
+    const p = playerById.get(Number(id));
+    const nk = onePageNormName(p && p.name);
+    if(nk && !byName.has(nk)) byName.set(nk, order);
+  });
+  return { ids, byId, byName };
+}
+function onePageCardRank(p, index){
+  if(!index || !index.ids.length) return null;
+  const id = p && p.mlb_id != null ? Number(p.mlb_id) : NaN;
+  if(Number.isFinite(id) && index.byId.has(id)) return index.byId.get(id);
+  const nk = onePageNormName(p && p.name);
+  if(nk && index.byName.has(nk)) return index.byName.get(nk);
+  return null;
+}
+function orderPitchersForOnePage(pitchers, team){
+  const list = Array.isArray(pitchers) ? pitchers.slice() : [];
+  const index = onePageCardPitcherIndex(team);
+  if(!index.ids.length) return list;
+  return list.map((p, i) => {
+    const rank = onePageCardRank(p, index);
+    return { p, i, rank: rank == null ? 10000 + i : rank };
+  }).sort((a, b) => a.rank - b.rank || a.i - b.i).map(x => x.p);
+}
 function exportPitcherOnePagePdf(){
   const root = document.getElementById('onepage-view');
   const packRoot = root?.querySelector('.onepage-print');
@@ -6976,7 +7014,12 @@ function exportPitcherOnePagePdf(){
   const titleText = clone.querySelector('.onepage-title')?.textContent || `${label} Pitchers`;
   const table = clone.querySelector('.onepage-grid');
   const theadHtml = table?.querySelector('thead')?.outerHTML || '';
-  const rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
+  const cardIndex = onePageCardPitcherIndex(team);
+  let rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
+  // Print/PDF: only pitchers on the lineup card (SP + eligible pen).
+  if(cardIndex.ids.length){
+    rowEls = rowEls.filter(tr => tr.getAttribute('data-op-on-card') === '1');
+  }
   const n = rowEls.length;
   // Density + hard page split so large rosters never lose rows to overflow:hidden
   let density = '';
@@ -7026,21 +7069,16 @@ function renderPitcherOnePage(){
     if(meta) meta.textContent = [team, data.updated ? `Updated ${data.updated}` : ''].filter(Boolean).join(' · ');
     return;
   }
-  const pitcherCount = (pack.pitchers || []).length;
-  if(meta){
-    meta.textContent = [
-      pack.team_name || team,
-      `${pitcherCount} pitcher${pitcherCount === 1 ? '' : 's'}`,
-      data.updated ? `Updated ${data.updated}` : '',
-    ].filter(Boolean).join(' · ');
-  }
   const cols = data.columns || ['FB','CB','SL','CH','CT','SPL'];
   const head = cols.map(c => `<th class="op-velo">${c}</th>`).join('');
-  const rows = (pack.pitchers||[]).map((p, idx) => {
+  const cardIndex = onePageCardPitcherIndex(team);
+  const ordered = orderPitchersForOnePage(pack.pitchers || [], team);
+  const rows = ordered.map((p, idx) => {
     const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
     const idKey = p.mlb_id != null ? String(p.mlb_id) : '';
     const jersey = jerseyDisplayValue(idKey, key, p.jersey);
     const note = onePageMergedNote(p);
+    const onCard = onePageCardRank(p, cardIndex) != null;
     const velo = cols.map(c => {
       const raw = (p.velo && p.velo[c]) || '';
       return `<td class="op-velo">${escHtml(String(raw)).replace(/\n/g,'<br>')}</td>`;
@@ -7048,7 +7086,7 @@ function renderPitcherOnePage(){
     const isLhp = String(p.throws||'').toUpperCase().startsWith('L');
     const lClass = isLhp ? ' op-lhp' : '';
     const noteClass = isLhp ? 'op-note-lhp' : 'op-note-rhp';
-    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}">
+    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}" data-op-id="${escHtml(idKey)}" data-op-key="${escHtml(key)}" data-op-on-card="${onCard ? '1' : '0'}">
       <td class="op-num"><input class="op-jersey" type="text" inputmode="numeric" maxlength="3" value="${escHtml(jersey)}" data-op-key="${escHtml(key)}" data-op-id="${escHtml(idKey)}" placeholder="#" aria-label="Jersey number" onchange="saveOnePageJersey(this)" oninput="saveOnePageJersey(this)"></td>
       <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
       ${velo}
@@ -7056,6 +7094,17 @@ function renderPitcherOnePage(){
       <td class="op-notes"><textarea class="${noteClass}" data-op-key="${escHtml(key)}" rows="2" placeholder="Notes…" oninput="saveOnePageNote(this.dataset.opKey, this.value)" onchange="saveOnePageNote(this.dataset.opKey, this.value)" onblur="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
     </tr>`;
   }).join('');
+  const cardN = cardIndex.ids.length;
+  const metaExtra = cardN
+    ? ` · card order ${cardN} first` + (ordered.length > cardN ? `; print exports card only` : '')
+    : '';
+  if(meta){
+    meta.textContent = [
+      pack.team_name || team,
+      `${ordered.length} pitcher${ordered.length === 1 ? '' : 's'}`,
+      data.updated ? `Updated ${data.updated}` : '',
+    ].filter(Boolean).join(' · ') + metaExtra;
+  }
   root.innerHTML = `<div class="onepage-print">
     <div class="onepage-title">${escHtml(pack.team_name||team)} Pitchers</div>
     <table class="onepage-grid">
