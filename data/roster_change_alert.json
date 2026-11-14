@@ -1,37 +1,11 @@
 {
-  "updated": "2026-11-14T09:04:04Z",
+  "updated": "2026-11-14T10:11:03Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": true,
+  "changed": false,
   "ligapr_stats_ready": true,
-  "added": [
-    {
-      "team": "CAG",
-      "name": "Jarret Whorff",
-      "role": "P"
-    },
-    {
-      "team": "CAG",
-      "name": "Juan Echevarría",
-      "role": "P"
-    },
-    {
-      "team": "SJU",
-      "name": "Freddie Cabrera",
-      "role": "P"
-    },
-    {
-      "team": "MAY",
-      "name": "Edison Mora>",
-      "role": "H"
-    }
-  ],
+  "added": [],
   "removed": [],
-  "message": "Roster sync applied from ligapr equipos: +4 / -0.",
-  "action_needed": [
-    "Populate Synergy / advance packets for new arms and bats",
-    "Add pitcher release (delivery) pictures",
-    "Confirm movement charts / arsenal XY uploads",
-    "Fill pitcher one-page scout notes where blank"
-  ]
+  "message": "ligapr equipo lists checked — no roster membership changes.",
+  "action_needed": []
 }
