@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san268">
+<link rel="stylesheet" href="shared.css?v=san269">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san268"></script>
+<script src="cards.js?v=san269"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san268';
+const ASSET_V = 'san269';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3012,6 +3012,31 @@ function resolvePitcherMediaRow(id){
   if(row) return row;
   row = rows.find(r => r.mlb_id != null && String(r.mlb_id) === sid);
   if(row) return row;
+  // Advance packets sometimes key on mlb_id while arsenals only store player_id (same number).
+  const adv = (CACHE.advancePitchers && CACHE.advancePitchers.pitchers) || [];
+  const advHit = adv.find(p => String(p.mlb_id||'') === sid || String(p.player_id||'') === sid);
+  if(advHit){
+    row = rows.find(r =>
+      (r.player_id != null && (String(r.player_id) === String(advHit.mlb_id||'') || String(r.player_id) === String(advHit.player_id||'')))
+      || (r.mlb_id != null && (String(r.mlb_id) === String(advHit.mlb_id||'') || String(r.mlb_id) === String(advHit.player_id||'')))
+      || (r.name && advHit.name && String(r.name).toLowerCase() === String(advHit.name).toLowerCase() && (!advHit.team || r.team === advHit.team))
+    );
+    if(row){
+      if(!row.arm_slot_image && advHit.arm_slot_image) row = Object.assign({}, row, {arm_slot_image: advHit.arm_slot_image});
+      if(!row.arsenal_image && advHit.arsenal_image) row = Object.assign({}, row, {arsenal_image: advHit.arsenal_image});
+      return row;
+    }
+    if(advHit.arm_slot_image || advHit.arsenal_image){
+      return {
+        player_id: advHit.player_id || advHit.mlb_id || sid,
+        mlb_id: advHit.mlb_id,
+        name: advHit.name,
+        team: advHit.team,
+        arm_slot_image: advHit.arm_slot_image || null,
+        arsenal_image: advHit.arsenal_image || null,
+      };
+    }
+  }
   const cards = (CACHE.cardStats && CACHE.cardStats.players) || [];
   const c = cards.find(p => p && p.role === 'P' && String(p.id) === sid);
   if(c){
@@ -3303,13 +3328,32 @@ function rodriguezSummerLine(full){
 function resolvePitcherPacket(playerId){
   const id = Number(playerId||0);
   const full = CACHE.advanceRodriguez;
-  const row = arsenalPitchers().find(r=>Number(r.player_id)===id);
+  const rows = arsenalPitchers();
+  let row = rows.find(r=>Number(r.player_id)===id);
+  if(!row) row = rows.find(r=>r.mlb_id!=null && Number(r.mlb_id)===id);
+  // Fallback: match advance packet mlb_id ↔ arsenal player_id / name.
+  if(!row){
+    const adv = ((CACHE.advancePitchers && CACHE.advancePitchers.pitchers) || [])
+      .find(p => Number(p.mlb_id)===id || Number(p.player_id)===id);
+    if(adv){
+      row = rows.find(r =>
+        (r.player_id!=null && (Number(r.player_id)===Number(adv.mlb_id)||Number(r.player_id)===Number(adv.player_id)))
+        || (r.mlb_id!=null && (Number(r.mlb_id)===Number(adv.mlb_id)||Number(r.mlb_id)===Number(adv.player_id)))
+        || (r.name && adv.name && String(r.name).toLowerCase()===String(adv.name).toLowerCase() && (!adv.team || r.team===adv.team))
+      );
+      if(row && adv.arm_slot_image && !row.arm_slot_image){
+        row = Object.assign({}, row, {arm_slot_image: adv.arm_slot_image, arsenal_image: row.arsenal_image || adv.arsenal_image || null});
+      }
+    }
+  }
   if(full && Number(full.mlb_id||RODRIGUEZ_MLB_ID)===id){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
       team: (row && row.team) || full.team || 'CAG',
       summer_line: pitcherSummerLineFor(full) || rodriguezSummerLine(full),
       count_hand_mix: (row && row.count_hand_mix) || buildCountHandMixFromFullPacket(full) || buildCountHandMixFromRow(row),
+      arm_slot_image: (row && row.arm_slot_image) || full.arm_slot_image || null,
+      arsenal_image: (row && row.arsenal_image) || full.arsenal_image || null,
       // Curated Trackman HB matches catcher/hitter-facing (+ = 1B).
       _hbView: 'hitter',
     });

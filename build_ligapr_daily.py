@@ -1095,6 +1095,21 @@ def sync_rosters_from_equipo(
                     if role == "P" and str(existing[key].get("position") or "").upper() != "P":
                         existing[key]["position"] = "P"
                     continue
+                # Skip near-duplicate names (e.g. Jarret/Jarrett Whorff, Juan Echevarría /
+                # Juan Javier Echavarria) so daily sync does not reintroduce stub rows.
+                near = next(
+                    (
+                        ek
+                        for ek in existing
+                        if ek and (ek in key or key in ek)
+                        and abs(len(ek) - len(key)) <= 8
+                    ),
+                    None,
+                )
+                if near:
+                    if role == "P" and str(existing[near].get("position") or "").upper() != "P":
+                        existing[near]["position"] = "P"
+                    continue
                 # New player from ligapr
                 stub_id = -abs(int(hashlib.md5(f"{abbr}:{key}".encode()).hexdigest()[:8], 16))
                 existing[key] = {
