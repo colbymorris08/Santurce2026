@@ -1941,10 +1941,10 @@
     /**
      * Pitchers listed on today's lineup card: SP first, then eligible pen in card order.
      * Includes negative synthetic ids used by winter-roster stubs.
+     * Prefers published game_day_state when browser localStorage is stale/empty for that team
+     * so tomorrow's SP (e.g. CAG Burns) stays exportable after hard-refresh / across tabs.
      */
     getCardPitcherIds(abbrev) {
-      const state = loadStrategy();
-      const st = ensureTeam(state, abbrev);
       const out = [];
       const seen = new Set();
       const push = (raw) => {
@@ -1954,8 +1954,32 @@
         seen.add(id);
         out.push(id);
       };
-      push(st.sp);
-      (st.pen || []).forEach(push);
+      const fromBlock = (st) => {
+        if (!st || typeof st !== 'object') return;
+        push(st.sp);
+        (st.pen || []).forEach(push);
+      };
+      const state = loadStrategy();
+      fromBlock(ensureTeam(state, abbrev));
+      // Overlay published SoT when it has a fuller SP+pen for this abbrev.
+      try {
+        const live = (window.GameDayPersist && typeof GameDayPersist.live === 'function')
+          ? GameDayPersist.live()
+          : null;
+        const file = (live && live.strategy) || (window.CACHE && CACHE.gameDayState && CACHE.gameDayState.strategy) || null;
+        const remote = file && file.teams && file.teams[abbrev];
+        if (remote) {
+          const remoteN = (remote.sp != null && remote.sp !== '' ? 1 : 0) + ((remote.pen || []).length);
+          if (remoteN > out.length || (remote.sp != null && remote.sp !== '' && !seen.has(Number(remote.sp)))) {
+            // Rebuild with remote first so published SP/pen order wins, then keep any extra local ids.
+            const localExtra = out.slice();
+            out.length = 0;
+            seen.clear();
+            fromBlock(remote);
+            localExtra.forEach(push);
+          }
+        }
+      } catch (e) {}
       return out;
     },
     /**

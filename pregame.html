@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san271">
+<link rel="stylesheet" href="shared.css?v=san272">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -560,14 +560,14 @@
   </div>
 </main>
 <script src="i18n.js?v=san211"></script>
-<script src="cards.js?v=san270"></script>
+<script src="cards.js?v=san272"></script>
 <script src="positioning.js?v=san211"></script>
 <script src="advance-pdf-split.js?v=san233"></script>
 <script src="persist.js?v=san253"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san271';
+const ASSET_V = 'san272';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3201,11 +3201,21 @@ function fillAdvanceExportList(list){
   const el = document.getElementById('adv-p-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
+  // Pre-check lineup-card arms (SP+pen) so tomorrow's starter (e.g. Burns) is export-ready.
+  const cardIds = new Set();
+  (list || []).forEach((r) => {
+    const team = String(r.team || '').toUpperCase();
+    if(!team) return;
+    (onePageCardPitcherIndex(team).ids || []).forEach((id) => cardIds.add(String(id)));
+  });
   const sorted = sortByLastName(list||[], r=>r.name);
   el.innerHTML = sorted.map(r=>{
     const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'L'
       : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'R' : '');
-    return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${prev.has(String(r.player_id))||prev.has(r.player_id)?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''} · ${r.team||''}</label>`;
+    const id = String(r.player_id);
+    const checked = prev.has(id) || prev.has(r.player_id) || cardIds.has(id);
+    const role = classifyPitcherRole(r.row || r);
+    return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${checked?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''}${role?` ${role}`:''} · ${r.team||''}</label>`;
   }).join('')
     || '<span class="note">No pitchers in filter.</span>';
   const all = document.getElementById('adv-p-select-all');
@@ -3272,7 +3282,10 @@ function scaffoldPitcherPacket(row){
     : arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]);
   const summer_line = row.summer_line || pitcherSummerLineFor(mlbId, row.synergy_id, row.name, row.team);
   return {
-    name: row.name, mlb_id: mlbId, synergy_id: row.synergy_id || null, throws: throwHand || row.throws || '', team: row.team || '',
+    name: row.name,
+    mlb_id: mlbId,
+    player_id: row.player_id != null ? row.player_id : mlbId,
+    synergy_id: row.synergy_id || null, throws: throwHand || row.throws || '', team: row.team || '',
     bio: `${handLabel} · ${row.team||'—'}`,
     subtitle: `${handLabel} · ${row.team||'—'}`,
     summer_line,
@@ -7171,10 +7184,44 @@ function onePageNormName(s){
   return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 /** Lineup-card pitchers (SP + eligible pen) for one-page order / print filter. */
+function onePageCardPitcherIdsFromGameDay(team){
+  const abbr = String(team || '').toUpperCase();
+  if(!abbr) return [];
+  const strategy = (CACHE.gameDayState && CACHE.gameDayState.strategy)
+    || (window.GameDayPersist && GameDayPersist.live && GameDayPersist.live() && GameDayPersist.live().strategy)
+    || null;
+  const st = strategy && strategy.teams && strategy.teams[abbr];
+  if(!st) return [];
+  const out = [];
+  const seen = new Set();
+  const push = (raw) => {
+    if(raw == null || raw === '') return;
+    const id = Number(raw);
+    if(!Number.isFinite(id) || seen.has(id)) return;
+    seen.add(id);
+    out.push(id);
+  };
+  push(st.sp);
+  (st.pen || []).forEach(push);
+  return out;
+}
 function onePageCardPitcherIndex(team){
-  const ids = (window.CardApp && typeof CardApp.getCardPitcherIds === 'function')
+  let ids = (window.CardApp && typeof CardApp.getCardPitcherIds === 'function')
     ? (CardApp.getCardPitcherIds(team) || [])
     : [];
+  // Always union published game-day SP+pen so Burns / today's SP stay exportable
+  // even when this browser's strategy localStorage is stale.
+  const fromFile = onePageCardPitcherIdsFromGameDay(team);
+  if(fromFile.length){
+    const seen = new Set(ids.map(Number));
+    const merged = fromFile.slice();
+    ids.forEach((id) => {
+      const n = Number(id);
+      if(!seen.has(n)){ seen.add(n); merged.push(n); }
+    });
+    // Prefer file order when it has an SP
+    ids = merged;
+  }
   if(!ids.length) return { ids: [], byId: new Map(), byName: new Map() };
   const byId = new Map();
   const byName = new Map();
