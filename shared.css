@@ -329,6 +329,32 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   color: var(--santurce-gold); letter-spacing: 0.02em;
   flex: 0 0 auto;
 }
+/* SP/RP role: large on pitcher advance (on-screen + PDF strip); normal on one-page */
+.pitcher-role-tag {
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--santurce-gold);
+  flex: 0 0 auto;
+}
+.pitcher-role-tag--big {
+  font-size: 28px;
+  margin-left: 2px;
+}
+.pitcher-role-tag--inline {
+  font-size: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: inherit;
+  margin-left: 4px;
+  opacity: 0.9;
+}
+.onepage-grid .op-name .pitcher-role-tag--inline {
+  font-size: inherit;
+  font-weight: 700;
+  color: inherit;
+}
 
 .advance-chips { display: flex; flex-wrap: wrap; gap: 10px; flex: 1 1 420px; }
 .advance-chip {
@@ -960,6 +986,12 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .advance-sheet-pitcher .advance-pdf-hand,
   .advance-sheet-pitcher .advance-pdf-name { color: #000 !important; font-size: 26px !important; font-weight: 700; line-height: 1.05; }
   .advance-sheet-pitcher .advance-pdf-team { color: #000 !important; font-size: 24px !important; font-weight: 600; line-height: 1.05; }
+  .advance-sheet-pitcher .pitcher-role-tag--big {
+    color: #000 !important;
+    font-size: 30px !important;
+    font-weight: 800;
+    line-height: 1.05;
+  }
   .advance-sheet-pitcher .advance-pdf-headshot {
     width: 32px; height: 40px; border-color: #bbb; background: #eef2f7;
   }

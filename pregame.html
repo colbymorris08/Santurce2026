@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san270">
+<link rel="stylesheet" href="shared.css?v=san271">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -567,7 +567,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san270';
+const ASSET_V = 'san271';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3570,12 +3570,144 @@ function pitcherSummerBarHtml(p){
     </table>
   </div>`;
 }
-/** PDF-only top bar: picture | handedness | name | team */
-function advancePdfStripHtml(headHtml, handLabel, name, team){
+/** True when a season line is Summer 2026 (not prior-winter fallthrough in summer_line). */
+function isSummer2026Line(line){
+  if(!line) return false;
+  const season = String(line.season || '');
+  if(/Summer\s*2026/i.test(season)) return true;
+  if(/winter|LBPRC|2026-27|2025-26/i.test(season)) return false;
+  return /2026/.test(season);
+}
+function isLbprc202627Line(line){
+  if(!line) return false;
+  const season = String(line.season || '');
+  const league = String(line.league || '');
+  return /2026-27/.test(season) || (league.toUpperCase() === 'LBPRC' && /2026/.test(season));
+}
+function normPitcherRoleName(s){
+  return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+/** Count 2026-27 LBPRC starts from bullpen usage "starters" rows (when equipo GS is blank). */
+function pitcherBullpenStarterGs(p){
+  const data = CACHE.bullpenUsage;
+  if(!data || !data.teams || !p) return 0;
+  const needle = normPitcherRoleName(p.name);
+  if(!needle) return 0;
+  let best = 0;
+  const teams = p.team ? [String(p.team).toUpperCase()] : Object.keys(data.teams);
+  const scan = teams.length ? teams : Object.keys(data.teams);
+  const seen = new Set();
+  scan.forEach(abbr => {
+    const pack = data.teams[abbr];
+    if(!pack || seen.has(abbr)) return;
+    seen.add(abbr);
+    (pack.starters || []).forEach(s => {
+      if(normPitcherRoleName(s.name) !== needle) return;
+      const cellStarts = (s.cells || []).filter(Boolean).length;
+      const gameStarts = (pack.games || []).filter(g => normPitcherRoleName(g.starter) === needle).length;
+      best = Math.max(best, cellStarts, gameStarts);
+    });
+  });
+  // Also scan all teams if team-scoped miss (name spelling / team move).
+  if(!best){
+    Object.keys(data.teams).forEach(abbr => {
+      if(seen.has(abbr)) return;
+      const pack = data.teams[abbr];
+      (pack.starters || []).forEach(s => {
+        if(normPitcherRoleName(s.name) !== needle) return;
+        const cellStarts = (s.cells || []).filter(Boolean).length;
+        const gameStarts = (pack.games || []).filter(g => normPitcherRoleName(g.starter) === needle).length;
+        best = Math.max(best, cellStarts, gameStarts);
+      });
+    });
+  }
+  return best;
+}
+function pitcherCardSummerGs(p){
+  const mid = p && (p.mlb_id != null ? p.mlb_id : p.player_id);
+  if(mid == null || mid === '') return null;
+  const card = ((CACHE.cardStats && CACHE.cardStats.players) || [])
+    .find(r => Number(r.id) === Number(mid) && r.role === 'P');
+  const pit = card && card.pitcher;
+  if(!pit || pit.gs == null) return null;
+  if(!/Summer\s*2026/i.test(String(pit.src || ''))) return null;
+  const n = Number(pit.gs);
+  return Number.isFinite(n) ? n : null;
+}
+/**
+ * SP if Summer 2026 GS > 5 OR 2026-27 LBPRC GS > 0
+ * (equipo GS, else bullpen-usage starters apps). Else RP.
+ */
+function classifyPitcherRole(p){
+  if(!p) return 'RP';
+  if(p.role === 'SP' || p.role === 'RP'){
+    // Prefer live recompute below; persisted one-page role is fallback only when no lines.
+  }
+  let summerGs = null;
+  const summer = p.summer_line || pitcherSummerLineFor(p);
+  if(isSummer2026Line(summer) && summer.gs != null && summer.gs !== ''){
+    const n = Number(summer.gs);
+    if(Number.isFinite(n)) summerGs = n;
+  }
+  const cardGs = pitcherCardSummerGs(p);
+  if(cardGs != null && (summerGs == null || cardGs > summerGs)) summerGs = cardGs;
+
+  let prGs = null;
+  for(const line of [p.lbprc_line, p.winter_line]){
+    if(!isLbprc202627Line(line) || line.gs == null || line.gs === '') continue;
+    const n = Number(line.gs);
+    if(Number.isFinite(n)){ prGs = n; break; }
+  }
+  // If advance packet missing, try opposing pitchers cache via summer helper's sibling lines.
+  if(prGs == null){
+    const rows = CACHE.advancePitchers?.pitchers || [];
+    const idNum = p.mlb_id != null ? Number(p.mlb_id) : (p.player_id != null ? Number(p.player_id) : NaN);
+    let row = null;
+    if(Number.isFinite(idNum) && idNum !== 0){
+      row = rows.find(r => Number(r.mlb_id) === idNum || Number(r.player_id) === idNum);
+    }
+    if(!row && p.name){
+      const needle = String(p.name).toLowerCase();
+      row = rows.find(r => String(r.name || '').toLowerCase() === needle && (!p.team || r.team === p.team))
+        || rows.find(r => String(r.name || '').toLowerCase() === needle);
+    }
+    if(row){
+      for(const line of [row.lbprc_line, row.winter_line]){
+        if(!isLbprc202627Line(line) || line.gs == null || line.gs === '') continue;
+        const n = Number(line.gs);
+        if(Number.isFinite(n)){ prGs = n; break; }
+      }
+      if(summerGs == null){
+        const sl = row.summer_line;
+        if(isSummer2026Line(sl) && sl.gs != null && sl.gs !== ''){
+          const n = Number(sl.gs);
+          if(Number.isFinite(n)) summerGs = n;
+        }
+      }
+    }
+  }
+  const bullpenPr = pitcherBullpenStarterGs(p);
+  if(prGs == null && bullpenPr > 0) prGs = bullpenPr;
+  else if(prGs != null && bullpenPr > prGs) prGs = bullpenPr;
+
+  if(summerGs != null && summerGs > 5) return 'SP';
+  if(prGs != null && prGs > 0) return 'SP';
+  if(p.role === 'SP' || p.role === 'RP') return p.role;
+  return 'RP';
+}
+function pitcherRoleBadgeHtml(role, {big}={}){
+  const r = role === 'SP' ? 'SP' : 'RP';
+  const cls = big ? 'pitcher-role-tag pitcher-role-tag--big' : 'pitcher-role-tag pitcher-role-tag--inline';
+  return `<span class="${cls}" title="SP: Summer 2026 GS &gt; 5 or 2026-27 LBPRC GS &gt; 0; else RP">${r}</span>`;
+}
+/** PDF-only top bar: picture | handedness | name | role | team */
+function advancePdfStripHtml(headHtml, handLabel, name, team, role){
+  const roleHtml = role ? pitcherRoleBadgeHtml(role, {big:true}) : '';
   return `<div class="advance-pdf-strip">
     ${headHtml||''}
     <span class="advance-pdf-hand">${handLabel||'—'}</span>
     <strong class="advance-pdf-name">${name||''}</strong>
+    ${roleHtml}
     <span class="advance-pdf-team">${team||''}</span>
   </div>`;
 }
@@ -3650,13 +3782,14 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
 
   // PDF export only: slim strip (compact roster headshot + name) + three equal thirds
   // (charts | shapes+heat | delivery). Headshot stays in the strip — never giant left-col / delivery fallback.
+  const pitcherRole = classifyPitcherRole(p);
   if(printPage){
     const deliveryPrint = printMediaBlock(deliverySrc, 'Delivery / release snapshot');
     const headPdf = headshotImgHtml(mlbId, p.name, 'advance-pdf-headshot', headLocal);
     const handLabel = advancePdfPitcherHand(p.throws);
     const teamLabel = p.team || '';
     return `<div class="advance-sheet advance-sheet-pitcher advance-print-page">
-  ${advancePdfStripHtml(headPdf, handLabel, p.name, teamLabel)}
+  ${advancePdfStripHtml(headPdf, handLabel, p.name, teamLabel, pitcherRole)}
   ${pitcherSummerBarHtml(p)}
   <div class="advance-layout advance-layout-pitcher advance-layout-pitcher-print">
     <div class="advance-col advance-col-charts">
@@ -3700,7 +3833,10 @@ function buildPitcherAdvanceSheetHtml(p, {printPage}={}){
     <div class="advance-hero-id">
       ${headHtml}
       <div class="advance-hero-meta">
-        <h2>${p.name}</h2>
+        <div class="advance-name-row">
+          <h2>${p.name}</h2>
+          ${pitcherRoleBadgeHtml(pitcherRole, {big:true})}
+        </div>
         <div class="note" style="margin:4px 0 0">${p.subtitle||p.bio||''}</div>
         <div class="note" style="margin:8px 0 0">Prospect Savant movement (velo/IVB/HB/spin). Count usage (overall / 0–0 / 2K) split vs LHH &amp; RHH when Synergy hand splits exist. SLG heat is binned from Synergy plate location. PDF layout is three equal thirds with a small roster headshot in the name strip.</div>
       </div>
@@ -7208,9 +7344,19 @@ function renderPitcherOnePage(){
     const isLhp = String(p.throws||'').toUpperCase().startsWith('L');
     const lClass = isLhp ? ' op-lhp' : '';
     const noteClass = isLhp ? 'op-note-lhp' : 'op-note-rhp';
-    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}${appeared?' op-appeared':''}" data-op-id="${escHtml(idKey)}" data-op-key="${escHtml(key)}" data-op-on-card="${onCard ? '1' : '0'}" data-op-appeared="${appeared ? '1' : '0'}">
+    const role = classifyPitcherRole({
+      name: p.name,
+      mlb_id: p.mlb_id,
+      player_id: p.mlb_id,
+      team,
+      role: p.role,
+      summer_line: p.summer_line,
+      lbprc_line: p.lbprc_line,
+      winter_line: p.winter_line,
+    });
+    return `<tr class="${idx%2?'op-alt':''}${p.needs_data?' op-needs':''}${appeared?' op-appeared':''}" data-op-id="${escHtml(idKey)}" data-op-key="${escHtml(key)}" data-op-on-card="${onCard ? '1' : '0'}" data-op-appeared="${appeared ? '1' : '0'}" data-op-role="${role}">
       <td class="op-num"><input class="op-jersey" type="text" inputmode="numeric" maxlength="3" value="${escHtml(jersey)}" data-op-key="${escHtml(key)}" data-op-id="${escHtml(idKey)}" placeholder="#" aria-label="Jersey number" onchange="saveOnePageJersey(this)" oninput="saveOnePageJersey(this)"></td>
-      <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')}</td>
+      <td class="op-name${lClass}">${escHtml(p.name_display||p.name||'')} ${pitcherRoleBadgeHtml(role, {big:false})}</td>
       ${velo}
       <td class="op-freq">${p.freq_html || ''}</td>
       <td class="op-notes"><textarea class="${noteClass}" data-op-key="${escHtml(key)}" rows="2" placeholder="Notes…" oninput="saveOnePageNote(this.dataset.opKey, this.value)" onchange="saveOnePageNote(this.dataset.opKey, this.value)" onblur="saveOnePageNote(this.dataset.opKey, this.value)">${escHtml(note)}</textarea></td>
