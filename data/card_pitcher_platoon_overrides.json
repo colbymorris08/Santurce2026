@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12",
+  "updated": "2026-11-14",
   "note": "Manual pitcher L/R outcome overrides for the strategy card. Applied after build_pregame_cards season-line selection.",
   "pitchers": {
     "803035": {
@@ -38,6 +38,43 @@
         "swings": 132
       },
       "source_detail": "Overall rates from Prospect Savant player/803035 2026_AAA. L/R K%/BB%/OPS/AVG/WH/GB from StatsAPI AAA (sportId=11) Charlotte game feeds for the same 119 BF, which reconcile to the Prospect Savant AAA totals."
+    },
+    "669142": {
+      "name": "Tanner Burns",
+      "team": "CAG",
+      "bf": 129,
+      "k": 22.5,
+      "gb": 54.0,
+      "bb": 17.1,
+      "ops": 0.728,
+      "avg": 0.231,
+      "wh": 23.8,
+      "wh_l": 17.1,
+      "wh_r": 27.7,
+      "gs": 0,
+      "hand_split": true,
+      "src": "StatsAPI 2026 AAA COL",
+      "vs_l": {
+        "bf": 53,
+        "k": 15.1,
+        "gb": 57.9,
+        "bb": 24.5,
+        "ops": 0.761,
+        "avg": 0.282,
+        "wh": 17.1,
+        "swings": 82
+      },
+      "vs_r": {
+        "bf": 76,
+        "k": 27.6,
+        "gb": 51.6,
+        "bb": 11.8,
+        "ops": 0.7,
+        "avg": 0.2,
+        "wh": 27.7,
+        "swings": 141
+      },
+      "source_detail": "2026 AAA Columbus (sportId=11) game feeds via StatsAPI. L/R K%/BB%/OPS/AVG/WH/GB from batSide on allPlays for pitcher 669142 across 24 games (129 BF). GB% = ground-ball outs / BIP outs (hitData.trajectory + event). Overall reconciles to ~card Summer 2026 COL line (OPS/AVG/GB)."
     }
   }
 }
