@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T09:03:42Z",
+  "updated": "2026-11-16T10:15:03Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -3222,6 +3222,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "99",
+          "name": "Jean Ortega",
+          "name_display": "Ortega, Jean",
+          "throws": "R",
+          "mlb_id": 458960,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "36",
           "name": "Julio Cesar Ortiz",
           "name_display": "Ortiz, Julio Cesar",
@@ -3537,27 +3558,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "99",
-          "name": "Jean Ortega",
-          "name_display": "Ortega, Jean",
-          "throws": "R",
-          "mlb_id": 458960,
-          "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": true,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "",
           "name": "Randy Ramnarace",
           "name_display": "Ramnarace, Randy",
@@ -3579,7 +3579,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 21
+      "appeared_count": 22
     }
   }
 }
