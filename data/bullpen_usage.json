@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15T10:10:10Z",
+  "updated": "2026-11-16T09:02:48Z",
   "source": "https://ligapr.com/estadisticas/boxscores",
   "league_id": 18,
   "subleague_id": 18,
@@ -13,6 +13,20 @@
       "team": "CAG",
       "team_name": "Criollos de Caguas",
       "games": [
+        {
+          "game_id": 628,
+          "title": "CAN - CRI 628",
+          "date": "2026-11-15",
+          "home": false,
+          "label": "@ SAN 11/15",
+          "result": "SAN 5-0",
+          "opp": "SAN",
+          "score_for": 0,
+          "score_against": 5,
+          "won": false,
+          "starter": "HECTOR SANTIAGO",
+          "starter_ip": "5"
+        },
         {
           "game_id": 623,
           "title": "CRI - CAN 623",
@@ -114,10 +128,26 @@
       ],
       "starters": [
         {
+          "name": "HECTOR SANTIAGO",
+          "last_app": "@ SAN 11/15",
+          "last_app_game_id": 628,
+          "cells": [
+            "5 IP",
+            null,
+            null,
+            null,
+            "3 IP",
+            null,
+            null,
+            null
+          ]
+        },
+        {
           "name": "TANNER BURNS",
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "3 IP",
             null,
             null,
@@ -132,6 +162,7 @@
           "last_app": "vs MAY 11/13",
           "last_app_game_id": 620,
           "cells": [
+            null,
             null,
             "4 IP",
             null,
@@ -148,34 +179,37 @@
           "cells": [
             null,
             null,
+            null,
             "5 IP",
             null,
             null,
             null,
             "4 IP"
           ]
-        },
+        }
+      ],
+      "relievers": [
         {
-          "name": "HECTOR SANTIAGO",
-          "last_app": "vs CAR 11/10",
-          "last_app_game_id": 614,
+          "name": "TYLER SANTANA",
+          "last_app": "@ SAN 11/15",
+          "last_app_game_id": 628,
           "cells": [
+            "3 IP",
             null,
             null,
             null,
             "3 IP",
             null,
             null,
-            null
+            "1 IP"
           ]
-        }
-      ],
-      "relievers": [
+        },
         {
           "name": "JORGE BENITEZ",
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1.2 IP",
             null,
             "1 IP",
@@ -190,6 +224,7 @@
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1.1 IP",
             null,
             "1 IP",
@@ -204,6 +239,7 @@
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1 IP",
             null,
             null,
@@ -218,6 +254,7 @@
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1 IP",
             null,
             "1.1 IP",
@@ -232,6 +269,7 @@
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1 IP",
             "1 IP",
             null,
@@ -246,6 +284,7 @@
           "last_app": "vs SAN 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "1 IP",
             null,
             null,
@@ -261,6 +300,7 @@
           "last_app_game_id": 620,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -274,6 +314,7 @@
           "last_app": "vs MAY 11/13",
           "last_app_game_id": 620,
           "cells": [
+            null,
             null,
             "1 IP",
             "0.2 IP",
@@ -289,6 +330,7 @@
           "last_app_game_id": 620,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -303,6 +345,7 @@
           "last_app_game_id": 620,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -312,24 +355,11 @@
           ]
         },
         {
-          "name": "TYLER SANTANA",
-          "last_app": "vs CAR 11/10",
-          "last_app_game_id": 614,
-          "cells": [
-            null,
-            null,
-            null,
-            "3 IP",
-            null,
-            null,
-            "1 IP"
-          ]
-        },
-        {
           "name": "BLAYNE ENLOW",
           "last_app": "@ MAY 11/8",
           "last_app_game_id": 611,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -344,6 +374,7 @@
           "last_app": "vs PON 11/6",
           "last_app_game_id": 605,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -364,6 +395,7 @@
             null,
             null,
             null,
+            null,
             "0.1 IP"
           ]
         }
@@ -374,6 +406,20 @@
       "team": "SAN",
       "team_name": "Cangrejeros de Santurce",
       "games": [
+        {
+          "game_id": 628,
+          "title": "CAN - CRI 628",
+          "date": "2026-11-15",
+          "home": true,
+          "label": "vs CAG 11/15",
+          "result": "SAN 5-0",
+          "opp": "CAG",
+          "score_for": 5,
+          "score_against": 0,
+          "won": true,
+          "starter": "EDUARDO RIVERA",
+          "starter_ip": "4"
+        },
         {
           "game_id": 623,
           "title": "CRI - CAN 623",
@@ -503,10 +549,28 @@
       ],
       "starters": [
         {
+          "name": "EDUARDO RIVERA",
+          "last_app": "vs CAG 11/15",
+          "last_app_game_id": 628,
+          "cells": [
+            "4 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
           "name": "RAFAEL SANCHEZ",
           "last_app": "@ CAG 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "4 IP",
             null,
             null,
@@ -524,6 +588,7 @@
           "last_app_game_id": 621,
           "cells": [
             null,
+            null,
             "4.2 IP",
             null,
             null,
@@ -539,6 +604,7 @@
           "last_app": "vs SJU 11/11",
           "last_app_game_id": 618,
           "cells": [
+            null,
             null,
             null,
             "4.2 IP",
@@ -558,6 +624,7 @@
             null,
             null,
             null,
+            null,
             "5 IP",
             null,
             null,
@@ -571,6 +638,7 @@
           "last_app": "vs MAY 11/7",
           "last_app_game_id": 608,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -594,6 +662,7 @@
             null,
             null,
             null,
+            null,
             "4 IP",
             null
           ]
@@ -601,26 +670,11 @@
       ],
       "relievers": [
         {
-          "name": "CARLOS ESPINOSA",
-          "last_app": "@ CAG 11/14",
-          "last_app_game_id": 623,
-          "cells": [
-            "2 IP",
-            null,
-            "0.2 IP",
-            null,
-            "1 IP",
-            null,
-            "1 IP",
-            null,
-            "1 IP"
-          ]
-        },
-        {
           "name": "JACK HARTMAN",
-          "last_app": "@ CAG 11/14",
-          "last_app_game_id": 623,
+          "last_app": "vs CAG 11/15",
+          "last_app_game_id": 628,
           "cells": [
+            "1 IP",
             "0.1 IP",
             null,
             null,
@@ -633,10 +687,62 @@
           ]
         },
         {
+          "name": "MICHAEL MARTINEZ",
+          "last_app": "vs CAG 11/15",
+          "last_app_game_id": 628,
+          "cells": [
+            "3 IP",
+            null,
+            null,
+            "1 IP",
+            null,
+            null,
+            "1.2 IP",
+            null,
+            "0.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "JOSH TRENTADUE",
+          "last_app": "vs CAG 11/15",
+          "last_app_game_id": 628,
+          "cells": [
+            "1 IP",
+            null,
+            "0.2 IP",
+            null,
+            "2 IP",
+            null,
+            "1 IP",
+            null,
+            "0.1 IP",
+            null
+          ]
+        },
+        {
+          "name": "CARLOS ESPINOSA",
+          "last_app": "@ CAG 11/14",
+          "last_app_game_id": 623,
+          "cells": [
+            null,
+            "2 IP",
+            null,
+            "0.2 IP",
+            null,
+            "1 IP",
+            null,
+            "1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
           "name": "KEYLAN KILLGORE",
           "last_app": "@ CAG 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "0.2 IP",
             "0.2 IP",
             "1.1 IP",
@@ -653,6 +759,7 @@
           "last_app": "@ CAG 11/14",
           "last_app_game_id": 623,
           "cells": [
+            null,
             "2.1 IP",
             null,
             "1.1 IP",
@@ -670,6 +777,7 @@
           "last_app_game_id": 621,
           "cells": [
             null,
+            null,
             "1.2 IP",
             "1 IP",
             null,
@@ -685,6 +793,7 @@
           "last_app": "vs CAR 11/13",
           "last_app_game_id": 621,
           "cells": [
+            null,
             null,
             "0 IP",
             null,
@@ -702,6 +811,7 @@
           "last_app_game_id": 621,
           "cells": [
             null,
+            null,
             "1.1 IP",
             null,
             null,
@@ -713,26 +823,11 @@
           ]
         },
         {
-          "name": "Josh Trentadue",
-          "last_app": "vs CAR 11/13",
-          "last_app_game_id": 621,
-          "cells": [
-            null,
-            "0.2 IP",
-            null,
-            "2 IP",
-            null,
-            "1 IP",
-            null,
-            "0.1 IP",
-            null
-          ]
-        },
-        {
           "name": "Trey Braithwaite",
           "last_app": "vs SJU 11/11",
           "last_app_game_id": 618,
           "cells": [
+            null,
             null,
             null,
             "0 IP",
@@ -745,26 +840,11 @@
           ]
         },
         {
-          "name": "Michael Martinez",
-          "last_app": "vs SJU 11/11",
-          "last_app_game_id": 618,
-          "cells": [
-            null,
-            null,
-            "1 IP",
-            null,
-            null,
-            "1.2 IP",
-            null,
-            "0.2 IP",
-            null
-          ]
-        },
-        {
           "name": "DAVID LEBRON",
           "last_app": "@ CAR 11/8",
           "last_app_game_id": 612,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -786,6 +866,7 @@
             null,
             null,
             null,
+            null,
             "0.1 IP",
             null,
             "2 IP",
@@ -797,6 +878,7 @@
           "last_app": "vs MAY 11/7",
           "last_app_game_id": 608,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -818,6 +900,7 @@
             null,
             null,
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -831,6 +914,20 @@
       "team": "SJU",
       "team_name": "Senadores de San Juan",
       "games": [
+        {
+          "game_id": 627,
+          "title": "LEO - SEN 627",
+          "date": "2026-11-15",
+          "home": false,
+          "label": "@ PON 11/15",
+          "result": "PON 11-4",
+          "opp": "PON",
+          "score_for": 4,
+          "score_against": 11,
+          "won": false,
+          "starter": "RYDER RYAN",
+          "starter_ip": "4.1"
+        },
         {
           "game_id": 624,
           "title": "SEN - IND 624",
@@ -932,10 +1029,26 @@
       ],
       "starters": [
         {
+          "name": "RYDER RYAN",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "4.1 IP",
+            null,
+            null,
+            null,
+            "4 IP",
+            null,
+            null,
+            "1.2 IP"
+          ]
+        },
+        {
           "name": "SAITO KEISHIN",
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "4 IP",
             null,
             null,
@@ -950,6 +1063,7 @@
           "last_app": "@ PON 11/13",
           "last_app_game_id": 622,
           "cells": [
+            null,
             null,
             "1.1 IP",
             null,
@@ -966,34 +1080,97 @@
           "cells": [
             null,
             null,
+            null,
             "4.2 IP",
             null,
             null,
             "2 IP",
             null
           ]
-        },
-        {
-          "name": "RYDER RYAN",
-          "last_app": "vs SAN 11/10",
-          "last_app_game_id": 616,
-          "cells": [
-            null,
-            null,
-            null,
-            "4 IP",
-            null,
-            null,
-            "1.2 IP"
-          ]
         }
       ],
       "relievers": [
+        {
+          "name": "ANTHONY BORRERO",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "0.1 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "0.2 IP",
+            null
+          ]
+        },
+        {
+          "name": "JEAN FELIX ORTEGA",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "0.2 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "name": "JERRYELL RIVERA",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "0.2 IP",
+            null,
+            "0.2 IP",
+            "1.1 IP",
+            null,
+            null,
+            "1 IP",
+            null
+          ]
+        },
+        {
+          "name": "ALEXUAN VEGA",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "1.1 IP",
+            null,
+            null,
+            null,
+            null,
+            "1 IP",
+            null,
+            null
+          ]
+        },
+        {
+          "name": "RYAN VELAZQUEZ",
+          "last_app": "@ PON 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "0.2 IP",
+            null,
+            "1 IP",
+            null,
+            "0.2 IP",
+            "1.1 IP",
+            null,
+            null
+          ]
+        },
         {
           "name": "MIGUEL CIRINO",
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "0.1 IP",
             null,
             "0.1 IP",
@@ -1008,6 +1185,7 @@
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "1 IP",
             null,
             "1 IP",
@@ -1022,6 +1200,7 @@
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "1 IP",
             null,
             null,
@@ -1036,6 +1215,7 @@
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "1 IP",
             null,
             "0.2 IP",
@@ -1050,6 +1230,7 @@
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "1 IP",
             null,
             "1 IP",
@@ -1064,6 +1245,7 @@
           "last_app": "vs MAY 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "0.2 IP",
             null,
             null,
@@ -1079,6 +1261,7 @@
           "last_app_game_id": 622,
           "cells": [
             null,
+            null,
             "1.2 IP",
             null,
             null,
@@ -1092,6 +1275,7 @@
           "last_app": "@ PON 11/13",
           "last_app_game_id": 622,
           "cells": [
+            null,
             null,
             "1 IP",
             null,
@@ -1107,6 +1291,7 @@
           "last_app_game_id": 622,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -1121,6 +1306,7 @@
           "last_app_game_id": 622,
           "cells": [
             null,
+            null,
             "0.1 IP",
             "0.1 IP",
             null,
@@ -1130,44 +1316,17 @@
           ]
         },
         {
-          "name": "JERRYELL RIVERA",
-          "last_app": "@ PON 11/13",
-          "last_app_game_id": 622,
-          "cells": [
-            null,
-            "0.2 IP",
-            "1.1 IP",
-            null,
-            null,
-            "1 IP",
-            null
-          ]
-        },
-        {
           "name": "MATTEW RIVERA",
           "last_app": "@ PON 11/13",
           "last_app_game_id": 622,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
             "0.2 IP",
             "1 IP",
-            null
-          ]
-        },
-        {
-          "name": "RYAN VELAZQUEZ",
-          "last_app": "@ PON 11/13",
-          "last_app_game_id": 622,
-          "cells": [
-            null,
-            "1 IP",
-            null,
-            "0.2 IP",
-            "1.1 IP",
-            null,
             null
           ]
         },
@@ -1176,6 +1335,7 @@
           "last_app": "@ SAN 11/11",
           "last_app_game_id": 618,
           "cells": [
+            null,
             null,
             null,
             "0.2 IP",
@@ -1194,37 +1354,10 @@
             null,
             null,
             null,
+            null,
             "1.1 IP",
             null,
             "1.1 IP"
-          ]
-        },
-        {
-          "name": "ALEXUAN VEGA",
-          "last_app": "vs PON 11/8",
-          "last_app_game_id": 613,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            "1 IP",
-            null,
-            null
-          ]
-        },
-        {
-          "name": "Anthony Borrero",
-          "last_app": "@ CAR 11/6",
-          "last_app_game_id": 606,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            "0.2 IP",
-            null
           ]
         },
         {
@@ -1232,6 +1365,7 @@
           "last_app": "@ CAR 11/6",
           "last_app_game_id": 606,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1251,6 +1385,7 @@
             null,
             null,
             null,
+            null,
             "1.1 IP",
             null
           ]
@@ -1262,6 +1397,20 @@
       "team": "CAR",
       "team_name": "Gigantes de Carolina",
       "games": [
+        {
+          "game_id": 626,
+          "title": "GIG - IND 626",
+          "date": "2026-11-15",
+          "home": true,
+          "label": "vs MAY 11/15",
+          "result": "MAY 7-5",
+          "opp": "MAY",
+          "score_for": 5,
+          "score_against": 7,
+          "won": false,
+          "starter": "Chris Kachmar",
+          "starter_ip": "4.2"
+        },
         {
           "game_id": 625,
           "title": "GIG - LEO 625",
@@ -1391,10 +1540,28 @@
       ],
       "starters": [
         {
+          "name": "Chris Kachmar",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "4.2 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5 IP",
+            null,
+            null,
+            null
+          ]
+        },
+        {
           "name": "Kaito Uchino",
           "last_app": "vs PON 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "6 IP",
             null,
             null,
@@ -1411,6 +1578,7 @@
           "last_app": "@ SAN 11/13",
           "last_app_game_id": 621,
           "cells": [
+            null,
             null,
             "5.2 IP",
             null,
@@ -1429,6 +1597,7 @@
           "cells": [
             null,
             null,
+            null,
             "4 IP",
             null,
             null,
@@ -1443,6 +1612,7 @@
           "last_app": "@ CAG 11/10",
           "last_app_game_id": 614,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1463,24 +1633,9 @@
             null,
             null,
             null,
+            null,
             "3 IP",
             null,
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "name": "CHRIS KACHMAR",
-          "last_app": "@ PON 11/7",
-          "last_app_game_id": 610,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            "5 IP",
             null,
             null,
             null
@@ -1489,10 +1644,96 @@
       ],
       "relievers": [
         {
+          "name": "Osvaldo Berrios",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "1.1 IP",
+            null,
+            null,
+            "2 IP",
+            null,
+            "1.2 IP",
+            null,
+            "1 IP",
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Matt Givin",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "1.2 IP",
+            null,
+            null,
+            null,
+            null,
+            "1 IP",
+            "0.1 IP",
+            null,
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "JAKE GOZZO-",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "0.2 IP",
+            null,
+            "1 IP",
+            "1 IP",
+            null,
+            null,
+            "1.1 IP",
+            null,
+            "1.1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Joe Jimenez",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "0 IP",
+            "1 IP",
+            null,
+            null,
+            null,
+            "2 IP",
+            "1 IP",
+            null,
+            null,
+            "1 IP"
+          ]
+        },
+        {
+          "name": "Ricardo Velez",
+          "last_app": "vs MAY 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "0.2 IP",
+            null,
+            "1.1 IP",
+            null,
+            "0.2 IP",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
           "name": "Miguel Auzua",
           "last_app": "vs PON 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "1.1 IP",
             null,
             null,
@@ -1509,6 +1750,7 @@
           "last_app": "vs PON 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "0.2 IP",
             null,
             null,
@@ -1521,26 +1763,11 @@
           ]
         },
         {
-          "name": "Joe Jimenez",
-          "last_app": "vs PON 11/14",
-          "last_app_game_id": 625,
-          "cells": [
-            "1 IP",
-            null,
-            null,
-            null,
-            "2 IP",
-            "1 IP",
-            null,
-            null,
-            "1 IP"
-          ]
-        },
-        {
           "name": "Eddie Reynoso",
           "last_app": "vs PON 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "0 IP",
             null,
             null,
@@ -1553,27 +1780,12 @@
           ]
         },
         {
-          "name": "JAKE GOZZO-",
-          "last_app": "@ SAN 11/13",
-          "last_app_game_id": 621,
-          "cells": [
-            null,
-            "1 IP",
-            "1 IP",
-            null,
-            null,
-            "1.1 IP",
-            null,
-            "1.1 IP",
-            null
-          ]
-        },
-        {
           "name": "Ramesis Rosa",
           "last_app": "@ SAN 11/13",
           "last_app_game_id": 621,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             "1.1 IP",
@@ -1582,38 +1794,6 @@
             null,
             null,
             null
-          ]
-        },
-        {
-          "name": "Ricardo Velez",
-          "last_app": "@ SAN 11/13",
-          "last_app_game_id": 621,
-          "cells": [
-            null,
-            "1.1 IP",
-            null,
-            "0.2 IP",
-            null,
-            null,
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "name": "OSVALDO BERRIOS",
-          "last_app": "@ CAG 11/11",
-          "last_app_game_id": 619,
-          "cells": [
-            null,
-            null,
-            "2 IP",
-            null,
-            "1.2 IP",
-            null,
-            "1 IP",
-            null,
-            "1 IP"
           ]
         },
         {
@@ -1621,6 +1801,7 @@
           "last_app": "@ CAG 11/11",
           "last_app_game_id": 619,
           "cells": [
+            null,
             null,
             null,
             "1 IP",
@@ -1640,6 +1821,7 @@
             null,
             null,
             null,
+            null,
             "1 IP",
             "1 IP",
             null,
@@ -1653,6 +1835,7 @@
           "last_app": "@ CAG 11/10",
           "last_app_game_id": 614,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1672,6 +1855,7 @@
             null,
             null,
             null,
+            null,
             "0.2 IP",
             "0.1 IP",
             null,
@@ -1688,6 +1872,7 @@
             null,
             null,
             null,
+            null,
             "0.1 IP",
             null,
             null,
@@ -1697,26 +1882,11 @@
           ]
         },
         {
-          "name": "Matt Givin",
-          "last_app": "vs SAN 11/8",
-          "last_app_game_id": 612,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            "1 IP",
-            "0.1 IP",
-            null,
-            null,
-            "1 IP"
-          ]
-        },
-        {
           "name": "Eddy Reynoso",
           "last_app": "vs SAN 11/8",
           "last_app_game_id": 612,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1733,6 +1903,7 @@
           "last_app": "@ PON 11/7",
           "last_app_game_id": 610,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1756,6 +1927,7 @@
             null,
             null,
             null,
+            null,
             "1 IP",
             null
           ]
@@ -1767,6 +1939,20 @@
       "team": "MAY",
       "team_name": "Indios de Mayagüez",
       "games": [
+        {
+          "game_id": 626,
+          "title": "GIG - IND 626",
+          "date": "2026-11-15",
+          "home": false,
+          "label": "@ CAR 11/15",
+          "result": "MAY 7-5",
+          "opp": "CAR",
+          "score_for": 7,
+          "score_against": 5,
+          "won": true,
+          "starter": "Ashton Goudeau",
+          "starter_ip": "4"
+        },
         {
           "game_id": 624,
           "title": "SEN - IND 624",
@@ -1896,10 +2082,28 @@
       ],
       "starters": [
         {
+          "name": "Ashton Goudeau",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "4 IP",
+            null,
+            null,
+            null,
+            "3.2 IP",
+            null,
+            null,
+            null,
+            null,
+            "3.2 IP"
+          ]
+        },
+        {
           "name": "EDDY DEMURIAS",
           "last_app": "@ SJU 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "4.1 IP",
             null,
             null,
@@ -1916,6 +2120,7 @@
           "last_app": "@ CAG 11/13",
           "last_app_game_id": 620,
           "cells": [
+            null,
             null,
             "3 IP",
             null,
@@ -1934,6 +2139,7 @@
           "cells": [
             null,
             null,
+            null,
             "5 IP",
             null,
             null,
@@ -1944,26 +2150,11 @@
           ]
         },
         {
-          "name": "ASHTON GOUDEAU",
-          "last_app": "@ PON 11/10",
-          "last_app_game_id": 615,
-          "cells": [
-            null,
-            null,
-            null,
-            "3.2 IP",
-            null,
-            null,
-            null,
-            null,
-            "3.2 IP"
-          ]
-        },
-        {
           "name": "KAZUTO TAGUCHI",
           "last_app": "vs CAG 11/8",
           "last_app_game_id": 611,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -1985,6 +2176,7 @@
             null,
             null,
             null,
+            null,
             "3.2 IP",
             null,
             null,
@@ -1994,10 +2186,28 @@
       ],
       "relievers": [
         {
-          "name": "JORGE LOPEZ",
-          "last_app": "@ SJU 11/14",
-          "last_app_game_id": 624,
+          "name": "Sean Barnett",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
           "cells": [
+            "0.1 IP",
+            null,
+            null,
+            "1 IP",
+            null,
+            "1 IP",
+            null,
+            null,
+            "0.1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Jorge Lopez",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "0.2 IP",
             "1 IP",
             null,
             "1 IP",
@@ -2010,10 +2220,28 @@
           ]
         },
         {
-          "name": "Angel Reyes",
-          "last_app": "@ SJU 11/14",
-          "last_app_game_id": 624,
+          "name": "Luis Quinones",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
           "cells": [
+            "1 IP",
+            null,
+            null,
+            null,
+            null,
+            "1 IP",
+            null,
+            null,
+            "1 IP",
+            null
+          ]
+        },
+        {
+          "name": "Angel Reyes",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "1 IP",
             "0.2 IP",
             null,
             "0.2 IP",
@@ -2026,10 +2254,28 @@
           ]
         },
         {
+          "name": "Yariel Rodriguez",
+          "last_app": "@ CAR 11/15",
+          "last_app_game_id": 626,
+          "cells": [
+            "2 IP",
+            null,
+            null,
+            "0.1 IP",
+            null,
+            "1 IP",
+            null,
+            null,
+            "1 IP",
+            null
+          ]
+        },
+        {
           "name": "KAZUTO TAGUCHI",
           "last_app": "@ SJU 11/14",
           "last_app_game_id": 624,
           "cells": [
+            null,
             "3 IP",
             null,
             null,
@@ -2047,6 +2293,7 @@
           "last_app_game_id": 620,
           "cells": [
             null,
+            null,
             "1.2 IP",
             null,
             null,
@@ -2062,6 +2309,7 @@
           "last_app": "@ CAG 11/13",
           "last_app_game_id": 620,
           "cells": [
+            null,
             null,
             "1 IP",
             null,
@@ -2079,6 +2327,7 @@
           "last_app_game_id": 620,
           "cells": [
             null,
+            null,
             "1 IP",
             null,
             null,
@@ -2094,6 +2343,7 @@
           "last_app": "@ CAG 11/13",
           "last_app_game_id": 620,
           "cells": [
+            null,
             null,
             "1 IP",
             null,
@@ -2111,29 +2361,14 @@
           "last_app_game_id": 620,
           "cells": [
             null,
-            "0.1 IP",
-            null,
-            null,
-            null,
-            "1 IP",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "name": "SEAN BARNETT",
-          "last_app": "vs PON 11/11",
-          "last_app_game_id": 617,
-          "cells": [
-            null,
-            null,
-            "1 IP",
-            null,
-            "1 IP",
-            null,
             null,
             "0.1 IP",
+            null,
+            null,
+            null,
+            "1 IP",
+            null,
+            null,
             null
           ]
         },
@@ -2142,6 +2377,7 @@
           "last_app": "vs PON 11/11",
           "last_app_game_id": 617,
           "cells": [
+            null,
             null,
             null,
             "1 IP",
@@ -2154,26 +2390,11 @@
           ]
         },
         {
-          "name": "YARIEL RODRIGUEZ",
-          "last_app": "vs PON 11/11",
-          "last_app_game_id": 617,
-          "cells": [
-            null,
-            null,
-            "0.1 IP",
-            null,
-            "1 IP",
-            null,
-            null,
-            "1 IP",
-            null
-          ]
-        },
-        {
           "name": "LUIS QUIÑONES S -1",
           "last_app": "@ PON 11/10",
           "last_app_game_id": 615,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2194,6 +2415,7 @@
             null,
             null,
             null,
+            null,
             "1 IP",
             null,
             "0.2 IP",
@@ -2210,6 +2432,7 @@
             null,
             null,
             null,
+            null,
             "2.2 IP",
             null,
             "2 IP",
@@ -2218,26 +2441,11 @@
           ]
         },
         {
-          "name": "LUIS QUIÑONES",
-          "last_app": "vs CAG 11/8",
-          "last_app_game_id": 611,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            "1 IP",
-            null,
-            null,
-            "1 IP",
-            null
-          ]
-        },
-        {
           "name": "Sebastian Bentz",
           "last_app": "@ SAN 11/7",
           "last_app_game_id": 608,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2259,6 +2467,7 @@
             null,
             null,
             null,
+            null,
             "2.1 IP",
             null,
             null,
@@ -2272,6 +2481,20 @@
       "team": "PON",
       "team_name": "Leones de Ponce",
       "games": [
+        {
+          "game_id": 627,
+          "title": "LEO - SEN 627",
+          "date": "2026-11-15",
+          "home": true,
+          "label": "vs SJU 11/15",
+          "result": "PON 11-4",
+          "opp": "SJU",
+          "score_for": 11,
+          "score_against": 4,
+          "won": true,
+          "starter": "RYAN MURPHY",
+          "starter_ip": "3.1"
+        },
         {
           "game_id": 625,
           "title": "GIG - LEO 625",
@@ -2401,10 +2624,28 @@
       ],
       "starters": [
         {
+          "name": "RYAN MURPHY",
+          "last_app": "vs SJU 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "3.1 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3 IP",
+            null
+          ]
+        },
+        {
           "name": "Keito Matsuura",
           "last_app": "@ CAR 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "5 IP",
             null,
             null,
@@ -2421,6 +2662,7 @@
           "last_app": "vs SJU 11/13",
           "last_app_game_id": 622,
           "cells": [
+            null,
             null,
             "4.2 IP",
             null,
@@ -2439,6 +2681,7 @@
           "cells": [
             null,
             null,
+            null,
             "4 IP",
             null,
             null,
@@ -2453,6 +2696,7 @@
           "last_app": "vs MAY 11/10",
           "last_app_game_id": 615,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2473,26 +2717,11 @@
             null,
             null,
             null,
+            null,
             "1.2 IP",
             null,
             null,
             null,
-            null
-          ]
-        },
-        {
-          "name": "Ryan Murphy",
-          "last_app": "vs SAN 11/5",
-          "last_app_game_id": 602,
-          "cells": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            "3 IP",
             null
           ]
         },
@@ -2509,16 +2738,52 @@
             null,
             null,
             null,
+            null,
             "2.2 IP"
           ]
         }
       ],
       "relievers": [
         {
+          "name": "ALEX CLAUDIO",
+          "last_app": "vs SJU 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "0.2 IP",
+            null,
+            null,
+            "1.2 IP",
+            null,
+            null,
+            "1.1 IP",
+            null,
+            "1 IP",
+            "1.1 IP"
+          ]
+        },
+        {
+          "name": "KAI YOKOWAGA S-1",
+          "last_app": "vs SJU 11/15",
+          "last_app_game_id": 627,
+          "cells": [
+            "5 IP",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
           "name": "Harold Cortijo",
           "last_app": "@ CAR 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "1 IP",
             "0.1 IP",
             null,
@@ -2535,6 +2800,7 @@
           "last_app": "@ CAR 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "2 IP",
             null,
             null,
@@ -2551,6 +2817,7 @@
           "last_app": "@ CAR 11/14",
           "last_app_game_id": 625,
           "cells": [
+            null,
             "1 IP",
             null,
             "1 IP",
@@ -2568,6 +2835,7 @@
           "last_app_game_id": 622,
           "cells": [
             null,
+            null,
             "4 IP",
             null,
             null,
@@ -2579,26 +2847,11 @@
           ]
         },
         {
-          "name": "ALEX CLAUDIO",
-          "last_app": "@ MAY 11/11",
-          "last_app_game_id": 617,
-          "cells": [
-            null,
-            null,
-            "1.2 IP",
-            null,
-            null,
-            "1.1 IP",
-            null,
-            "1 IP",
-            "1.1 IP"
-          ]
-        },
-        {
           "name": "ERIC GARCIA",
           "last_app": "@ MAY 11/11",
           "last_app_game_id": 617,
           "cells": [
+            null,
             null,
             null,
             "0.1 IP",
@@ -2615,6 +2868,7 @@
           "last_app": "@ MAY 11/11",
           "last_app_game_id": 617,
           "cells": [
+            null,
             null,
             null,
             "2 IP",
@@ -2634,6 +2888,7 @@
             null,
             null,
             null,
+            null,
             "1 IP",
             null,
             "1.1 IP",
@@ -2647,6 +2902,7 @@
           "last_app": "vs MAY 11/10",
           "last_app_game_id": 615,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2667,6 +2923,7 @@
             null,
             null,
             null,
+            null,
             "0.1 IP",
             null,
             null,
@@ -2679,6 +2936,7 @@
           "last_app": "@ SJU 11/8",
           "last_app_game_id": 613,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2700,6 +2958,7 @@
             null,
             null,
             null,
+            null,
             "1.2 IP",
             null,
             "1.1 IP",
@@ -2711,6 +2970,7 @@
           "last_app": "vs CAR 11/7",
           "last_app_game_id": 610,
           "cells": [
+            null,
             null,
             null,
             null,
@@ -2733,6 +2993,7 @@
             null,
             null,
             null,
+            null,
             "0.1 IP",
             null,
             null
@@ -2749,6 +3010,7 @@
             null,
             null,
             null,
+            null,
             "2 IP",
             null,
             null
@@ -2759,6 +3021,7 @@
           "last_app": "@ CAG 11/6",
           "last_app_game_id": 605,
           "cells": [
+            null,
             null,
             null,
             null,

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15T10:11:10Z",
+  "updated": "2026-11-16T09:03:42Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -243,6 +243,27 @@
           "freq_l": "SL 56%, FB 33%, CB 8%, CH 3%",
           "freq_html": "<span class=\"freq-r\">RHH: SL 38%, FB 29%, CH 24%, CB 9%</span><br><span class=\"freq-l\">LHH: SL 56%, FB 33%, CB 8%, CH 3%</span>",
           "notes": "High slot LHP. FB SL only, SL has depth and is scurvy. Damage middle in to RHH and same to LHH. Gets ahead and throws mostly SL unless behind in count.",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
+          "jersey": "58",
+          "name": "Eduardo Rivera",
+          "name_display": "Rivera, Eduardo",
+          "throws": "R",
+          "mlb_id": 700842,
+          "velo": {
+            "FB": "94-94",
+            "CB": "",
+            "SL": "86-86",
+            "CH": "86-86",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 43%, SL 29%, CH 23%, SNK 6%",
+          "freq_l": "FB 56%, SL 35%, CH 6%, SNK 3%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 43%, SL 29%, CH 23%, SNK 6%</span><br><span class=\"freq-l\">LHH: FB 56%, SL 35%, CH 6%, SNK 3%</span>",
+          "notes": "",
           "needs_data": false,
           "appeared_lbprc": true
         },
@@ -562,27 +583,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "58",
-          "name": "Eduardo Rivera",
-          "name_display": "Rivera, Eduardo",
-          "throws": "R",
-          "mlb_id": 700842,
-          "velo": {
-            "FB": "94-94",
-            "CB": "",
-            "SL": "86-86",
-            "CH": "86-86",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "FB 43%, SL 29%, CH 23%, SNK 6%",
-          "freq_l": "FB 56%, SL 35%, CH 6%, SNK 3%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 43%, SL 29%, CH 23%, SNK 6%</span><br><span class=\"freq-l\">LHH: FB 56%, SL 35%, CH 6%, SNK 3%</span>",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "11",
           "name": "Jose Rodriguez",
           "name_display": "Rodriguez, Jose",
@@ -667,7 +667,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 15
+      "appeared_count": 16
     },
     "CAG": {
       "team": "CAG",
