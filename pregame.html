@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san281">
+<link rel="stylesheet" href="shared.css?v=san282">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -131,7 +131,7 @@
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name (full staff for the filtered team). <strong>Print / PDF / ZIP export = lineup-card pitchers only</strong> (today’s SP + eligible pen from the strategy card), even if every box is checked. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same mass PDF, split with copy-pages (same size as print, not re-laid-out) into <code>TEAM/Last_First.pdf</code> packed in one ZIP. Optional <b>Save next</b> downloads one loose PDF per click. <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name (full staff for the filtered team). <strong>Print / PDF / ZIP export = official active-roster pitchers only</strong> (latest LBPRC roster doc; excludes EXTRAS-INACTIVOS), even if every box is checked. Teams without an official list fall back to today’s strategy SP + pen. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same mass PDF, split with copy-pages (same size as print, not re-laid-out) into <code>TEAM/Last_First.pdf</code> packed in one ZIP. Optional <b>Save next</b> downloads one loose PDF per click. <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -562,16 +562,16 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san281"></script>
-<script src="cards.js?v=san281"></script>
-<script src="positioning.js?v=san281"></script>
-<script src="advance-pdf-split.js?v=san281"></script>
-<script src="persist.js?v=san281"></script>
-<script src="game-packet.js?v=san281"></script>
+<script src="i18n.js?v=san282"></script>
+<script src="cards.js?v=san282"></script>
+<script src="positioning.js?v=san282"></script>
+<script src="advance-pdf-split.js?v=san282"></script>
+<script src="persist.js?v=san282"></script>
+<script src="game-packet.js?v=san282"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san281';
+const ASSET_V = 'san282';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3205,21 +3205,24 @@ function fillAdvanceExportList(list){
   const el = document.getElementById('adv-p-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  // Pre-check lineup-card arms (SP+pen) so tomorrow's starter (e.g. Burns) is export-ready.
-  const cardIds = new Set();
+  // Pre-check official active-roster arms (fallback: strategy SP+pen).
+  const exportIds = new Set();
   (list || []).forEach((r) => {
     const team = String(r.team || '').toUpperCase();
     if(!team) return;
-    (onePageCardPitcherIndex(team).ids || []).forEach((id) => cardIds.add(String(id)));
+    (officialActivePitcherIndex(team).ids || onePageCardPitcherIndex(team).ids || [])
+      .forEach((id) => exportIds.add(String(id)));
   });
   const sorted = sortByLastName(list||[], r=>r.name);
   el.innerHTML = sorted.map(r=>{
     const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'L'
       : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'R' : '');
     const id = String(r.player_id);
-    const checked = prev.has(id) || prev.has(r.player_id) || cardIds.has(id);
+    const onRoster = pitcherAdvanceOnActiveRoster(r);
+    const checked = prev.has(id) || prev.has(r.player_id) || (exportIds.has(id) && onRoster);
     const role = classifyPitcherRole(r.row || r);
-    return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${checked?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''}${role?` ${role}`:''} · ${r.team||''}</label>`;
+    const tag = onRoster ? '' : ' · inactive';
+    return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${checked?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''}${role?` ${role}`:''}${tag} · ${r.team||''}</label>`;
   }).join('')
     || '<span class="note">No pitchers in filter.</span>';
   const all = document.getElementById('adv-p-select-all');
@@ -4178,7 +4181,7 @@ function openAdvancePrintWindow(title, bodyHtml, {afterWrite, orientation='lands
 function exportAdvancePdf(){
   const sheets = selectedPitcherAdvanceSheets();
   if(!sheets.length){
-    alert('No lineup-card pitchers to export. Select pitchers who are on today’s strategy card (SP + pen), or set the card first.');
+    alert('No official active-roster pitchers to export. Filter to a team with an official roster, or select pitchers who are active (not EXTRAS-INACTIVOS).');
     return;
   }
   const body = sheets.map(p=>buildPitcherAdvanceSheetHtml(p,{printPage:true})).join('\n');
@@ -4395,13 +4398,16 @@ function selectedPitcherAdvanceSheets(){
   const checked = [...document.querySelectorAll('#adv-p-export-list input[type=checkbox]:checked')].map(i=>i.value);
   const ids = checked.length ? checked : (document.getElementById('adv-p-pitcher')?.value ? [document.getElementById('adv-p-pitcher').value] : []);
   const sheets = ids.map(id=>resolvePitcherPacket(id)).filter(Boolean);
-  // Print/PDF/ZIP: lineup-card pitchers only (SP + eligible pen), even if all are checked.
-  const hasCardFilter = sheets.some((p) => {
+  // Print/PDF/ZIP: official active-roster pitchers only (even if every box is checked).
+  const hasRosterFilter = sheets.some((p) => {
     const team = String(p.team || '').toUpperCase();
-    return team && onePageCardPitcherIndex(team).ids.length > 0;
+    return team && (
+      officialActivePitcherIndex(team).ids.length > 0
+      || onePageCardPitcherIndex(team).ids.length > 0
+    );
   });
-  if(!hasCardFilter) return sheets;
-  return sheets.filter(pitcherAdvancePacketOnCard);
+  if(!hasRosterFilter) return sheets;
+  return sheets.filter(pitcherAdvanceOnActiveRoster);
 }
 function exportAdvanceZip(){
   beginAdvancePrintZipExport({
@@ -4410,7 +4416,7 @@ function exportAdvanceZip(){
     mode: 'zip',
     openPrint: ()=> exportAdvancePdf(),
     entries: ()=> selectedPitcherAdvanceSheets().map(p=>({ team: p.team||'TEAM', name: p.name })),
-    emptyAlert: 'No lineup-card pitchers to export. Select pitchers who are on today’s strategy card (SP + pen), or set the card first.',
+    emptyAlert: 'No official active-roster pitchers to export. Filter to a team with an official roster, or select active pitchers only.',
   });
 }
 function exportAdvancePdfsIndividually(){
@@ -4420,7 +4426,7 @@ function exportAdvancePdfsIndividually(){
     mode: 'zip',
     openPrint: ()=> exportAdvancePdf(),
     entries: ()=> selectedPitcherAdvanceSheets().map(p=>({ team: p.team||'TEAM', name: p.name })),
-    emptyAlert: 'No lineup-card pitchers to export. Select pitchers who are on today’s strategy card (SP + pen), or set the card first.',
+    emptyAlert: 'No official active-roster pitchers to export. Filter to a team with an official roster, or select active pitchers only.',
   });
 }
 async function exportArmSlotZip(){
@@ -7187,6 +7193,54 @@ function exportBullpenPdf(){
 function onePageNormName(s){
   return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
+/** Official active-roster pitchers (excludes EXTRAS-INACTIVOS) for advance PDF export. */
+function officialActivePitcherIndex(team){
+  const abbr = String(team || '').toUpperCase();
+  const rows = (CACHE.officialActivePitchers && CACHE.officialActivePitchers.teams && CACHE.officialActivePitchers.teams[abbr]) || [];
+  if(!rows.length) return { ids: [], byId: new Map(), byName: new Map() };
+  const byId = new Map();
+  const byName = new Map();
+  const ids = [];
+  rows.forEach((row, order) => {
+    const id = Number(row && row.id);
+    if(Number.isFinite(id)){
+      ids.push(id);
+      byId.set(id, order);
+    }
+    const nk = onePageNormName(row && row.name);
+    if(nk && !byName.has(nk)) byName.set(nk, order);
+  });
+  return { ids, byId, byName };
+}
+function officialActivePitcherRank(p, index){
+  if(!index || !index.ids.length) return null;
+  const ids = [p && p.mlb_id, p && p.player_id, p && p.id]
+    .map((v) => (v == null || v === '' ? NaN : Number(v)))
+    .filter((id) => Number.isFinite(id));
+  for(const id of ids){
+    if(index.byId.has(id)) return index.byId.get(id);
+  }
+  const nk = onePageNormName(p && p.name);
+  if(nk && index.byName.has(nk)) return index.byName.get(nk);
+  return null;
+}
+/** True when this advance pitcher is on the official active roster for their team. */
+function pitcherAdvanceOnActiveRoster(p){
+  if(!p) return false;
+  const team = String(p.team || '').toUpperCase();
+  if(!team) return false;
+  const official = officialActivePitcherIndex(team);
+  if(official.ids.length) return officialActivePitcherRank(p, official) != null;
+  // Fallback when we have no official doc for this team: strategy card SP+pen.
+  const card = onePageCardPitcherIndex(team);
+  if(card.ids.length) return onePageCardRank(p, card) != null;
+  // Last resort: cardStats active_roster flag when present.
+  const cards = (CACHE.cardStats && CACHE.cardStats.players) || [];
+  const ids = [p.mlb_id, p.player_id, p.id].map(Number).filter(Number.isFinite);
+  const hit = cards.find((c) => c.team === team && c.role === 'P' && ids.includes(Number(c.id)));
+  if(hit && typeof hit.active_roster === 'boolean') return hit.active_roster;
+  return true;
+}
 /** Lineup-card pitchers (SP + eligible pen) for one-page order / print filter. */
 function onePageCardPitcherIdsFromGameDay(team){
   const abbr = String(team || '').toUpperCase();
@@ -7483,8 +7537,9 @@ Promise.all([
   fetch('data/roster_change_alert.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/positioning_v2.json?v='+ASSET_V).then(r=>r.json()).catch(()=>null),
   fetch('data/game_day_state.json?v='+ASSET_V+'&t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
-]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes, rosterAlert, positioningSeed, gameDayState])=>{
-  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes: onePageNotes || {notes:{}}, rosterAlert, positioningSeed, gameDayState};
+  fetch('data/official_active_pitchers.json?v='+ASSET_V).then(r=>r.ok?r.json():null).catch(()=>null),
+]).then(async ([_media, lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes, rosterAlert, positioningSeed, gameDayState, officialActivePitchers])=>{
+  CACHE={lineup, matchup, hvp, br, spray, fps, arsenals, advanceRodriguez, advancePitchers, advanceHitters, advanceHeatmaps, tth, ofArms, cardStats, bullpenUsage, bullpenUsageTest, pitcherOnePage, onePageNotes: onePageNotes || {notes:{}}, rosterAlert, positioningSeed, gameDayState, officialActivePitchers: officialActivePitchers || {teams:{}}};
   hydrateSpraySynergyFromAdvance();
   // CardApp must boot before GameDayPersist/PosApp refresh paths touch strategy lineups
   // (those call CardApp.getLineupIds → roster → DATA.players).
