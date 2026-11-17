@@ -58,13 +58,6 @@
     },
     {
       "team": "CAG",
-      "name": "Edwin Sanchez",
-      "id": 688014,
-      "arm_slot_image": "assets/advance/sanchez_edwin_delivery.jpg",
-      "arsenal_image": null
-    },
-    {
-      "team": "CAG",
       "name": "Carlos Torres",
       "id": 688876,
       "arm_slot_image": "assets/advance/torres_carlos_delivery.jpg",
@@ -428,7 +421,7 @@
       "arsenal_image": null
     }
   ],
-  "missing_count": 62,
+  "missing_count": 63,
   "missing": [
     {
       "team": "SAN",
@@ -861,6 +854,13 @@
       "team": "SJU",
       "name": "Keishin Saito",
       "id": -322791781,
+      "arm_slot_image": null,
+      "arsenal_image": null
+    },
+    {
+      "team": "CAG",
+      "name": "Edwin Sanchez",
+      "id": 688014,
       "arm_slot_image": null,
       "arsenal_image": null
     }
