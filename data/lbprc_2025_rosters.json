@@ -507,7 +507,7 @@
       {
         "id": 663708,
         "name": "Gabriel Cancel",
-        "position": "SS",
+        "position": "INF",
         "jersey": "28",
         "status": "Active"
       },
@@ -584,7 +584,7 @@
       {
         "id": 811314,
         "name": "Bryan Gonzalez Garcia",
-        "position": "C",
+        "position": "INF/C",
         "jersey": "67",
         "status": "Active"
       },
@@ -605,7 +605,7 @@
       {
         "id": 605353,
         "name": "Vimael Machin",
-        "position": "UTL",
+        "position": "INF",
         "jersey": "25",
         "status": "Active"
       },
@@ -619,14 +619,14 @@
       {
         "id": 828116,
         "name": "Gustavo Melendez",
-        "position": "SS",
+        "position": "INF",
         "jersey": "37",
         "status": "Active"
       },
       {
         "id": 811368,
         "name": "Jose Miranda",
-        "position": "3B",
+        "position": "INF",
         "jersey": "64",
         "status": "Active"
       },
@@ -724,7 +724,7 @@
       {
         "id": 676679,
         "name": "Luis Vazquez",
-        "position": "SS",
+        "position": "INF",
         "jersey": "8",
         "status": "Active"
       },
@@ -738,7 +738,7 @@
       {
         "id": 676369,
         "name": "Nelson Velazquez",
-        "position": "RF",
+        "position": "OF",
         "jersey": "6",
         "status": "Active"
       },
@@ -888,14 +888,14 @@
       {
         "id": 695506,
         "name": "Jeffrey Caglianone",
-        "position": "1B",
+        "position": "OF",
         "jersey": "55",
         "status": "Active"
       },
       {
         "id": 694754,
         "name": "Sabin Ceballos",
-        "position": "3B",
+        "position": "INF",
         "jersey": "25",
         "status": "Active"
       },
@@ -909,7 +909,7 @@
       {
         "id": 641521,
         "name": "Edwin Diaz",
-        "position": "SS",
+        "position": "INF",
         "jersey": "14",
         "status": "Active"
       },
@@ -951,14 +951,14 @@
       {
         "id": 571771,
         "name": "Enrique Hernandez",
-        "position": "SS",
+        "position": "OF",
         "jersey": "8",
         "status": "Active"
       },
       {
         "id": 681515,
         "name": "Kenen Irizarry",
-        "position": "IF",
+        "position": "INF",
         "jersey": "43",
         "status": "Active"
       },
@@ -1000,7 +1000,7 @@
       {
         "id": -654236427,
         "name": "Christian Olivo",
-        "position": "SS",
+        "position": "INF",
         "jersey": "3",
         "status": "Active"
       },
@@ -1014,14 +1014,14 @@
       {
         "id": 687567,
         "name": "Jorel Ortega",
-        "position": "2B",
+        "position": "INF",
         "jersey": "9",
         "status": "Active"
       },
       {
         "id": 694673,
         "name": "Abimelec Ortiz",
-        "position": "1B",
+        "position": "OF",
         "jersey": "16",
         "status": "Active"
       },
@@ -1042,7 +1042,7 @@
       {
         "id": 682196,
         "name": "Miguel Pabon",
-        "position": "SS",
+        "position": "C",
         "jersey": "48",
         "status": "Active"
       },
@@ -1063,7 +1063,7 @@
       {
         "id": 703641,
         "name": "Adrian Rodriguez",
-        "position": "IF",
+        "position": "INF",
         "jersey": "2",
         "status": "Active"
       },
@@ -1077,7 +1077,7 @@
       {
         "id": 671286,
         "name": "Johnathan Rodriguez",
-        "position": "RF",
+        "position": "OF",
         "jersey": "32",
         "status": "Active"
       },
@@ -1098,7 +1098,7 @@
       {
         "id": -213606773,
         "name": "Jose Silva",
-        "position": "SS",
+        "position": "C",
         "jersey": "6",
         "status": "Active"
       },
@@ -1225,7 +1225,7 @@
         "id": -3872462934,
         "name": "Alexander Castro",
         "position": "P",
-        "jersey": "",
+        "jersey": "36",
         "status": "Active",
         "source": "ligapr_equipo_sync"
       },
@@ -1236,6 +1236,86 @@
         "jersey": "",
         "status": "Active",
         "source": "ligapr_equipo_sync"
+      },
+      {
+        "id": 805834,
+        "name": "Javier Vaz",
+        "position": "OF",
+        "jersey": "29",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": 827613,
+        "name": "Derek Datil",
+        "position": "OF",
+        "jersey": "29",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": 813939,
+        "name": "Jan Luis Reyes",
+        "position": "OF",
+        "jersey": "18",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -446077897,
+        "name": "Juriel Collazo",
+        "position": "OF",
+        "jersey": "96",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -447985565,
+        "name": "Danandres Colon",
+        "position": "OF",
+        "jersey": "80",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -128544611,
+        "name": "Aiden Ruiz",
+        "position": "INF",
+        "jersey": "42",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -782739257,
+        "name": "Luis Almeyda",
+        "position": "INF",
+        "jersey": "97",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -176877749,
+        "name": "Bryan Marrero",
+        "position": "P",
+        "jersey": "73",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -846284267,
+        "name": "Pitterson Rosa",
+        "position": "P",
+        "jersey": "68",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": -894470771,
+        "name": "Nathan Torres",
+        "position": "P",
+        "jersey": "67",
+        "status": "Active",
+        "source": "official_roster_nov16"
       }
     ]
   },
@@ -1289,7 +1369,7 @@
       {
         "id": -161299452,
         "name": "Javier Crespo",
-        "position": "INF",
+        "position": "UTL",
         "jersey": "56",
         "status": "Active"
       },
@@ -1317,14 +1397,14 @@
       {
         "id": 656371,
         "name": "Isan Diaz",
-        "position": "2B",
+        "position": "INF",
         "jersey": "28",
         "status": "Active"
       },
       {
         "id": 666128,
         "name": "Mario Feliciano",
-        "position": "C",
+        "position": "C/INF",
         "jersey": "14",
         "status": "Active"
       },
@@ -1359,7 +1439,7 @@
       {
         "id": -840209350,
         "name": "Jamal George",
-        "position": "INF",
+        "position": "C",
         "jersey": "57",
         "status": "Active"
       },
@@ -1417,7 +1497,7 @@
       {
         "id": 683090,
         "name": "Matthew Lugo",
-        "position": "LF",
+        "position": "OF",
         "jersey": "6",
         "status": "Active"
       },
@@ -1438,14 +1518,14 @@
       {
         "id": -229984899,
         "name": "Yahil Melendez",
-        "position": "SS",
+        "position": "UTL",
         "jersey": "76",
         "status": "Active"
       },
       {
         "id": 680107,
         "name": "Roberto Merced",
-        "position": "IF",
+        "position": "INF",
         "jersey": "10",
         "status": "Active"
       },
@@ -1480,7 +1560,7 @@
       {
         "id": 621458,
         "name": "Edwin Rios",
-        "position": "3B",
+        "position": "INF",
         "jersey": "43",
         "status": "Active"
       },
@@ -1494,14 +1574,14 @@
       {
         "id": 656896,
         "name": "Emmanuel Rivera",
-        "position": "3B",
+        "position": "INF",
         "jersey": "26",
         "status": "Active"
       },
       {
         "id": 592680,
         "name": "Yadiel Rivera",
-        "position": "3B",
+        "position": "INF",
         "jersey": "32",
         "status": "Active"
       },
@@ -1630,7 +1710,7 @@
         "id": -3554043138,
         "name": "Luis Quiñones",
         "position": "P",
-        "jersey": "",
+        "jersey": "51",
         "status": "Active",
         "source": "ligapr_equipo_sync"
       },
@@ -1661,10 +1741,26 @@
       {
         "id": -1082299000,
         "name": "Edison Mora>",
-        "position": "IF",
-        "jersey": "",
+        "position": "OF",
+        "jersey": "16",
         "status": "Active",
         "source": "ligapr_equipo_sync"
+      },
+      {
+        "id": 691449,
+        "name": "Roberto Campos",
+        "position": "OF",
+        "jersey": "63",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": 814477,
+        "name": "Luke Stofel",
+        "position": "P",
+        "jersey": "64",
+        "status": "Active",
+        "source": "official_roster_nov16"
       }
     ]
   },
@@ -1683,7 +1779,7 @@
       {
         "id": 701360,
         "name": "Chris Arroyo",
-        "position": "1B",
+        "position": "INF",
         "jersey": "10",
         "status": "Active"
       },
@@ -1697,7 +1793,7 @@
       {
         "id": 664757,
         "name": "Aldemar Burgos",
-        "position": "CF",
+        "position": "OF",
         "jersey": "16",
         "status": "Active"
       },
@@ -1760,7 +1856,7 @@
       {
         "id": 702596,
         "name": "Yeniel Laboy",
-        "position": "3B",
+        "position": "INF",
         "jersey": "5",
         "status": "Active"
       },
@@ -1809,7 +1905,7 @@
       {
         "id": 681868,
         "name": "Ezequiel Pagan",
-        "position": "CF",
+        "position": "OF",
         "jersey": "25",
         "status": "Active"
       },
@@ -1865,7 +1961,7 @@
       {
         "id": 667576,
         "name": "Kevin Santa",
-        "position": "IF",
+        "position": "INF",
         "jersey": "3",
         "status": "Active"
       },
@@ -1928,7 +2024,7 @@
       {
         "id": 621044,
         "name": "Jesmuel Valentin",
-        "position": "2B",
+        "position": "INF",
         "jersey": "2",
         "status": "Active"
       },
@@ -1942,14 +2038,14 @@
       {
         "id": 813851,
         "name": "Colton Becker",
-        "position": "INF",
+        "position": "INF/OF",
         "jersey": "32",
         "status": "Active"
       },
       {
         "id": 689456,
         "name": "Austin Murr",
-        "position": "OF",
+        "position": "OF/1B",
         "jersey": "55",
         "status": "Active"
       },
@@ -1984,7 +2080,7 @@
       {
         "id": 806176,
         "name": "Jose Ortiz",
-        "position": "OF",
+        "position": "C",
         "jersey": "37",
         "status": "Active"
       },
@@ -2005,7 +2101,7 @@
       {
         "id": 703638,
         "name": "Jankel Ortiz",
-        "position": "SS",
+        "position": "INF",
         "jersey": "13",
         "status": "Active"
       },
@@ -2083,7 +2179,7 @@
       {
         "id": 695538,
         "name": "Randal Diaz",
-        "position": "SS",
+        "position": "INF/C",
         "jersey": "48",
         "status": "Active"
       },
@@ -2153,7 +2249,7 @@
       {
         "id": 666206,
         "name": "Delvin Perez",
-        "position": "SS",
+        "position": "INF",
         "jersey": "1",
         "status": "Active"
       },
@@ -2216,7 +2312,7 @@
       {
         "id": 689909,
         "name": "Jadiel Sanchez",
-        "position": "RF",
+        "position": "OF",
         "jersey": "20",
         "status": "Active"
       },
@@ -2293,14 +2389,14 @@
       {
         "id": 670582,
         "name": "Yariel Gonzalez",
-        "position": "3B",
+        "position": "INF",
         "jersey": "5",
         "status": "Active"
       },
       {
         "id": 806128,
         "name": "Antonio Jimenez",
-        "position": "SS",
+        "position": "INF",
         "jersey": "61",
         "status": "Active"
       },
@@ -2314,7 +2410,7 @@
       {
         "id": 693049,
         "name": "Oscar Colas",
-        "position": "INF",
+        "position": "INF/OF",
         "jersey": "55",
         "status": "Active"
       },
@@ -2393,6 +2489,30 @@
         "jersey": "",
         "status": "Active",
         "source": "ligapr_equipo_sync"
+      },
+      {
+        "id": -749711412,
+        "name": "Matt Mcdermott",
+        "position": "INF/OF",
+        "jersey": "36",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": 621343,
+        "name": "Matt Tenuta",
+        "position": "P",
+        "jersey": "14",
+        "status": "Active",
+        "source": "official_roster_nov16"
+      },
+      {
+        "id": 621248,
+        "name": "Ralph Garza Jr.",
+        "position": "P",
+        "jersey": "33",
+        "status": "Active",
+        "source": "official_roster_nov16"
       }
     ]
   }

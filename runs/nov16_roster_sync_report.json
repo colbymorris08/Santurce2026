@@ -1,0 +1,595 @@
+{
+  "updated": "2026-11-17T02:49:38Z",
+  "official_active_counts": {
+    "CAG": 35,
+    "CAR": 60,
+    "MAY": 40,
+    "PON": 35,
+    "SJU": 35
+  },
+  "true_additions": [
+    {
+      "team": "CAR",
+      "name": "Javier Vaz",
+      "id": 805834,
+      "pos": "OF",
+      "jersey": "29",
+      "mlb_id": 805834,
+      "cls": "AAA"
+    },
+    {
+      "team": "CAR",
+      "name": "Derek Datil",
+      "id": 827613,
+      "pos": "OF",
+      "jersey": "29",
+      "mlb_id": 827613,
+      "cls": "FA"
+    },
+    {
+      "team": "CAR",
+      "name": "Jan Luis Reyes",
+      "id": 813939,
+      "pos": "OF",
+      "jersey": "18",
+      "mlb_id": 813939,
+      "cls": "R"
+    },
+    {
+      "team": "CAR",
+      "name": "Juriel Collazo",
+      "id": -446077897,
+      "pos": "OF",
+      "jersey": "96",
+      "mlb_id": null,
+      "cls": "R"
+    },
+    {
+      "team": "CAR",
+      "name": "Danandres Colon",
+      "id": -447985565,
+      "pos": "OF",
+      "jersey": "80",
+      "mlb_id": null,
+      "cls": "R"
+    },
+    {
+      "team": "CAR",
+      "name": "Aiden Ruiz",
+      "id": -128544611,
+      "pos": "INF",
+      "jersey": "42",
+      "mlb_id": null,
+      "cls": "R"
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Almeyda",
+      "id": -782739257,
+      "pos": "INF",
+      "jersey": "97",
+      "mlb_id": null,
+      "cls": "A"
+    },
+    {
+      "team": "CAR",
+      "name": "Bryan Marrero",
+      "id": -176877749,
+      "pos": "P",
+      "jersey": "73",
+      "mlb_id": null,
+      "cls": "FA"
+    },
+    {
+      "team": "CAR",
+      "name": "Pitterson Rosa",
+      "id": -846284267,
+      "pos": "P",
+      "jersey": "68",
+      "mlb_id": null,
+      "cls": "A"
+    },
+    {
+      "team": "CAR",
+      "name": "Nathan Torres",
+      "id": -894470771,
+      "pos": "P",
+      "jersey": "67",
+      "mlb_id": null,
+      "cls": "FA"
+    },
+    {
+      "team": "MAY",
+      "name": "Roberto Campos",
+      "id": 691449,
+      "pos": "OF",
+      "jersey": "63",
+      "mlb_id": 691449,
+      "cls": "RK"
+    },
+    {
+      "team": "MAY",
+      "name": "Luke Stofel",
+      "id": 814477,
+      "pos": "P",
+      "jersey": "64",
+      "mlb_id": 814477,
+      "cls": "A"
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Mcdermott",
+      "id": -749711412,
+      "pos": "INF/OF",
+      "jersey": "36",
+      "mlb_id": null,
+      "cls": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Tenuta",
+      "id": 621343,
+      "pos": "P",
+      "jersey": "14",
+      "mlb_id": 621343,
+      "cls": ""
+    },
+    {
+      "team": "SJU",
+      "name": "Ralph Garza Jr.",
+      "id": 621248,
+      "pos": "P",
+      "jersey": "33",
+      "mlb_id": 621248,
+      "cls": ""
+    }
+  ],
+  "true_addition_count": 15,
+  "fill_report": [
+    {
+      "team": "CAR",
+      "name": "Javier Vaz",
+      "id": 805834,
+      "pos": "OF",
+      "sources": {
+        "mlb_aaa": false,
+        "spring": false,
+        "wbc": false,
+        "card_rates": false
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Derek Datil",
+      "id": 827613,
+      "pos": "OF",
+      "sources": {
+        "mlb_aaa": false,
+        "spring": false,
+        "wbc": false,
+        "card_rates": false
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Jan Luis Reyes",
+      "id": 813939,
+      "pos": "OF",
+      "sources": {
+        "mlb_aaa": false,
+        "spring": false,
+        "wbc": false,
+        "card_rates": false
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Juriel Collazo",
+      "id": -446077897,
+      "pos": "OF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Danandres Colon",
+      "id": -447985565,
+      "pos": "OF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Aiden Ruiz",
+      "id": -128544611,
+      "pos": "INF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Almeyda",
+      "id": -782739257,
+      "pos": "INF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Bryan Marrero",
+      "id": -176877749,
+      "pos": "P",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Pitterson Rosa",
+      "id": -846284267,
+      "pos": "P",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "CAR",
+      "name": "Nathan Torres",
+      "id": -894470771,
+      "pos": "P",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "MAY",
+      "name": "Roberto C Campos",
+      "id": -231175826,
+      "pos": "OF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "MAY",
+      "name": "Luke Stofel",
+      "id": 814477,
+      "pos": "P",
+      "sources": {
+        "mlb_aaa": false,
+        "prospect_savant": true,
+        "statcast": true,
+        "wbc": false,
+        "spring": false,
+        "card_rates": false,
+        "arsenal": true
+      },
+      "card_rates": false,
+      "arsenal": true
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Mcdermott",
+      "id": -749711412,
+      "pos": "INF/OF",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Tenuta",
+      "id": 621343,
+      "pos": "P",
+      "sources": {
+        "mlb_aaa": false,
+        "prospect_savant": false,
+        "statcast": false,
+        "wbc": false,
+        "spring": false,
+        "card_rates": false,
+        "arsenal": false
+      },
+      "card_rates": false,
+      "arsenal": false
+    },
+    {
+      "team": "SJU",
+      "name": "Ralph Garza",
+      "id": -138069126,
+      "pos": "P",
+      "sources": {
+        "note": "no MLB id — stub only"
+      },
+      "card_rates": false,
+      "arsenal": false
+    }
+  ],
+  "coverage_summary": {
+    "additions": 15,
+    "with_mlb_id": 7,
+    "with_card_rates": 4,
+    "with_arsenal_or_movement": 1,
+    "stub_no_mlb_id": 8
+  },
+  "san_prior_task": {
+    "chapman_on_roster": true,
+    "castro_on_roster": true,
+    "carrero_on_roster": true,
+    "braithwaite_released": true
+  },
+  "refill_results": [
+    {
+      "team": "CAR",
+      "name": "Javier Vaz",
+      "id": 805834,
+      "role": "H",
+      "rates": true,
+      "src": "Spring 2025 MLB",
+      "arsenal": false,
+      "tags": [
+        [
+          8,
+          "Spring 2025 MLB"
+        ]
+      ]
+    },
+    {
+      "team": "CAR",
+      "name": "Derek Datil",
+      "id": 827613,
+      "role": "H",
+      "rates": false,
+      "src": null,
+      "arsenal": false,
+      "tags": []
+    },
+    {
+      "team": "CAR",
+      "name": "Jan Luis Reyes",
+      "id": 813939,
+      "role": "H",
+      "rates": false,
+      "src": null,
+      "arsenal": false,
+      "tags": []
+    },
+    {
+      "team": "MAY",
+      "name": "Luke Stofel",
+      "id": 814477,
+      "role": "P",
+      "rates": false,
+      "src": null,
+      "arsenal": true,
+      "tags": []
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Tenuta",
+      "id": 621343,
+      "role": "P",
+      "rates": false,
+      "src": null,
+      "arsenal": false,
+      "tags": []
+    },
+    {
+      "team": "SJU",
+      "name": "Ralph Garza Jr.",
+      "id": 621248,
+      "role": "P",
+      "rates": false,
+      "src": null,
+      "arsenal": false,
+      "tags": []
+    },
+    {
+      "team": "MAY",
+      "name": "Roberto Campos",
+      "id": 691449,
+      "role": "H",
+      "rates": true,
+      "src": "Spring 2025 MLB",
+      "arsenal": false,
+      "tags": [
+        [
+          12,
+          "Spring 2025 MLB"
+        ],
+        [
+          8,
+          "Spring 2023 MLB"
+        ]
+      ]
+    }
+  ],
+  "fill_report_final": [
+    {
+      "team": "CAR",
+      "name": "Javier Vaz",
+      "id": 805834,
+      "pos": "OF",
+      "card_rates": true,
+      "src": "Spring 2025 MLB",
+      "arsenal": false,
+      "mlb_id": 805834
+    },
+    {
+      "team": "CAR",
+      "name": "Derek Datil",
+      "id": 827613,
+      "pos": "OF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": 827613
+    },
+    {
+      "team": "CAR",
+      "name": "Jan Luis Reyes",
+      "id": 813939,
+      "pos": "OF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": 813939
+    },
+    {
+      "team": "CAR",
+      "name": "Juriel Collazo",
+      "id": -446077897,
+      "pos": "OF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Danandres Colon",
+      "id": -447985565,
+      "pos": "OF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Aiden Ruiz",
+      "id": -128544611,
+      "pos": "INF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Luis Almeyda",
+      "id": -782739257,
+      "pos": "INF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Bryan Marrero",
+      "id": -176877749,
+      "pos": "P",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Pitterson Rosa",
+      "id": -846284267,
+      "pos": "P",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "CAR",
+      "name": "Nathan Torres",
+      "id": -894470771,
+      "pos": "P",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "MAY",
+      "name": "Roberto Campos",
+      "id": 691449,
+      "pos": "OF",
+      "card_rates": true,
+      "src": "Spring 2025 MLB",
+      "arsenal": false,
+      "mlb_id": 691449
+    },
+    {
+      "team": "MAY",
+      "name": "Luke Stofel",
+      "id": 814477,
+      "pos": "P",
+      "card_rates": true,
+      "src": "Prospect Savant 2025 (whiff/movement; no StatsAPI season line)",
+      "arsenal": true,
+      "mlb_id": 814477
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Mcdermott",
+      "id": -749711412,
+      "pos": "INF/OF",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": null
+    },
+    {
+      "team": "SJU",
+      "name": "Matt Tenuta",
+      "id": 621343,
+      "pos": "P",
+      "card_rates": false,
+      "src": null,
+      "arsenal": false,
+      "mlb_id": 621343
+    },
+    {
+      "team": "SJU",
+      "name": "Ralph Garza Jr.",
+      "id": 621248,
+      "pos": "P",
+      "card_rates": true,
+      "src": "Summer 2022 MLB",
+      "arsenal": false,
+      "mlb_id": 621248
+    }
+  ],
+  "san_game_day": {
+    "date": "2026-11-17",
+    "sp": 605446,
+    "pen_has_chapman": true,
+    "braithwaite_gone": true,
+    "bench_has_castro": true,
+    "bench_has_carrero": true
+  }
+}
