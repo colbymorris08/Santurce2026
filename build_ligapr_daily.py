@@ -1155,10 +1155,96 @@ def sync_rosters_from_equipo(
     return alert
 
 
+def name_parts(value: str) -> list[str]:
+    """Ordered name tokens (jr/sr stripped). Surname = last part."""
+    raw = unicodedata.normalize("NFKD", value or "")
+    raw = "".join(c for c in raw if not unicodedata.combining(c))
+    raw = re.sub(r"\s*\([^)]*\)\s*", " ", raw)
+    raw = re.sub(r"[*^]+", " ", raw)
+    raw = re.sub(r"\b(jr|sr|ii|iii|iv)\b\.?", " ", raw, flags=re.I)
+    parts = [re.sub(r"[^a-z0-9]", "", p.lower()) for p in raw.split()]
+    parts = [p for p in parts if len(p) >= 2]
+    if parts:
+        return parts
+    key = norm_name(value)
+    return [key] if key else []
+
+
+def _fold_token(value: str) -> str:
+    """Collapse repeated letters so Johnneswy ≈ Johneswy."""
+    return re.sub(r"(.)\1+", r"\1", value or "")
+
+
+def _tokens_similar(a: str, b: str) -> bool:
+    if not a or not b:
+        return False
+    if a == b or a.startswith(b) or b.startswith(a):
+        return True
+    # Prefixed nicknames / spelling drift before folding doubles:
+    # Danny/Daniel, Eddie/Eddy, Quiñones/Quinonez
+    if a[:3] == b[:3]:
+        return True
+    fa, fb = _fold_token(a), _fold_token(b)
+    if fa == fb or fa.startswith(fb) or fb.startswith(fa):
+        return True
+    return fa[:3] == fb[:3]
+
+
+def lookup_equipo_row(
+    index: dict[Any, dict[str, Any]],
+    team: str | None,
+    name: str,
+) -> dict[str, Any] | None:
+    """Exact team+name, then name-only, then fuzzy token / prefix match on team."""
+    key = norm_name(name)
+    row = index.get((team, key)) or index.get(key)
+    if row:
+        return row
+    parts = name_parts(name)
+    if not parts:
+        return None
+    tokens = set(parts)
+    last_a = parts[-1]
+    first_a = parts[0]
+    candidates: list[dict[str, Any]] = []
+    for k, src in index.items():
+        if not isinstance(k, tuple) or len(k) != 2:
+            continue
+        abbr, _nk = k
+        if team and abbr != team:
+            continue
+        src_parts = name_parts(src.get("name") or "")
+        if not src_parts:
+            continue
+        src_tokens = set(src_parts)
+        # Same token set (order-insensitive: Narita Haruse / Yuta Nakami)
+        if tokens == src_tokens:
+            candidates.append(src)
+            continue
+        # Shared surname + first-token prefix (Jarret/Jarrett, Freddie/Freddy,
+        # Eddy/Eddie, Quiñones/Quinonez, Robbie/Roberto, Rey/Reymond)
+        last_b = src_parts[-1]
+        first_b = src_parts[0]
+        if _tokens_similar(last_a, last_b) and _tokens_similar(first_a, first_b):
+            candidates.append(src)
+    # Dedup by identity
+    uniq: list[dict[str, Any]] = []
+    seen: set[int] = set()
+    for c in candidates:
+        i = id(c)
+        if i in seen:
+            continue
+        seen.add(i)
+        uniq.append(c)
+    if len(uniq) == 1:
+        return uniq[0]
+    return None
+
+
 def attach_winter_lines(equipo: dict[str, dict[str, list[dict[str, Any]]]]) -> None:
     """Attach lbprc_line / winter_line onto advance opposing packets."""
-    h_by = {}
-    p_by = {}
+    h_by: dict[Any, dict[str, Any]] = {}
+    p_by: dict[Any, dict[str, Any]] = {}
     for abbr, buckets in equipo.items():
         for row in buckets.get("hitters") or []:
             h_by[(abbr, norm_name(row["name"]))] = row
@@ -1191,8 +1277,7 @@ def attach_winter_lines(equipo: dict[str, dict[str, list[dict[str, Any]]]]) -> N
     if isinstance(hitters_doc, dict) and hitters_doc.get("hitters"):
         n = 0
         for h in hitters_doc["hitters"]:
-            key = norm_name(h.get("name") or "")
-            row = h_by.get((h.get("team"), key)) or h_by.get(key)
+            row = lookup_equipo_row(h_by, h.get("team"), h.get("name") or "")
             if not row:
                 h["lbprc_line"] = h.get("lbprc_line")  # keep prior
                 continue
@@ -1228,6 +1313,7 @@ def attach_winter_lines(equipo: dict[str, dict[str, list[dict[str, Any]]]]) -> N
             h["winter_line"] = line
             n += 1
         hitters_doc["lbprc_line_updated"] = now_iso()
+        # Hitters packet is large (spray points) — keep compact on disk.
         write_json("advance_opposing_hitters.json", hitters_doc, compact=True)
         print(f"  attached winter lines to {n} hitters")
 
@@ -1235,8 +1321,7 @@ def attach_winter_lines(equipo: dict[str, dict[str, list[dict[str, Any]]]]) -> N
     if isinstance(pitchers_doc, dict) and pitchers_doc.get("pitchers"):
         n = 0
         for p in pitchers_doc["pitchers"]:
-            key = norm_name(p.get("name") or "")
-            row = p_by.get((p.get("team"), key)) or p_by.get(key)
+            row = lookup_equipo_row(p_by, p.get("team"), p.get("name") or "")
             if not row:
                 continue
             line = {
@@ -1269,7 +1354,7 @@ def attach_winter_lines(equipo: dict[str, dict[str, list[dict[str, Any]]]]) -> N
             p["winter_line"] = line
             n += 1
         pitchers_doc["lbprc_line_updated"] = now_iso()
-        write_json("advance_opposing_pitchers.json", pitchers_doc, compact=True)
+        write_json("advance_opposing_pitchers.json", pitchers_doc)
         print(f"  attached winter lines to {n} pitchers")
 
 

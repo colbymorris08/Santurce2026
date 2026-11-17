@@ -571,7 +571,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san287';
+const ASSET_V = 'san288';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -3304,6 +3304,8 @@ function scaffoldPitcherPacket(row){
     ? countMixPairs(overallMix)
     : arsenal.slice(0,5).map(a=>[a.code, a.usage!=null?Number(a.usage):null]);
   const summer_line = row.summer_line || pitcherSummerLineFor(mlbId, row.synergy_id, row.name, row.team);
+  const winter_line = row.lbprc_line || row.winter_line
+    || pitcherWinterLineFor(mlbId, row.synergy_id, row.name, row.team);
   return {
     name: row.name,
     mlb_id: mlbId,
@@ -3312,6 +3314,8 @@ function scaffoldPitcherPacket(row){
     bio: `${handLabel} · ${row.team||'—'}`,
     subtitle: `${handLabel} · ${row.team||'—'}`,
     summer_line,
+    lbprc_line: winter_line,
+    winter_line,
     arsenal,
     count_hand_mix: buildCountHandMixFromRow(row),
     short_vs_rhh: {
@@ -3528,7 +3532,7 @@ function hitterSummerBarHtml(h){
     </table>
   </div>`;
 }
-function pitcherSummerLineFor(pOrId, synergyId, name, team){
+function advancePitcherRowFor(pOrId, synergyId, name, team){
   const rows = CACHE.advancePitchers?.pitchers || [];
   if(!rows.length) return null;
   const packet = (pOrId && typeof pOrId === 'object') ? pOrId : null;
@@ -3549,7 +3553,16 @@ function pitcherSummerLineFor(pOrId, synergyId, name, team){
     row = rows.find(r => String(r.name || '').toLowerCase() === needle && (!tm || String(r.team || '') === String(tm)));
     if(!row) row = rows.find(r => String(r.name || '').toLowerCase() === needle);
   }
-  return row?.summer_line || null;
+  return row || null;
+}
+function pitcherSummerLineFor(pOrId, synergyId, name, team){
+  return advancePitcherRowFor(pOrId, synergyId, name, team)?.summer_line || null;
+}
+/** Current 2026-27 LBPRC winter line (advance stats-bar row 2). */
+function pitcherWinterLineFor(pOrId, synergyId, name, team){
+  const row = advancePitcherRowFor(pOrId, synergyId, name, team);
+  if(!row) return null;
+  return row.lbprc_line || row.winter_line || null;
 }
 function pitcherSeasonRowCells(line, dash){
   const num = (v) => (v==null || v==='') ? dash : String(v);
@@ -3587,7 +3600,7 @@ function pitcherSummerBarHtml(p){
   const dash = '—';
   const picked = pickAdvanceSeasonBarLines(
     p.summer_line || pitcherSummerLineFor(p),
-    p.lbprc_line || p.winter_line || null
+    p.lbprc_line || p.winter_line || pitcherWinterLineFor(p)
   );
   const cols = pitcherSeasonRowCells(picked.summer, dash);
   const winterCols = pitcherSeasonRowCells(picked.winter, dash);
