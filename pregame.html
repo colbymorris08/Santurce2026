@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san282">
+<link rel="stylesheet" href="shared.css?v=san283">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -131,7 +131,7 @@
         <button type="button" class="btn" onclick="exportAllPitcherMedia()" title="Download every delivery + movement upload stored in this browser so they can be committed to GitHub">Export uploads → JSON</button>
       </div>
       <div id="adv-p-export-list" class="advance-export-list" aria-label="Pitchers for PDF export (A–Z by last name)"></div>
-      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name (full staff for the filtered team). <strong>Print / PDF / ZIP export = official active-roster pitchers only</strong> (latest LBPRC roster doc; excludes EXTRAS-INACTIVOS), even if every box is checked. Teams without an official list fall back to today’s strategy SP + pen. PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same mass PDF, split with copy-pages (same size as print, not re-laid-out) into <code>TEAM/Last_First.pdf</code> packed in one ZIP. Optional <b>Save next</b> downloads one loose PDF per click. <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
+      <div class="note" style="margin:6px 0 0">Vertical list sorted A–Z by last name (full staff for the filtered team). <strong>Print / PDF / ZIP export = official active roster ∪ today’s lineup-card SP/pen</strong> (excludes EXTRAS-INACTIVOS; includes card-only arms like Melendez). PDF = browser print → Save as PDF (one page per pitcher). ZIP / Download each = that same mass PDF, split with copy-pages (same size as print, not re-laid-out) into <code>TEAM/Last_First.pdf</code> packed in one ZIP. Optional <b>Save next</b> downloads one loose PDF per click. <strong>Export uploads → JSON</strong> names every browser snap <code>lastname_firstname_delivery</code> or <code>_movement</code> from that pitcher’s page, then import with <code>python3 import_pitcher_media_export.py ~/Downloads/santurce_pitcher_media_export.json</code>.</div>
     </div>
     <div id="advance-pitcher"></div>
   </div>
@@ -562,16 +562,16 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san282"></script>
-<script src="cards.js?v=san282"></script>
-<script src="positioning.js?v=san282"></script>
-<script src="advance-pdf-split.js?v=san282"></script>
-<script src="persist.js?v=san282"></script>
-<script src="game-packet.js?v=san282"></script>
+<script src="i18n.js?v=san283"></script>
+<script src="cards.js?v=san283"></script>
+<script src="positioning.js?v=san283"></script>
+<script src="advance-pdf-split.js?v=san283"></script>
+<script src="persist.js?v=san283"></script>
+<script src="game-packet.js?v=san283"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san282';
+const ASSET_V = 'san283';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -796,11 +796,13 @@ function arsenalPitchers() {
   const fromFile = [...((CACHE.arsenals && CACHE.arsenals.pitchers) || [])];
   const byKey = new Map(fromFile.map(r => [`${r.team || ''}|${r.name || ''}`, r]));
   const byId = new Map(fromFile.filter(r => r && r.player_id != null).map(r => [Number(r.player_id), r]));
-  cardRosterPlayers().filter(p => p.role === 'P').forEach(p => {
+  const inject = (p, opts={}) => {
+    if(!p || p.id == null) return;
     const key = `${p.team || ''}|${p.name || ''}`;
     const existing = byId.get(Number(p.id)) || byKey.get(key);
     if (existing) {
       if (!existing.throws && p.throws) existing.throws = p.throws;
+      if (opts.fromCard) existing._from_lineup_card = true;
       return;
     }
     const row = {
@@ -813,10 +815,24 @@ function arsenalPitchers() {
       platoon: {},
       usage_by_count: {},
       _from_roster: true,
+      _from_lineup_card: !!opts.fromCard,
     };
     fromFile.push(row);
     byKey.set(key, row);
     byId.set(Number(p.id), row);
+  };
+  cardRosterPlayers().filter(p => p.role === 'P').forEach(p => inject(p));
+  // Lineup-card SP+pen (e.g. Gustavo Melendez listed as P on today's sheet while roster_pos is INF).
+  const cards = (CACHE.cardStats && CACHE.cardStats.players) || [];
+  const byCardId = new Map(cards.map(p => [Number(p.id), p]));
+  ['CAG','CAR','MAY','PON','SJU','SAN'].forEach((team) => {
+    (onePageCardPitcherIdsFromGameDay(team) || []).forEach((id) => {
+      const p = byCardId.get(Number(id));
+      if(p) inject(p, {fromCard:true});
+      else if(!byId.has(Number(id))){
+        inject({ id, name: `Player ${id}`, team, throws: null }, {fromCard:true});
+      }
+    });
   });
   return fromFile;
 }
@@ -3205,23 +3221,23 @@ function fillAdvanceExportList(list){
   const el = document.getElementById('adv-p-export-list');
   if(!el) return;
   const prev = new Set([...el.querySelectorAll('input[type=checkbox]:checked')].map(i=>i.value));
-  // Pre-check official active-roster arms (fallback: strategy SP+pen).
+  // Pre-check official active roster ∪ today’s lineup-card SP/pen.
   const exportIds = new Set();
   (list || []).forEach((r) => {
     const team = String(r.team || '').toUpperCase();
     if(!team) return;
-    (officialActivePitcherIndex(team).ids || onePageCardPitcherIndex(team).ids || [])
-      .forEach((id) => exportIds.add(String(id)));
+    (officialActivePitcherIndex(team).ids || []).forEach((id) => exportIds.add(String(id)));
+    (onePageCardPitcherIndex(team).ids || []).forEach((id) => exportIds.add(String(id)));
   });
   const sorted = sortByLastName(list||[], r=>r.name);
   el.innerHTML = sorted.map(r=>{
     const hand = String(r.throws||'').trim().toUpperCase().startsWith('L') ? 'L'
       : (String(r.throws||'').trim().toUpperCase().startsWith('R') ? 'R' : '');
     const id = String(r.player_id);
-    const onRoster = pitcherAdvanceOnActiveRoster(r);
-    const checked = prev.has(id) || prev.has(r.player_id) || (exportIds.has(id) && onRoster);
+    const exportable = pitcherAdvanceOnActiveRoster(r);
+    const checked = prev.has(id) || prev.has(r.player_id) || (exportIds.has(id) && exportable);
     const role = classifyPitcherRole(r.row || r);
-    const tag = onRoster ? '' : ' · inactive';
+    const tag = exportable ? '' : ' · inactive';
     return `<label class="advance-check"><input type="checkbox" value="${r.player_id}" ${checked?'checked':''}> ${formatLastFirst(r.name)}${hand?' ('+hand+')':''}${role?` ${role}`:''}${tag} · ${r.team||''}</label>`;
   }).join('')
     || '<span class="note">No pitchers in filter.</span>';
@@ -7224,20 +7240,19 @@ function officialActivePitcherRank(p, index){
   if(nk && index.byName.has(nk)) return index.byName.get(nk);
   return null;
 }
-/** True when this advance pitcher is on the official active roster for their team. */
+/** True when exportable: official active roster OR today’s lineup-card SP/pen. */
 function pitcherAdvanceOnActiveRoster(p){
   if(!p) return false;
   const team = String(p.team || '').toUpperCase();
   if(!team) return false;
+  const card = onePageCardPitcherIndex(team);
+  if(card.ids.length && onePageCardRank(p, card) != null) return true;
   const official = officialActivePitcherIndex(team);
   if(official.ids.length) return officialActivePitcherRank(p, official) != null;
-  // Fallback when we have no official doc for this team: strategy card SP+pen.
-  const card = onePageCardPitcherIndex(team);
-  if(card.ids.length) return onePageCardRank(p, card) != null;
   // Last resort: cardStats active_roster flag when present.
   const cards = (CACHE.cardStats && CACHE.cardStats.players) || [];
   const ids = [p.mlb_id, p.player_id, p.id].map(Number).filter(Number.isFinite);
-  const hit = cards.find((c) => c.team === team && c.role === 'P' && ids.includes(Number(c.id)));
+  const hit = cards.find((c) => c.team === team && ids.includes(Number(c.id)));
   if(hit && typeof hit.active_roster === 'boolean') return hit.active_roster;
   return true;
 }
