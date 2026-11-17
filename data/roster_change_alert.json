@@ -1,22 +1,11 @@
 {
-  "updated": "2026-11-17T09:03:47Z",
+  "updated": "2026-11-17T10:12:05Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": true,
+  "changed": false,
   "ligapr_stats_ready": true,
-  "added": [
-    {
-      "team": "SAN",
-      "name": "Trey Braithwaite",
-      "role": "P"
-    }
-  ],
+  "added": [],
   "removed": [],
-  "message": "Roster sync applied from ligapr equipos: +1 / -0.",
-  "action_needed": [
-    "Populate Synergy / advance packets for new arms and bats",
-    "Add pitcher release (delivery) pictures",
-    "Confirm movement charts / arsenal XY uploads",
-    "Fill pitcher one-page scout notes where blank"
-  ]
+  "message": "ligapr equipo lists checked — no roster membership changes.",
+  "action_needed": []
 }

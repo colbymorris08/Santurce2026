@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T09:03:47Z",
+  "updated": "2026-11-17T10:12:05Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -34,6 +34,27 @@
           "freq_html": "<span class=\"freq-r\">RHH: CUT 57%, FB 29%, SL 14%</span><br><span class=\"freq-l\">LHH: FB 49%, CUT 42%, SL 9%, CH 0%</span>",
           "notes": "",
           "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
+          "jersey": "",
+          "name": "Trey Braithwaite",
+          "name_display": "Braithwaite, Trey",
+          "throws": "",
+          "mlb_id": -911774269,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true,
           "appeared_lbprc": true
         },
         {
@@ -667,7 +688,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 15
+      "appeared_count": 16
     },
     "CAG": {
       "team": "CAG",
