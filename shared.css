@@ -643,7 +643,9 @@ tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
   .brand { grid-area: brand; }
   .top-links { grid-area: links; justify-self: center; gap: 4px; }
   .top-links a { font-size: 14px; padding: 8px 10px; }
-  .lang-toggle { grid-area: lang; }
+  .topbar-actions { grid-area: lang; }
+  .lang-toggle { justify-self: end; }
+  .game-packet-btn { font-size: 11px; padding: 7px 10px; }
   .hero h1 { font-size: 20px; }
   .filter-field { min-width: 46%; }
   .filters select, .filter-field select { min-width: 0; width: 100%; }
