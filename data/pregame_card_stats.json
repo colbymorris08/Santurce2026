@@ -3859,7 +3859,7 @@
       "jersey": "37",
       "role": "H",
       "bats": "L",
-      "throws": null,
+      "throws": "R",
       "hitter": {
         "pa": 157,
         "k": 26.1,
@@ -4225,7 +4225,7 @@
       "jersey": "68",
       "role": "P",
       "bats": null,
-      "throws": "R",
+      "throws": "L",
       "hitter": null,
       "pitcher": {
         "bf": 52,
@@ -4239,7 +4239,8 @@
         "wh_r": null,
         "gs": 0,
         "hand_split": false,
-        "src": "Winter 2025-26 SAN"
+        "src": "Winter 2025-26 SAN",
+        "throws": "L"
       },
       "active_roster": true
     },
