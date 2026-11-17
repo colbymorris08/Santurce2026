@@ -77,9 +77,27 @@ body {
   border-color: rgba(230, 195, 92, 0.55);
 }
 .top-links a:focus-visible { box-shadow: var(--focus-ring); outline: none; }
+.topbar-actions {
+  display: inline-flex; align-items: center; gap: 10px; justify-self: end;
+}
+.game-packet-btn {
+  background: #c62828 !important;
+  border-color: rgba(230, 195, 92, 0.65) !important;
+  color: #fff !important;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+.game-packet-btn:hover {
+  filter: brightness(1.08);
+  border-color: var(--santurce-gold) !important;
+}
 .lang-toggle {
   display: inline-flex; border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 8px; overflow: hidden; justify-self: end;
+  border-radius: 8px; overflow: hidden;
 }
 .lang-toggle button {
   border: none; background: transparent; color: #b8c7dc;

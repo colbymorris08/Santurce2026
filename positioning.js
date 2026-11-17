@@ -724,7 +724,7 @@
     return `<td class="name${bench}${nc ? ` ${nc}` : ''}">${esc(slot.last)}</td>`;
   }
 
-  function printOf(scope) {
+  function buildOfPrint(scope) {
     // scope: 'LF'|'CF'|'RF'|'ALL' — Entire OF = 6 tables (LF/CF/RF × LHP/RHP)
     const t = team();
     const list = lineupSlots(t, 15);
@@ -758,10 +758,15 @@
     const body = positions.length === 1
       ? `<h1>${esc(title)}</h1><div class="${gridClass}">${block('L')}${block('R')}</div>`
       : `<h1>${esc(title)}</h1>${block('L')}${block('R')}`;
-    printOpen(title, body);
+    return { title, body };
   }
 
-  function printInf(scope) {
+  function printOf(scope) {
+    const built = buildOfPrint(scope);
+    printOpen(built.title, built.body);
+  }
+
+  function buildInfPrint(scope) {
     // scope: '1B'|'2B'|'SS'|'3B'|'ALL'
     const t = team();
     const list = lineupSlots(t, 15);
@@ -797,7 +802,12 @@
     const body = positions.length === 1
       ? `<h1>${esc(title)}</h1><div class="pos-print-grid pos-print-2">${block('L')}${block('R')}</div>`
       : `<h1>${esc(title)}</h1>${block('L')}${block('R')}`;
-    printOpen(title, body);
+    return { title, body };
+  }
+
+  function printInf(scope) {
+    const built = buildInfPrint(scope);
+    printOpen(built.title, built.body);
   }
 
   /* ── Excel export matching templates ── */
@@ -866,9 +876,23 @@
   }
 
   function exportOfExcel() {
+    const built = buildOfExcelWorkbook();
+    if (!built) return null;
+    XLSX.writeFile(built.wb, built.filename);
+    return built;
+  }
+
+  function ofExcelBytes() {
+    const built = buildOfExcelWorkbook();
+    if (!built) return null;
+    const data = XLSX.write(built.wb, { bookType: 'xlsx', type: 'array' });
+    return { name: built.filename, data: new Uint8Array(data) };
+  }
+
+  function buildOfExcelWorkbook() {
     if (typeof XLSX === 'undefined') {
       alert('Excel library failed to load.');
-      return;
+      return null;
     }
     const t = team();
     const byName = new Map(hitters(t).map((h) => [h.name, h]));
@@ -961,13 +985,30 @@
     XLSX.utils.book_append_sheet(wb, wsLineup, 'LINEUP');
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
     XLSX.utils.book_append_sheet(wb, wsCard, 'LHP - RHP ');
-    XLSX.writeFile(wb, `${teamName(t)} OF Defensive Positioning.xlsx`);
+    return {
+      wb,
+      filename: `${teamName(t)} OF Defensive Positioning.xlsx`,
+    };
   }
 
   function exportInfExcel() {
+    const built = buildInfExcelWorkbook();
+    if (!built) return null;
+    XLSX.writeFile(built.wb, built.filename);
+    return built;
+  }
+
+  function infExcelBytes() {
+    const built = buildInfExcelWorkbook();
+    if (!built) return null;
+    const data = XLSX.write(built.wb, { bookType: 'xlsx', type: 'array' });
+    return { name: built.filename, data: new Uint8Array(data) };
+  }
+
+  function buildInfExcelWorkbook() {
     if (typeof XLSX === 'undefined') {
       alert('Excel library failed to load.');
-      return;
+      return null;
     }
     const t = team();
     const byName = new Map(hitters(t).map((h) => [h.name, h]));
@@ -1080,7 +1121,10 @@
     XLSX.utils.book_append_sheet(wb, wsManual, 'Manual Data');
     XLSX.utils.book_append_sheet(wb, buildHandSheet('L'), 'LHP');
     XLSX.utils.book_append_sheet(wb, buildHandSheet('R'), 'RHP');
-    XLSX.writeFile(wb, `${teamName(t)} Infield Positioning.xlsx`);
+    return {
+      wb,
+      filename: `${teamName(t)} Infield Positioning.xlsx`,
+    };
   }
 
   function clearAll() {
@@ -1120,8 +1164,12 @@
     onTeamChange,
     printOf,
     printInf,
+    buildOfPrint,
+    buildInfPrint,
     exportOfExcel,
     exportInfExcel,
+    ofExcelBytes,
+    infExcelBytes,
     clearAll,
     setPositionSeed,
     seedVersion: SEED_VERSION,
