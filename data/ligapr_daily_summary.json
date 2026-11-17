@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T10:15:04Z",
+  "updated": "2026-11-17T09:03:48Z",
   "league": {
     "league_id": 18,
     "subleague_id": 18,
@@ -8,9 +8,9 @@
     "label": "2026-27 LBPRC"
   },
   "bullpen_teams": {
-    "CAG": 8,
+    "CAG": 9,
     "SAN": 10,
-    "SJU": 8,
+    "SJU": 9,
     "CAR": 10,
     "MAY": 10,
     "PON": 10
@@ -24,17 +24,17 @@
     "PON": 4
   },
   "roster_alert": {
-    "changed": false,
-    "added": 0,
+    "changed": true,
+    "added": 1,
     "removed": 0,
-    "message": "ligapr equipo lists checked — no roster membership changes."
+    "message": "Roster sync applied from ligapr equipos: +1 / -0."
   },
   "one_page_teams": {
     "SAN": 31,
     "CAG": 28,
-    "CAR": 28,
-    "MAY": 28,
+    "CAR": 31,
+    "MAY": 29,
     "PON": 28,
-    "SJU": 25
+    "SJU": 27
   }
 }
