@@ -82692,20 +82692,20 @@
       "mlb_debut": null,
       "level_hint": "MiLB",
       "stuff_plus": null,
-      "pitches": 1490,
+      "pitches": 1494,
       "arsenal": [
         {
           "type": "FF",
           "name": "4-Seam",
-          "velo": 93.0,
+          "velo": 92.96,
           "spin": 2379,
           "ivb": 13.45,
           "hb_pitcher": 9.87,
           "hb_hitter": -9.87,
           "usage": 31.3,
-          "pitches": 466,
+          "pitches": 468,
           "ps_stuff": 92.1,
-          "whiff": 24.3,
+          "whiff": 22.4,
           "xwoba": 0.27
         },
         {
@@ -82719,27 +82719,27 @@
           "usage": 30.7,
           "pitches": 458,
           "ps_stuff": 90.9,
-          "whiff": 11.9,
+          "whiff": 10.6,
           "xwoba": 0.319
         },
         {
           "type": "SL",
           "name": "Slider",
-          "velo": 84.1,
+          "velo": 84.15,
           "spin": 2434,
           "ivb": -0.06,
           "hb_pitcher": -5.06,
           "hb_hitter": 5.06,
-          "usage": 19.8,
-          "pitches": 295,
+          "usage": 19.9,
+          "pitches": 297,
           "ps_stuff": 87.4,
-          "whiff": 21.2,
+          "whiff": 19.9,
           "xwoba": 0.272
         },
         {
           "type": "CH",
           "name": "Changeup",
-          "velo": 86.6,
+          "velo": 86.57,
           "spin": 1729,
           "ivb": 3.33,
           "hb_pitcher": 12.57,
@@ -82747,13 +82747,13 @@
           "usage": 10.4,
           "pitches": 155,
           "ps_stuff": 80.1,
-          "whiff": 25.6,
+          "whiff": 23.1,
           "xwoba": 0.308
         },
         {
           "type": "FC",
           "name": "Cutter",
-          "velo": 87.1,
+          "velo": 87.09,
           "spin": 2370,
           "ivb": 4.3,
           "hb_pitcher": -2.59,
@@ -82761,13 +82761,13 @@
           "usage": 7.2,
           "pitches": 107,
           "ps_stuff": 95.5,
-          "whiff": 26.7,
+          "whiff": 22.2,
           "xwoba": 0.294
         },
         {
           "type": "CU",
           "name": "Curveball",
-          "velo": 81.2,
+          "velo": 81.23,
           "spin": 2495,
           "ivb": -2.33,
           "hb_pitcher": -8.56,
@@ -82780,36 +82780,343 @@
         }
       ],
       "usage_by_count": {
-        "overall": [
-          {
-            "type": "FF",
-            "pitches": 466,
-            "usage": 31.3
-          },
+        "0-0": [
           {
             "type": "SI",
-            "pitches": 458,
-            "usage": 30.7
+            "pitches": 133,
+            "usage": 33.2
+          },
+          {
+            "type": "FF",
+            "pitches": 128,
+            "usage": 32.0
           },
           {
             "type": "SL",
-            "pitches": 295,
-            "usage": 19.8
-          },
-          {
-            "type": "CH",
-            "pitches": 155,
-            "usage": 10.4
+            "pitches": 73,
+            "usage": 18.2
           },
           {
             "type": "FC",
-            "pitches": 107,
-            "usage": 7.2
+            "pitches": 36,
+            "usage": 9.0
+          },
+          {
+            "type": "CH",
+            "pitches": 27,
+            "usage": 6.8
           },
           {
             "type": "CU",
-            "pitches": 9,
+            "pitches": 3,
+            "usage": 0.8
+          }
+        ],
+        "0-1": [
+          {
+            "type": "SI",
+            "pitches": 48,
+            "usage": 27.7
+          },
+          {
+            "type": "FF",
+            "pitches": 40,
+            "usage": 23.1
+          },
+          {
+            "type": "CH",
+            "pitches": 39,
+            "usage": 22.5
+          },
+          {
+            "type": "SL",
+            "pitches": 35,
+            "usage": 20.2
+          },
+          {
+            "type": "FC",
+            "pitches": 10,
+            "usage": 5.8
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
             "usage": 0.6
+          }
+        ],
+        "0-2": [
+          {
+            "type": "SL",
+            "pitches": 34,
+            "usage": 36.2
+          },
+          {
+            "type": "FF",
+            "pitches": 31,
+            "usage": 33.0
+          },
+          {
+            "type": "SI",
+            "pitches": 12,
+            "usage": 12.8
+          },
+          {
+            "type": "CH",
+            "pitches": 9,
+            "usage": 9.6
+          },
+          {
+            "type": "FC",
+            "pitches": 8,
+            "usage": 8.5
+          }
+        ],
+        "1-0": [
+          {
+            "type": "SI",
+            "pitches": 73,
+            "usage": 41.5
+          },
+          {
+            "type": "FF",
+            "pitches": 60,
+            "usage": 34.1
+          },
+          {
+            "type": "SL",
+            "pitches": 22,
+            "usage": 12.5
+          },
+          {
+            "type": "FC",
+            "pitches": 12,
+            "usage": 6.8
+          },
+          {
+            "type": "CH",
+            "pitches": 8,
+            "usage": 4.5
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.6
+          }
+        ],
+        "1-1": [
+          {
+            "type": "SI",
+            "pitches": 44,
+            "usage": 28.2
+          },
+          {
+            "type": "FF",
+            "pitches": 41,
+            "usage": 26.3
+          },
+          {
+            "type": "SL",
+            "pitches": 29,
+            "usage": 18.6
+          },
+          {
+            "type": "CH",
+            "pitches": 27,
+            "usage": 17.3
+          },
+          {
+            "type": "FC",
+            "pitches": 14,
+            "usage": 9.0
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 0.6
+          }
+        ],
+        "1-2": [
+          {
+            "type": "SL",
+            "pitches": 42,
+            "usage": 33.3
+          },
+          {
+            "type": "FF",
+            "pitches": 35,
+            "usage": 27.8
+          },
+          {
+            "type": "CH",
+            "pitches": 20,
+            "usage": 15.9
+          },
+          {
+            "type": "SI",
+            "pitches": 18,
+            "usage": 14.3
+          },
+          {
+            "type": "FC",
+            "pitches": 9,
+            "usage": 7.1
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 1.6
+          }
+        ],
+        "2-0": [
+          {
+            "type": "SI",
+            "pitches": 23,
+            "usage": 37.7
+          },
+          {
+            "type": "FF",
+            "pitches": 23,
+            "usage": 37.7
+          },
+          {
+            "type": "SL",
+            "pitches": 8,
+            "usage": 13.1
+          },
+          {
+            "type": "CH",
+            "pitches": 5,
+            "usage": 8.2
+          },
+          {
+            "type": "FC",
+            "pitches": 2,
+            "usage": 3.3
+          }
+        ],
+        "2-1": [
+          {
+            "type": "SI",
+            "pitches": 34,
+            "usage": 43.6
+          },
+          {
+            "type": "FF",
+            "pitches": 30,
+            "usage": 38.5
+          },
+          {
+            "type": "SL",
+            "pitches": 8,
+            "usage": 10.3
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 3.8
+          },
+          {
+            "type": "CH",
+            "pitches": 2,
+            "usage": 2.6
+          },
+          {
+            "type": "CU",
+            "pitches": 1,
+            "usage": 1.3
+          }
+        ],
+        "2-2": [
+          {
+            "type": "SL",
+            "pitches": 33,
+            "usage": 32.4
+          },
+          {
+            "type": "FF",
+            "pitches": 33,
+            "usage": 32.4
+          },
+          {
+            "type": "CH",
+            "pitches": 13,
+            "usage": 12.7
+          },
+          {
+            "type": "SI",
+            "pitches": 13,
+            "usage": 12.7
+          },
+          {
+            "type": "FC",
+            "pitches": 10,
+            "usage": 9.8
+          }
+        ],
+        "3-0": [
+          {
+            "type": "FF",
+            "pitches": 11,
+            "usage": 50.0
+          },
+          {
+            "type": "SI",
+            "pitches": 9,
+            "usage": 40.9
+          },
+          {
+            "type": "SL",
+            "pitches": 2,
+            "usage": 9.1
+          }
+        ],
+        "3-1": [
+          {
+            "type": "SI",
+            "pitches": 20,
+            "usage": 52.6
+          },
+          {
+            "type": "FF",
+            "pitches": 16,
+            "usage": 42.1
+          },
+          {
+            "type": "SL",
+            "pitches": 1,
+            "usage": 2.6
+          },
+          {
+            "type": "CH",
+            "pitches": 1,
+            "usage": 2.6
+          }
+        ],
+        "3-2": [
+          {
+            "type": "SI",
+            "pitches": 31,
+            "usage": 45.6
+          },
+          {
+            "type": "FF",
+            "pitches": 20,
+            "usage": 29.4
+          },
+          {
+            "type": "SL",
+            "pitches": 10,
+            "usage": 14.7
+          },
+          {
+            "type": "CH",
+            "pitches": 4,
+            "usage": 5.9
+          },
+          {
+            "type": "FC",
+            "pitches": 3,
+            "usage": 4.4
           }
         ]
       },
@@ -82817,7 +83124,7 @@
         "overall": [
           {
             "type": "FF",
-            "pitches": 466,
+            "pitches": 468,
             "usage": 31.3
           },
           {
@@ -82827,42 +83134,8 @@
           },
           {
             "type": "SL",
-            "pitches": 295,
-            "usage": 19.8
-          },
-          {
-            "type": "CH",
-            "pitches": 155,
-            "usage": 10.4
-          },
-          {
-            "type": "FC",
-            "pitches": 107,
-            "usage": 7.2
-          },
-          {
-            "type": "CU",
-            "pitches": 9,
-            "usage": 0.6
-          }
-        ]
-      },
-      "platoon": {
-        "vs_RHB": [
-          {
-            "type": "FF",
-            "pitches": 466,
-            "usage": 31.3
-          },
-          {
-            "type": "SI",
-            "pitches": 458,
-            "usage": 30.7
-          },
-          {
-            "type": "SL",
-            "pitches": 295,
-            "usage": 19.8
+            "pitches": 297,
+            "usage": 19.9
           },
           {
             "type": "CH",
@@ -82880,46 +83153,147 @@
             "usage": 0.6
           }
         ],
-        "vs_LHB": [
-          {
-            "type": "FF",
-            "pitches": 466,
-            "usage": 31.3
-          },
+        "0-0": [
           {
             "type": "SI",
-            "pitches": 458,
-            "usage": 30.7
+            "pitches": 133,
+            "usage": 33.2
+          },
+          {
+            "type": "FF",
+            "pitches": 128,
+            "usage": 32.0
           },
           {
             "type": "SL",
-            "pitches": 295,
-            "usage": 19.8
-          },
-          {
-            "type": "CH",
-            "pitches": 155,
-            "usage": 10.4
+            "pitches": 73,
+            "usage": 18.2
           },
           {
             "type": "FC",
-            "pitches": 107,
-            "usage": 7.2
+            "pitches": 36,
+            "usage": 9.0
+          },
+          {
+            "type": "CH",
+            "pitches": 27,
+            "usage": 6.8
           },
           {
             "type": "CU",
-            "pitches": 9,
-            "usage": 0.6
+            "pitches": 3,
+            "usage": 0.8
+          }
+        ],
+        "2_strikes": [
+          {
+            "type": "FF",
+            "pitches": 119,
+            "usage": 30.5
+          },
+          {
+            "type": "SL",
+            "pitches": 119,
+            "usage": 30.5
+          },
+          {
+            "type": "SI",
+            "pitches": 74,
+            "usage": 19.0
+          },
+          {
+            "type": "CH",
+            "pitches": 46,
+            "usage": 11.8
+          },
+          {
+            "type": "FC",
+            "pitches": 30,
+            "usage": 7.7
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.5
+          }
+        ]
+      },
+      "platoon": {
+        "vs_RHB": [
+          {
+            "type": "SI",
+            "pitches": 385,
+            "usage": 42.9
+          },
+          {
+            "type": "SL",
+            "pitches": 211,
+            "usage": 23.5
+          },
+          {
+            "type": "FF",
+            "pitches": 164,
+            "usage": 18.3
+          },
+          {
+            "type": "FC",
+            "pitches": 72,
+            "usage": 8.0
+          },
+          {
+            "type": "CH",
+            "pitches": 58,
+            "usage": 6.5
+          },
+          {
+            "type": "CU",
+            "pitches": 7,
+            "usage": 0.8
+          }
+        ],
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 304,
+            "usage": 50.9
+          },
+          {
+            "type": "CH",
+            "pitches": 97,
+            "usage": 16.2
+          },
+          {
+            "type": "SL",
+            "pitches": 86,
+            "usage": 14.4
+          },
+          {
+            "type": "SI",
+            "pitches": 73,
+            "usage": 12.2
+          },
+          {
+            "type": "FC",
+            "pitches": 35,
+            "usage": 5.9
+          },
+          {
+            "type": "CU",
+            "pitches": 2,
+            "usage": 0.3
           }
         ]
       },
       "ps_season": 2025,
       "ps_source": "Prospect Savant",
-      "statcast_source": null,
-      "statcast_seasons": [],
-      "statcast_pitches": 7,
+      "statcast_source": "MLB Stats API MiLB live feed",
+      "statcast_seasons": [
+        2025,
+        2026
+      ],
+      "statcast_pitches": 2411,
       "view": "hitter",
-      "note": "Movement plots use hitter perspective (catcher-facing HB). Overall arsenal from Prospect Savant (fallback Statcast). Hand-split usage/whiff and 0-0 / 2-strike mixes from MLB Statcast when tracked.",
+      "note": "Movement: Prospect Savant 2025. Usages + heat: MLB Stats API MiLB live feeds 2025–26 (2411 pitches, 1494 located).",
       "summer_line": {
         "team": "WM",
         "team_name": "West Michigan Whitecaps",
@@ -82952,6 +83326,205 @@
           "cs_allowed": "MLB Stats API pitching caughtStealing",
           "fip": null
         }
+      },
+      "count_hand_mix": {
+        "overall": {
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 385,
+              "usage": 42.9
+            },
+            {
+              "type": "SL",
+              "pitches": 211,
+              "usage": 23.5
+            },
+            {
+              "type": "FF",
+              "pitches": 164,
+              "usage": 18.3
+            },
+            {
+              "type": "FC",
+              "pitches": 72,
+              "usage": 8.0
+            },
+            {
+              "type": "CH",
+              "pitches": 58,
+              "usage": 6.5
+            },
+            {
+              "type": "CU",
+              "pitches": 7,
+              "usage": 0.8
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 304,
+              "usage": 50.9
+            },
+            {
+              "type": "CH",
+              "pitches": 97,
+              "usage": 16.2
+            },
+            {
+              "type": "SL",
+              "pitches": 86,
+              "usage": 14.4
+            },
+            {
+              "type": "SI",
+              "pitches": 73,
+              "usage": 12.2
+            },
+            {
+              "type": "FC",
+              "pitches": 35,
+              "usage": 5.9
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 0.3
+            }
+          ]
+        },
+        "0-0": {
+          "vs_RHB": [
+            {
+              "type": "SI",
+              "pitches": 122,
+              "usage": 49.2
+            },
+            {
+              "type": "SL",
+              "pitches": 56,
+              "usage": 22.6
+            },
+            {
+              "type": "FF",
+              "pitches": 37,
+              "usage": 14.9
+            },
+            {
+              "type": "FC",
+              "pitches": 28,
+              "usage": 11.3
+            },
+            {
+              "type": "CH",
+              "pitches": 4,
+              "usage": 1.6
+            },
+            {
+              "type": "CU",
+              "pitches": 1,
+              "usage": 0.4
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 91,
+              "usage": 59.9
+            },
+            {
+              "type": "CH",
+              "pitches": 23,
+              "usage": 15.1
+            },
+            {
+              "type": "SL",
+              "pitches": 17,
+              "usage": 11.2
+            },
+            {
+              "type": "SI",
+              "pitches": 11,
+              "usage": 7.2
+            },
+            {
+              "type": "FC",
+              "pitches": 8,
+              "usage": 5.3
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 1.3
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_RHB": [
+            {
+              "type": "SL",
+              "pitches": 80,
+              "usage": 33.1
+            },
+            {
+              "type": "FF",
+              "pitches": 64,
+              "usage": 26.4
+            },
+            {
+              "type": "SI",
+              "pitches": 54,
+              "usage": 22.3
+            },
+            {
+              "type": "CH",
+              "pitches": 25,
+              "usage": 10.3
+            },
+            {
+              "type": "FC",
+              "pitches": 17,
+              "usage": 7.0
+            },
+            {
+              "type": "CU",
+              "pitches": 2,
+              "usage": 0.8
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 55,
+              "usage": 37.2
+            },
+            {
+              "type": "SL",
+              "pitches": 39,
+              "usage": 26.4
+            },
+            {
+              "type": "CH",
+              "pitches": 21,
+              "usage": 14.2
+            },
+            {
+              "type": "SI",
+              "pitches": 20,
+              "usage": 13.5
+            },
+            {
+              "type": "FC",
+              "pitches": 13,
+              "usage": 8.8
+            }
+          ]
+        }
+      },
+      "hand_n": {
+        "vs_RHB": 1383,
+        "vs_LHB": 1028
       }
     },
     {
@@ -104757,7 +105330,7 @@
       }
     }
   ],
-  "updated": "2026-11-18T19:25:24Z",
+  "updated": "2026-11-18T19:40:28Z",
   "view": "hitter",
   "count_buckets": [
     "0-0",
