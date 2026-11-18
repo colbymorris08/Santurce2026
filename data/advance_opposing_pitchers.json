@@ -904,17 +904,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "7.1",
+        "ip": "6.1",
         "g": null,
         "gs": null,
         "k": 4,
         "bb": 0,
-        "k9": 4.9,
+        "k9": 5.7,
         "bb9": 0.0,
-        "era": "2.45",
+        "era": "2.84",
         "fip": null,
-        "whip": 0.82,
-        "h": 6,
+        "whip": 0.79,
+        "h": 5,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -927,17 +927,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "7.1",
+        "ip": "6.1",
         "g": null,
         "gs": null,
         "k": 4,
         "bb": 0,
-        "k9": 4.9,
+        "k9": 5.7,
         "bb9": 0.0,
-        "era": "2.45",
+        "era": "2.84",
         "fip": null,
-        "whip": 0.82,
-        "h": 6,
+        "whip": 0.79,
+        "h": 5,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -1409,17 +1409,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "2.2",
+        "ip": "1.2",
         "g": null,
         "gs": null,
-        "k": 4,
+        "k": 3,
         "bb": 1,
-        "k9": 13.5,
-        "bb9": 3.4,
-        "era": "6.75",
+        "k9": 16.2,
+        "bb9": 5.4,
+        "era": "5.40",
         "fip": null,
-        "whip": 1.88,
-        "h": 4,
+        "whip": 1.8,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -1432,17 +1432,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "2.2",
+        "ip": "1.2",
         "g": null,
         "gs": null,
-        "k": 4,
+        "k": 3,
         "bb": 1,
-        "k9": 13.5,
-        "bb9": 3.4,
-        "era": "6.75",
+        "k9": 16.2,
+        "bb9": 5.4,
+        "era": "5.40",
         "fip": null,
-        "whip": 1.88,
-        "h": 4,
+        "whip": 1.8,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -1695,147 +1695,18 @@
       "arm_slot_image": "assets/advance/underwoodjr_duane_delivery.jpg"
     },
     {
-      "synergy_id": "5fd12a915fe05a0e9fc1144f",
+      "synergy_id": null,
       "name": "Edwin Sanchez",
-      "pitches": 67,
-      "count_mix": {
-        "overall": [
-          {
-            "type": "FF",
-            "pitches": 25,
-            "usage": 37.3
-          },
-          {
-            "type": "SL",
-            "pitches": 21,
-            "usage": 31.3
-          },
-          {
-            "type": "CH",
-            "pitches": 14,
-            "usage": 20.9
-          },
-          {
-            "type": "CU",
-            "pitches": 5,
-            "usage": 7.5
-          },
-          {
-            "type": "SI",
-            "pitches": 2,
-            "usage": 3.0
-          }
-        ],
-        "0-0": [
-          {
-            "type": "FF",
-            "pitches": 6,
-            "usage": 35.3
-          },
-          {
-            "type": "SL",
-            "pitches": 6,
-            "usage": 35.3
-          },
-          {
-            "type": "CH",
-            "pitches": 3,
-            "usage": 17.6
-          },
-          {
-            "type": "CU",
-            "pitches": 1,
-            "usage": 5.9
-          },
-          {
-            "type": "SI",
-            "pitches": 1,
-            "usage": 5.9
-          }
-        ],
-        "2_strikes": [
-          {
-            "type": "SL",
-            "pitches": 9,
-            "usage": 40.9
-          },
-          {
-            "type": "FF",
-            "pitches": 7,
-            "usage": 31.8
-          },
-          {
-            "type": "CH",
-            "pitches": 6,
-            "usage": 27.3
-          }
-        ]
-      },
-      "platoon": {
-        "vs_LHB": [
-          {
-            "type": "FF",
-            "pitches": 10,
-            "usage": 45.5
-          },
-          {
-            "type": "CH",
-            "pitches": 8,
-            "usage": 36.4
-          },
-          {
-            "type": "SL",
-            "pitches": 3,
-            "usage": 13.6
-          },
-          {
-            "type": "SI",
-            "pitches": 1,
-            "usage": 4.5
-          }
-        ],
-        "vs_RHB": [
-          {
-            "type": "SL",
-            "pitches": 18,
-            "usage": 40.0
-          },
-          {
-            "type": "FF",
-            "pitches": 15,
-            "usage": 33.3
-          },
-          {
-            "type": "CH",
-            "pitches": 6,
-            "usage": 13.3
-          },
-          {
-            "type": "CU",
-            "pitches": 5,
-            "usage": 11.1
-          },
-          {
-            "type": "SI",
-            "pitches": 1,
-            "usage": 2.2
-          }
-        ]
-      },
-      "hand_n": {
-        "vs_LHH": 22,
-        "vs_RHH": 45
-      },
-      "leagues": {
-        "LBPRC": 67
-      },
-      "years": [
-        2025
-      ],
-      "source": "Synergy events/filter pitcherId · Count + Left/Right (hitter)",
+      "pitches": 0,
+      "count_mix": {},
+      "platoon": {},
+      "hand_n": {},
+      "leagues": {},
+      "years": [],
+      "source": "identity corrected · BR sanche004edw (cleared MLB 688014 RHP Synergy)",
       "team": "CAG",
-      "mlb_id": 688014,
-      "window_used": "2026+2025 pool",
+      "mlb_id": null,
+      "window_used": null,
       "summer_line": {
         "team": "LE",
         "team_name": "Lake Erie Crushers (Avon, OH)",
@@ -1867,574 +1738,48 @@
           "sb_allowed": null,
           "cs_allowed": null,
           "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
-        }
+        },
+        "br_id": "sanche004edw",
+        "chadwick_id": "344a9357",
+        "throws": "L",
+        "bats": "L",
+        "birth_date": "2004-01-20",
+        "birth_place": "Guayama, Puerto Rico"
       },
       "throws": "L",
       "arm_slot_image": null,
-      "player_id": 688014,
-      "arsenal": [
-        {
-          "type": "FF",
-          "name": "FF",
-          "usage": 37.3,
-          "pitches": 25,
-          "velo": 84.0,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
-          "ps_stuff": null,
-          "whiff": 7.7,
-          "xwoba": null,
-          "usage_l": 45.5,
-          "pitches_l": 10,
-          "usage_r": 33.3,
-          "pitches_r": 15,
-          "miss_l": 0.0,
-          "miss_r": 10.0,
-          "velo_p25": 84.0,
-          "velo_p75": 87.0,
-          "velo_p90": 87.6,
-          "velo_n": 117
-        },
-        {
-          "type": "SL",
-          "name": "SL",
-          "usage": 31.3,
-          "pitches": 21,
-          "velo": 76.8,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
-          "ps_stuff": null,
-          "whiff": 27.3,
-          "xwoba": null,
-          "usage_l": 13.6,
-          "pitches_l": 3,
-          "usage_r": 40.0,
-          "pitches_r": 18,
-          "miss_l": 0.0,
-          "miss_r": 33.3,
-          "velo_p25": 76.8,
-          "velo_p75": 79.0,
-          "velo_p90": 80.0,
-          "velo_n": 72
-        },
-        {
-          "type": "CH",
-          "name": "CH",
-          "usage": 20.9,
-          "pitches": 14,
-          "velo": 78.5,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
-          "ps_stuff": null,
-          "whiff": 33.3,
-          "xwoba": null,
-          "usage_l": 36.4,
-          "pitches_l": 8,
-          "usage_r": 13.3,
-          "pitches_r": 6,
-          "miss_l": 0.0,
-          "miss_r": 66.7,
-          "velo_p25": 78.0,
-          "velo_p75": 81.0,
-          "velo_p90": 81.3,
-          "velo_n": 29
-        },
-        {
-          "type": "CU",
-          "name": "CU",
-          "usage": 7.5,
-          "pitches": 5,
-          "velo": 77.0,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
-          "ps_stuff": null,
-          "whiff": 0.0,
-          "xwoba": null,
-          "usage_r": 11.1,
-          "pitches_r": 5,
-          "miss_r": 0.0,
-          "velo_p25": 74.6,
-          "velo_p75": 77.0,
-          "velo_p90": 77.2,
-          "velo_n": 29,
-          "usage_l": 1.9,
-          "pitches_l": 2
-        },
-        {
-          "type": "SI",
-          "name": "SI",
-          "usage": 3.0,
-          "pitches": 2,
-          "velo": 85.0,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
-          "ps_stuff": null,
-          "whiff": null,
-          "xwoba": null,
-          "usage_l": 4.5,
-          "pitches_l": 1,
-          "usage_r": 2.2,
-          "pitches_r": 1
-        }
-      ],
-      "count_hand_mix": {
-        "overall": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 58,
-              "usage": 55.2
-            },
-            {
-              "type": "CH",
-              "pitches": 34,
-              "usage": 32.4
-            },
-            {
-              "type": "SL",
-              "pitches": 10,
-              "usage": 9.5
-            },
-            {
-              "type": "CU",
-              "pitches": 2,
-              "usage": 1.9
-            },
-            {
-              "type": "SI",
-              "pitches": 1,
-              "usage": 1.0
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 109,
-              "usage": 45.8
-            },
-            {
-              "type": "SL",
-              "pitches": 75,
-              "usage": 31.5
-            },
-            {
-              "type": "CU",
-              "pitches": 36,
-              "usage": 15.1
-            },
-            {
-              "type": "CH",
-              "pitches": 17,
-              "usage": 7.1
-            },
-            {
-              "type": "SI",
-              "pitches": 1,
-              "usage": 0.4
-            }
-          ]
-        },
-        "0-0": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 15,
-              "usage": 46.9
-            },
-            {
-              "type": "CH",
-              "pitches": 12,
-              "usage": 37.5
-            },
-            {
-              "type": "SL",
-              "pitches": 4,
-              "usage": 12.5
-            },
-            {
-              "type": "CU",
-              "pitches": 1,
-              "usage": 3.1
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 31,
-              "usage": 49.2
-            },
-            {
-              "type": "SL",
-              "pitches": 20,
-              "usage": 31.7
-            },
-            {
-              "type": "CU",
-              "pitches": 9,
-              "usage": 14.3
-            },
-            {
-              "type": "CH",
-              "pitches": 2,
-              "usage": 3.2
-            },
-            {
-              "type": "SI",
-              "pitches": 1,
-              "usage": 1.6
-            }
-          ]
-        },
-        "hitter_ahead": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 6,
-              "usage": 85.7
-            },
-            {
-              "type": "CH",
-              "pitches": 1,
-              "usage": 14.3
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 12,
-              "usage": 66.7
-            },
-            {
-              "type": "SL",
-              "pitches": 3,
-              "usage": 16.7
-            },
-            {
-              "type": "CH",
-              "pitches": 2,
-              "usage": 11.1
-            },
-            {
-              "type": "CU",
-              "pitches": 1,
-              "usage": 5.6
-            }
-          ]
-        },
-        "1k": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 25,
-              "usage": 62.5
-            },
-            {
-              "type": "CH",
-              "pitches": 10,
-              "usage": 25.0
-            },
-            {
-              "type": "SL",
-              "pitches": 3,
-              "usage": 7.5
-            },
-            {
-              "type": "SI",
-              "pitches": 1,
-              "usage": 2.5
-            },
-            {
-              "type": "CU",
-              "pitches": 1,
-              "usage": 2.5
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 31,
-              "usage": 40.8
-            },
-            {
-              "type": "SL",
-              "pitches": 25,
-              "usage": 32.9
-            },
-            {
-              "type": "CU",
-              "pitches": 11,
-              "usage": 14.5
-            },
-            {
-              "type": "CH",
-              "pitches": 9,
-              "usage": 11.8
-            }
-          ]
-        },
-        "2_strikes": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 10,
-              "usage": 55.6
-            },
-            {
-              "type": "CH",
-              "pitches": 6,
-              "usage": 33.3
-            },
-            {
-              "type": "SL",
-              "pitches": 2,
-              "usage": 11.1
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 28,
-              "usage": 45.2
-            },
-            {
-              "type": "SL",
-              "pitches": 20,
-              "usage": 32.3
-            },
-            {
-              "type": "CU",
-              "pitches": 9,
-              "usage": 14.5
-            },
-            {
-              "type": "CH",
-              "pitches": 5,
-              "usage": 8.1
-            }
-          ]
-        },
-        "3-2": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 5,
-              "usage": 100.0
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 4,
-              "usage": 36.4
-            },
-            {
-              "type": "SL",
-              "pitches": 3,
-              "usage": 27.3
-            },
-            {
-              "type": "CU",
-              "pitches": 3,
-              "usage": 27.3
-            },
-            {
-              "type": "CH",
-              "pitches": 1,
-              "usage": 9.1
-            }
-          ]
-        },
-        "risp": {
-          "vs_LHB": [
-            {
-              "type": "FF",
-              "pitches": 16,
-              "usage": 55.2
-            },
-            {
-              "type": "CH",
-              "pitches": 9,
-              "usage": 31.0
-            },
-            {
-              "type": "SL",
-              "pitches": 4,
-              "usage": 13.8
-            }
-          ],
-          "vs_RHB": [
-            {
-              "type": "FF",
-              "pitches": 49,
-              "usage": 41.5
-            },
-            {
-              "type": "SL",
-              "pitches": 42,
-              "usage": 35.6
-            },
-            {
-              "type": "CU",
-              "pitches": 19,
-              "usage": 16.1
-            },
-            {
-              "type": "CH",
-              "pitches": 8,
-              "usage": 6.8
-            }
-          ]
-        },
-        "iz": {
-          "vs_LHB": {
-            "overall": 39.0,
-            "0-0": 46.9,
-            "hitter_ahead": null,
-            "1k": 37.5,
-            "2_strikes": 27.8,
-            "3-2": null,
-            "risp": 51.7
-          },
-          "vs_RHB": {
-            "overall": 43.7,
-            "0-0": 42.9,
-            "hitter_ahead": 55.6,
-            "1k": 40.8,
-            "2_strikes": 43.5,
-            "3-2": 54.5,
-            "risp": 42.4
-          }
-        }
-      },
-      "usage_by_count": {
-        "0-0": [
-          {
-            "type": "FF",
-            "pitches": 6,
-            "usage": 35.3
-          },
-          {
-            "type": "SL",
-            "pitches": 6,
-            "usage": 35.3
-          },
-          {
-            "type": "CH",
-            "pitches": 3,
-            "usage": 17.6
-          },
-          {
-            "type": "CU",
-            "pitches": 1,
-            "usage": 5.9
-          },
-          {
-            "type": "SI",
-            "pitches": 1,
-            "usage": 5.9
-          }
-        ],
-        "2_strikes": [
-          {
-            "type": "SL",
-            "pitches": 9,
-            "usage": 40.9
-          },
-          {
-            "type": "FF",
-            "pitches": 7,
-            "usage": 31.8
-          },
-          {
-            "type": "CH",
-            "pitches": 6,
-            "usage": 27.3
-          }
-        ],
-        "overall": [
-          {
-            "type": "FF",
-            "pitches": 25,
-            "usage": 37.3
-          },
-          {
-            "type": "SL",
-            "pitches": 21,
-            "usage": 31.3
-          },
-          {
-            "type": "CH",
-            "pitches": 14,
-            "usage": 20.9
-          },
-          {
-            "type": "CU",
-            "pitches": 5,
-            "usage": 7.5
-          },
-          {
-            "type": "SI",
-            "pitches": 2,
-            "usage": 3.0
-          }
-        ]
-      },
-      "lbprc_line": {
-        "team": "CAG",
-        "team_name": "Criollos de Caguas",
-        "season": "2026-27 LBPRC",
-        "league": "LBPRC",
-        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
-        "ip": "1.0",
-        "g": null,
-        "gs": null,
-        "k": 0,
-        "bb": 0,
-        "k9": 0.0,
-        "bb9": 0.0,
-        "era": "0.00",
+      "player_id": -217783280,
+      "arsenal": [],
+      "count_hand_mix": {},
+      "usage_by_count": {},
+      "arsenal_image": null,
+      "br_id": "sanche004edw",
+      "chadwick_id": "344a9357",
+      "college_line": {
+        "team": "B-CU",
+        "team_name": "Bethune-Cookman",
+        "season": "College 2026",
+        "league": "SWAC",
+        "league_name": "Southwestern Athletic Conference",
+        "level": "NCAA",
+        "ip": "76.2",
+        "g": 15,
+        "gs": 15,
+        "k": 72,
+        "bb": 33,
+        "k9": "8.5",
+        "bb9": "3.9",
+        "era": "3.17",
         "fip": null,
-        "whip": 0.0,
-        "h": 0,
-        "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
+        "whip": "1.23",
+        "h": 61,
+        "hr": 3,
+        "source": "Baseball Reference Register 2026 NCAA pitching",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw"
       },
-      "winter_line": {
-        "team": "CAG",
-        "team_name": "Criollos de Caguas",
-        "season": "2026-27 LBPRC",
-        "league": "LBPRC",
-        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
-        "ip": "1.0",
-        "g": null,
-        "gs": null,
-        "k": 0,
-        "bb": 0,
-        "k9": 0.0,
-        "bb9": 0.0,
-        "era": "0.00",
-        "fip": null,
-        "whip": 0.0,
-        "h": 0,
-        "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
-      }
+      "lbprc_line": null,
+      "winter_line": null,
+      "identity_note": "Removed wrong Edwin Sanchez MLB/MiLB 688014 (RHP, b.2000-11-03 Caguas). This is Bethune-Cookman / Lake Erie LHP sanche004edw (b.2004-01-20 Guayama)."
     },
     {
       "synergy_id": "5e20823150c03b26e0aed09e",
@@ -3631,18 +2976,18 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "14.0",
+        "ip": "9.0",
         "g": null,
         "gs": null,
-        "k": 19,
-        "bb": 5,
-        "k9": 12.2,
-        "bb9": 3.2,
-        "era": "2.57",
+        "k": 13,
+        "bb": 3,
+        "k9": 13.0,
+        "bb9": 3.0,
+        "era": "2.00",
         "fip": null,
-        "whip": 1.07,
-        "h": 10,
-        "hr": 1,
+        "whip": 0.89,
+        "h": 5,
+        "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
         "source": "ligapr.com estadisticas/equipos lanzadores"
@@ -3654,18 +2999,18 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "14.0",
+        "ip": "9.0",
         "g": null,
         "gs": null,
-        "k": 19,
-        "bb": 5,
-        "k9": 12.2,
-        "bb9": 3.2,
-        "era": "2.57",
+        "k": 13,
+        "bb": 3,
+        "k9": 13.0,
+        "bb9": 3.0,
+        "era": "2.00",
         "fip": null,
-        "whip": 1.07,
-        "h": 10,
-        "hr": 1,
+        "whip": 0.89,
+        "h": 5,
+        "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
         "source": "ligapr.com estadisticas/equipos lanzadores"
@@ -3898,16 +3243,16 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.2",
+        "ip": "3.2",
         "g": null,
         "gs": null,
         "k": 4,
-        "bb": 4,
-        "k9": 7.7,
-        "bb9": 7.7,
-        "era": "1.93",
+        "bb": 3,
+        "k9": 9.8,
+        "bb9": 7.4,
+        "era": "2.45",
         "fip": null,
-        "whip": 1.71,
+        "whip": 1.91,
         "h": 4,
         "hr": 1,
         "sb_allowed": null,
@@ -3921,16 +3266,16 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.2",
+        "ip": "3.2",
         "g": null,
         "gs": null,
         "k": 4,
-        "bb": 4,
-        "k9": 7.7,
-        "bb9": 7.7,
-        "era": "1.93",
+        "bb": 3,
+        "k9": 9.8,
+        "bb9": 7.4,
+        "era": "2.45",
         "fip": null,
-        "whip": 1.71,
+        "whip": 1.91,
         "h": 4,
         "hr": 1,
         "sb_allowed": null,
@@ -6020,53 +5365,7 @@
         }
       },
       "throws": "R",
-      "arm_slot_image": "assets/advance/rios_yacksel_delivery.jpg",
-      "lbprc_line": {
-        "team": "CAG",
-        "team_name": "Criollos de Caguas",
-        "season": "2026-27 LBPRC",
-        "league": "LBPRC",
-        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
-        "ip": "1.0",
-        "g": null,
-        "gs": null,
-        "k": 2,
-        "bb": 0,
-        "k9": 18.0,
-        "bb9": 0.0,
-        "era": "0.00",
-        "fip": null,
-        "whip": 0.0,
-        "h": 0,
-        "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
-      },
-      "winter_line": {
-        "team": "CAG",
-        "team_name": "Criollos de Caguas",
-        "season": "2026-27 LBPRC",
-        "league": "LBPRC",
-        "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
-        "ip": "1.0",
-        "g": null,
-        "gs": null,
-        "k": 2,
-        "bb": 0,
-        "k9": 18.0,
-        "bb9": 0.0,
-        "era": "0.00",
-        "fip": null,
-        "whip": 0.0,
-        "h": 0,
-        "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
-      }
+      "arm_slot_image": "assets/advance/rios_yacksel_delivery.jpg"
     },
     {
       "synergy_id": "6467b5ad1e180da51dae1f5c",
@@ -17284,17 +16583,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "7.1",
+        "ip": "6.0",
         "g": null,
         "gs": null,
         "k": 1,
-        "bb": 1,
-        "k9": 1.2,
-        "bb9": 1.2,
-        "era": "6.14",
+        "bb": 0,
+        "k9": 1.5,
+        "bb9": 0.0,
+        "era": "4.50",
         "fip": null,
-        "whip": 1.23,
-        "h": 8,
+        "whip": 1.17,
+        "h": 7,
         "hr": 2,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -17307,17 +16606,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "7.1",
+        "ip": "6.0",
         "g": null,
         "gs": null,
         "k": 1,
-        "bb": 1,
-        "k9": 1.2,
-        "bb9": 1.2,
-        "era": "6.14",
+        "bb": 0,
+        "k9": 1.5,
+        "bb9": 0.0,
+        "era": "4.50",
         "fip": null,
-        "whip": 1.23,
-        "h": 8,
+        "whip": 1.17,
+        "h": 7,
         "hr": 2,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -17814,17 +17113,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "6.1",
+        "ip": "5.0",
         "g": null,
         "gs": null,
         "k": 7,
-        "bb": 2,
-        "k9": 9.9,
-        "bb9": 2.8,
-        "era": "1.42",
+        "bb": 1,
+        "k9": 12.6,
+        "bb9": 1.8,
+        "era": "0.00",
         "fip": null,
-        "whip": 0.95,
-        "h": 4,
+        "whip": 0.6,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -17837,17 +17136,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "6.1",
+        "ip": "5.0",
         "g": null,
         "gs": null,
         "k": 7,
-        "bb": 2,
-        "k9": 9.9,
-        "bb9": 2.8,
-        "era": "1.42",
+        "bb": 1,
+        "k9": 12.6,
+        "bb9": 1.8,
+        "era": "0.00",
         "fip": null,
-        "whip": 0.95,
-        "h": 4,
+        "whip": 0.6,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -19120,17 +18419,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.2",
+        "ip": "4.1",
         "g": null,
         "gs": null,
         "k": 0,
         "bb": 1,
         "k9": 0.0,
-        "bb9": 1.9,
+        "bb9": 2.1,
         "era": "0.00",
         "fip": null,
-        "whip": 1.07,
-        "h": 4,
+        "whip": 0.69,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -19143,17 +18442,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.2",
+        "ip": "4.1",
         "g": null,
         "gs": null,
         "k": 0,
         "bb": 1,
         "k9": 0.0,
-        "bb9": 1.9,
+        "bb9": 2.1,
         "era": "0.00",
         "fip": null,
-        "whip": 1.07,
-        "h": 4,
+        "whip": 0.69,
+        "h": 2,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -19793,17 +19092,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "10.1",
+        "ip": "5.1",
         "g": null,
         "gs": null,
-        "k": 6,
-        "bb": 6,
-        "k9": 5.2,
-        "bb9": 5.2,
-        "era": "7.84",
+        "k": 3,
+        "bb": 3,
+        "k9": 5.1,
+        "bb9": 5.1,
+        "era": "15.19",
         "fip": null,
-        "whip": 1.55,
-        "h": 10,
+        "whip": 2.25,
+        "h": 9,
         "hr": 2,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -19816,17 +19115,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "10.1",
+        "ip": "5.1",
         "g": null,
         "gs": null,
-        "k": 6,
-        "bb": 6,
-        "k9": 5.2,
-        "bb9": 5.2,
-        "era": "7.84",
+        "k": 3,
+        "bb": 3,
+        "k9": 5.1,
+        "bb9": 5.1,
+        "era": "15.19",
         "fip": null,
-        "whip": 1.55,
-        "h": 10,
+        "whip": 2.25,
+        "h": 9,
         "hr": 2,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -23942,17 +23241,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "9.2",
+        "ip": "8.2",
         "g": null,
         "gs": null,
-        "k": 7,
+        "k": 6,
         "bb": 3,
-        "k9": 6.5,
-        "bb9": 2.8,
-        "era": "2.79",
+        "k9": 6.2,
+        "bb9": 3.1,
+        "era": "3.12",
         "fip": null,
-        "whip": 1.45,
-        "h": 11,
+        "whip": 1.15,
+        "h": 7,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -23965,17 +23264,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "9.2",
+        "ip": "8.2",
         "g": null,
         "gs": null,
-        "k": 7,
+        "k": 6,
         "bb": 3,
-        "k9": 6.5,
-        "bb9": 2.8,
-        "era": "2.79",
+        "k9": 6.2,
+        "bb9": 3.1,
+        "era": "3.12",
         "fip": null,
-        "whip": 1.45,
-        "h": 11,
+        "whip": 1.15,
+        "h": 7,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -24320,17 +23619,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "5.2",
+        "ip": "4.2",
         "g": null,
         "gs": null,
-        "k": 4,
-        "bb": 3,
-        "k9": 6.4,
-        "bb9": 4.8,
-        "era": "3.18",
+        "k": 2,
+        "bb": 2,
+        "k9": 3.9,
+        "bb9": 3.9,
+        "era": "3.86",
         "fip": null,
-        "whip": 1.41,
-        "h": 5,
+        "whip": 1.29,
+        "h": 4,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -24343,17 +23642,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "5.2",
+        "ip": "4.2",
         "g": null,
         "gs": null,
-        "k": 4,
-        "bb": 3,
-        "k9": 6.4,
-        "bb9": 4.8,
-        "era": "3.18",
+        "k": 2,
+        "bb": 2,
+        "k9": 3.9,
+        "bb9": 3.9,
+        "era": "3.86",
         "fip": null,
-        "whip": 1.41,
-        "h": 5,
+        "whip": 1.29,
+        "h": 4,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -25197,14 +24496,14 @@
         "g": null,
         "gs": null,
         "k": 1,
-        "bb": 3,
+        "bb": 2,
         "k9": 3.9,
-        "bb9": 11.6,
-        "era": "7.71",
+        "bb9": 7.7,
+        "era": "0.00",
         "fip": null,
-        "whip": 2.57,
-        "h": 3,
-        "hr": 1,
+        "whip": 1.29,
+        "h": 1,
+        "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
         "source": "ligapr.com estadisticas/equipos lanzadores"
@@ -25220,14 +24519,14 @@
         "g": null,
         "gs": null,
         "k": 1,
-        "bb": 3,
+        "bb": 2,
         "k9": 3.9,
-        "bb9": 11.6,
-        "era": "7.71",
+        "bb9": 7.7,
+        "era": "0.00",
         "fip": null,
-        "whip": 2.57,
-        "h": 3,
-        "hr": 1,
+        "whip": 1.29,
+        "h": 1,
+        "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
         "source": "ligapr.com estadisticas/equipos lanzadores"
@@ -25928,17 +25227,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.1",
+        "ip": "1.2",
         "g": null,
         "gs": null,
-        "k": 2,
-        "bb": 2,
-        "k9": 4.2,
-        "bb9": 4.2,
-        "era": "8.31",
+        "k": 1,
+        "bb": 1,
+        "k9": 5.4,
+        "bb9": 5.4,
+        "era": "16.20",
         "fip": null,
-        "whip": 1.38,
-        "h": 4,
+        "whip": 1.8,
+        "h": 2,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -25951,17 +25250,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "4.1",
+        "ip": "1.2",
         "g": null,
         "gs": null,
-        "k": 2,
-        "bb": 2,
-        "k9": 4.2,
-        "bb9": 4.2,
-        "era": "8.31",
+        "k": 1,
+        "bb": 1,
+        "k9": 5.4,
+        "bb9": 5.4,
+        "era": "16.20",
         "fip": null,
-        "whip": 1.38,
-        "h": 4,
+        "whip": 1.8,
+        "h": 2,
         "hr": 1,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -26312,17 +25611,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "5.1",
+        "ip": "4.0",
         "g": null,
         "gs": null,
-        "k": 6,
-        "bb": 4,
-        "k9": 10.1,
-        "bb9": 6.8,
-        "era": "1.69",
+        "k": 5,
+        "bb": 1,
+        "k9": 11.2,
+        "bb9": 2.2,
+        "era": "2.25",
         "fip": null,
-        "whip": 1.31,
-        "h": 3,
+        "whip": 0.5,
+        "h": 1,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -26335,17 +25634,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "5.1",
+        "ip": "4.0",
         "g": null,
         "gs": null,
-        "k": 6,
-        "bb": 4,
-        "k9": 10.1,
-        "bb9": 6.8,
-        "era": "1.69",
+        "k": 5,
+        "bb": 1,
+        "k9": 11.2,
+        "bb9": 2.2,
+        "era": "2.25",
         "fip": null,
-        "whip": 1.31,
-        "h": 3,
+        "whip": 0.5,
+        "h": 1,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -26529,16 +25828,16 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "6.0",
+        "ip": "5.0",
         "g": null,
         "gs": null,
         "k": 1,
         "bb": 3,
-        "k9": 1.5,
-        "bb9": 4.5,
+        "k9": 1.8,
+        "bb9": 5.4,
         "era": "3.00",
         "fip": null,
-        "whip": 0.83,
+        "whip": 1.0,
         "h": 2,
         "hr": 0,
         "sb_allowed": null,
@@ -26552,16 +25851,16 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "6.0",
+        "ip": "5.0",
         "g": null,
         "gs": null,
         "k": 1,
         "bb": 3,
-        "k9": 1.5,
-        "bb9": 4.5,
+        "k9": 1.8,
+        "bb9": 5.4,
         "era": "3.00",
         "fip": null,
-        "whip": 0.83,
+        "whip": 1.0,
         "h": 2,
         "hr": 0,
         "sb_allowed": null,
@@ -28402,17 +27701,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "9.0",
+        "ip": "5.2",
         "g": null,
         "gs": null,
         "k": 3,
-        "bb": 2,
-        "k9": 3.0,
-        "bb9": 2.0,
-        "era": "1.00",
+        "bb": 1,
+        "k9": 4.8,
+        "bb9": 1.6,
+        "era": "1.59",
         "fip": null,
-        "whip": 0.89,
-        "h": 6,
+        "whip": 0.88,
+        "h": 4,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -28425,17 +27724,17 @@
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
         "level": "LBPRC",
-        "ip": "9.0",
+        "ip": "5.2",
         "g": null,
         "gs": null,
         "k": 3,
-        "bb": 2,
-        "k9": 3.0,
-        "bb9": 2.0,
-        "era": "1.00",
+        "bb": 1,
+        "k9": 4.8,
+        "bb9": 1.6,
+        "era": "1.59",
         "fip": null,
-        "whip": 0.89,
-        "h": 6,
+        "whip": 0.88,
+        "h": 4,
         "hr": 0,
         "sb_allowed": null,
         "cs_allowed": null,
@@ -30555,5 +29854,5 @@
     ],
     "selection": "Most innings among real 2025 MLB/MiLB/LMB team splits; LBPRC fallback"
   },
-  "lbprc_line_updated": "2026-11-18T10:11:55Z"
+  "lbprc_line_updated": "2026-11-17T16:43:42Z"
 }

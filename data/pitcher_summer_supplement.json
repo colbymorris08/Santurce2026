@@ -3643,61 +3643,6 @@
         }
       }
     },
-    "688014": {
-      "name": "Edwin Sanchez",
-      "milb": {
-        "status": "no_2026_pitching",
-        "source_url": "https://www.milb.com/player/edwin-sanchez-688014",
-        "rows": 0,
-        "line": null
-      },
-      "baseball_reference": {
-        "status": "line",
-        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
-        "candidates": [
-          "sanche004edw",
-          "sanche002edw",
-          "sanche006edw",
-          "sanche005edw",
-          "sanche001edw",
-          "sanche000edw"
-        ],
-        "rows": 2,
-        "line": {
-          "team": "LE",
-          "team_name": "Lake Erie Crushers (Avon, OH)",
-          "season": "Summer 2026",
-          "league": "FRON",
-          "circuit": "Independent",
-          "league_name": "Frontier League",
-          "level": "Ind",
-          "ip": "78.2",
-          "outs": 236,
-          "g": 20,
-          "gs": 13,
-          "k": 62,
-          "bb": 57,
-          "k9": "7.1",
-          "bb9": "6.5",
-          "era": "6.29",
-          "fip": "5.08",
-          "whip": "1.67",
-          "h": 74,
-          "hr": 7,
-          "sb_allowed": null,
-          "cs_allowed": null,
-          "assignments": 2,
-          "source": "Baseball Reference Register 2026 regular-season pitching",
-          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
-          "field_sources": {
-            "team_through_hr": "Baseball Reference Register standard pitching",
-            "sb_allowed": null,
-            "cs_allowed": null,
-            "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
-          }
-        }
-      }
-    },
     "806337": {
       "name": "Jarret Whorf",
       "milb": {
@@ -4914,6 +4859,70 @@
         "source_url": "https://www.mlb.com/milb",
         "rows": 0,
         "line": null
+      }
+    },
+    "-217783280": {
+      "name": "Edwin Sanchez",
+      "milb": {
+        "status": "not_this_player",
+        "note": "MLB/MiLB 688014 is a different RHP (b.2000 Caguas). Caguas LBPRC LHP has no MLBAM id.",
+        "source_url": null,
+        "rows": 0,
+        "line": null
+      },
+      "baseball_reference": {
+        "status": "line",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
+        "candidates": [
+          "sanche004edw"
+        ],
+        "rows": 3,
+        "line": {
+          "team": "LE",
+          "team_name": "Lake Erie Crushers (Avon, OH)",
+          "season": "Summer 2026",
+          "league": "FRON",
+          "circuit": "Independent",
+          "league_name": "Frontier League",
+          "level": "Ind",
+          "ip": "78.2",
+          "outs": 236,
+          "g": 20,
+          "gs": 13,
+          "k": 62,
+          "bb": 57,
+          "k9": "7.1",
+          "bb9": "6.5",
+          "era": "6.29",
+          "fip": "5.08",
+          "whip": "1.67",
+          "h": 74,
+          "hr": 7,
+          "sb_allowed": null,
+          "cs_allowed": null,
+          "assignments": 2,
+          "source": "Baseball Reference Register 2026 regular-season pitching",
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
+          "br_id": "sanche004edw",
+          "chadwick_id": "344a9357"
+        },
+        "college_2026": {
+          "team": "B-CU",
+          "team_name": "Bethune-Cookman",
+          "season": "College 2026",
+          "league": "SWAC",
+          "level": "NCAA",
+          "ip": "76.2",
+          "g": 15,
+          "gs": 15,
+          "k": 72,
+          "bb": 33,
+          "era": "3.17",
+          "whip": "1.23",
+          "h": 61,
+          "hr": 3,
+          "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw"
+        }
       }
     }
   },
