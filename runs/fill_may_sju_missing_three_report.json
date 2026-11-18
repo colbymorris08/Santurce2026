@@ -1,0 +1,192 @@
+{
+  "updated": "2026-11-18T19:23:23Z",
+  "players": {
+    "Luis Quiñones": {
+      "mlb_id": 687879,
+      "arsenal_rewrite": {
+        "renamed": 1,
+        "id_fixed": 1,
+        "touched": 1
+      },
+      "advance_rewrite": {
+        "renamed": 1,
+        "id_fixed": 1,
+        "touched": 1
+      },
+      "ensure": {
+        "arsenal": "updated",
+        "stuff": "updated",
+        "advance": "updated",
+        "heatmap": "updated",
+        "tth": "updated"
+      },
+      "prospect_savant": {
+        "status": "merged",
+        "filled_fields": 0,
+        "season": 2026
+      },
+      "summer": {
+        "team": "WCH",
+        "ip": "20.0",
+        "era": "3.60",
+        "source": "MLB Stats API 2026 regular-season pitching team split"
+      },
+      "synced_to_advance": [
+        "arsenal",
+        "count_hand_mix",
+        "usage_by_count",
+        "ps_source",
+        "ps_season",
+        "synergy_count_source",
+        "synergy_hand_source",
+        "synergy_hand_n",
+        "view",
+        "note"
+      ],
+      "synergy": {
+        "status": "skipped_already_filled"
+      },
+      "winter": "already"
+    },
+    "Luke Stofel": {
+      "mlb_id": 814477,
+      "arsenal_rewrite": {
+        "renamed": 0,
+        "id_fixed": 1,
+        "touched": 1
+      },
+      "advance_rewrite": {
+        "renamed": 0,
+        "id_fixed": 0,
+        "touched": 0
+      },
+      "ensure": {
+        "arsenal": "updated",
+        "stuff": "added",
+        "advance": "added",
+        "heatmap": "added",
+        "tth": "added"
+      },
+      "prospect_savant": {
+        "status": "merged",
+        "filled_fields": 1,
+        "season": 2025
+      },
+      "summer": {
+        "team": "WM",
+        "ip": "49.1",
+        "era": "3.47",
+        "source": "MLB Stats API 2026 regular-season pitching team split"
+      },
+      "synced_to_advance": [
+        "arsenal",
+        "ps_source",
+        "ps_season",
+        "view",
+        "note"
+      ],
+      "synergy": {
+        "status": "error",
+        "synergy_id": null,
+        "window": null,
+        "pitches": null,
+        "candidates": null,
+        "error": "Great Britain Synergy account is logged out. No headless reuse of GB tokens or cookies. Tomorrow: set SYNERGY_ORG=santurce in pitch-tips/.env.synergy, then python3 build_advance_synergy.py --headed and sign in with the new Santurce Synergy account only (never GB)."
+      },
+      "post_synergy_sync": [],
+      "winter": "deferred_rebuild"
+    },
+    "Matt Tenuta": {
+      "mlb_id": 621343,
+      "arsenal_rewrite": {
+        "renamed": 0,
+        "id_fixed": 1,
+        "touched": 1
+      },
+      "advance_rewrite": {
+        "renamed": 0,
+        "id_fixed": 0,
+        "touched": 0
+      },
+      "ensure": {
+        "arsenal": "updated",
+        "stuff": "added",
+        "advance": "added",
+        "heatmap": "added",
+        "tth": "added"
+      },
+      "prospect_savant": {
+        "status": "empty"
+      },
+      "summer": {
+        "team": "LEO",
+        "ip": "10.0",
+        "era": "0.90",
+        "source": "MLB Stats API 2026 regular-season pitching team split"
+      },
+      "synced_to_advance": [
+        "view",
+        "note"
+      ],
+      "synergy": {
+        "status": "error",
+        "synergy_id": null,
+        "window": null,
+        "pitches": null,
+        "candidates": null,
+        "error": "Great Britain Synergy account is logged out. No headless reuse of GB tokens or cookies. Tomorrow: set SYNERGY_ORG=santurce in pitch-tips/.env.synergy, then python3 build_advance_synergy.py --headed and sign in with the new Santurce Synergy account only (never GB)."
+      },
+      "post_synergy_sync": [],
+      "winter": "deferred_rebuild"
+    }
+  },
+  "summer_ids": [
+    621343,
+    687879,
+    814477
+  ],
+  "tenuta_br": {
+    "ip": "10.0",
+    "era": "0.90",
+    "g": 8,
+    "source": "Baseball Reference register tenuta000mat"
+  },
+  "arsenal_dedupe": 0,
+  "advance_dedupe": 1,
+  "one_page": "rebuilt",
+  "coverage": {
+    "Luis Quiñones": {
+      "advance": true,
+      "advance_arsenal_n": 5,
+      "advance_has_count_mix": true,
+      "advance_summer": true,
+      "one_page": true,
+      "one_needs": false,
+      "one_velo": true
+    },
+    "Luke Stofel": {
+      "advance": true,
+      "advance_arsenal_n": 6,
+      "advance_has_count_mix": false,
+      "advance_summer": true,
+      "one_page": true,
+      "one_needs": false,
+      "one_velo": true
+    },
+    "Matt Tenuta": {
+      "advance": true,
+      "advance_arsenal_n": 0,
+      "advance_has_count_mix": false,
+      "advance_summer": true,
+      "one_page": true,
+      "one_needs": true,
+      "one_velo": true
+    }
+  },
+  "official_quinones": {
+    "id": 687879,
+    "name": "Luis Quiñones",
+    "jersey": "51",
+    "throws": "R"
+  }
+}

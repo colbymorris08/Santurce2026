@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T17:39:36Z",
+  "updated": "2026-11-18T19:25:24Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -2203,21 +2203,21 @@
           "jersey": "51",
           "name": "Luis Quiñones",
           "name_display": "Quiñones, Luis",
-          "throws": "",
-          "mlb_id": -3554043138,
+          "throws": "R",
+          "mlb_id": 687879,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
+            "FB": "91-92",
+            "CB": "76-76",
+            "SL": "81-81",
             "CH": "",
-            "CT": "",
-            "SPL": ""
+            "CT": "85-87",
+            "SPL": "78-80"
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 41%, SPL 24%, CUT 18%, SL 15%",
+          "freq_l": "FB 53%, SPL 27%, SL 9%, CUT 8%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 41%, SPL 24%, CUT 18%, SL 15%</span><br><span class=\"freq-l\">LHH: FB 53%, SPL 27%, SL 9%, CUT 8%</span>",
           "notes": "",
-          "needs_data": true,
+          "needs_data": false,
           "appeared_lbprc": true
         },
         {
@@ -2368,27 +2368,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "51",
-          "name": "Luis Quinonez",
-          "name_display": "Quinonez, Luis",
-          "throws": "R",
-          "mlb_id": 687879,
-          "velo": {
-            "FB": "91-92",
-            "CB": "76-76",
-            "SL": "81-81",
-            "CH": "",
-            "CT": "85-87",
-            "SPL": "78-80"
-          },
-          "freq_r": "FB 41%, SPL 24%, CUT 18%, SL 15%",
-          "freq_l": "FB 53%, SPL 27%, SL 9%, CUT 8%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 41%, SPL 24%, CUT 18%, SL 15%</span><br><span class=\"freq-l\">LHH: FB 53%, SPL 27%, SL 9%, CUT 8%</span>",
-          "notes": "Gets extended with high slot, cuts FB, very on top. high splitter usage to both sides (drop and no run).",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "",
           "name": "Devin Rivera",
           "name_display": "Rivera, Devin",
@@ -2423,9 +2402,9 @@
             "CT": "87-87",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
+          "freq_r": "FB 31%, SNK 31%, SL 20%, CH 10%",
+          "freq_l": "FB 31%, SNK 31%, SL 20%, CH 10%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 31%, SNK 31%, SL 20%, CH 10%</span><br><span class=\"freq-l\">LHH: FB 31%, SNK 31%, SL 20%, CH 10%</span>",
           "notes": "",
           "needs_data": false,
           "appeared_lbprc": false
