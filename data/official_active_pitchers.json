@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-17T16:26:02Z",
-  "note": "Active pitchers from latest official LBPRC roster docs (excludes EXTRAS-INACTIVOS). Used to filter pitcher-advance PDF export.",
+  "updated": "2026-11-18T17:20:17Z",
+  "note": "Active pitchers from latest official LBPRC roster docs (excludes EXTRAS-INACTIVOS). MAY=Indios 16 Nov; SJU=Senadores 16 Nov (doc labeled 11.9.26). Used to filter pitcher-advance PDF export.",
   "teams": {
     "CAG": [
       {
@@ -237,16 +237,16 @@
     ],
     "MAY": [
       {
-        "id": 623485,
-        "name": "Ashton Goudeau",
-        "jersey": "47",
+        "id": 826141,
+        "name": "Sean Barnett",
+        "jersey": "72",
         "throws": "R"
       },
       {
-        "id": -3554043138,
-        "name": "Luis Quiñones",
-        "jersey": "51",
-        "throws": "R"
+        "id": 694547,
+        "name": "Sebastian Bentz",
+        "jersey": "46",
+        "throws": "L"
       },
       {
         "id": 543071,
@@ -255,10 +255,28 @@
         "throws": "L"
       },
       {
-        "id": 624401,
-        "name": "Luis Ramos",
-        "jersey": "39",
+        "id": 681493,
+        "name": "Eddie Demurias",
+        "jersey": "60",
+        "throws": "R"
+      },
+      {
+        "id": 687956,
+        "name": "Carlos Francisco",
+        "jersey": "66",
+        "throws": "R"
+      },
+      {
+        "id": -346943911,
+        "name": "Nelvin Fuentes",
+        "jersey": "48",
         "throws": "L"
+      },
+      {
+        "id": 623485,
+        "name": "Ashton Goudeau",
+        "jersey": "47",
+        "throws": "R"
       },
       {
         "id": 571772,
@@ -273,39 +291,21 @@
         "throws": "R"
       },
       {
-        "id": 837223,
-        "name": "Lucas Vega",
-        "jersey": "52",
-        "throws": "R"
-      },
-      {
-        "id": 694547,
-        "name": "Sebastian Bentz",
-        "jersey": "46",
-        "throws": "L"
-      },
-      {
-        "id": 687560,
-        "name": "Bryant Salgado",
-        "jersey": "40",
-        "throws": "R"
-      },
-      {
-        "id": 687956,
-        "name": "Carlos Francisco",
-        "jersey": "66",
-        "throws": "R"
-      },
-      {
         "id": 446651,
         "name": "Miguel Martinez",
         "jersey": "44",
         "throws": "L"
       },
       {
-        "id": -346943911,
-        "name": "Nelvin Fuentes",
-        "jersey": "48",
+        "id": -3554043138,
+        "name": "Luis Quiñones",
+        "jersey": "51",
+        "throws": "R"
+      },
+      {
+        "id": 624401,
+        "name": "Luis Ramos",
+        "jersey": "39",
         "throws": "L"
       },
       {
@@ -315,10 +315,16 @@
         "throws": "R"
       },
       {
-        "id": 683803,
-        "name": "Kazuto Taguchi",
-        "jersey": "70",
-        "throws": "L"
+        "id": 684320,
+        "name": "Yariel Rodriguez",
+        "jersey": "45",
+        "throws": "R"
+      },
+      {
+        "id": 687560,
+        "name": "Bryant Salgado",
+        "jersey": "40",
+        "throws": "R"
       },
       {
         "id": 814477,
@@ -327,21 +333,15 @@
         "throws": "R"
       },
       {
-        "id": 681493,
-        "name": "Eddie Demurias",
-        "jersey": "60",
-        "throws": "R"
+        "id": 683803,
+        "name": "Kazuto Taguchi",
+        "jersey": "70",
+        "throws": "L"
       },
       {
-        "id": 826141,
-        "name": "Sean Barnett",
-        "jersey": "72",
-        "throws": "R"
-      },
-      {
-        "id": 684320,
-        "name": "Yariel Rodriguez",
-        "jersey": "45",
+        "id": 837223,
+        "name": "Lucas Vega",
+        "jersey": "52",
         "throws": "R"
       }
     ],
@@ -441,6 +441,128 @@
         "name": "Hector Quinones",
         "jersey": "29",
         "throws": "R"
+      }
+    ],
+    "SJU": [
+      {
+        "id": -579003596,
+        "name": "Anthony Borrero",
+        "jersey": "53",
+        "throws": "R"
+      },
+      {
+        "id": -280803405,
+        "name": "Freddy Cabrera",
+        "jersey": "46",
+        "throws": "R"
+      },
+      {
+        "id": 690616,
+        "name": "Miguel Cirino",
+        "jersey": "43",
+        "throws": "R"
+      },
+      {
+        "id": 692808,
+        "name": "Jose Cruz",
+        "jersey": "58",
+        "throws": "R"
+      },
+      {
+        "id": 656389,
+        "name": "Sidney Duprey",
+        "jersey": "42",
+        "throws": "L"
+      },
+      {
+        "id": 671045,
+        "name": "Ivan Houellemont",
+        "jersey": "56",
+        "throws": "R"
+      },
+      {
+        "id": 621248,
+        "name": "Ralph Garza Jr.",
+        "jersey": "33",
+        "throws": "R"
+      },
+      {
+        "id": -670692245,
+        "name": "Haruse Narita",
+        "jersey": "92",
+        "throws": "R"
+      },
+      {
+        "id": 458960,
+        "name": "Jean Ortega",
+        "jersey": "99",
+        "throws": "R"
+      },
+      {
+        "id": 703211,
+        "name": "Ruben Ramirez",
+        "jersey": "52",
+        "throws": "R"
+      },
+      {
+        "id": 676219,
+        "name": "Jerryell Rivera",
+        "jersey": "70",
+        "throws": "L"
+      },
+      {
+        "id": 681344,
+        "name": "Matthew Rivera",
+        "jersey": "95",
+        "throws": "R"
+      },
+      {
+        "id": 572077,
+        "name": "Raul Rivera",
+        "jersey": "45",
+        "throws": "R"
+      },
+      {
+        "id": -426239217,
+        "name": "Leonardo Rodriguez",
+        "jersey": "0",
+        "throws": "R"
+      },
+      {
+        "id": 656924,
+        "name": "Ryder Ryan",
+        "jersey": "54",
+        "throws": "R"
+      },
+      {
+        "id": -322791781,
+        "name": "Keishin Saito",
+        "jersey": "96",
+        "throws": "R"
+      },
+      {
+        "id": 543803,
+        "name": "Giovanni Soto",
+        "jersey": "67",
+        "throws": "L"
+      },
+      {
+        "id": 805749,
+        "name": "Brady Tedesco",
+        "jersey": "3",
+        "throws": "L"
+      },
+      {
+        "id": 621343,
+        "name": "Matt Tenuta",
+        "jersey": "14",
+        "throws": "L"
+      },
+      {
+        "id": -846506108,
+        "name": "Alexuan Vega",
+        "jersey": "29",
+        "throws": "L"
       }
     ]
   }
