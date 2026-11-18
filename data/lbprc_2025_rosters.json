@@ -1400,14 +1400,6 @@
         "status": "Active"
       },
       {
-        "id": 681493,
-        "name": "Eddie Demurias",
-        "position": "P",
-        "jersey": "60",
-        "status": "Active",
-        "throws": "R"
-      },
-      {
         "id": 656371,
         "name": "Isan Diaz",
         "position": "INF",
@@ -1465,15 +1457,6 @@
         "jersey": "47",
         "status": "Active",
         "throws": "R"
-      },
-      {
-        "id": 805248,
-        "name": "Jonathan Habb",
-        "position": "P",
-        "jersey": "64",
-        "status": "Inactive",
-        "throws": "R",
-        "bats": "R"
       },
       {
         "id": 687231,
@@ -1711,14 +1694,6 @@
         "throws": "R"
       },
       {
-        "id": -4285540892,
-        "name": "Jonathan Happ",
-        "position": "P",
-        "jersey": "",
-        "status": "Inactive",
-        "source": "ligapr_equipo_sync"
-      },
-      {
         "id": -1502072232,
         "name": "Danny Ortiz",
         "position": "IF",
@@ -1743,27 +1718,11 @@
         "throws": "R"
       },
       {
-        "id": -1211300806,
-        "name": "Jonathan Haab",
-        "position": "P",
-        "jersey": "",
-        "status": "Inactive",
-        "source": "ligapr_equipo_sync"
-      },
-      {
         "id": -1470330351,
         "name": "Robbie Merced",
         "position": "IF",
         "jersey": "",
         "status": "Active",
-        "source": "ligapr_equipo_sync"
-      },
-      {
-        "id": -583294609,
-        "name": "Eddy Demurias",
-        "position": "P",
-        "jersey": "",
-        "status": "Inactive",
         "source": "ligapr_equipo_sync"
       },
       {
@@ -1789,6 +1748,23 @@
         "jersey": "64",
         "status": "Active",
         "source": "official_roster_nov16",
+        "throws": "R"
+      },
+      {
+        "id": 805248,
+        "name": "Jonathan Haab",
+        "position": "P",
+        "jersey": "64",
+        "status": "Active",
+        "throws": "R",
+        "bats": "R"
+      },
+      {
+        "id": 681493,
+        "name": "Eddie Demurias",
+        "position": "P",
+        "jersey": "60",
+        "status": "Active",
         "throws": "R"
       }
     ]
