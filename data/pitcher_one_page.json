@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T16:26:02Z",
+  "updated": "2026-11-18T17:35:14Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -947,6 +947,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "45",
+          "name": "Yacksel Rios",
+          "name_display": "Rios, Yacksel",
+          "throws": "R",
+          "mlb_id": 605441,
+          "velo": {
+            "FB": "97-98",
+            "CB": "",
+            "SL": "86-88",
+            "CH": "",
+            "CT": "",
+            "SPL": "91-93"
+          },
+          "freq_r": "FB 60%, SL 25%, SNK 13%, UN 2%",
+          "freq_l": "FB 54%, SL 23%, SPL 13%, SNK 9%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, SL 25%, SNK 13%, UN 2%</span><br><span class=\"freq-l\">LHH: FB 54%, SL 23%, SPL 13%, SNK 9%</span>",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "65",
           "name": "Sebastian Rodriguez",
           "name_display": "Rodriguez, Sebastian",
@@ -965,6 +986,27 @@
           "freq_html": "<span class=\"freq-r\">RHH: FB 45%, SL 36%, CUT 14%, SPL 4%</span><br><span class=\"freq-l\">LHH: FB 42%, SL 18%, CUT 13%, CH 11%</span>",
           "notes": "No movement - low 90s. Damage up in zone and middle in to LHH. Short SL primary offspeed.",
           "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
+          "jersey": "68",
+          "name": "Edwin Sanchez",
+          "name_display": "Sanchez, Edwin (l)",
+          "throws": "L",
+          "mlb_id": -217783280,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true,
           "appeared_lbprc": true
         },
         {
@@ -1220,88 +1262,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "45",
-          "name": "Yacksel Rios",
-          "name_display": "Rios, Yacksel",
-          "throws": "R",
-          "mlb_id": 605441,
-          "velo": {
-            "FB": "97-98",
-            "CB": "",
-            "SL": "86-88",
-            "CH": "",
-            "CT": "",
-            "SPL": "91-93"
-          },
-          "freq_r": "FB 60%, SL 25%, SNK 13%, UN 2%",
-          "freq_l": "FB 54%, SL 23%, SPL 13%, SNK 9%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, SL 25%, SNK 13%, UN 2%</span><br><span class=\"freq-l\">LHH: FB 54%, SL 23%, SPL 13%, SNK 9%</span>",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
-          "jersey": "68",
-          "name": "Edwin Sanchez",
-          "name_display": "Sanchez, Edwin (l)",
-          "throws": "L",
-          "mlb_id": -217783280,
-          "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": true,
-          "appeared_lbprc": false,
-          "br_id": "sanche004edw",
-          "summer_line": {
-            "team": "LE",
-            "team_name": "Lake Erie Crushers (Avon, OH)",
-            "season": "Summer 2026",
-            "league": "FRON",
-            "circuit": "Independent",
-            "league_name": "Frontier League",
-            "level": "Ind",
-            "ip": "78.2",
-            "outs": 236,
-            "g": 20,
-            "gs": 13,
-            "k": 62,
-            "bb": 57,
-            "k9": "7.1",
-            "bb9": "6.5",
-            "era": "6.29",
-            "fip": "5.08",
-            "whip": "1.67",
-            "h": 74,
-            "hr": 7,
-            "sb_allowed": null,
-            "cs_allowed": null,
-            "assignments": 2,
-            "source": "Baseball Reference Register 2026 regular-season pitching",
-            "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=sanche004edw",
-            "field_sources": {
-              "team_through_hr": "Baseball Reference Register standard pitching",
-              "sb_allowed": null,
-              "cs_allowed": null,
-              "fip": "Computed from Baseball Reference HR/BB/HBP/K/IP with constant 3.10"
-            },
-            "br_id": "sanche004edw",
-            "chadwick_id": "344a9357",
-            "throws": "L",
-            "bats": "L",
-            "birth_date": "2004-01-20",
-            "birth_place": "Guayama, Puerto Rico"
-          }
-        },
-        {
           "jersey": "",
           "name": "Carlos Torres",
           "name_display": "Torres, Carlos",
@@ -1323,7 +1283,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 19
+      "appeared_count": 21
     },
     "CAR": {
       "team": "CAR",
@@ -2319,7 +2279,7 @@
           "freq_r": "",
           "freq_l": "",
           "freq_html": "",
-          "notes": "Gets extended with high slot, cuts FB, very on top. high splitter usage to both sides (drop and no run).",
+          "notes": "",
           "needs_data": true,
           "appeared_lbprc": true
         },
@@ -3220,7 +3180,7 @@
           "appeared_lbprc": true
         },
         {
-          "jersey": "",
+          "jersey": "46",
           "name": "Freddie Cabrera",
           "name_display": "Cabrera, Freddie",
           "throws": "",
@@ -3262,7 +3222,7 @@
           "appeared_lbprc": true
         },
         {
-          "jersey": "42",
+          "jersey": "58",
           "name": "Jose Cruz",
           "name_display": "Cruz, Jose",
           "throws": "R",
@@ -3348,22 +3308,22 @@
         {
           "jersey": "33",
           "name": "Ralph Garza Jr.",
-          "name_display": "Jr., Ralph Garza",
+          "name_display": "Garza Jr., Ralph",
           "throws": "R",
           "mlb_id": 621248,
           "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
+            "FB": "91-92\nSNK 87-88",
+            "CB": "79-81",
+            "SL": "77-78",
+            "CH": "82-84",
+            "CT": "89-90",
             "SPL": ""
           },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": true,
+          "freq_r": "SNK 57%, SL 40%, CH 2%, FB 1%",
+          "freq_l": "CH 41%, FB 28%, CUT 22%, CB 5%",
+          "freq_html": "<span class=\"freq-r\">RHH: SNK 57%, SL 40%, CH 2%, FB 1%</span><br><span class=\"freq-l\">LHH: CH 41%, FB 28%, CUT 22%, CB 5%</span>",
+          "notes": "2022 MLB (TB): sinker-led mix (SI ~33%, SL ~23%, CH ~19%, FF ~12%, CT ~10%). SNK upper 80s with arm-side run; SL mid/upper 70s with sweep; CH mirrors SNK run. To RHH leans SNK/SL; to LHH more CH/FF/CT. Reliever — 35.0 IP, 3.34 ERA in 2022.",
+          "needs_data": false,
           "appeared_lbprc": true
         },
         {
