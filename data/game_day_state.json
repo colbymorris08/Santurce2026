@@ -1,13 +1,13 @@
 {
-  "updated": "2026-11-18T19:40:45Z",
-  "label": "2026-11-18 SAN vs SJU (daily schedule)",
-  "date_key": "2026-11-18",
-  "published_from": "Cangrejeros_de_Santurce_2026-11-18_Daily_Schedule.pdf",
-  "note": "Santurce 1–9 + SP Thompson from Nov 18 daily schedule PDF. SJU SP Ruben Ramirez from same sheet (no SJU batting order on PDF). SAN bench from BP groups not in the starting nine.",
+  "updated": "2026-11-19T14:40:47Z",
+  "label": "2026-11-19 SAN vs MAY (daily schedule)",
+  "date_key": "2026-11-19",
+  "published_from": "Cangrejeros_de_Santurce_2026-11-19_Daily_Schedule.pdf + MAY Thursday sheet",
+  "note": "Santurce 1–9 + SP Lebron from Nov 19 daily schedule. Mayagüez 1–9 + SP Luis Leroy Cruz and pen order from Thursday Nov 19 manager sheet.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 444354,
+        "sp": 673933,
         "pen": [
           572363,
           689713,
@@ -23,7 +23,8 @@
           684841,
           692064,
           820888,
-          700842
+          700842,
+          444354
         ],
         "lineup": [
           {
@@ -36,40 +37,36 @@
           },
           {
             "id": 571685,
-            "pos": "9"
+            "pos": "DH"
           },
           {
-            "id": 643418,
-            "pos": "DH"
+            "id": 640459,
+            "pos": "2"
           },
           {
             "id": -108026908,
             "pos": "3"
           },
           {
+            "id": 592656,
+            "pos": "9"
+          },
+          {
             "id": 605346,
+            "pos": "8"
+          },
+          {
+            "id": 643418,
             "pos": "4"
           },
           {
             "id": 824605,
             "pos": "5"
-          },
-          {
-            "id": 518542,
-            "pos": "2"
-          },
-          {
-            "id": 641561,
-            "pos": "8"
           }
         ],
         "bench": [
           {
-            "id": 592656,
-            "pos": "9"
-          },
-          {
-            "id": -574284888,
+            "id": 518542,
             "pos": "2"
           },
           {
@@ -77,16 +74,20 @@
             "pos": "4"
           },
           {
+            "id": -574284888,
+            "pos": "2"
+          },
+          {
             "id": -533438595,
             "pos": "9"
           },
           {
-            "id": 640459,
-            "pos": "2"
-          },
-          {
             "id": 691002,
             "pos": "3"
+          },
+          {
+            "id": 641561,
+            "pos": "8"
           }
         ]
       },
@@ -195,11 +196,100 @@
         ],
         "lineup": [],
         "bench": []
+      },
+      "MAY": {
+        "sp": 543071,
+        "pen": [
+          683803,
+          446651,
+          624401,
+          687560,
+          687879,
+          681938,
+          605347,
+          684320,
+          826141,
+          687956,
+          837223,
+          814477
+        ],
+        "lineup": [
+          {
+            "id": 657538,
+            "pos": "DH"
+          },
+          {
+            "id": 683090,
+            "pos": "8"
+          },
+          {
+            "id": 656371,
+            "pos": "6"
+          },
+          {
+            "id": 656896,
+            "pos": "5"
+          },
+          {
+            "id": 621458,
+            "pos": "3"
+          },
+          {
+            "id": 647351,
+            "pos": "4"
+          },
+          {
+            "id": 691449,
+            "pos": "7"
+          },
+          {
+            "id": 676566,
+            "pos": "2"
+          },
+          {
+            "id": -1082299000,
+            "pos": "9"
+          }
+        ],
+        "bench": [
+          {
+            "id": 671117,
+            "pos": "4"
+          },
+          {
+            "id": -229984899,
+            "pos": "6"
+          },
+          {
+            "id": 700845,
+            "pos": "2"
+          },
+          {
+            "id": 703742,
+            "pos": "4"
+          },
+          {
+            "id": -840209350,
+            "pos": "4"
+          },
+          {
+            "id": 592680,
+            "pos": "5"
+          },
+          {
+            "id": 666128,
+            "pos": "2"
+          },
+          {
+            "id": 680107,
+            "pos": "4"
+          }
+        ]
       }
     },
-    "opponent": "SJU",
+    "opponent": "MAY",
     "santurceHome": true,
-    "updated": "2026-11-18T19:40:45Z"
+    "updated": "2026-11-19T14:40:47Z"
   },
   "notes": {
     "team": "SJU",

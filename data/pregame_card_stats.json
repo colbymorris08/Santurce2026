@@ -7523,7 +7523,7 @@
       "last": "CASTRO",
       "team": "MAY",
       "roster_pos": "OF",
-      "jersey": "4",
+      "jersey": "5",
       "role": "H",
       "bats": "L",
       "throws": null,
@@ -11807,7 +11807,7 @@
       "last": "RIVERA",
       "team": "PON",
       "roster_pos": "3B",
-      "jersey": "9",
+      "jersey": "26",
       "role": "H",
       "bats": "R",
       "throws": null,
@@ -14269,7 +14269,7 @@
       "last": "CAMPOS",
       "team": "MAY",
       "roster_pos": "OF",
-      "jersey": "",
+      "jersey": "63",
       "role": "H",
       "bats": "R",
       "throws": null,
@@ -14322,7 +14322,7 @@
       "last": "STOFEL",
       "team": "MAY",
       "roster_pos": "P",
-      "jersey": "",
+      "jersey": "64",
       "role": "P",
       "bats": null,
       "throws": "R",
@@ -14342,6 +14342,20 @@
         "src": "Prospect Savant 2025 (whiff/movement; no StatsAPI season line)"
       },
       "active_roster": true
+    },
+    {
+      "id": -1082299000,
+      "name": "Edison Mora",
+      "last": "MORA",
+      "team": "MAY",
+      "roster_pos": "OF",
+      "jersey": "16",
+      "role": "H",
+      "bats": null,
+      "throws": null,
+      "hitter": {},
+      "pitcher": null,
+      "active_roster": true
     }
   ],
   "gaps": {
@@ -14360,5 +14374,6 @@
     "hitters_with_sb_split": 0,
     "hitters_with_bunt_situations": 153,
     "pitchers_with_line": 132
-  }
+  },
+  "updated": "2026-11-19T14:40:47Z"
 }
