@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T19:40:28Z",
+  "updated": "2026-11-19T09:04:10Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -2305,6 +2305,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "64",
+          "name": "Luke Stofel",
+          "name_display": "Stofel, Luke",
+          "throws": "R",
+          "mlb_id": 814477,
+          "velo": {
+            "FB": "93-93\nSNK",
+            "CB": "81-81",
+            "SL": "84-84",
+            "CH": "87-87",
+            "CT": "87-87",
+            "SPL": ""
+          },
+          "freq_r": "SNK 43%, SL 24%, FB 18%, CUT 8%",
+          "freq_l": "FB 51%, CH 16%, SL 14%, SNK 12%",
+          "freq_html": "<span class=\"freq-r\">RHH: SNK 43%, SL 24%, FB 18%, CUT 8%</span><br><span class=\"freq-l\">LHH: FB 51%, CH 16%, SL 14%, SNK 12%</span>",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "70",
           "name": "Kazuto Taguchi",
           "name_display": "Taguchi, Kazuto (l)",
@@ -2389,27 +2410,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "64",
-          "name": "Luke Stofel",
-          "name_display": "Stofel, Luke",
-          "throws": "R",
-          "mlb_id": 814477,
-          "velo": {
-            "FB": "93-93\nSNK",
-            "CB": "81-81",
-            "SL": "84-84",
-            "CH": "87-87",
-            "CT": "87-87",
-            "SPL": ""
-          },
-          "freq_r": "SNK 43%, SL 24%, FB 18%, CUT 8%",
-          "freq_l": "FB 51%, CH 16%, SL 14%, SNK 12%",
-          "freq_html": "<span class=\"freq-r\">RHH: SNK 43%, SL 24%, FB 18%, CUT 8%</span><br><span class=\"freq-l\">LHH: FB 51%, CH 16%, SL 14%, SNK 12%</span>",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "52",
           "name": "Lucas Vega",
           "name_display": "Vega, Lucas",
@@ -2473,7 +2473,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 18
+      "appeared_count": 19
     },
     "PON": {
       "team": "PON",
@@ -2581,6 +2581,27 @@
           "freq_l": "FB 74%, SL 10%, CB 6%, SPL 6%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 72%, SL 24%, SPL 2%, SNK 1%</span><br><span class=\"freq-l\">LHH: FB 74%, SL 10%, CB 6%, SPL 6%</span>",
           "notes": "4S and SL only - 4S no ride. SL is a short slurve. 75% FB",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
+          "jersey": "56",
+          "name": "Jorhan Laboy",
+          "name_display": "Laboy, Jorhan (l)",
+          "throws": "L",
+          "mlb_id": -259860308,
+          "velo": {
+            "FB": "87-88",
+            "CB": "73-75",
+            "SL": "73-77",
+            "CH": "82-83",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 43%, CH 26%, CB 19%, SL 12%",
+          "freq_l": "FB 50%, CB 22%, SL 19%, CH 10%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 43%, CH 26%, CB 19%, SL 12%</span><br><span class=\"freq-l\">LHH: FB 50%, CB 22%, SL 19%, CH 10%</span>",
+          "notes": "Upper 80's LHP, CB and CH are offspeed pitches",
           "needs_data": false,
           "appeared_lbprc": true
         },
@@ -2858,27 +2879,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "56",
-          "name": "Jorhan Laboy",
-          "name_display": "Laboy, Jorhan (l)",
-          "throws": "L",
-          "mlb_id": -259860308,
-          "velo": {
-            "FB": "87-88",
-            "CB": "73-75",
-            "SL": "73-77",
-            "CH": "82-83",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "FB 43%, CH 26%, CB 19%, SL 12%",
-          "freq_l": "FB 50%, CB 22%, SL 19%, CH 10%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 43%, CH 26%, CB 19%, SL 12%</span><br><span class=\"freq-l\">LHH: FB 50%, CB 22%, SL 19%, CH 10%</span>",
-          "notes": "Upper 80's LHP, CB and CH are offspeed pitches",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "47",
           "name": "Omar Melendez",
           "name_display": "Melendez, Omar (l)",
@@ -3068,7 +3068,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 15
+      "appeared_count": 16
     },
     "SJU": {
       "team": "SJU",

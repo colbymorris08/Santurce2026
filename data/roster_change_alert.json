@@ -1,11 +1,22 @@
 {
-  "updated": "2026-11-18T10:11:54Z",
+  "updated": "2026-11-19T09:04:10Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": false,
+  "changed": true,
   "ligapr_stats_ready": true,
-  "added": [],
+  "added": [
+    {
+      "team": "MAY",
+      "name": "Eddy Demurias",
+      "role": "P"
+    }
+  ],
   "removed": [],
-  "message": "ligapr equipo lists checked — no roster membership changes.",
-  "action_needed": []
+  "message": "Roster sync applied from ligapr equipos: +1 / -0.",
+  "action_needed": [
+    "Populate Synergy / advance packets for new arms and bats",
+    "Add pitcher release (delivery) pictures",
+    "Confirm movement charts / arsenal XY uploads",
+    "Fill pitcher one-page scout notes where blank"
+  ]
 }

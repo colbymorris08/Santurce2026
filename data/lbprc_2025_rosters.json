@@ -1550,7 +1550,9 @@
         "name": "Luis Quiñones",
         "position": "P",
         "jersey": "51",
-        "status": "Inactive"
+        "status": "Active",
+        "source": "ligapr_equipo_sync",
+        "throws": "R"
       },
       {
         "id": 681938,
@@ -1709,15 +1711,6 @@
         "status": "Inactive"
       },
       {
-        "id": 687879,
-        "name": "Luis Quiñones",
-        "position": "P",
-        "jersey": "51",
-        "status": "Active",
-        "source": "ligapr_equipo_sync",
-        "throws": "R"
-      },
-      {
         "id": -1470330351,
         "name": "Robbie Merced",
         "position": "IF",
@@ -1766,6 +1759,14 @@
         "jersey": "60",
         "status": "Active",
         "throws": "R"
+      },
+      {
+        "id": -583294609,
+        "name": "Eddy Demurias",
+        "position": "P",
+        "jersey": "",
+        "status": "Active",
+        "source": "ligapr_equipo_sync"
       }
     ]
   },
