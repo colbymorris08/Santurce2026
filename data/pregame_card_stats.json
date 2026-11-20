@@ -7123,7 +7123,7 @@
       "active_roster": true
     },
     {
-      "id": 805753,
+      "id": -574529855,
       "name": "Jose Acosta",
       "last": "ACOSTA",
       "team": "CAR",
@@ -7134,18 +7134,23 @@
       "throws": "L",
       "hitter": null,
       "pitcher": {
-        "bf": 0,
+        "bf": null,
         "k": null,
-        "gb": null,
         "bb": null,
         "ops": null,
         "avg": null,
-        "wh": 0.0,
-        "wh_l": null,
-        "wh_r": null,
+        "wh": null,
         "gs": 0,
         "hand_split": false,
-        "src": "arsenal whiff only"
+        "src": "Summer 2025 LEX Atlantic League",
+        "ip": "33.2",
+        "era": "5.61",
+        "g": 25,
+        "so": 37,
+        "baseOnBalls": 20,
+        "h": 34,
+        "k9": 9.9,
+        "bb9": 5.3
       },
       "active_roster": true
     },
@@ -7188,18 +7193,23 @@
       "throws": "R",
       "hitter": null,
       "pitcher": {
-        "bf": 58,
-        "k": 20.7,
-        "gb": 55.6,
-        "bb": 20.7,
-        "ops": 0.961,
-        "avg": 0.348,
-        "wh": 26.3,
-        "wh_l": null,
-        "wh_r": null,
+        "bf": null,
+        "k": null,
+        "bb": null,
+        "ops": null,
+        "avg": null,
+        "wh": null,
         "gs": 0,
         "hand_split": false,
-        "src": "Winter 2025-26 CAR"
+        "src": "Summer 2026 TRO Frontier League",
+        "ip": "20.2",
+        "era": "5.23",
+        "g": 21,
+        "so": 32,
+        "baseOnBalls": 21,
+        "h": 19,
+        "k9": 13.9,
+        "bb9": 9.1
       },
       "active_roster": true
     },
@@ -14375,5 +14385,5 @@
     "hitters_with_bunt_situations": 153,
     "pitchers_with_line": 132
   },
-  "updated": "2026-11-19T14:40:47Z"
+  "updated": "2026-11-20T16:08:57Z"
 }

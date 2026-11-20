@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T19:40:28Z",
+  "updated": "2026-11-20T16:10:45Z",
   "source": "Synergy events/filter pitcherId · PR roster + missing-count fill · LBPRC + MLB/MiLB/LMB 2024–2026",
   "season_meta": {
     "target_years": [
@@ -7155,25 +7155,45 @@
     },
     {
       "name": "Jose Acosta",
-      "mlb_id": 805753,
+      "mlb_id": -574529855,
       "team": "CAR",
       "throws": "L",
       "synergy_id": "5c40cd30b90c1f0444e5924e",
       "pitches": 18,
-      "summer_line": null,
+      "summer_line": {
+        "team": "LEX",
+        "team_name": "Lexington Legends",
+        "season": "Summer 2025",
+        "league": "ATLL",
+        "circuit": "IND",
+        "league_name": "Atlantic League",
+        "level": "Ind",
+        "ip": "33.2",
+        "outs": 101,
+        "g": 25,
+        "gs": 0,
+        "w": 1,
+        "l": 3,
+        "sv": 0,
+        "era": "5.61",
+        "h": 34,
+        "hr": 6,
+        "bb": 20,
+        "k": 37,
+        "k9": 9.9,
+        "bb9": 5.3,
+        "whip": "1.60",
+        "source": "Baseball Reference register acosta019jos",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=acosta019jos",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference register acosta019jos"
+        },
+        "h9": "9.1",
+        "hr9": "1.6"
+      },
       "platoon": {
-        "vs_RHB": [
-          {
-            "type": "FF",
-            "pitches": 11,
-            "usage": 78.6
-          },
-          {
-            "type": "SL",
-            "pitches": 3,
-            "usage": 21.4
-          }
-        ]
+        "vs_RHB": [],
+        "vs_LHB": []
       },
       "count_mix": {
         "overall": [
@@ -7187,35 +7207,11 @@
             "pitches": 3,
             "usage": 16.7
           }
-        ],
-        "0-0": [
-          {
-            "type": "FF",
-            "pitches": 4,
-            "usage": 66.7
-          },
-          {
-            "type": "SL",
-            "pitches": 2,
-            "usage": 33.3
-          }
-        ],
-        "2_strikes": [
-          {
-            "type": "SL",
-            "pitches": 1,
-            "usage": 50.0
-          },
-          {
-            "type": "FF",
-            "pitches": 1,
-            "usage": 50.0
-          }
         ]
       },
       "hand_n": {
-        "vs_LHH": 4,
-        "vs_RHH": 14
+        "vs_RHB": 20,
+        "vs_LHB": 32
       },
       "leagues": {},
       "years": [
@@ -7224,7 +7220,70 @@
       "source": "2024 fallback",
       "player_id": -574529855,
       "window_used": "2024 fallback",
-      "arm_slot_image": "assets/advance/acosta_jose_delivery.jpg"
+      "arm_slot_image": "assets/advance/acosta_jose_delivery.jpg",
+      "arsenal": [
+        {
+          "type": "FF",
+          "name": "FF",
+          "usage": 83.3,
+          "pitches": 15,
+          "velo": 92.2,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": 0.0,
+          "xwoba": null,
+          "usage_r": 78.6,
+          "pitches_r": 11,
+          "velo_p25": 91.0,
+          "velo_p75": 93.0,
+          "velo_p90": 94.0,
+          "velo_n": 216
+        },
+        {
+          "type": "SL",
+          "name": "SL",
+          "usage": 16.7,
+          "pitches": 3,
+          "velo": 81.7,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": null,
+          "xwoba": null,
+          "usage_r": 21.4,
+          "pitches_r": 3,
+          "velo_p25": 82.0,
+          "velo_p75": 85.0,
+          "velo_p90": 86.0,
+          "velo_n": 60
+        }
+      ],
+      "count_hand_mix": {
+        "overall": {
+          "vs_RHB": [],
+          "vs_LHB": []
+        },
+        "0-0": {
+          "vs_RHB": [],
+          "vs_LHB": []
+        },
+        "2_strikes": {
+          "vs_RHB": [],
+          "vs_LHB": []
+        }
+      },
+      "note": "LHP. Summer 2025 Lexington Legends (Atlantic League): 33.2 IP, 5.61 ERA, 25 G, 37 K / 20 BB (BR acosta019jos). Remapped off wrong MLBAM 805753 (different RHP). Pics/notes TBD.",
+      "view": "hitter",
+      "statcast_source": "MLB Stats API LBPRC live feed",
+      "statcast_seasons": [
+        2024
+      ],
+      "statcast_pitches": 52
     },
     {
       "name": "Luis Rodriguez",
@@ -7232,46 +7291,61 @@
       "team": "CAR",
       "throws": "R",
       "synergy_id": "626735df68628ad9ea0242a9",
-      "pitches": 120,
-      "summer_line": null,
+      "pitches": 54,
+      "summer_line": {
+        "team": "TRO",
+        "team_name": "Trois-Rivières Aigles",
+        "season": "Summer 2026",
+        "league": "FRON",
+        "circuit": "IND",
+        "league_name": "Frontier League",
+        "level": "Ind",
+        "ip": "20.2",
+        "outs": 62,
+        "g": 21,
+        "gs": 0,
+        "w": 2,
+        "l": 1,
+        "sv": 0,
+        "era": "5.23",
+        "h": 19,
+        "hr": 3,
+        "bb": 21,
+        "k": 32,
+        "k9": 13.9,
+        "bb9": 9.1,
+        "whip": "1.94",
+        "source": "Baseball Reference register rodrig039lui",
+        "source_url": "https://www.baseball-reference.com/register/player.fcgi?id=rodrig039lui",
+        "field_sources": {
+          "team_through_hr": "Baseball Reference register rodrig039lui"
+        },
+        "h9": "8.3",
+        "hr9": "1.3"
+      },
       "platoon": {
-        "vs_LHB": [
-          {
-            "type": "FF",
-            "pitches": 50,
-            "usage": 89.3
-          },
-          {
-            "type": "FC",
-            "pitches": 5,
-            "usage": 8.9
-          },
-          {
-            "type": "SL",
-            "pitches": 1,
-            "usage": 1.8
-          }
-        ],
         "vs_RHB": [
           {
             "type": "FF",
-            "pitches": 50,
-            "usage": 78.1
+            "pitches": 23,
+            "usage": 82.1
           },
           {
             "type": "SL",
-            "pitches": 9,
-            "usage": 14.1
+            "pitches": 5,
+            "usage": 17.9
+          }
+        ],
+        "vs_LHB": [
+          {
+            "type": "FF",
+            "pitches": 13,
+            "usage": 81.2
           },
           {
-            "type": "FC",
+            "type": "SL",
             "pitches": 3,
-            "usage": 4.7
-          },
-          {
-            "type": "CU",
-            "pitches": 2,
-            "usage": 3.1
+            "usage": 18.8
           }
         ]
       },
@@ -7279,68 +7353,38 @@
         "overall": [
           {
             "type": "FF",
-            "pitches": 100,
-            "usage": 83.3
+            "pitches": 36,
+            "usage": 81.8
           },
           {
             "type": "SL",
-            "pitches": 10,
-            "usage": 8.3
-          },
-          {
-            "type": "FC",
             "pitches": 8,
-            "usage": 6.7
-          },
-          {
-            "type": "CU",
-            "pitches": 2,
-            "usage": 1.7
+            "usage": 18.2
           }
         ],
         "0-0": [
           {
             "type": "FF",
-            "pitches": 23,
-            "usage": 85.2
-          },
-          {
-            "type": "SL",
-            "pitches": 3,
-            "usage": 11.1
-          },
-          {
-            "type": "FC",
-            "pitches": 1,
-            "usage": 3.7
+            "pitches": 10,
+            "usage": 100.0
           }
         ],
         "2_strikes": [
           {
             "type": "FF",
-            "pitches": 26,
-            "usage": 78.8
-          },
-          {
-            "type": "FC",
-            "pitches": 4,
-            "usage": 12.1
+            "pitches": 10,
+            "usage": 62.5
           },
           {
             "type": "SL",
-            "pitches": 2,
-            "usage": 6.1
-          },
-          {
-            "type": "CU",
-            "pitches": 1,
-            "usage": 3.0
+            "pitches": 6,
+            "usage": 37.5
           }
         ]
       },
       "hand_n": {
-        "vs_LHH": 56,
-        "vs_RHH": 64
+        "vs_RHB": 157,
+        "vs_LHB": 84
       },
       "leagues": {
         "LBPRC": 120
@@ -7357,22 +7401,22 @@
         "season": "2026-27 LBPRC",
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
         "ip": "1.1",
+        "era": "0.00",
         "g": null,
         "gs": null,
-        "k": 0,
-        "bb": 2,
-        "k9": 0.0,
-        "bb9": 13.5,
-        "era": "0.00",
-        "fip": null,
-        "whip": 1.5,
+        "w": 0,
+        "l": 0,
+        "sv": 0,
         "h": 0,
         "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
+        "er": 0,
+        "bb": 2,
+        "k": 0,
+        "k9": 0.0,
+        "bb9": 13.5,
+        "whip": 1.5,
+        "source": "lbprc_2026_27_pitching.json"
       },
       "winter_line": {
         "team": "CAR",
@@ -7380,24 +7424,163 @@
         "season": "2026-27 LBPRC",
         "league": "LBPRC",
         "league_name": "Liga de Béisbol Profesional Roberto Clemente",
-        "level": "LBPRC",
         "ip": "1.1",
+        "era": "0.00",
         "g": null,
         "gs": null,
-        "k": 0,
-        "bb": 2,
-        "k9": 0.0,
-        "bb9": 13.5,
-        "era": "0.00",
-        "fip": null,
-        "whip": 1.5,
+        "w": 0,
+        "l": 0,
+        "sv": 0,
         "h": 0,
         "hr": 0,
-        "sb_allowed": null,
-        "cs_allowed": null,
-        "source": "ligapr.com estadisticas/equipos lanzadores"
+        "er": 0,
+        "bb": 2,
+        "k": 0,
+        "k9": 0.0,
+        "bb9": 13.5,
+        "whip": 1.5,
+        "source": "lbprc_2026_27_pitching.json"
       },
-      "arm_slot_image": "assets/advance/rodriguez_luis_delivery.jpg"
+      "arm_slot_image": "assets/advance/rodriguez_luis_delivery.jpg",
+      "arsenal": [
+        {
+          "type": "FF",
+          "name": "4-Seam",
+          "velo": 93.61,
+          "spin": 2356,
+          "ivb": 10.44,
+          "hb_pitcher": 3.04,
+          "hb_hitter": -3.04,
+          "usage": 81.8,
+          "pitches": 36,
+          "whiff": 50.0
+        },
+        {
+          "type": "SL",
+          "name": "Slider",
+          "velo": 84.24,
+          "spin": 2330,
+          "ivb": -5.28,
+          "hb_pitcher": -13.68,
+          "hb_hitter": 13.68,
+          "usage": 18.2,
+          "pitches": 8,
+          "whiff": 50.0
+        },
+        {
+          "type": "FC",
+          "name": "FC",
+          "usage": 6.7,
+          "pitches": 8,
+          "velo": 88.3,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": 0.0,
+          "xwoba": null,
+          "usage_l": 8.9,
+          "pitches_l": 5,
+          "usage_r": 4.7,
+          "pitches_r": 3
+        },
+        {
+          "type": "CU",
+          "name": "CU",
+          "usage": 1.7,
+          "pitches": 2,
+          "velo": null,
+          "spin": null,
+          "ivb": null,
+          "hb_pitcher": null,
+          "hb_hitter": null,
+          "ps_stuff": null,
+          "whiff": null,
+          "xwoba": null,
+          "usage_r": 3.1,
+          "pitches_r": 2
+        }
+      ],
+      "count_hand_mix": {
+        "overall": {
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 23,
+              "usage": 82.1
+            },
+            {
+              "type": "SL",
+              "pitches": 5,
+              "usage": 17.9
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 13,
+              "usage": 81.2
+            },
+            {
+              "type": "SL",
+              "pitches": 3,
+              "usage": 18.8
+            }
+          ]
+        },
+        "0-0": {
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 6,
+              "usage": 100.0
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 4,
+              "usage": 100.0
+            }
+          ]
+        },
+        "2_strikes": {
+          "vs_RHB": [
+            {
+              "type": "FF",
+              "pitches": 5,
+              "usage": 55.6
+            },
+            {
+              "type": "SL",
+              "pitches": 4,
+              "usage": 44.4
+            }
+          ],
+          "vs_LHB": [
+            {
+              "type": "FF",
+              "pitches": 5,
+              "usage": 71.4
+            },
+            {
+              "type": "SL",
+              "pitches": 2,
+              "usage": 28.6
+            }
+          ]
+        }
+      },
+      "note": "RHP. Summer 2026 Trois-Rivières (Frontier League): 20.2 IP, 5.23 ERA, 21 G, 32 K / 21 BB (BR rodrig039lui). CAR roster lists FRON/IND (not LMB). Mexico Diablos Luis Angel Rodriguez (678296, LHP) is a different pitcher. Pics/notes TBD.",
+      "view": "hitter",
+      "statcast_source": "MLB Stats API LBPRC live feed",
+      "statcast_seasons": [
+        2024,
+        2025,
+        2026
+      ],
+      "statcast_pitches": 241
     },
     {
       "synergy_id": "60b8f2dce22410a01cd50436",

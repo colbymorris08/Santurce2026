@@ -1,0 +1,111 @@
+{
+  "updated": "2026-11-20T16:08:57Z",
+  "acosta": {
+    "old_id": 805753,
+    "new_id": -574529855,
+    "throws": "L",
+    "br": "acosta019jos",
+    "summer": {
+      "ip": "33.2",
+      "era": "5.61",
+      "g": 25,
+      "k": 37,
+      "bb": 20,
+      "k9": 9.9,
+      "bb9": 5.3,
+      "whip": "9.1",
+      "team_name": "Lexington Legends"
+    },
+    "winter": null,
+    "official": {
+      "id": -574529855,
+      "name": "Jose Acosta",
+      "jersey": "39",
+      "throws": "L"
+    },
+    "one_page": {
+      "mlb_id": -574529855,
+      "name": "Jose Acosta",
+      "throws": "L",
+      "velo": {
+        "FB": "91-93",
+        "CB": "",
+        "SL": "82-85",
+        "CH": "",
+        "CT": "",
+        "SPL": ""
+      },
+      "freq_r": "",
+      "needs_data": false,
+      "jersey": "39"
+    },
+    "advance": true
+  },
+  "luis_rodriguez": {
+    "mlb_id": 693543,
+    "br": "rodrig039lui",
+    "summer": {
+      "ip": "20.2",
+      "era": "5.23",
+      "g": 21,
+      "k": 32,
+      "bb": 21,
+      "k9": 13.9,
+      "bb9": 9.1,
+      "whip": "8.3",
+      "team_name": "Trois-Rivières Aigles"
+    },
+    "winter": {
+      "team": "CAR",
+      "team_name": "Gigantes de Carolina",
+      "season": "2026-27 LBPRC",
+      "league": "LBPRC",
+      "league_name": "Liga de Béisbol Profesional Roberto Clemente",
+      "ip": "1.1",
+      "era": "0.00",
+      "g": null,
+      "gs": null,
+      "w": 0,
+      "l": 0,
+      "sv": 0,
+      "h": 0,
+      "hr": 0,
+      "er": 0,
+      "bb": 2,
+      "k": 0,
+      "k9": 0.0,
+      "bb9": 13.5,
+      "whip": 1.5,
+      "source": "lbprc_2026_27_pitching.json"
+    },
+    "mexico_note": "CAR roster = Frontier League RHP (693543). Mexico Diablos Luis Angel Rodriguez 678296 is a different LHP.",
+    "mexico_ref": {
+      "playerId": 678296,
+      "inningsPitched": "12.0",
+      "era": "4.50",
+      "teamName": "Diablos Rojos del Mexico",
+      "strikeOuts": 14,
+      "baseOnBalls": 6
+    },
+    "ps_season": null,
+    "ps_n": 0,
+    "one_page": {
+      "mlb_id": 693543,
+      "name": "Luis Rodriguez",
+      "throws": "R",
+      "velo": {
+        "FB": "94-94",
+        "CB": "",
+        "SL": "84-84",
+        "CH": "",
+        "CT": "88-88",
+        "SPL": ""
+      },
+      "freq_r": "FB 82%, SL 18%",
+      "needs_data": false,
+      "jersey": "28",
+      "notes": "Almost all FB, high extension high velo. Short SL."
+    },
+    "advance": true
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T10:12:08Z",
+  "updated": "2026-11-20T16:10:45Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -55,27 +55,6 @@
           "freq_html": "",
           "notes": "",
           "needs_data": true,
-          "appeared_lbprc": true
-        },
-        {
-          "jersey": "",
-          "name": "Emmanuel Chapman",
-          "name_display": "Chapman, Emmanuel",
-          "throws": "R",
-          "mlb_id": 820888,
-          "velo": {
-            "FB": "95-95",
-            "CB": "",
-            "SL": "87-87",
-            "CH": "",
-            "CT": "",
-            "SPL": "84-84"
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": false,
           "appeared_lbprc": true
         },
         {
@@ -310,27 +289,6 @@
           "appeared_lbprc": true
         },
         {
-          "jersey": "11",
-          "name": "Jose Rodriguez",
-          "name_display": "Rodriguez, Jose",
-          "throws": "R",
-          "mlb_id": 692064,
-          "velo": {
-            "FB": "97-97\nSNK 96-96",
-            "CB": "",
-            "SL": "86-86",
-            "CH": "87-87",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "SNK 29%, SL 27%, CH 22%, FB 21%",
-          "freq_l": "CH 40%, FB 29%, SNK 17%, SL 14%",
-          "freq_html": "<span class=\"freq-r\">RHH: SNK 29%, SL 27%, CH 22%, FB 21%</span><br><span class=\"freq-l\">LHH: CH 40%, FB 29%, SNK 17%, SL 14%</span>",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": true
-        },
-        {
           "jersey": "12",
           "name": "Rafael Sanchez",
           "name_display": "Sanchez, Rafael",
@@ -433,6 +391,27 @@
           "freq_html": "",
           "notes": "",
           "needs_data": true,
+          "appeared_lbprc": false
+        },
+        {
+          "jersey": "",
+          "name": "Emmanuel Chapman",
+          "name_display": "Chapman, Emmanuel",
+          "throws": "R",
+          "mlb_id": 820888,
+          "velo": {
+            "FB": "95-95",
+            "CB": "",
+            "SL": "87-87",
+            "CH": "",
+            "CT": "",
+            "SPL": "84-84"
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": false,
           "appeared_lbprc": false
         },
         {
@@ -625,6 +604,27 @@
           "appeared_lbprc": false
         },
         {
+          "jersey": "11",
+          "name": "Jose Rodriguez",
+          "name_display": "Rodriguez, Jose",
+          "throws": "R",
+          "mlb_id": 692064,
+          "velo": {
+            "FB": "97-97\nSNK 96-96",
+            "CB": "",
+            "SL": "86-86",
+            "CH": "87-87",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "SNK 29%, SL 27%, CH 22%, FB 21%",
+          "freq_l": "CH 40%, FB 29%, SNK 17%, SL 14%",
+          "freq_html": "<span class=\"freq-r\">RHH: SNK 29%, SL 27%, CH 22%, FB 21%</span><br><span class=\"freq-l\">LHH: CH 40%, FB 29%, SNK 17%, SL 14%</span>",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": false
+        },
+        {
           "jersey": "14",
           "name": "Joshua Torres",
           "name_display": "Torres, Joshua",
@@ -688,7 +688,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 18
+      "appeared_count": 16
     },
     "CAG": {
       "team": "CAG",
@@ -1569,16 +1569,16 @@
           "throws": "R",
           "mlb_id": 693543,
           "velo": {
-            "FB": "94-96",
+            "FB": "94-94",
             "CB": "",
-            "SL": "87-89",
+            "SL": "84-84",
             "CH": "",
             "CT": "88-88",
             "SPL": ""
           },
-          "freq_r": "FB 78%, SL 14%, CUT 5%, CB 3%",
-          "freq_l": "FB 89%, CUT 9%, SL 2%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 78%, SL 14%, CUT 5%, CB 3%</span><br><span class=\"freq-l\">LHH: FB 89%, CUT 9%, SL 2%</span>",
+          "freq_r": "FB 82%, SL 18%",
+          "freq_l": "FB 81%, SL 19%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 82%, SL 18%</span><br><span class=\"freq-l\">LHH: FB 81%, SL 19%</span>",
           "notes": "Almost all FB, high extension high velo. Short SL.",
           "needs_data": false,
           "appeared_lbprc": true
@@ -1672,7 +1672,7 @@
           "name": "Jose Acosta",
           "name_display": "Acosta, Jose (l)",
           "throws": "L",
-          "mlb_id": 805753,
+          "mlb_id": -574529855,
           "velo": {
             "FB": "91-93",
             "CB": "",
@@ -1681,9 +1681,9 @@
             "CT": "",
             "SPL": ""
           },
-          "freq_r": "FB 79%, SL 21%",
+          "freq_r": "",
           "freq_l": "",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 79%, SL 21%</span>",
+          "freq_html": "",
           "notes": "",
           "needs_data": false,
           "appeared_lbprc": false
