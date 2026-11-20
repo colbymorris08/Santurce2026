@@ -571,7 +571,7 @@
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san304';
+const ASSET_V = 'san305';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -7405,9 +7405,18 @@ function exportPitcherOnePagePdf(){
   const theadHtml = table?.querySelector('thead')?.outerHTML || '';
   const cardIndex = onePageCardPitcherIndex(team);
   let rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
-  // Print/PDF: only pitchers on the lineup card (SP + eligible pen).
+  // Print/PDF: card SP/pen when set, but always keep official active roster arms
+  // (avoids stale local card lists dropping newly added pitchers like Acosta).
   if(cardIndex.ids.length){
-    rowEls = rowEls.filter(tr => tr.getAttribute('data-op-on-card') === '1');
+    const official = officialActivePitcherIndex(team);
+    rowEls = rowEls.filter(tr => {
+      if(tr.getAttribute('data-op-on-card') === '1') return true;
+      if(!official.ids.length) return false;
+      const id = Number(tr.getAttribute('data-op-id'));
+      if(Number.isFinite(id) && official.byId.has(id)) return true;
+      const key = tr.getAttribute('data-op-key') || '';
+      return !!(key && official.byName && official.byName.has(key));
+    });
   }
   const n = rowEls.length;
   // Density + hard page split so large rosters never lose rows to overflow:hidden

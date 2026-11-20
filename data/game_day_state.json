@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-20T16:27:20Z",
+  "updated": "2026-11-20T16:34:15Z",
   "label": "2026-11-19 SAN vs MAY (daily schedule) — CAR pending",
   "date_key": "2026-11-19",
   "published_from": "Cangrejeros_de_Santurce_2026-11-19_Daily_Schedule.pdf (WhatsApp 1DA197C3)",
-  "note": "Santurce 1–9 + SP Lebron from Nov 19 daily schedule. Mayagüez side unchanged from prior sheet. Carolina lineup not received yet — left blank.",
+  "note": "Santurce 1–9 + SP Lebron from Nov 19 daily schedule. Mayagüez side unchanged from prior sheet. Carolina lineup not received yet — left blank. CAR one-page pen = full sheet roster (incl. Acosta/Rodriguez) until lineup arrives.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -285,11 +285,49 @@
             "pos": "4"
           }
         ]
+      },
+      "CAR": {
+        "sp": null,
+        "pen": [
+          682118,
+          676047,
+          -3872462934,
+          681813,
+          676769,
+          803035,
+          689214,
+          641729,
+          690148,
+          -742329386,
+          806309,
+          664371,
+          805678,
+          693543,
+          545814,
+          -758984765,
+          -522170762,
+          703106,
+          -574529855,
+          675989,
+          -359955779,
+          670103,
+          -779812433,
+          -176877749,
+          -158179355,
+          -268179393,
+          -863509874,
+          695684,
+          670232,
+          -846284267,
+          -894470771
+        ],
+        "lineup": [],
+        "bench": []
       }
     },
     "opponent": "MAY",
     "santurceHome": true,
-    "updated": "2026-11-20T16:27:20Z"
+    "updated": "2026-11-20T16:34:15Z"
   },
   "notes": {
     "team": "SJU",

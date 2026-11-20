@@ -184,7 +184,17 @@
     const cardIndex = onePageCardPitcherIndex(team);
     let rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
     if (cardIndex.ids.length) {
-      rowEls = rowEls.filter((tr) => tr.getAttribute('data-op-on-card') === '1');
+      const official = typeof officialActivePitcherIndex === 'function'
+        ? officialActivePitcherIndex(team)
+        : { ids: [], byId: new Map(), byName: new Map() };
+      rowEls = rowEls.filter((tr) => {
+        if (tr.getAttribute('data-op-on-card') === '1') return true;
+        if (!official.ids.length) return false;
+        const id = Number(tr.getAttribute('data-op-id'));
+        if (Number.isFinite(id) && official.byId.has(id)) return true;
+        const key = tr.getAttribute('data-op-key') || '';
+        return !!(key && official.byName && official.byName.has(key));
+      });
     }
     const n = rowEls.length;
     let density = '';
