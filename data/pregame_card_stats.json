@@ -6511,15 +6511,15 @@
       "pitcher": null
     },
     {
-      "id": 670232,
+      "id": -129371721,
       "name": "Ramon Rodriguez",
       "last": "RODRIGUEZ",
       "team": "CAR",
       "roster_pos": "P",
-      "jersey": "65",
+      "jersey": "41",
       "role": "P",
       "bats": "R",
-      "throws": "R",
+      "throws": "L",
       "hitter": null,
       "pitcher": {
         "bf": 266,
@@ -14188,7 +14188,7 @@
       "last": "VAZ",
       "team": "CAR",
       "roster_pos": "OF",
-      "jersey": "",
+      "jersey": "29",
       "role": "H",
       "bats": "L",
       "throws": null,
@@ -14365,6 +14365,33 @@
       "throws": null,
       "hitter": {},
       "pitcher": null,
+      "active_roster": true
+    },
+    {
+      "id": -3872462934,
+      "name": "Alexander Castro",
+      "last": "CASTRO",
+      "team": "CAR",
+      "roster_pos": "P",
+      "jersey": "36",
+      "role": "P",
+      "bats": null,
+      "throws": "R",
+      "hitter": null,
+      "pitcher": {
+        "bf": 94,
+        "k": 21.3,
+        "gb": 70.0,
+        "bb": 19.1,
+        "ops": 0.739,
+        "avg": 0.235,
+        "wh": 25.1,
+        "wh_l": null,
+        "wh_r": null,
+        "gs": 0,
+        "hand_split": false,
+        "src": "Winter 2025-26 SJU"
+      },
       "active_roster": true
     }
   ],

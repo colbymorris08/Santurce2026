@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-20T16:34:15Z",
-  "label": "2026-11-19 SAN vs MAY (daily schedule) — CAR pending",
+  "updated": "2026-11-20T17:44:32Z",
+  "label": "2026-11-19 SAN vs CAR (Carolina lineup card)",
   "date_key": "2026-11-19",
-  "published_from": "Cangrejeros_de_Santurce_2026-11-19_Daily_Schedule.pdf (WhatsApp 1DA197C3)",
-  "note": "Santurce 1–9 + SP Lebron from Nov 19 daily schedule. Mayagüez side unchanged from prior sheet. Carolina lineup not received yet — left blank. CAR one-page pen = full sheet roster (incl. Acosta/Rodriguez) until lineup arrives.",
+  "published_from": "CAR lineup card IMG_7098 (manager Ricardo Rivera) + prior SAN daily schedule",
+  "note": "Carolina 1–9 + SP Gowens and pen/bench from Nov 19 manager card. Ramon Rodriguez remapped to #41 LHP (not catcher 670232). Santurce side kept from Nov 19 daily schedule. Opponent set to CAR.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -287,47 +287,95 @@
         ]
       },
       "CAR": {
-        "sp": null,
+        "sp": 803035,
         "pen": [
-          682118,
+          -574529855,
           676047,
           -3872462934,
           681813,
           676769,
-          803035,
           689214,
           641729,
-          690148,
-          -742329386,
           806309,
-          664371,
           805678,
           693543,
+          -129371721,
           545814,
-          -758984765,
-          -522170762,
-          703106,
-          -574529855,
-          675989,
-          -359955779,
-          670103,
-          -779812433,
-          -176877749,
-          -158179355,
-          -268179393,
-          -863509874,
-          695684,
-          670232,
-          -846284267,
-          -894470771
+          703106
         ],
-        "lineup": [],
-        "bench": []
+        "lineup": [
+          {
+            "id": 827636,
+            "pos": "8"
+          },
+          {
+            "id": 671286,
+            "pos": "9"
+          },
+          {
+            "id": 694673,
+            "pos": "3"
+          },
+          {
+            "id": 815464,
+            "pos": "7"
+          },
+          {
+            "id": 805834,
+            "pos": "DH"
+          },
+          {
+            "id": 641521,
+            "pos": "6"
+          },
+          {
+            "id": 813844,
+            "pos": "2"
+          },
+          {
+            "id": 694754,
+            "pos": "5"
+          },
+          {
+            "id": 681515,
+            "pos": "4"
+          }
+        ],
+        "bench": [
+          {
+            "id": 805125,
+            "pos": ""
+          },
+          {
+            "id": 806083,
+            "pos": ""
+          },
+          {
+            "id": -654236427,
+            "pos": ""
+          },
+          {
+            "id": 691724,
+            "pos": ""
+          },
+          {
+            "id": 687567,
+            "pos": ""
+          },
+          {
+            "id": 682196,
+            "pos": ""
+          },
+          {
+            "id": 703641,
+            "pos": ""
+          }
+        ]
       }
     },
-    "opponent": "MAY",
+    "opponent": "CAR",
     "santurceHome": true,
-    "updated": "2026-11-20T16:34:15Z"
+    "updated": "2026-11-20T17:44:32Z"
   },
   "notes": {
     "team": "SJU",
@@ -490,7 +538,11 @@
     "678013": "45",
     "-259860308": "56",
     "-539643335": "57",
-    "-346674215": "29"
+    "-346674215": "29",
+    "805834": "29",
+    "-574529855": "39",
+    "-3872462934": "36",
+    "-129371721": "41"
   },
   "one_page_notes": {
     "agnelmiranda": "All FB hitter ahead. Lower slot RHP. FB SL to both sides, only 12% CH to LHH.",
