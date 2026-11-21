@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14",
+  "updated": "2026-11-21",
   "note": "Manual pitcher L/R outcome overrides for the strategy card. Applied after build_pregame_cards season-line selection.",
   "pitchers": {
     "803035": {
@@ -75,6 +75,76 @@
         "swings": 141
       },
       "source_detail": "2026 AAA Columbus (sportId=11) game feeds via StatsAPI. L/R K%/BB%/OPS/AVG/WH/GB from batSide on allPlays for pitcher 669142 across 24 games (129 BF). GB% = ground-ball outs / BIP outs (hitData.trajectory + event). Overall reconciles to ~card Summer 2026 COL line (OPS/AVG/GB)."
+    },
+    "700842": {
+      "name": "Eduardo Rivera",
+      "team": "SAN",
+      "bf": 236,
+      "k": 30.1,
+      "gb": 61.1,
+      "bb": 11.9,
+      "ops": 0.563,
+      "avg": 0.18,
+      "wh": 32.4,
+      "wh_l": 35.2,
+      "wh_r": 30.9,
+      "gs": 6,
+      "hand_split": true,
+      "src": "Summer 2026 WOR",
+      "vs_l": {
+        "bf": 54,
+        "k": 31.5,
+        "gb": 37.5,
+        "bb": 20.4,
+        "ops": 0.639,
+        "avg": 0.225,
+        "wh": 35.2
+      },
+      "vs_r": {
+        "bf": 144,
+        "k": 26.4,
+        "gb": 67.2,
+        "bb": 11.1,
+        "ops": 0.624,
+        "avg": 0.197,
+        "wh": 30.9
+      },
+      "source_detail": "Overall from card Summer 2026 WOR. L/R from StatsAPI AAA Worcester 2026 vl/vr. WH L/R from Synergy card wh_l/wh_r."
+    },
+    "656924": {
+      "name": "Ryder Ryan",
+      "team": "SJU",
+      "bf": 245,
+      "k": 18.4,
+      "gb": 51.4,
+      "bb": 11.0,
+      "ops": 0.847,
+      "avg": 0.299,
+      "wh": 23.8,
+      "wh_l": null,
+      "wh_r": null,
+      "gs": 9,
+      "hand_split": true,
+      "src": "Summer 2026 OKC",
+      "vs_l": {
+        "bf": 152,
+        "k": 17.8,
+        "gb": 50.0,
+        "bb": 13.2,
+        "ops": 0.85,
+        "avg": 0.292,
+        "wh": null
+      },
+      "vs_r": {
+        "bf": 182,
+        "k": 17.0,
+        "gb": 52.7,
+        "bb": 7.1,
+        "ops": 0.742,
+        "avg": 0.267,
+        "wh": null
+      },
+      "source_detail": "Overall from card Summer 2026 OKC. L/R from StatsAPI AAA Oklahoma City 2026 vl/vr."
     }
   }
 }

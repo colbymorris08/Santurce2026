@@ -2608,8 +2608,26 @@
         "wh_l": 35.2,
         "wh_r": 30.9,
         "gs": 6,
-        "hand_split": false,
-        "src": "Summer 2026 WOR"
+        "hand_split": true,
+        "src": "Summer 2026 WOR",
+        "vs_l": {
+          "bf": 54,
+          "k": 31.5,
+          "gb": 37.5,
+          "bb": 20.4,
+          "ops": 0.639,
+          "avg": 0.225,
+          "wh": 35.2
+        },
+        "vs_r": {
+          "bf": 144,
+          "k": 26.4,
+          "gb": 67.2,
+          "bb": 11.1,
+          "ops": 0.624,
+          "avg": 0.197,
+          "wh": 30.9
+        }
       },
       "active_roster": true
     },
@@ -13937,8 +13955,26 @@
         "wh_l": null,
         "wh_r": null,
         "gs": 9,
-        "hand_split": false,
-        "src": "Summer 2026 OKC"
+        "hand_split": true,
+        "src": "Summer 2026 OKC",
+        "vs_l": {
+          "bf": 152,
+          "k": 17.8,
+          "gb": 50.0,
+          "bb": 13.2,
+          "ops": 0.85,
+          "avg": 0.292,
+          "wh": null
+        },
+        "vs_r": {
+          "bf": 182,
+          "k": 17.0,
+          "gb": 52.7,
+          "bb": 7.1,
+          "ops": 0.742,
+          "avg": 0.267,
+          "wh": null
+        }
       },
       "active_roster": true
     },
@@ -14412,5 +14448,5 @@
     "hitters_with_bunt_situations": 153,
     "pitchers_with_line": 132
   },
-  "updated": "2026-11-20T16:08:57Z"
+  "updated": "2026-11-21T17:50:51Z"
 }
