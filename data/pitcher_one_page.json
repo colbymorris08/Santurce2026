@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21T09:02:52Z",
+  "updated": "2026-11-21T10:10:40Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -2690,6 +2690,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "47",
+          "name": "Omar Melendez",
+          "name_display": "Melendez, Omar (l)",
+          "throws": "L",
+          "mlb_id": 801018,
+          "velo": {
+            "FB": "81-82",
+            "CB": "67-69",
+            "SL": "73-75",
+            "CH": "74-75",
+            "CT": "82-82",
+            "SPL": ""
+          },
+          "freq_r": "FB 60%, CH 24%, CB 10%, SL 6%",
+          "freq_l": "FB 61%, CB 19%, CH 11%, SL 8%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, CH 24%, CB 10%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 61%, CB 19%, CH 11%, SL 8%</span>",
+          "notes": "High release, leans on FB, CH to RHH, spin to LHH",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "40",
           "name": "Ryan Murphy",
           "name_display": "Murphy, Ryan",
@@ -2900,27 +2921,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "47",
-          "name": "Omar Melendez",
-          "name_display": "Melendez, Omar (l)",
-          "throws": "L",
-          "mlb_id": 801018,
-          "velo": {
-            "FB": "81-82",
-            "CB": "67-69",
-            "SL": "73-75",
-            "CH": "74-75",
-            "CT": "82-82",
-            "SPL": ""
-          },
-          "freq_r": "FB 60%, CH 24%, CB 10%, SL 6%",
-          "freq_l": "FB 61%, CB 19%, CH 11%, SL 8%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 60%, CH 24%, CB 10%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 61%, CB 19%, CH 11%, SL 8%</span>",
-          "notes": "High release, leans on FB, CH to RHH, spin to LHH",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "",
           "name": "Michael Morales",
           "name_display": "Morales, Michael",
@@ -3089,7 +3089,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 16
+      "appeared_count": 17
     },
     "SJU": {
       "team": "SJU",
