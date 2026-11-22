@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21T17:36:17Z",
+  "updated": "2026-11-22T09:03:47Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1584,6 +1584,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "41",
+          "name": "Ramon Rodriguez",
+          "name_display": "Rodriguez, Ramon (l)",
+          "throws": "L",
+          "mlb_id": -129371721,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "22",
           "name": "Ramesis Rosa",
           "name_display": "Rosa, Ramesis (l)",
@@ -1878,27 +1899,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "41",
-          "name": "Ramon Rodriguez",
-          "name_display": "Rodriguez, Ramon (l)",
-          "throws": "L",
-          "mlb_id": -129371721,
-          "velo": {
-            "FB": "",
-            "CB": "",
-            "SL": "",
-            "CH": "",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": true,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "68",
           "name": "Pitterson Rosa",
           "name_display": "Rosa, Pitterson",
@@ -1941,7 +1941,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 18
+      "appeared_count": 19
     },
     "MAY": {
       "team": "MAY",
