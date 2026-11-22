@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22T09:03:47Z",
+  "updated": "2026-11-22T10:11:55Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -2368,6 +2368,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "52",
+          "name": "Lucas Vega",
+          "name_display": "Vega, Lucas",
+          "throws": "R",
+          "mlb_id": 837223,
+          "velo": {
+            "FB": "89-90",
+            "CB": "",
+            "SL": "78-80",
+            "CH": "81-82",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 50%, SL 45%, SNK 3%, CH 1%",
+          "freq_l": "FB 69%, SL 29%, CH 2%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 50%, SL 45%, SNK 3%, CH 1%</span><br><span class=\"freq-l\">LHH: FB 69%, SL 29%, CH 2%</span>",
+          "notes": "High FB usage, low slow. Only uses SL as non-FB - some sweep.",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "36",
           "name": "Alexander Castro",
           "name_display": "Castro, Alexander",
@@ -2431,27 +2452,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "52",
-          "name": "Lucas Vega",
-          "name_display": "Vega, Lucas",
-          "throws": "R",
-          "mlb_id": 837223,
-          "velo": {
-            "FB": "89-90",
-            "CB": "",
-            "SL": "78-80",
-            "CH": "81-82",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "FB 50%, SL 45%, SNK 3%, CH 1%",
-          "freq_l": "FB 69%, SL 29%, CH 2%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 50%, SL 45%, SNK 3%, CH 1%</span><br><span class=\"freq-l\">LHH: FB 69%, SL 29%, CH 2%</span>",
-          "notes": "High FB usage, low slow. Only uses SL as non-FB - some sweep.",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "",
           "name": "Antonio Velez",
           "name_display": "Velez, Antonio (l)",
@@ -2494,7 +2494,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 20
+      "appeared_count": 21
     },
     "PON": {
       "team": "PON",
