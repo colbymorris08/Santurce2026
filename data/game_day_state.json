@@ -1,9 +1,9 @@
 {
-  "updated": "2026-11-21T17:51:38Z",
-  "label": "2026-11-21 SAN vs SJU",
-  "date_key": "2026-11-21",
-  "published_from": "Cangrejeros_de_Santurce_2026-11-21_Daily_Schedule.pdf + SJU Orden al bate IMG_7106",
-  "note": "Santurce 1–9 + SP Eduardo Rivera from Nov 21 daily schedule. San Juan 1–9 + SP Ryder Ryan and card arms from Nov 21 Orden al bate. Opponent SJU. Hitter advance/spray/INF-OF order follow card; pitcher one-page/advance use SP+pen.",
+  "updated": "2026-11-22T17:41:52Z",
+  "label": "2026-11-22 SAN vs CAR",
+  "date_key": "2026-11-22",
+  "published_from": "SAN daily schedule PDF + CAR official batting order IMG_7109 (Ricardo Rivera)",
+  "note": "Santurce 1–9 + SP Eduardo Rivera from daily schedule sheet. Carolina 1–9 + SP Kachmar and card pen/bench from Nov 21 official batting order (viewed 11/22). Opponent CAR. Tab orders follow strategy card.",
   "strategy": {
     "teams": {
       "SAN": {
@@ -340,9 +340,10 @@
         ]
       },
       "CAR": {
-        "sp": 803035,
+        "sp": 690148,
         "pen": [
           -574529855,
+          682118,
           676047,
           -3872462934,
           681813,
@@ -375,7 +376,7 @@
           },
           {
             "id": 805834,
-            "pos": "DH"
+            "pos": "4"
           },
           {
             "id": 641521,
@@ -383,15 +384,15 @@
           },
           {
             "id": 813844,
+            "pos": "DH"
+          },
+          {
+            "id": 682196,
             "pos": "2"
           },
           {
-            "id": 694754,
+            "id": 703641,
             "pos": "5"
-          },
-          {
-            "id": 681515,
-            "pos": "4"
           }
         ],
         "bench": [
@@ -401,6 +402,10 @@
           },
           {
             "id": 806083,
+            "pos": ""
+          },
+          {
+            "id": 681515,
             "pos": ""
           },
           {
@@ -414,21 +419,13 @@
           {
             "id": 687567,
             "pos": ""
-          },
-          {
-            "id": 682196,
-            "pos": ""
-          },
-          {
-            "id": 703641,
-            "pos": ""
           }
         ]
       }
     },
-    "opponent": "SJU",
-    "santurceHome": true,
-    "updated": "2026-11-21T17:51:38Z"
+    "opponent": "CAR",
+    "santurceHome": false,
+    "updated": "2026-11-22T17:41:52Z"
   },
   "notes": {
     "team": "SJU",
@@ -624,7 +621,8 @@
     "572077": "45",
     "671045": "56",
     "690616": "43",
-    "681344": "95"
+    "681344": "95",
+    "690148": "46"
   },
   "one_page_notes": {
     "agnelmiranda": "All FB hitter ahead. Lower slot RHP. FB SL to both sides, only 12% CH to LHH.",
