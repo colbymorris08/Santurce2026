@@ -2034,10 +2034,49 @@
     "mlb_debut": null,
     "birth_country": "Puerto Rico",
     "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": "MiLB/AAA"
+    "pitches": 73,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 88.2,
+        "usage": 66.0,
+        "whiff": 0.0,
+        "pitches": 48
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 79,
+        "usage": 23.0,
+        "whiff": 38.0,
+        "pitches": 17
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 1
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 1
+      }
+    ],
+    "source": "Synergy App PDF 2026-Miranda_Agnel.pdf (year 2026; no Stuff+)",
+    "level_hint": "MiLB/AAA",
+    "synergy_app_pdf": "2026-Miranda_Agnel.pdf",
+    "synergy_app_pdf_year": 2026
   },
   {
     "name": "Ryan Munoz",
@@ -2178,9 +2217,43 @@
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
+    "pitches": 589,
+    "arsenal": [
+      {
+        "type": "FF",
+        "name": "FF",
+        "velo": 92.8,
+        "spin": 2448,
+        "ivb": 18.0,
+        "hb_pitcher": 9.6,
+        "hb_hitter": -9.6,
+        "usage": 65.7,
+        "pitches": 413
+      },
+      {
+        "type": "FC",
+        "name": "FC",
+        "velo": 90.2,
+        "spin": 2491,
+        "ivb": 9.4,
+        "hb_pitcher": 0.9,
+        "hb_hitter": -0.9,
+        "usage": 21.1,
+        "pitches": 133
+      },
+      {
+        "type": "SL",
+        "name": "SL",
+        "velo": 87.0,
+        "spin": 2484,
+        "ivb": 6.5,
+        "hb_pitcher": -0.8,
+        "hb_hitter": 0.8,
+        "usage": 6.8,
+        "pitches": 43
+      }
+    ],
+    "source": "trackman_lbprc_2026",
     "level_hint": "MiLB/AAA"
   },
   {
@@ -2279,10 +2352,49 @@
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
-    "level_hint": null
+    "pitches": 218,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 73.0,
+        "whiff": 24.0,
+        "pitches": 159
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 8.0,
+        "whiff": 50.0,
+        "pitches": 17
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 3.0,
+        "whiff": 0.0,
+        "pitches": 7
+      },
+      {
+        "pitch_type": "FS",
+        "pitch_name": "Splitter",
+        "ps_stuff": null,
+        "velo": null,
+        "usage": 3.0,
+        "whiff": 67.0,
+        "pitches": 7
+      }
+    ],
+    "source": "Synergy App PDF 2026-Yamashiro_Kyohei.pdf (year 2026; no Stuff+)",
+    "level_hint": null,
+    "synergy_app_pdf": "2026-Yamashiro_Kyohei.pdf",
+    "synergy_app_pdf_year": 2026
   },
   {
     "name": "Kai Yokogawa",
@@ -2459,12 +2571,42 @@
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,
-    "pitches": null,
-    "arsenal": [],
-    "source": "unavailable",
+    "pitches": 562,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 90.4,
+        "usage": 43.0,
+        "whiff": 16.0,
+        "pitches": 243
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 80.4,
+        "usage": 33.0,
+        "whiff": 57.0,
+        "pitches": 188
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": 84.7,
+        "usage": 10.0,
+        "whiff": 48.0,
+        "pitches": 57
+      }
+    ],
+    "source": "Synergy App PDF 2025-Acosta_Jose.pdf (year 2025; no Stuff+)",
     "level_hint": null,
     "mlb_id": -574529855,
-    "throws": "L"
+    "throws": "L",
+    "synergy_app_pdf": "2025-Acosta_Jose.pdf",
+    "synergy_app_pdf_year": 2025
   },
   {
     "name": "Gabriel Cotto",
@@ -2818,6 +2960,279 @@
     "name": "Matt Tenuta",
     "player_id": 621343,
     "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Brian Moran",
+    "player_id": 572383,
+    "team": "SAN",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Bryan Marrero",
+    "player_id": null,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Pitterson Rosa",
+    "player_id": 800278,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Nathan Torres",
+    "player_id": null,
+    "team": "CAR",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": 96,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 89,
+        "usage": 75.0,
+        "whiff": 12.0,
+        "pitches": 72
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 82.1,
+        "usage": 20.0,
+        "whiff": 44.0,
+        "pitches": 19
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": 85,
+        "usage": 2.0,
+        "whiff": 0.0,
+        "pitches": 2
+      }
+    ],
+    "source": "Synergy App PDF 2023-Torres_Nathan.pdf (year 2023; no Stuff+)",
+    "level_hint": null,
+    "synergy_app_pdf": "2023-Torres_Nathan.pdf",
+    "synergy_app_pdf_year": 2023
+  },
+  {
+    "name": "Samuel Reyes",
+    "player_id": 672795,
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": null,
+    "arsenal": [],
+    "source": "unavailable",
+    "level_hint": null
+  },
+  {
+    "name": "Rafael Kelly",
+    "player_id": 670908,
+    "team": "MAY",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": 563,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 90.8,
+        "usage": 38.0,
+        "whiff": 13.0,
+        "pitches": 216
+      },
+      {
+        "pitch_type": "FS",
+        "pitch_name": "Splitter",
+        "ps_stuff": null,
+        "velo": 84.1,
+        "usage": 33.0,
+        "whiff": 30.0,
+        "pitches": 185
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 84.4,
+        "usage": 2.0,
+        "whiff": 0.0,
+        "pitches": 10
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": 83.5,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 5
+      }
+    ],
+    "source": "Synergy App PDF 2026-Kelly_Rafael.pdf (year 2026; no Stuff+)",
+    "level_hint": null,
+    "synergy_app_pdf": "2026-Kelly_Rafael.pdf",
+    "synergy_app_pdf_year": 2026
+  },
+  {
+    "name": "Nick Trabacchi",
+    "player_id": null,
+    "team": "PON",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": 445,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 91.1,
+        "usage": 49.0,
+        "whiff": 12.0,
+        "pitches": 220
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 83.3,
+        "usage": 34.0,
+        "whiff": 35.0,
+        "pitches": 150
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": 84,
+        "usage": 13.0,
+        "whiff": 30.0,
+        "pitches": 59
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": null,
+        "velo": 78.8,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 4
+      }
+    ],
+    "source": "Synergy App PDF 2026-Trabacchi_Nick.pdf (year 2026; no Stuff+)",
+    "level_hint": null,
+    "synergy_app_pdf": "2026-Trabacchi_Nick.pdf",
+    "synergy_app_pdf_year": 2026
+  },
+  {
+    "name": "Victor Lopez",
+    "player_id": null,
+    "team": "SJU",
+    "mlb_debut": null,
+    "birth_country": null,
+    "stuff_plus": null,
+    "pitches": 310,
+    "arsenal": [
+      {
+        "pitch_type": "FF",
+        "pitch_name": "4-Seam",
+        "ps_stuff": null,
+        "velo": 92.3,
+        "usage": 41.0,
+        "whiff": 19.0,
+        "pitches": 128
+      },
+      {
+        "pitch_type": "SL",
+        "pitch_name": "Slider",
+        "ps_stuff": null,
+        "velo": 84,
+        "usage": 28.0,
+        "whiff": 40.0,
+        "pitches": 88
+      },
+      {
+        "pitch_type": "SI",
+        "pitch_name": "Sinker",
+        "ps_stuff": null,
+        "velo": 92.6,
+        "usage": 17.0,
+        "whiff": 17.0,
+        "pitches": 53
+      },
+      {
+        "pitch_type": "CH",
+        "pitch_name": "Changeup",
+        "ps_stuff": null,
+        "velo": 85.4,
+        "usage": 10.0,
+        "whiff": 14.0,
+        "pitches": 30
+      },
+      {
+        "pitch_type": "CU",
+        "pitch_name": "Curveball",
+        "ps_stuff": null,
+        "velo": 81.2,
+        "usage": 2.0,
+        "whiff": 0.0,
+        "pitches": 7
+      },
+      {
+        "pitch_type": "FC",
+        "pitch_name": "Cutter",
+        "ps_stuff": null,
+        "velo": 86.3,
+        "usage": 1.0,
+        "whiff": 0.0,
+        "pitches": 4
+      }
+    ],
+    "source": "Synergy App PDF 2023-Lopez_Victor.pdf (year 2023; no Stuff+)",
+    "level_hint": null,
+    "synergy_app_pdf": "2023-Lopez_Victor.pdf",
+    "synergy_app_pdf_year": 2023
+  },
+  {
+    "name": "Eddy Demurias",
+    "player_id": null,
+    "team": "MAY",
     "mlb_debut": null,
     "birth_country": null,
     "stuff_plus": null,

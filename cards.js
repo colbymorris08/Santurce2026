@@ -88,7 +88,12 @@
     return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z ]/g,' ').replace(/\s+/g,' ').trim();
   }
   function roster(abbrev) {
-    const rows = ((DATA && DATA.players) || []).filter((p) => p.team === abbrev);
+    const rows = ((DATA && DATA.players) || []).filter((p) => {
+      if (p.team !== abbrev) return false;
+      // Nov23+: inactive/released players stay in JSON for history but leave the card pool.
+      const st = String(p.roster_status || 'Active');
+      return st === 'Active';
+    });
     const by = new Map();
     rows.forEach((p) => {
       const key = `${p.role || ''}|${normPersonName(p.name)}`;

@@ -1,136 +1,225 @@
 {
-  "updated": "2026-11-20T16:08:57Z",
-  "note": "Active pitchers from latest official LBPRC roster docs (excludes EXTRAS-INACTIVOS). MAY=Indios 16 Nov; SJU=Senadores 16 Nov (doc labeled 11.9.26). Used to filter pitcher-advance PDF export.",
+  "updated": "2026-11-24T18:34:53Z",
+  "note": "Active pitchers from Nov 23 2026 official LBPRC roster docs (active tables; excludes EXTRAS/INACTIVOS). CAG: +Tyler Myrick; -Zach Veen. Gustavo Melendez is INF (not pitcher Active).",
   "teams": {
     "CAG": [
       {
-        "id": 670369,
-        "name": "Christian Torres",
-        "jersey": "50",
-        "throws": "L"
-      },
-      {
-        "id": 683068,
-        "name": "Zach Penrod",
-        "jersey": "54",
-        "throws": "L"
-      },
-      {
-        "id": 687825,
-        "name": "Tyler Santana",
-        "jersey": "59",
-        "throws": "R"
-      },
-      {
-        "id": 502327,
-        "name": "Hector Santiago",
-        "jersey": "53",
-        "throws": "L"
+        "id": 676221,
+        "name": "Jorge Benitez",
+        "jersey": "36",
+        "throws": ""
       },
       {
         "id": 592254,
         "name": "Jose De Leon",
         "jersey": "87",
-        "throws": "R"
-      },
-      {
-        "id": 676221,
-        "name": "Jorge Benitez",
-        "jersey": "36",
-        "throws": "L"
-      },
-      {
-        "id": 669416,
-        "name": "Blayne Enlow",
-        "jersey": "46",
-        "throws": "R"
-      },
-      {
-        "id": 806337,
-        "name": "Jarrett Whorff",
-        "jersey": "60",
-        "throws": "R"
-      },
-      {
-        "id": 663499,
-        "name": "Juan Javier Echavarria",
-        "jersey": "66",
-        "throws": "R"
-      },
-      {
-        "id": -831444931,
-        "name": "Sebastian Rodriguez",
-        "jersey": "65",
-        "throws": "R"
-      },
-      {
-        "id": 669142,
-        "name": "Tanner Burns",
-        "jersey": "63",
-        "throws": "R"
-      },
-      {
-        "id": 488880,
-        "name": "Adalberto Flores",
-        "jersey": "34",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": 664744,
         "name": "Jose Espada",
         "jersey": "48",
-        "throws": "R"
+        "throws": ""
       },
       {
-        "id": -840626507,
-        "name": "Aaron Mishoulam",
-        "jersey": "62",
-        "throws": "R"
-      },
-      {
-        "id": 669111,
-        "name": "John McMillon",
-        "jersey": "49",
-        "throws": "R"
-      },
-      {
-        "id": 805731,
-        "name": "Zach Veen",
-        "jersey": "58",
-        "throws": "L"
+        "id": 488880,
+        "name": "Adalberto Flores",
+        "jersey": "34",
+        "throws": ""
       },
       {
         "id": 656479,
         "name": "Marvin Gorgas",
         "jersey": "69",
-        "throws": "R"
+        "throws": ""
       },
       {
-        "id": 605441,
-        "name": "Yacksel Rios",
-        "jersey": "45",
-        "throws": "R"
+        "id": 686924,
+        "name": "Tyler Myrick",
+        "jersey": "40",
+        "throws": ""
+      },
+      {
+        "id": 683068,
+        "name": "Zach Penrod",
+        "jersey": "54",
+        "throws": ""
+      },
+      {
+        "id": -831444931,
+        "name": "Sebastian Rodriguez",
+        "jersey": "65",
+        "throws": ""
       },
       {
         "id": -217783280,
         "name": "Edwin Sanchez",
         "jersey": "68",
-        "throws": "L",
-        "br_id": "sanche004edw"
+        "throws": "L"
+      },
+      {
+        "id": 502327,
+        "name": "Hector Santiago",
+        "jersey": "53",
+        "throws": ""
+      },
+      {
+        "id": 670369,
+        "name": "Christian Torres",
+        "jersey": "50",
+        "throws": ""
+      },
+      {
+        "id": 806337,
+        "name": "Jarrett Whorff",
+        "jersey": "60",
+        "throws": ""
+      },
+      {
+        "id": 669111,
+        "name": "John McMillon",
+        "jersey": "49",
+        "throws": ""
+      },
+      {
+        "id": 687825,
+        "name": "Tyler Santana",
+        "jersey": "59",
+        "throws": ""
+      },
+      {
+        "id": 669416,
+        "name": "Blayne Enlow",
+        "jersey": "46",
+        "throws": ""
+      },
+      {
+        "id": 663499,
+        "name": "Juan Javier Echavarria",
+        "jersey": "66",
+        "throws": ""
+      },
+      {
+        "id": 669142,
+        "name": "Tanner Burns",
+        "jersey": "63",
+        "throws": ""
+      },
+      {
+        "id": -840626507,
+        "name": "Aaron Mishoulam",
+        "jersey": "62",
+        "throws": ""
       }
     ],
     "CAR": [
       {
-        "id": 682118,
-        "name": "Miguel Ausua",
-        "jersey": "18",
-        "throws": "L"
+        "id": 676047,
+        "name": "Osvaldo Berrios",
+        "jersey": "34",
+        "throws": ""
+      },
+      {
+        "id": -359955779,
+        "name": "Jarrette Bonet",
+        "jersey": "78",
+        "throws": ""
+      },
+      {
+        "id": 670103,
+        "name": "Raymond Burgos",
+        "jersey": "36",
+        "throws": ""
+      },
+      {
+        "id": 676769,
+        "name": "Matt Givin",
+        "jersey": "35",
+        "throws": ""
+      },
+      {
+        "id": -779812433,
+        "name": "Saul Gonzalez",
+        "jersey": "58",
+        "throws": ""
+      },
+      {
+        "id": 803035,
+        "name": "Riley Gowens",
+        "jersey": "51",
+        "throws": ""
+      },
+      {
+        "id": 641729,
+        "name": "Joe Jimenez",
+        "jersey": "77",
+        "throws": ""
+      },
+      {
+        "id": 690148,
+        "name": "Chris Kachmar",
+        "jersey": "46",
+        "throws": ""
+      },
+      {
+        "id": -158179355,
+        "name": "Adiel Melendez",
+        "jersey": "13",
+        "throws": ""
+      },
+      {
+        "id": -268179393,
+        "name": "Johzan Oquendo",
+        "jersey": "47",
+        "throws": ""
+      },
+      {
+        "id": -863509874,
+        "name": "JeanPierre Ortiz",
+        "jersey": "63",
+        "throws": ""
+      },
+      {
+        "id": 664371,
+        "name": "Eddy Reynoso",
+        "jersey": "50",
+        "throws": ""
+      },
+      {
+        "id": 805678,
+        "name": "Joe Riley",
+        "jersey": "79",
+        "throws": ""
+      },
+      {
+        "id": 695684,
+        "name": "Elmer Rodriguez",
+        "jersey": "60",
+        "throws": ""
+      },
+      {
+        "id": -129371721,
+        "name": "Ramon Rodriguez",
+        "jersey": "65",
+        "throws": ""
       },
       {
         "id": 545814,
         "name": "Ramesis Rosa",
         "jersey": "22",
-        "throws": "L"
+        "throws": ""
+      },
+      {
+        "id": 703106,
+        "name": "Ricardo Velez",
+        "jersey": "23",
+        "throws": ""
+      },
+      {
+        "id": 682118,
+        "name": "Miguel Ausua",
+        "jersey": "18",
+        "throws": ""
       },
       {
         "id": -574529855,
@@ -142,123 +231,75 @@
         "id": 681813,
         "name": "Gabriel Cotto",
         "jersey": "44",
-        "throws": "L"
-      },
-      {
-        "id": -129371721,
-        "name": "Ramon Rodriguez",
-        "jersey": "41",
-        "throws": "L"
-      },
-      {
-        "id": 805678,
-        "name": "Joe Riley",
-        "jersey": "79",
-        "throws": "R"
-      },
-      {
-        "id": -3872462934,
-        "name": "Alexander Castro",
-        "jersey": "36",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": 693543,
         "name": "Luis Rodriguez",
         "jersey": "28",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": 806309,
         "name": "Albert Oliva",
         "jersey": "5",
-        "throws": "R"
-      },
-      {
-        "id": 703106,
-        "name": "Ricardo Velez",
-        "jersey": "23",
-        "throws": "R"
-      },
-      {
-        "id": 641729,
-        "name": "Joe Jimenez",
-        "jersey": "77",
-        "throws": "R"
-      },
-      {
-        "id": 676047,
-        "name": "Osvaldo Berrios",
-        "jersey": "34",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": 689214,
         "name": "Jake Gozzo",
         "jersey": "38",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": -742329386,
         "name": "Keishin Nagamizu",
         "jersey": "62",
-        "throws": "L"
+        "throws": ""
       },
       {
         "id": -522170762,
         "name": "Kaito Uchino",
         "jersey": "67",
-        "throws": "R"
+        "throws": ""
       },
       {
         "id": -758984765,
         "name": "Yusei Tobita",
         "jersey": "59",
-        "throws": "R"
+        "throws": ""
       },
       {
-        "id": 676769,
-        "name": "Matt Givin",
-        "jersey": "35",
-        "throws": "R"
+        "id": -3872462934,
+        "name": "Alexander Castro",
+        "jersey": "36",
+        "throws": ""
       },
       {
-        "id": 690148,
-        "name": "Chris Kachmar",
-        "jersey": "46",
-        "throws": "R"
+        "id": -176877749,
+        "name": "Bryan Marrero",
+        "jersey": "79",
+        "throws": ""
       },
       {
-        "id": 803035,
-        "name": "Riley Gowens",
-        "jersey": "51",
-        "throws": "R"
+        "id": 800278,
+        "name": "Pitterson Rosa",
+        "jersey": "68",
+        "throws": ""
+      },
+      {
+        "id": -894470771,
+        "name": "Nathan Torres",
+        "jersey": "67",
+        "throws": ""
       }
     ],
     "MAY": [
-      {
-        "id": 826141,
-        "name": "Sean Barnett",
-        "jersey": "72",
-        "throws": "R"
-      },
-      {
-        "id": 694547,
-        "name": "Sebastian Bentz",
-        "jersey": "46",
-        "throws": "L"
-      },
       {
         "id": 543071,
         "name": "Luis Leroy Cruz",
         "jersey": "41",
         "throws": "L"
-      },
-      {
-        "id": 681493,
-        "name": "Eddie Demurias",
-        "jersey": "60",
-        "throws": "R"
       },
       {
         "id": 687956,
@@ -267,22 +308,10 @@
         "throws": "R"
       },
       {
-        "id": -346943911,
-        "name": "Nelvin Fuentes",
-        "jersey": "48",
-        "throws": "L"
-      },
-      {
         "id": 623485,
         "name": "Ashton Goudeau",
         "jersey": "47",
         "throws": "R"
-      },
-      {
-        "id": 571772,
-        "name": "Hector Hernandez",
-        "jersey": "20",
-        "throws": "L"
       },
       {
         "id": 605347,
@@ -297,39 +326,15 @@
         "throws": "L"
       },
       {
-        "id": 687879,
-        "name": "Luis Quiñones",
-        "jersey": "51",
-        "throws": "R"
-      },
-      {
-        "id": 624401,
-        "name": "Luis Ramos",
-        "jersey": "39",
-        "throws": "L"
-      },
-      {
         "id": 681938,
         "name": "Angel Reyes",
         "jersey": "34",
         "throws": "R"
       },
       {
-        "id": 684320,
-        "name": "Yariel Rodriguez",
-        "jersey": "45",
-        "throws": "R"
-      },
-      {
         "id": 687560,
         "name": "Bryant Salgado",
         "jersey": "40",
-        "throws": "R"
-      },
-      {
-        "id": 814477,
-        "name": "Luke Stofel",
-        "jersey": "64",
         "throws": "R"
       },
       {
@@ -343,9 +348,129 @@
         "name": "Lucas Vega",
         "jersey": "52",
         "throws": "R"
+      },
+      {
+        "id": 624401,
+        "name": "Luis Ramos",
+        "jersey": "39",
+        "throws": "L"
+      },
+      {
+        "id": -198603702,
+        "name": "Shadai Colon",
+        "jersey": "69",
+        "throws": ""
+      },
+      {
+        "id": 694547,
+        "name": "Sebastian Bentz",
+        "jersey": "46",
+        "throws": "L"
+      },
+      {
+        "id": 826141,
+        "name": "Sean Barnett",
+        "jersey": "72",
+        "throws": "R"
+      },
+      {
+        "id": 684320,
+        "name": "Yariel Rodriguez",
+        "jersey": "45",
+        "throws": "R"
+      },
+      {
+        "id": 814477,
+        "name": "Luke Stofel",
+        "jersey": "64",
+        "throws": "R"
+      },
+      {
+        "id": 681493,
+        "name": "Eddie Demurias",
+        "jersey": "60",
+        "throws": "R"
+      },
+      {
+        "id": -583294609,
+        "name": "Eddy Demurias",
+        "jersey": "60",
+        "throws": ""
+      },
+      {
+        "id": 672795,
+        "name": "Samuel Reyes",
+        "jersey": "29",
+        "throws": ""
+      },
+      {
+        "id": 670908,
+        "name": "Rafael Kelly",
+        "jersey": "48",
+        "throws": ""
       }
     ],
     "PON": [
+      {
+        "id": 642834,
+        "name": "Jonathan Bermudez",
+        "jersey": "41",
+        "throws": "L"
+      },
+      {
+        "id": 592222,
+        "name": "Alex Claudio",
+        "jersey": "58",
+        "throws": "L"
+      },
+      {
+        "id": 676435,
+        "name": "Harold Cortijo",
+        "jersey": "35",
+        "throws": "R"
+      },
+      {
+        "id": 806586,
+        "name": "Eric Garcia",
+        "jersey": "53",
+        "throws": "R"
+      },
+      {
+        "id": -259860308,
+        "name": "Jorhan Laboy",
+        "jersey": "56",
+        "throws": "L"
+      },
+      {
+        "id": 687817,
+        "name": "Andrew Marrero",
+        "jersey": "63",
+        "throws": "R"
+      },
+      {
+        "id": 801018,
+        "name": "Omar Melendez",
+        "jersey": "47",
+        "throws": "L"
+      },
+      {
+        "id": -346674215,
+        "name": "Hector Quinones",
+        "jersey": "29",
+        "throws": "R"
+      },
+      {
+        "id": 692937,
+        "name": "Julio Torres",
+        "jersey": "50",
+        "throws": "L"
+      },
+      {
+        "id": 678013,
+        "name": "Lenny Torres",
+        "jersey": "45",
+        "throws": "R"
+      },
       {
         "id": -799554792,
         "name": "Keito Matsuura",
@@ -365,70 +490,10 @@
         "throws": "L"
       },
       {
-        "id": 676435,
-        "name": "Harold Cortijo",
-        "jersey": "35",
-        "throws": "R"
-      },
-      {
-        "id": 806586,
-        "name": "Eric Garcia",
-        "jersey": "53",
-        "throws": "R"
-      },
-      {
-        "id": 642834,
-        "name": "Jonathan Bermudez",
-        "jersey": "41",
-        "throws": "L"
-      },
-      {
-        "id": 592222,
-        "name": "Alex Claudio",
-        "jersey": "58",
-        "throws": "L"
-      },
-      {
         "id": 807620,
         "name": "Juan Marcano",
         "jersey": "49",
         "throws": "R"
-      },
-      {
-        "id": 694885,
-        "name": "Ryan Murphy",
-        "jersey": "40",
-        "throws": "R"
-      },
-      {
-        "id": 801018,
-        "name": "Omar Melendez",
-        "jersey": "47",
-        "throws": "L"
-      },
-      {
-        "id": 692937,
-        "name": "Julio Torres",
-        "jersey": "50",
-        "throws": "L"
-      },
-      {
-        "id": 687817,
-        "name": "Andrew Marrero",
-        "jersey": "63",
-        "throws": "R"
-      },
-      {
-        "id": 678013,
-        "name": "Lenny Torres",
-        "jersey": "45",
-        "throws": "R"
-      },
-      {
-        "id": -259860308,
-        "name": "Jorhan Laboy",
-        "jersey": "56",
-        "throws": "L"
       },
       {
         "id": -539643335,
@@ -437,10 +502,10 @@
         "throws": "R"
       },
       {
-        "id": -346674215,
-        "name": "Hector Quinones",
-        "jersey": "29",
-        "throws": "R"
+        "id": -154132952,
+        "name": "Nick Trabacchi",
+        "jersey": "40",
+        "throws": ""
       }
     ],
     "SJU": [
@@ -448,12 +513,6 @@
         "id": -579003596,
         "name": "Anthony Borrero",
         "jersey": "53",
-        "throws": "R"
-      },
-      {
-        "id": -280803405,
-        "name": "Freddy Cabrera",
-        "jersey": "46",
         "throws": "R"
       },
       {
@@ -481,22 +540,10 @@
         "throws": "R"
       },
       {
-        "id": 621248,
-        "name": "Ralph Garza Jr.",
-        "jersey": "33",
-        "throws": "R"
-      },
-      {
-        "id": -670692245,
-        "name": "Haruse Narita",
-        "jersey": "92",
-        "throws": "R"
-      },
-      {
-        "id": 458960,
-        "name": "Jean Ortega",
-        "jersey": "99",
-        "throws": "R"
+        "id": 695064,
+        "name": "Agnel Miranda",
+        "jersey": "22",
+        "throws": ""
       },
       {
         "id": 703211,
@@ -511,12 +558,6 @@
         "throws": "L"
       },
       {
-        "id": 681344,
-        "name": "Matthew Rivera",
-        "jersey": "95",
-        "throws": "R"
-      },
-      {
         "id": 572077,
         "name": "Raul Rivera",
         "jersey": "45",
@@ -529,15 +570,27 @@
         "throws": "R"
       },
       {
-        "id": 656924,
-        "name": "Ryder Ryan",
-        "jersey": "54",
+        "id": 805749,
+        "name": "Brady Tedesco",
+        "jersey": "3",
+        "throws": "L"
+      },
+      {
+        "id": 693546,
+        "name": "Ryan Velazquez",
+        "jersey": "75",
+        "throws": ""
+      },
+      {
+        "id": -670692245,
+        "name": "Haruse Narita",
+        "jersey": "92",
         "throws": "R"
       },
       {
-        "id": -322791781,
-        "name": "Keishin Saito",
-        "jersey": "96",
+        "id": -280803405,
+        "name": "Freddy Cabrera",
+        "jersey": "46",
         "throws": "R"
       },
       {
@@ -547,10 +600,16 @@
         "throws": "L"
       },
       {
-        "id": 805749,
-        "name": "Brady Tedesco",
-        "jersey": "3",
-        "throws": "L"
+        "id": 681344,
+        "name": "Matthew Rivera",
+        "jersey": "95",
+        "throws": "R"
+      },
+      {
+        "id": 656924,
+        "name": "Ryder Ryan",
+        "jersey": "54",
+        "throws": "R"
       },
       {
         "id": 621343,
@@ -559,10 +618,122 @@
         "throws": "L"
       },
       {
-        "id": -846506108,
-        "name": "Alexuan Vega",
-        "jersey": "29",
-        "throws": "L"
+        "id": 621248,
+        "name": "Ralph Garza Jr.",
+        "jersey": "33",
+        "throws": "R"
+      },
+      {
+        "id": -405746445,
+        "name": "Victor Lopez",
+        "jersey": "91",
+        "throws": ""
+      }
+    ],
+    "SAN": [
+      {
+        "id": 572363,
+        "name": "Bryan Escanio",
+        "jersey": "34",
+        "throws": ""
+      },
+      {
+        "id": 687900,
+        "name": "Andrew Baker",
+        "jersey": "58",
+        "throws": ""
+      },
+      {
+        "id": 800514,
+        "name": "Carlos Espinosa",
+        "jersey": "71",
+        "throws": ""
+      },
+      {
+        "id": 689713,
+        "name": "Jack Hartman",
+        "jersey": "51",
+        "throws": ""
+      },
+      {
+        "id": 673933,
+        "name": "David Lebron",
+        "jersey": "10",
+        "throws": ""
+      },
+      {
+        "id": 688965,
+        "name": "Francisco Mateo",
+        "jersey": "60",
+        "throws": ""
+      },
+      {
+        "id": 531565,
+        "name": "Miguel Mejia",
+        "jersey": "47",
+        "throws": ""
+      },
+      {
+        "id": 692064,
+        "name": "Jose Rodriguez",
+        "jersey": "38",
+        "throws": ""
+      },
+      {
+        "id": 803596,
+        "name": "Rafael Sanchez",
+        "jersey": "43",
+        "throws": ""
+      },
+      {
+        "id": 444354,
+        "name": "Daryl Thompson",
+        "jersey": "37",
+        "throws": ""
+      },
+      {
+        "id": 815048,
+        "name": "Josh Trentadue",
+        "jersey": "62",
+        "throws": ""
+      },
+      {
+        "id": -286366361,
+        "name": "Michael Martinez",
+        "jersey": "35",
+        "throws": ""
+      },
+      {
+        "id": 700842,
+        "name": "Eduardo Rivera",
+        "jersey": "99",
+        "throws": ""
+      },
+      {
+        "id": 605446,
+        "name": "Dereck Rodriguez",
+        "jersey": "57",
+        "throws": ""
+      },
+      {
+        "id": 681154,
+        "name": "Keylan Killgore",
+        "jersey": "59",
+        "throws": ""
+      },
+      {
+        "id": 684841,
+        "name": "Ryan Munoz",
+        "jersey": "75",
+        "throws": ""
+      },
+      {
+        "id": 572383,
+        "name": "Brian Moran",
+        "jersey": "",
+        "throws": "L",
+        "activation_date": "2026-11-24",
+        "activation_note": "Active Tuesday 2026-11-24"
       }
     ]
   }

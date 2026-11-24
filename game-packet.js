@@ -68,8 +68,20 @@
   function prepareFilters(team) {
     setSelect('adv-p-team', team);
     if (typeof fillAdvancePitchers === 'function') fillAdvancePitchers();
+    // Prefer today's card SP/pen when set, but mass export still gates to official actives.
     const cardIds = new Set((onePageCardPitcherIndex(team).ids || []).map(String));
-    checkAll('#adv-p-export-list input[type=checkbox]', (cb) => cardIds.has(String(cb.value)));
+    const officialIds = new Set(
+      (typeof officialActivePitcherIndex === 'function'
+        ? (officialActivePitcherIndex(team).ids || [])
+        : []
+      ).map(String)
+    );
+    checkAll('#adv-p-export-list input[type=checkbox]', (cb) => {
+      const id = String(cb.value);
+      if (officialIds.size && !officialIds.has(id)) return false;
+      if (cardIds.size) return cardIds.has(id);
+      return !officialIds.size || officialIds.has(id);
+    });
 
     setSelect('adv-team', team);
     if (typeof fillAdvanceHitters === 'function') fillAdvanceHitters();
@@ -181,15 +193,13 @@
     const titleText = clone.querySelector('.onepage-title')?.textContent || `${label} Pitchers`;
     const table = clone.querySelector('.onepage-grid');
     const theadHtml = table?.querySelector('thead')?.outerHTML || '';
-    const cardIndex = onePageCardPitcherIndex(team);
     let rowEls = Array.from(table?.querySelectorAll('tbody tr') || []);
-    if (cardIndex.ids.length) {
-      const official = typeof officialActivePitcherIndex === 'function'
-        ? officialActivePitcherIndex(team)
-        : { ids: [], byId: new Map(), byName: new Map() };
+    // Official Active-this-week only (same gate as pitcher one-page mass PDF).
+    const official = typeof officialActivePitcherIndex === 'function'
+      ? officialActivePitcherIndex(team)
+      : { ids: [], byId: new Map(), byName: new Map() };
+    if (official.ids.length) {
       rowEls = rowEls.filter((tr) => {
-        if (tr.getAttribute('data-op-on-card') === '1') return true;
-        if (!official.ids.length) return false;
         const id = Number(tr.getAttribute('data-op-id'));
         if (Number.isFinite(id) && official.byId.has(id)) return true;
         const key = tr.getAttribute('data-op-key') || '';
@@ -472,7 +482,7 @@
       'Contents:',
       '  positioning/*.xlsx     INF + OF positioning workbooks',
       '  01_portrait_sheets.pdf Pitcher advance + hitter advance (lineup order) + spray charts',
-      '  02_landscape_sheets.pdf Pitcher one-page (card arms) + bullpen + OF/INF one-pagers + small ball',
+      '  02_landscape_sheets.pdf Pitcher one-page (official actives) + bullpen + OF/INF one-pagers + small ball',
       '',
       'Do the pitcher delivery/movement ZIP separately from Pitcher Advance → Export uploads.',
       '',
@@ -512,7 +522,7 @@
       if (landscape.body) {
         steps.push({
           fileName: '02_landscape_sheets.pdf',
-          blurb: `Landscape: pitcher one-page (card SP+pen) · bullpen · OF/INF one-pagers · small ball (${landscape.count} sections).`,
+          blurb: `Landscape: pitcher one-page (official actives) · bullpen · OF/INF one-pagers · small ball (${landscape.count} sections).`,
           openPrint: () => openLandscapePacketWindow(`${team} Game Packet — Landscape`, landscape.body),
         });
       }
