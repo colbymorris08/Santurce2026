@@ -1,75 +1,71 @@
 {
-  "updated": "2026-11-24T20:17:01Z",
-  "label": "2026-11-24 SAN @ CAG",
-  "date_key": "2026-11-24",
-  "published_from": "Cangrejeros_de_Santurce_2026-11-24_Daily_Schedule.pdf + CAG official batting order IMG_7121",
-  "note": "Santurce 1–9 + SP Dereck Rodriguez from Nov 24 daily schedule (AWAY @ Caguas, Estadio Yldefonso Sola Morales, FP 7:21). Caguas 1–9 + SP Jose De Leon and card pen/UTL from Nov 24 official batting order. Jonathan Mora #29 mapped to Jonathan Morales (card truncation). Opponent CAG. Tab orders follow strategy card. Official active gate: Myrick on CAG; Veen off.",
+  "updated": "2026-11-25T17:58:19Z",
+  "label": "2026-11-25 SAN vs PON",
+  "date_key": "2026-11-25",
+  "published_from": "Game 1 Lineup vs Ponce 11-25-26.pdf + PON official lineup card IMG_7134",
+  "note": "Santurce 1–9 + SP Daryl Thompson and listed bullpen from Nov 25 official batting order (HOME). Ponce 1–9 + SP Jonathan Bermudez and available bench/pen from Nov 25 official lineup card. Available players remain bench/pen only. Opponent PON. Advance tabs follow strategy-card batting order and list both starters first; no scouting stats invented.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 605446,
+        "sp": 444354,
         "pen": [
           572363,
+          688965,
           689713,
+          692064,
           531565,
-          687900,
+          673933,
+          605446,
           800514,
           -286366361,
-          688965,
-          803596,
-          681154,
+          687900,
+          572383,
           815048,
           684841,
-          692064,
-          444354,
-          673933,
-          700842
+          681154,
+          803596
         ],
         "lineup": [
           {
             "id": 681023,
-            "pos": "7"
+            "pos": "9"
           },
           {
-            "id": 641896,
-            "pos": "3"
+            "id": 677690,
+            "pos": "5"
           },
           {
             "id": 571685,
             "pos": "DH"
           },
           {
-            "id": 640459,
+            "id": 641896,
+            "pos": "3"
+          },
+          {
+            "id": 518542,
             "pos": "2"
-          },
-          {
-            "id": 592656,
-            "pos": "9"
-          },
-          {
-            "id": 643418,
-            "pos": "4"
-          },
-          {
-            "id": 605346,
-            "pos": "5"
           },
           {
             "id": 623205,
             "pos": "6"
           },
           {
+            "id": 605346,
+            "pos": "4"
+          },
+          {
             "id": 641561,
             "pos": "8"
+          },
+          {
+            "id": 671080,
+            "pos": "7"
           }
         ],
         "bench": [
           {
-            "id": 518542,
-            "pos": "2"
-          },
-          {
-            "id": 671080,
+            "id": 643418,
             "pos": "4"
           },
           {
@@ -77,12 +73,20 @@
             "pos": "2"
           },
           {
-            "id": -533438595,
+            "id": 592656,
             "pos": "9"
           },
           {
+            "id": 640459,
+            "pos": "2"
+          },
+          {
+            "id": -533438595,
+            "pos": "7"
+          },
+          {
             "id": -108026908,
-            "pos": ""
+            "pos": "6"
           }
         ]
       },
@@ -426,11 +430,102 @@
             "pos": ""
           }
         ]
+      },
+      "PON": {
+        "sp": 642834,
+        "pen": [
+          676435,
+          807620,
+          678013,
+          592222,
+          -539643335,
+          -346674215,
+          806586,
+          687817,
+          801018,
+          692937
+        ],
+        "lineup": [
+          {
+            "id": 702501,
+            "pos": "8"
+          },
+          {
+            "id": 689456,
+            "pos": "7"
+          },
+          {
+            "id": 702544,
+            "pos": "DH"
+          },
+          {
+            "id": 681868,
+            "pos": "9"
+          },
+          {
+            "id": 621044,
+            "pos": "4"
+          },
+          {
+            "id": 701360,
+            "pos": "3"
+          },
+          {
+            "id": 667576,
+            "pos": "5"
+          },
+          {
+            "id": 695467,
+            "pos": "2"
+          },
+          {
+            "id": 686958,
+            "pos": "6"
+          }
+        ],
+        "bench": [
+          {
+            "id": 676560,
+            "pos": "2"
+          },
+          {
+            "id": -173185958,
+            "pos": "2"
+          },
+          {
+            "id": 806176,
+            "pos": "2"
+          },
+          {
+            "id": 703638,
+            "pos": "4"
+          },
+          {
+            "id": 689748,
+            "pos": "4"
+          },
+          {
+            "id": 664757,
+            "pos": "7"
+          },
+          {
+            "id": 702596,
+            "pos": "4"
+          },
+          {
+            "id": 813851,
+            "pos": "4"
+          },
+          {
+            "id": 686766,
+            "pos": "2"
+          }
+        ]
       }
     },
-    "opponent": "CAG",
-    "santurceHome": false,
-    "updated": "2026-11-24T20:17:01Z"
+    "opponent": "PON",
+    "santurceHome": true,
+    "updated": "2026-11-25T17:58:19Z"
   },
   "notes": {
     "team": "SJU",
@@ -628,7 +723,9 @@
     "681344": "95",
     "690148": "46",
     "664966": "29",
-    "686924": "40"
+    "686924": "40",
+    "677690": "31",
+    "572383": "78"
   },
   "one_page_notes": {
     "agnelmiranda": "All FB hitter ahead. Lower slot RHP. FB SL to both sides, only 12% CH to LHH.",
@@ -1142,25 +1239,25 @@
     "lineups": {
       "SAN": [
         "Brian Rey",
-        "Roy Morales",
+        "Diosbel Arias",
         "Anthony Garcia",
-        "Brian Navarreto",
-        "Henry Ramos",
-        "Shed Long",
-        "Jack Lopez",
+        "Roy Morales",
+        "Juan Centeno",
         "Andrew Velazquez",
-        "Johneswy Fargas"
+        "Jack Lopez",
+        "Johneswy Fargas",
+        "Jeremy Arocho"
       ],
-      "CAG": [
-        "Carson DeMartini",
-        "Jaime Ferrer",
-        "Jose Miranda",
-        "Gustavo Melendez",
-        "Onix Vega",
-        "Won-Bin Cho",
-        "Luis Vazquez",
-        "Danny Ortiz",
-        "Jonathan Morales"
+      "PON": [
+        "Eli Serrano",
+        "Austin Murr",
+        "Jacob Reimer",
+        "Ezequiel Pagan",
+        "Jesmuel Valentin",
+        "Chris Arroyo",
+        "Kevin Santa",
+        "Juan Montero",
+        "Jose Torres"
       ]
     },
     "_posSeedVer": null
