@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-24T10:12:39Z",
+  "updated": "2026-11-25T09:03:43Z",
   "league": {
     "league_id": 18,
     "subleague_id": 18,
@@ -24,17 +24,17 @@
     "PON": 4
   },
   "roster_alert": {
-    "changed": false,
-    "added": 0,
+    "changed": true,
+    "added": 2,
     "removed": 0,
-    "message": "ligapr equipo lists checked — no roster membership changes."
+    "message": "Roster sync applied from ligapr equipos: +2 / -0."
   },
   "one_page_teams": {
-    "SAN": 32,
+    "SAN": 33,
     "CAG": 28,
     "CAR": 31,
-    "MAY": 26,
-    "PON": 28,
-    "SJU": 27
+    "MAY": 28,
+    "PON": 29,
+    "SJU": 28
   }
 }

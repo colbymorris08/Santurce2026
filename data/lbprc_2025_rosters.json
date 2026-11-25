@@ -1359,6 +1359,14 @@
         "jersey": "67",
         "status": "Active",
         "source": "official_roster_nov16"
+      },
+      {
+        "id": -1618473172,
+        "name": "Bryan Marrrero",
+        "position": "P",
+        "jersey": "",
+        "status": "Active",
+        "source": "ligapr_equipo_sync"
       }
     ]
   },
@@ -2283,11 +2291,12 @@
         "throws": "L"
       },
       {
-        "id": 690702,
+        "id": -3935985344,
         "name": "Robbie Enriquez",
-        "position": "OF",
+        "position": "IF",
         "jersey": "27",
-        "status": "Active"
+        "status": "Inactive",
+        "source": "ligapr_equipo_sync"
       },
       {
         "id": -413913713,
@@ -2565,14 +2574,6 @@
         "source": "ligapr_equipo_sync"
       },
       {
-        "id": -3935985344,
-        "name": "Robbie Enriquez",
-        "position": "IF",
-        "jersey": "27",
-        "status": "Inactive",
-        "source": "ligapr_equipo_sync"
-      },
-      {
         "id": -2463343635,
         "name": "Nakami Yuta",
         "position": "IF",
@@ -2638,6 +2639,14 @@
         "jersey": "91",
         "status": "Active",
         "source": "official_roster_nov23"
+      },
+      {
+        "id": -3935985344,
+        "name": "Roberto Enriquez",
+        "position": "IF",
+        "jersey": "",
+        "status": "Active",
+        "source": "ligapr_equipo_sync"
       }
     ]
   }
