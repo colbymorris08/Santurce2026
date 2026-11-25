@@ -1,27 +1,11 @@
 {
-  "updated": "2026-11-25T09:03:42Z",
+  "updated": "2026-11-25T10:13:18Z",
   "season": "2026-27 LBPRC",
   "source": "https://ligapr.com/estadisticas/equipos",
-  "changed": true,
+  "changed": false,
   "ligapr_stats_ready": true,
-  "added": [
-    {
-      "team": "SJU",
-      "name": "Roberto Enriquez",
-      "role": "H"
-    },
-    {
-      "team": "CAR",
-      "name": "Bryan Marrrero",
-      "role": "P"
-    }
-  ],
+  "added": [],
   "removed": [],
-  "message": "Roster sync applied from ligapr equipos: +2 / -0.",
-  "action_needed": [
-    "Populate Synergy / advance packets for new arms and bats",
-    "Add pitcher release (delivery) pictures",
-    "Confirm movement charts / arsenal XY uploads",
-    "Fill pitcher one-page scout notes where blank"
-  ]
+  "message": "ligapr equipo lists checked — no roster membership changes.",
+  "action_needed": []
 }
