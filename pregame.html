@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san326">
+<link rel="stylesheet" href="shared.css?v=san327">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -562,16 +562,16 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san326"></script>
-<script src="cards.js?v=san326"></script>
-<script src="positioning.js?v=san326"></script>
-<script src="advance-pdf-split.js?v=san326"></script>
-<script src="persist.js?v=san326"></script>
-<script src="game-packet.js?v=san326"></script>
+<script src="i18n.js?v=san327"></script>
+<script src="cards.js?v=san327"></script>
+<script src="positioning.js?v=san327"></script>
+<script src="advance-pdf-split.js?v=san327"></script>
+<script src="persist.js?v=san327"></script>
+<script src="game-packet.js?v=san327"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san326';
+const ASSET_V = 'san327';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2818,7 +2818,21 @@ function sortByLastName(arr, nameFn){
 /** MLBAM id used to match Strategy Card lineup slots. */
 function playerStrategyId(p){
   if(!p) return 0;
-  return positivePersonId(p.mlb_id) || positivePersonId(p.player_id) || positivePersonId(p.id) || 0;
+  const direct = [p.mlb_id, p.player_id, p.id]
+    .map(Number)
+    .find(id => Number.isFinite(id) && id !== 0);
+  if(direct) return direct;
+  const nameKey = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]/g, '');
+  const wantedName = nameKey(p.name || p.hitter_name);
+  const wantedTeam = String(p.team || p.team_abbrev || '').toUpperCase();
+  if(!wantedName) return 0;
+  const cardPlayer = ((CACHE.cardStats && CACHE.cardStats.players) || []).find(c =>
+    (!wantedTeam || String(c.team || '').toUpperCase() === wantedTeam)
+    && nameKey(c.name) === wantedName
+  );
+  const cardId = Number(cardPlayer && cardPlayer.id);
+  return Number.isFinite(cardId) && cardId !== 0 ? cardId : 0;
 }
 /** Lineup ids 1–9 from the Strategy Card for one team, or all teams when filter is "all". */
 function strategyLineupIdOrder(teamAbbrev){

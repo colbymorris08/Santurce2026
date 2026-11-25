@@ -1935,13 +1935,15 @@
     getLineupIds(abbrev) {
       const state = loadStrategy();
       const st = ensureTeam(state, abbrev);
-      return (st.lineup || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
+      return (st.lineup || []).filter(Boolean).map((r) => Number(r.id))
+        .filter((id) => Number.isFinite(id) && id !== 0);
     },
     /** Bench hitter ids selected on the strategy card for that day. */
     getBenchIds(abbrev) {
       const state = loadStrategy();
       const st = ensureTeam(state, abbrev);
-      return (st.bench || []).filter(Boolean).map((r) => Number(r.id)).filter((id) => id > 0);
+      return (st.bench || []).filter(Boolean).map((r) => Number(r.id))
+        .filter((id) => Number.isFinite(id) && id !== 0);
     },
     /**
      * Pitchers listed on today's lineup card: SP first, then eligible pen in card order.

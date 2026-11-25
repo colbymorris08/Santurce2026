@@ -1,21 +1,21 @@
 {
-  "updated": "2026-11-25T17:58:19Z",
+  "updated": "2026-11-25T23:52:00Z",
   "label": "2026-11-25 SAN vs PON",
   "date_key": "2026-11-25",
-  "published_from": "Game 1 Lineup vs Ponce 11-25-26.pdf + PON official lineup card IMG_7134",
-  "note": "Santurce 1–9 + SP Daryl Thompson and listed bullpen from Nov 25 official batting order (HOME). Ponce 1–9 + SP Jonathan Bermudez and available bench/pen from Nov 25 official lineup card. Available players remain bench/pen only. Opponent PON. Advance tabs follow strategy-card batting order and list both starters first; no scouting stats invented.",
+  "published_from": "Game 2 Lineup vs Ponce 11-25-26.pdf + retained PON Game 1 lineup/SP",
+  "note": "Game 2: Santurce 1–9 + SP David Lebron and listed bullpen from Nov 25 official batting order (HOME). Ponce Game 1 lineup + SP Jonathan Bermudez retained because the Game 2 PDF does not provide a new Ponce lineup. Available players remain bench/pen only. Opponent PON. Advance tabs follow strategy-card batting order and list both starters first; no scouting stats invented.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 444354,
+        "sp": 673933,
         "pen": [
           572363,
           688965,
           689713,
           692064,
           531565,
-          673933,
           605446,
+          444354,
           800514,
           -286366361,
           687900,
@@ -27,8 +27,8 @@
         ],
         "lineup": [
           {
-            "id": 681023,
-            "pos": "9"
+            "id": 623205,
+            "pos": "6"
           },
           {
             "id": 677690,
@@ -39,37 +39,7 @@
             "pos": "DH"
           },
           {
-            "id": 641896,
-            "pos": "3"
-          },
-          {
-            "id": 518542,
-            "pos": "2"
-          },
-          {
-            "id": 623205,
-            "pos": "6"
-          },
-          {
-            "id": 605346,
-            "pos": "4"
-          },
-          {
-            "id": 641561,
-            "pos": "8"
-          },
-          {
-            "id": 671080,
-            "pos": "7"
-          }
-        ],
-        "bench": [
-          {
-            "id": 643418,
-            "pos": "4"
-          },
-          {
-            "id": -574284888,
+            "id": 640459,
             "pos": "2"
           },
           {
@@ -77,15 +47,45 @@
             "pos": "9"
           },
           {
-            "id": 640459,
-            "pos": "2"
-          },
-          {
             "id": -533438595,
             "pos": "7"
           },
           {
             "id": -108026908,
+            "pos": "3"
+          },
+          {
+            "id": 643418,
+            "pos": "4"
+          },
+          {
+            "id": 641561,
+            "pos": "8"
+          }
+        ],
+        "bench": [
+          {
+            "id": 518542,
+            "pos": "2"
+          },
+          {
+            "id": -574284888,
+            "pos": "2"
+          },
+          {
+            "id": 671080,
+            "pos": "9"
+          },
+          {
+            "id": 641896,
+            "pos": "3"
+          },
+          {
+            "id": 681023,
+            "pos": "9"
+          },
+          {
+            "id": 605346,
             "pos": "6"
           }
         ]
@@ -525,7 +525,7 @@
     },
     "opponent": "PON",
     "santurceHome": true,
-    "updated": "2026-11-25T17:58:19Z"
+    "updated": "2026-11-25T23:52:00Z"
   },
   "notes": {
     "team": "SJU",
@@ -536,7 +536,7 @@
     "806176": "37",
     "641896": "25",
     "640459": "66",
-    "-533438595": "52",
+    "-533438595": "54",
     "681023": "13",
     "605346": "5",
     "623205": "6",
@@ -1238,15 +1238,15 @@
     },
     "lineups": {
       "SAN": [
-        "Brian Rey",
+        "Andrew Velazquez",
         "Diosbel Arias",
         "Anthony Garcia",
-        "Roy Morales",
-        "Juan Centeno",
-        "Andrew Velazquez",
-        "Jack Lopez",
-        "Johneswy Fargas",
-        "Jeremy Arocho"
+        "Brian Navarreto",
+        "Henry Ramos",
+        "Derick Andiarena",
+        "Juan Cruz",
+        "Shed Long",
+        "Johneswy Fargas"
       ],
       "PON": [
         "Eli Serrano",
