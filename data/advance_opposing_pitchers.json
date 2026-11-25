@@ -23495,9 +23495,9 @@
     },
     {
       "name": "Nick Trabacchi",
-      "mlb_id": -154132952,
+      "mlb_id": 806713,
       "team": "PON",
-      "throws": null,
+      "throws": "R",
       "synergy_id": null,
       "pitches": 445,
       "summer_line": {
@@ -23551,28 +23551,34 @@
           "name": "FF",
           "usage": 49.0,
           "pitches": 220,
-          "velo": 91.1,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "velo": 92.0,
+          "spin": 1997,
+          "ivb": 16.9,
+          "hb_pitcher": 3.6,
+          "hb_hitter": -3.6,
           "ps_stuff": null,
           "whiff": 12.0,
-          "xwoba": null
+          "xwoba": null,
+          "movement_pitches": 5,
+          "movement_usage": 38.5,
+          "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
         },
         {
           "type": "SL",
           "name": "SL",
           "usage": 34.0,
           "pitches": 150,
-          "velo": 83.3,
-          "spin": null,
-          "ivb": null,
-          "hb_pitcher": null,
-          "hb_hitter": null,
+          "velo": 84.1,
+          "spin": 2339,
+          "ivb": 4.8,
+          "hb_pitcher": -2.5,
+          "hb_hitter": 2.5,
           "ps_stuff": null,
           "whiff": 35.0,
-          "xwoba": null
+          "xwoba": null,
+          "movement_pitches": 7,
+          "movement_usage": 53.8,
+          "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
         },
         {
           "type": "CH",
@@ -23601,6 +23607,23 @@
           "ps_stuff": null,
           "whiff": 0.0,
           "xwoba": null
+        },
+        {
+          "type": "FC",
+          "name": "Cutter",
+          "usage": null,
+          "pitches": 1,
+          "whiff": null,
+          "xwoba": null,
+          "sample_context": "2026 MLB Spring Training only",
+          "velo": 86.4,
+          "spin": 2296,
+          "ivb": 10.0,
+          "hb_pitcher": -3.1,
+          "hb_hitter": 3.1,
+          "movement_pitches": 1,
+          "movement_usage": 7.7,
+          "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
         }
       ],
       "years": [
@@ -23608,9 +23631,14 @@
       ],
       "source": "Synergy App PDF 2026-Trabacchi_Nick.pdf (year 2026)",
       "window_used": "synergy_app_pdf_2026",
-      "movement_source": null,
-      "note": "Synergy App PDF 2026: usage/velo/whiff only (no IVB/HB/spin in export).",
-      "player_id": -154132952
+      "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)",
+      "note": "Movement/location: 13 tracked pitches from two Minnesota Twins 2026 Spring Training appearances (Feb 23 and Feb 27; MLB Stats API). Usage/whiff still from the larger 2026 High Point Synergy PDF sample.",
+      "player_id": 806713,
+      "movement_pitches": 13,
+      "movement_game_pks": [
+        831658,
+        831648
+      ]
     },
     {
       "synergy_id": "5f8c915b1cb0540001a54b5c",

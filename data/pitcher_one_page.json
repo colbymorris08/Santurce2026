@@ -2126,23 +2126,63 @@
           "jersey": "40",
           "name": "Nick Trabacchi",
           "name_display": "Trabacchi, Nick",
-          "throws": "",
-          "mlb_id": -154132952,
-          "player_id": -154132952,
+          "throws": "R",
+          "mlb_id": 806713,
+          "player_id": 806713,
           "velo": {
-            "FB": "91-91",
+            "FB": "91-93",
             "CB": "79-79",
-            "SL": "83-83",
+            "SL": "83-86",
             "CH": "84-84",
-            "CT": "",
+            "CT": "86-86",
             "SPL": ""
           },
           "freq_r": "FB 49%, SL 34%, CH 13%, CB 1%",
           "freq_l": "FB 49%, SL 34%, CH 13%, CB 1%",
           "freq_html": "<span class=\"freq-r\">RHH: FB 49%, SL 34%, CH 13%, CB 1%</span><br><span class=\"freq-l\">LHH: FB 49%, SL 34%, CH 13%, CB 1%</span><div class=\"note\" style=\"opacity:.75\">Overall mix (Synergy App PDF 2026; no hand split)</div>",
-          "notes": "Synergy App PDF 2026 (High Point Rockers): usage/velo/whiff only — no movement (IVB/HB/spin) in export.",
+          "notes": "Movement/location: 13 tracked pitches from two Minnesota Twins 2026 Spring Training appearances (Feb 23 and Feb 27; MLB Stats API). Usage/whiff still from the larger 2026 High Point Synergy PDF sample.",
           "needs_data": false,
-          "appeared_lbprc": false
+          "appeared_lbprc": false,
+          "movement": [
+            {
+              "type": "SL",
+              "name": "Slider",
+              "movement_pitches": 7,
+              "movement_usage": 53.8,
+              "velo": 84.1,
+              "spin": 2339,
+              "ivb": 4.8,
+              "hb_pitcher": -2.5,
+              "hb_hitter": 2.5,
+              "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+            },
+            {
+              "type": "FF",
+              "name": "Four-Seam Fastball",
+              "movement_pitches": 5,
+              "movement_usage": 38.5,
+              "velo": 92.0,
+              "spin": 1997,
+              "ivb": 16.9,
+              "hb_pitcher": 3.6,
+              "hb_hitter": -3.6,
+              "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+            },
+            {
+              "type": "FC",
+              "name": "Cutter",
+              "movement_pitches": 1,
+              "movement_usage": 7.7,
+              "velo": 86.4,
+              "spin": 2296,
+              "ivb": 10.0,
+              "hb_pitcher": -3.1,
+              "hb_hitter": 3.1,
+              "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+            }
+          ],
+          "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)",
+          "movement_pitches": 13
         }
       ],
       "appeared_count": 15

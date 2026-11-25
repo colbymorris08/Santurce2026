@@ -3111,7 +3111,7 @@
   },
   {
     "name": "Nick Trabacchi",
-    "player_id": null,
+    "player_id": 806713,
     "team": "PON",
     "mlb_debut": null,
     "birth_country": null,
@@ -3158,7 +3158,47 @@
     "source": "Synergy App PDF 2026-Trabacchi_Nick.pdf (year 2026; no Stuff+)",
     "level_hint": null,
     "synergy_app_pdf": "2026-Trabacchi_Nick.pdf",
-    "synergy_app_pdf_year": 2026
+    "synergy_app_pdf_year": 2026,
+    "movement": [
+      {
+        "type": "SL",
+        "name": "Slider",
+        "movement_pitches": 7,
+        "movement_usage": 53.8,
+        "velo": 84.1,
+        "spin": 2339,
+        "ivb": 4.8,
+        "hb_pitcher": -2.5,
+        "hb_hitter": 2.5,
+        "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+      },
+      {
+        "type": "FF",
+        "name": "Four-Seam Fastball",
+        "movement_pitches": 5,
+        "movement_usage": 38.5,
+        "velo": 92.0,
+        "spin": 1997,
+        "ivb": 16.9,
+        "hb_pitcher": 3.6,
+        "hb_hitter": -3.6,
+        "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+      },
+      {
+        "type": "FC",
+        "name": "Cutter",
+        "movement_pitches": 1,
+        "movement_usage": 7.7,
+        "velo": 86.4,
+        "spin": 2296,
+        "ivb": 10.0,
+        "hb_pitcher": -3.1,
+        "hb_hitter": 3.1,
+        "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)"
+      }
+    ],
+    "movement_source": "MLB Stats API live feed · 2026 Spring Training (MIN)",
+    "movement_pitches": 13
   },
   {
     "name": "Victor Lopez",
