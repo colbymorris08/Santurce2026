@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css?v=san323">
+<link rel="stylesheet" href="shared.css?v=san324">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
 </head>
 <body>
@@ -562,16 +562,16 @@
     <div class="note" id="revert-status" style="margin-top:10px"></div>
   </div>
 </main>
-<script src="i18n.js?v=san323"></script>
-<script src="cards.js?v=san323"></script>
-<script src="positioning.js?v=san323"></script>
-<script src="advance-pdf-split.js?v=san323"></script>
-<script src="persist.js?v=san323"></script>
-<script src="game-packet.js?v=san323"></script>
+<script src="i18n.js?v=san324"></script>
+<script src="cards.js?v=san324"></script>
+<script src="positioning.js?v=san324"></script>
+<script src="advance-pdf-split.js?v=san324"></script>
+<script src="persist.js?v=san324"></script>
+<script src="game-packet.js?v=san324"></script>
 <script>
 let CACHE = {}, FPS = {}, sortState = {}, FPS_AVG = { fps: 0.28, fpsRisp: 0.28 };
 const pct = v => v == null ? '—' : (v*100).toFixed(1)+'%';
-const ASSET_V = 'san323';
+const ASSET_V = 'san324';
 // 90° fair wedge BB: width = R√2, height = R → native chart aspect (no stretch)
 const SPRAY_ASPECT = Math.SQRT2;
 const RODRIGUEZ_MLB_ID = 605446;
@@ -2698,6 +2698,24 @@ function advancePitcherIndex(){
       row: r,
     });
   });
+  // An advance record is independently sufficient to build a sheet. Do not
+  // hide it just because the separate arsenal cache has a null/mismatched id.
+  ((CACHE.advancePitchers && CACHE.advancePitchers.pitchers) || []).forEach(r=>{
+    if(!r) return;
+    const rawId = r.player_id != null ? r.player_id : r.mlb_id;
+    const id = Number(rawId);
+    if(!Number.isFinite(id)) return;
+    const prev = byId.get(id) || {};
+    byId.set(id, {
+      player_id: id,
+      name: r.name || prev.name || `Player ${id}`,
+      team: r.team || prev.team || '',
+      throws: r.throws || prev.throws || '',
+      has_arsenal: !!((r.arsenal && r.arsenal.length) || prev.has_arsenal),
+      packet: prev.packet || 'advance',
+      row: prev.row || r,
+    });
+  });
   const full = CACHE.advanceRodriguez;
   if(full){
     const id = Number(full.mlb_id || RODRIGUEZ_MLB_ID);
@@ -3370,10 +3388,11 @@ function resolvePitcherPacket(playerId){
   const rows = arsenalPitchers();
   let row = rows.find(r=>Number(r.player_id)===id);
   if(!row) row = rows.find(r=>r.mlb_id!=null && Number(r.mlb_id)===id);
+  const advanceRow = ((CACHE.advancePitchers && CACHE.advancePitchers.pitchers) || [])
+    .find(p => Number(p.mlb_id)===id || Number(p.player_id)===id);
   // Fallback: match advance packet mlb_id ↔ arsenal player_id / name.
   if(!row){
-    const adv = ((CACHE.advancePitchers && CACHE.advancePitchers.pitchers) || [])
-      .find(p => Number(p.mlb_id)===id || Number(p.player_id)===id);
+    const adv = advanceRow;
     if(adv){
       row = rows.find(r =>
         (r.player_id!=null && (Number(r.player_id)===Number(adv.mlb_id)||Number(r.player_id)===Number(adv.player_id)))
@@ -3385,6 +3404,9 @@ function resolvePitcherPacket(playerId){
       }
     }
   }
+  // The actual advance packet can render on its own (including usage/velo with
+  // intentionally blank movement), even if no matching arsenal row exists.
+  if(!row && advanceRow) row = advanceRow;
   if(full && Number(full.mlb_id||RODRIGUEZ_MLB_ID)===id){
     return Object.assign({}, full, {
       throws: full.throws || (row && row.throws) || 'R',
@@ -7464,7 +7486,8 @@ function renderPitcherOnePage(){
   const ordered = orderPitchersForOnePage(pack.pitchers || [], team);
   const rows = ordered.map((p, idx) => {
     const key = String(p.name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
-    const idKey = p.mlb_id != null ? String(p.mlb_id) : '';
+    const stableId = p.mlb_id != null ? p.mlb_id : p.player_id;
+    const idKey = stableId != null ? String(stableId) : '';
     const jersey = jerseyDisplayValue(idKey, key, p.jersey);
     const note = onePageMergedNote(p);
     const onCard = onePageCardRank(p, cardIndex) != null;
