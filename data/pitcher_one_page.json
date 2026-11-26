@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-26T09:04:10Z",
+  "updated": "2026-11-26T10:11:56Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -3369,6 +3369,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "91",
+          "name": "Victor Lopez",
+          "name_display": "Lopez, Victor",
+          "throws": "",
+          "mlb_id": -405746445,
+          "velo": {
+            "FB": "92-92",
+            "CB": "81-81",
+            "SL": "84-84",
+            "CH": "85-85",
+            "CT": "86-86",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "22",
           "name": "Agnel Miranda",
           "name_display": "Miranda, Agnel",
@@ -3705,27 +3726,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "91",
-          "name": "Victor Lopez",
-          "name_display": "Lopez, Victor",
-          "throws": "",
-          "mlb_id": -405746445,
-          "velo": {
-            "FB": "92-92",
-            "CB": "81-81",
-            "SL": "84-84",
-            "CH": "85-85",
-            "CT": "86-86",
-            "SPL": ""
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "92",
           "name": "Haruse Narita",
           "name_display": "Narita, Haruse",
@@ -3789,7 +3789,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 23
+      "appeared_count": 24
     }
   }
 }
