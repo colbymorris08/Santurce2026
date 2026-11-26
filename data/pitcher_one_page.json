@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T10:13:18Z",
+  "updated": "2026-11-26T09:04:10Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -947,6 +947,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "40",
+          "name": "Tyler Myrick",
+          "name_display": "Myrick, Tyler",
+          "throws": "R",
+          "mlb_id": 686924,
+          "velo": {
+            "FB": "92-94",
+            "CB": "80-81",
+            "SL": "83-84",
+            "CH": "86-86",
+            "CT": "89-90",
+            "SPL": ""
+          },
+          "freq_r": "FB 100%",
+          "freq_l": "FB 78%, CH 11%, SL 11%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 100%</span><br><span class=\"freq-l\">LHH: FB 78%, CH 11%, SL 11%</span>",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "54",
           "name": "Zach Penrod",
           "name_display": "Penrod, Zach (l)",
@@ -1241,27 +1262,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "40",
-          "name": "Tyler Myrick",
-          "name_display": "Myrick, Tyler",
-          "throws": "R",
-          "mlb_id": 686924,
-          "velo": {
-            "FB": "92-94",
-            "CB": "80-81",
-            "SL": "83-84",
-            "CH": "86-86",
-            "CT": "89-90",
-            "SPL": ""
-          },
-          "freq_r": "FB 100%",
-          "freq_l": "FB 78%, CH 11%, SL 11%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 100%</span><br><span class=\"freq-l\">LHH: FB 78%, CH 11%, SL 11%</span>",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "32",
           "name": "Nicholas Padilla",
           "name_display": "Padilla, Nicholas",
@@ -1304,7 +1304,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 21
+      "appeared_count": 22
     },
     "CAR": {
       "team": "CAR",
@@ -2347,6 +2347,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "29",
+          "name": "Samuel Reyes",
+          "name_display": "Reyes, Samuel",
+          "throws": "",
+          "mlb_id": 672795,
+          "velo": {
+            "FB": "94-94",
+            "CB": "80-80",
+            "SL": "82-82",
+            "CH": "86-86",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": false,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "45",
           "name": "Yariel Rodriguez",
           "name_display": "Rodriguez, Yariel",
@@ -2494,27 +2515,6 @@
           "appeared_lbprc": false
         },
         {
-          "jersey": "29",
-          "name": "Samuel Reyes",
-          "name_display": "Reyes, Samuel",
-          "throws": "",
-          "mlb_id": 672795,
-          "velo": {
-            "FB": "94-94",
-            "CB": "80-80",
-            "SL": "82-82",
-            "CH": "86-86",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "",
-          "freq_l": "",
-          "freq_html": "",
-          "notes": "",
-          "needs_data": false,
-          "appeared_lbprc": false
-        },
-        {
           "jersey": "",
           "name": "Devin Rivera",
           "name_display": "Rivera, Devin",
@@ -2578,7 +2578,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 22
+      "appeared_count": 23
     },
     "PON": {
       "team": "PON",
