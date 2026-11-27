@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-23T21:19:58Z",
+  "generated": "2026-11-27T16:15:00Z",
   "teams": [
     {
       "abbrev": "SAN",
@@ -2647,7 +2647,7 @@
       "last": "RIVERA",
       "team": "SAN",
       "roster_pos": "P",
-      "jersey": "58",
+      "jersey": "99",
       "role": "P",
       "bats": null,
       "throws": "R",
@@ -14508,8 +14508,8 @@
       "roster_status": "Active"
     },
     {
-      "id": -749711412,
-      "name": "Matt Mcdermott",
+      "id": 694942,
+      "name": "Matt McDermott",
       "last": "MCDERMOTT",
       "team": "SJU",
       "roster_pos": "INF/OF",
@@ -14518,12 +14518,18 @@
       "bats": null,
       "throws": null,
       "hitter": {
-        "pa": 0,
-        "k": null,
+        "pa": 191,
+        "k": 24.1,
         "gb": null,
-        "avg": null,
-        "ops": null,
-        "src": null
+        "avg": 0.324,
+        "ops": 0.902,
+        "wh": null,
+        "wh_l": null,
+        "wh_r": null,
+        "sb": 8,
+        "cs": 5,
+        "sac": 2,
+        "src": "Summer 2026 MEX"
       },
       "pitcher": null,
       "roster_status": "Active"

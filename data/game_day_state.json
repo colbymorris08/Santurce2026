@@ -1,13 +1,13 @@
 {
-  "updated": "2026-11-26T00:34:00Z",
-  "label": "2026-11-25 SAN vs PON",
-  "date_key": "2026-11-25",
-  "published_from": "Game 2 Lineup vs Ponce 11-25-26.pdf + retained PON Game 1 lineup + confirmed PON SP Kyohei Yamashiro",
-  "note": "Game 2: Santurce 1–9 + SP David Lebron and listed bullpen from Nov 25 official batting order (HOME). Ponce Game 1 lineup retained because the Game 2 PDF does not provide a new Ponce lineup; PON SP updated to Kyohei Yamashiro. Available players remain bench/pen only. Opponent PON. Advance tabs follow strategy-card batting order and list both starters first; no scouting stats invented.",
+  "updated": "2026-11-27T16:15:00Z",
+  "label": "2026-11-27 SAN vs SJU",
+  "date_key": "2026-11-27",
+  "published_from": "Cangrejeros de Santurce 2026-11-27 Daily Schedule + Senadores lineup card",
+  "note": "Official Nov. 27 SAN lineup and SP Eduardo Rivera from daily schedule; SJU lineup and SP Ryder Ryan from lineup card. The schedule lists BP groups but no bullpen availability list, so no unlisted arms were assigned. Advance tabs follow today’s card; no scouting stats invented.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 673933,
+        "sp": 700842,
         "pen": [
           572363,
           688965,
@@ -27,12 +27,12 @@
         ],
         "lineup": [
           {
-            "id": 623205,
-            "pos": "6"
+            "id": 681023,
+            "pos": "7"
           },
           {
-            "id": 677690,
-            "pos": "5"
+            "id": 641896,
+            "pos": "3"
           },
           {
             "id": 571685,
@@ -47,20 +47,20 @@
             "pos": "9"
           },
           {
-            "id": -533438595,
-            "pos": "7"
+            "id": 677690,
+            "pos": "5"
           },
           {
-            "id": -108026908,
-            "pos": "3"
-          },
-          {
-            "id": 643418,
-            "pos": "4"
+            "id": 605346,
+            "pos": "6"
           },
           {
             "id": 641561,
             "pos": "8"
+          },
+          {
+            "id": 671080,
+            "pos": "4"
           }
         ],
         "bench": [
@@ -196,7 +196,7 @@
         ],
         "lineup": [
           {
-            "id": -749711412,
+            "id": 694942,
             "pos": "4"
           },
           {
@@ -205,31 +205,31 @@
           },
           {
             "id": 670582,
-            "pos": "5"
+            "pos": "3"
           },
           {
-            "id": -413913713,
-            "pos": "9"
-          },
-          {
-            "id": 670232,
-            "pos": "2"
+            "id": 624577,
+            "pos": "DH"
           },
           {
             "id": 690702,
             "pos": "7"
           },
           {
-            "id": 801346,
-            "pos": "DH"
-          },
-          {
             "id": 695538,
-            "pos": "3"
+            "pos": "5"
           },
           {
             "id": 689909,
+            "pos": "9"
+          },
+          {
+            "id": 693049,
             "pos": "8"
+          },
+          {
+            "id": 592629,
+            "pos": "2"
           }
         ],
         "bench": [
@@ -523,9 +523,9 @@
         ]
       }
     },
-    "opponent": "PON",
-    "santurceHome": true,
-    "updated": "2026-11-26T00:34:00Z"
+    "opponent": "SJU",
+    "santurceHome": false,
+    "updated": "2026-11-27T16:15:00Z"
   },
   "notes": {
     "team": "SJU",
@@ -692,7 +692,7 @@
     "-574529855": "39",
     "-3872462934": "36",
     "-129371721": "41",
-    "700842": "58",
+    "700842": "99",
     "-749711412": "36",
     "806128": "61",
     "670582": "5",
@@ -725,7 +725,9 @@
     "664966": "29",
     "686924": "40",
     "677690": "31",
-    "572383": "78"
+    "572383": "78",
+    "694942": "36",
+    "592629": "34"
   },
   "one_page_notes": {
     "agnelmiranda": "All FB hitter ahead. Lower slot RHP. FB SL to both sides, only 12% CH to LHH.",
@@ -1238,26 +1240,26 @@
     },
     "lineups": {
       "SAN": [
-        "Andrew Velazquez",
-        "Diosbel Arias",
+        "Brian Rey",
+        "Roy Morales",
         "Anthony Garcia",
         "Brian Navarreto",
         "Henry Ramos",
-        "Derick Andiarena",
-        "Juan Cruz",
-        "Shed Long",
-        "Johneswy Fargas"
+        "Diosbel Arias",
+        "Jack Lopez",
+        "Johneswy Fargas",
+        "Jeremy Arocho"
       ],
-      "PON": [
-        "Eli Serrano",
-        "Austin Murr",
-        "Jacob Reimer",
-        "Ezequiel Pagan",
-        "Jesmuel Valentin",
-        "Chris Arroyo",
-        "Kevin Santa",
-        "Juan Montero",
-        "Jose Torres"
+      "SJU": [
+        "Matt McDermott",
+        "Antonio Jimenez",
+        "Yariel Gonzalez",
+        "Yasiel Puig",
+        "Roberto Enriquez",
+        "Randal Diaz",
+        "Jadiel Sanchez",
+        "Oscar Colas",
+        "Roberto Pena"
       ]
     },
     "_posSeedVer": null
