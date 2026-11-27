@@ -93,6 +93,9 @@ LBPRC_2026_27_GAME_DATE_OVERRIDES = {
     617: "2026-11-11",  # PON @ MAY
     618: "2026-11-11",  # SJU @ SAN
     619: "2026-11-11",  # CAR @ CAG
+    # The opening-week SJU @ CAG game was not played. Greedy matchup matching
+    # otherwise assigns the Nov 25 completion (#650) to the unused Nov 7 slot.
+    650: "2026-11-25",  # SJU @ CAG
 }
 
 LBPRC_2025_26_GAME_DATE_OVERRIDES = {
@@ -420,6 +423,14 @@ def format_md(iso_date: str | None) -> str:
         return ""
 
 
+def game_recency_key(game: dict[str, Any]) -> tuple[str, int]:
+    """Sort finished games newest-first by date, with game ID as a tiebreaker."""
+    return (
+        str(game.get("date") or ""),
+        int(game.get("game_id") or 0),
+    )
+
+
 def load_schedule_dates(path_name: str = "lbprc_2025_26_schedule.json") -> list[dict[str, str]]:
     doc = load_json(path_name, {}) or {}
     return list(doc.get("games") or [])
@@ -453,7 +464,7 @@ def attach_schedule_dates(
                 g["date"] = slot.get("date")
                 unused.pop(i)
                 break
-    return sorted(ordered, key=lambda g: -int(g.get("game_id") or 0)) + undated
+    return sorted(ordered, key=game_recency_key, reverse=True) + undated
 
 
 def build_league_game_dates(
@@ -640,7 +651,7 @@ def parse_pitching_detail(detail_html: str) -> list[list[dict[str, Any]]]:
 
 def build_bullpen_for_team(abbr: str, games: list[dict[str, Any]]) -> dict[str, Any]:
     """Shape Ponce-PDF style bullpen usage for one team (most recent N games)."""
-    recent = games[:BULLPEN_GAME_LIMIT]
+    recent = sorted(games, key=game_recency_key, reverse=True)[:BULLPEN_GAME_LIMIT]
     columns = []
     for g in recent:
         focus_home = g.get("right_abbr") == abbr
@@ -712,7 +723,10 @@ def build_bullpen_for_team(abbr: str, games: list[dict[str, Any]]) -> dict[str, 
         return sorted(
             usage.values(),
             key=lambda r: (
-                -int(r["last_app_game_id"] or 0),
+                next(
+                    (i for i, cell in enumerate(r.get("cells") or []) if cell),
+                    len(recent),
+                ),
                 r["name"].split()[-1].lower(),
                 r["name"].lower(),
             ),
@@ -773,7 +787,7 @@ def fetch_team_boxscore_games(
                 undated.append(g)
             elif gid not in by_id:
                 by_id[gid] = g
-    merged = sorted(by_id.values(), key=lambda g: -int(g.get("game_id") or 0))
+    merged = sorted(by_id.values(), key=game_recency_key, reverse=True)
     merged.extend(undated)
     return merged
 
@@ -812,7 +826,7 @@ def build_bullpen_usage(
             ]
             # Chronological within the test window (oldest → newest left-to-right feels wrong
             # for the sheet which is newest-first — keep newest first).
-            games = sorted(games, key=lambda g: -int(g.get("game_id") or 0))
+            games = sorted(games, key=game_recency_key, reverse=True)
         print(f"  boxscores {abbr}: {len(games)} finished (limit {limit})")
         teams_out[abbr] = build_bullpen_for_team(abbr, games[:limit] if limit else games)
     return {
