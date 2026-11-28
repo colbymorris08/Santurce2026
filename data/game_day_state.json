@@ -1,45 +1,29 @@
 {
-  "updated": "2026-11-27T16:15:00Z",
-  "label": "2026-11-27 SAN vs SJU",
-  "date_key": "2026-11-27",
-  "published_from": "Cangrejeros de Santurce 2026-11-27 Daily Schedule + Senadores lineup card",
-  "note": "Official Nov. 27 SAN lineup and SP Eduardo Rivera from daily schedule; SJU lineup and SP Ryder Ryan from lineup card. The schedule lists BP groups but no bullpen availability list, so no unlisted arms were assigned. Advance tabs follow today’s card; no scouting stats invented.",
+  "updated": "2026-11-28T17:05:00Z",
+  "label": "2026-11-28 SAN vs MAY",
+  "date_key": "2026-11-28",
+  "published_from": "Cangrejeros de Santurce 2026-11-28 Daily Schedule + Mayagüez NextLevel lineup card",
+  "note": "Official Nov. 28 SAN lineup and SP Josh Michael Trentadue from the daily schedule lineup block; MAY lineup, SP Ashton Goudeau, bench, and listed pen from the NextLevel card. The SAN schedule lists no bullpen availability, so no Santurce arms were assigned as today’s listed pen. Bullpen appearance history remains unchanged and date-sorted with Nov. 25 latest. No scouting stats invented.",
   "strategy": {
     "teams": {
       "SAN": {
-        "sp": 700842,
-        "pen": [
-          572363,
-          688965,
-          689713,
-          692064,
-          531565,
-          605446,
-          444354,
-          800514,
-          -286366361,
-          687900,
-          572383,
-          815048,
-          684841,
-          681154,
-          803596
-        ],
+        "sp": 815048,
+        "pen": [],
         "lineup": [
           {
-            "id": 681023,
+            "id": 671080,
             "pos": "7"
           },
           {
-            "id": 641896,
+            "id": 643418,
+            "pos": "4"
+          },
+          {
+            "id": 677690,
             "pos": "3"
           },
           {
-            "id": 571685,
-            "pos": "DH"
-          },
-          {
-            "id": 640459,
+            "id": 518542,
             "pos": "2"
           },
           {
@@ -47,48 +31,23 @@
             "pos": "9"
           },
           {
-            "id": 677690,
-            "pos": "5"
+            "id": 571685,
+            "pos": "DH"
           },
           {
             "id": 605346,
+            "pos": "5"
+          },
+          {
+            "id": 623205,
             "pos": "6"
           },
           {
             "id": 641561,
             "pos": "8"
-          },
-          {
-            "id": 671080,
-            "pos": "4"
           }
         ],
-        "bench": [
-          {
-            "id": 518542,
-            "pos": "2"
-          },
-          {
-            "id": -574284888,
-            "pos": "2"
-          },
-          {
-            "id": 671080,
-            "pos": "9"
-          },
-          {
-            "id": 641896,
-            "pos": "3"
-          },
-          {
-            "id": 681023,
-            "pos": "9"
-          },
-          {
-            "id": 605346,
-            "pos": "6"
-          }
-        ]
+        "bench": []
       },
       "CAG": {
         "sp": 592254,
@@ -260,91 +219,88 @@
         ]
       },
       "MAY": {
-        "sp": 543071,
+        "sp": 623485,
         "pen": [
-          683803,
-          446651,
           624401,
-          687560,
-          687879,
-          681938,
-          605347,
+          694547,
+          446651,
+          682118,
           684320,
-          826141,
           687956,
+          826141,
+          681938,
           837223,
-          814477
+          670908,
+          814477,
+          672795,
+          605347
         ],
         "lineup": [
           {
             "id": 657538,
-            "pos": "DH"
+            "pos": "9"
           },
           {
             "id": 683090,
             "pos": "8"
           },
           {
-            "id": 656371,
-            "pos": "6"
-          },
-          {
             "id": 656896,
             "pos": "5"
           },
           {
-            "id": 621458,
+            "id": 656371,
+            "pos": "6"
+          },
+          {
+            "id": 676566,
             "pos": "3"
           },
           {
-            "id": 647351,
-            "pos": "4"
+            "id": 621458,
+            "pos": "DH"
           },
           {
             "id": 691449,
             "pos": "7"
           },
           {
-            "id": 676566,
-            "pos": "2"
-          },
-          {
-            "id": -1082299000,
-            "pos": "9"
-          }
-        ],
-        "bench": [
-          {
-            "id": 671117,
-            "pos": "4"
-          },
-          {
-            "id": -229984899,
-            "pos": "6"
-          },
-          {
             "id": 700845,
             "pos": "2"
           },
           {
+            "id": -1082299000,
+            "pos": "4"
+          }
+        ],
+        "bench": [
+          {
+            "id": -229984899,
+            "pos": ""
+          },
+          {
             "id": 703742,
-            "pos": "4"
+            "pos": ""
           },
           {
-            "id": -840209350,
-            "pos": "4"
-          },
-          {
-            "id": 592680,
-            "pos": "5"
-          },
-          {
-            "id": 666128,
-            "pos": "2"
+            "id": 669909,
+            "pos": ""
           },
           {
             "id": 680107,
-            "pos": "4"
+            "pos": ""
+          },
+          {
+            "id": -840209350,
+            "pos": ""
+          },
+          {
+            "id": 592680,
+            "pos": ""
+          },
+          {
+            "id": 666128,
+            "pos": ""
           }
         ]
       },
@@ -523,12 +479,12 @@
         ]
       }
     },
-    "opponent": "SJU",
+    "opponent": "MAY",
     "santurceHome": false,
-    "updated": "2026-11-27T16:15:00Z"
+    "updated": "2026-11-28T17:05:00Z"
   },
   "notes": {
-    "team": "SJU",
+    "team": "MAY",
     "notes": {}
   },
   "jersey_overrides": {
@@ -561,7 +517,7 @@
     "681154": "59",
     "810862": "38",
     "815048": "62",
-    "657538": "6",
+    "657538": "5",
     "656896": "26",
     "656371": "28",
     "700845": "36",
@@ -612,7 +568,7 @@
     "682196": "48",
     "703641": "2",
     "828227": "45",
-    "682118": "18",
+    "682118": "61",
     "676047": "34",
     "681813": "44",
     "676769": "35",
@@ -727,7 +683,18 @@
     "677690": "31",
     "572383": "78",
     "694942": "36",
-    "592629": "34"
+    "592629": "34",
+    "683090": "6",
+    "691449": "63",
+    "-1082299000": "16",
+    "669909": "29",
+    "-840209350": "57",
+    "666128": "40",
+    "623485": "47",
+    "837223": "52",
+    "670908": "48",
+    "814477": "64",
+    "672795": "75"
   },
   "one_page_notes": {
     "agnelmiranda": "All FB hitter ahead. Lower slot RHP. FB SL to both sides, only 12% CH to LHH.",
@@ -1240,15 +1207,15 @@
     },
     "lineups": {
       "SAN": [
-        "Brian Rey",
-        "Roy Morales",
-        "Anthony Garcia",
-        "Brian Navarreto",
-        "Henry Ramos",
+        "Jeremy Arocho",
+        "Shed Long Jr.",
         "Diosbel Arias",
+        "Juan Centeno",
+        "Henry Ramos",
+        "Anthony Garcia",
         "Jack Lopez",
-        "Johneswy Fargas",
-        "Jeremy Arocho"
+        "Andrew Velazquez",
+        "Johneswy Fargas"
       ],
       "SJU": [
         "Matt McDermott",
@@ -1260,6 +1227,17 @@
         "Jadiel Sanchez",
         "Oscar Colas",
         "Roberto Pena"
+      ],
+      "MAY": [
+        "Ruben Castro",
+        "Matthew Lugo",
+        "Emmanuel Rivera",
+        "Isan Diaz",
+        "Shawn Ross",
+        "Edwin Rios",
+        "Roberto Campos",
+        "Adam Zebrowski",
+        "Edison Mora"
       ]
     },
     "_posSeedVer": null

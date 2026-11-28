@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-28T10:10:21Z",
+  "updated": "2026-11-28T17:05:00Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1311,27 +1311,6 @@
       "team_name": "Gigantes de Carolina",
       "pitchers": [
         {
-          "jersey": "18",
-          "name": "Miguel Ausua",
-          "name_display": "Ausua, Miguel (l)",
-          "throws": "L",
-          "mlb_id": 682118,
-          "velo": {
-            "FB": "82-84",
-            "CB": "75-75",
-            "SL": "77-77",
-            "CH": "75-77",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "FB 72%, CH 22%, SL 6%",
-          "freq_l": "FB 77%, SL 18%, CH 5%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 72%, CH 22%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 77%, SL 18%, CH 5%</span>",
-          "notes": "3/4 slot LHP, low velo, high FB usage. CH 30% to RHH, SL 30% to LHH.",
-          "needs_data": false,
-          "appeared_lbprc": true
-        },
-        {
           "jersey": "34",
           "name": "Osvaldo Berrios",
           "name_display": "Berrios, Osvaldo",
@@ -2597,6 +2576,27 @@
           "notes": "High velo, avg 4S shape, some sweep to SL mid 80s uses more to RHH. Leans heavy FB and gets it in zone top rail. Damage middle up. ",
           "needs_data": false,
           "appeared_lbprc": false
+        },
+        {
+          "jersey": "61",
+          "name": "Miguel Ausua",
+          "name_display": "Ausua, Miguel (l)",
+          "throws": "L",
+          "mlb_id": 682118,
+          "velo": {
+            "FB": "82-84",
+            "CB": "75-75",
+            "SL": "77-77",
+            "CH": "75-77",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 72%, CH 22%, SL 6%",
+          "freq_l": "FB 77%, SL 18%, CH 5%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 72%, CH 22%, SL 6%</span><br><span class=\"freq-l\">LHH: FB 77%, SL 18%, CH 5%</span>",
+          "notes": "3/4 slot LHP, low velo, high FB usage. CH 30% to RHH, SL 30% to LHH.",
+          "needs_data": false,
+          "appeared_lbprc": true
         }
       ],
       "appeared_count": 22
