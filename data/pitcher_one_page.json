@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27T10:11:50Z",
+  "updated": "2026-11-28T09:03:02Z",
   "season": "2026-27 LBPRC",
   "columns": [
     "FB",
@@ -1458,6 +1458,27 @@
           "appeared_lbprc": true
         },
         {
+          "jersey": "43",
+          "name": "Kenen Irizarry",
+          "name_display": "Irizarry, Kenen",
+          "throws": "",
+          "mlb_id": 681515,
+          "velo": {
+            "FB": "",
+            "CB": "",
+            "SL": "",
+            "CH": "",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "",
+          "freq_l": "",
+          "freq_html": "",
+          "notes": "",
+          "needs_data": true,
+          "appeared_lbprc": true
+        },
+        {
           "jersey": "77",
           "name": "Joe Jimenez",
           "name_display": "Jimenez, Joe",
@@ -1983,7 +2004,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 21
+      "appeared_count": 22
     },
     "MAY": {
       "team": "MAY",
@@ -2070,27 +2091,6 @@
           "freq_l": "FB 43%, SL 43%, CB 9%, SNK 3%",
           "freq_html": "<span class=\"freq-r\">RHH: CH 38%, FB 38%, CB 14%, SL 9%</span><br><span class=\"freq-l\">LHH: FB 43%, SL 43%, CB 9%, SNK 3%</span>",
           "notes": "Low 3/4 slot LHP, high IZ rates. T88, SL to LHH, CH to RHH.",
-          "needs_data": false,
-          "appeared_lbprc": true
-        },
-        {
-          "jersey": "60",
-          "name": "Eddie Demurias",
-          "name_display": "Demurias, Eddie",
-          "throws": "R",
-          "mlb_id": 681493,
-          "velo": {
-            "FB": "92-93",
-            "CB": "79-80",
-            "SL": "86-88",
-            "CH": "80-81",
-            "CT": "",
-            "SPL": ""
-          },
-          "freq_r": "FB 52%, SL 22%, CB 20%, CH 6%",
-          "freq_l": "FB 43%, CH 35%, CB 18%, SL 4%",
-          "freq_html": "<span class=\"freq-r\">RHH: FB 52%, SL 22%, CB 20%, CH 6%</span><br><span class=\"freq-l\">LHH: FB 43%, CH 35%, CB 18%, SL 4%</span>",
-          "notes": "FB dominant, low 90's, no ride. High slot, cuts it a bit. Big CB, leans CH to LHH, has depth and run.",
           "needs_data": false,
           "appeared_lbprc": true
         },
@@ -2494,6 +2494,27 @@
           "appeared_lbprc": false
         },
         {
+          "jersey": "60",
+          "name": "Eddie Demurias",
+          "name_display": "Demurias, Eddie",
+          "throws": "R",
+          "mlb_id": 681493,
+          "velo": {
+            "FB": "92-93",
+            "CB": "79-80",
+            "SL": "86-88",
+            "CH": "80-81",
+            "CT": "",
+            "SPL": ""
+          },
+          "freq_r": "FB 52%, SL 22%, CB 20%, CH 6%",
+          "freq_l": "FB 43%, CH 35%, CB 18%, SL 4%",
+          "freq_html": "<span class=\"freq-r\">RHH: FB 52%, SL 22%, CB 20%, CH 6%</span><br><span class=\"freq-l\">LHH: FB 43%, CH 35%, CB 18%, SL 4%</span>",
+          "notes": "FB dominant, low 90's, no ride. High slot, cuts it a bit. Big CB, leans CH to LHH, has depth and run.",
+          "needs_data": false,
+          "appeared_lbprc": false
+        },
+        {
           "jersey": "",
           "name": "Davian Garcia",
           "name_display": "Garcia, Davian",
@@ -2578,7 +2599,7 @@
           "appeared_lbprc": false
         }
       ],
-      "appeared_count": 23
+      "appeared_count": 22
     },
     "PON": {
       "team": "PON",
